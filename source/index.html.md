@@ -1,12 +1,6 @@
 ---
 title: API Reference
 
-language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
-  - javascript
-
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
@@ -17,35 +11,298 @@ includes:
 search: true
 ---
 
-# Introduction
+# CoinFLEX Trade Engine APIs
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+CoinFLEX's application programming interfaces (APIs) provide our clients programmatic access to control aspects of their accounts and to place orders on CoinFLEX's trading platforms.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+CoinFLEX provides several APIs:
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+* our native [WebSocket API][]
+* a [RESTful API](REST.md)
+* an [Event Stream resource](EventStream.md)
+* a second futures [Event Stream resource](FUTURES.md#get-borrowerevents) for your collateral, leverage and margin
 
-# Authentication
+Using these interfaces it is possible to make both authenticated and unauthenticated API calls, with the exception of the Futures Event Stream which is authenticated only.
+
+Access keys are available on the CoinFLEX logged-in dashboard page for verified users which, in conjunction with your account password, allow authenticated use these APIs.
+
+
+## General notes
+
+To protect the performance of the system, CoinFLEX imposes certain limits on the rates at which you may issue commands to the API. Please see [LIMITS.md](LIMITS.md).
+
+All quantities and prices are transmitted and received as integers with implicit scale factors. For scale information, please see [SCALE.md](SCALE.md).
+
+CoinFLEX has published [client libraries][] for several popular languages to aid you in implementing your client application.
+
+
+## Getting started with the WebSocket API
+
+> **The [WebSocket API][] is accessible via [WebSocket][] connection to the following URLs:**
+
+
+> DEMO/STAGE site
+
+```text
+wss://stgapi.coinflex.com/v1   (encrypted)
+```
+
+> LIVE site
+
+```text
+wss://api.coinflex.com/v1      (encrypted)
+```
+
+Commands, replies, and notifications traverse the WebSocket in text frames with [JSON][]-formatted payloads.
+
+<aside class="success">
+We strongly recommend that you use TLS transport for all connections.
+</aside>
+
+[Click here for more details on how to use the WebSocket API][WebSocket API]
+
+
+
+[WebSocket API]: #WEBSOCKET-README.md
+[JSON]: https://tools.ietf.org/html/rfc4627 (IETF RFC 4627)
+[WebSocket]: https://tools.ietf.org/html/rfc6455 (IETF RFC 6455)
+[client libraries]: https://github.com/coinflex-exchange/
+
+
+# CoinFLEX Authentication Process
+
+[WebSocket clients](#WEBSOCKET-README.md) authenticate by sending an authentication message containing a numeric user identifier, a cookie (described as an API key on the CoinFLEX website), a nonce chosen by the client, and an [ECDSA][] signature. The signature covers the user identifier, a nonce chosen by the server (which is transmitted to the client upon its connecting to the server), and the nonce chosen by the client. The connection is secured using TLS.
+
+## Protocol
+
+> **Example**
+
+> Suppose a client whose user identifier is 1 and whose passphrase is "opensesame" wishes to authenticate to the WebSocket server.
+
+> 1\. The client connects to the server and performs the WebSocket handshake.
+
+> 2\. The server sends a `Welcome` notification and a randomly generated 16-bytes `server nonce`:
+
+```json
+{
+    "notice": "Welcome",
+    "nonce": "azRzAi5rm1ry/l0drnz1vw=="
+}
+```
+
+> 3\. The client decodes the `server nonce` into these 16 bytes:
+
+```text
+0x6b347302 2e6b9b5a f2fe5d1d ae7cf5bf
+```
+
+> N.B: Spaces are shown for the sake of clarity and do not denote elements of the actual value.
+
+> 4\. The client randomly generates a 16-byte `client nonce`:
+
+```text
+0xf08c98ca f1fd82e8 cea9825d bff04fd0
+```
+
+> 5\. The client encodes the `client nonce` using base64:
+
+```text
+8IyYyvH9gujOqYJdv/BP0A==
+```
+
+> 6\. The client's `cookie` is:
+
+```text
+HGREqcILTz8blHa/jsUTVTNBJlg=
+```
+
+> 7\. The client constructs a 40-byte `message` to sign, consisting of its `user_id`, the `server nonce`, and the `client nonce`:
+
+```text
+0x00000000 00000001
+0x6b347302 2e6b9b5a f2fe5d1d ae7cf5bf
+0xf08c98ca f1fd82e8 cea9825d bff04fd0
+```
+
+> 8\. The client constructs a `seed` for its `private key`, consisting of its `user_id` and UTF-8-encoded passphrase:
+
+```text
+0x00000000 00000001
+0x6f70656e 73657361 6d65
+```
+
+> 9\. The client hashes its `seed` using SHA-224 to obtain its `private key`:
+
+```text
+0xb89ea7fc d22cc059 c2673dc2 4ff40b97 83074646 86560d0a d7561b83
+```
+
+> 10\. The client [signs][ECDSA] the 28-byte SHA-224 digest of the 40-byte `message` using its `private key` under **secp224k1** and obtains, for example:
+
+```text
+r = 0x3fb77a9d 7b5b2a68 209e76f6 872078c5 791340d5 989854ad a3ab735e
+s = 0x34b84341 2f18a910 f18a7d4c e1d35978 60e6345b 22bf7894 cf67780a
+```
+
+> The [sign_secp224k1][] utility may be used to produce the `signature`.
+
+> N.B: The `signature` (r, s) generated by the ECDSA is non-deterministic. Furthermore, the `signature` (r, s) is still non-deterministic if you use the deterministic `server nonce` and `client nonce` to build the codes, this is due to the nature of ECDSA.
+
+> 11\. The client encodes the `signature` using base64:
+
+```text
+P7d6nXtbKmggnnb2hyB4xXkTQNWYmFSto6tzXg==
+NLhDQS8YqRDxin1M4dNZeGDmNFsiv3iUz2d4Cg==
+```
+
+> 12\. The client sends an `Authenticate` command to the server:
+
+```json
+{
+    "method": "Authenticate",
+    "user_id": 1,
+    "cookie": "HGREqcILTz8blHa/jsUTVTNBJlg=",
+    "nonce": "8IyYyvH9gujOqYJdv/BP0A==",
+    "signature": [
+        "P7d6nXtbKmggnnb2hyB4xXkTQNWYmFSto6tzXg==",
+        "NLhDQS8YqRDxin1M4dNZeGDmNFsiv3iUz2d4Cg=="
+    ]
+}
+```
+
+> 13\. The server verifies the cookie and signature and returns a success response:
+
+```json
+{
+    "error_code": 0
+}
+```
+
+Authentication to the WebSocket server is by a `Welcome` notification sent to the client and an `Authenticate` command sent by the client.
+
+* The `Welcome` notification contains a `nonce` field, whose value is a base64-encoded nonce that has been randomly generated by the server. The nonce is 16 bytes, and the base64 encoding transforms it into a 24-character string. This 16-byte nonce is hereafter referenced as the *server nonce*.
+* The `Authenticate` command contains the following fields:
+	* **`user_id`:** *(integer)* The unique numeric identifier of the authenticating user.
+	* **`cookie`:** *(string)* A base64-encoded value that varies by user but is fixed for each specific user. In the CoinFLEX web interface, this authentication cookie is called an "API Key."
+	* **`nonce`:** *(string)* A base64-encoded nonce that has been randomly generated by the client. The nonce is 16 bytes, and the base64 encoding transforms it into a 24-character string. This 16-byte nonce is hereafter referenced as the *client nonce*.
+	* **`signature`:** *(pair of strings)* The base64-encoded *r* and *s* values of an [ECDSA][] signature over the SHA-224 digest of a message consisting of the concatenation of the 8-byte (big-endian) user identifier, the 16-byte server nonce, and the 16-byte client nonce. The signature uses the **secp224k1** curve parameters published by the [Standards for Efficient Cryptography Group][SECG] in [SEC 2: Recommended Elliptic Curve Domain Parameters version 2.0][SEC2] ([mirror][SEC2-mirror]). The private key used in signing is the 224-bit (big-endian) integer interpretation of the SHA-224 hash of the concatenation of the 8-byte (big-endian) user identifier and the UTF-8-encoded passphrase of the user.
+
+[API]: https://github.com/coinflex-exchange/API/blob/master/WEBSOCKET-README.md
+[ECDSA]: http://en.wikipedia.org/wiki/Elliptic_Curve_DSA
+[SECG]: http://www.secg.org/
+[SEC2]: http://www.secg.org/download/aid-784/sec2-v2.pdf
+[SEC2-mirror]: http://www.shield-kratos.com/pdf/sec2-v2.pdf
+[sign_secp224k1]: https://github.com/coinflex-exchange/libecp#sign_secp224k1
+
+
+
+----------------------------------------
+
+
+# Reference:
+
+[OKEX Reference](https://www.okex.com/docs/en/#futures-README).
+
+[Huobi Reference](https://huobiapi.github.io/docs/dm/v1/en/).
+
+[CoinFLEX Reference](https://github.com/coinflex-exchange/API).
+
+[Binance Reference](https://binanceapitest.github.io/Binance-Futures-API-doc/wss/#individual-symbol-ticker-streams).
+
+
+# Table:
+
+ | v2 Requirement | OKEx (Huobi) functions | CoinFLEX Equivalent Function
+-------- | --------- | ------- | -----------
+General | | |
+Authentication | Standard | Standard | EDCSA
+Accounts | Linear, Inverse |  Funding, Spot, Margin, Perp, Options, Fiat, Savings,| Spot, June, September
+Server | It is recommended to access CoinFLEX APIs from AWS Japan for better performance | It is recommended to access Huobi API from AWS Japan for better stability. If your server is in China mainland, it may be not stable. | AWS Europe
+Rest API | Plan to have Rest  capabilities closer to the other exchanges (10/s) | It is strongly recommended to use Ali-cloud server in Hong Kong.  We strongly recommend you to use REST APIs in performing trading activities and making withdrawals. | It is weak for people to use Rest API. Our Rest API is based off the Websocket API and is inferior
+Websocket API | | It is suggested to use Websocket API to get data update, lime market data and order update | Websocket are for real traders
+Rest - COINFLEX Tickers | | | https://webapi.coinflex.com/
+GET /balances/ | Gets the user's available and reserved balances in all assets. This gets balances for all spot assets. | N/A | https://github.com/coinflex-exchange/API/blob/master/REST.md#get-assets 
+
+
+# API:
+
+## Gets a complete list of  CoinFLEX SPOT and Futures markets
+
+in v2:
+
+* Change base:counter to ticker
+* have "type"
+* Include a lot more information about the contract compared to before
+* For Perps, maturity is the following day
+
+> Example of a successful get markets request:
+
+```json
+[
+    {
+        "market_id": "BTC-USD",
+        "name": "BTC/USD Spot"
+        "base": "BTC",
+        "counter": "USD",
+        "type": "spot"
+        "tick_size": "0.1"
+        "trade_increment": "0.001"
+    },
+    {
+        "market_id": "BTC-USD-SWAP-LIN",
+        "name": "BTC/USD Perpetual (Linear)"
+        "base": "BTC",
+        "counter": "USD",
+        "type": "future"
+        "tick_size": "0.5"
+        "trade_increment": "0.001"
+        "delivery": "2020-05-07"
+        "settlement_currency": "USD"
+        "contract_val_currency": "BTC"        
+    },
+    {
+        "market_id": "BTC-USD-REPO-INV",
+        "name": "BTC/USD Repo (Inverse)"
+        "base": "BTC-USD",
+        "counter": "BTC-USD-SWAP-INV",
+        "type": "repo"
+        "tick_size": "0.00005"
+        "trade_increment": "1"
+        "settlement_currency": "BTC"
+        "contract_val_currency": "USD"
+    },
+    {
+        "market_id": "BTC-USD-SPR-PQ-LIN",
+        "name": "BTC/USD Perp-Qtr Spread (Linear)"
+        "base": "BTC-USD-SWAP-LIN",
+        "counter": "BTC-USD-200626-LIN",
+        "type": "spread"
+        "tick_size": "1"
+        "trade_increment": "0.001"
+        "settlement_currency": "USD"
+        "contract_val_currency": "BTC"        
+    }]
+```
+
+### HTTP Request
+
+`GET /markets/`
+
+* id: Unique identified of the trading market
+
+* name: English name of the market
+
+* base: transaction currency (BTC in BTC/USD)
+
+* counter: base currency (USD in BTC/USD)
+
+
+
+
+# Authentication:
 
 > To authorize, use this code:
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
 
 ```javascript
 const kittn = require('kittn');
