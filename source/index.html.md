@@ -38,20 +38,16 @@ CoinFLEX has published [client libraries][] for several popular languages to aid
 
 ## Getting started with the WebSocket API
 
-> **The [WebSocket API][] is accessible via [WebSocket][] connection to the following URLs:**
+**The [WebSocket API][] is accessible via [WebSocket][] connection to the following URLs:**
 
 
-> DEMO/STAGE site
+DEMO/STAGE site
 
-```text
-wss://stgapi.coinflex.com/v1   (encrypted)
-```
+`wss://stgapi.coinflex.com/v1   (encrypted)`
 
-> LIVE site
+LIVE site
 
-```text
-wss://api.coinflex.com/v1      (encrypted)
-```
+`wss://api.coinflex.com/v1      (encrypted)`
 
 Commands, replies, and notifications traverse the WebSocket in text frames with [JSON][]-formatted payloads.
 
@@ -92,7 +88,7 @@ We strongly recommend that you use TLS transport for all connections.
 
 > 3\. The client decodes the `server nonce` into these 16 bytes:
 
-```text
+```yml
 0x6b347302 2e6b9b5a f2fe5d1d ae7cf5bf
 ```
 
@@ -100,25 +96,25 @@ We strongly recommend that you use TLS transport for all connections.
 
 > 4\. The client randomly generates a 16-byte `client nonce`:
 
-```text
+```yml
 0xf08c98ca f1fd82e8 cea9825d bff04fd0
 ```
 
 > 5\. The client encodes the `client nonce` using base64:
 
-```text
+```yml
 8IyYyvH9gujOqYJdv/BP0A==
 ```
 
 > 6\. The client's `cookie` is:
 
-```text
+```yml
 HGREqcILTz8blHa/jsUTVTNBJlg=
 ```
 
 > 7\. The client constructs a 40-byte `message` to sign, consisting of its `user_id`, the `server nonce`, and the `client nonce`:
 
-```text
+```yml
 0x00000000 00000001
 0x6b347302 2e6b9b5a f2fe5d1d ae7cf5bf
 0xf08c98ca f1fd82e8 cea9825d bff04fd0
@@ -126,20 +122,20 @@ HGREqcILTz8blHa/jsUTVTNBJlg=
 
 > 8\. The client constructs a `seed` for its `private key`, consisting of its `user_id` and UTF-8-encoded passphrase:
 
-```text
+```yml
 0x00000000 00000001
 0x6f70656e 73657361 6d65
 ```
 
 > 9\. The client hashes its `seed` using SHA-224 to obtain its `private key`:
 
-```text
+```yml
 0xb89ea7fc d22cc059 c2673dc2 4ff40b97 83074646 86560d0a d7561b83
 ```
 
 > 10\. The client [signs][ECDSA] the 28-byte SHA-224 digest of the 40-byte `message` using its `private key` under **secp224k1** and obtains, for example:
 
-```text
+```yml
 r = 0x3fb77a9d 7b5b2a68 209e76f6 872078c5 791340d5 989854ad a3ab735e
 s = 0x34b84341 2f18a910 f18a7d4c e1d35978 60e6345b 22bf7894 cf67780a
 ```
@@ -150,7 +146,7 @@ s = 0x34b84341 2f18a910 f18a7d4c e1d35978 60e6345b 22bf7894 cf67780a
 
 > 11\. The client encodes the `signature` using base64:
 
-```text
+```yml
 P7d6nXtbKmggnnb2hyB4xXkTQNWYmFSto6tzXg==
 NLhDQS8YqRDxin1M4dNZeGDmNFsiv3iUz2d4Cg==
 ```
@@ -195,8 +191,872 @@ Authentication to the WebSocket server is by a `Welcome` notification sent to th
 [sign_secp224k1]: https://github.com/coinflex-exchange/libecp#sign_secp224k1
 
 
+# CoinFLEX BIST API
 
-----------------------------------------
+BIST is no longer supported by CoinFLEX.
+
+
+# Contracts
+
+## Dates
+
+Futures contracts will run for 2 months and end at midday (UTC) on the final Friday of the named month.
+There will also be a ramp-up period that starts on Wednesday at midday (UTC) leading up to the final Friday of the
+named month.
+
+In the 24 hours starting from the Wednesday at 12pm (UTC) until 12pm (UTC) on Thursday, CoinFLEX will
+increase the margin requirement for all users. In the final 24 hours leading to the final Friday of the month, this margin
+requirement will be maintained.
+
+| Month | 2020 (ramp-up start)| 2020 (expiry)     | code |
+|:------|:--------------------|:------------------|:-----|
+|  JAN  |    Wed, 29th Jan    |   Fri, 31st Jan   |  F   |
+|  FEB  |    Wed, 26th Feb    |   Fri, 28th Feb   |  G   |
+|  MAR  |    Wed, 25th Mar    |   Fri, 27th Mar   |  H   |
+|  APR  |    Wed, 22nd Apr    |   Fri, 24th Apr   |  J   |
+|  MAY  |    Wed, 27th May    |   Fri, 29th May   |  K   |
+|  JUN  |    Wed, 24th Jul    |   Fri, 26th Jun   |  M   |
+|  JUL  |    Wed, 29th Jul    |   Fri, 31st Jul   |  N   |
+|  AUG  |    Wed, 26th Aug    |   Fri, 28th Aug   |  Q   |
+|  SEP  |    Wed, 23rd Sep    |   Fri, 25th Sep   |  U   |
+|  OCT  |    Wed, 28th Oct    |   Fri, 30th Oct   |  V   |
+|  NOV  |    Wed, 25th Nov    |   Fri, 27th Nov   |  X   |
+|  DEC  |    Wed, 23rd Dec    |   Fri, 25th Dec   |  Z   |
+
+
+# Event Stream
+
+DEMO/STAGE site
+
+* `https://stgwebapi.coinflex.com/event-stream`
+    * Version 1
+
+LIVE site
+
+* `https://webapi.coinflex.com/event-stream`
+    * Version 1
+
+CoinFLEX offers an Event Stream resource that complies with the [Server-Sent Events] specification by the W3C. This resource delivers a continuous, consistent stream of events related to market and account activity on the CoinFLEX platform. It is offered as a simpler alternative to CoinFLEX's [WebSocket API] for clients that do not require bidirectional communication with the platform.
+
+The Event Stream resource supports the standard `Last-Event-ID` request header to enable transiently disconnected clients to reconnect and resume the event stream without missing any events. See the [Server-Sent Events] specification for details.
+
+## Authentication
+
+**[[ Version 2:** The Event Stream resource may be requested without authentication, in which case only public events (order book and ticker changes) are returned. **]]**
+
+Requests for the Event Stream resource **[[ Version 1:** must **]] [[ Version 2:** may **]]** authenticate using [HTTP Basic Authentication], wherein the *user-id* is the concatenation of user's numeric ID, a slash, and the user's Base64-encoded API key, and the *password* is the user's password or the Base64 encoding of the user's 28-byte private key that is derived from the user's ID and password. Authenticated requests will receive account-private events (balance changes and more details on the user's own order events) in addition to the public events.
+
+## BalanceChanged
+
+> **[[ Version 1:**
+
+```javascript
+event: BalanceChanged
+data: {
+data:   "asset": <integer>,
+data:   "balance": <integer>
+data: }
+```
+> **]]**
+
+> **[[ Version 2:**
+
+```javascript
+event: BalanceChanged
+data: {
+data:   "asset": <integer>,
+data:   "available": <integer>,
+data:   "reserved": <integer>
+data: }
+```
+> **]]**
+
+* **`asset`:** *(integer)* The numeric identifier of the asset whose available balance in the user's account changed.
+* **[[ Version 1: `balance` ]] [[ Version 2: `available` ]]:** *(integer)* The [scaled] available amount of the specified asset in the user's account.
+* **[[ Version 2: `reserved`:** *(integer)* The [scaled] reserved amount of the specified asset in the user's account. **]]**
+
+## OrderOpened
+
+```javascript
+event: OrderOpened
+data: {
+data:   "base": <integer>,
+data:   "counter": <integer>,
+data:   "id": <integer>,
+data:   "tonce": <integer>,
+data:   "quantity": <integer>,
+data:   "price": <integer>,
+data:   "time": <integer>
+data: }
+```
+
+* **`base`:** *(integer)* The numeric identifier of the base asset of the order.
+* **`counter`:** *(integer)* The numeric identifier of the counter asset of the order.
+* **`id`:** *(integer)* The numeric identifier of the order.
+* **`tonce`:** *(integer or `null`, conditional)* The tonce given in the `PlaceOrder` command that opened the order, or `null` if that command did not specify a tonce. Present only if the authenticated user is the owner of the order.
+* **`quantity`:** *(integer)* The [scaled] amount of the base asset that is to be traded. It is negative for a sell order and positive for a buy order.
+* **`price`:** *(integer)* The [scaled] price at which the order offers to trade.
+* **`time`:** *(integer)* The microsecond Unix timestamp at which the order was opened.
+
+## OrdersMatched
+
+```javascript
+event: OrdersMatched
+data: {
+data:   "base": <integer>,
+data:   "counter": <integer>,
+data:   "bid": <integer>,
+data:   "bid_tonce": <integer>,
+data:   "ask": <integer>,
+data:   "ask_tonce": <integer>,
+data:   "quantity": <integer>,
+data:   "price": <integer>,
+data:   "total": <integer>,
+data:   "bid_rem": <integer>,
+data:   "ask_rem": <integer>,
+data:   "time": <integer>,
+data:   "bid_base_fee": <integer>,
+data:   "bid_counter_fee": <integer>,
+data:   "ask_base_fee": <integer>,
+data:   "ask_counter_fee": <integer>
+data: }
+```
+
+* **`base`:** *(integer)* The numeric identifier of the base asset of the orders.
+* **`counter`:** *(integer)* The numeric identifier of the counter asset of the orders.
+* **`bid`:** *(integer, conditional)* The numeric identifier of the bid order that matched. Omitted if the bid was a market order.
+* **`bid_tonce`:** *(integer, conditional)* The tonce given in the `PlaceOrder` command that opened the bid order, or `null` if that command did not specify a tonce. Present only if the authenticated user is the owner of the bid order.
+* **`ask`:** *(integer, conditional)* The numeric identifier of the ask order that matched. Omitted if the ask was a market order.
+* **`ask_tonce`:** *(integer, conditional)* The tonce given in the `PlaceOrder` command that opened the ask order, or `null` if that command did not specify a tonce. Present only if the authenticated user is the owner of the ask order.
+* **`quantity`:** *(integer)* The [scaled] amount of the base asset that was traded.
+* **`price`:** *(integer)* The [scaled] price at which the trade executed.
+* **`total`:** *(integer)* The [scaled] amount of the counter asset that was traded.
+* **`bid_rem`:** *(integer, conditional)* The [scaled] quantity remaining in the bid order after the trade. It is always positive. Omitted if the bid was a market order.
+* **`ask_rem`:** *(integer, conditional)* The [scaled] quantity remaining in the ask order after the trade. It is always positive. Omitted if the ask was a market order.
+* **`time`:** *(integer)* The microsecond Unix timestamp at which the trade executed.
+* **`bid_base_fee`:** *(integer)* The [scaled] amount of the base asset that was charged to the buyer as a trade fee.
+* **`bid_counter_fee`:** *(integer)* The [scaled] amount of the counter asset that was charged to the buyer as a trade fee.
+    * `bid_base_fee` and `bid_counter_fee` are present only if the authenticated user is the owner of the bid order.
+* **`ask_base_fee`:** *(integer)* The [scaled] amount of the base asset that was charged to the seller as a trade fee.
+* **`ask_counter_fee`:** *(integer)* The [scaled] amount of the counter asset that was charged to the seller as a trade fee.
+    * `ask_base_fee` and `ask_counter_fee` are present only if the authenticated user is the owner of the ask order.
+
+## OrderClosed
+
+```javascript
+event: OrderClosed
+data: {
+data:   "base": <integer>,
+data:   "counter": <integer>,
+data:   "id": <integer>,
+data:   "tonce": <integer>,
+data:   "quantity": <integer>,
+data:   "price": <integer>
+data: }
+```
+
+* **`base`:** *(integer)* The numeric identifier of the base asset of the order.
+* **`counter`:** *(integer)* The numeric identifier of the counter asset of the order.
+* **`id`:** *(integer)* The numeric identifier of the order.
+* **`tonce`:** *(integer or `null`, conditional)* The tonce given in the `PlaceOrder` command that opened the order, or `null` if that command did not specify a tonce. Present only if the authenticated user is the owner of the order.
+* **`quantity`:** *(integer)* The [scaled] amount of the base asset remaining to be traded at the time the order was closed. It is negative for a sell order and positive for a buy order.
+* **`price`:** *(integer)* The [scaled] price at which the order had offered to trade.
+
+## TickerChanged
+
+```javascript
+event: TickerChanged
+data: {
+data:   "base": <integer>,
+data:   "counter": <integer>,
+data:   "last": <integer>,
+data:   "bid": <integer>,
+data:   "ask": <integer>,
+data:   "low": <integer>,
+data:   "high": <integer>,
+data:   "volume": <integer>
+data: }
+```
+
+* **`base`:** *(integer)* The numeric identifier of the base asset of the book whose ticker changed.
+* **`counter`:** *(integer)* The numeric identifier of the counter asset of the book whose ticker changed.
+* **`last`:** *(integer or `null`)* The [scaled] price at which the last trade executed on the book, or `null` if no trade has executed on the book.
+* **`bid`:** *(integer or `null`)* The [scaled] price of the highest-priced bid order on the book, or `null` if the book contains no bid orders.
+* **`ask`:** *(integer or `null`)* The [scaled] price of the lowest-priced ask order on the book, or `null` if the book contains no ask orders.
+* **`low`:** *(integer or `null`)* The [scaled] price at which the lowest-priced trade on the book executed within the preceding 24 hours, or `null` if no trade has executed on the book in the preceding 24 hours.
+* **`high`:** *(integer or `null`)* The [scaled] price at which the highest-priced trade on the book executed within the preceding 24 hours, or `null` if no trade has executed on the book in the preceding 24 hours.
+* **`volume`:** *(integer)* The [scaled] total amount of the base asset that has been traded on the book within the preceding 24 hours.
+
+
+
+
+
+## UserTradeVolumeChanged
+
+**[[ Version 2:**
+
+```javascript
+event: UserTradeVolumeChanged
+data: {
+data:   "asset": <integer>,
+data:   "volume": <integer>
+data: }
+```
+
+* **`asset`:** *(integer)* The numeric identifier of the asset whose trailing 30-day user trade volume has changed.
+* **`volume`:** *(integer)* The [scaled] amount of the user's trailing 30-day trade volume in the specified asset.
+
+**]]**
+
+
+[HTTP Basic Authentication]: https://tools.ietf.org/html/rfc7617
+    (The 'Basic' HTTP Authentication Scheme)
+[Server-Sent Events]: https://www.w3.org/TR/eventsource/
+[WebSocket API]: #WEBSOCKET-README.md
+[scaled]: #scaling.md
+
+
+# Futures API Specification
+
+DEMO/STAGE site
+
+**API endpoint URL: `https://stgwebapi.coinflex.com/`**
+
+LIVE site
+
+**API endpoint URL: `https://webapi.coinflex.com/`**
+
+[scaled]: SCALE.md
+
+## Contents
+
+Currently, the Futures API supports the following endpoints:
+
+* `/borrower/events`           	&#09; ([GET](#get-borrower-events))
+* `/borrower/conversion/`     	&#09; ([GET](#get-borrower-conversion) | [POST](#post-borrower-conversion))
+* `/borrower/converted_totals/`	&#09; ([GET](#get-borrower-converted_totals))
+* `/borrower/collateral/`     	&#09; ([GET](#get-borrower-collateral))
+* `/borrower/collateral/<id>` 	&#09; ([GET](#get-borrower-collateral-lt-id-gt))
+* `/borrower/offers/`         	&#09; ([GET](#get-borrower-offers))
+* `/borrower/offers/<id>`     	&#09; ([GET](#get-borrower-offers-lt-id-gt))
+* `/borrower/loans/`          	&#09; ([GET](#get-borrower-loans) | [POST](#post-borrower-loans))
+* `/borrower/loans/<id>`      	&#09; ([GET](#get-borrower-loans-lt-id-gt) | [POST](#post-borrower-loans-lt-id-gt) | [DELETE](#delete-borrower-loans-lt-id-gt))
+* `/borrower/margin_ratios/`  	&#09; ([GET](#get-borrower-margin_ratios))
+
+
+## Authentication
+
+All method calls require [HTTP Basic authentication][]. The username portion of the Basic credentials is constructed by concatenating the numeric user ID, a slash, and the user's API authentication cookie. The password portion is simply the user's login passphrase.
+
+[HTTP Basic authentication]: https://tools.ietf.org/html/rfc2617#section-2
+
+
+## Common Record Types
+
+### `<collateral>`
+
+```json
+{
+    "asset_id": <integer>,
+    "available": <integer>
+    "total": <integer>
+}
+```
+
+* **`asset_id`:** *(integer)* The numeric asset code of an asset in which the user's available collateral is reported.
+* **`available`:** *(integer)* The [scaled][] amount of the user's available collateral in the identified asset.
+* **`total`:** *(integer)* The [scaled][] amount of the user's equivalent account values in each asset that would remain if all of the user's outstanding loans were to be repaid (i.e. the users underlying collateral value measured in each asset).  The conceptual difference between this “total” figure and the “available” is that available collateral excludes funds needed for maintaining margin requirements, whereas total collateral represents a hypothetical scenario in which all loans are repaid and thus incurs no margin requirements.
+
+### `<offer>`
+
+```json
+{
+    "id": <integer>,
+    "created": <integer>,
+    "rescinded": <integer>,
+    "asset_id": <integer>,
+    "amount": <integer>,
+    "min_amount": <integer>,
+    "max_amount": <integer>,
+    "term": <integer>,
+    "initial_margin": <integer>,
+    "maintenance_margin": <integer>,
+    "apr": <integer>,
+    "qualifiers": ["<string>", …]
+}
+```
+
+* **`id`:** *(integer)* The numeric identifier of a loan offer.
+* **`created`:** *(integer)* The micro-timestamp at which this offer was created.
+* **`rescinded`:** *(integer, conditional)* The micro-timestamp at which this offer was rescinded. Present only if this offer is rescinded.
+* **`asset_id`:** *(integer)* The numeric asset code of the asset in which a loan is offered.
+* **`amount`:** *(integer)* The [scaled][] amount of the identified asset that is available for borrowing against this offer.
+* **`min_amount`:** *(integer, conditional)* The [scaled][] minimum amount that may be borrowed against this offer in any one loan. If absent, there is no minimum.
+* **`max_amount`:** *(integer, conditional)* The [scaled][] maximum amount that may be borrowed across all of the user's loans against this offer. If absent, there is no maximum.
+* **`term`:** *(integer)* The maximum term of the offered loan, in seconds.
+* **`initial_margin`:** *(integer)* The initial margin ratio of the offered loan, expressed with an implicit scale factor of 10000. This fraction of the loan amount is the minimum available collateral needed to initiate a loan against this offer.
+* **`maintenance_margin`:** *(integer)* The maintenance margin ratio of the offered loan, expressed with an implicit scale factor of 10000. Must not exceed `initial_margin`.
+* **`apr`:** *(integer)* The annualized interest rate of the offered loan, expressed with an implicit scale factor of 10000. For offers of futures contracts, this is always zero.
+* **`qualifiers`:** *(array of strings, conditional)* The qualifiers that apply to this offer, if any.
+	* **`promo`:** This is a promotional offer.
+	* **`facility`:** This offer represents a loan facility that has been granted to the user.
+	* **`corporate`:** This offer is available to corporate customers only.
+
+### `<loan>`
+
+```json
+{
+    "id": <integer>,
+    "offer_id": <integer>,
+    "initiated": <integer>,
+    "asset_id": <integer>,
+    "principal": <float>,
+    "term": <integer>,
+    "initial_margin": <integer>,
+    "maintenance_margin": <integer>,
+    "apr": <integer>,
+    "qualifiers": ["<string>", …]
+}
+```
+
+* **`id`:** *(integer)* The numeric identifier of an outstanding loan.
+* **`offer_id`:** *(integer)* The numeric identifier of the offer against which this loan was initiated.
+* **`initiated`:** *(integer)* The micro-timestamp at which this loan was initiated.
+* **`asset_id`:** *(integer)* The numeric asset code of the asset in which this loan is denominated.
+* **`principal`:** *(float)* The [scaled][] amount of the identified asset borrowed as principal in this loan. The present accrued amount is calculated as `ceil(principal * exp(apr/1e4 * (now() - initiated) / (365.2425 * 24 * 60 * 60 * 1000000)))`.
+* **`term`:** *(integer)* The maximum term of this loan, in seconds. Repayment of this loan is due at micro-timestamp `initiated + term * 1000000`.
+* **`initial_margin`:** *(integer)* The initial margin ratio of this loan, expressed with an implicit scale factor of 10000.
+* **`maintenance_margin`:** *(integer)* The maintenance margin ratio of this loan, expressed with an implicit scale factor of 10000.
+* **`apr`:** *(integer)* The annualized interest rate of this loan, expressed with an implicit scale factor of 10000. For loans of futures contracts, this is always zero.
+* **`qualifiers`:** *(array of strings, conditional)* The qualifiers that apply to this loan, if any.
+	* **`promo`:** This loan was initiated against a promotional offer.
+	* **`facility`:** This loan represents a draw-down from a loan facility that has been granted to the user.
+	* **`corporate`:** This loan was initiated against an offer that was available to corporate customers only.
+
+
+## GET `/borrower/events`
+
+
+
+> **Request**
+
+```javascript
+GET '/borrower/events' HTTP/1.1
+```
+
+> **Response**
+
+```yml
+HTTP/1.1 200 OK
+Content-Type: text/event-stream; charset=UTF-8
+
+event: Collateral
+data: [<collateral>, …]
+
+event: Offers
+data: [<offer>, …]
+
+event: OfferOpened
+data: <offer>
+
+event: OfferUpdated
+data: <offer>
+
+event: OfferClosed
+data: {"id": <integer>}
+
+event: Loans
+data: [<loan>, …]
+
+event: LoanInitiated
+data: <loan>
+
+event: LoanUpdated
+data: <loan>
+
+event: LoanTerminated
+data: {"id": <integer>}
+```
+
+Returns a stream of events pertaining to the user's borrowing activity.
+The response body is an indefinitely long document in [`text/event-stream`][EventSource] format.
+
+Optionally, the Base64-encoded [HTTP Basic authentication][] string may be passed to this resource in an `auth` query string parameter rather than in the standard `Authorization` request header. This option is provided as a workaround for a deficiency in some [EventSource][] client implementations.
+
+[EventSource]: https://www.w3.org/TR/eventsource/
+
+
+## GET `/borrower/conversion/`
+
+> **Request**
+
+```javascript
+GET '/borrower/conversion/' HTTP/1.1
+```
+
+> **Response**
+
+```yml
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=US-ASCII
+```
+
+```json
+[
+    {
+        "asset_from": <integer>,
+        "asset_to": <integer>
+    },
+    …
+]
+```
+
+Returns the list of asset pairs available for conversion.
+
+* **`asset_from`:** *(integer)* The numeric code of the asset to convert from.
+* **`asset_to`:** *(integer)* The numeric code of the asset to convert to.
+
+## POST `/borrower/conversion/`
+
+> **Request**
+
+```javascript
+POST '/borrower/conversion/' HTTP/1.1
+```
+
+```yml
+Content-Type: application/x-www-form-urlencoded
+
+asset_from=<integer>&asset_to=<integer>&amount=<integer>
+```
+
+Initiates a conversion of assets.
+
+* **`asset_from`:** *(integer)* .
+* **`asset_to`:** *(integer)* .
+* **`amount`:** *(integer)* The [scaled][] amount of the asset to convert from.
+
+> **Response**
+
+```yml
+HTTP/1.1 201 Created
+Content-Type: application/json; charset=US-ASCII
+```
+
+```json
+{
+    "asset_from": <integer>,
+    "asset_to": <integer>,
+    "amount": <integer>
+}
+```
+
+> The `Location` response header contains the numeric identifier of the newly initiated loan.
+
+> **Errors**
+
+> * If the asset code specified in **`asset_from`** or **`asset_to`** was not found:
+
+```yml
+HTTP/1.1 404 Not Found
+Content-Length: 0
+
+<explanation>
+```
+
+> * If the request is invalid (e.g. missing attributes, not enough balance) this method returns:
+
+```yml
+HTTP/1.1 400 Bad Request
+Content-Type: text/plain; charset=US-ASCII
+
+<explanation>
+```
+
+
+## GET `/borrower/converted_totals/`
+
+> **Request**
+
+```javascript
+GET '/borrower/converted_totals/' HTTP/1.1
+```
+
+> **Response**
+
+```yml
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=US-ASCII
+```
+
+```json
+[
+    {
+        "asset_from": <integer>,
+        "asset_to": <integer>,
+        "total": <integer>
+    },
+    …
+]
+```
+
+Returns the list of total converted quantities for each valid asset pair.
+
+* **`asset_from`:** *(integer)* The numeric code of the asset to convert from.
+* **`asset_to`:** *(integer)* The numeric code of the asset to convert to.
+* **`total`:** *(integer)* The total quantity of the asset which has been converted.
+
+
+## GET `/borrower/collateral/`
+
+
+> **Request**
+
+
+```javascript
+GET '/borrower/collateral/' HTTP/1.1
+```
+
+> **Response**
+
+```yml
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=US-ASCII
+```
+
+```json
+[<collateral>, …]
+```
+
+Returns the collateral available to the user in various assets.
+
+
+## GET `/borrower/collateral/<id>`
+
+
+> **Request**
+
+```javascript
+GET '/borrower/collateral/<id>' HTTP/1.1
+```
+
+* **`id`:** *(integer)* The numeric asset code of the asset in which to report available collateral.
+
+> **Response**
+
+```yml
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=US-ASCII
+```
+
+```json
+<collateral>
+```
+
+> **Errors**
+
+> * If the specified asset was not found, then this method returns:
+
+```yml
+HTTP/1.1 404 Not Found
+Content-Length: 0
+```
+
+Returns the collateral available to the user in the specified asset.
+
+## GET `/borrower/offers/`
+
+
+> **Request**
+
+```javascript
+GET '/borrower/offers/' HTTP/1.1
+```
+
+> **Response**
+
+```yml
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=US-ASCII
+```
+
+```json
+[<offer>, …]
+```
+
+Returns the loan offers available to the user.
+
+## GET `/borrower/offers/<id>`
+
+> **Request**
+
+```javascript
+GET '/borrower/offers/<id>' HTTP/1.1
+```
+
+
+> **Response**
+
+```yml
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=US-ASCII
+```
+	
+```json
+<offer>
+```
+
+> **Errors**
+
+> * If the specified loan offer was not found, then this method returns:
+
+```yml
+HTTP/1.1 404 Not Found
+Content-Length: 0
+```
+
+> * If the specified loan offer is not visible to the user, then this method returns:
+
+```yml
+HTTP/1.1 403 Forbidden
+Content-Length: 0
+```
+
+* **`id`:** *(integer)* The numeric identifier of the loan offer to return.
+
+Returns the specified loan offer.
+
+## GET `/borrower/loans/`
+
+> **Request**
+
+```javascript
+GET '/borrower/loans/' HTTP/1.1
+```
+
+> **Response**
+
+```yml
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=US-ASCII
+```
+
+```json
+[<loan>, …]
+```
+
+Returns the borrower's outstanding loans.
+
+## GET `/borrower/loans/<id>`
+
+> **Request**
+
+```javascript
+GET '/borrower/loans/<id>' HTTP/1.1
+```
+
+> **Response**
+
+```yml
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=US-ASCII
+```
+	
+```json
+<loan>
+```
+
+> **Errors**
+
+> * If the specified loan was not found, then this method returns:
+
+```yml
+HTTP/1.1 404 Not Found
+Content-Length: 0
+```
+
+> * If the specified loan is not visible to the user, then this method returns:
+
+```yml
+HTTP/1.1 403 Forbidden
+Content-Length: 0
+```
+
+* **`id`:** *(integer)* The numeric identifier of the loan to return.
+
+Returns the borrower's specified outstanding loan.
+
+## POST `/borrower/loans/`
+
+> **Request**
+
+```javascript
+POST '/borrower/loans/' HTTP/1.1
+```
+
+```yml
+Content-Type: application/x-www-form-urlencoded
+
+offer_id=<integer>&amount=<integer>
+```
+
+> **Response**
+
+```yml
+HTTP/1.1 201 Created
+Location: <id>
+Content-Type: application/json; charset=US-ASCII
+```
+	
+```json
+<loan>
+```
+
+> The `Location` response header contains the numeric identifier of the newly initiated loan.
+
+> **Errors**
+
+> * If the specified loan offer was not found, then this method returns:
+
+```yml
+HTTP/1.1 404 Not Found
+Content-Length: 0
+```
+
+> * If the requested loan was not allowed, then this method returns:
+
+```yml
+HTTP/1.1 403 Forbidden
+Content-Type: text/plain; charset=US-ASCII
+```
+		
+```json
+<explanation>
+```
+
+* **`offer_id`:** *(integer)* The numeric identifier of an available loan offer.
+* **`amount`:** *(integer)* The [scaled][] amount of the offered asset to borrow.
+
+Initiates a loan.
+
+## POST `/borrower/loans/<id>`
+
+> **Request**
+
+```javascript
+POST '/borrower/loans/<id>' HTTP/1.1
+```
+
+```yml
+Content-Type: application/x-www-form-urlencoded
+
+amount=<integer>
+```
+
+> **Response**
+
+```yml
+HTTP/1.1 204 No Content
+```
+
+> **Errors**
+
+> * If the specified loan was not found, then this method returns:
+
+```yml
+HTTP/1.1 404 Not Found
+Content-Length: 0
+```
+
+> * If the requested repayment was not allowed, then this method returns:
+
+```yml
+HTTP/1.1 403 Forbidden
+Content-Type: text/plain; charset=US-ASCII
+```
+
+```json
+<explanation>
+```
+
+* **`id`:** *(integer)* The numeric identifier of the outstanding loan to repay.
+* **`amount`:** *(integer)* The [scaled][] amount to repay.
+
+Partially repays an outstanding loan.
+
+## DELETE `/borrower/loans/<id>`
+
+> **Request**
+
+```javascript
+DELETE '/borrower/loans/<id>' HTTP/1.1
+```
+
+> **Response**
+
+```yml
+HTTP/1.1 204 No Content
+```
+
+> **Errors**
+
+> * If the specified loan was not found, then this method returns:
+
+```yml
+HTTP/1.1 404 Not Found
+Content-Length: 0
+```
+
+> * If the requested repayment was not allowed, then this method returns:
+
+```yml
+HTTP/1.1 403 Forbidden
+Content-Type: text/plain; charset=US-ASCII
+```
+
+```json
+<explanation>
+```
+
+* **`id`:** *(integer)* The numeric identifier of the outstanding loan to repay.
+
+Fully repays an outstanding loan.
+
+
+## GET `/borrower/margin_ratios/`
+
+> **Request**
+
+```javascript
+GET '/borrower/margin_ratios/' HTTP/1.1
+```
+
+> **Response**
+
+```yml
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=US-ASCII
+```
+
+```json
+{
+    "asset_id": <integer>,
+    "collateral": <integer>,
+    "loan": <integer>,
+    "ratio": <float>
+}
+```
+
+* **`asset_id`:** *(integer)* The numeric asset code of an asset in which the user's margin ratio is reported.
+* **`collateral`:** *(integer)* The scaled amount of the user's available collateral in the asset.
+* **`loan`:** *(integer)* The scaled amount of the asset borrowed.
+* **`ratio`:** *(float)* The margin ratio of the asset.
+
+Returns the margin ratio of the user for all assets where leverage funding has been taken out.  However it is recommended that users should connect to the Event Stream resource at [/borrower/events](#get-borrower-events) and perform the necessary calculations on the data provided therein.
+
+
+
+END----------------------------------------
 
 
 # Reference:
