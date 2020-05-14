@@ -667,5 +667,5 @@ Returns the historical record of a particular past trade of the user.
 
 [HTTP Basic Authentication]: https://tools.ietf.org/html/rfc7617
     (The 'Basic' HTTP Authentication Scheme)
-[WebSocket API]: WEBSOCKET-README.md
+[WebSocket API]: #websocket-api-specification
 [scaled]: #scaling

@@ -27,9 +27,9 @@ CoinFLEX's application programming interfaces (APIs) provide our clients program
 CoinFLEX provides several APIs:
 
 * our native [WebSocket API][]
-* a [RESTful API](REST.md)
-* an [Event Stream resource](EventStream.md)
-* a second futures [Event Stream resource](FUTURES.md#get-borrowerevents) for your collateral, leverage and margin
+* a [RESTful API](#rest-api)
+* an [Event Stream resource](#event-stream)
+* a second futures [Event Stream resource](#futures-api-specification-get-borrower-events) for your collateral, leverage and margin
 
 Using these interfaces it is possible to make both authenticated and unauthenticated API calls, with the exception of the Futures Event Stream which is authenticated only.
 
@@ -68,7 +68,7 @@ We strongly recommend that you use TLS transport for all connections.
 
 
 
-[WebSocket API]: #WEBSOCKET-README.md
+[WebSocket API]: #websocket-api-specification
 [JSON]: https://tools.ietf.org/html/rfc4627 (IETF RFC 4627)
 [WebSocket]: https://tools.ietf.org/html/rfc6455 (IETF RFC 6455)
 [client libraries]: https://github.com/coinflex-exchange/

@@ -186,6 +186,6 @@ data: }
 [HTTP Basic Authentication]: https://tools.ietf.org/html/rfc7617
     (The 'Basic' HTTP Authentication Scheme)
 [Server-Sent Events]: https://www.w3.org/TR/eventsource/
-[WebSocket API]: #WEBSOCKET-README.md
-[scaled]: #scaling.md
+[WebSocket API]: #websocket-api-specification
+[scaled]: #scaling
 

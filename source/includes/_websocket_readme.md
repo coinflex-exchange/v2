@@ -41,26 +41,26 @@ The asynchronous notifications channel carries a series of notices, where each n
 Currently, the WebSocket API supports the following:
 
 * Commands:
-	* [Authenticate](#authenticate)
-	* [GetBalances](#getbalances)
-	* [GetOrders](#getorders)
-	* [EstimateMarketOrder](#estimatemarketorder)
-	* [PlaceOrder](#placeorder)
-	* [ModifyOrder](#modifyorder)
-	* [CancelOrder](#cancelorder)
-	* [CancelAllOrders](#cancelallorders)
-	* [GetTradeVolume](#gettradevolume)
-	* [WatchOrders](#watchorders)
-	* [WatchTicker](#watchticker)
+	* [Authenticate](#websocket-api-specification-authenticate)
+	* [GetBalances](#websocket-api-specification-getbalances)
+	* [GetOrders](#websocket-api-specification-getorders)
+	* [EstimateMarketOrder](#websocket-api-specification-estimatemarketorder)
+	* [PlaceOrder](#websocket-api-specification-placeorder)
+	* [ModifyOrder](#websocket-api-specification-modifyorder)
+	* [CancelOrder](#websocket-api-specification-cancelorder)
+	* [CancelAllOrders](#websocket-api-specification-cancelallorders)
+	* [GetTradeVolume](#websocket-api-specification-gettradevolume)
+	* [WatchOrders](#websocket-api-specification-watchorders)
+	* [WatchTicker](#websocket-api-specification-watchticker)
 
 * Notifications:
-	* [BalanceChanged](#balancechanged)
-	* [OrderOpened](#orderopened)
-	* [OrderModified](#ordermodified)
-	* [OrdersMatched](#ordersmatched)
-	* [OrderClosed](#orderclosed)
-	* [TickerChanged](#tickerchanged)
-	* [TradeVolumeChanged](#tradevolumechanged)
+	* [BalanceChanged](#websocket-api-specification-balancechanged)
+	* [OrderOpened](#websocket-api-specification-orderopened)
+	* [OrderModified](#websocket-api-specification-ordermodified)
+	* [OrdersMatched](#websocket-api-specification-ordersmatched)
+	* [OrderClosed](#websocket-api-specification-orderclosed)
+	* [TickerChanged](#websocket-api-specification-tickerchanged)
+	* [TradeVolumeChanged](#websocket-api-specification-tradevolumechanged)
 
 
 ## Authenticate

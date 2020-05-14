@@ -8,22 +8,22 @@ LIVE site
 
 **API endpoint URL: `https://webapi.coinflex.com/`**
 
-[scaled]: SCALE.md
+[scaled]: #scaling
 
 ## Contents
 
 Currently, the Futures API supports the following endpoints:
 
-* `/borrower/events`           	&#09; ([GET](#get-borrower-events))
-* `/borrower/conversion/`     	&#09; ([GET](#get-borrower-conversion) | [POST](#post-borrower-conversion))
-* `/borrower/converted_totals/`	&#09; ([GET](#get-borrower-converted_totals))
-* `/borrower/collateral/`     	&#09; ([GET](#get-borrower-collateral))
-* `/borrower/collateral/<id>` 	&#09; ([GET](#get-borrower-collateral-lt-id-gt))
-* `/borrower/offers/`         	&#09; ([GET](#get-borrower-offers))
-* `/borrower/offers/<id>`     	&#09; ([GET](#get-borrower-offers-lt-id-gt))
-* `/borrower/loans/`          	&#09; ([GET](#get-borrower-loans) | [POST](#post-borrower-loans))
-* `/borrower/loans/<id>`      	&#09; ([GET](#get-borrower-loans-lt-id-gt) | [POST](#post-borrower-loans-lt-id-gt) | [DELETE](#delete-borrower-loans-lt-id-gt))
-* `/borrower/margin_ratios/`  	&#09; ([GET](#get-borrower-margin_ratios))
+* `/borrower/events`           	&#09; ([GET](#futures-api-specification-get-borrower-events))
+* `/borrower/conversion/`     	&#09; ([GET](#futures-api-specification-get-borrower-conversion) | [POST](#futures-api-specification-post-borrower-conversion))
+* `/borrower/converted_totals/`	&#09; ([GET](#futures-api-specification-get-borrower-converted_totals))
+* `/borrower/collateral/`     	&#09; ([GET](#futures-api-specification-get-borrower-collateral))
+* `/borrower/collateral/<id>` 	&#09; ([GET](#futures-api-specification-get-borrower-collateral-lt-id-gt))
+* `/borrower/offers/`         	&#09; ([GET](#futures-api-specification-get-borrower-offers))
+* `/borrower/offers/<id>`     	&#09; ([GET](#futures-api-specification-get-borrower-offers-lt-id-gt))
+* `/borrower/loans/`          	&#09; ([GET](#futures-api-specification-get-borrower-loans) | [POST](#futures-api-specification-post-borrower-loans))
+* `/borrower/loans/<id>`      	&#09; ([GET](#futures-api-specification-get-borrower-loans-lt-id-gt) | [POST](#futures-api-specification-post-borrower-loans-lt-id-gt) | [DELETE](#futures-api-specification-delete-borrower-loans-lt-id-gt))
+* `/borrower/margin_ratios/`  	&#09; ([GET](#futures-api-specification-get-borrower-margin_ratios))
 
 
 ## Authentication
@@ -633,4 +633,4 @@ Content-Type: application/json; charset=US-ASCII
 > * **`loan`:** *(integer)* The scaled amount of the asset borrowed.
 > * **`ratio`:** *(float)* The margin ratio of the asset.
 
-Returns the margin ratio of the user for all assets where leverage funding has been taken out.  However it is recommended that users should connect to the Event Stream resource at [/borrower/events](#get-borrower-events) and perform the necessary calculations on the data provided therein.
+Returns the margin ratio of the user for all assets where leverage funding has been taken out.  However it is recommended that users should connect to the Event Stream resource at [/borrower/events](http://localhost:4567/#futures-api-specification-get-borrower-events) and perform the necessary calculations on the data provided therein.
