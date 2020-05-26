@@ -10,10 +10,10 @@ includes:
   - bist
   - contracts
   - event_stream
-  - futures
+  - futures.html
   - impl_guid
   - limits
-  - rest
+  - rest.html
   - scale
   - websocket_readme
 

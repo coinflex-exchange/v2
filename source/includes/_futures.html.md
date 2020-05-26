@@ -306,9 +306,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=US-ASCII
 ```
 
-```json
-[<collateral>, …]
-```
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="err"><a href="#futures-api-specification-common-record-types-lt-collateral-gt">&lt;collateral&gt;</a></span><span class="p">,</span><span class="w"> </span><span class="err">…</span><span class="p">]</span><span class="w"></span></code></pre>
 
 Returns the collateral available to the user in various assets.
 
@@ -331,9 +329,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=US-ASCII
 ```
 
-```json
-<collateral>
-```
+<pre class="highlight json tab-json"><code><span class="err"><a href="#futures-api-specification-common-record-types-lt-collateral-gt">&lt;collateral&gt;</a></span><span class="w"></span></code></pre>
 
 > **Errors**
 
@@ -362,9 +358,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=US-ASCII
 ```
 
-```json
-[<offer>, …]
-```
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="err"><a href="#futures-api-specification-common-record-types-lt-offer-gt">&lt;offer&gt;</a></span><span class="p">,</span><span class="w"> </span><span class="err">…</span><span class="p">]</span><span class="w"></span></code></pre>
 
 Returns the loan offers available to the user.
 
@@ -385,9 +379,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=US-ASCII
 ```
 	
-```json
-<offer>
-```
+<pre class="highlight json tab-json"><code><span class="err"><a href="#futures-api-specification-common-record-types-lt-offer-gt">&lt;offer&gt;</a></span><span class="w"></span></code></pre>
 
 > **Errors**
 
@@ -422,9 +414,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=US-ASCII
 ```
 
-```json
-[<loan>, …]
-```
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="err"><a href="#futures-api-specification-common-record-types-lt-loan-gt">&lt;loan&gt;</a></span><span class="p">,</span><span class="w"> </span><span class="err">…</span><span class="p">]</span><span class="w"></span></code></pre>
 
 Returns the borrower's outstanding loans.
 
@@ -445,9 +435,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=US-ASCII
 ```
 	
-```json
-<loan>
-```
+<pre class="highlight json tab-json"><code><span class="err"><a href="#futures-api-specification-common-record-types-lt-loan-gt">&lt;loan&gt;</a></span><span class="w"></span></code></pre>
 
 > **Errors**
 

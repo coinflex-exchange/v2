@@ -274,9 +274,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=US-ASCII
 ```
 
-```json
-[<ticker>, …]
-```
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="err"><a href="#rest-api-common-record-types-lt-ticker-gt">&lt;ticker&gt;</a></span><span class="p">,</span><span class="w"> </span><span class="err">…</span><span class="p">]</span><span class="w"></span></code></pre>
 
 **Authentication not required.**
 
@@ -301,9 +299,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=US-ASCII
 ```
 
-```json
-<ticker>
-```
+<pre class="highlight json tab-json"><code><span class="err"><a href="#rest-api-common-record-types-lt-ticker-gt">&lt;ticker&gt;</a></span></code></pre>
 
 > **Errors**
 
@@ -376,9 +372,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=US-ASCII
 ```
 
-```json
-[<balance>, …]
-```
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="err"><a href="#rest-api-common-record-types-lt-balance-gt">&lt;balance&gt;</a></span><span class="p">,</span><span class="w"> </span><span class="err">…</span><span class="p">]</span><span class="w"></span></code></pre>
 
 **Authentication required.**
 
@@ -402,9 +396,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=US-ASCII
 ```
 
-```json
-<balance>
-```
+<pre class="highlight json tab-json"><code><span class="err"><a href="#rest-api-common-record-types-lt-balance-gt">&lt;balance&gt;</a></span></code></pre>
 
 > **Errors**
 
@@ -435,9 +427,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=US-ASCII
 ```
 
-```json
-[<order>, …]
-```
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="err"><a href="#rest-api-common-record-types-lt-order-gt">&lt;order&gt;</a></span><span class="p">,</span><span class="w"> </span><span class="err">…</span><span class="p">]</span><span class="w"></span></code></pre>
 
 **Authentication required.**
 
@@ -459,9 +449,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=US-ASCII
 ```
 
-```json
-<order>
-```
+<pre class="highlight json tab-json"><code><span class="err"><a href="#rest-api-common-record-types-lt-order-gt">&lt;order&gt;</a></span></code></pre>
 
 > **Errors**
 
@@ -509,9 +497,8 @@ Content-Type: application/json; charset=US-ASCII
 
 > * **`id`:** *(integer)* The numeric identifier of the newly placed limit order.
 
-```json
-<order>
-```
+<pre class="highlight json tab-json"><code><span class="err"><a href="#rest-api-common-record-types-lt-order-gt">&lt;order&gt;</a></span><span class="w"></span></code></pre>
+
 
 > The response for a market order (`price` omitted) is:
 
@@ -554,9 +541,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=US-ASCII
 ```
 
-```json
-[<order>, …]
-```
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="err"><a href="#rest-api-common-record-types-lt-order-gt">&lt;order&gt;</a></span><span class="p">,</span><span class="w"> </span><span class="err">…</span><span class="p">]</span><span class="w"></span></code></pre>
 
 **Authentication required.**
 
@@ -582,9 +567,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=US-ASCII
 ```
 
-```json
-<order>
-```
+<pre class="highlight json tab-json"><code><span class="err"><a href="#rest-api-common-record-types-lt-order-gt">&lt;order&gt;</a></span></code></pre>
 
 > **Errors**
 
@@ -621,9 +604,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=US-ASCII
 ```
 
-```json
-[<trade>, …]
-```
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="err"><a href="#rest-api-common-record-types-lt-trade-gt">&lt;trade&gt;</a></span><span class="p">,</span><span class="w"> </span><span class="err">…</span><span class="p">]</span><span class="w"></span></code></pre>
 
 **Authentication required.**
 
@@ -647,9 +628,9 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=US-ASCII
 ```
 
-```json
-<trade>
-```
+<pre class="highlight json tab-json"><code>
+<span class="err"><a href="#rest-api-common-record-types-lt-trade-gt">&lt;trade&gt;</a></span>
+</code></pre>
 
 > **Errors**
 
