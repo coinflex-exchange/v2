@@ -6,6 +6,8 @@ toc_footers:
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 includes:
+  - websocket
+  - rest2
   - auth
   - bist
   - contracts
@@ -20,7 +22,6 @@ includes:
 search: true
 ---
 
-# CoinFLEX Trade Engine APIs
 
 CoinFLEX's application programming interfaces (APIs) provide our clients programmatic access to control aspects of their accounts and to place orders on CoinFLEX's trading platforms.
 

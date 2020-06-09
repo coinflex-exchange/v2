@@ -115,8 +115,8 @@ Authenticates as a user by signing a challenge.
 **Authorization:** None required.
 
 
-error_code | error_msg
--------------|------------------------------------------------------------------
+error_code | error_msg  | ggfg
+-------------|------------------------------------------------------------------|------
 1            | "There is no such user."
 6            | "You are making authentication attempts too rapidly."
 7            | "You sent an incorrect login cookie."
