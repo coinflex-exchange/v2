@@ -6,11 +6,10 @@ toc_footers:
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 includes:
-  - websocket
-  - rest2
+  - v2_websocke
+  - v2_restapi
   - auth
   - bist
-  - contracts
   - event_stream
   - futures.html
   - impl_guid
