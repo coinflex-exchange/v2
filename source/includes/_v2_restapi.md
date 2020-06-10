@@ -1,6 +1,12 @@
-# V2.0 Rest API
+# V2.0 REST API
 
 ##Authentication 
+
+DEMO/STAGE site
+
+`https://api-test-v2.coinflex-cn.com/ `
+
+
 
 > **Request format**
 
@@ -28,7 +34,7 @@
 }
 ```
 
-##GET v2 `/balances/`
+##GET `/balances/`
 
 Example Request: /v2/account/protected/balances
 
@@ -64,7 +70,7 @@ instrumentId | String | | Token symbol, e.g. 'BTC' |
 available |number| Amount available|
 reserved|number|Amount on hold (unavailable)|
 
-##GET v2 `/balances/<id>`
+##GET `/balances/<id>`
 
 Example Request: /v2/account/protected/balances/EOS
 
@@ -99,7 +105,7 @@ instrumentId | String | Token symbol, e.g. 'BTC' |
 available|number|Amount available|
 reserved|number|Amount on hold (unavailable)|
 
-##GET v2 `/positions/`
+##GET `/positions/`
 
 Example Request:  /v2/markets/protected/positions
 
@@ -132,7 +138,7 @@ Note: x-cf-token is required in HTTP header.
 **ADD estLiquidationPx. Definition here:**
 (https://coinflex.atlassian.net/wiki/spaces/CFV2/pages/759398602/Estimated+Liquidation+Price+calculation)
 
-##GET v2 `/positions/<id>`
+##GET  `/positions/<id>`
 
 Example Request: /v2/markets/protected/positions/ETH-USD-PERP-LIN
 
