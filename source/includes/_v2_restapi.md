@@ -99,6 +99,7 @@ instrumentId | String | | Token symbol, e.g. 'BTC' |
 }
 ```
 
+
 Parameters |Parameter Types | Description| 
 -------------------------- | -----|--------- |
 instrumentId | String | Token symbol, e.g. 'BTC' |
