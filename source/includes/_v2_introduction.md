@@ -2,18 +2,15 @@
 
 Welcome to the CoinFLEX v2 API. Please note this is a beta version and can be considered a testnet.
 
-CoinFLEX offers REST and WebSocket APIs. Both support market data and trading. It is recommend you use Websocket for more consistent and quicker response times
-Current server: Alicloud Hong Kong
+CoinFLEX offers REST and WebSocket APIs. Both support market data and trading. It is recommend you use Websocket for more consistent and quicker response times<p><p> * Current server: Alicloud Hong Kong
 
-Quick start:
-1. Register for an account at https://test-v2.coinflex-cn.com/login
-2. POST vis RESTAPI at
+Quick start:<p><p>1. Register for an account at https://test-v2.coinflex-cn.com/login<p><p>2. POST vis RESTAPI at
   https://api-test-v2.coinflex-cn.com/v2/account/auth/trading/login
   with the following JSON to obtain your token:
 
   > **Request format**
 
-Valid options of op can be:  login, subscribe, unsubscribe, placeorder, cancelorder etc.
+Valid options of op can be:  `login`, `subscribe`, `unsubscribe`, `placeorder`, `cancelorder` etc.
 
 ```json
  
