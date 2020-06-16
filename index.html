@@ -268,16 +268,16 @@
                     <a href="#v2-0-rest-api-authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
                   </li>
                   <li>
-                    <a href="#v2-0-rest-api-get-balances" class="toc-h2 toc-link" data-title="GET /balances/">GET <code>/balances/</code></a>
+                    <a href="#v2-0-rest-api-get-v2-account-protected-balances" class="toc-h2 toc-link" data-title="GET /v2/account/protected/balances/">GET <code>/v2/account/protected/balances/</code></a>
                   </li>
                   <li>
-                    <a href="#v2-0-rest-api-get-balances-lt-id-gt" class="toc-h2 toc-link" data-title="GET /balances/&lt;id&gt;">GET <code>/balances/&lt;id&gt;</code></a>
+                    <a href="#v2-0-rest-api-get-v2-account-protected-balances-lt-instrumentid-gt" class="toc-h2 toc-link" data-title="GET /v2/account/protected/balances/&lt;instrumentId&gt;">GET <code>/v2/account/protected/balances/&lt;instrumentId&gt;</code></a>
                   </li>
                   <li>
-                    <a href="#v2-0-rest-api-get-positions" class="toc-h2 toc-link" data-title="GET /positions/">GET <code>/positions/</code></a>
+                    <a href="#v2-0-rest-api-get-v2-account-protected-positions" class="toc-h2 toc-link" data-title="GET  /v2/account/protected/positions/">GET  <code>/v2/account/protected/positions/</code></a>
                   </li>
                   <li>
-                    <a href="#v2-0-rest-api-get-positions-lt-id-gt" class="toc-h2 toc-link" data-title="GET  /positions/&lt;id&gt;">GET  <code>/positions/&lt;id&gt;</code></a>
+                    <a href="#v2-0-rest-api-get-v2-account-protected-lt-instrumentid-gt" class="toc-h2 toc-link" data-title="GET  /v2/account/protected/&lt;instrumentId&gt;">GET  <code>/v2/account/protected/&lt;instrumentId&gt;</code></a>
                   </li>
                   <li>
                     <a href="#v2-0-rest-api-get-markets" class="toc-h2 toc-link" data-title="GET /markets/">GET <code>/markets/</code></a>
@@ -286,10 +286,10 @@
                     <a href="#v2-0-rest-api-get-assets" class="toc-h2 toc-link" data-title="GET /assets/">GET <code>/assets/</code></a>
                   </li>
                   <li>
-                    <a href="#v2-0-rest-api-get-trades" class="toc-h2 toc-link" data-title="GET /trades/">GET <code>/trades/</code></a>
+                    <a href="#v2-0-rest-api-get-v2-ohlc-protected-trades" class="toc-h2 toc-link" data-title="GET /v2/ohlc/protected/trades/">GET <code>/v2/ohlc/protected/trades/</code></a>
                   </li>
                   <li>
-                    <a href="#v2-0-rest-api-get-order" class="toc-h2 toc-link" data-title="GET /order/">GET <code>/order/</code></a>
+                    <a href="#v2-0-rest-api-get-v2-ohlc-protected-orders" class="toc-h2 toc-link" data-title="GET  /v2/ohlc/protected/orders/">GET  <code>/v2/ohlc/protected/orders/</code></a>
                   </li>
                   <li>
                     <a href="#v2-0-rest-api-post-auction" class="toc-h2 toc-link" data-title="POST /auction/">POST <code>/auction/</code></a>
@@ -468,7 +468,7 @@ subsequent incremental data are:
     </span><span class="nl">"op"</span><span class="p">:</span><span class="s2">"placeorder"</span><span class="p">,</span><span class="w"> 
     </span><span class="nl">"data"</span><span class="p">:{</span><span class="w">
             </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w"> 
-            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"side"</span><span class="p">:</span><span class="s2">"BUY"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"orderType"</span><span class="p">:</span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="w"> 
@@ -1348,7 +1348,7 @@ subsequent incremental data are:
       </span><span class="nl">"op"</span><span class="p">:</span><span class="s2">"placeorder"</span><span class="p">,</span><span class="w"> 
       </span><span class="nl">"data"</span><span class="p">:{</span><span class="w">
               </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w"> 
-              </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP"</span><span class="p">,</span><span class="w"> 
+              </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
               </span><span class="nl">"side"</span><span class="p">:</span><span class="s2">"BUY"</span><span class="p">,</span><span class="w"> 
               </span><span class="nl">"orderType"</span><span class="p">:</span><span class="s2">"STOP"</span><span class="p">,</span><span class="w"> 
               </span><span class="nl">"quantity"</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="w">
@@ -2513,10 +2513,13 @@ subsequent incremental data are:
 <td>UNIX timestamp</td>
 </tr>
 </tbody></table>
-<h1 id='v2-0-rest-api'>V2.0 REST API</h1><h2 id='v2-0-rest-api-authentication'>Authentication</h2>
+<h1 id='v2-0-rest-api'>V2.0 REST API</h1>
 <p>DEMO/STAGE site</p>
 
 <p><code>https://api-test-v2.coinflex-cn.com/</code></p>
+<h2 id='v2-0-rest-api-authentication'>Authentication</h2>
+<p>Obtain token for /protected/ endpoints.
+<code>POST</code> https://api-test-v2.coinflex-cn.com/v2/account/auth/trading/login</p>
 
 <blockquote>
 <p><strong>Request format</strong></p>
@@ -2541,8 +2544,8 @@ subsequent incremental data are:
         </span><span class="nl">"mainLogin"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='v2-0-rest-api-get-balances'>GET <code>/balances/</code></h2>
-<p>Example Request: /v2/account/protected/balances</p>
+</span></code></pre></div><h2 id='v2-0-rest-api-get-v2-account-protected-balances'>GET <code>/v2/account/protected/balances/</code></h2>
+<p>GET coin balanaces in your account</p>
 
 <p>Note: x-cf-token is required in HTTP header, which is the token returned by /v2/account/auth/trading/login</p>
 
@@ -2591,8 +2594,8 @@ subsequent incremental data are:
 <td>Amount on hold (unavailable)</td>
 </tr>
 </tbody></table>
-<h2 id='v2-0-rest-api-get-balances-lt-id-gt'>GET <code>/balances/&lt;id&gt;</code></h2>
-<p>Example Request: /v2/account/protected/balances/EOS</p>
+<h2 id='v2-0-rest-api-get-v2-account-protected-balances-lt-instrumentid-gt'>GET <code>/v2/account/protected/balances/&lt;instrumentId&gt;</code></h2>
+<p>GET balance for a specific coin</p>
 
 <p>Note: x-cf-token is required in HTTP header.</p>
 
@@ -2653,7 +2656,9 @@ subsequent incremental data are:
 <td>Amount on hold (unavailable)</td>
 </tr>
 </tbody></table>
-<h2 id='v2-0-rest-api-get-positions'>GET <code>/positions/</code></h2>
+<h2 id='v2-0-rest-api-get-v2-account-protected-positions'>GET  <code>/v2/account/protected/positions/</code></h2>
+<p>GET positions. These are derivative contract positions and not coins.</p>
+
 <p>Example Request:  /v2/markets/protected/positions</p>
 
 <p>Note: x-cf-token is required in HTTP header.</p>
@@ -2683,7 +2688,9 @@ subsequent incremental data are:
 </span></code></pre></div>
 <p><strong>ADD estLiquidationPx. Definition here:</strong>
 (https://coinflex.atlassian.net/wiki/spaces/CFV2/pages/759398602/Estimated+Liquidation+Price+calculation)</p>
-<h2 id='v2-0-rest-api-get-positions-lt-id-gt'>GET  <code>/positions/&lt;id&gt;</code></h2>
+<h2 id='v2-0-rest-api-get-v2-account-protected-lt-instrumentid-gt'>GET  <code>/v2/account/protected/&lt;instrumentId&gt;</code></h2>
+<p>Get position for a certain derivative contract.</p>
+
 <p>Example Request: /v2/markets/protected/positions/ETH-USD-PERP-LIN</p>
 
 <p>Note: x-cf-token is required in HTTP header.</p>
@@ -2726,6 +2733,8 @@ subsequent incremental data are:
         </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h2 id='v2-0-rest-api-get-markets'>GET <code>/markets/</code></h2>
+<p>Get a list of all markets currently listed on coinflex</p>
+
 <p>Example Request: /v2/markets/public/markets</p>
 
 <p>Change - Added “referencePair” field</p>
@@ -2764,6 +2773,8 @@ subsequent incremental data are:
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h2 id='v2-0-rest-api-get-assets'>GET <code>/assets/</code></h2>
+<p>Get a list of all assets available on CoinFLEX. These include coins and bookable contracts.</p>
+
 <p>Example Request: /v2/markets/public/assets</p>
 
 <blockquote>
@@ -2799,8 +2810,8 @@ subsequent incremental data are:
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='v2-0-rest-api-get-trades'>GET <code>/trades/</code></h2>
-<p>Description: Get all trades of current user.</p>
+</span></code></pre></div><h2 id='v2-0-rest-api-get-v2-ohlc-protected-trades'>GET <code>/v2/ohlc/protected/trades/</code></h2>
+<p>Get all trades of current user.</p>
 
 <p>Login Required. Please pass x-cf-token in the HTTP header.</p>
 
@@ -2828,8 +2839,8 @@ subsequent incremental data are:
 </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h2 id='v2-0-rest-api-get-order'>GET <code>/order/</code></h2>
-<p>Description: Get all open orders of current user.</p>
+</span></code></pre></div><h2 id='v2-0-rest-api-get-v2-ohlc-protected-orders'>GET  <code>/v2/ohlc/protected/orders/</code></h2>
+<p>Get all open orders of current user.</p>
 
 <p>Login Required. Please pass x-cf-token in HTTP header.</p>
 
@@ -2855,7 +2866,7 @@ subsequent incremental data are:
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div><h2 id='v2-0-rest-api-post-auction'>POST <code>/auction/</code></h2>
-<p>Description: delivered positions of current user for auction.</p>
+<p>Delivered positions of current user for auction.</p>
 
 <p>Login Required. Please pass x-cf-token in the HTTP header.</p>
 
