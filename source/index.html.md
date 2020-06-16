@@ -7,8 +7,7 @@ toc_footers:
 
 includes:
   - v2_introduction
-  - v2_changelog
-  - v2_websocke
+  - v2_websocket
   - v2_restapi
 
 
