@@ -1,12 +1,17 @@
 # V2.0 REST API
 
-##Authentication 
+
 
 DEMO/STAGE site
 
 `https://api-test-v2.coinflex-cn.com/ `
 
 
+
+##Authentication 
+
+Obtain token for /protected/ endpoints.
+`POST` https://api-test-v2.coinflex-cn.com/v2/account/auth/trading/login
 
 > **Request format**
 
@@ -34,9 +39,9 @@ DEMO/STAGE site
 }
 ```
 
-##GET `/balances/`
+##GET `/v2/account/protected/balances/`
 
-Example Request: /v2/account/protected/balances
+GET coin balanaces in your account
 
 Note: x-cf-token is required in HTTP header, which is the token returned by /v2/account/auth/trading/login
 
@@ -70,9 +75,9 @@ instrumentId | String | | Token symbol, e.g. 'BTC' |
 available |number| Amount available|
 reserved|number|Amount on hold (unavailable)|
 
-##GET `/balances/<id>`
+##GET `/v2/account/protected/balances/<instrumentId>`
 
-Example Request: /v2/account/protected/balances/EOS
+GET balance for a specific coin
 
 Note: x-cf-token is required in HTTP header.
 
@@ -106,7 +111,9 @@ instrumentId | String | Token symbol, e.g. 'BTC' |
 available|number|Amount available|
 reserved|number|Amount on hold (unavailable)|
 
-##GET `/positions/`
+##GET  `/v2/account/protected/positions/`
+
+GET positions. These are derivative contract positions and not coins.
 
 Example Request:  /v2/markets/protected/positions
 
@@ -139,7 +146,8 @@ Note: x-cf-token is required in HTTP header.
 **ADD estLiquidationPx. Definition here:**
 (https://coinflex.atlassian.net/wiki/spaces/CFV2/pages/759398602/Estimated+Liquidation+Price+calculation)
 
-##GET  `/positions/<id>`
+##GET  `/v2/account/protected/<instrumentId>`
+Get position for a certain derivative contract.
 
 Example Request: /v2/markets/protected/positions/ETH-USD-PERP-LIN
 
@@ -176,6 +184,7 @@ instrumentId | String | Contract ID, e.g. 'ETH-USD-PERP-LIN' |
 ```
 
 ##GET `/markets/`
+Get a list of all markets currently listed on coinflex
 
 Example Request: /v2/markets/public/markets
 
@@ -218,6 +227,7 @@ Change - Added “referencePair” field
 ```
 
 ##GET `/assets/`
+Get a list of all assets available on CoinFLEX. These include coins and bookable contracts.
 
 Example Request: /v2/markets/public/assets
 
@@ -257,9 +267,8 @@ Example Request: /v2/markets/public/assets
 }
 ```
 
-##GET `/trades/`
-
-Description: Get all trades of current user.
+##GET `/v2/ohlc/protected/trades/`
+Get all trades of current user.
 
 Login Required. Please pass x-cf-token in the HTTP header.
 
@@ -289,9 +298,8 @@ Login Required. Please pass x-cf-token in the HTTP header.
 }
  
 ```
-##GET `/order/`
-
-Description: Get all open orders of current user.
+##GET  `/v2/ohlc/protected/orders/`
+Get all open orders of current user.
 
 Login Required. Please pass x-cf-token in HTTP header.
 
@@ -319,8 +327,7 @@ Login Required. Please pass x-cf-token in HTTP header.
  
 ```
 ##POST `/auction/`
-
-Description: delivered positions of current user for auction.
+Delivered positions of current user for auction.
 
 Login Required. Please pass x-cf-token in the HTTP header.
 

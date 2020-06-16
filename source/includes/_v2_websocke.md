@@ -190,7 +190,7 @@ Requires authentication. Please subscribe user order channel to receive the orde
     "op":"placeorder", 
     "data":{
             "clientOrderId":1, 
-            "marketCode": "BTC-USD-SWAP",
+            "marketCode": "BTC-USD-SWAP-LIN",
             "side":"BUY", 
             "orderType":"LIMIT", 
             "quantity":10, 
@@ -632,7 +632,7 @@ Requires authentication. Please subscribe user order channel to receive the orde
       "op":"placeorder", 
       "data":{
               "clientOrderId":1, 
-              "marketCode": "BTC-USD-SWAP", 
+              "marketCode": "BTC-USD-SWAP-LIN", 
               "side":"BUY", 
               "orderType":"STOP", 
               "quantity":10,
