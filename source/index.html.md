@@ -6,8 +6,11 @@ toc_footers:
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 includes:
+  - v2_introduction
+  - v2_changelog
   - v2_websocke
   - v2_restapi
+
 
 
 search: true
