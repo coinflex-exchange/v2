@@ -183,10 +183,8 @@ instrumentId | String | Contract ID, e.g. 'ETH-USD-PERP-LIN' |
 }
 ```
 
-##GET `/markets/`
+##GET `/v2/markets/public/markets`
 Get a list of all markets currently listed on coinflex
-
-Example Request: /v2/markets/public/markets
 
 Change - Added “referencePair” field
 
