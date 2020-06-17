@@ -620,7 +620,7 @@ clientOrderId|String|  Client order ID submitted
 
 
 
-## Stop Limit Order
+## Stop Limit Order  &nbsp;&nbsp;*****coming soon*****
 
 Requires authentication. Please subscribe user order channel to receive the order updates.
 
