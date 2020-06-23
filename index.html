@@ -400,7 +400,7 @@
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
   </span><span class="p">{</span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value&gt;"</span><span class="p">,</span><span class="w"> 
    </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;value1&gt;"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"&lt;value2&gt;"</span><span class="p">]}</span><span class="w">
+   </span><span class="s2">"&lt;value2&gt;"</span><span class="p">]}</span><span class="err">,</span><span class="w">
   </span><span class="p">{</span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value&gt;,
    "</span><span class="err">data</span><span class="s2">":{"</span><span class="err">&lt;key</span><span class="mi">1</span><span class="err">&gt;</span><span class="s2">":"</span><span class="err">&lt;value</span><span class="mi">1</span><span class="err">&gt;</span><span class="s2">",...,
    "</span><span class="err">&lt;keyN&gt;</span><span class="s2">":"</span><span class="err">&lt;valueN&gt;</span><span class="s2">"}}
@@ -775,15 +775,6 @@ subsequent incremental data are:
   </span><span class="p">}</span><span class="w">
 
 
-</span></code></pre></div>
-<blockquote>
-<p><strong>Failure response format:</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"cancelorder"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"success"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"code"</span><span class="p">:,</span><span class="nl">"message"</span><span class="p">:</span><span class="s2">""</span><span class="p">}</span><span class="w"> 
-
 </span></code></pre></div><h2 id='websocket-place-order-modify-order'>Modify Order</h2>
 <p>Requires authentication. Please subscribe user order channel to receive the order updates.</p>
 
@@ -877,24 +868,7 @@ subsequent incremental data are:
 <td>Quantity (denominated by <code>contractValCurrency</code>)</td>
 </tr>
 </tbody></table>
-
-<blockquote>
-<p><strong>Success response format</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"modifyorder"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
-<blockquote>
-<p><strong>Failure response format:</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"modifyorder"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"success"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"code"</span><span class="p">:,</span><span class="nl">"message"</span><span class="p">:</span><span class="s2">""</span><span class="p">}</span><span class="w"> 
-
-</span></code></pre></div><h1 id='websocket-private-channel'>Websocket Private Channel</h1><h2 id='websocket-private-channel-channel-list'>Channel List</h2><h2 id='websocket-private-channel-user-order-channel'>User Order Channel</h2>
+<h1 id='websocket-private-channel'>Websocket Private Channel</h1><h2 id='websocket-private-channel-channel-list'>Channel List</h2><h2 id='websocket-private-channel-user-order-channel'>User Order Channel</h2>
 <p>Requires authentication. Get the user&#39;s order information.</p>
 
 <blockquote>
@@ -1120,8 +1094,8 @@ subsequent incremental data are:
 <ul>
 <li>Order modified</li>
 </ul>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="s2">"order"</span><span class="err">,</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"table"</span><span class="p">:</span><span class="s2">"order"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
         </span><span class="p">{</span><span class="w">   
             </span><span class="nl">"notice"</span><span class="p">:</span><span class="s2">"OrderModified"</span><span class="p">,</span><span class="w">
@@ -1138,7 +1112,7 @@ subsequent incremental data are:
             </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1592491223"</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
-</span><span class="err">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
 <table><thead>
@@ -2198,7 +2172,7 @@ subsequent incremental data are:
     </span><span class="nl">"table"</span><span class="p">:</span><span class="s2">"order"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"notice"</span><span class="p">:</span><span class="s2">"OrdersMatched"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"notice"</span><span class="p">:</span><span class="s2">"OrderMatched"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w"> 
           </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"orderId"</span><span class="w"> </span><span class="p">:</span><span class="s2">"39"</span><span class="p">,</span><span class="w">  
@@ -2233,7 +2207,7 @@ subsequent incremental data are:
 <tr>
 <td>notice</td>
 <td>STRING</td>
-<td><code>OrdersMatched</code></td>
+<td><code>OrderMatched</code></td>
 </tr>
 <tr>
 <td>accountId</td>
@@ -2314,7 +2288,7 @@ subsequent incremental data are:
     </span><span class="nl">"table"</span><span class="p">:</span><span class="s2">"order"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"notice"</span><span class="p">:</span><span class="s2">"OrdersMatched"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"notice"</span><span class="p">:</span><span class="s2">"OrderMatched"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"11"</span><span class="p">,</span><span class="w"> 
           </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"orderId"</span><span class="w"> </span><span class="p">:</span><span class="s2">"13"</span><span class="p">,</span><span class="w">  
@@ -2455,7 +2429,7 @@ subsequent incremental data are:
     </span><span class="nl">"table"</span><span class="p">:</span><span class="s2">"order"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"notice"</span><span class="p">:</span><span class="s2">"OrdersMatched"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"notice"</span><span class="p">:</span><span class="s2">"OrderMatched"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"7"</span><span class="p">,</span><span class="w"> 
           </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"orderId"</span><span class="w"> </span><span class="p">:</span><span class="s2">"12"</span><span class="p">,</span><span class="w">  
@@ -2601,7 +2575,7 @@ subsequent incremental data are:
     </span><span class="nl">"table"</span><span class="p">:</span><span class="s2">"order"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"notice"</span><span class="p">:</span><span class="s2">"OrdersMatched"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"notice"</span><span class="p">:</span><span class="s2">"OrderMatched"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w"> 
           </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"orderId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">  
