@@ -258,9 +258,6 @@
             <a href="#websocket-private-channel" class="toc-h1 toc-link" data-title="Websocket Private Channel">Websocket Private Channel</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#websocket-private-channel-channel-list" class="toc-h2 toc-link" data-title="Channel List">Channel List</a>
-                  </li>
-                  <li>
                     <a href="#websocket-private-channel-user-order-channel" class="toc-h2 toc-link" data-title="User Order Channel">User Order Channel</a>
                   </li>
               </ul>
@@ -288,9 +285,6 @@
           <li>
             <a href="#websocket-public-channel" class="toc-h1 toc-link" data-title="Websocket Public Channel">Websocket Public Channel</a>
               <ul class="toc-list-h2">
-                  <li>
-                    <a href="#websocket-public-channel-channel-list" class="toc-h2 toc-link" data-title="Channel List">Channel List</a>
-                  </li>
                   <li>
                     <a href="#websocket-public-channel-public-depth" class="toc-h2 toc-link" data-title="Public - Depth">Public - Depth</a>
                   </li>
@@ -407,7 +401,7 @@
 </ul></li>
 </ul>
 
-<p>CoinFLEX&#39;s application programming interface (API) provides our clients programmatic access to control aspects of their accounts and to place orders on the CoinFLEX trading platform. The API is accessible via WebSocket connection to the URIs listed above. Commands, replies, and notifications traverse the WebSocket in text frames with JSON-formatted payloads.</p>
+<p>CoinFLEX&#39;s application programming interface (API) provides our clients programmatic access to control aspects of their accounts and to place orders on the CoinFLEX trading platform. The API is accessible via WebSocket connection to the URIs listed above. Commands, replies, and notifications all traverse the WebSocket in text frames with JSON-formatted payloads.</p>
 
 <blockquote>
 <p><strong>Request format</strong></p>
@@ -895,7 +889,7 @@ subsequent incremental data are:
 <td>Quantity (denominated by <code>contractValCurrency</code>)</td>
 </tr>
 </tbody></table>
-<h1 id='websocket-private-channel'>Websocket Private Channel</h1><h2 id='websocket-private-channel-channel-list'>Channel List</h2><h2 id='websocket-private-channel-user-order-channel'>User Order Channel</h2>
+<h1 id='websocket-private-channel'>Websocket Private Channel</h1><h2 id='websocket-private-channel-user-order-channel'>User Order Channel</h2>
 <p>Requires authentication. Get the user&#39;s order information.</p>
 
 <blockquote>
@@ -2735,11 +2729,7 @@ subsequent incremental data are:
 <td><code>STOP</code></td>
 </tr>
 </tbody></table>
-<h1 id='websocket-public-channel'>Websocket Public Channel</h1><h2 id='websocket-public-channel-channel-list'>Channel List</h2>
-<p><strong>Channels that don&#39;t require login</strong></p>
-
-<p>futures/depth </p>
-<h2 id='websocket-public-channel-public-depth'>Public - Depth</h2>
+<h1 id='websocket-public-channel'>Websocket Public Channel</h1><h2 id='websocket-public-channel-public-depth'>Public - Depth</h2>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
