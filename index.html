@@ -501,22 +501,63 @@ subsequent incremental data are:
 
 <p>To autenticate a websocket connection a &quot;login&quot; message must be sent containing the clients signature.</p>
 
-<p>To construct the signature a clients API-Secret key is required.  API keys (public and correpsonding secret key) can be generated via the GUI within the clients account.  By default, API Keys are read-only and can only read basic acount information, such as positions, orders, and trades. They cannot be used to trade such as placing, modifying or cancelling orders.</p>
+<p>To construct the signature a clients API-Secret key is required.  API keys (public and correpsonding secret key) can be generated via the GUI within the clients account.  </p>
 
-<p>If you wish to execute orders with your API Key, clients must select the &quot;Can Trade&quot; permission upon API key creation. 
-API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.</p>
+<p>By default, API Keys are read-only and can only read basic acount information, such as positions, orders, and trades. They cannot be used to trade such as placing, modifying or cancelling orders.</p>
+
+<p>If you wish to execute orders with your API Key, clients must select the &quot;Can Trade&quot; permission upon API key creation. </p>
+
+<p>API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.</p>
 
 <p>The signature is calculated as: Base64(HEX(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret)))</p>
 
-<p><strong>Parameters - LOGIN COMMAND</strong>
-Parameter | Type | Required | Description | 
--------------------------- | -----|--------- | -------------|
-op | STRING | Yes | <strong>&#39;login&#39;</strong> |
-tag| INTEGER| No | If given, it will be echoed in the reply. |
-data | ARRAY of object | Yes |
-&gt; apiKey | STRING | Yes | Clients public API key, visible in the GUI when created. | 
-&gt; timestamp | STRING | Yes | Current millisecond timestamp |<br>
-&gt; signature | STRING | Yes | Base64(HEX(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret)))</p>
+<p><strong>Parameters - Login Command</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>op</td>
+<td>STRING</td>
+<td>Yes</td>
+<td><strong>&#39;login&#39;</strong></td>
+</tr>
+<tr>
+<td>tag</td>
+<td>INTEGER</td>
+<td>No</td>
+<td>If given, it will be echoed in the reply.</td>
+</tr>
+<tr>
+<td>data</td>
+<td>ARRAY of object</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt; apiKey</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>Clients public API key, visible in the GUI when created.</td>
+</tr>
+<tr>
+<td>&gt; timestamp</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>Current millisecond timestamp</td>
+</tr>
+<tr>
+<td>&gt; signature</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>Base64(HEX(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret)))</td>
+</tr>
+</tbody></table>
 
 <blockquote>
 <p><strong>Success response format</strong></p>
