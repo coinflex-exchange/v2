@@ -7,7 +7,7 @@
 * LIVE site
 	* 'COMING SOON'
 
-CoinFLEX's application programming interface (API) provides our clients programmatic access to control aspects of their accounts and to place orders on the CoinFLEX trading platform. The API is accessible via WebSocket connection to the URIs listed above. Commands, replies, and notifications traverse the WebSocket in text frames with JSON-formatted payloads.
+CoinFLEX's application programming interface (API) provides our clients programmatic access to control aspects of their accounts and to place orders on the CoinFLEX trading platform. The API is accessible via WebSocket connection to the URIs listed above. Commands, replies, and notifications all traverse the WebSocket in text frames with JSON-formatted payloads.
 
 > **Request format**
 
@@ -447,10 +447,6 @@ quantity|decimal|Yes|  Quantity (denominated by `contractValCurrency`)|
 
 
 # Websocket Private Channel 
-
-## Channel List
-
-
 ## User Order Channel 
 
 Requires authentication. Get the user's order information.
@@ -1333,12 +1329,6 @@ orderType|STRING|`STOP`
 
 
 # Websocket Public Channel 
-## Channel List
-
-**Channels that don't require login**
-
-futures/depth 
-
 ## Public - Depth
 
 > **Request**
