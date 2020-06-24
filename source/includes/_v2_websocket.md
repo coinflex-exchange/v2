@@ -1,12 +1,13 @@
 
-# Websocket Common Format
+# Websocket API
 
-DEMO/STAGE site
+* TEST site
+	* `wss://api-test-v2.coinflex-cn.com/v2/websocket`
 
-`wss:http://api-test-v2.coinflex-cn.com/v2/websocket`
+* LIVE site
+	* 'COMING SOON'
 
-
-
+CoinFLEX's application programming interface (API) provides our clients programmatic access to control aspects of their accounts and to place orders on the CoinFLEX trading platform. The API is accessible via WebSocket connection to the URIs listed above. Commands, replies, and notifications traverse the WebSocket in text frames with JSON-formatted payloads.
 
 > **Request format**
 
@@ -24,7 +25,6 @@ Valid options of op can be:  login, subscribe, unsubscribe, placeorder, cancelor
 ```
 
  `args`: the value is the channel name, which can be one or more channels.
-
 
  `data`: the data is the JSON string of request object, which is for operations like placeorder.
 
@@ -115,7 +115,11 @@ subsequent incremental data are:
 }
 
 ```
-The Websocket API consists of public and private methods. The public methods do not require authentication.  The private methods requires an authenticated websocket, achieved by clients generating a signature and including this in the payload to the "login" method.
+The Websocket API consists of public and private methods. The public methods do not require authentication.  The private methods requires an authenticated websocket connection.
+
+To autenticate a websocket connection a "login" message must be sent containing the clients signature.
+
+The signature is calcaulted as: Base64(HmacSHA256(timestamp + 'GET/auth/self/verify', api-secret)) 
 
 * `apiKey`: the api key in subaccount information
 
