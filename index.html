@@ -229,7 +229,7 @@
             <a href="#change-log" class="toc-h1 toc-link" data-title="Change Log">Change Log</a>
           </li>
           <li>
-            <a href="#websocket-common-format" class="toc-h1 toc-link" data-title="Websocket Common Format">Websocket Common Format</a>
+            <a href="#websocket-api" class="toc-h1 toc-link" data-title="Websocket API">Websocket API</a>
           </li>
           <li>
             <a href="#websocket-authentication" class="toc-h1 toc-link" data-title="Websocket Authentication">Websocket Authentication</a>
@@ -393,10 +393,21 @@
 
 <p>2020-06-15
 - First version of beta API endpoints - Websocket and REST</p>
-<h1 id='websocket-common-format'>Websocket Common Format</h1>
-<p>DEMO/STAGE site</p>
+<h1 id='websocket-api'>Websocket API</h1>
+<ul>
+<li><p>TEST site</p>
 
-<p><code>wss:http://api-test-v2.coinflex-cn.com/v2/websocket</code></p>
+<ul>
+<li><code>wss://api-test-v2.coinflex-cn.com/v2/websocket</code></li>
+</ul></li>
+<li><p>LIVE site</p>
+
+<ul>
+<li>&#39;COMING SOON&#39;</li>
+</ul></li>
+</ul>
+
+<p>CoinFLEX&#39;s application programming interface (API) provides our clients programmatic access to control aspects of their accounts and to place orders on the CoinFLEX trading platform. The API is accessible via WebSocket connection to the URIs listed above. Commands, replies, and notifications traverse the WebSocket in text frames with JSON-formatted payloads.</p>
 
 <blockquote>
 <p><strong>Request format</strong></p>
@@ -492,7 +503,11 @@ subsequent incremental data are:
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>The Websocket API consists of public and private methods. The public methods do not require authentication.  The private methods requires an authenticated websocket, achieved by clients generating a signature and including this in the payload to the &quot;login&quot; method.</p>
+<p>The Websocket API consists of public and private methods. The public methods do not require authentication.  The private methods requires an authenticated websocket connection.</p>
+
+<p>To autenticate a websocket connection a &quot;login&quot; message must be sent containing the clients signature.</p>
+
+<p>The signature is calcaulted as: Base64(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, api-secret)) </p>
 
 <ul>
 <li><p><code>apiKey</code>: the api key in subaccount information</p></li>
