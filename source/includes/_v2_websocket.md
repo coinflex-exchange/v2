@@ -117,25 +117,36 @@ subsequent incremental data are:
 ```python
 import websockets
 import asyncio
+import time
+import hmac
+import base64
+import hashlib
 import json
 
-payload = \
+api_key = 'z65AfjYtlevH0WwUE66LoYzq0bJ7znDARIXnYo40Ru4='
+api_secret = '+UoQCeItEPYI2hQxYlhct+y+5x9jxHJ8lp4iRAgpQc0='
+timestamp = str(int(time.time() * 1000))
+string1 = (timestamp+'GET/auth/self/verify').encode('utf-8')
+string2 = api_secret.encode('utf-8')
+signature = base64.b64encode(hmac.new(string1, string2, hashlib.sha256).hexdigest().encode())
+
+msg_auth = \
 {
-  "op":"login",
+  "op": "login",
   "tag": 123,
-  "data":{
-          "apiKey": <string>,
-          "timestamp": <string>,
-          "signature": <string>
+  "data": {
+          "apiKey": api_key,
+          "timestamp": timestamp,
+          "signature": signature.decode()
           }
 }
 
 async def subscribe():
-   async with websockets.connect('wss://api-test-v2.coinflex-cn.com/v2/websocket') as ws:
-       await ws.send(json.dumps(payload))
-       while ws.open:
-           response = await ws.recv()
-           print(response)
+    async with websockets.connect('wss://api-test-v2.coinflex-cn.com/v2/websocket') as ws:
+        await ws.send(json.dumps(msg_auth))
+        while ws.open:
+            resp = await ws.recv()
+            print(resp)
 
 asyncio.get_event_loop().run_until_complete(subscribe())
 ```
@@ -152,8 +163,8 @@ If you wish to execute orders with your API Key, clients must select the **Can T
 
 API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.
 
-The signature is calculated as:-
-- `Base64(HEX(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret)))`
+The signature is calculated as:
+  - `Base64(HEX(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret)))`
 
 **Parameters - Login Command**
 
