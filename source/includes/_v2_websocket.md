@@ -138,7 +138,7 @@ If you wish to execute orders with your API Key, clients must select the **Can T
 
 API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.
 
-The signature is calculated as: *Base64(HEX(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret)))*
+The signature is calculated as: `Base64(HEX(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret)))`
 
 **Parameters - Login Command**
 
@@ -147,9 +147,9 @@ Parameter | Type | Required | Description |
 op | STRING | Yes | **'login'** |
 tag| INTEGER| No | If given, it will be echoed in the reply. |
 data | ARRAY object | Yes |
-\> apiKey | STRING | Yes | Clients public API key, visible in the GUI when created. | 
-\> timestamp | STRING | Yes | Current millisecond timestamp |  
-\> signature | STRING | Yes | Base64(HEX(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret)))
+\>apiKey | STRING | Yes | Clients public API key, visible in the GUI when created. | 
+\>timestamp | STRING | Yes | Current millisecond timestamp |  
+\>signature | STRING | Yes | `Base64(HEX(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret)))` |
 
 > **Success response format**
 
