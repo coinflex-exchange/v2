@@ -516,7 +516,7 @@ subsequent incremental data are:
 
 <p>API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.</p>
 
-<p>The signature is calculated as: <em>Base64(HEX(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret)))</em></p>
+<p>The signature is calculated as: <code>Base64(HEX(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret)))</code></p>
 
 <p><strong>Parameters - Login Command</strong></p>
 
@@ -547,22 +547,22 @@ subsequent incremental data are:
 <td></td>
 </tr>
 <tr>
-<td>&gt; apiKey</td>
+<td>&gt;apiKey</td>
 <td>STRING</td>
 <td>Yes</td>
 <td>Clients public API key, visible in the GUI when created.</td>
 </tr>
 <tr>
-<td>&gt; timestamp</td>
+<td>&gt;timestamp</td>
 <td>STRING</td>
 <td>Yes</td>
 <td>Current millisecond timestamp</td>
 </tr>
 <tr>
-<td>&gt; signature</td>
+<td>&gt;signature</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>Base64(HEX(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret)))</td>
+<td><code>Base64(HEX(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret)))</code></td>
 </tr>
 </tbody></table>
 
