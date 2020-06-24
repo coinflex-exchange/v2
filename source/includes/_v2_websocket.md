@@ -104,11 +104,11 @@ subsequent incremental data are:
 ```json
 {
   "op":"login",
-  "tag": <integer>,
+  "tag":<integer>,
   "data":{
-          "apiKey": <string>,
-          "timestamp": <string>,
-          "signature": <string>
+          "apiKey":<string>,
+          "timestamp":<string>,
+          "signature":<string>
           }
 }
 ```
@@ -209,10 +209,12 @@ data | ARRAY object | Yes |
 ```python
   {
    "event":"login",
-   "success":true,
+   "success":false,
+   "code":"<code>",
+   "message":"<errorMessage>",
    "tag":"1",
-   "timestamp":"1592491808"
-   }
+   "timestamp":"1592492032"
+ }
 ```
 
 
