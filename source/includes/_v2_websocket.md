@@ -98,7 +98,7 @@ subsequent incremental data are:
 
 ```
 
-# Websocket Login
+# Websocket Authentication
 
 > **Request format**
 
