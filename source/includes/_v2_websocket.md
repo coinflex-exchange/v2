@@ -119,22 +119,22 @@ The Websocket API consists of public and private methods. The public methods do 
 
 To autenticate a websocket connection a "login" message must be sent containing the clients signature.
 
-The signature is calcaulted as: Base64(HmacSHA256(timestamp + 'GET/auth/self/verify', api-secret)) 
+To construct the signature a clients API-Secret key is required.  API keys (public and correpsonding secret key) can be generated via the GUI within the clients account.  By default, API Keys are read-only and can only read basic acount information, such as positions, orders, and trades. They cannot be used to trade such as placing, modifying or cancelling orders.
 
-* `apiKey`: the api key in subaccount information
+If you wish to execute orders with your API Key, clients must select the "Can Trade" permission upon API key creation. 
+API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.
 
-* `timestamp`: UTC timestamp
+The signature is calculated as: Base64(HEX(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret)))
 
-* `sign`: TBD
-
-* When using apiKey to login, the accountId bind to the apiKey is used for trading activites.
-
-* **Example of timestamp**:const timestamp = '' + Date.now() 
-
-* **Example of sign**: sign=CryptoJS.enc.Base64.Stringify(CryptoJS.HmacSHA256(timestamp +'GET'+ '/auth/self/verify', api-secret))<p></p>
-  **method** is preset as'GET'<p></p>
-  **requestPath** is preset as '/auth/self/verify'
-
+**Parameters - LOGIN COMMAND**
+Parameter | Type | Required | Description | 
+-------------------------- | -----|--------- | -------------|
+op | STRING | Yes | **'login'** |
+tag| INTEGER| No | If given, it will be echoed in the reply. |
+data | ARRAY of object | Yes |
+\> apiKey | STRING | Yes | Clients public API key, visible in the GUI when created. | 
+\> timestamp | STRING | Yes | Current millisecond timestamp |  
+\> signature | STRING | Yes | Base64(HEX(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret)))
 
 > **Success response format**
 
@@ -190,7 +190,6 @@ Requires authentication. Please subscribe user order channel to receive the orde
 }
 ```
 **Request Parameters Specification:**
-
 
 Parameters | Type | Required | Description | 
 -------------------------- | -----|--------- | -------------|
