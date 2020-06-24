@@ -164,7 +164,7 @@ If you wish to execute orders with your API Key, clients must select the **Can T
 API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.
 
 The signature is calculated as:
-  - `Base64(HEX(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret)))`
+* `Base64(HEX(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret)))`
 
 **Parameters - Login Command**
 
