@@ -485,8 +485,7 @@ subsequent incremental data are:
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"op"</span><span class="p">:</span><span class="s2">"login"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;integer&gt;</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:{</span><span class="w">
@@ -495,8 +494,16 @@ subsequent incremental data are:
           </span><span class="nl">"signature"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;string&gt;</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="p">{</span>
+  <span class="s">"op"</span><span class="p">:</span><span class="s">"login"</span><span class="p">,</span>
+  <span class="s">"tag"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">integer</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="s">"data"</span><span class="p">:{</span>
+          <span class="s">"apiKey"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+          <span class="s">"timestamp"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+          <span class="s">"signature"</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span>
+          <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>The Websocket API consists of public and private methods. The public methods do not require authentication.  The private methods requires an authenticated websocket connection.</p>
 
 <p>To autenticate a websocket connection a &quot;login&quot; message must be sent containing the clients signature.</p>
@@ -505,11 +512,11 @@ subsequent incremental data are:
 
 <p>By default, API Keys are read-only and can only read basic acount information, such as positions, orders, and trades. They cannot be used to trade such as placing, modifying or cancelling orders.</p>
 
-<p>If you wish to execute orders with your API Key, clients must select the &quot;Can Trade&quot; permission upon API key creation. </p>
+<p>If you wish to execute orders with your API Key, clients must select the <strong>Can Trade</strong> permission upon API key creation. </p>
 
 <p>API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.</p>
 
-<p>The signature is calculated as: Base64(HEX(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret)))</p>
+<p>The signature is calculated as: <em>Base64(HEX(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret)))</em></p>
 
 <p><strong>Parameters - Login Command</strong></p>
 
@@ -535,7 +542,7 @@ subsequent incremental data are:
 </tr>
 <tr>
 <td>data</td>
-<td>ARRAY of object</td>
+<td>ARRAY object</td>
 <td>Yes</td>
 <td></td>
 </tr>
