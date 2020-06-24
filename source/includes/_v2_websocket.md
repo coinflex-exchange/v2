@@ -115,15 +115,29 @@ subsequent incremental data are:
 ```
 
 ```python
+import websockets
+import asyncio
+import json
+
+payload = \
 {
   "op":"login",
-  "tag": <integer>,
+  "tag": 123,
   "data":{
           "apiKey": <string>,
           "timestamp": <string>,
           "signature": <string>
           }
 }
+
+async def subscribe():
+   async with websockets.connect('wss://api-test-v2.coinflex-cn.com/v2/websocket') as ws:
+       await ws.send(json.dumps(payload))
+       while ws.open:
+           response = await ws.recv()
+           print(response)
+
+asyncio.get_event_loop().run_until_complete(subscribe())
 ```
 
 The Websocket API consists of public and private methods. The public methods do not require authentication.  The private methods requires an authenticated websocket connection.
@@ -138,7 +152,8 @@ If you wish to execute orders with your API Key, clients must select the **Can T
 
 API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.
 
-The signature is calculated as: `Base64(HEX(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret)))`
+The signature is calculated as:-
+- `Base64(HEX(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret)))`
 
 **Parameters - Login Command**
 
