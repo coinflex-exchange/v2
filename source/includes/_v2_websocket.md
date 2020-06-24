@@ -101,7 +101,6 @@ subsequent incremental data are:
 # Websocket Authentication
 
 > **Request format**
-
 ```json
 {
   "op":"login",
@@ -113,7 +112,6 @@ subsequent incremental data are:
           }
 }
 ```
-
 ```python
 import websockets
 import asyncio
@@ -133,7 +131,7 @@ signature = base64.b64encode(hmac.new(string1, string2, hashlib.sha256).hexdiges
 msg_auth = \
 {
   "op": "login",
-  "tag": 123,
+  "tag": 1,
   "data": {
           "apiKey": api_key,
           "timestamp": timestamp,
@@ -178,8 +176,15 @@ data | ARRAY object | Yes |
 \>signature | STRING | Yes | `Base64(HEX(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret)))` |
 
 > **Success response format**
-
 ```json
+  {
+   "event":"login",
+   "success":true,
+   "tag":"1",
+   "timestamp":"1592491808"
+   }
+```
+```python
   {
    "event":"login",
    "success":true,
@@ -189,7 +194,6 @@ data | ARRAY object | Yes |
 ```
 
 > **Failure response format:**
-
 ```json
   {
    "event":"login",
@@ -200,14 +204,17 @@ data | ARRAY object | Yes |
    "timestamp":"1592492032"
  }
 ```
-
-
-
-
+```python
+  {
+   "event":"login",
+   "success":true,
+   "tag":"1",
+   "timestamp":"1592491808"
+   }
+```
 
 
 # Websocket Place Order 
-
 
 ## Limit Order 
 
