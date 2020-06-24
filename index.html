@@ -480,59 +480,54 @@ subsequent incremental data are:
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-
 </span></code></pre></div><h1 id='websocket-authentication'>Websocket Authentication</h1>
 <blockquote>
-<p><strong>Request format</strong>
-<code>json
-{
-  &quot;op&quot;:&quot;login&quot;,
-  &quot;tag&quot;: &lt;integer&gt;,
-  &quot;data&quot;:{
-          &quot;apiKey&quot;: &lt;string&gt;,
-          &quot;timestamp&quot;: &lt;string&gt;,
-          &quot;signature&quot;: &lt;string&gt;
-          }
-}
-</code>
-```python
-import websockets
-import asyncio
-import time
-import hmac
-import base64
-import hashlib
-import json</p>
+<p><strong>Request format</strong></p>
 </blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"op"</span><span class="p">:</span><span class="s2">"login"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;integer&gt;</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:{</span><span class="w">
+          </span><span class="nl">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;string&gt;</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;string&gt;</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"signature"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;string&gt;</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">websockets</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">hmac</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">json</span>
 
-<p>api_key = &#39;z65AfjYtlevH0WwUE66LoYzq0bJ7znDARIXnYo40Ru4=&#39;
-api_secret = &#39;+UoQCeItEPYI2hQxYlhct+y+5x9jxHJ8lp4iRAgpQc0=&#39;
-timestamp = str(int(time.time() * 1000))
-string1 = (timestamp+&#39;GET/auth/self/verify&#39;).encode(&#39;utf-8&#39;)
-string2 = api_secret.encode(&#39;utf-8&#39;)
-signature = base64.b64encode(hmac.new(string1, string2, hashlib.sha256).hexdigest().encode())</p>
+<span class="n">api_key</span> <span class="o">=</span> <span class="s">'z65AfjYtlevH0WwUE66LoYzq0bJ7znDARIXnYo40Ru4='</span>
+<span class="n">api_secret</span> <span class="o">=</span> <span class="s">'+UoQCeItEPYI2hQxYlhct+y+5x9jxHJ8lp4iRAgpQc0='</span>
+<span class="n">timestamp</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span>
+<span class="n">string1</span> <span class="o">=</span> <span class="p">(</span><span class="n">timestamp</span><span class="o">+</span><span class="s">'GET/auth/self/verify'</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+<span class="n">string2</span> <span class="o">=</span> <span class="n">api_secret</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+<span class="n">signature</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">,</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
 
-<p>msg_auth = \
-{
-  &quot;op&quot;: &quot;login&quot;,
-  &quot;tag&quot;: 1,
-  &quot;data&quot;: {
-          &quot;apiKey&quot;: api_key,
-          &quot;timestamp&quot;: timestamp,
-          &quot;signature&quot;: signature.decode()
-          }
-}</p>
+<span class="n">msg_auth</span> <span class="o">=</span> \
+<span class="p">{</span>
+  <span class="s">"op"</span><span class="p">:</span> <span class="s">"login"</span><span class="p">,</span>
+  <span class="s">"tag"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s">"apiKey"</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+          <span class="s">"timestamp"</span><span class="p">:</span> <span class="n">timestamp</span><span class="p">,</span>
+          <span class="s">"signature"</span><span class="p">:</span> <span class="n">signature</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+          <span class="p">}</span>
+<span class="p">}</span>
 
-<p>async def subscribe():
-    async with websockets.connect(&#39;wss://api-test-v2.coinflex-cn.com/v2/websocket&#39;) as ws:
-        await ws.send(json.dumps(msg_auth))
-        while ws.open:
-            resp = await ws.recv()
-            print(resp)</p>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">subscribe</span><span class="p">():</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">websockets</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">'wss://api-test-v2.coinflex-cn.com/v2/websocket'</span><span class="p">)</span> <span class="k">as</span> <span class="n">ws</span><span class="p">:</span>
+        <span class="k">await</span> <span class="n">ws</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg_auth</span><span class="p">))</span>
+        <span class="k">while</span> <span class="n">ws</span><span class="o">.</span><span class="nb">open</span><span class="p">:</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
 
-<p>asyncio.get_event_loop().run_until_complete(subscribe())
-```</p>
-
+<span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">subscribe</span><span class="p">())</span>
+</code></pre></div>
 <p>The Websocket API consists of public and private methods. The public methods do not require authentication.  The private methods requires an authenticated websocket connection.</p>
 
 <p>To autenticate a websocket connection a &quot;login&quot; message must be sent containing the clients signature.</p>
@@ -545,7 +540,7 @@ signature = base64.b64encode(hmac.new(string1, string2, hashlib.sha256).hexdiges
 
 <p>API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.</p>
 
-<p>The signature is calculated as:
+<p>The signature is calculated as
 * <code>Base64(HEX(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret)))</code></p>
 
 <p><strong>Parameters - Login Command</strong></p>
@@ -597,45 +592,39 @@ signature = base64.b64encode(hmac.new(string1, string2, hashlib.sha256).hexdiges
 </tbody></table>
 
 <blockquote>
-<p><strong>Success response format</strong>
-<code>json
-  {
-   &quot;event&quot;:&quot;login&quot;,
-   &quot;success&quot;:true,
-   &quot;tag&quot;:&quot;1&quot;,
-   &quot;timestamp&quot;:&quot;1592491808&quot;
-   }
-</code>
-<code>python
-  {
-   &quot;event&quot;:&quot;login&quot;,
-   &quot;success&quot;:true,
-   &quot;tag&quot;:&quot;1&quot;,
-   &quot;timestamp&quot;:&quot;1592491808&quot;
-   }
-</code></p>
-
-<p><strong>Failure response format:</strong>
-<code>json
-  {
-   &quot;event&quot;:&quot;login&quot;,
-   &quot;success&quot;:false,
-   &quot;code&quot;:&quot;&lt;code&gt;&quot;,
-   &quot;message&quot;:&quot;&lt;errorMessage&gt;&quot;,
-   &quot;tag&quot;:&quot;1&quot;,
-   &quot;timestamp&quot;:&quot;1592492032&quot;
- }
-</code>
-<code>python
-  {
-   &quot;event&quot;:&quot;login&quot;,
-   &quot;success&quot;:true,
-   &quot;tag&quot;:&quot;1&quot;,
-   &quot;timestamp&quot;:&quot;1592491808&quot;
-   }
-</code></p>
+<p><strong>Success response format</strong></p>
 </blockquote>
-<h1 id='websocket-place-order'>Websocket Place Order</h1><h2 id='websocket-place-order-limit-order'>Limit Order</h2>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
+   </span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"login"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1592491808"</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code>  <span class="p">{</span>
+   <span class="s">"event"</span><span class="p">:</span><span class="s">"login"</span><span class="p">,</span>
+   <span class="s">"success"</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+   <span class="s">"tag"</span><span class="p">:</span><span class="s">"1"</span><span class="p">,</span>
+   <span class="s">"timestamp"</span><span class="p">:</span><span class="s">"1592491808"</span>
+   <span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Failure response format:</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
+   </span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"login"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"success"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"code"</span><span class="p">:</span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"message"</span><span class="p">:</span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1592492032"</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code>  <span class="p">{</span>
+   <span class="s">"event"</span><span class="p">:</span><span class="s">"login"</span><span class="p">,</span>
+   <span class="s">"success"</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+   <span class="s">"tag"</span><span class="p">:</span><span class="s">"1"</span><span class="p">,</span>
+   <span class="s">"timestamp"</span><span class="p">:</span><span class="s">"1592491808"</span>
+   <span class="p">}</span>
+</code></pre></div><h1 id='websocket-place-order'>Websocket Place Order</h1><h2 id='websocket-place-order-limit-order'>Limit Order</h2>
 <p>Requires authentication. Please subscribe user order channel to receive the order updates.</p>
 
 <blockquote>
