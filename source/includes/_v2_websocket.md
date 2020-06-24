@@ -119,14 +119,18 @@ The Websocket API consists of public and private methods. The public methods do 
 
 To autenticate a websocket connection a "login" message must be sent containing the clients signature.
 
-To construct the signature a clients API-Secret key is required.  API keys (public and correpsonding secret key) can be generated via the GUI within the clients account.  By default, API Keys are read-only and can only read basic acount information, such as positions, orders, and trades. They cannot be used to trade such as placing, modifying or cancelling orders.
+To construct the signature a clients API-Secret key is required.  API keys (public and correpsonding secret key) can be generated via the GUI within the clients account.  
+
+By default, API Keys are read-only and can only read basic acount information, such as positions, orders, and trades. They cannot be used to trade such as placing, modifying or cancelling orders.
 
 If you wish to execute orders with your API Key, clients must select the "Can Trade" permission upon API key creation. 
+
 API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.
 
 The signature is calculated as: Base64(HEX(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret)))
 
-**Parameters - LOGIN COMMAND**
+**Parameters - Login Command**
+
 Parameter | Type | Required | Description | 
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | **'login'** |
