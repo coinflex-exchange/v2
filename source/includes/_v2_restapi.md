@@ -6,11 +6,14 @@
 * LIVE site
 	* 'COMING SOON'
 
+For clients who do not wish to take advantage of CoinFLEX's native WebSocket API, CoinFLEX offers a RESTful API that implements much of the same functionality.
 
 ##Authentication 
 
-Obtain token for /protected/ endpoints.
-`POST` https://api-test-v2.coinflex-cn.com/v2/account/auth/trading/login
+The public market data methods do not require authentication, however private methods require a *Signature* to be sent in the header of the request.  These private REST methods  use HMAC SHA256 signatures. The HMAC SHA256 signature is a keyed HMAC SHA256 operation using a clients API Secret as the key and totalParams as the value for the HMAC operation.
+
+totalParams is defined as the query string concatenated with the request body. See details below.
+
 
 > **Request format**
 
