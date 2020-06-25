@@ -16,11 +16,7 @@ includes:
   - v2_websocket
   - v2_restapi
 
-
-
 search: true
+
+code_clipboard: true
 ---
-
-
-
-
