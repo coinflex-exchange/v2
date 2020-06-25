@@ -126,7 +126,7 @@ api_secret = '+UoQCeItEPYI2hQxYlhct+y+5x9jxHJ8lp4iRAgpQc0='
 timestamp = str(int(time.time() * 1000))
 string1 = api_secret.encode('utf-8')
 string2 = (timestamp+'GET/auth/self/verify').encode('utf-8')
-signature = base64.b64encode(hmac.new(string1, string2, hashlib.sha256).digest()).decode('utf-8)
+signature = base64.b64encode(hmac.new(string1, string2, hashlib.sha256).digest()).decode('utf-8')
 
 msg_auth = \
 {
