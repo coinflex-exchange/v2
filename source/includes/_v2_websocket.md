@@ -124,9 +124,9 @@ import json
 api_key = 'z65AfjYtlevH0WwUE66LoYzq0bJ7znDARIXnYo40Ru4='
 api_secret = '+UoQCeItEPYI2hQxYlhct+y+5x9jxHJ8lp4iRAgpQc0='
 timestamp = str(int(time.time() * 1000))
-string1 = (timestamp+'GET/auth/self/verify').encode('utf-8')
-string2 = api_secret.encode('utf-8')
-signature = base64.b64encode(hmac.new(string1, string2, hashlib.sha256).hexdigest().encode())
+string1 = api_secret.encode('utf-8')
+string2 = (timestamp+'GET/auth/self/verify').encode('utf-8')
+signature = base64.b64encode(hmac.new(string1, string2, hashlib.sha256).digest()).decode('utf-8)
 
 msg_auth = \
 {
@@ -135,7 +135,7 @@ msg_auth = \
   "data": {
           "apiKey": api_key,
           "timestamp": timestamp,
-          "signature": signature.decode()
+          "signature": signature
           }
 }
 
@@ -163,7 +163,7 @@ API keys are also only bound to a single sub-account, defined upon creation. Thi
 
 The signature is calculated as:
 
-* `Base64(HEX(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret)))`
+* `Base64(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret))`
 
 **Parameters - Login Command**
 
@@ -174,7 +174,7 @@ tag| INTEGER| No | If given, it will be echoed in the reply. |
 data | ARRAY object | Yes |
 \>apiKey | STRING | Yes | Clients public API key, visible in the GUI when created. | 
 \>timestamp | STRING | Yes | Current millisecond timestamp |  
-\>signature | STRING | Yes | `Base64(HEX(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret)))` |
+\>signature | STRING | Yes | `Base64(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret))` |
 
 > **Success response format**
 
