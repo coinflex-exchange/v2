@@ -1,11 +1,10 @@
 # V2.0 REST API
 
+* TEST site
+	* `https://api-test-v2.coinflex-cn.com/ `
 
-
-DEMO/STAGE site
-
-`https://api-test-v2.coinflex-cn.com/ `
-
+* LIVE site
+	* 'COMING SOON'
 
 
 ##Authentication 
