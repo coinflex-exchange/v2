@@ -1,18 +1,42 @@
 # V2.0 REST API
 
-* TEST site
-	* `https://api-test-v2.coinflex-cn.com/ `
+**TEST** site
+* `https://api-test-v2.coinflex-cn.com/ `
 
-* LIVE site
-	* 'COMING SOON'
+**LIVE** site
+* 'COMING SOON'
 
 For clients who do not wish to take advantage of CoinFLEX's native WebSocket API, CoinFLEX offers a RESTful API that implements much of the same functionality.
 
 ##Authentication 
 
-The public market data methods do not require authentication, however private methods require a *Signature* to be sent in the header of the request.  These private REST methods  use HMAC SHA256 signatures. The HMAC SHA256 signature is a keyed HMAC SHA256 operation using a clients API Secret as the key and totalParams as the value for the HMAC operation.
+The public market data methods do not require authentication, however private methods require a *Signature* to be sent in the header of the request.  These private REST methods  use HMAC SHA256 signatures. 
 
-totalParams is defined as the query string concatenated with the request body. See details below.
+The HMAC SHA256 signature is a keyed HMAC SHA256 operation using a clients API Secret as the key and a predifined message string as the value for the HMAC operation.  The message string is made up of two parts:-
+* a query string made up of the following formula:-
+
+Formula Component | Type | Example | 
+-------------------------- | -----|--------- |
+Timestamp | YYYY-MM-DDThh:mm:ss | 2020-04-30T15:20:30 |
+Nonce | INTEGER | 123 |
+Verb | STRING | 'GET' |
+URL | STRING | 'api-test-v2.coinflex-cn.com' |
+Path | STRING | '/v2/positions |
+
+The final constructed query string should look like:-
+
+  `2020-04-30T15:20:30\n
+  123\n
+  GET\n
+  api-test-v2.coinflex-cn.com\n
+  /v2/positions\n `
+
+Note the newline characters after each component in the query string above.
+
+* the REST request body, for example:- 
+  * {instrumentId": "BTC"}
+
+The final message string which needs to be signed is the concatenation of both the query string and the request body.
 
 
 > **Request format**
