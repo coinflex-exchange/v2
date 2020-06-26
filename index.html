@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>API Reference</title>
 
-    <style>
+    <style media="screen">
       .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
 .highlight .gh {
@@ -196,10 +196,97 @@
   color: #f92672;
 }
     </style>
-    <link href="stylesheets/screen-40ee3d1b.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print-c427a123.css" rel="stylesheet" media="print" />
-      <script src="javascripts/all-c5541673.js"></script>
+    <style media="print">
+      * {
+        -webkit-transition:none!important;
+        transition:none!important;
+      }
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #586e75;
+}
+.highlight .err {
+  color: #002b36;
+  background-color: #dc322f;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: #657b83;
+}
+.highlight .cp {
+  color: #b58900;
+}
+.highlight .nt {
+  color: #b58900;
+}
+.highlight .o, .highlight .ow {
+  color: #93a1a1;
+}
+.highlight .p, .highlight .pi {
+  color: #93a1a1;
+}
+.highlight .gi {
+  color: #859900;
+}
+.highlight .gd {
+  color: #dc322f;
+}
+.highlight .gh {
+  color: #268bd2;
+  background-color: #002b36;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #6c71c4;
+}
+.highlight .kc {
+  color: #cb4b16;
+}
+.highlight .kt {
+  color: #cb4b16;
+}
+.highlight .kd {
+  color: #cb4b16;
+}
+.highlight .s, .highlight .sa, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #859900;
+}
+.highlight .sr {
+  color: #2aa198;
+}
+.highlight .si {
+  color: #d33682;
+}
+.highlight .se {
+  color: #d33682;
+}
+.highlight .nn {
+  color: #b58900;
+}
+.highlight .nc {
+  color: #b58900;
+}
+.highlight .no {
+  color: #b58900;
+}
+.highlight .na {
+  color: #268bd2;
+}
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: #859900;
+}
+.highlight .ss {
+  color: #859900;
+}
+    </style>
+    <link href="stylesheets/screen-3cf9cb24.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print-953e3353.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all-e9bde216.js"></script>
     <link href="images/favicon-92b8c2e4.ico" rel="icon" type="image/ico" />
+
+    <script>
+      $(function() { setupCodeCopy(); });
+    </script>
   </head>
 
   <body class="index" data-languages="[&quot;json&quot;,&quot;c++&quot;,&quot;javascript&quot;,&quot;python&quot;]">
@@ -503,10 +590,10 @@ subsequent incremental data are:
 
 <span class="n">api_key</span> <span class="o">=</span> <span class="s">'z65AfjYtlevH0WwUE66LoYzq0bJ7znDARIXnYo40Ru4='</span>
 <span class="n">api_secret</span> <span class="o">=</span> <span class="s">'+UoQCeItEPYI2hQxYlhct+y+5x9jxHJ8lp4iRAgpQc0='</span>
-<span class="n">timestamp</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span>
-<span class="n">string1</span> <span class="o">=</span> <span class="p">(</span><span class="n">timestamp</span><span class="o">+</span><span class="s">'GET/auth/self/verify'</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
-<span class="n">string2</span> <span class="o">=</span> <span class="n">api_secret</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
-<span class="n">signature</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">,</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+<span class="n">timestamp</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span>
+<span class="n">string1</span> <span class="o">=</span> <span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+<span class="n">string2</span> <span class="o">=</span> <span class="p">(</span><span class="n">timestamp</span><span class="o">+</span><span class="s">'GET/auth/self/verify'</span><span class="p">).</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+<span class="n">signature</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">,</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
 
 <span class="n">msg_auth</span> <span class="o">=</span> \
 <span class="p">{</span>
@@ -515,18 +602,18 @@ subsequent incremental data are:
   <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
           <span class="s">"apiKey"</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
           <span class="s">"timestamp"</span><span class="p">:</span> <span class="n">timestamp</span><span class="p">,</span>
-          <span class="s">"signature"</span><span class="p">:</span> <span class="n">signature</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+          <span class="s">"signature"</span><span class="p">:</span> <span class="n">signature</span>
           <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="k">async</span> <span class="k">def</span> <span class="nf">subscribe</span><span class="p">():</span>
-    <span class="k">async</span> <span class="k">with</span> <span class="n">websockets</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">'wss://api-test-v2.coinflex-cn.com/v2/websocket'</span><span class="p">)</span> <span class="k">as</span> <span class="n">ws</span><span class="p">:</span>
-        <span class="k">await</span> <span class="n">ws</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg_auth</span><span class="p">))</span>
-        <span class="k">while</span> <span class="n">ws</span><span class="o">.</span><span class="nb">open</span><span class="p">:</span>
-            <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="s">'wss://api-test-v2.coinflex-cn.com/v2/websocket'</span><span class="p">)</span> <span class="k">as</span> <span class="n">ws</span><span class="p">:</span>
+        <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg_auth</span><span class="p">))</span>
+        <span class="k">while</span> <span class="n">ws</span><span class="p">.</span><span class="nb">open</span><span class="p">:</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
             <span class="k">print</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
 
-<span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">subscribe</span><span class="p">())</span>
+<span class="n">asyncio</span><span class="p">.</span><span class="n">get_event_loop</span><span class="p">().</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">subscribe</span><span class="p">())</span>
 </code></pre></div>
 <p>The Websocket API consists of public and private methods. The public methods do not require authentication.  The private methods requires an authenticated websocket connection.</p>
 
@@ -543,7 +630,7 @@ subsequent incremental data are:
 <p>The signature is calculated as:</p>
 
 <ul>
-<li><code>Base64(HEX(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret)))</code></li>
+<li><code>Base64(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret))</code></li>
 </ul>
 
 <p><strong>Parameters - Login Command</strong></p>
@@ -590,7 +677,7 @@ subsequent incremental data are:
 <td>&gt;signature</td>
 <td>STRING</td>
 <td>Yes</td>
-<td><code>Base64(HEX(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret)))</code></td>
+<td><code>Base64(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret))</code></td>
 </tr>
 </tbody></table>
 
@@ -2895,12 +2982,24 @@ subsequent incremental data are:
 </tr>
 </tbody></table>
 <h1 id='v2-0-rest-api'>V2.0 REST API</h1>
-<p>DEMO/STAGE site</p>
+<ul>
+<li><p>TEST site</p>
 
-<p><code>https://api-test-v2.coinflex-cn.com/</code></p>
+<ul>
+<li><code>https://api-test-v2.coinflex-cn.com/</code></li>
+</ul></li>
+<li><p>LIVE site</p>
+
+<ul>
+<li>&#39;COMING SOON&#39;</li>
+</ul></li>
+</ul>
+
+<p>For clients who do not wish to take advantage of CoinFLEX&#39;s native WebSocket API, CoinFLEX offers a RESTful API that implements much of the same functionality.</p>
 <h2 id='v2-0-rest-api-authentication'>Authentication</h2>
-<p>Obtain token for /protected/ endpoints.
-<code>POST</code> https://api-test-v2.coinflex-cn.com/v2/account/auth/trading/login</p>
+<p>The public market data methods do not require authentication, however private methods require a <em>Signature</em> to be sent in the header of the request.  These private REST methods  use HMAC SHA256 signatures. The HMAC SHA256 signature is a keyed HMAC SHA256 operation using a clients API Secret as the key and totalParams as the value for the HMAC operation.</p>
+
+<p>totalParams is defined as the query string concatenated with the request body. See details below.</p>
 
 <blockquote>
 <p><strong>Request format</strong></p>
