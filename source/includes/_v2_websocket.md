@@ -148,6 +148,24 @@ async def subscribe():
 
 asyncio.get_event_loop().run_until_complete(subscribe())
 ```
+```javascript
+var apiKey = "D+5Jaf27TbTIWNUVe7JFKhZ8PuC9RF3fR/H1jL/9AfU=";
+var secretKey = "GBPHDNij/0f6Sqh5SE5YBgc/rB+1h0B18/H3lQfSsIk=";
+const timestamp = '' + Date.now();
+
+var sign = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(timestamp +'GET/auth/self/verify', secretKey));
+var msg = '{"op":"login","data":{"apiKey":"' + apiKey + '", "timestamp": "'+ timestamp + '", "signature":"'+ sign + '"}}';
+
+var ws = new WebSocket('wss://api-test-v2.coinflex-cn.com/v2/websocket');
+
+ws.onmessage = function (e) {
+  console.log('websocket message from server : ', e.data);
+};
+
+ws.onopen = function () {
+    ws.send(msg);
+};
+```
 
 The Websocket API consists of public and private methods. The public methods do not require authentication.  The private methods requires an authenticated websocket connection.
 
@@ -194,6 +212,14 @@ data | ARRAY object | Yes |
    "timestamp":"1592491808"
    }
 ```
+```javascript
+  {
+   "event":"login",
+   "success":true,
+   "tag":"1",
+   "timestamp":"1592491808"
+   }
+```
 
 > **Failure response format:**
 
@@ -208,6 +234,16 @@ data | ARRAY object | Yes |
  }
 ```
 ```python
+  {
+   "event":"login",
+   "success":false,
+   "code":"<code>",
+   "message":"<errorMessage>",
+   "tag":"1",
+   "timestamp":"1592492032"
+ }
+```
+```javascript
   {
    "event":"login",
    "success":false,
