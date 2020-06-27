@@ -614,6 +614,22 @@ subsequent incremental data are:
             <span class="k">print</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
 
 <span class="n">asyncio</span><span class="p">.</span><span class="n">get_event_loop</span><span class="p">().</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">subscribe</span><span class="p">())</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">apiKey</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">D+5Jaf27TbTIWNUVe7JFKhZ8PuC9RF3fR/H1jL/9AfU=</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">secretKey</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">GBPHDNij/0f6Sqh5SE5YBgc/rB+1h0B18/H3lQfSsIk=</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">timestamp</span> <span class="o">=</span> <span class="dl">''</span> <span class="o">+</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">sign</span> <span class="o">=</span> <span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">enc</span><span class="p">.</span><span class="nx">Base64</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">HmacSHA256</span><span class="p">(</span><span class="nx">timestamp</span> <span class="o">+</span><span class="dl">'</span><span class="s1">GET/auth/self/verify</span><span class="dl">'</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">));</span>
+<span class="kd">var</span> <span class="nx">msg</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{"op":"login","data":{"apiKey":"</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">apiKey</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">", "timestamp": "</span><span class="dl">'</span><span class="o">+</span> <span class="nx">timestamp</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">", "signature":"</span><span class="dl">'</span><span class="o">+</span> <span class="nx">sign</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">"}}</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">ws</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="dl">'</span><span class="s1">wss://api-test-v2.coinflex-cn.com/v2/websocket</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">ws</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">websocket message from server : </span><span class="dl">'</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">ws</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">ws</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+<span class="p">};</span>
 </code></pre></div>
 <p>The Websocket API consists of public and private methods. The public methods do not require authentication.  The private methods requires an authenticated websocket connection.</p>
 
@@ -696,6 +712,12 @@ subsequent incremental data are:
    <span class="s">"tag"</span><span class="p">:</span><span class="s">"1"</span><span class="p">,</span>
    <span class="s">"timestamp"</span><span class="p">:</span><span class="s">"1592491808"</span>
    <span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+   <span class="dl">"</span><span class="s2">event</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">login</span><span class="dl">"</span><span class="p">,</span>
+   <span class="dl">"</span><span class="s2">success</span><span class="dl">"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+   <span class="dl">"</span><span class="s2">tag</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span>
+   <span class="dl">"</span><span class="s2">timestamp</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1592491808</span><span class="dl">"</span>
+   <span class="p">}</span>
 </code></pre></div>
 <blockquote>
 <p><strong>Failure response format:</strong></p>
@@ -715,6 +737,14 @@ subsequent incremental data are:
    <span class="s">"message"</span><span class="p">:</span><span class="s">"&lt;errorMessage&gt;"</span><span class="p">,</span>
    <span class="s">"tag"</span><span class="p">:</span><span class="s">"1"</span><span class="p">,</span>
    <span class="s">"timestamp"</span><span class="p">:</span><span class="s">"1592492032"</span>
+ <span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+   <span class="dl">"</span><span class="s2">event</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">login</span><span class="dl">"</span><span class="p">,</span>
+   <span class="dl">"</span><span class="s2">success</span><span class="dl">"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span>
+   <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">&lt;code&gt;</span><span class="dl">"</span><span class="p">,</span>
+   <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">&lt;errorMessage&gt;</span><span class="dl">"</span><span class="p">,</span>
+   <span class="dl">"</span><span class="s2">tag</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span>
+   <span class="dl">"</span><span class="s2">timestamp</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1592492032</span><span class="dl">"</span>
  <span class="p">}</span>
 </code></pre></div><h1 id='websocket-place-order'>Websocket Place Order</h1><h2 id='websocket-place-order-limit-order'>Limit Order</h2>
 <p>Requires authentication. Please subscribe user order channel to receive the order updates.</p>
@@ -2982,24 +3012,72 @@ subsequent incremental data are:
 </tr>
 </tbody></table>
 <h1 id='v2-0-rest-api'>V2.0 REST API</h1>
-<ul>
-<li><p>TEST site</p>
+<p><strong>TEST</strong> site
+* <code>https://api-test-v2.coinflex-cn.com/</code></p>
 
-<ul>
-<li><code>https://api-test-v2.coinflex-cn.com/</code></li>
-</ul></li>
-<li><p>LIVE site</p>
-
-<ul>
-<li>&#39;COMING SOON&#39;</li>
-</ul></li>
-</ul>
+<p><strong>LIVE</strong> site
+* &#39;COMING SOON&#39;</p>
 
 <p>For clients who do not wish to take advantage of CoinFLEX&#39;s native WebSocket API, CoinFLEX offers a RESTful API that implements much of the same functionality.</p>
 <h2 id='v2-0-rest-api-authentication'>Authentication</h2>
-<p>The public market data methods do not require authentication, however private methods require a <em>Signature</em> to be sent in the header of the request.  These private REST methods  use HMAC SHA256 signatures. The HMAC SHA256 signature is a keyed HMAC SHA256 operation using a clients API Secret as the key and totalParams as the value for the HMAC operation.</p>
+<p>The public market data methods do not require authentication, however private methods require a <em>Signature</em> to be sent in the header of the request.  These private REST methods  use HMAC SHA256 signatures. </p>
 
-<p>totalParams is defined as the query string concatenated with the request body. See details below.</p>
+<p>The HMAC SHA256 signature is a keyed HMAC SHA256 operation using a clients API Secret as the key and a predifined message string as the value for the HMAC operation.  The message string is made up of two parts:-
+* a query string made up of the following formula:-</p>
+
+<table><thead>
+<tr>
+<th>Formula Component</th>
+<th>Type</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Timestamp</td>
+<td>YYYY-MM-DDThh:mm:ss</td>
+<td>2020-04-30T15:20:30</td>
+</tr>
+<tr>
+<td>Nonce</td>
+<td>INTEGER</td>
+<td>123</td>
+</tr>
+<tr>
+<td>Verb</td>
+<td>STRING</td>
+<td>&#39;GET&#39;</td>
+</tr>
+<tr>
+<td>URL</td>
+<td>STRING</td>
+<td>&#39;api-test-v2.coinflex-cn.com&#39;</td>
+</tr>
+<tr>
+<td>Path</td>
+<td>STRING</td>
+<td>&#39;/v2/positions</td>
+</tr>
+</tbody></table>
+
+<p>The final constructed query string should look like:-</p>
+
+<p><code>2020-04-30T15:20:30\n
+  123\n
+  GET\n
+  api-test-v2.coinflex-cn.com\n
+  /v2/positions\n</code></p>
+
+<p>Note the newline characters after each component in the query string above.</p>
+
+<ul>
+<li>the REST request body, for example:- 
+
+<ul>
+<li>{instrumentId&quot;: &quot;BTC&quot;}</li>
+</ul></li>
+</ul>
+
+<p>The final message string which needs to be signed is the concatenation of both the query string and the request body.</p>
 
 <blockquote>
 <p><strong>Request format</strong></p>
