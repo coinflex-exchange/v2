@@ -23,7 +23,7 @@ The message string is made up of the following formula:-
 Component | Type | Required | Example | Description| 
 -------------------------- |----- |--------- |------- |------- | 
 Timestamp | STRING | Yes | 2020-04-30T15:20:30 |
-Nonce | INTEGER | Yes | 123 | User generated
+Nonce | STRING | Yes | 123 | User generated
 Verb | STRING | Yes| 'GET' | 
 URL | STRING | Yes | 'api-test-v2.coinflex-cn.com' |
 Path | STRING | Yes | '/v2/positions | Varies depending on the REST method being called
