@@ -1,9 +1,11 @@
 # V2.0 REST API
 
 **TEST** site
+
 * `https://api-test-v2.coinflex-cn.com/ `
 
 **LIVE** site
+
 * 'COMING SOON'
 
 For clients who do not wish to take advantage of CoinFLEX's native WebSocket API, CoinFLEX offers a RESTful API that implements much of the same functionality.
@@ -12,32 +14,35 @@ For clients who do not wish to take advantage of CoinFLEX's native WebSocket API
 
 The public market data methods do not require authentication, however private methods require a *Signature* to be sent in the header of the request.  These private REST methods  use HMAC SHA256 signatures. 
 
-The HMAC SHA256 signature is a keyed HMAC SHA256 operation using a clients API Secret as the key and a predifined message string as the value for the HMAC operation.  The message string is made up of two parts:-
-* a query string made up of the following formula:-
+The HMAC SHA256 signature is a keyed HMAC SHA256 operation using a clients API Secret as the key and a message string as the value for the HMAC operation.  
 
-Formula Component | Type | Example | 
--------------------------- | -----|--------- |
-Timestamp | YYYY-MM-DDThh:mm:ss | 2020-04-30T15:20:30 |
-Nonce | INTEGER | 123 |
-Verb | STRING | 'GET' |
-URL | STRING | 'api-test-v2.coinflex-cn.com' |
-Path | STRING | '/v2/positions |
+The message string is made up of the following formula:-
 
-The final constructed query string should look like:-
+`queryString = Timestamp + "\n" + Nonce + "\n" + Verb + "\n" + URL + "\n" + Path +"\n" + Body`
+
+Component | Type | Required | Example | Description| 
+-------------------------- |----- |--------- |------- |------- | 
+Timestamp | STRING | Yes | 2020-04-30T15:20:30 |
+Nonce | INTEGER | Yes | 123 | User generated
+Verb | STRING | Yes| 'GET' | 
+URL | STRING | Yes | 'api-test-v2.coinflex-cn.com' |
+Path | STRING | Yes | '/v2/positions | Varies depending on the REST method being called
+Body | STRING | No | instrumentID=BTC-USD-SWAP-LIN | Optional and dependent  on the REST method being called
+
+The constructed query string should look like:-
 
   `2020-04-30T15:20:30\n
   123\n
   GET\n
   api-test-v2.coinflex-cn.com\n
-  /v2/positions\n `
+  /v2/positions\n
+  instrumentID=BTC-USD-SWAP-LIN`
 
-Note the newline characters after each component in the query string above.
+Note the newline characters after each component in the message string. 
+If *Body* is ommitted it's treated as an empty string.
 
-* the REST request body, for example:- 
-  * {instrumentId": "BTC"}
-
-The final message string which needs to be signed is the concatenation of both the query string and the request body.
-
+You must use HmacSHA256 to get the hash with the two parameters: the generated text and your secret key.
+Then encode the hash value with Base-64. Mark down the output text as the signature.
 
 > **Request format**
 
