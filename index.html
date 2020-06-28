@@ -3012,72 +3012,95 @@ subsequent incremental data are:
 </tr>
 </tbody></table>
 <h1 id='v2-0-rest-api'>V2.0 REST API</h1>
-<p><strong>TEST</strong> site
-* <code>https://api-test-v2.coinflex-cn.com/</code></p>
+<p><strong>TEST</strong> site</p>
 
-<p><strong>LIVE</strong> site
-* &#39;COMING SOON&#39;</p>
+<ul>
+<li><code>https://api-test-v2.coinflex-cn.com/</code></li>
+</ul>
+
+<p><strong>LIVE</strong> site</p>
+
+<ul>
+<li>&#39;COMING SOON&#39;</li>
+</ul>
 
 <p>For clients who do not wish to take advantage of CoinFLEX&#39;s native WebSocket API, CoinFLEX offers a RESTful API that implements much of the same functionality.</p>
 <h2 id='v2-0-rest-api-authentication'>Authentication</h2>
 <p>The public market data methods do not require authentication, however private methods require a <em>Signature</em> to be sent in the header of the request.  These private REST methods  use HMAC SHA256 signatures. </p>
 
-<p>The HMAC SHA256 signature is a keyed HMAC SHA256 operation using a clients API Secret as the key and a predifined message string as the value for the HMAC operation.  The message string is made up of two parts:-
-* a query string made up of the following formula:-</p>
+<p>The HMAC SHA256 signature is a keyed HMAC SHA256 operation using a clients API Secret as the key and a message string as the value for the HMAC operation.  </p>
+
+<p>The message string is made up of the following formula:-</p>
+
+<p><code>queryString = Timestamp + &quot;\n&quot; + Nonce + &quot;\n&quot; + Verb + &quot;\n&quot; + URL + &quot;\n&quot; + Path +&quot;\n&quot; + Body</code></p>
 
 <table><thead>
 <tr>
-<th>Formula Component</th>
+<th>Component</th>
 <th>Type</th>
+<th>Required</th>
 <th>Example</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>Timestamp</td>
-<td>YYYY-MM-DDThh:mm:ss</td>
+<td>STRING</td>
+<td>Yes</td>
 <td>2020-04-30T15:20:30</td>
+<td></td>
 </tr>
 <tr>
 <td>Nonce</td>
-<td>INTEGER</td>
+<td>STRING</td>
+<td>Yes</td>
 <td>123</td>
+<td>User generated</td>
 </tr>
 <tr>
 <td>Verb</td>
 <td>STRING</td>
+<td>Yes</td>
 <td>&#39;GET&#39;</td>
+<td></td>
 </tr>
 <tr>
 <td>URL</td>
 <td>STRING</td>
+<td>Yes</td>
 <td>&#39;api-test-v2.coinflex-cn.com&#39;</td>
+<td></td>
 </tr>
 <tr>
 <td>Path</td>
 <td>STRING</td>
+<td>Yes</td>
 <td>&#39;/v2/positions</td>
+<td>Varies depending on the REST method being called</td>
+</tr>
+<tr>
+<td>Body</td>
+<td>STRING</td>
+<td>No</td>
+<td>instrumentID=BTC-USD-SWAP-LIN</td>
+<td>Optional and dependent  on the REST method being called</td>
 </tr>
 </tbody></table>
 
-<p>The final constructed query string should look like:-</p>
+<p>The constructed query string should look like:-</p>
 
 <p><code>2020-04-30T15:20:30\n
   123\n
   GET\n
   api-test-v2.coinflex-cn.com\n
-  /v2/positions\n</code></p>
+  /v2/positions\n
+  instrumentID=BTC-USD-SWAP-LIN</code></p>
 
-<p>Note the newline characters after each component in the query string above.</p>
+<p>Note the newline characters after each component in the message string. 
+If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 
-<ul>
-<li>the REST request body, for example:- 
-
-<ul>
-<li>{instrumentId&quot;: &quot;BTC&quot;}</li>
-</ul></li>
-</ul>
-
-<p>The final message string which needs to be signed is the concatenation of both the query string and the request body.</p>
+<p>You must use HmacSHA256 to get the hash with the two parameters: the generated text and your secret key.
+Then encode the hash value with Base-64. Mark down the output text as the signature.</p>
 
 <blockquote>
 <p><strong>Request format</strong></p>
