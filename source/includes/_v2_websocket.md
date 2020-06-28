@@ -1,42 +1,24 @@
 
 # Websocket API
 
-* TEST site
-	* `wss://api-test-v2.coinflex-cn.com/v2/websocket`
-
-* LIVE site
-	* 'COMING SOON'
-
-CoinFLEX's application programming interface (API) provides our clients programmatic access to control aspects of their accounts and to place orders on the CoinFLEX trading platform. The API is accessible via WebSocket connection to the URIs listed above. Commands, replies, and notifications all traverse the WebSocket in text frames with JSON-formatted payloads.
-
 > **Request format**
 
-Valid options of op can be:  login, subscribe, unsubscribe, placeorder, cancelorder etc.
-
 ```json
-
   {"op": "<value>", 
    "args": ["<value1>",
    "<value2>"]},
   {"op": "<value>,
    "data":{"<key1>":"<value1>",...,
    "<keyN>":"<valueN>"}}
-
 ```
-
- `args`: the value is the channel name, which can be one or more channels.
-
- `data`: the data is the JSON string of request object, which is for operations like placeorder.
 
 > **Success response format**
 
 ```json
- 
-  {"event": "login", "success": true}
+   {"event": "login", "success": true}
   {"event": "placeorder","success": true}
   {"event": "<value>","channel":"<value>"}
   {"table":"channel","data":"[{"<value1>","<value2>"}]"}
-
 ```
 
 ```
@@ -47,36 +29,25 @@ subsequent incremental data are:
 ```
 
 ```json
-
-
   {"table":"channel",
    "action":"<value>",
    "data":"[{"<value1>",
    "<value2>"}]"}
-
 ```
 
 > **Failure response format:**
 
 ```json
-
   {"event":"error",
    "message":"<errorMessage>",
    "code":"<code>",
    "success": false}
-
 ```
 
 > **Notification Response format:**
 
 ```json
-
-  {"table":"order","data":[{...}]}
-
-
-
-
-  {
+   {
     "table":"order",
     "data":[
         {   
@@ -96,6 +67,23 @@ subsequent incremental data are:
     ]
 }
 ```
+
+**TEST** site
+
+	* `wss://api-test-v2.coinflex-cn.com/v2/websocket`
+
+**LIVE** site
+
+	* 'COMING SOON'
+
+CoinFLEX's application programming interface (API) provides our clients programmatic access to control aspects of their accounts and to place orders on the CoinFLEX trading platform. The API is accessible via WebSocket connection to the URIs listed above. Commands, replies, and notifications all traverse the WebSocket in text frames with JSON-formatted payloads.
+
+Valid options of op can be:  login, subscribe, unsubscribe, placeorder, cancelorder etc.
+
+ `args`: the value is the channel name, which can be one or more channels.
+
+ `data`: the data is the JSON string of request object, which is for operations like placeorder.
+
 
 # Websocket Authentication
 
