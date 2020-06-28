@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>API Reference</title>
 
-    <style media="screen">
+    <style>
       .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
 .highlight .gh {
@@ -196,100 +196,13 @@
   color: #f92672;
 }
     </style>
-    <style media="print">
-      * {
-        -webkit-transition:none!important;
-        transition:none!important;
-      }
-      .highlight table td { padding: 5px; }
-.highlight table pre { margin: 0; }
-.highlight, .highlight .w {
-  color: #586e75;
-}
-.highlight .err {
-  color: #002b36;
-  background-color: #dc322f;
-}
-.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
-  color: #657b83;
-}
-.highlight .cp {
-  color: #b58900;
-}
-.highlight .nt {
-  color: #b58900;
-}
-.highlight .o, .highlight .ow {
-  color: #93a1a1;
-}
-.highlight .p, .highlight .pi {
-  color: #93a1a1;
-}
-.highlight .gi {
-  color: #859900;
-}
-.highlight .gd {
-  color: #dc322f;
-}
-.highlight .gh {
-  color: #268bd2;
-  background-color: #002b36;
-  font-weight: bold;
-}
-.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
-  color: #6c71c4;
-}
-.highlight .kc {
-  color: #cb4b16;
-}
-.highlight .kt {
-  color: #cb4b16;
-}
-.highlight .kd {
-  color: #cb4b16;
-}
-.highlight .s, .highlight .sa, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
-  color: #859900;
-}
-.highlight .sr {
-  color: #2aa198;
-}
-.highlight .si {
-  color: #d33682;
-}
-.highlight .se {
-  color: #d33682;
-}
-.highlight .nn {
-  color: #b58900;
-}
-.highlight .nc {
-  color: #b58900;
-}
-.highlight .no {
-  color: #b58900;
-}
-.highlight .na {
-  color: #268bd2;
-}
-.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
-  color: #859900;
-}
-.highlight .ss {
-  color: #859900;
-}
-    </style>
-    <link href="stylesheets/screen-3cf9cb24.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print-953e3353.css" rel="stylesheet" media="print" />
-      <script src="javascripts/all-e9bde216.js"></script>
+    <link href="stylesheets/screen-40ee3d1b.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print-c427a123.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all-c5541673.js"></script>
     <link href="images/favicon-92b8c2e4.ico" rel="icon" type="image/ico" />
-
-    <script>
-      $(function() { setupCodeCopy(); });
-    </script>
   </head>
 
-  <body class="index" data-languages="[&quot;json&quot;,&quot;c++&quot;,&quot;javascript&quot;,&quot;python&quot;]">
+  <body class="index" data-languages="[]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -298,12 +211,6 @@
     </a>
     <div class="toc-wrapper">
       <img src="images/logo-20378f63.svg" class="logo" alt="" />
-        <div class="lang-selector">
-              <a href="#" data-language-name="json">json</a>
-              <a href="#" data-language-name="c++">c++</a>
-              <a href="#" data-language-name="javascript">javascript</a>
-              <a href="#" data-language-name="python">python</a>
-        </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
         </div>
@@ -311,15 +218,23 @@
       <ul id="toc" class="toc-list-h1">
           <li>
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#introduction-connect-limit" class="toc-h2 toc-link" data-title="Connect limit">Connect limit</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#change-log" class="toc-h1 toc-link" data-title="Change Log">Change Log</a>
           </li>
           <li>
-            <a href="#websocket-api" class="toc-h1 toc-link" data-title="Websocket API">Websocket API</a>
+            <a href="#message-code" class="toc-h1 toc-link" data-title="Message Code">Message Code</a>
           </li>
           <li>
-            <a href="#websocket-authentication" class="toc-h1 toc-link" data-title="Websocket Authentication">Websocket Authentication</a>
+            <a href="#websocket-common-format" class="toc-h1 toc-link" data-title="Websocket Common Format">Websocket Common Format</a>
+          </li>
+          <li>
+            <a href="#websocket-login" class="toc-h1 toc-link" data-title="Websocket Login">Websocket Login</a>
           </li>
           <li>
             <a href="#websocket-place-order" class="toc-h1 toc-link" data-title="Websocket Place Order">Websocket Place Order</a>
@@ -344,6 +259,9 @@
           <li>
             <a href="#websocket-private-channel" class="toc-h1 toc-link" data-title="Websocket Private Channel">Websocket Private Channel</a>
               <ul class="toc-list-h2">
+                  <li>
+                    <a href="#websocket-private-channel-channel-list" class="toc-h2 toc-link" data-title="Channel List">Channel List</a>
+                  </li>
                   <li>
                     <a href="#websocket-private-channel-user-order-channel" class="toc-h2 toc-link" data-title="User Order Channel">User Order Channel</a>
                   </li>
@@ -373,7 +291,19 @@
             <a href="#websocket-public-channel" class="toc-h1 toc-link" data-title="Websocket Public Channel">Websocket Public Channel</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#websocket-public-channel-channel-list" class="toc-h2 toc-link" data-title="Channel List">Channel List</a>
+                  </li>
+                  <li>
                     <a href="#websocket-public-channel-public-depth" class="toc-h2 toc-link" data-title="Public - Depth">Public - Depth</a>
+                  </li>
+                  <li>
+                    <a href="#websocket-public-channel-public-ticker" class="toc-h2 toc-link" data-title="Public - Ticker">Public - Ticker</a>
+                  </li>
+                  <li>
+                    <a href="#websocket-public-channel-public-candlesticks" class="toc-h2 toc-link" data-title="Public - Candlesticks">Public - Candlesticks</a>
+                  </li>
+                  <li>
+                    <a href="#websocket-public-channel-public-trade" class="toc-h2 toc-link" data-title="Public - trade">Public - trade</a>
                   </li>
               </ul>
           </li>
@@ -399,13 +329,25 @@
                     <a href="#v2-0-rest-api-get-v2-markets-public-markets" class="toc-h2 toc-link" data-title="GET /v2/markets/public/markets">GET <code>/v2/markets/public/markets</code></a>
                   </li>
                   <li>
-                    <a href="#v2-0-rest-api-get-assets" class="toc-h2 toc-link" data-title="GET /assets/">GET <code>/assets/</code></a>
+                    <a href="#v2-0-rest-api-get-v2-markets-public-assets" class="toc-h2 toc-link" data-title="GET /v2/markets/public/assets">GET <code>/v2/markets/public/assets</code></a>
                   </li>
                   <li>
                     <a href="#v2-0-rest-api-get-v2-ohlc-protected-trades" class="toc-h2 toc-link" data-title="GET /v2/ohlc/protected/trades/">GET <code>/v2/ohlc/protected/trades/</code></a>
                   </li>
                   <li>
                     <a href="#v2-0-rest-api-get-v2-ohlc-protected-orders" class="toc-h2 toc-link" data-title="GET  /v2/ohlc/protected/orders/">GET  <code>/v2/ohlc/protected/orders/</code></a>
+                  </li>
+                  <li>
+                    <a href="#v2-0-rest-api-get-v2-ohlc-public-trades" class="toc-h2 toc-link" data-title="GET /v2/ohlc/public//trades">GET /v2/ohlc/public/<marketcode>/trades</marketcode></a>
+                  </li>
+                  <li>
+                    <a href="#v2-0-rest-api-post-v2-markets-protected-order" class="toc-h2 toc-link" data-title="POST /v2/markets/protected/order">POST /v2/markets/protected/order</a>
+                  </li>
+                  <li>
+                    <a href="#v2-0-rest-api-get-v2-wallet-address-instrumentid" class="toc-h2 toc-link" data-title="GET /v2/wallet/address/{instrumentId}">GET /v2/wallet/address/{instrumentId}</a>
+                  </li>
+                  <li>
+                    <a href="#v2-0-rest-api-get-v2-wallet-history-depositwithdrawals" class="toc-h2 toc-link" data-title="Get /v2/wallet/history/depositWithdrawals">Get /v2/wallet/history/depositWithdrawals</a>
                   </li>
                   <li>
                     <a href="#v2-0-rest-api-post-auction" class="toc-h2 toc-link" data-title="POST /auction/">POST <code>/auction/</code></a>
@@ -467,28 +409,72 @@
       </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h1 id='change-log'>Change Log</h1>
+</span></code></pre></div><h2 id='introduction-connect-limit'>Connect limit</h2>
+<p><b>Connection limit</b>：200 per second (TBD)</p>
+
+<p><b>Subscription limit</b>：200 per second (TBD)</p>
+
+<p>If there is no data returned after connection to WebSocket is established, the connection will break in 30 seconds. Users are advised to do the followings:</p>
+
+<ul>
+<li>Set a timer each time that a response message is received.</li>
+<li>If the timer is triggered, which means that no new message is received within N seconds, send the string <code>&#39;ping&#39;</code>.</li>
+<li>Expect a <code>‘pong’</code> as response message. If the response message is not received within 5 seconds, please signal an error alert or reconnect.</li>
+</ul>
+
+<p>The connection will be cut if there happens a network problem.</p>
+
+<p>The limit is against the same websocket session.</p>
+<h1 id='change-log'>Change Log</h1>
+<p>2020-06-26
+- Added websocket ticker, trade and candlesticks
+- Added message code</p>
+
+<p>2020-06-24
+- Updated the websocket and REST server addresses 
+- Added endpoints /v2/markets/position</p>
+
+<p>2020-06-17
+-Corrected timestamp and price</p>
+
 <p>2020-06-16
 - Added general guidance for getting a login/password to create tokens
 - Updated some addresses for REST API</p>
 
 <p>2020-06-15
 - First version of beta API endpoints - Websocket and REST</p>
-<h1 id='websocket-api'>Websocket API</h1>
-<ul>
-<li><p>TEST site</p>
+<h1 id='message-code'>Message Code</h1>
+<p>20000=Signature is invalid
+20001=Operation failed, please contact system administrator
+20002=Internal Server Error
+20003=Unrecognized operation
+20004=You are not authorized to trade
+20005=Already logged in
+20006=Quantity must be greater than zero
+20007=You are accessing server too rapidly
+20008=clientOrderId must be greater than zero if provided
+20009=JSON data format is invalid
+20010=Either clientOrderId or orderId is required
+20011=marketCode is required
+20012=side is required
+20013=orderType is required
+20014=clientOrderId is not long type
+20015=marketCode is invalid
+20016=side is invalid
+20017=orderType is invalid
+20018=timeInForce is invalid
+20019=orderId is invalid
+20020=stopPrice or limitPrice is invalid
+20021=price is invalid
+20022=price is required for LIMIT order
+20023=timestamp is required
+20024=timestamp exceeds the threshold
+20025=API key is invalid
+20026=Token is invalid or expired</p>
+<h1 id='websocket-common-format'>Websocket Common Format</h1>
+<p>DEMO/STAGE site</p>
 
-<ul>
-<li><code>wss://api-test-v2.coinflex-cn.com/v2/websocket</code></li>
-</ul></li>
-<li><p>LIVE site</p>
-
-<ul>
-<li>&#39;COMING SOON&#39;</li>
-</ul></li>
-</ul>
-
-<p>CoinFLEX&#39;s application programming interface (API) provides our clients programmatic access to control aspects of their accounts and to place orders on the CoinFLEX trading platform. The API is accessible via WebSocket connection to the URIs listed above. Commands, replies, and notifications all traverse the WebSocket in text frames with JSON-formatted payloads.</p>
+<p><code>wss:http://api-test-v2.coinflex-cn.com/v2/websocket</code></p>
 
 <blockquote>
 <p><strong>Request format</strong></p>
@@ -567,135 +553,29 @@ subsequent incremental data are:
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h1 id='websocket-authentication'>Websocket Authentication</h1>
+
+</span></code></pre></div><h1 id='websocket-login'>Websocket Login</h1>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"op"</span><span class="p">:</span><span class="s2">"login"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"tag"</span><span class="p">:</span><span class="err">&lt;integer&gt;</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:{</span><span class="w">
-          </span><span class="nl">"apiKey"</span><span class="p">:</span><span class="err">&lt;string&gt;</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="err">&lt;string&gt;</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"signature"</span><span class="p">:</span><span class="err">&lt;string&gt;</span><span class="w">
-          </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">websockets</span>
-<span class="kn">import</span> <span class="nn">asyncio</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">hmac</span>
-<span class="kn">import</span> <span class="nn">base64</span>
-<span class="kn">import</span> <span class="nn">hashlib</span>
-<span class="kn">import</span> <span class="nn">json</span>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+  </span><span class="p">{</span><span class="w">
+   </span><span class="nl">"op"</span><span class="p">:</span><span class="s2">"login"</span><span class="p">,</span><span class="w"> 
+   </span><span class="nl">"data"</span><span class="p">:{</span><span class="nl">"xCfToken"</span><span class="p">:</span><span class="s2">"&lt;token generated by REST LOGIN API&gt;"</span><span class="w"> </span><span class="p">},</span><span class="w">
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 
-<span class="n">api_key</span> <span class="o">=</span> <span class="s">'z65AfjYtlevH0WwUE66LoYzq0bJ7znDARIXnYo40Ru4='</span>
-<span class="n">api_secret</span> <span class="o">=</span> <span class="s">'+UoQCeItEPYI2hQxYlhct+y+5x9jxHJ8lp4iRAgpQc0='</span>
-<span class="n">timestamp</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span>
-<span class="n">string1</span> <span class="o">=</span> <span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
-<span class="n">string2</span> <span class="o">=</span> <span class="p">(</span><span class="n">timestamp</span><span class="o">+</span><span class="s">'GET/auth/self/verify'</span><span class="p">).</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
-<span class="n">signature</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">,</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
-
-<span class="n">msg_auth</span> <span class="o">=</span> \
-<span class="p">{</span>
-  <span class="s">"op"</span><span class="p">:</span> <span class="s">"login"</span><span class="p">,</span>
-  <span class="s">"tag"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
-          <span class="s">"apiKey"</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
-          <span class="s">"timestamp"</span><span class="p">:</span> <span class="n">timestamp</span><span class="p">,</span>
-          <span class="s">"signature"</span><span class="p">:</span> <span class="n">signature</span>
-          <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">async</span> <span class="k">def</span> <span class="nf">subscribe</span><span class="p">():</span>
-    <span class="k">async</span> <span class="k">with</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="s">'wss://api-test-v2.coinflex-cn.com/v2/websocket'</span><span class="p">)</span> <span class="k">as</span> <span class="n">ws</span><span class="p">:</span>
-        <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg_auth</span><span class="p">))</span>
-        <span class="k">while</span> <span class="n">ws</span><span class="p">.</span><span class="nb">open</span><span class="p">:</span>
-            <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
-
-<span class="n">asyncio</span><span class="p">.</span><span class="n">get_event_loop</span><span class="p">().</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">subscribe</span><span class="p">())</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">apiKey</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">D+5Jaf27TbTIWNUVe7JFKhZ8PuC9RF3fR/H1jL/9AfU=</span><span class="dl">"</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">secretKey</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">GBPHDNij/0f6Sqh5SE5YBgc/rB+1h0B18/H3lQfSsIk=</span><span class="dl">"</span><span class="p">;</span>
-<span class="kd">const</span> <span class="nx">timestamp</span> <span class="o">=</span> <span class="dl">''</span> <span class="o">+</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
-
-<span class="kd">var</span> <span class="nx">sign</span> <span class="o">=</span> <span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">enc</span><span class="p">.</span><span class="nx">Base64</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">HmacSHA256</span><span class="p">(</span><span class="nx">timestamp</span> <span class="o">+</span><span class="dl">'</span><span class="s1">GET/auth/self/verify</span><span class="dl">'</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">));</span>
-<span class="kd">var</span> <span class="nx">msg</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{"op":"login","data":{"apiKey":"</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">apiKey</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">", "timestamp": "</span><span class="dl">'</span><span class="o">+</span> <span class="nx">timestamp</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">", "signature":"</span><span class="dl">'</span><span class="o">+</span> <span class="nx">sign</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">"}}</span><span class="dl">'</span><span class="p">;</span>
-
-<span class="kd">var</span> <span class="nx">ws</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="dl">'</span><span class="s1">wss://api-test-v2.coinflex-cn.com/v2/websocket</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="nx">ws</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">websocket message from server : </span><span class="dl">'</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
-<span class="p">};</span>
-
-<span class="nx">ws</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">ws</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
-<span class="p">};</span>
-</code></pre></div>
-<p>The Websocket API consists of public and private methods. The public methods do not require authentication.  The private methods requires an authenticated websocket connection.</p>
-
-<p>To autenticate a websocket connection a &quot;login&quot; message must be sent containing the clients signature.</p>
-
-<p>To construct the signature a clients API-Secret key is required.  API keys (public and corresponding secret key) can be generated via the GUI within the clients account.  </p>
-
-<p>By default, API Keys are read-only and can only read basic account information, such as positions, orders, and trades. They cannot be used to trade such as placing, modifying or cancelling orders.</p>
-
-<p>If you wish to execute orders with your API Key, clients must select the <strong>Can Trade</strong> permission upon API key creation. </p>
-
-<p>API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.</p>
-
-<p>The signature is calculated as:</p>
-
+</span></code></pre></div>
 <ul>
-<li><code>Base64(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret))</code></li>
+<li><p><code>apiKey</code>: the api key in subaccount information</p></li>
+<li><p><code>timestamp</code>: UTC timestamp</p></li>
+<li><p><code>sign</code>: TBD</p></li>
+<li><p>Each websocket must be login first. When using x-cf-token to login, the following rules apply: If the login is main account, then the main account id is used for trading activities. If the login is sub-account, then the default sub-account is used for trading activities. When using apiKey to login, the accountId bind to the apiKey is used for trading activites.</p></li>
+<li><p><strong>Example of timestamp</strong>:const timestamp = &#39;&#39; + Date.now() </p></li>
+<li><p><strong>Example of sign</strong>: sign=CryptoJS.enc.Base64.Stringify(CryptoJS.HmacSHA256(timestamp +&#39;GET&#39;+ &#39;/auth/self/verify&#39;, api-secret))<p></p>
+<strong>method</strong> is preset as&#39;GET&#39;<p></p>
+<strong>requestPath</strong> is preset as &#39;/auth/self/verify&#39;</p></li>
 </ul>
-
-<p><strong>Parameters - Login Command</strong></p>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>op</td>
-<td>STRING</td>
-<td>Yes</td>
-<td><strong>&#39;login&#39;</strong></td>
-</tr>
-<tr>
-<td>tag</td>
-<td>INTEGER</td>
-<td>No</td>
-<td>If given, it will be echoed in the reply.</td>
-</tr>
-<tr>
-<td>data</td>
-<td>ARRAY object</td>
-<td>Yes</td>
-<td></td>
-</tr>
-<tr>
-<td>&gt;apiKey</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>Clients public API key, visible in the GUI when created.</td>
-</tr>
-<tr>
-<td>&gt;timestamp</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>Current millisecond timestamp</td>
-</tr>
-<tr>
-<td>&gt;signature</td>
-<td>STRING</td>
-<td>Yes</td>
-<td><code>Base64(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret))</code></td>
-</tr>
-</tbody></table>
 
 <blockquote>
 <p><strong>Success response format</strong></p>
@@ -706,19 +586,7 @@ subsequent incremental data are:
    </span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1592491808"</span><span class="w">
    </span><span class="p">}</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code>  <span class="p">{</span>
-   <span class="s">"event"</span><span class="p">:</span><span class="s">"login"</span><span class="p">,</span>
-   <span class="s">"success"</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
-   <span class="s">"tag"</span><span class="p">:</span><span class="s">"1"</span><span class="p">,</span>
-   <span class="s">"timestamp"</span><span class="p">:</span><span class="s">"1592491808"</span>
-   <span class="p">}</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
-   <span class="dl">"</span><span class="s2">event</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">login</span><span class="dl">"</span><span class="p">,</span>
-   <span class="dl">"</span><span class="s2">success</span><span class="dl">"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
-   <span class="dl">"</span><span class="s2">tag</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span>
-   <span class="dl">"</span><span class="s2">timestamp</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1592491808</span><span class="dl">"</span>
-   <span class="p">}</span>
-</code></pre></div>
+</span></code></pre></div>
 <blockquote>
 <p><strong>Failure response format:</strong></p>
 </blockquote>
@@ -730,23 +598,7 @@ subsequent incremental data are:
    </span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1592492032"</span><span class="w">
  </span><span class="p">}</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code>  <span class="p">{</span>
-   <span class="s">"event"</span><span class="p">:</span><span class="s">"login"</span><span class="p">,</span>
-   <span class="s">"success"</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
-   <span class="s">"code"</span><span class="p">:</span><span class="s">"&lt;code&gt;"</span><span class="p">,</span>
-   <span class="s">"message"</span><span class="p">:</span><span class="s">"&lt;errorMessage&gt;"</span><span class="p">,</span>
-   <span class="s">"tag"</span><span class="p">:</span><span class="s">"1"</span><span class="p">,</span>
-   <span class="s">"timestamp"</span><span class="p">:</span><span class="s">"1592492032"</span>
- <span class="p">}</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
-   <span class="dl">"</span><span class="s2">event</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">login</span><span class="dl">"</span><span class="p">,</span>
-   <span class="dl">"</span><span class="s2">success</span><span class="dl">"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span>
-   <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">&lt;code&gt;</span><span class="dl">"</span><span class="p">,</span>
-   <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">&lt;errorMessage&gt;</span><span class="dl">"</span><span class="p">,</span>
-   <span class="dl">"</span><span class="s2">tag</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span>
-   <span class="dl">"</span><span class="s2">timestamp</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1592492032</span><span class="dl">"</span>
- <span class="p">}</span>
-</code></pre></div><h1 id='websocket-place-order'>Websocket Place Order</h1><h2 id='websocket-place-order-limit-order'>Limit Order</h2>
+</span></code></pre></div><h1 id='websocket-place-order'>Websocket Place Order</h1><h2 id='websocket-place-order-limit-order'>Limit Order</h2>
 <p>Requires authentication. Please subscribe user order channel to receive the order updates.</p>
 
 <blockquote>
@@ -1100,7 +952,7 @@ subsequent incremental data are:
 <td>Quantity (denominated by <code>contractValCurrency</code>)</td>
 </tr>
 </tbody></table>
-<h1 id='websocket-private-channel'>Websocket Private Channel</h1><h2 id='websocket-private-channel-user-order-channel'>User Order Channel</h2>
+<h1 id='websocket-private-channel'>Websocket Private Channel</h1><h2 id='websocket-private-channel-channel-list'>Channel List</h2><h2 id='websocket-private-channel-user-order-channel'>User Order Channel</h2>
 <p>Requires authentication. Get the user&#39;s order information.</p>
 
 <blockquote>
@@ -2940,7 +2792,11 @@ subsequent incremental data are:
 <td><code>STOP</code></td>
 </tr>
 </tbody></table>
-<h1 id='websocket-public-channel'>Websocket Public Channel</h1><h2 id='websocket-public-channel-public-depth'>Public - Depth</h2>
+<h1 id='websocket-public-channel'>Websocket Public Channel</h1><h2 id='websocket-public-channel-channel-list'>Channel List</h2>
+<p><strong>Channels that don&#39;t require login</strong></p>
+
+<p>futures/depth </p>
+<h2 id='websocket-public-channel-public-depth'>Public - Depth</h2>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
@@ -3011,96 +2867,384 @@ subsequent incremental data are:
 <td>UNIX timestamp</td>
 </tr>
 </tbody></table>
-<h1 id='v2-0-rest-api'>V2.0 REST API</h1>
-<p><strong>TEST</strong> site</p>
+<h2 id='websocket-public-channel-public-ticker'>Public - Ticker</h2>
+<p>To capture general information about the contract. Pushed every 100ms.</p>
 
-<ul>
-<li><code>https://api-test-v2.coinflex-cn.com/</code></li>
-</ul>
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+   </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"ticker:BTC-USD-200925-LIN"</span><span class="p">],</span><span class="w">
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w"> 
 
-<p><strong>LIVE</strong> site</p>
+</span></code></pre></div>
+<blockquote>
+<p><strong>ACK/response</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">  
+   </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"channel"</span><span class="p">:[</span><span class="s2">"ticker:BTC-USD-200925-LIN"</span><span class="p">],</span><span class="w">
+   </span><span class="nl">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1234"</span><span class="w">
+ </span><span class="p">}</span><span class="w">
 
-<ul>
-<li>&#39;COMING SOON&#39;</li>
-</ul>
+</span></code></pre></div>
+<blockquote>
+<p><strong>Updates</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"table"</span><span class="p">:</span><span class="s2">"ticker"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"last"</span><span class="p">:</span><span class="s2">"43.259"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"markPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11012.80409769"</span><span class="p">,</span><span class="w">      </span><span class="err">//</span><span class="w"> </span><span class="err">mark</span><span class="w"> </span><span class="err">price</span><span class="w">     
+            </span><span class="nl">"open24h"</span><span class="p">:</span><span class="s2">"49.375"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"volume24h"</span><span class="p">:</span><span class="s2">"11295421"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"currencyVolume24h"</span><span class="p">:</span><span class="s2">"1225512"</span><span class="p">,</span><span class="w">                       
+            </span><span class="nl">"high24h"</span><span class="p">:</span><span class="s2">"49.488"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"low24h"</span><span class="p">:</span><span class="s2">"41.649"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"openInterest"</span><span class="p">:</span><span class="s2">"1726003"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lastQty"</span><span class="p">:</span><span class="s2">"1"</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"123443563454"</span><span class="p">,</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<p>For clients who do not wish to take advantage of CoinFLEX&#39;s native WebSocket API, CoinFLEX offers a RESTful API that implements much of the same functionality.</p>
-<h2 id='v2-0-rest-api-authentication'>Authentication</h2>
-<p>The public market data methods do not require authentication, however private methods require a <em>Signature</em> to be sent in the header of the request.  These private REST methods  use HMAC SHA256 signatures. </p>
+</span></code></pre></div>
+<p><strong>Description</strong></p>
 
-<p>The HMAC SHA256 signature is a keyed HMAC SHA256 operation using a clients API Secret as the key and a message string as the value for the HMAC operation.  </p>
-
-<p>The message string is made up of the following formula:-</p>
-
-<p><code>queryString = Timestamp + &quot;\n&quot; + Nonce + &quot;\n&quot; + Verb + &quot;\n&quot; + URL + &quot;\n&quot; + Path +&quot;\n&quot; + Body</code></p>
+<p>openInterest is  probably the hardest one. We will need to look at all open positions across all accounts for the contract.
+Another way is looking at the tick database and keeping a running total of open interest. Both will take calculations.”</p>
 
 <table><thead>
 <tr>
-<th>Component</th>
-<th>Type</th>
-<th>Required</th>
-<th>Example</th>
+<th>Parameters</th>
+<th>Parameters Types</th>
+<th></th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>Timestamp</td>
+<td>marketCode</td>
 <td>STRING</td>
-<td>Yes</td>
-<td>2020-04-30T15:20:30</td>
 <td></td>
+<td>Contract ID，e.g .<code>BTC-USD-200925-LIN</code>,<code>BTC-USD-SWAP-LIN</code></td>
 </tr>
 <tr>
-<td>Nonce</td>
+<td>last</td>
 <td>STRING</td>
-<td>Yes</td>
-<td>123</td>
-<td>User generated</td>
+<td>tick database</td>
+<td>Last traded price</td>
 </tr>
 <tr>
-<td>Verb</td>
+<td>markPrice</td>
 <td>STRING</td>
-<td>Yes</td>
-<td>&#39;GET&#39;</td>
 <td></td>
+<td>Mark Price used for margin currency calculations and risk.</td>
 </tr>
 <tr>
-<td>URL</td>
+<td>open24h</td>
 <td>STRING</td>
-<td>Yes</td>
-<td>&#39;api-test-v2.coinflex-cn.com&#39;</td>
+<td>tick</td>
+<td>24 hour rolling opening price</td>
+</tr>
+<tr>
+<td>volume24h</td>
+<td>STRING</td>
+<td>tick</td>
+<td>24 hour rolling trading volume in counter currency (sum of quantity x price)</td>
+</tr>
+<tr>
+<td>currencyVolume24h</td>
+<td>STRING</td>
+<td>tick</td>
+<td>24 hour rolling trading volume in base currency (sum of quantity)</td>
+</tr>
+<tr>
+<td>high24h</td>
+<td>STRING</td>
+<td>tick</td>
+<td>24 hour highest price</td>
+</tr>
+<tr>
+<td>low24h</td>
+<td>STRING</td>
+<td>tick</td>
+<td>24 hour lowest price</td>
+</tr>
+<tr>
+<td>openInterest</td>
+<td>STRING</td>
+<td>in memory</td>
+<td>Open Interest (only for futures)</td>
+</tr>
+<tr>
+<td>lastQty</td>
+<td>STRING</td>
+<td>tick</td>
+<td>Last traded price amount</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
 <td></td>
-</tr>
-<tr>
-<td>Path</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>&#39;/v2/positions</td>
-<td>Varies depending on the REST method being called</td>
-</tr>
-<tr>
-<td>Body</td>
-<td>STRING</td>
-<td>No</td>
-<td>instrumentID=BTC-USD-SWAP-LIN</td>
-<td>Optional and dependent  on the REST method being called</td>
+<td>timestamp</td>
 </tr>
 </tbody></table>
+<h2 id='websocket-public-channel-public-candlesticks'>Public - Candlesticks</h2>
+<p>OHLC data, Pushed every 500ms</p>
 
-<p>The constructed query string should look like:-</p>
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"candles60s:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="w">
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w"> 
 
-<p><code>2020-04-30T15:20:30\n
-  123\n
-  GET\n
-  api-test-v2.coinflex-cn.com\n
-  /v2/positions\n
-  instrumentID=BTC-USD-SWAP-LIN</code></p>
+</span><span class="p">{</span><span class="w">  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
+   </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"candles180s:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="w">
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w"> 
 
-<p>Note the newline characters after each component in the message string. 
-If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
+</span><span class="p">{</span><span class="w">  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"candles300s:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="w">
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w"> 
 
-<p>You must use HmacSHA256 to get the hash with the two parameters: the generated text and your secret key.
-Then encode the hash value with Base-64. Mark down the output text as the signature.</p>
+</span><span class="p">{</span><span class="w">  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"candles900s:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="w">
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w"> 
+
+</span><span class="p">{</span><span class="w">  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
+   </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"candles1800s:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="w">
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w"> 
+
+</span><span class="p">{</span><span class="w">  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"candles3600s:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="w"> 
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w">
+
+</span><span class="p">{</span><span class="w">  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"candles7200s:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="w">
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w">
+
+</span><span class="p">{</span><span class="w">  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
+   </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"candles14400s:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="w"> 
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w">
+
+</span><span class="p">{</span><span class="w">  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"candles21600s:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="w">
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w">
+
+</span><span class="p">{</span><span class="w">  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"candles43200s:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="w"> 
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w">
+
+</span><span class="p">{</span><span class="w">  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
+   </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"candles86400s:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="w"> 
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w">
+
+</span><span class="p">{</span><span class="w">  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
+   </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"candles86400s:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="w"> 
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w"> 
+
+</span></code></pre></div>
+<blockquote>
+<p><strong>ACK/response</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">  
+   </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"channel"</span><span class="p">:[</span><span class="s2">"candles60s:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="w">
+   </span><span class="nl">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1234"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p><strong>Update</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"table"</span><span class="p">:</span><span class="s2">"candle180s"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"candle"</span><span class="p">:[</span><span class="w">
+                </span><span class="s2">"2343452345634509293"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"9633.1"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"9693.9"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"9238.1"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"9630.2"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"45247"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"5.3"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p><strong>Description</strong></p>
+
+<p>BTC-USD-200925-LIN is instrumentId</p>
+
+<p>1min/3min/5min/15min/30min/1hour/2hour/4hou/6hour/12hour/1day/1week 
+bids and asks value example:</p>
+
+<ul>
+<li>timestamp</li>
+<li>open</li>
+<li>high</li>
+<li>low</li>
+<li>close</li>
+<li>volume</li>
+<li>currencyVolume</li>
+<li>marketCode</li>
+</ul>
+
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Parameters Types</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Start time: UNIX Timestamp</td>
+</tr>
+<tr>
+<td>open</td>
+<td>STRING</td>
+<td>Open price</td>
+</tr>
+<tr>
+<td>high</td>
+<td>STRING</td>
+<td>Highest price</td>
+</tr>
+<tr>
+<td>low</td>
+<td>STRING</td>
+<td>Lowest price</td>
+</tr>
+<tr>
+<td>close</td>
+<td>STRING</td>
+<td>Close price</td>
+</tr>
+<tr>
+<td>volume</td>
+<td>STRING</td>
+<td>Trading volume in counter currency (sum of quantity x price)</td>
+</tr>
+<tr>
+<td>currencyVolume</td>
+<td>STRING</td>
+<td>Trading volume in base currency (sum of quantity)</td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Contract ID e.g.<code>BTC-USD-SWAP-LIN</code>,<code>BTC-USD-200925</code></td>
+</tr>
+</tbody></table>
+<h2 id='websocket-public-channel-public-trade'>Public - trade</h2>
+<p>Trade data on a certain market book - pushed on event</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">  
+   </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"trade:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="w">
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p><strong>ACK</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">  
+   </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"channel"</span><span class="p">:[</span><span class="s2">"trade:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="w">
+   </span><span class="nl">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1234"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p><strong>Update</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"trade"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+        </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"tradeId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2778148208082945"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5556.91"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-190628"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2349038452354309"</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Parameters Types</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>tradeId</td>
+<td>STRING</td>
+<td>Transaction id</td>
+</tr>
+<tr>
+<td>price</td>
+<td>STRING</td>
+<td>Filled price</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING</td>
+<td>Filled size</td>
+</tr>
+<tr>
+<td>side</td>
+<td>STRING</td>
+<td>Filled side (buy/sell)</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Filled time</td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Contract ID e.g.<code>BTC-USD-SWAP-LIN</code>,<code>BTC-USD-200925-LIN</code></td>
+</tr>
+</tbody></table>
+<h1 id='v2-0-rest-api'>V2.0 REST API</h1>
+<p>DEMO/STAGE site</p>
+
+<p><code>https://api-test-v2.coinflex-cn.com/</code></p>
+<h2 id='v2-0-rest-api-authentication'>Authentication</h2>
+<p>Obtain token for /protected/ endpoints.
+<code>POST</code> https://api-test-v2.coinflex-cn.com/v2/account/auth/trading/login</p>
 
 <blockquote>
 <p><strong>Request format</strong></p>
@@ -3295,23 +3439,24 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
 <blockquote>
 <p><strong>RESPONSE</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">   </span><span class="p">{</span><span class="w">
-    </span><span class="err">“event”:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="err">“success”:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="err">“message”:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="err">“code”:</span><span class="w"> </span><span class="err">“</span><span class="mi">0000</span><span class="err">”</span><span class="p">,</span><span class="w">
-    </span><span class="err">“data”:</span><span class="w"> 
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"positionsById"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+    </span><span class="err">“data”:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="err">“instrumentId”:</span><span class="w"> </span><span class="err">“BTC-USD</span><span class="mi">-200626</span><span class="err">-LIN”</span><span class="p">,</span><span class="w">
-            </span><span class="err">“type”:</span><span class="w"> </span><span class="err">“FUTURE”</span><span class="p">,</span><span class="w">
-            </span><span class="err">“isInverse”:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-            </span><span class="err">“quantity”:</span><span class="w"> </span><span class="mf">2.000000000</span><span class="p">,</span><span class="w">
-            </span><span class="err">“lastUpdated”:</span><span class="w"> </span><span class="mi">1590768853991</span><span class="p">,</span><span class="w">
-            </span><span class="err">“contractValCurrency”:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="err">“entryPrice”:</span><span class="w"> </span><span class="mf">7800.000000000</span><span class="p">,</span><span class="w">
-            </span><span class="err">“positionPl”:</span><span class="w"> </span><span class="mf">0.0</span><span class="w">
-            </span><span class="err">“eqtLiquidationPrice”:</span><span class="w"> </span><span class="mf">1304.03</span><span class="w">
+            </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-200626-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FUTURE"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.999000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="mi">1592486212218</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7800.000000000"</span><span class="p">,</span><span class="w">      
+            </span><span class="nl">"positionPnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.000000000000000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"estLiquidationPx"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">                               
+            </span><span class="nl">"estLiqPrice"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">                  
         </span><span class="p">}</span><span class="w">
+
+    </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h2 id='v2-0-rest-api-get-v2-markets-public-markets'>GET <code>/v2/markets/public/markets</code></h2>
 <p>Get a list of all markets currently listed on coinflex</p>
@@ -3322,48 +3467,41 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
 <p><strong>RESPONSE</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"markets"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"marketId"</span><span class="p">:</span><span class="w"> </span><span class="mi">2001000000000</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2001000000000"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/USD Spot"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"referencePair"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/USD"</span><span class="w">
             </span><span class="nl">"base"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"counter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SPOT"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"tickSize"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"qtyIncrement"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.001</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"listingDate"</span><span class="p">:</span><span class="w"> </span><span class="mi">-2208988800000</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"tickSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"qtyIncrement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.001"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"listingDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-2208988800000"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"endDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="nl">"marginCurrency"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"upperPriceBound"</span><span class="p">:</span><span class="w"> </span><span class="mf">11000.00</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"lowerPriceBound"</span><span class="p">:</span><span class="w"> </span><span class="mf">9000.00</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"marketPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">10000.00</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"upperPriceBound"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11000.00"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lowerPriceBound"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9000.00"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10000.00"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"marketPriceLastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"marketPriceStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"markPrice"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="nl">"markPriceLastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='v2-0-rest-api-get-assets'>GET <code>/assets/</code></h2>
+</span></code></pre></div><h2 id='v2-0-rest-api-get-v2-markets-public-assets'>GET <code>/v2/markets/public/assets</code></h2>
 <p>Get a list of all assets available on CoinFLEX. These include coins and bookable contracts.</p>
-
-<p>Example Request: /v2/markets/public/assets</p>
 
 <blockquote>
 <p><strong>RESPONSE</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assets"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"123"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-200626-LIN"</span><span class="p">,</span><span class="w">
@@ -3388,7 +3526,6 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
             </span><span class="nl">"deliveryInstrument"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
 </span></code></pre></div><h2 id='v2-0-rest-api-get-v2-ohlc-protected-trades'>GET <code>/v2/ohlc/protected/trades/</code></h2>
 <p>Get all trades of current user.</p>
 
@@ -3398,27 +3535,32 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
 <p><strong>RESPONSE</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"trades"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"123"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"data"</span><span class="p">:[</span><span class="w"> 
     </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"tradeId"</span><span class="p">:</span><span class="w"> </span><span class="mi">23534545</span><span class="w">
-        </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1588218296439236</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"matchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23534545"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"matchTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1588218296439236"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="w">
-        </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">9171</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">-9171</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"taker"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.7513</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"matchPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9171"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9171"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"side"</span><span class="w"> </span><span class="p">:</span><span class="s2">"BUY"</span><span class="err">|”SELL“，</span><span class="w"> 
+        </span><span class="nl">"orderMatchType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TAKER"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.7513</span><span class="p">,</span><span class="w">
         </span><span class="nl">"feeInstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">322805624</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h2 id='v2-0-rest-api-get-v2-ohlc-protected-orders'>GET  <code>/v2/ohlc/protected/orders/</code></h2>
+</span></code></pre></div>
+<p>Parameters |Types | Mandatory| Description| 
+-------------------------- | -----|--------- |
+marketCode| STRING|YES |  |
+limit|INT|NO|the maximum limit number of the trades history return to the user. Default 500, max 1000|</p>
+<h2 id='v2-0-rest-api-get-v2-ohlc-protected-orders'>GET  <code>/v2/ohlc/protected/orders/</code></h2>
 <p>Get all open orders of current user.</p>
 
 <p>Login Required. Please pass x-cf-token in HTTP header.</p>
@@ -3427,22 +3569,199 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
 <p><strong>RESPONSE</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"orders"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="w"> </span><span class="p">:</span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
+       </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160039151345856176"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-200626-LIN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="err">|</span><span class="s2">"STOP"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.000000000"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.000000000"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.000000000"</span><span class="err">|</span><span class="kc">null</span><span class="w">    
+          </span><span class="nl">"stopPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.000000000"</span><span class="err">|</span><span class="kc">null</span><span class="p">,</span><span class="w">    
+          </span><span class="nl">"orderCreated"</span><span class="p">:</span><span class="w"> </span><span class="mi">1592479706538</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"lastModified"</span><span class="p">:</span><span class="w"> </span><span class="mi">1592479706538</span><span class="p">,</span><span class="w">      
+          </span><span class="nl">"lastTradeTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1592479706534</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div><h2 id='v2-0-rest-api-get-v2-ohlc-public-trades'>GET /v2/ohlc/public/<marketCode>/trades</h2>
+<p>Get the most recent 100 trades in the current listed market.</p>
+
+<p>HTTP Request</p>
+
+<p><code>GET /v2/ohlc/public/&lt;marketCode&gt;/trades</code></p>
+
+<p>Example Request</p>
+
+<p>GET /v2/ohlc/public/BTC-USD-SWAP-LIN/trades?after=245336122782&amp;limit=50</p>
+
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Parameters Types</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Listed market, e.g. <code>&#39;ETH-USD-PERP-LIN&#39;</code></td>
+</tr>
+<tr>
+<td>limit</td>
+<td>STRING</td>
+<td>Number of results in the request. The Maximum is <code>300</code>. The default is <code>100</code>.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p><strong>RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"publicTrades"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="w">
+    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"123"</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">    
+    </span><span class="p">{</span><span class="w">   
+        </span><span class="nl">"matchId"</span><span class="p">:</span><span class="s2">"197610300823248897"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"matchPrice"</span><span class="p">:</span><span class="s2">"9632.2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"side"</span><span class="p">:</span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"matchTimestamp"</span><span class="p">:</span><span class="s2">"15918690689849"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"matchId"</span><span class="p">:</span><span class="s2">"197608511860318209"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"matchPrice"</span><span class="p">:</span><span class="s2">"9633.3"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="s2">"56"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"side"</span><span class="p">:</span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"matchTimestamp"</span><span class="p">:</span><span class="s2">"1591869068840"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span></code></pre></div><h2 id='v2-0-rest-api-post-v2-markets-protected-order'>POST /v2/markets/protected/order</h2>
+<p>Place order via RESTful call. The x-cf-token is required to use /protected/order. When using /v2/order, the API signagure is required. It’s required to use websocket to receive the order status update events.</p>
+
+<blockquote>
+<p><strong>HTTP Request Example</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+   </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="s2">"1234456232"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-200626-LIN"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"side"</span><span class="p">:</span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"orderType"</span><span class="p">:</span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w"> 
+   </span><span class="nl">"quantity"</span><span class="p">:</span><span class="s2">"6"</span><span class="p">,</span><span class="w"> 
+   </span><span class="nl">"price"</span><span class="p">:</span><span class="s2">"7800"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+
+</span></code></pre></div>
+<blockquote>
+<p><strong>RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
     </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Request Submitted"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0000"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div><h2 id='v2-0-rest-api-get-v2-wallet-address-instrumentid'>GET /v2/wallet/address/{instrumentId}</h2>
+<p>Get address for a specific instrument.
+Login Required. Please pass x-cf-token in HTTP header.</p>
+
+<p><strong>Request</strong></p>
+
+<p>/v2/wallet/address/BTC</p>
+
+<blockquote>
+<p><strong>RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"address"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"123"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;long&gt;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;long&gt;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;String&gt;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;string&gt;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;BigDecimal&gt;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;BigDecimal&gt;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;long&gt;</span><span class="w">
+     </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"address"</span><span class="p">:</span><span class="s2">"abcd"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p><strong>Failure responds</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"address"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"instrumentId does not exist"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div><h2 id='v2-0-rest-api-get-v2-wallet-history-depositwithdrawals'>Get /v2/wallet/history/depositWithdrawals</h2>
+<p>Get deposit and withdrawals history
+Login Required. Please pass x-cf-token in HTTP header.</p>
+
+<blockquote>
+<p><strong>Responds</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"depositWithdrawalsHistory"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dataDeposit"</span><span class="p">:[</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="w">
+     </span><span class="nl">"confirmations"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"completedTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="err">|</span><span class="kc">null</span><span class="p">,</span><span class="w"> 
+     </span><span class="nl">"addressFrom"</span><span class="p">:</span><span class="s2">"abcd"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"addressTo"</span><span class="p">:</span><span class="s2">"abcd"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"feeInstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"depositId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"sentTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123455"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="err">|</span><span class="s2">"pending"</span><span class="err">|</span><span class="s2">"cancelled"</span><span class="err">|failed</span><span class="s2">", 
+     "</span><span class="err">statusTime</span><span class="s2">":"</span><span class="mi">123456</span><span class="s2">",
+     "</span><span class="err">txId</span><span class="s2">":"</span><span class="err">xyz</span><span class="s2">"
+    }
+    {...
+    }
+    ...
+  ],
+    "</span><span class="err">dataWithdrawals</span><span class="s2">":[
+   { 
+     "</span><span class="err">instrumentId</span><span class="s2">":"</span><span class="err">BTC</span><span class="s2">",
+     "</span><span class="err">fees</span><span class="s2">":"</span><span class="mf">0.1</span><span class="s2">",
+     "</span><span class="err">feeInstrumentId</span><span class="s2">":"</span><span class="err">BTC</span><span class="s2">",
+     "</span><span class="err">withdrawalsId</span><span class="s2">":"</span><span class="mi">123</span><span class="s2">",
+     "</span><span class="err">addressFrom</span><span class="s2">":"</span><span class="err">abcd</span><span class="s2">",
+     "</span><span class="err">addressTo</span><span class="s2">":"</span><span class="err">abcd</span><span class="s2">",
+     "</span><span class="err">quantity</span><span class="s2">":"</span><span class="mi">200</span><span class="s2">",
+     "</span><span class="err">status</span><span class="s2">": "</span><span class="err">failed</span><span class="s2">"|"</span><span class="err">pending</span><span class="s2">"| "</span><span class="err">published</span><span class="s2">"|"</span><span class="err">OnHold</span><span class="s2">", 
+     "</span><span class="err">statusTime</span><span class="s2">":"</span><span class="mi">123456</span><span class="s2">",
+     "</span><span class="err">txId</span><span class="s2">":"</span><span class="err">xyz</span><span class="s2">"
+    }
+    {...
+    }
+    ...
+  ]
+}
 
 </span></code></pre></div><h2 id='v2-0-rest-api-post-auction'>POST <code>/auction/</code></h2>
 <p>Delivered positions of current user for auction.</p>
@@ -3535,12 +3854,6 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
 </span></code></pre></div>
       </div>
       <div class="dark-box">
-          <div class="lang-selector">
-                <a href="#" data-language-name="json">json</a>
-                <a href="#" data-language-name="c++">c++</a>
-                <a href="#" data-language-name="javascript">javascript</a>
-                <a href="#" data-language-name="python">python</a>
-          </div>
       </div>
     </div>
   </body>
