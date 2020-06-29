@@ -5,11 +5,12 @@
 
 ```json
   {"op": "<value>", 
-   "args": ["<value1>",
-   "<value2>"]},
+   "args": ["<value1>","<value2>",.....]}
+
+OR
+   
   {"op": "<value>,
-   "data":{"<key1>":"<value1>",...,
-   "<keyN>":"<valueN>"}}
+   "data":{"<key1>":"<value1>",.....}}
 ```
 
 > **Success response format**
@@ -19,13 +20,6 @@
   {"event": "placeorder","success": true}
   {"event": "<value>","channel":"<value>"}
   {"table":"channel","data":"[{"<value1>","<value2>"}]"}
-```
-
-```
-In the spot/depth channel, the return formats for 
-distinguishing between the first full amount and the 
-subsequent incremental data are:
-
 ```
 
 ```json
@@ -70,15 +64,29 @@ subsequent incremental data are:
 
 **TEST** site
 
-	* `wss://api-test-v2.coinflex-cn.com/v2/websocket`
+* `wss://api-test-v2.coinflex-cn.com/v2/websocket`
 
 **LIVE** site
 
-	* 'COMING SOON'
+* 'COMING SOON'
 
 CoinFLEX's application programming interface (API) provides our clients programmatic access to control aspects of their accounts and to place orders on the CoinFLEX trading platform. The API is accessible via WebSocket connection to the URIs listed above. Commands, replies, and notifications all traverse the WebSocket in text frames with JSON-formatted payloads.
 
-Valid options of op can be:  login, subscribe, unsubscribe, placeorder, cancelorder etc.
+Websocket commands are sent in the following formats:
+
+* Subscription to push notifications
+`{"op": "<value>", "args": ["<value1>","<value2>",.....]}`
+
+* All other commands
+`{"op": "<command>", "data": {"<key1>":"<value1>",.....}}`
+
+Valid options of **op** can be:
+* login
+* subscribe
+* unsubscribe
+* placeorder
+* cancelorder
+* modifyorder
 
  `args`: the value is the channel name, which can be one or more channels.
 
