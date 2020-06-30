@@ -12,24 +12,32 @@ For clients who do not wish to take advantage of CoinFLEX's native WebSocket API
 
 ##Authentication 
 
-The public market data methods do not require authentication, however private methods require a *Signature* to be sent in the header of the request.  These private REST methods  use HMAC SHA256 signatures. 
+> **Request format**
+
+```json
+{
+
+}
+```
+
+Public market data methods do not require authentication, however private methods require a *Signature* to be sent in the header of the request.  These private REST methods  use HMAC SHA256 signatures. 
 
 The HMAC SHA256 signature is a keyed HMAC SHA256 operation using a clients API Secret as the key and a message string as the value for the HMAC operation.  
 
 The message string is made up of the following formula:-
 
-`queryString = Timestamp + "\n" + Nonce + "\n" + Verb + "\n" + URL + "\n" + Path +"\n" + Body`
+`msgString = Timestamp + "\n" + Nonce + "\n" + Verb + "\n" + URL + "\n" + Path +"\n" + Body`
 
-Component | Type | Required | Example | Description| 
--------------------------- |----- |--------- |------- |------- | 
-Timestamp | STRING | Yes | 2020-04-30T15:20:30 |
-Nonce | STRING | Yes | 123 | User generated
-Verb | STRING | Yes| 'GET' | 
-URL | STRING | Yes | 'api-test-v2.coinflex-cn.com' |
-Path | STRING | Yes | '/v2/positions | Varies depending on the REST method being called
-Body | STRING | No | instrumentID=BTC-USD-SWAP-LIN | Optional and dependent  on the REST method being called
+Component | Required | Example | Description| 
+-------------------------- |--------- |------- |------- | 
+Timestamp | Yes | 2020-04-30T15:20:30 | YYYY-MM-DDThh:mm:ss
+Nonce | Yes | 123 | User generated
+Verb | Yes| 'GET' | 
+URL | Yes | 'api-test-v2.coinflex-cn.com' |
+Path | Yes | '/v2/positions | REST method being called
+Body | No | instrumentID=BTC-USD-SWAP-LIN | Optional and dependent on the REST method being called
 
-The constructed query string should look like:-
+The constructed message string should look like:-
 
   `2020-04-30T15:20:30\n
   123\n
@@ -44,37 +52,10 @@ If *Body* is ommitted it's treated as an empty string.
 You must use HmacSHA256 to get the hash with the two parameters: the generated text and your secret key.
 Then encode the hash value with Base-64. Mark down the output text as the signature.
 
-> **Request format**
 
-```json
-{
-  "email":"<email>",
-  "password":"<password>"
-}
-```
-
-> **RESPONSE**
-
-```json
-{
-    "event": null,
-    "success": true,
-    "message": null,
-    "code": "0000",
-    "data": {
-        "token": "...",
-        "email": "xxxx@xxx.com",
-        "accountName": "xxxx@xxx.com",
-        "mainLogin": true
-    }
-}
-```
-
-##GET `/v2/account/protected/balances/`
+##GET `/v2/balances/`
 
 GET coin balanaces in your account
-
-Note: x-cf-token is required in HTTP header, which is the token returned by /v2/account/auth/trading/login
 
 > **Request format**
 
@@ -106,11 +87,9 @@ instrumentId | String | | Token symbol, e.g. 'BTC' |
 available |number| Amount available|
 reserved|number|Amount on hold (unavailable)|
 
-##GET `/v2/account/protected/balances/<instrumentId>`
+##GET `/v2/balances/<instrumentId>`
 
 GET balance for a specific coin
-
-Note: x-cf-token is required in HTTP header.
 
 > **Request format**
 
@@ -135,20 +114,18 @@ instrumentId | String | | Token symbol, e.g. 'BTC' |
 }
 ```
 
-
 Parameters |Parameter Types | Description| 
 -------------------------- | -----|--------- |
 instrumentId | String | Token symbol, e.g. 'BTC' |
 available|number|Amount available|
 reserved|number|Amount on hold (unavailable)|
 
-##GET  `/v2/account/protected/positions/`
+##GET  `/v2/positions/`
 
 GET positions. These are derivative contract positions and not coins.
 
 Example Request:  /v2/markets/protected/positions
 
-Note: x-cf-token is required in HTTP header.
 > **RESPONSE**
 
 ```json
@@ -173,16 +150,10 @@ Note: x-cf-token is required in HTTP header.
 }
 ```
 
-
-**ADD estLiquidationPx. Definition here:**
-(https://coinflex.atlassian.net/wiki/spaces/CFV2/pages/759398602/Estimated+Liquidation+Price+calculation)
-
-##GET  `/v2/account/protected/<instrumentId>`
+##GET  `/v2/positions/<instrumentId>`
 Get position for a certain derivative contract.
 
 Example Request: /v2/markets/protected/positions/ETH-USD-PERP-LIN
-
-Note: x-cf-token is required in HTTP header.
 
 **Request**
 
@@ -214,10 +185,8 @@ instrumentId | String | Contract ID, e.g. 'ETH-USD-PERP-LIN' |
 }
 ```
 
-##GET `/v2/markets/public/markets`
+##GET `/v2/all/markets`
 Get a list of all markets currently listed on coinflex
-
-Change - Added “referencePair” field
 
 > **RESPONSE**
 
@@ -255,13 +224,12 @@ Change - Added “referencePair” field
 }
 ```
 
-##GET `/assets/`
+##GET `/v2/all/assets/`
 Get a list of all assets available on CoinFLEX. These include coins and bookable contracts.
 
 Example Request: /v2/markets/public/assets
 
 > **RESPONSE**
-
 
 ```json
 {
@@ -296,7 +264,7 @@ Example Request: /v2/markets/public/assets
 }
 ```
 
-##GET `/v2/ohlc/protected/trades/`
+##GET `/v2/trades`
 Get all trades of current user.
 
 Login Required. Please pass x-cf-token in the HTTP header.
@@ -327,7 +295,7 @@ Login Required. Please pass x-cf-token in the HTTP header.
 }
  
 ```
-##GET  `/v2/ohlc/protected/orders/`
+##GET  `/v2/orders`
 Get all open orders of current user.
 
 Login Required. Please pass x-cf-token in HTTP header.
