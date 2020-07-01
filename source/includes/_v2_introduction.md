@@ -1,43 +1,27 @@
 # Introduction
 
-Welcome to the CoinFLEX v2 API. Please note this is a beta version and can be considered a testnet.
+Welcome to CoinFLEX's v2 application programming interface (API). Please note, this is a beta version and should be considered a test net.
 
-CoinFLEX offers REST and WebSocket APIs. Both support market data and trading. It is recommend you use Websocket for more consistent and quicker response times<p><p> * Current server: Alicloud Hong Kong
+CoinFLEX's APIs provide our clients programmatic access to control aspects of their accounts and to place orders on CoinFLEX's trading platform. CoinFLEX provides the following APIs:
 
-Quick start:<p><p>1. Register for an account at https://test-v2.coinflex-cn.com/login<p><p>2. POST via RESTAPI at
-  https://api-test-v2.coinflex-cn.com/v2/account/auth/trading/login
-  with the following JSON to obtain your token:
+* a WebSocket API
+* a REST API
 
-  > **Request format**
+Using these interfaces it is possible to place both authenticated and unauthenticated API commands for public and prvate commands respectively.
 
-Valid options of op can be:  `login`, `subscribe`, `unsubscribe`, `placeorder`, `cancelorder` etc.
+# API Key Management
 
-```json
- 
-  {
-    "email":"<email>",
-    "password":"<password>"
-  }
+An API key is required to make an authenticated API command.  API keys (public and corresponding secret key) can be generated via the CoinFLEX GUI within a clients account. 
 
-```
+By default, API Keys are read-only and can only read basic account information, such as positions, orders, and trades. They cannot be used to trade such as placing, modifying or cancelling orders.
 
-> **RESPONSE**
+If you wish to execute orders with your API Key, clients must select the `Can Trade` permission upon API key creation.
 
-```json
-  {
-      "event": null,
-      "success": true,
-      "message": null,
-      "code": "0000",
-      "data": {
-          "token": "...",
-          "email": "xxxx@xxx.com",
-          "accountName": "xxxx@xxx.com",
-          "mainLogin": true
-      }
-  }
+API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.
 
-```
+To get started please register for a TEST account at `https://test-v2.coinflex-cn.com/login`
+
+
 # Change Log
 
 2020-06-16
