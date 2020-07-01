@@ -3099,14 +3099,15 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 Then encode the hash value with Base-64. Mark down the output text as the signature.</p>
 <h2 id='v2-0-rest-api-get-v2-balances'>GET <code>/v2/balances</code></h2>
 <blockquote>
-<p><strong>Request</strong>
-<code>json
-GET/v2/balances
-</code>
-<strong>Response</strong></p>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET/v</span><span class="mi">2</span><span class="err">/balances</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>Response</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="err">“event”:</span><span class="w"> </span><span class="s2">"balances"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"balances"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1593616622"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"tradeType"</span><span class="p">:</span><span class="s2">"LINEAR"</span><span class="err">|</span><span class="s2">"INVERSE"</span><span class="p">,</span><span class="w">
@@ -3133,8 +3134,8 @@ GET/v2/balances
 
 <table><thead>
 <tr>
-<th>Parameters</th>
-<th>Parameter Types</th>
+<th>Reponse parameter</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
