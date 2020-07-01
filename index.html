@@ -489,7 +489,7 @@
 <blockquote>
 <p><strong>Success response format</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">   </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"login"</span><span class="p">,</span><span class="w"> </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"login"</span><span class="p">,</span><span class="w"> </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}</span><span class="w">
   </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"placeorder"</span><span class="p">,</span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}</span><span class="w">
   </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value&gt;"</span><span class="p">,</span><span class="nl">"channel"</span><span class="p">:</span><span class="s2">"&lt;value&gt;"</span><span class="p">}</span><span class="w">
   </span><span class="p">{</span><span class="nl">"table"</span><span class="p">:</span><span class="s2">"channel"</span><span class="p">,</span><span class="nl">"data"</span><span class="p">:</span><span class="s2">"[{"</span><span class="err">&lt;value</span><span class="mi">1</span><span class="err">&gt;</span><span class="s2">","</span><span class="err">&lt;value</span><span class="mi">2</span><span class="err">&gt;</span><span class="s2">"}]"</span><span class="p">}</span><span class="w">
@@ -546,19 +546,27 @@
 <p>Websocket commands are sent in the following formats:</p>
 
 <ul>
-<li><p>Subscription to push notifications
-<code>{&quot;op&quot;: &quot;&lt;value&gt;&quot;, &quot;args&quot;: [&quot;&lt;value1&gt;&quot;,&quot;&lt;value2&gt;&quot;,.....]}</code></p></li>
-<li><p>All other commands
-<code>{&quot;op&quot;: &quot;&lt;command&gt;&quot;, &quot;data&quot;: {&quot;&lt;key1&gt;&quot;:&quot;&lt;value1&gt;&quot;,.....}}</code></p></li>
+<li>Subscription to push notifications</li>
 </ul>
 
-<p>Valid options of <strong>op</strong> can be:
-* login
-* subscribe
-* unsubscribe
-* placeorder
-* cancelorder
-* modifyorder</p>
+<p><code>{&quot;op&quot;: &quot;&lt;value&gt;&quot;, &quot;args&quot;: [&quot;&lt;value1&gt;&quot;,&quot;&lt;value2&gt;&quot;,.....]}</code></p>
+
+<ul>
+<li>All other commands</li>
+</ul>
+
+<p><code>{&quot;op&quot;: &quot;&lt;command&gt;&quot;, &quot;data&quot;: {&quot;&lt;key1&gt;&quot;:&quot;&lt;value1&gt;&quot;,.....}}</code></p>
+
+<p>Valid options of <strong>op</strong> can be:</p>
+
+<ul>
+<li>login</li>
+<li>subscribe</li>
+<li>unsubscribe</li>
+<li>placeorder</li>
+<li>cancelorder</li>
+<li>modifyorder</li>
+</ul>
 
 <p><code>args</code>: the value is the channel name, which can be one or more channels.</p>
 
