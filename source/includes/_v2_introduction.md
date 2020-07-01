@@ -9,6 +9,9 @@ CoinFLEX's APIs provide our clients programmatic access to control aspects of th
 
 Using these interfaces it is possible to place both authenticated and unauthenticated API commands for public and prvate commands respectively.
 
+To get started please register for a TEST account at `https://test-v2.coinflex-cn.com/login`
+
+
 # API Key Management
 
 An API key is required to make an authenticated API command.  API keys (public and corresponding secret key) can be generated via the CoinFLEX GUI within a clients account. 
@@ -18,8 +21,6 @@ By default, API Keys are read-only and can only read basic account information, 
 If you wish to execute orders with your API Key, clients must select the `Can Trade` permission upon API key creation.
 
 API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.
-
-To get started please register for a TEST account at `https://test-v2.coinflex-cn.com/login`
 
 
 # Change Log
