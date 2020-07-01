@@ -72,28 +72,31 @@ OR
 
 CoinFLEX's application programming interface (API) provides our clients programmatic access to control aspects of their accounts and to place orders on the CoinFLEX trading platform. The API is accessible via WebSocket connection to the URIs listed above. Commands, replies, and notifications all traverse the WebSocket in text frames with JSON-formatted payloads.
 
-Websocket commands are sent in the following formats:
+Websocket commands can be sent in either of the following two formats:
 
-* Subscription to push notifications
+**For subscription based commands**
 
 `{"op": "<value>", "args": ["<value1>","<value2>",.....]}`
 
-* All other commands
+`op`: can either be
+
+* subscribe
+* unsubscribe
+
+`args`: the value is the channel name, which can be one or more channels
+
+**All other commands**
 
 `{"op": "<command>", "data": {"<key1>":"<value1>",.....}}`
 
-Valid options of **op** can be:
+`op`: can be
 
 * login
-* subscribe
-* unsubscribe
 * placeorder
 * cancelorder
 * modifyorder
 
- `args`: the value is the channel name, which can be one or more channels.
-
- `data`: the data is the JSON string of request object, which is for operations like placeorder.
+`data`: JSON string of the request object containing the required parameters
 
 
 # Websocket Authentication
@@ -174,7 +177,7 @@ To construct the signature a clients API-Secret key is required.  API keys (publ
 
 By default, API Keys are read-only and can only read basic account information, such as positions, orders, and trades. They cannot be used to trade such as placing, modifying or cancelling orders.
 
-If you wish to execute orders with your API Key, clients must select the **Can Trade** permission upon API key creation. 
+If you wish to execute orders with your API Key, clients must select the `Can Trade` permission upon API key creation. 
 
 API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.
 
