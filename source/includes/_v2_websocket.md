@@ -5,7 +5,7 @@
 
 ```json
   {"op": "<value>", 
-   "args": ["<value1>","<value2>",.....]}
+   "args": ["<value>"]}
 
 OR
    
@@ -16,29 +16,20 @@ OR
 > **Success response format**
 
 ```json
-  {"event": "login", "success": true}
-  {"event": "placeorder","success": true}
-  {"event": "<value>","channel":"<value>"}
-  {"table":"channel","data":"[{"<value1>","<value2>"}]"}
-```
+  {"event": "<op value>", "channel": "<args value>", "success": true}
 
-```json
-  {"table":"channel",
-   "action":"<value>",
-   "data":"[{"<value1>",
-   "<value2>"}]"}
+OR
+
+  {"event": "<op value>", "success": true}
 ```
 
 > **Failure response format:**
 
 ```json
-  {"event":"error",
-   "message":"<errorMessage>",
-   "code":"<code>",
-   "success": false}
+  {"event":"error", "message":"<errorMessage>", "code":"<code>", "success": false}
 ```
 
-> **Notification Response format:**
+> **Notification response format**
 
 ```json
    {
@@ -76,14 +67,17 @@ Websocket commands can be sent in either of the following two formats:
 
 **For subscription based commands**
 
-`{"op": "<value>", "args": ["<value1>","<value2>",.....]}`
+`{"op": "<value>", "args": ["<value>"]}`
 
 `op`: can either be
 
 * subscribe
 * unsubscribe
 
-`args`: the value is the channel name, which can be one or more channels
+`args`: the value is the channel name, for example
+
+* order:BTC-USD-SWAP-LIN
+* futures/depth:BTC-USD-SPR-QP-LIN
 
 **All other commands**
 
