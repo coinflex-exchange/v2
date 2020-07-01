@@ -54,15 +54,18 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
 
 
 ##GET `/v2/balances`
+
 > **Request**
+
 ```json
 GET/v2/balances
 ```
+
 > **Response**
 
 ```json
 {
-    “event”: "balances",
+    "event": "balances",
     "accountId":"<Your Account ID>",
     "timestamp":"1593616622",
     "tradeType":"LINEAR"|"INVERSE",
@@ -88,7 +91,7 @@ GET/v2/balances
 
 Requires authentication. GET coin balanaces in your account. 
 
-Parameters |Parameter Types | Description| 
+Reponse parameter |Type | Description| 
 -------------------------- | -----|--------- |
 accountId | STRING    | Account ID|
 timestamp | STRING    | Timestamp of this response|
