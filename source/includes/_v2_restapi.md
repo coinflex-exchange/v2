@@ -53,71 +53,84 @@ You must use HmacSHA256 to get the hash with the two parameters: the generated t
 Then encode the hash value with Base-64. Mark down the output text as the signature.
 
 
-##GET `/v2/balances/`
-
-> **Request format**
+##GET `/v2/balances`
+> **Request**
+```json
+GET/v2/balances
+```
+> **Response**
 
 ```json
 {
-    “event”: null,
-    “success”: true,
-    “message”: null,
-    “code”: “0000”,
-    “data”:[
-    {
+    “event”: "balances",
+    "accountId":"<Your Account ID>",
+    "timestamp":"1593616622",
+    "tradeType":"LINEAR"|"INVERSE",
+    "data":[
+    {   
         "instrumentId": "BTC",
-        "available": 4468.823,
-        "reserved": 0
+        "total":"4468.823"              
+        "available": "4468.823",        
+        "reserved": "0",
+        "quantityLastUpdated":"1593616622"
     },
+    .....
     {
         "instrumentId": "EOS",
-        "available": 325.890,
-        "reserved": 1260
+        "total":"1585.890"              
+        "available": "325.890",         
+        "reserved": "1260",
+        "quantityLastUpdated":"1593616500"
     }
     ]
 }
 ```
 
-GET coin balanaces in your account
+Requires authentication. GET coin balanaces in your account. 
 
 Parameters |Parameter Types | Description| 
 -------------------------- | -----|--------- |
-instrumentId | String | | Token symbol, e.g. 'BTC' |
-available |number| Amount available|
-reserved|number|Amount on hold (unavailable)|
+accountId | STRING    | Account ID|
+timestamp | STRING    | Timestamp of this response|
+tradeType | STRING    | Define this account is trading linear or inverse derivatives|
+instrumentId | STRING |Token symbol, e.g. 'BTC' |
+total| STRING| Total balance|
+available |STRING|Available balance|
+reserved|STRING|Reserved balance (unavailable)|
+
 
 ##GET `/v2/balances/<instrumentId>`
-
-GET balance for a specific coin
-
-> **Request format**
-
-Parameters |Parameter Types | Description| 
--------------------------- | -----|--------- |
-instrumentId | String | | Token symbol, e.g. 'BTC' |
-
 > **RESPONSE**
 
 ```json
 {
-    “event”: null,
-    “success”: true,
-    “message”: null,
-    “code”: “0000”,
-    “data”:
-    {
-        "instrumentId": "EOS",
-        "available": 325.890,
-        "reserved": 1260
+    "event": "balancesById",
+    "accountId":"<Your Account ID>",
+    "timestamp":"1593616622",
+    "tradeType":"LINEAR"|"INVERSE",
+    "data":[
+    {   
+        "instrumentId": "BTC",
+        "total":"4468.823"              
+        "available": "4468.823",        
+        "reserved": "0",
+        "quantityLastUpdated":"1593616500"
     }
+    ]
 }
 ```
 
-Parameters |Parameter Types | Description| 
+Requires authentication. GET balance for a specific coin.
+
+Parameters |Type | Description| 
 -------------------------- | -----|--------- |
-instrumentId | String | Token symbol, e.g. 'BTC' |
-available|number|Amount available|
-reserved|number|Amount on hold (unavailable)|
+accountId | STRING    | Account ID|
+timestamp | STRING    | Timestamp of this response|
+tradeType | STRING    | Define this account is trading linear or inverse derivatives|
+instrumentId | STRING |Token symbol, e.g. 'BTC' |
+total| STRING| Total balance|
+available |STRING|Available balance|
+reserved|STRING|Reserved balance (unavailable)|
 
 ##GET  `/v2/positions/`
 
