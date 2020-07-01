@@ -100,7 +100,7 @@ instrumentId | STRING |Token symbol, e.g. 'BTC' |
 total| STRING| Total balance|
 available |STRING|Available balance|
 reserved|STRING|Reserved balance (unavailable)|
-quantityLastUpdated|STRING|timestamp when balance last updated|
+quantityLastUpdated|STRING|Timestamp when was balance last updated|
 
 
 ##GET `/v2/balances/<instrumentId>`
@@ -144,7 +144,7 @@ instrumentId | STRING |Token symbol, e.g. 'BTC' |
 total| STRING| Total balance|
 available |STRING|Available balance|
 reserved|STRING|Reserved balance (unavailable)|
-quantityLastUpdated|STRING|timestamp when balance last updated|
+quantityLastUpdated|STRING|Timestamp when was balance last updated|
 
 ##GET  `/v2/positions`
 
@@ -168,7 +168,7 @@ GET/v2/positions
         {
             "instrumentId": "BTC-USD-200626-LIN",
             "quantity": "0.94",
-            "lastUpdated": 1592486212218,
+            "lastUpdated": "1592486212218",
             "contractValCurrency": "BTC",
             "entryPrice": "7800.00",       
             "positionPnl": "200.3",
@@ -181,15 +181,15 @@ GET/v2/positions
 }
 ```
 
-Requires authentication. GET all your position.
+Requires authentication. GET all positions for current user.
 
 Response Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 accountId | STRING    | Account ID|
 timestamp | STRING    | Timestamp of this response|
 instrumentId | STRING |Contract symbol, e.g. 'BTC-USD-200626-LIN' |
-lastUpdated| STRING| timestamp when position last updated|
-contractValCurrency |STRING|Available balance|
+lastUpdated| STRING| Timestamp when position was last updated|
+contractValCurrency |STRING||
 entryPrice|STRING|Average entry price|
 positionPnl|STRING|Postion profit and lost|
 estLiquidationPx|STRING||
@@ -218,7 +218,7 @@ GET/v2/positions/BTC-USD-200626-LIN
         {
             "instrumentId": "BTC-USD-200626-LIN",
             "quantity": "0.94",
-            "lastUpdated": 1592486212218,
+            "lastUpdated": "1592486212218",
             "contractValCurrency": "BTC",
             "entryPrice": "7800.00",       
             "positionPnl": "200.3",
@@ -229,15 +229,15 @@ GET/v2/positions/BTC-USD-200626-LIN
     ]
 }
 ```
-Requires authentication. GET a specific position.
+Requires authentication. GET specific positions for current user.
 
 Response Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 accountId | STRING    | Account ID|
 timestamp | STRING    | Timestamp of this response|
 instrumentId | STRING |Contract symbol, e.g. 'BTC-USD-200626-LIN' |
-lastUpdated| STRING| timestamp when position last updated|
-contractValCurrency |STRING||
+lastUpdated| STRING| Timestamp when position was last updated|
+contractValCurrency |STRING|Contract valuation currency|
 entryPrice|STRING|Average entry price|
 positionPnl|STRING|Postion profit and lost|
 estLiquidationPx|STRING||
@@ -284,6 +284,8 @@ GET/v2/all/markets`
     ]
 }
 ```
+Get a list of all available markets on CoinFlex.
+
 Response Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 timestamp | STRING    | Timestamp of this response|
@@ -298,12 +300,12 @@ qtyIncrement| STRING  |Minimum increamet quantity|
 listingDate| STRING   |                   |
 endDate    |STRING    |                   |
 marginCurrency|STRING |                   |
-contractValCurrency| STRING| contract valuation currency|
+contractValCurrency| STRING| Contract valuation currency|
 upperPriceBound| STRING|                  |
 lowerPriceBound| STRING|                  |
 marketPrice    | STRING|                  |
 
-Get a list of all available markets on CoinFlex.
+
 
 
 
@@ -347,6 +349,9 @@ GET/v2/all/assets
     ]
 }
 ```
+
+Get a list of all assets available on CoinFLEX. These include coins and bookable contracts.
+
 Response Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 timestamp | STRING    | Timestamp of this response|
@@ -360,45 +365,77 @@ contractValCurrency| STRING|              |
 deliveryDate       | STRING|              |
 deliveryInstrument | STRING|              |
 
-Get a list of all assets available on CoinFLEX. These include coins and bookable contracts.
+
 
 
 
 ##GET `/v2/trades`
-Get all trades of current user.
 
-Login Required. Please pass x-cf-token in the HTTP header.
+> **Request**
+
+```json
+GET/v2/trades?limit={limit}&marketCode={marketCode}
+```
 
 > **RESPONSE**
 
 
 ```json
 {
-    "event": null,
-    "success": true,
-    "message": null,
-    "code": "0000",
+    "event": "trades",
+    "accountId":"<Your Account ID>",
+    "timestamp":"1593617005438",
     "data":[ 
     {
-        "tradeId": 23534545
-        "timestamp": 1588218296439236,
+        "matchId": "23534545",
+        "matchTimestamp": "1588218296439236",
         "marketCode": "BTC-USD"
-        "quantity": 1,
-        "price": 9171,
-        "total": -9171,
-        "taker": true,
-        "fee": 2.7513,
+        "matchQuantity": "1",
+        "matchPrice": "9171",
+        "total": "9171",
+        "side" :"BUY"|”SELL“， 
+        "orderMatchType": "TAKER",
+        "fees": "2.7513",
         "feeInstrumentId": "USD",
-        "orderId": 322805624
+        "orderId": "322805624"
     }
+...
 ]
 }
  
 ```
-##GET  `/v2/orders`
-Get all open orders of current user.
 
-Login Required. Please pass x-cf-token in HTTP header.
+Requires authentication. Get most recent trades of current user.
+
+Request Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+marketCode| STRING |      |           |
+limit     | STRING |      |Default 500, max 1000|
+
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+accountId | STRING    | Account ID|
+timestamp | STRING    | Timestamp of this response|
+matchId   | STRING    |           |
+matchTimestamp   | STRING    |           |
+marketCode   | STRING    |           |
+matchQuantity   | STRING    |           |
+matchPrice   | STRING    |           |
+total   | STRING    |           |
+side   | STRING    |           |
+orderMatchType   | STRING    |           |
+fees   | STRING    |           |
+feeInstrumentId   | STRING    |           |
+orderId   | STRING    |           |
+
+
+##GET  `/v2/orders`
+> **Request**
+
+```json
+GET/v2/orders
+```
+
 
 > **RESPONSE**
 
@@ -419,7 +456,7 @@ Login Required. Please pass x-cf-token in HTTP header.
           "remainQuantity": "1.00",
           "price": "1.00"|null,               #for limit order, null for stop order
           "stopPrice": "<stopPrice>"|null,    #for stop order, null for limit order 
-          "limitPrice": "limitPrice"|null,    #for stop order, null for limit order 
+          "limitPrice": "《limitPrice>"|null,    #for stop order, null for limit order 
           "orderCreated": "1593617008698",
           "lastModified": "1593617008698",      
           "lastTradeTimestamp": "1593617008698",
@@ -430,6 +467,32 @@ Login Required. Please pass x-cf-token in HTTP header.
 }
  
 ```
+Requires authentication. Get all open orders of current user.
+
+
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+accountId | STRING    | Account ID|
+timestamp | STRING    | Timestamp of this response|
+orderId   | STRING    |           |
+marketCode| STRING    |           |
+clientOrderId| STRING |           |
+side      | STRING    |           |
+orderType | STRING    |           |
+quantity  | STRING    |           |
+remainQuantity|STRING |           |
+price     | STRING    |           |
+stopPrice | STRING    |           |
+limitPrice| STRING    |           |
+orderCreated| STRING  |Timestamp when order was created|
+lastModified| STRING  |Timestamp when order was last mordified|
+lastTradeTimestamp| STRING| Timestamp when order was last traded|
+timeInForce | STRING  |           |
+
+
+
+
+
 ##POST `/auction/`
 Delivered positions of current user for auction.
 
