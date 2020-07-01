@@ -476,7 +476,9 @@
 <blockquote>
 <p><strong>Success response format</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;op value&gt;"</span><span class="p">,</span><span class="w"> </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;args value&gt;"</span><span class="p">,</span><span class="w"> </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;op value&gt;"</span><span class="p">,</span><span class="w"> 
+   </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;args value&gt;"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}</span><span class="w">
 
 </span><span class="err">OR</span><span class="w">
 
@@ -485,7 +487,10 @@
 <blockquote>
 <p><strong>Failure response format:</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"error"</span><span class="p">,</span><span class="w"> </span><span class="nl">"message"</span><span class="p">:</span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w"> </span><span class="nl">"code"</span><span class="p">:</span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w"> </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">}</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"error"</span><span class="p">,</span><span class="w"> 
+   </span><span class="nl">"message"</span><span class="p">:</span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"code"</span><span class="p">:</span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p><strong>Notification response format</strong></p>
@@ -622,6 +627,56 @@
     <span class="nx">ws</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
 <span class="p">};</span>
 </code></pre></div>
+<blockquote>
+<p><strong>Success response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
+   </span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"login"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1592491808"</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code>  <span class="p">{</span>
+   <span class="s">"event"</span><span class="p">:</span><span class="s">"login"</span><span class="p">,</span>
+   <span class="s">"success"</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+   <span class="s">"tag"</span><span class="p">:</span><span class="s">"1"</span><span class="p">,</span>
+   <span class="s">"timestamp"</span><span class="p">:</span><span class="s">"1592491808"</span>
+   <span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+   <span class="dl">"</span><span class="s2">event</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">login</span><span class="dl">"</span><span class="p">,</span>
+   <span class="dl">"</span><span class="s2">success</span><span class="dl">"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+   <span class="dl">"</span><span class="s2">tag</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span>
+   <span class="dl">"</span><span class="s2">timestamp</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1592491808</span><span class="dl">"</span>
+   <span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Failure response format:</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
+   </span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"login"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"success"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"code"</span><span class="p">:</span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"message"</span><span class="p">:</span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1592492032"</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code>  <span class="p">{</span>
+   <span class="s">"event"</span><span class="p">:</span><span class="s">"login"</span><span class="p">,</span>
+   <span class="s">"success"</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+   <span class="s">"code"</span><span class="p">:</span><span class="s">"&lt;code&gt;"</span><span class="p">,</span>
+   <span class="s">"message"</span><span class="p">:</span><span class="s">"&lt;errorMessage&gt;"</span><span class="p">,</span>
+   <span class="s">"tag"</span><span class="p">:</span><span class="s">"1"</span><span class="p">,</span>
+   <span class="s">"timestamp"</span><span class="p">:</span><span class="s">"1592492032"</span>
+ <span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+   <span class="dl">"</span><span class="s2">event</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">login</span><span class="dl">"</span><span class="p">,</span>
+   <span class="dl">"</span><span class="s2">success</span><span class="dl">"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span>
+   <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">&lt;code&gt;</span><span class="dl">"</span><span class="p">,</span>
+   <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">&lt;errorMessage&gt;</span><span class="dl">"</span><span class="p">,</span>
+   <span class="dl">"</span><span class="s2">tag</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span>
+   <span class="dl">"</span><span class="s2">timestamp</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1592492032</span><span class="dl">"</span>
+ <span class="p">}</span>
+</code></pre></div>
 <p>The Websocket API consists of public and private methods. The public methods do not require authentication.  The private methods requires an authenticated websocket connection.</p>
 
 <p>To autenticate a websocket connection a &quot;login&quot; message must be sent containing the clients signature.</p>
@@ -687,57 +742,7 @@
 <td><code>Base64(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret))</code></td>
 </tr>
 </tbody></table>
-
-<blockquote>
-<p><strong>Success response format</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
-   </span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"login"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1592491808"</span><span class="w">
-   </span><span class="p">}</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code>  <span class="p">{</span>
-   <span class="s">"event"</span><span class="p">:</span><span class="s">"login"</span><span class="p">,</span>
-   <span class="s">"success"</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
-   <span class="s">"tag"</span><span class="p">:</span><span class="s">"1"</span><span class="p">,</span>
-   <span class="s">"timestamp"</span><span class="p">:</span><span class="s">"1592491808"</span>
-   <span class="p">}</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
-   <span class="dl">"</span><span class="s2">event</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">login</span><span class="dl">"</span><span class="p">,</span>
-   <span class="dl">"</span><span class="s2">success</span><span class="dl">"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
-   <span class="dl">"</span><span class="s2">tag</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span>
-   <span class="dl">"</span><span class="s2">timestamp</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1592491808</span><span class="dl">"</span>
-   <span class="p">}</span>
-</code></pre></div>
-<blockquote>
-<p><strong>Failure response format:</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
-   </span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"login"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"success"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"code"</span><span class="p">:</span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"message"</span><span class="p">:</span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1592492032"</span><span class="w">
- </span><span class="p">}</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code>  <span class="p">{</span>
-   <span class="s">"event"</span><span class="p">:</span><span class="s">"login"</span><span class="p">,</span>
-   <span class="s">"success"</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
-   <span class="s">"code"</span><span class="p">:</span><span class="s">"&lt;code&gt;"</span><span class="p">,</span>
-   <span class="s">"message"</span><span class="p">:</span><span class="s">"&lt;errorMessage&gt;"</span><span class="p">,</span>
-   <span class="s">"tag"</span><span class="p">:</span><span class="s">"1"</span><span class="p">,</span>
-   <span class="s">"timestamp"</span><span class="p">:</span><span class="s">"1592492032"</span>
- <span class="p">}</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
-   <span class="dl">"</span><span class="s2">event</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">login</span><span class="dl">"</span><span class="p">,</span>
-   <span class="dl">"</span><span class="s2">success</span><span class="dl">"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span>
-   <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">&lt;code&gt;</span><span class="dl">"</span><span class="p">,</span>
-   <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">&lt;errorMessage&gt;</span><span class="dl">"</span><span class="p">,</span>
-   <span class="dl">"</span><span class="s2">tag</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span>
-   <span class="dl">"</span><span class="s2">timestamp</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1592492032</span><span class="dl">"</span>
- <span class="p">}</span>
-</code></pre></div><h1 id='websocket-place-order'>Websocket Place Order</h1><h2 id='websocket-place-order-limit-order'>Limit Order</h2>
+<h1 id='websocket-place-order'>Websocket Place Order</h1><h2 id='websocket-place-order-limit-order'>Limit Order</h2>
 <p>Requires authentication. Please subscribe user order channel to receive the order updates.</p>
 
 <blockquote>
