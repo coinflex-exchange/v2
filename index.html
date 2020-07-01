@@ -3177,7 +3177,7 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
 <tr>
 <td>quantityLastUpdated</td>
 <td>STRING</td>
-<td>timestamp when balance last updated</td>
+<td>Timestamp when was balance last updated</td>
 </tr>
 </tbody></table>
 <h2 id='v2-0-rest-api-get-v2-balances-lt-instrumentid-gt'>GET <code>/v2/balances/&lt;instrumentId&gt;</code></h2>
@@ -3252,7 +3252,7 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
 <tr>
 <td>quantityLastUpdated</td>
 <td>STRING</td>
-<td>timestamp when balance last updated</td>
+<td>Timestamp when was balance last updated</td>
 </tr>
 </tbody></table>
 <h2 id='v2-0-rest-api-get-v2-positions'>GET  <code>/v2/positions</code></h2>
@@ -3272,7 +3272,7 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
         </span><span class="p">{</span><span class="w">
             </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-200626-LIN"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.94"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="mi">1592486212218</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592486212218"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7800.00"</span><span class="p">,</span><span class="w">       
             </span><span class="nl">"positionPnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200.3"</span><span class="p">,</span><span class="w">
@@ -3284,7 +3284,7 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Requires authentication. GET all your position.</p>
+<p>Requires authentication. GET all positions for current user.</p>
 
 <table><thead>
 <tr>
@@ -3311,12 +3311,12 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
 <tr>
 <td>lastUpdated</td>
 <td>STRING</td>
-<td>timestamp when position last updated</td>
+<td>Timestamp when position was last updated</td>
 </tr>
 <tr>
 <td>contractValCurrency</td>
 <td>STRING</td>
-<td>Available balance</td>
+<td></td>
 </tr>
 <tr>
 <td>entryPrice</td>
@@ -3356,7 +3356,7 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
         </span><span class="p">{</span><span class="w">
             </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-200626-LIN"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.94"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="mi">1592486212218</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592486212218"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7800.00"</span><span class="p">,</span><span class="w">       
             </span><span class="nl">"positionPnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200.3"</span><span class="p">,</span><span class="w">
@@ -3367,7 +3367,7 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Requires authentication. GET a specific position.</p>
+<p>Requires authentication. GET specific positions for current user.</p>
 
 <table><thead>
 <tr>
@@ -3394,12 +3394,12 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
 <tr>
 <td>lastUpdated</td>
 <td>STRING</td>
-<td>timestamp when position last updated</td>
+<td>Timestamp when position was last updated</td>
 </tr>
 <tr>
 <td>contractValCurrency</td>
 <td>STRING</td>
-<td></td>
+<td>Contract valuation currency</td>
 </tr>
 <tr>
 <td>entryPrice</td>
@@ -3456,6 +3456,8 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p>Get a list of all available markets on CoinFlex.</p>
+
 <table><thead>
 <tr>
 <th>Response Parameters</th>
@@ -3526,7 +3528,7 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
 <tr>
 <td>contractValCurrency</td>
 <td>STRING</td>
-<td>contract valuation currency</td>
+<td>Contract valuation currency</td>
 </tr>
 <tr>
 <td>upperPriceBound</td>
@@ -3544,8 +3546,6 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
 <td></td>
 </tr>
 </tbody></table>
-
-<p>Get a list of all available markets on CoinFlex.</p>
 <h2 id='v2-0-rest-api-get-v2-all-assets'>GET <code>/v2/all/assets</code></h2>
 <blockquote>
 <p><strong>Request</strong></p>
@@ -3584,6 +3584,8 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p>Get a list of all assets available on CoinFLEX. These include coins and bookable contracts.</p>
+
 <table><thead>
 <tr>
 <th>Response Parameters</th>
@@ -3642,42 +3644,138 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
 <td></td>
 </tr>
 </tbody></table>
-
-<p>Get a list of all assets available on CoinFLEX. These include coins and bookable contracts.</p>
 <h2 id='v2-0-rest-api-get-v2-trades'>GET <code>/v2/trades</code></h2>
-<p>Get all trades of current user.</p>
-
-<p>Login Required. Please pass x-cf-token in the HTTP header.</p>
-
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET/v</span><span class="mi">2</span><span class="err">/trades?limit=</span><span class="p">{</span><span class="err">limit</span><span class="p">}</span><span class="err">&amp;marketCode=</span><span class="p">{</span><span class="err">marketCode</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <blockquote>
 <p><strong>RESPONSE</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"trades"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1593617005438"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"data"</span><span class="p">:[</span><span class="w"> 
     </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"tradeId"</span><span class="p">:</span><span class="w"> </span><span class="mi">23534545</span><span class="w">
-        </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1588218296439236</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"matchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23534545"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"matchTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1588218296439236"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="w">
-        </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">9171</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">-9171</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"taker"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.7513</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"matchPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9171"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9171"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"side"</span><span class="w"> </span><span class="p">:</span><span class="s2">"BUY"</span><span class="err">|”SELL“，</span><span class="w"> 
+        </span><span class="nl">"orderMatchType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TAKER"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.7513"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"feeInstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">322805624</span><span class="w">
+        </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"322805624"</span><span class="w">
     </span><span class="p">}</span><span class="w">
+</span><span class="err">...</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h2 id='v2-0-rest-api-get-v2-orders'>GET  <code>/v2/orders</code></h2>
-<p>Get all open orders of current user.</p>
+</span></code></pre></div>
+<p>Requires authentication. Get most recent trades of current user.</p>
 
-<p>Login Required. Please pass x-cf-token in HTTP header.</p>
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>limit</td>
+<td>STRING</td>
+<td></td>
+</tr>
+</tbody></table>
 
+<table><thead>
+<tr>
+<th>Response Parameters</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Timestamp of this response</td>
+</tr>
+<tr>
+<td>matchId</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>matchTimestamp</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>matchQuantity</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>matchPrice</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>total</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>side</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>orderMatchType</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>fees</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>feeInstrumentId</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>orderId</td>
+<td>STRING</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='v2-0-rest-api-get-v2-orders'>GET  <code>/v2/orders</code></h2>
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET/v</span><span class="mi">2</span><span class="err">/orders</span><span class="w">
+</span></code></pre></div>
 <blockquote>
 <p><strong>RESPONSE</strong></p>
 </blockquote>
@@ -3696,7 +3794,7 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
           </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.00"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.00"</span><span class="err">|</span><span class="kc">null</span><span class="p">,</span><span class="w">               </span><span class="err">#for</span><span class="w"> </span><span class="err">limit</span><span class="w"> </span><span class="err">order</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">stop</span><span class="w"> </span><span class="err">order</span><span class="w">
           </span><span class="nl">"stopPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;stopPrice&gt;"</span><span class="err">|</span><span class="kc">null</span><span class="p">,</span><span class="w">    </span><span class="err">#for</span><span class="w"> </span><span class="err">stop</span><span class="w"> </span><span class="err">order</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">limit</span><span class="w"> </span><span class="err">order</span><span class="w"> 
-          </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"limitPrice"</span><span class="err">|</span><span class="kc">null</span><span class="p">,</span><span class="w">    </span><span class="err">#for</span><span class="w"> </span><span class="err">stop</span><span class="w"> </span><span class="err">order</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">limit</span><span class="w"> </span><span class="err">order</span><span class="w"> 
+          </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"《limitPrice&gt;"</span><span class="err">|</span><span class="kc">null</span><span class="p">,</span><span class="w">    </span><span class="err">#for</span><span class="w"> </span><span class="err">stop</span><span class="w"> </span><span class="err">order</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">limit</span><span class="w"> </span><span class="err">order</span><span class="w"> 
           </span><span class="nl">"orderCreated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1593617008698"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"lastModified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1593617008698"</span><span class="p">,</span><span class="w">      
           </span><span class="nl">"lastTradeTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1593617008698"</span><span class="p">,</span><span class="w">
@@ -3706,7 +3804,98 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h2 id='v2-0-rest-api-post-auction'>POST <code>/auction/</code></h2>
+</span></code></pre></div>
+<p>Requires authentication. Get all open orders of current user.</p>
+
+<table><thead>
+<tr>
+<th>Response Parameters</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Timestamp of this response</td>
+</tr>
+<tr>
+<td>orderId</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>clientOrderId</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>side</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>orderType</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>remainQuantity</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>price</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>stopPrice</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>limitPrice</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>orderCreated</td>
+<td>STRING</td>
+<td>Timestamp when order was created</td>
+</tr>
+<tr>
+<td>lastModified</td>
+<td>STRING</td>
+<td>Timestamp when order was last mordified</td>
+</tr>
+<tr>
+<td>lastTradeTimestamp</td>
+<td>STRING</td>
+<td>Timestamp when order was last traded</td>
+</tr>
+<tr>
+<td>timeInForce</td>
+<td>STRING</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='v2-0-rest-api-post-auction'>POST <code>/auction/</code></h2>
 <p>Delivered positions of current user for auction.</p>
 
 <p>Login Required. Please pass x-cf-token in the HTTP header.</p>
