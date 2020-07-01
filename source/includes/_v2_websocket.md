@@ -16,7 +16,9 @@ OR
 > **Success response format**
 
 ```json
-  {"event": "<op value>", "channel": "<args value>", "success": true}
+  {"event": "<op value>", 
+   "channel": "<args value>",
+   "success": true}
 
 OR
 
@@ -26,7 +28,10 @@ OR
 > **Failure response format:**
 
 ```json
-  {"event":"error", "message":"<errorMessage>", "code":"<code>", "success": false}
+  {"event":"error", 
+   "message":"<errorMessage>",
+   "code":"<code>",
+   "success": false}
 ```
 
 > **Notification response format**
