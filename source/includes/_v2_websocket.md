@@ -16,7 +16,7 @@ OR
 > **Success response format**
 
 ```json
-   {"event": "login", "success": true}
+  {"event": "login", "success": true}
   {"event": "placeorder","success": true}
   {"event": "<value>","channel":"<value>"}
   {"table":"channel","data":"[{"<value1>","<value2>"}]"}
@@ -75,12 +75,15 @@ CoinFLEX's application programming interface (API) provides our clients programm
 Websocket commands are sent in the following formats:
 
 * Subscription to push notifications
+
 `{"op": "<value>", "args": ["<value1>","<value2>",.....]}`
 
 * All other commands
+
 `{"op": "<command>", "data": {"<key1>":"<value1>",.....}}`
 
 Valid options of **op** can be:
+
 * login
 * subscribe
 * unsubscribe
