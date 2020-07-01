@@ -67,7 +67,7 @@ GET/v2/balances
 {
     "event": "balances",
     "accountId":"<Your Account ID>",
-    "timestamp":"1593616622",
+    "timestamp":"1593627419000",
     "tradeType":"LINEAR"|"INVERSE",
     "data":[
     {   
@@ -75,7 +75,7 @@ GET/v2/balances
         "total":"4468.823"              
         "available": "4468.823",        
         "reserved": "0",
-        "quantityLastUpdated":"1593616622"
+        "quantityLastUpdated":"1593627415234"
     },
     .....
     {
@@ -83,7 +83,7 @@ GET/v2/balances
         "total":"1585.890"              
         "available": "325.890",         
         "reserved": "1260",
-        "quantityLastUpdated":"1593616500"
+        "quantityLastUpdated":"1593627415123"
     }
     ]
 }
@@ -91,7 +91,7 @@ GET/v2/balances
 
 Requires authentication. GET coin balanaces in your account. 
 
-Reponse parameter |Type | Description| 
+Reponse Parameter |Type | Description| 
 -------------------------- | -----|--------- |
 accountId | STRING    | Account ID|
 timestamp | STRING    | Timestamp of this response|
@@ -100,16 +100,26 @@ instrumentId | STRING |Token symbol, e.g. 'BTC' |
 total| STRING| Total balance|
 available |STRING|Available balance|
 reserved|STRING|Reserved balance (unavailable)|
+quantityLastUpdated|STRING|timestamp when balance last updated|
 
 
 ##GET `/v2/balances/<instrumentId>`
+
+
+>**Request**
+
+```json
+GET/v2/balances/BTC
+```
+
+
 > **RESPONSE**
 
 ```json
 {
     "event": "balancesById",
     "accountId":"<Your Account ID>",
-    "timestamp":"1593616622",
+    "timestamp":"1593627415293",
     "tradeType":"LINEAR"|"INVERSE",
     "data":[
     {   
@@ -117,7 +127,7 @@ reserved|STRING|Reserved balance (unavailable)|
         "total":"4468.823"              
         "available": "4468.823",        
         "reserved": "0",
-        "quantityLastUpdated":"1593616500"
+        "quantityLastUpdated":"1593627415001"
     }
     ]
 }
@@ -125,7 +135,7 @@ reserved|STRING|Reserved balance (unavailable)|
 
 Requires authentication. GET balance for a specific coin.
 
-Parameters |Type | Description| 
+Response Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 accountId | STRING    | Account ID|
 timestamp | STRING    | Timestamp of this response|
@@ -134,124 +144,183 @@ instrumentId | STRING |Token symbol, e.g. 'BTC' |
 total| STRING| Total balance|
 available |STRING|Available balance|
 reserved|STRING|Reserved balance (unavailable)|
+quantityLastUpdated|STRING|timestamp when balance last updated|
 
-##GET  `/v2/positions/`
+##GET  `/v2/positions`
+
+
+> **Request**
+
+```json
+GET/v2/positions
+```
+
+
 
 > **RESPONSE**
 
 ```json
 {
-    “event”: null,
-    “success”: true,
-    “message”: null,
-    “code”: “0000”,
+    "event": "positions",
+    "accountId":"<Your Account ID>",
+    "timestamp":"1593627415000",
     “data”: [
         {
-            “instrumentId”: “BTC-USD-200626-LIN”,
-            “type”: “FUTURE”,
-            “isInverse”: true,
-            “quantity”: 2.000000000,
-            “lastUpdated”: 1590768853991,
-            “contractValCurrency”: null,
-            “entryPrice”: 7800.000000000,
-            “positionPl”: 0.0
-            “estLiquidationPx”: 0.0
+            "instrumentId": "BTC-USD-200626-LIN",
+            "quantity": "0.94",
+            "lastUpdated": 1592486212218,
+            "contractValCurrency": "BTC",
+            "entryPrice": "7800.00",       
+            "positionPnl": "200.3",
+            "estLiquidationPx": "6301.1",
+            "estLiqPrice": "2342.2",                  
+
         }
+        ...
     ]
 }
 ```
 
-GET positions. These are derivative contract positions and not coins.
+Requires authentication. GET all your position.
 
-Example Request:  /v2/markets/protected/positions
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+accountId | STRING    | Account ID|
+timestamp | STRING    | Timestamp of this response|
+instrumentId | STRING |Contract symbol, e.g. 'BTC-USD-200626-LIN' |
+lastUpdated| STRING| timestamp when position last updated|
+contractValCurrency |STRING|Available balance|
+entryPrice|STRING|Average entry price|
+positionPnl|STRING|Postion profit and lost|
+estLiquidationPx|STRING||
+estLiqPrice|STRING|Estimated liquidation price|
+
+
 
 ##GET  `/v2/positions/<instrumentId>`
-Get position for a certain derivative contract.
 
-Example Request: /v2/markets/protected/positions/ETH-USD-PERP-LIN
 
-**Request**
+> **Request**
 
-Parameters |Parameter Types | Description| 
--------------------------- | -----|--------- |
-instrumentId | String | Contract ID, e.g. 'ETH-USD-PERP-LIN' |
+```json
+GET/v2/positions/BTC-USD-200626-LIN
+```
 
 
 > **RESPONSE**
 
 ```json
-   {
-    “event”: null,
-    “success”: true,
-    “message”: null,
-    “code”: “0000”,
-    “data”: 
+{
+    "event": "positionsById",
+    "accountId":"<Your Account ID>",
+    "timestamp":"1593617005438",
+    "data": [
         {
-            “instrumentId”: “BTC-USD-200626-LIN”,
-            “type”: “FUTURE”,
-            “isInverse”: true,
-            “quantity”: 2.000000000,
-            “lastUpdated”: 1590768853991,
-            “contractValCurrency”: null,
-            “entryPrice”: 7800.000000000,
-            “positionPl”: 0.0
-            “eqtLiquidationPrice”: 1304.03
+            "instrumentId": "BTC-USD-200626-LIN",
+            "quantity": "0.94",
+            "lastUpdated": 1592486212218,
+            "contractValCurrency": "BTC",
+            "entryPrice": "7800.00",       
+            "positionPnl": "200.3",
+            "estLiquidationPx": "6301.1",
+            "estLiqPrice": "2342.2",                  
+
         }
+    ]
 }
 ```
+Requires authentication. GET a specific position.
+
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+accountId | STRING    | Account ID|
+timestamp | STRING    | Timestamp of this response|
+instrumentId | STRING |Contract symbol, e.g. 'BTC-USD-200626-LIN' |
+lastUpdated| STRING| timestamp when position last updated|
+contractValCurrency |STRING||
+entryPrice|STRING|Average entry price|
+positionPnl|STRING|Postion profit and lost|
+estLiquidationPx|STRING||
+estLiqPrice|STRING|Estimated liquidation price|
+
+
+
 
 ##GET `/v2/all/markets`
-Get a list of all markets currently listed on coinflex
+
+
+> **Request**
+
+```json
+GET/v2/all/markets`
+```
 
 > **RESPONSE**
 
 
 ```json
 {
-    "event": null,
-    "success": true,
-    "message": null,
-    "code": "0000",
+    "event": "markets",
+    "timestamp":"1593617005438",
     "data": [
         {
-            "marketId": 2001000000000,
             "marketCode": "BTC-USD",
             "name": "BTC/USD Spot",
             "referencePair": "BTC/USD"
             "base": "BTC",
             "counter": "USD",
             "type": "SPOT",
-            "tickSize": 0.1,
-            "qtyIncrement": 0.001,
-            "listingDate": -2208988800000,
+            "tickSize": "0.1",
+            "qtyIncrement": "0.001",
+            "listingDate": "-2208988800000",
             "endDate": null,
             "marginCurrency": null,
             "contractValCurrency": "BTC",
-            "upperPriceBound": 11000.00,
-            "lowerPriceBound": 9000.00,
-            "marketPrice": 10000.00,
-            "marketPriceLastUpdated": null,
-            "marketPriceStatus": "1",
-            "markPrice": null,
-            "markPriceLastUpdated": null
+            "upperPriceBound": "11000.00",
+            "lowerPriceBound": "9000.00",
+            "marketPrice": "10000.00",
         }
+        ...
     ]
 }
 ```
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+timestamp | STRING    | Timestamp of this response|
+marketCode| STRING    |                   |
+name      | STRING    |                   |
+referencePair| STRING |                   |
+base      | STRING    |                   |
+counter   | STRING    |                   |
+type      | STRING    |                   |
+tickSize  | STRING    |                   |
+qtyIncrement| STRING  |Minimum increamet quantity|
+listingDate| STRING   |                   |
+endDate    |STRING    |                   |
+marginCurrency|STRING |                   |
+contractValCurrency| STRING| contract valuation currency|
+upperPriceBound| STRING|                  |
+lowerPriceBound| STRING|                  |
+marketPrice    | STRING|                  |
 
-##GET `/v2/all/assets/`
-Get a list of all assets available on CoinFLEX. These include coins and bookable contracts.
+Get a list of all available markets on CoinFlex.
 
-Example Request: /v2/markets/public/assets
+
+
+##GET `/v2/all/assets`
+
+> **Request**
+
+```json
+GET/v2/all/assets
+```
 
 > **RESPONSE**
 
 ```json
 {
-    "event": null,
-    "success": true,
-    "message": null,
-    "code": "0000",
+    "event": "assets",
+    "timestamp":"1593617008698",
     "data": [
         {
             "instrumentId": "BTC-USD-200626-LIN",
@@ -278,6 +347,22 @@ Example Request: /v2/markets/public/assets
     ]
 }
 ```
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+timestamp | STRING    | Timestamp of this response|
+instrumentId| STRING    |                   |
+name      | STRING    |                   |
+base      | STRING    |                   |
+counter   | STRING    |                   |
+type      | STRING    |                   |
+marginCurrency| STRING |                  |
+contractValCurrency| STRING|              |
+deliveryDate       | STRING|              |
+deliveryInstrument | STRING|              |
+
+Get a list of all assets available on CoinFLEX. These include coins and bookable contracts.
+
+
 
 ##GET `/v2/trades`
 Get all trades of current user.
@@ -320,20 +405,27 @@ Login Required. Please pass x-cf-token in HTTP header.
 
 ```json
 {
-    "event": null,
-    "success": true,
-    "message": null,
-    "code": "0000",
+    "event": "orders",
+    "accountId":"<Your Account ID>",
+    "timestamp":"1593617005438",
     "data":[
-   {
-      "orderId": <long>,
-      "clientOrderId": <long>,
-      "marketCode": <String>,
-      "side": <string>,
-      "quantity": <BigDecimal>,
-      "price": <BigDecimal>,
-      "timestamp": <long>
-    }
+       {
+          "orderId": "160039151345856176",
+          "marketCode": "BTC-USD-200626-LIN",
+          "clientOrderId": null|"<clientOrderId>",              
+          "side": "BUY",
+          "orderType": "LIMIT"|"STOP",
+          "quantity": "1.00",
+          "remainQuantity": "1.00",
+          "price": "1.00"|null,               #for limit order, null for stop order
+          "stopPrice": "<stopPrice>"|null,    #for stop order, null for limit order 
+          "limitPrice": "limitPrice"|null,    #for stop order, null for limit order 
+          "orderCreated": "1593617008698",
+          "lastModified": "1593617008698",      
+          "lastTradeTimestamp": "1593617008698",
+          "timeInForce": "GTC"
+      }
+      ...
   ]
 }
  
