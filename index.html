@@ -466,7 +466,7 @@
 <p><strong>Request format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value&gt;"</span><span class="p">,</span><span class="w"> 
-   </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;value1&gt;"</span><span class="p">,</span><span class="s2">"&lt;value2&gt;"</span><span class="p">,</span><span class="err">.....</span><span class="p">]}</span><span class="w">
+   </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;value&gt;"</span><span class="p">]}</span><span class="w">
 
 </span><span class="err">OR</span><span class="w">
 
@@ -476,25 +476,19 @@
 <blockquote>
 <p><strong>Success response format</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"login"</span><span class="p">,</span><span class="w"> </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}</span><span class="w">
-  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"placeorder"</span><span class="p">,</span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}</span><span class="w">
-  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value&gt;"</span><span class="p">,</span><span class="nl">"channel"</span><span class="p">:</span><span class="s2">"&lt;value&gt;"</span><span class="p">}</span><span class="w">
-  </span><span class="p">{</span><span class="nl">"table"</span><span class="p">:</span><span class="s2">"channel"</span><span class="p">,</span><span class="nl">"data"</span><span class="p">:</span><span class="s2">"[{"</span><span class="err">&lt;value</span><span class="mi">1</span><span class="err">&gt;</span><span class="s2">","</span><span class="err">&lt;value</span><span class="mi">2</span><span class="err">&gt;</span><span class="s2">"}]"</span><span class="p">}</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="nl">"table"</span><span class="p">:</span><span class="s2">"channel"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"action"</span><span class="p">:</span><span class="s2">"&lt;value&gt;"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"data"</span><span class="p">:</span><span class="s2">"[{"</span><span class="err">&lt;value</span><span class="mi">1</span><span class="err">&gt;</span><span class="s2">",
-   "</span><span class="err">&lt;value</span><span class="mi">2</span><span class="err">&gt;</span><span class="s2">"}]"</span><span class="p">}</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;op value&gt;"</span><span class="p">,</span><span class="w"> </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;args value&gt;"</span><span class="p">,</span><span class="w"> </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}</span><span class="w">
+
+</span><span class="err">OR</span><span class="w">
+
+  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;op value&gt;"</span><span class="p">,</span><span class="w"> </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p><strong>Failure response format:</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"error"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"message"</span><span class="p">:</span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"code"</span><span class="p">:</span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">}</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"error"</span><span class="p">,</span><span class="w"> </span><span class="nl">"message"</span><span class="p">:</span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w"> </span><span class="nl">"code"</span><span class="p">:</span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w"> </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p><strong>Notification Response format:</strong></p>
+<p><strong>Notification response format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">   </span><span class="p">{</span><span class="w">
     </span><span class="nl">"table"</span><span class="p">:</span><span class="s2">"order"</span><span class="p">,</span><span class="w">
@@ -534,7 +528,7 @@
 
 <p><strong>For subscription based commands</strong></p>
 
-<p><code>{&quot;op&quot;: &quot;&lt;value&gt;&quot;, &quot;args&quot;: [&quot;&lt;value1&gt;&quot;,&quot;&lt;value2&gt;&quot;,.....]}</code></p>
+<p><code>{&quot;op&quot;: &quot;&lt;value&gt;&quot;, &quot;args&quot;: [&quot;&lt;value&gt;&quot;]}</code></p>
 
 <p><code>op</code>: can either be</p>
 
@@ -543,7 +537,12 @@
 <li>unsubscribe</li>
 </ul>
 
-<p><code>args</code>: the value is the channel name, which can be one or more channels</p>
+<p><code>args</code>: the value is the channel name, for example</p>
+
+<ul>
+<li>order:BTC-USD-SWAP-LIN</li>
+<li>futures/depth:BTC-USD-SPR-QP-LIN</li>
+</ul>
 
 <p><strong>All other commands</strong></p>
 
