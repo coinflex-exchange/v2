@@ -313,6 +313,9 @@
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
           </li>
           <li>
+            <a href="#api-key-management" class="toc-h1 toc-link" data-title="API Key Management">API Key Management</a>
+          </li>
+          <li>
             <a href="#change-log" class="toc-h1 toc-link" data-title="Change Log">Change Log</a>
           </li>
           <li>
@@ -431,43 +434,27 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the CoinFLEX v2 API. Please note this is a beta version and can be considered a testnet.</p>
+<p>Welcome to CoinFLEX&#39;s v2 application programming interface (API). Please note, this is a beta version and should be considered a test net.</p>
 
-<p>CoinFLEX offers REST and WebSocket APIs. Both support market data and trading. It is recommend you use Websocket for more consistent and quicker response times<p><p> * Current server: Alicloud Hong Kong</p>
+<p>CoinFLEX&#39;s APIs provide our clients programmatic access to control aspects of their accounts and to place orders on CoinFLEX&#39;s trading platform. CoinFLEX provides the following APIs:</p>
 
-<p>Quick start:<p><p>1. Register for an account at https://test-v2.coinflex-cn.com/login<p><p>2. POST via RESTAPI at
-  https://api-test-v2.coinflex-cn.com/v2/account/auth/trading/login
-  with the following JSON to obtain your token:</p>
+<ul>
+<li>a WebSocket API</li>
+<li>a REST API</li>
+</ul>
 
-<blockquote>
-<p><strong>Request format</strong></p>
-</blockquote>
+<p>Using these interfaces it is possible to place both authenticated and unauthenticated API commands for public and prvate commands respectively.</p>
 
-<p>Valid options of op can be:  <code>login</code>, <code>subscribe</code>, <code>unsubscribe</code>, <code>placeorder</code>, <code>cancelorder</code> etc.</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"email"</span><span class="p">:</span><span class="s2">"&lt;email&gt;"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"password"</span><span class="p">:</span><span class="s2">"&lt;password&gt;"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+<p>To get started please register for a TEST account at <code>https://test-v2.coinflex-cn.com/login</code></p>
+<h1 id='api-key-management'>API Key Management</h1>
+<p>An API key is required to make an authenticated API command.  API keys (public and corresponding secret key) can be generated via the CoinFLEX GUI within a clients account. </p>
 
-</span></code></pre></div>
-<blockquote>
-<p><strong>RESPONSE</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0000"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxx@xxx.com"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"accountName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxx@xxx.com"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"mainLogin"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+<p>By default, API Keys are read-only and can only read basic account information, such as positions, orders, and trades. They cannot be used to trade such as placing, modifying or cancelling orders.</p>
 
-</span></code></pre></div><h1 id='change-log'>Change Log</h1>
+<p>If you wish to execute orders with your API Key, clients must select the <code>Can Trade</code> permission upon API key creation.</p>
+
+<p>API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.</p>
+<h1 id='change-log'>Change Log</h1>
 <p>2020-06-16
 - Added general guidance for getting a login/password to create tokens
 - Updated some addresses for REST API</p>
