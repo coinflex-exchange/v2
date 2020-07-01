@@ -55,8 +55,6 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
 
 ##GET `/v2/balances/`
 
-GET coin balanaces in your account
-
 > **Request format**
 
 ```json
@@ -80,6 +78,7 @@ GET coin balanaces in your account
 }
 ```
 
+GET coin balanaces in your account
 
 Parameters |Parameter Types | Description| 
 -------------------------- | -----|--------- |
@@ -122,10 +121,6 @@ reserved|number|Amount on hold (unavailable)|
 
 ##GET  `/v2/positions/`
 
-GET positions. These are derivative contract positions and not coins.
-
-Example Request:  /v2/markets/protected/positions
-
 > **RESPONSE**
 
 ```json
@@ -149,6 +144,10 @@ Example Request:  /v2/markets/protected/positions
     ]
 }
 ```
+
+GET positions. These are derivative contract positions and not coins.
+
+Example Request:  /v2/markets/protected/positions
 
 ##GET  `/v2/positions/<instrumentId>`
 Get position for a certain derivative contract.
