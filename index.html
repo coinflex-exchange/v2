@@ -387,7 +387,7 @@
                     <a href="#v2-0-rest-api-authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
                   </li>
                   <li>
-                    <a href="#v2-0-rest-api-get-v2-balances" class="toc-h2 toc-link" data-title="GET /v2/balances/">GET <code>/v2/balances/</code></a>
+                    <a href="#v2-0-rest-api-get-v2-balances" class="toc-h2 toc-link" data-title="GET /v2/balances">GET <code>/v2/balances</code></a>
                   </li>
                   <li>
                     <a href="#v2-0-rest-api-get-v2-balances-lt-instrumentid-gt" class="toc-h2 toc-link" data-title="GET /v2/balances/&lt;instrumentId&gt;">GET <code>/v2/balances/&lt;instrumentId&gt;</code></a>
@@ -3097,31 +3097,40 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 
 <p>You must use HmacSHA256 to get the hash with the two parameters: the generated text and your secret key.
 Then encode the hash value with Base-64. Mark down the output text as the signature.</p>
-<h2 id='v2-0-rest-api-get-v2-balances'>GET <code>/v2/balances/</code></h2>
-<p>GET coin balanaces in your account</p>
-
+<h2 id='v2-0-rest-api-get-v2-balances'>GET <code>/v2/balances</code></h2>
 <blockquote>
-<p><strong>Request format</strong></p>
+<p><strong>Request</strong>
+<code>json
+GET/v2/balances
+</code>
+<strong>Response</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="err">“event”:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="err">“success”:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="err">“message”:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="err">“code”:</span><span class="w"> </span><span class="err">“</span><span class="mi">0000</span><span class="err">”</span><span class="p">,</span><span class="w">
-    </span><span class="err">“data”:</span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
+    </span><span class="err">“event”:</span><span class="w"> </span><span class="s2">"balances"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1593616622"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tradeType"</span><span class="p">:</span><span class="s2">"LINEAR"</span><span class="err">|</span><span class="s2">"INVERSE"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
+    </span><span class="p">{</span><span class="w">   
         </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"available"</span><span class="p">:</span><span class="w"> </span><span class="mf">4468.823</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"reserved"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="nl">"total"</span><span class="p">:</span><span class="s2">"4468.823"</span><span class="w">              
+        </span><span class="nl">"available"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4468.823"</span><span class="p">,</span><span class="w">        
+        </span><span class="nl">"reserved"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"quantityLastUpdated"</span><span class="p">:</span><span class="s2">"1593616622"</span><span class="w">
     </span><span class="p">},</span><span class="w">
+    </span><span class="err">.....</span><span class="w">
     </span><span class="p">{</span><span class="w">
         </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EOS"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"available"</span><span class="p">:</span><span class="w"> </span><span class="mf">325.890</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"reserved"</span><span class="p">:</span><span class="w"> </span><span class="mi">1260</span><span class="w">
+        </span><span class="nl">"total"</span><span class="p">:</span><span class="s2">"1585.890"</span><span class="w">              
+        </span><span class="nl">"available"</span><span class="p">:</span><span class="w"> </span><span class="s2">"325.890"</span><span class="p">,</span><span class="w">         
+        </span><span class="nl">"reserved"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1260"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"quantityLastUpdated"</span><span class="p">:</span><span class="s2">"1593616500"</span><span class="w">
     </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p>Requires authentication. GET coin balanaces in your account. </p>
+
 <table><thead>
 <tr>
 <th>Parameters</th>
@@ -3130,86 +3139,107 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
 </tr>
 </thead><tbody>
 <tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Timestamp of this response</td>
+</tr>
+<tr>
+<td>tradeType</td>
+<td>STRING</td>
+<td>Define this account is trading linear or inverse derivatives</td>
+</tr>
+<tr>
 <td>instrumentId</td>
-<td>String</td>
-<td></td>
+<td>STRING</td>
+<td>Token symbol, e.g. &#39;BTC&#39;</td>
+</tr>
+<tr>
+<td>total</td>
+<td>STRING</td>
+<td>Total balance</td>
 </tr>
 <tr>
 <td>available</td>
-<td>number</td>
-<td>Amount available</td>
+<td>STRING</td>
+<td>Available balance</td>
 </tr>
 <tr>
 <td>reserved</td>
-<td>number</td>
-<td>Amount on hold (unavailable)</td>
+<td>STRING</td>
+<td>Reserved balance (unavailable)</td>
 </tr>
 </tbody></table>
 <h2 id='v2-0-rest-api-get-v2-balances-lt-instrumentid-gt'>GET <code>/v2/balances/&lt;instrumentId&gt;</code></h2>
-<p>GET balance for a specific coin</p>
-
-<blockquote>
-<p><strong>Request format</strong></p>
-</blockquote>
-
-<table><thead>
-<tr>
-<th>Parameters</th>
-<th>Parameter Types</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>instrumentId</td>
-<td>String</td>
-<td></td>
-</tr>
-</tbody></table>
-
 <blockquote>
 <p><strong>RESPONSE</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="err">“event”:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="err">“success”:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="err">“message”:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="err">“code”:</span><span class="w"> </span><span class="err">“</span><span class="mi">0000</span><span class="err">”</span><span class="p">,</span><span class="w">
-    </span><span class="err">“data”:</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EOS"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"available"</span><span class="p">:</span><span class="w"> </span><span class="mf">325.890</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"reserved"</span><span class="p">:</span><span class="w"> </span><span class="mi">1260</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"balancesById"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1593616622"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tradeType"</span><span class="p">:</span><span class="s2">"LINEAR"</span><span class="err">|</span><span class="s2">"INVERSE"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
+    </span><span class="p">{</span><span class="w">   
+        </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"total"</span><span class="p">:</span><span class="s2">"4468.823"</span><span class="w">              
+        </span><span class="nl">"available"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4468.823"</span><span class="p">,</span><span class="w">        
+        </span><span class="nl">"reserved"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"quantityLastUpdated"</span><span class="p">:</span><span class="s2">"1593616500"</span><span class="w">
     </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p>Requires authentication. GET balance for a specific coin.</p>
+
 <table><thead>
 <tr>
 <th>Parameters</th>
-<th>Parameter Types</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Timestamp of this response</td>
+</tr>
+<tr>
+<td>tradeType</td>
+<td>STRING</td>
+<td>Define this account is trading linear or inverse derivatives</td>
+</tr>
+<tr>
 <td>instrumentId</td>
-<td>String</td>
+<td>STRING</td>
 <td>Token symbol, e.g. &#39;BTC&#39;</td>
 </tr>
 <tr>
+<td>total</td>
+<td>STRING</td>
+<td>Total balance</td>
+</tr>
+<tr>
 <td>available</td>
-<td>number</td>
-<td>Amount available</td>
+<td>STRING</td>
+<td>Available balance</td>
 </tr>
 <tr>
 <td>reserved</td>
-<td>number</td>
-<td>Amount on hold (unavailable)</td>
+<td>STRING</td>
+<td>Reserved balance (unavailable)</td>
 </tr>
 </tbody></table>
 <h2 id='v2-0-rest-api-get-v2-positions'>GET  <code>/v2/positions/</code></h2>
-<p>GET positions. These are derivative contract positions and not coins.</p>
-
-<p>Example Request:  /v2/markets/protected/positions</p>
-
 <blockquote>
 <p><strong>RESPONSE</strong></p>
 </blockquote>
@@ -3232,7 +3262,11 @@ Then encode the hash value with Base-64. Mark down the output text as the signat
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='v2-0-rest-api-get-v2-positions-lt-instrumentid-gt'>GET  <code>/v2/positions/&lt;instrumentId&gt;</code></h2>
+</span></code></pre></div>
+<p>GET positions. These are derivative contract positions and not coins.</p>
+
+<p>Example Request:  /v2/markets/protected/positions</p>
+<h2 id='v2-0-rest-api-get-v2-positions-lt-instrumentid-gt'>GET  <code>/v2/positions/&lt;instrumentId&gt;</code></h2>
 <p>Get position for a certain derivative contract.</p>
 
 <p>Example Request: /v2/markets/protected/positions/ETH-USD-PERP-LIN</p>
