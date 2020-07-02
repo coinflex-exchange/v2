@@ -26,7 +26,7 @@ OR
    "success": true}
 ```
 
-> **Failure response format:**
+> **Failure response format**
 
 ```json
   {"event": "error", 
@@ -103,7 +103,7 @@ api_key = 'API-KEY'
 api_secret = 'API-SECRET'
 ts = str(int(time.time() * 1000))
 sig_payload = (ts+'GET/auth/self/verify').encode('utf-8')
-signature = base64.b64encode(hmac.new(sig_payload, api_secret.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+signature = base64.b64encode(hmac.new(api_secret.encode('utf-8'), sig_payload, hashlib.sha256).digest()).decode('utf-8')
 
 msg_auth = \
 {
@@ -171,7 +171,7 @@ ws.onopen = function () {
    }
 ```
 
-> **Failure response format:**
+> **Failure response format**
 
 ```json
   {
@@ -214,7 +214,7 @@ The signature is calculated as:
 
 * `Base64(HmacSHA256(API-Secret, timestamp + 'GET/auth/self/verify'))`
 
-**Parameters - Login Command**
+**Parameters - Login**
 
 Parameter | Type | Required | Description | 
 -------------------------- | -----|--------- | -------------|
@@ -226,29 +226,63 @@ data | ARRAY object | Yes |
 \>signature | STRING | Yes | `Base64(HmacSHA256(API-Secret, timestamp + 'GET/auth/self/verify'))` |
 
 
-## Place Order 
+# Websocket Place Order
 
-### Limit Order 
+## Limit Order 
 
 > **Request format**
 
 ```json
 {   
-    "op":"placeorder", 
-    "data":{
-            "clientOrderId":1, 
-            "marketCode": "BTC-USD-SWAP-LIN",
-            "side":"BUY", 
-            "orderType":"LIMIT", 
-            "quantity":1.5, 
-            "timeInForce":"GTC", 
-            "price":9431.48
-            },
-    "tag":1       
+  "op":"placeorder", 
+  "data":{
+          "clientOrderId":1, 
+          "marketCode": "BTC-USD-SWAP-LIN",
+          "side":"BUY", 
+          "orderType":"LIMIT", 
+          "quantity":1.5, 
+          "timeInForce":"GTC", 
+          "price":9431.48
+          },
+  "tag":1       
 }
 ```
 
-Requires authentication. Please subscribe user order channel to receive the order updates.
+> **Submitted response format**
+
+```json
+{
+   "event":"placeorder",
+   "submitted":true, 
+   "tag":"1", 
+   "data":{
+            "clientOrderId":"1", 
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "side":"BUY", 
+            "orderType":"LIMIT", 
+            "quantity":"1.5", 
+            "timeInForce":"GTC", 
+            "price":"9431.48"
+            },
+  "timestamp":"1592491945"
+}
+```
+
+> **Failure response format**
+
+```json
+{
+   "event":"placeorder",
+   "message":"<errorMessage>",
+   "code":"<code>",
+   "submitted": false,
+   "tag":"1",
+   "timestamp":"1592491503"
+ }
+```
+
+Requires authentication. 
+Please also subscribe to the user order channel to receive push notifications for all message udpates related to a clients orders.
 
 **Request Parameters Specification:**
 
@@ -263,55 +297,8 @@ side | STRING | Yes | BUY / SELL |
 timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker price if specified price otherwise leads to a taker trade)</li></ul>
 tag| INTEGER| No|Iff given and non-zero, it will be echoed in the reply.
 
-> **Submitted response format**
 
-```json
- 
-  {
-   "event":"placeorder",
-   "submitted":true, 
-   "tag":"1", 
-   "data":{
-            "clientOrderId":"1", 
-            "marketCode": "BTC-USD-SWAP-LIN",
-            "side":"BUY", 
-            "orderType":"LIMIT", 
-            "quantity":"1.5", 
-            "timeInForce":"GTC", 
-            "price":"9431.48"
-            },
-  "timestamp":"1592491945"
-  }
-
-
-```
-
-
-
-> **Failure response format**
-
-
-
-```json
- 
-  {
-   "event":"placeorder",
-   "message":"<errorMessage>",
-   "code":"<code>",
-   "submitted": false,
-   "tag":"1",
-   "timestamp":"1592491503"
-  }
-
-
-```
-
-
-
-
-## Market Order
-
-
+## Market Order  &nbsp;&nbsp;*****COMING SOON*****
 
 
 ## Stop Limit Order  &nbsp;&nbsp;*****COMING SOON*****
@@ -350,32 +337,22 @@ side|STRING| Yes| `BUY `/ `SELL`|
 stopPrice|NUMBER|Yes|Stop price for the stop-limit order.<p><p>Triggered by the best bid price for the SELL side stop-limit order.<p><p>Triggered by the best ask price for the BUY side stop-limit order. |
 
 
-
-
-
-
-
-
-
 ## Cancel Order 
-
-Requires authentication. Please subscribe user order channel to receive the order updates.
 
 > **Request format**
 
 ```json
- 
 {
-        "op":"cancelorder",
-        "data":{
-                "marketCode":"BTC-USD-SWAP-LIN", 
-                "orderId":12
-                },
-        "tag":1
+  "op":"cancelorder",
+  "data":{
+          "marketCode":"BTC-USD-SWAP-LIN", 
+          "orderId":12
+          },
+  "tag":1
 }
-
 ```
 
+Requires authentication. Please subscribe user order channel to receive the order updates.
 
 **Request Parameters Specification:**
 
@@ -387,8 +364,7 @@ orderId|INTEGER|YES|Order ID is generated by the server.|
 > **Submitted response format**
 
 ```json
- 
-  {
+{
    "event":"cancelorder",
    "submitted":true,
    "data":{
@@ -398,98 +374,71 @@ orderId|INTEGER|YES|Order ID is generated by the server.|
    "tag":"1",
    "timestamp":"1592491173"
  }
-
 ```
-
 
 > **Failure response format**
 
-
-
 ```json
- 
-  {
+{
    "event":"cancelorder",
    "message":"<errorMessage>",
    "code":"<code>",
    "submitted": false,
    "tag":"1",
    "timestamp":"1592491473"
-  }
-
-
+}
 ```
 
-
-
-
-
-
-
-
-
-
 ## Modify Order
-
-Requires authentication. Please subscribe user order channel to receive the order updates.
 
 > **Request format**
 
 ```json
- 
 {
-        "op":"modifyorder",
-        "data":{
-                "marketCode":"BTC-USD-SWAP-LIN", 
-                "orderId":888,
-                "side":"BUY",
-                "price":9800,
-                "quantity":2,
-               },
-        "tag":1
+  "op":"modifyorder",
+  "data":{
+          "marketCode":"BTC-USD-SWAP-LIN", 
+          "orderId":888,
+          "side":"BUY",
+          "price":9800,
+          "quantity":2,
+         },
+  "tag":1
 }
-
 ```
 
 > **Submitted response format**
 
 ```json
- 
-  {
-   "event":"modifyorder",
-   "submitted":true,
-   "data":{
-            "marketCode":"BTC-USD-SWAP-LIN", 
-            "orderId":888,
-            "side":"BUY",
-            "price":9800,
-            "quantity":2,
-           },
-   "tag":"1",
-   "timestamp":"1592491032"
- }
-
+{
+  "event":"modifyorder",
+  "submitted":true,
+  "data":{
+          "marketCode":"BTC-USD-SWAP-LIN", 
+          "orderId":888,
+          "side":"BUY",
+          "price":9800,
+          "quantity":2,
+         },
+  "tag":"1",
+  "timestamp":"1592491032"
+}
 ```
 
 > **Failure response format**
 
-
-
 ```json
- 
-  {
-   "event":"modifyorder",
-   "message":"<errorMessage>",
-   "code":"<code>",
-   "submitted": false,
-   "tag":"1",
-   "timestamp":"1592491173"
-  }
-
-
+{
+  "event":"modifyorder",
+  "message":"<errorMessage>",
+  "code":"<code>",
+  "submitted": false,
+  "tag":"1",
+  "timestamp":"1592491173"
+}
 ```
 
-
+Requires authentication. Please subscribe user order channel to receive the order updates.
 
 Parameters | Type | Required | Description|
 -------------------------- | -----|--------- | -------------|
@@ -500,10 +449,7 @@ price|decimal|Yes|Price for limit orders|
 quantity|decimal|Yes|  Quantity (denominated by `contractValCurrency`)| 
 
 
-
-
-
-# Websocket Private Channel 
+# Websocket Subscriptions - Private 
 ## User Order Channel 
 
 Requires authentication. Get the user's order information.
@@ -511,18 +457,15 @@ Requires authentication. Get the user's order information.
 > **Request format**
 
 ```json
- 
-  {"op": "subscribe", 
-  "args":["order:BTC-USD"]}
-
+{"op":"subscribe", 
+ "args":["order:BTC-USD"]}
 ```
+
 order is the channel name.  BTC-USD is the market code.  Example responses are in Webosocket Private Data Stream Section.
 
+# Websocket User Order Channel 
 
-
-# Websocket User Data Stream
-
-## Order:OrderOpened
+## Order: OrderOpened
 
 A new limit order has been opened.
 
@@ -622,7 +565,7 @@ limitPrice|STRING|limit price3 submitted
 
 
 
-## Order:OrderModified
+## Order: OrderModified
 
 * Order modified
 
@@ -665,7 +608,7 @@ status|STRING|  OPEN = success
 timestamp|STRING|UNIX timestamp
 orderType| STRING|`LIMIT`
 
-## Order:OrderClosed
+## Order: OrderClosed
 
 * Order partially cancelled by IOC
 
@@ -943,7 +886,7 @@ timestamp|STRING |UNIX timestamp
 
 
 
-## Order:OrderRejected
+## Order: OrderRejected
 
 * Reject order with 0 quantity
 
@@ -1382,10 +1325,7 @@ feeInstrumentId|STRING|Fee instrument (e.g. USD)
 orderType|STRING|`STOP`
 
 
-
-
-
-# Websocket Public Channel 
+# Websocket Subscriptions - Public 
 ## Public - Depth
 
 > **Request**
