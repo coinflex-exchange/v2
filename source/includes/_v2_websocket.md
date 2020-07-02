@@ -10,7 +10,7 @@
 OR
    
   {"op": "<value>,
-   "data":{"<key1>":"<value1>",.....}}
+   "data": {"<key1>":"<value1>",.....}}
 ```
 
 > **Success response format**
@@ -22,40 +22,17 @@ OR
 
 OR
 
-  {"event": "<op value>", "success": true}
+  {"event": "<op value>",
+   "success": true}
 ```
 
 > **Failure response format:**
 
 ```json
-  {"event":"error", 
-   "message":"<errorMessage>",
-   "code":"<code>",
+  {"event": "error", 
+   "message": "<errorMessage>",
+   "code": "<code>",
    "success": false}
-```
-
-> **Notification response format**
-
-```json
-   {
-    "table":"order",
-    "data":[
-        {   
-            "notice":"OrderOpened",
-            "accountId":"1", 
-            "marketCode":"BTC-USD-SWAP-LIN",
-            "orderId":"123",  
-            "clientOrderId":"16", 
-            "price":"60", 
-            "quantity":"2",
-            "orderType":"LIMIT" 
-            "side":"BUY", 
-            "timeInForce":"GTC", 
-            "status":"OPEN",
-            "timestamp":"12345"
-        }
-    ]
-}
 ```
 
 **TEST** site
@@ -74,12 +51,12 @@ Websocket commands can be sent in either of the following two formats:
 
 `{"op": "<value>", "args": ["<value>"]}`
 
-`op`: can either be
+`op`: can either be:
 
 * subscribe
 * unsubscribe
 
-`args`: the value is the channel name, for example
+`args`: the value is the channel name, for example:
 
 * order:BTC-USD-SWAP-LIN
 * futures/depth:BTC-USD-SPR-QP-LIN
@@ -88,7 +65,7 @@ Websocket commands can be sent in either of the following two formats:
 
 `{"op": "<command>", "data": {"<key1>":"<value1>",.....}}`
 
-`op`: can be
+`op`: can be:
 
 * login
 * placeorder
@@ -98,18 +75,18 @@ Websocket commands can be sent in either of the following two formats:
 `data`: JSON string of the request object containing the required parameters
 
 
-# Websocket Authentication
+## Authentication
 
 > **Request format**
 
 ```json
 {
-  "op":"login",
-  "tag":<integer>,
+  "op": "login",
+  "tag": <integer>,
   "data":{
-          "apiKey":<string>,
-          "timestamp":<string>,
-          "signature":<string>
+          "apiKey": <string>,
+          "timestamp": <string>,
+          "signature": <string>
           }
 }
 ```
@@ -122,12 +99,11 @@ import base64
 import hashlib
 import json
 
-api_key = 'z65AfjYtlevH0WwUE66LoYzq0bJ7znDARIXnYo40Ru4='
-api_secret = '+UoQCeItEPYI2hQxYlhct+y+5x9jxHJ8lp4iRAgpQc0='
-timestamp = str(int(time.time() * 1000))
-string1 = api_secret.encode('utf-8')
-string2 = (timestamp+'GET/auth/self/verify').encode('utf-8')
-signature = base64.b64encode(hmac.new(string1, string2, hashlib.sha256).digest()).decode('utf-8')
+api_key = 'API-KEY'
+api_secret = 'API-SECRET'
+ts = str(int(time.time() * 1000))
+sig_payload = (ts+'GET/auth/self/verify').encode('utf-8')
+signature = base64.b64encode(hmac.new(sig_payload, api_secret.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
 
 msg_auth = \
 {
@@ -135,7 +111,7 @@ msg_auth = \
   "tag": 1,
   "data": {
           "apiKey": api_key,
-          "timestamp": timestamp,
+          "timestamp": ts,
           "signature": signature
           }
 }
@@ -150,12 +126,12 @@ async def subscribe():
 asyncio.get_event_loop().run_until_complete(subscribe())
 ```
 ```javascript
-var apiKey = "D+5Jaf27TbTIWNUVe7JFKhZ8PuC9RF3fR/H1jL/9AfU=";
-var secretKey = "GBPHDNij/0f6Sqh5SE5YBgc/rB+1h0B18/H3lQfSsIk=";
-const timestamp = '' + Date.now();
+var apiKey = "API-KEY";
+var secretKey = "API-SECRET";
+const ts = '' + Date.now();
 
-var sign = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(timestamp +'GET/auth/self/verify', secretKey));
-var msg = '{"op":"login","data":{"apiKey":"' + apiKey + '", "timestamp": "'+ timestamp + '", "signature":"'+ sign + '"}}';
+var sign = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(secretKey, ts +'GET/auth/self/verify'));
+var msg = '{"op":"login","data":{"apiKey":"' + apiKey + '", "timestamp": "'+ ts + '", "signature":"'+ sign + '"}}';
 
 var ws = new WebSocket('wss://api-test-v2.coinflex-cn.com/v2/websocket');
 
@@ -234,15 +210,9 @@ To autenticate a websocket connection a "login" message must be sent containing 
 
 To construct the signature a clients API-Secret key is required.  API keys (public and corresponding secret key) can be generated via the GUI within the clients account.  
 
-By default, API Keys are read-only and can only read basic account information, such as positions, orders, and trades. They cannot be used to trade such as placing, modifying or cancelling orders.
-
-If you wish to execute orders with your API Key, clients must select the `Can Trade` permission upon API key creation. 
-
-API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.
-
 The signature is calculated as:
 
-* `Base64(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret))`
+* `Base64(HmacSHA256(API-Secret, timestamp + 'GET/auth/self/verify'))`
 
 **Parameters - Login Command**
 
@@ -253,14 +223,12 @@ tag| INTEGER| No | If given, it will be echoed in the reply. |
 data | ARRAY object | Yes |
 \>apiKey | STRING | Yes | Clients public API key, visible in the GUI when created. | 
 \>timestamp | STRING | Yes | Current millisecond timestamp |  
-\>signature | STRING | Yes | `Base64(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret))` |
+\>signature | STRING | Yes | `Base64(HmacSHA256(API-Secret, timestamp + 'GET/auth/self/verify'))` |
 
 
-# Websocket Place Order 
+## Place Order 
 
-## Limit Order 
-
-Requires authentication. Please subscribe user order channel to receive the order updates.
+### Limit Order 
 
 > **Request format**
 
@@ -279,6 +247,9 @@ Requires authentication. Please subscribe user order channel to receive the orde
     "tag":1       
 }
 ```
+
+Requires authentication. Please subscribe user order channel to receive the order updates.
+
 **Request Parameters Specification:**
 
 Parameters | Type | Required | Description | 
@@ -291,9 +262,6 @@ quantity |  DECIMAL | Yes | Quantity (denominated by contractValCurrency) |
 side | STRING | Yes | BUY / SELL | 
 timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker price if specified price otherwise leads to a taker trade)</li></ul>
 tag| INTEGER| No|Iff given and non-zero, it will be echoed in the reply.
-
-
-
 
 > **Submitted response format**
 
