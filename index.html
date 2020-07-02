@@ -320,27 +320,24 @@
           </li>
           <li>
             <a href="#websocket-api" class="toc-h1 toc-link" data-title="Websocket API">Websocket API</a>
-          </li>
-          <li>
-            <a href="#websocket-authentication" class="toc-h1 toc-link" data-title="Websocket Authentication">Websocket Authentication</a>
-          </li>
-          <li>
-            <a href="#websocket-place-order" class="toc-h1 toc-link" data-title="Websocket Place Order">Websocket Place Order</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#websocket-place-order-limit-order" class="toc-h2 toc-link" data-title="Limit Order">Limit Order</a>
+                    <a href="#websocket-api-authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
                   </li>
                   <li>
-                    <a href="#websocket-place-order-market-order" class="toc-h2 toc-link" data-title="Market Order">Market Order</a>
+                    <a href="#websocket-api-place-order" class="toc-h2 toc-link" data-title="Place Order">Place Order</a>
                   </li>
                   <li>
-                    <a href="#websocket-place-order-stop-limit-order-nbsp-nbsp-coming-soon" class="toc-h2 toc-link" data-title="Stop Limit Order    **COMING SOON**">Stop Limit Order    **<strong><em>COMING SOON</em></strong>**</a>
+                    <a href="#websocket-api-market-order" class="toc-h2 toc-link" data-title="Market Order">Market Order</a>
                   </li>
                   <li>
-                    <a href="#websocket-place-order-cancel-order" class="toc-h2 toc-link" data-title="Cancel Order">Cancel Order</a>
+                    <a href="#websocket-api-stop-limit-order-nbsp-nbsp-coming-soon" class="toc-h2 toc-link" data-title="Stop Limit Order    **COMING SOON**">Stop Limit Order    **<strong><em>COMING SOON</em></strong>**</a>
                   </li>
                   <li>
-                    <a href="#websocket-place-order-modify-order" class="toc-h2 toc-link" data-title="Modify Order">Modify Order</a>
+                    <a href="#websocket-api-cancel-order" class="toc-h2 toc-link" data-title="Cancel Order">Cancel Order</a>
+                  </li>
+                  <li>
+                    <a href="#websocket-api-modify-order" class="toc-h2 toc-link" data-title="Modify Order">Modify Order</a>
                   </li>
               </ul>
           </li>
@@ -471,7 +468,7 @@
 </span><span class="err">OR</span><span class="w">
 
   </span><span class="p">{</span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value&gt;,
-   "</span><span class="err">data</span><span class="s2">":{"</span><span class="err">&lt;key</span><span class="mi">1</span><span class="err">&gt;</span><span class="s2">":"</span><span class="err">&lt;value</span><span class="mi">1</span><span class="err">&gt;</span><span class="s2">",.....}}
+   "</span><span class="err">data</span><span class="s2">": {"</span><span class="err">&lt;key</span><span class="mi">1</span><span class="err">&gt;</span><span class="s2">":"</span><span class="err">&lt;value</span><span class="mi">1</span><span class="err">&gt;</span><span class="s2">",.....}}
 </span></code></pre></div>
 <blockquote>
 <p><strong>Success response format</strong></p>
@@ -482,38 +479,16 @@
 
 </span><span class="err">OR</span><span class="w">
 
-  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;op value&gt;"</span><span class="p">,</span><span class="w"> </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}</span><span class="w">
+  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;op value&gt;"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p><strong>Failure response format:</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"error"</span><span class="p">,</span><span class="w"> 
-   </span><span class="nl">"message"</span><span class="p">:</span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"code"</span><span class="p">:</span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w"> 
+   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<blockquote>
-<p><strong>Notification response format</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">   </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="s2">"order"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
-        </span><span class="p">{</span><span class="w">   
-            </span><span class="nl">"notice"</span><span class="p">:</span><span class="s2">"OrderOpened"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w"> 
-            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="s2">"123"</span><span class="p">,</span><span class="w">  
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="s2">"16"</span><span class="p">,</span><span class="w"> 
-            </span><span class="nl">"price"</span><span class="p">:</span><span class="s2">"60"</span><span class="p">,</span><span class="w"> 
-            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="s2">"2"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="s2">"LIMIT"</span><span class="w"> 
-            </span><span class="nl">"side"</span><span class="p">:</span><span class="s2">"BUY"</span><span class="p">,</span><span class="w"> 
-            </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="s2">"GTC"</span><span class="p">,</span><span class="w"> 
-            </span><span class="nl">"status"</span><span class="p">:</span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"12345"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p><strong>TEST</strong> site</p>
 
@@ -535,14 +510,14 @@
 
 <p><code>{&quot;op&quot;: &quot;&lt;value&gt;&quot;, &quot;args&quot;: [&quot;&lt;value&gt;&quot;]}</code></p>
 
-<p><code>op</code>: can either be</p>
+<p><code>op</code>: can either be:</p>
 
 <ul>
 <li>subscribe</li>
 <li>unsubscribe</li>
 </ul>
 
-<p><code>args</code>: the value is the channel name, for example</p>
+<p><code>args</code>: the value is the channel name, for example:</p>
 
 <ul>
 <li>order:BTC-USD-SWAP-LIN</li>
@@ -553,7 +528,7 @@
 
 <p><code>{&quot;op&quot;: &quot;&lt;command&gt;&quot;, &quot;data&quot;: {&quot;&lt;key1&gt;&quot;:&quot;&lt;value1&gt;&quot;,.....}}</code></p>
 
-<p><code>op</code>: can be</p>
+<p><code>op</code>: can be:</p>
 
 <ul>
 <li>login</li>
@@ -563,17 +538,17 @@
 </ul>
 
 <p><code>data</code>: JSON string of the request object containing the required parameters</p>
-<h1 id='websocket-authentication'>Websocket Authentication</h1>
+<h2 id='websocket-api-authentication'>Authentication</h2>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"op"</span><span class="p">:</span><span class="s2">"login"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"tag"</span><span class="p">:</span><span class="err">&lt;integer&gt;</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"login"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;integer&gt;</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:{</span><span class="w">
-          </span><span class="nl">"apiKey"</span><span class="p">:</span><span class="err">&lt;string&gt;</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="err">&lt;string&gt;</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"signature"</span><span class="p">:</span><span class="err">&lt;string&gt;</span><span class="w">
+          </span><span class="nl">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;string&gt;</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;string&gt;</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"signature"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;string&gt;</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">websockets</span>
@@ -584,12 +559,11 @@
 <span class="kn">import</span> <span class="nn">hashlib</span>
 <span class="kn">import</span> <span class="nn">json</span>
 
-<span class="n">api_key</span> <span class="o">=</span> <span class="s">'z65AfjYtlevH0WwUE66LoYzq0bJ7znDARIXnYo40Ru4='</span>
-<span class="n">api_secret</span> <span class="o">=</span> <span class="s">'+UoQCeItEPYI2hQxYlhct+y+5x9jxHJ8lp4iRAgpQc0='</span>
-<span class="n">timestamp</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span>
-<span class="n">string1</span> <span class="o">=</span> <span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
-<span class="n">string2</span> <span class="o">=</span> <span class="p">(</span><span class="n">timestamp</span><span class="o">+</span><span class="s">'GET/auth/self/verify'</span><span class="p">).</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
-<span class="n">signature</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">,</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+<span class="n">api_key</span> <span class="o">=</span> <span class="s">'API-KEY'</span>
+<span class="n">api_secret</span> <span class="o">=</span> <span class="s">'API-SECRET'</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span>
+<span class="n">sig_payload</span> <span class="o">=</span> <span class="p">(</span><span class="n">ts</span><span class="o">+</span><span class="s">'GET/auth/self/verify'</span><span class="p">).</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+<span class="n">signature</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">sig_payload</span><span class="p">,</span> <span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
 
 <span class="n">msg_auth</span> <span class="o">=</span> \
 <span class="p">{</span>
@@ -597,7 +571,7 @@
   <span class="s">"tag"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
   <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
           <span class="s">"apiKey"</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
-          <span class="s">"timestamp"</span><span class="p">:</span> <span class="n">timestamp</span><span class="p">,</span>
+          <span class="s">"timestamp"</span><span class="p">:</span> <span class="n">ts</span><span class="p">,</span>
           <span class="s">"signature"</span><span class="p">:</span> <span class="n">signature</span>
           <span class="p">}</span>
 <span class="p">}</span>
@@ -610,12 +584,12 @@
             <span class="k">print</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
 
 <span class="n">asyncio</span><span class="p">.</span><span class="n">get_event_loop</span><span class="p">().</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">subscribe</span><span class="p">())</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">apiKey</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">D+5Jaf27TbTIWNUVe7JFKhZ8PuC9RF3fR/H1jL/9AfU=</span><span class="dl">"</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">secretKey</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">GBPHDNij/0f6Sqh5SE5YBgc/rB+1h0B18/H3lQfSsIk=</span><span class="dl">"</span><span class="p">;</span>
-<span class="kd">const</span> <span class="nx">timestamp</span> <span class="o">=</span> <span class="dl">''</span> <span class="o">+</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">apiKey</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">API-KEY</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">secretKey</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">API-SECRET</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">ts</span> <span class="o">=</span> <span class="dl">''</span> <span class="o">+</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
 
-<span class="kd">var</span> <span class="nx">sign</span> <span class="o">=</span> <span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">enc</span><span class="p">.</span><span class="nx">Base64</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">HmacSHA256</span><span class="p">(</span><span class="nx">timestamp</span> <span class="o">+</span><span class="dl">'</span><span class="s1">GET/auth/self/verify</span><span class="dl">'</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">));</span>
-<span class="kd">var</span> <span class="nx">msg</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{"op":"login","data":{"apiKey":"</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">apiKey</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">", "timestamp": "</span><span class="dl">'</span><span class="o">+</span> <span class="nx">timestamp</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">", "signature":"</span><span class="dl">'</span><span class="o">+</span> <span class="nx">sign</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">"}}</span><span class="dl">'</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">sign</span> <span class="o">=</span> <span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">enc</span><span class="p">.</span><span class="nx">Base64</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">HmacSHA256</span><span class="p">(</span><span class="nx">secretKey</span><span class="p">,</span> <span class="nx">ts</span> <span class="o">+</span><span class="dl">'</span><span class="s1">GET/auth/self/verify</span><span class="dl">'</span><span class="p">));</span>
+<span class="kd">var</span> <span class="nx">msg</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{"op":"login","data":{"apiKey":"</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">apiKey</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">", "timestamp": "</span><span class="dl">'</span><span class="o">+</span> <span class="nx">ts</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">", "signature":"</span><span class="dl">'</span><span class="o">+</span> <span class="nx">sign</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">"}}</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">var</span> <span class="nx">ws</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="dl">'</span><span class="s1">wss://api-test-v2.coinflex-cn.com/v2/websocket</span><span class="dl">'</span><span class="p">);</span>
 
@@ -683,16 +657,10 @@
 
 <p>To construct the signature a clients API-Secret key is required.  API keys (public and corresponding secret key) can be generated via the GUI within the clients account.  </p>
 
-<p>By default, API Keys are read-only and can only read basic account information, such as positions, orders, and trades. They cannot be used to trade such as placing, modifying or cancelling orders.</p>
-
-<p>If you wish to execute orders with your API Key, clients must select the <code>Can Trade</code> permission upon API key creation. </p>
-
-<p>API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.</p>
-
 <p>The signature is calculated as:</p>
 
 <ul>
-<li><code>Base64(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret))</code></li>
+<li><code>Base64(HmacSHA256(API-Secret, timestamp + &#39;GET/auth/self/verify&#39;))</code></li>
 </ul>
 
 <p><strong>Parameters - Login Command</strong></p>
@@ -739,12 +707,10 @@
 <td>&gt;signature</td>
 <td>STRING</td>
 <td>Yes</td>
-<td><code>Base64(HmacSHA256(timestamp + &#39;GET/auth/self/verify&#39;, API-Secret))</code></td>
+<td><code>Base64(HmacSHA256(API-Secret, timestamp + &#39;GET/auth/self/verify&#39;))</code></td>
 </tr>
 </tbody></table>
-<h1 id='websocket-place-order'>Websocket Place Order</h1><h2 id='websocket-place-order-limit-order'>Limit Order</h2>
-<p>Requires authentication. Please subscribe user order channel to receive the order updates.</p>
-
+<h2 id='websocket-api-place-order'>Place Order</h2><h3 id='websocket-api-place-order-limit-order'>Limit Order</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
@@ -762,6 +728,8 @@
     </span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="w">       
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p>Requires authentication. Please subscribe user order channel to receive the order updates.</p>
+
 <p><strong>Request Parameters Specification:</strong></p>
 
 <table><thead>
@@ -858,7 +826,7 @@
   </span><span class="p">}</span><span class="w">
 
 
-</span></code></pre></div><h2 id='websocket-place-order-market-order'>Market Order</h2><h2 id='websocket-place-order-stop-limit-order-nbsp-nbsp-coming-soon'>Stop Limit Order  &nbsp;&nbsp;**<strong><em>COMING SOON</em></strong>**</h2>
+</span></code></pre></div><h2 id='websocket-api-market-order'>Market Order</h2><h2 id='websocket-api-stop-limit-order-nbsp-nbsp-coming-soon'>Stop Limit Order  &nbsp;&nbsp;**<strong><em>COMING SOON</em></strong>**</h2>
 <p>Requires authentication. Please subscribe user order channel to receive the order updates.</p>
 
 <blockquote>
@@ -932,7 +900,7 @@
 <td>Stop price for the stop-limit order.<p><p>Triggered by the best bid price for the SELL side stop-limit order.<p><p>Triggered by the best ask price for the BUY side stop-limit order.</td>
 </tr>
 </tbody></table>
-<h2 id='websocket-place-order-cancel-order'>Cancel Order</h2>
+<h2 id='websocket-api-cancel-order'>Cancel Order</h2>
 <p>Requires authentication. Please subscribe user order channel to receive the order updates.</p>
 
 <blockquote>
@@ -1003,7 +971,7 @@
   </span><span class="p">}</span><span class="w">
 
 
-</span></code></pre></div><h2 id='websocket-place-order-modify-order'>Modify Order</h2>
+</span></code></pre></div><h2 id='websocket-api-modify-order'>Modify Order</h2>
 <p>Requires authentication. Please subscribe user order channel to receive the order updates.</p>
 
 <blockquote>
