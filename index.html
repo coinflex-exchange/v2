@@ -325,22 +325,22 @@
                     <a href="#websocket-api-authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
                   </li>
                   <li>
-                    <a href="#websocket-api-websocket-place-order" class="toc-h2 toc-link" data-title="Websocket Place Order">Websocket Place Order</a>
+                    <a href="#websocket-api-place-order" class="toc-h2 toc-link" data-title="Place Order">Place Order</a>
                       <ul class="toc-list-h3">
                           <li>
-                            <a href="#websocket-api-websocket-place-order-limit-order" class="toc-h3 toc-link" data-title="Limit Order">Limit Order</a>
+                            <a href="#websocket-api-place-order-limit-order" class="toc-h3 toc-link" data-title="Limit Order">Limit Order</a>
                           </li>
                           <li>
-                            <a href="#websocket-api-websocket-place-order-market-order-nbsp-nbsp-coming-soon" class="toc-h3 toc-link" data-title="Market Order    **<strong><em>COMING SOON</em></strong>**">Market Order    **<strong><em>COMING SOON</em></strong>**</a>
+                            <a href="#websocket-api-place-order-market-order-nbsp-nbsp-coming-soon" class="toc-h3 toc-link" data-title="Market Order    **<strong><em>COMING SOON</em></strong>**">Market Order    **<strong><em>COMING SOON</em></strong>**</a>
                           </li>
                           <li>
-                            <a href="#websocket-api-websocket-place-order-stop-limit-order-nbsp-nbsp-coming-soon" class="toc-h3 toc-link" data-title="Stop Limit Order    **<strong><em>COMING SOON</em></strong>**">Stop Limit Order    **<strong><em>COMING SOON</em></strong>**</a>
+                            <a href="#websocket-api-place-order-stop-limit-order-nbsp-nbsp-coming-soon" class="toc-h3 toc-link" data-title="Stop Limit Order    **<strong><em>COMING SOON</em></strong>**">Stop Limit Order    **<strong><em>COMING SOON</em></strong>**</a>
                           </li>
                           <li>
-                            <a href="#websocket-api-websocket-place-order-cancel-order" class="toc-h3 toc-link" data-title="Cancel Order">Cancel Order</a>
+                            <a href="#websocket-api-place-order-cancel-order" class="toc-h3 toc-link" data-title="Cancel Order">Cancel Order</a>
                           </li>
                           <li>
-                            <a href="#websocket-api-websocket-place-order-modify-order" class="toc-h3 toc-link" data-title="Modify Order">Modify Order</a>
+                            <a href="#websocket-api-place-order-modify-order" class="toc-h3 toc-link" data-title="Modify Order">Modify Order</a>
                           </li>
                       </ul>
                   </li>
@@ -561,7 +561,7 @@
           </span><span class="nl">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;string&gt;</span><span class="p">,</span><span class="w">
           </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;string&gt;</span><span class="p">,</span><span class="w">
           </span><span class="nl">"signature"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;string&gt;</span><span class="w">
-          </span><span class="p">}</span><span class="w">
+         </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">websockets</span>
 <span class="kn">import</span> <span class="nn">asyncio</span>
@@ -582,9 +582,9 @@
   <span class="s">"op"</span><span class="p">:</span> <span class="s">"login"</span><span class="p">,</span>
   <span class="s">"tag"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
   <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
-          <span class="s">"apiKey"</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
-          <span class="s">"timestamp"</span><span class="p">:</span> <span class="n">ts</span><span class="p">,</span>
-          <span class="s">"signature"</span><span class="p">:</span> <span class="n">signature</span>
+           <span class="s">"apiKey"</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+           <span class="s">"timestamp"</span><span class="p">:</span> <span class="n">ts</span><span class="p">,</span>
+           <span class="s">"signature"</span><span class="p">:</span> <span class="n">signature</span>
           <span class="p">}</span>
 <span class="p">}</span>
 
@@ -617,10 +617,10 @@
 <p><strong>Success response format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"login"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1592491808"</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"login"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491808"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="p">{</span>
   <span class="s">"event"</span><span class="p">:</span><span class="s">"login"</span><span class="p">,</span>
@@ -722,7 +722,7 @@
 <td><code>Base64(HmacSHA256(API-Secret, timestamp + &#39;GET/auth/self/verify&#39;))</code></td>
 </tr>
 </tbody></table>
-<h2 id='websocket-api-websocket-place-order'>Websocket Place Order</h2><h3 id='websocket-api-websocket-place-order-limit-order'>Limit Order</h3>
+<h2 id='websocket-api-place-order'>Place Order</h2><h3 id='websocket-api-place-order-limit-order'>Limit Order</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
@@ -833,7 +833,7 @@ Please also subscribe to the user order channel to receive push notifications fo
 <td>Iff given and non-zero, it will be echoed in the reply.</td>
 </tr>
 </tbody></table>
-<h3 id='websocket-api-websocket-place-order-market-order-nbsp-nbsp-coming-soon'>Market Order  &nbsp;&nbsp;**<strong><em>COMING SOON</em></strong>**</h3><h3 id='websocket-api-websocket-place-order-stop-limit-order-nbsp-nbsp-coming-soon'>Stop Limit Order  &nbsp;&nbsp;**<strong><em>COMING SOON</em></strong>**</h3>
+<h3 id='websocket-api-place-order-market-order-nbsp-nbsp-coming-soon'>Market Order  &nbsp;&nbsp;**<strong><em>COMING SOON</em></strong>**</h3><h3 id='websocket-api-place-order-stop-limit-order-nbsp-nbsp-coming-soon'>Stop Limit Order  &nbsp;&nbsp;**<strong><em>COMING SOON</em></strong>**</h3>
 <p>Requires authentication. Please subscribe user order channel to receive the order updates.</p>
 
 <blockquote>
@@ -905,7 +905,7 @@ Please also subscribe to the user order channel to receive push notifications fo
 <td>Stop price for the stop-limit order.<p><p>Triggered by the best bid price for the SELL side stop-limit order.<p><p>Triggered by the best ask price for the BUY side stop-limit order.</td>
 </tr>
 </tbody></table>
-<h3 id='websocket-api-websocket-place-order-cancel-order'>Cancel Order</h3>
+<h3 id='websocket-api-place-order-cancel-order'>Cancel Order</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
@@ -969,7 +969,7 @@ Please also subscribe to the user order channel to receive push notifications fo
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1592491473"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='websocket-api-websocket-place-order-modify-order'>Modify Order</h3>
+</span></code></pre></div><h3 id='websocket-api-place-order-modify-order'>Modify Order</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
