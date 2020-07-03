@@ -97,7 +97,7 @@ Websocket commands can be sent in either of the following two formats:
           "apiKey": <string>,
           "timestamp": <string>,
           "signature": <string>
-          }
+         }
 }
 ```
 ```python
@@ -120,9 +120,9 @@ msg_auth = \
   "op": "login",
   "tag": 1,
   "data": {
-          "apiKey": api_key,
-          "timestamp": ts,
-          "signature": signature
+           "apiKey": api_key,
+           "timestamp": ts,
+           "signature": signature
           }
 }
 
@@ -158,10 +158,10 @@ ws.onopen = function () {
 
 ```json
 {
-  "event":"login",
-  "success":true,
-  "tag":"1",
-  "timestamp":"1592491808"
+  "event": "login",
+  "success": true,
+  "tag": "1",
+  "timestamp": "1592491808"
 }
 ```
 ```python
@@ -236,7 +236,7 @@ data | ARRAY object | Yes |
 \>signature | STRING | Yes | `Base64(HmacSHA256(API-Secret, timestamp + 'GET/auth/self/verify'))` |
 
 
-## Websocket Place Order
+## Place Order
 
 ### Limit Order 
 
