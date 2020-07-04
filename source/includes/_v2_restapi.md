@@ -12,41 +12,6 @@ For clients who do not wish to take advantage of CoinFLEX's native WebSocket API
 
 ##Authentication 
 
-Public market data methods do not require authentication, however private methods require a *Signature* to be sent in the header of the request.  These private REST methods  use HMAC SHA256 signatures. 
-
-The HMAC SHA256 signature is a keyed HMAC SHA256 operation using a clients API Secret as the key and a message string as the value for the HMAC operation.  
-
-The message string is constructed by the following formula:-
-
-`msgString = Timestamp + "\n" + Nonce + "\n" + Verb + "\n" + URL + "\n" + Path +"\n" + Body`
-
-Component | Required | Example | Description| 
--------------------------- |--------- |------- |------- | 
-Timestamp | Yes | 2020-04-30T15:20:30 | YYYY-MM-DDThh:mm:ss
-Nonce | Yes | 123 | User generated
-Verb | Yes| 'GET' | 
-Path | Yes | 'v2stgapi.coinflex.com' |
-Method | Yes | '/v2/positions | Available REST methods: <li>`V2/positions`</li><li>`V2/orders`<li><li>`V2/balances`<li>
-Body | No | instrumentID=BTC-USD-SWAP-LIN | Optional and dependent on the REST method being called
-
-The constructed message string should look like:-
-
-  `2020-04-30T15:20:30\n
-  123\n
-  GET\n
-  v2stgapi.coinflex.com\n
-  /v2/positions\n
-  instrumentID=BTC-USD-SWAP-LIN`
-
-Note the newline characters after each component in the message string. 
-If *Body* is ommitted it's treated as an empty string.
-
-Finally you must use the HMAC SHA256 operation to get the hash value using the API Secret as the key and the constructed message string as the value for the HMAC operation. Then encode this hash value with BASE-64.  This output becomes the signature for the specified authenticated REST API method. 
-
-The signature must then be included in the header of the REST API call like so:
-
-`header = {'Content-Type': 'application/json', 'AccessKey': API-KEY, 'Timestamp': TIME-STAMP, 'Signature': SIGNATURE, 'Nonce': NONCE}`
-
 > **Request**
 
 ```python
@@ -82,6 +47,41 @@ header = {'Content-Type': 'application/json', 'AccessKey': api_key,
 resp = requests.get(rest_url + path, headers=header)
 print(resp.json())
 ```
+
+Public market data methods do not require authentication, however private methods require a *Signature* to be sent in the header of the request.  These private REST methods  use HMAC SHA256 signatures. 
+
+The HMAC SHA256 signature is a keyed HMAC SHA256 operation using a clients API Secret as the key and a message string as the value for the HMAC operation.  
+
+The message string is constructed by the following formula:-
+
+`msgString = Timestamp + "\n" + Nonce + "\n" + Verb + "\n" + URL + "\n" + Path +"\n" + Body`
+
+Component | Required | Example | Description| 
+-------------------------- |--------- |------- |------- | 
+Timestamp | Yes | 2020-04-30T15:20:30 | YYYY-MM-DDThh:mm:ss
+Nonce | Yes | 123 | User generated
+Verb | Yes| 'GET' | 
+Path | Yes | 'v2stgapi.coinflex.com' |
+Method | Yes | '/v2/positions | Available REST methods: <li>`V2/positions`</li><li>`V2/orders`</li><li>`V2/balances`</li>
+Body | No | instrumentID=BTC-USD-SWAP-LIN | Optional and dependent on the REST method being called
+
+The constructed message string should look like:-
+
+  `2020-04-30T15:20:30\n
+  123\n
+  GET\n
+  v2stgapi.coinflex.com\n
+  /v2/positions\n
+  instrumentID=BTC-USD-SWAP-LIN`
+
+Note the newline characters after each component in the message string. 
+If *Body* is ommitted it's treated as an empty string.
+
+Finally you must use the HMAC SHA256 operation to get the hash value using the API Secret as the key and the constructed message string as the value for the HMAC operation. Then encode this hash value with BASE-64.  This output becomes the signature for the specified authenticated REST API method. 
+
+The signature must then be included in the header of the REST API call like so:
+
+`header = {'Content-Type': 'application/json', 'AccessKey': API-KEY, 'Timestamp': TIME-STAMP, 'Signature': SIGNATURE, 'Nonce': NONCE}`
 
 ##GET `/v2/balances`
 
