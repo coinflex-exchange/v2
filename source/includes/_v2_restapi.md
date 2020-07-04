@@ -1,4 +1,4 @@
-# V2.0 REST API
+# REST API
 
 **TEST** site
 
@@ -49,9 +49,11 @@ The constructed message string should look like:-
 Note the newline characters after each component in the message string. 
 If *Body* is ommitted it's treated as an empty string.
 
-You must use HmacSHA256 to get the hash with the two parameters: the generated text and your secret key.
-Then encode the hash value with Base-64. Mark down the output text as the signature.
+Finally you must use the HMAC SHA256 operation to get the hash value using the API Secret as the key and the constructed message string as the value for the HMAC operation. Then encode this hash value with BASE-64.  This output becomes the signature for the specified authenticated REST API method. 
 
+The signature must then be included in the header of the REST API call like so:
+
+`header = {'Content-Type': 'application/json', 'AccessKey': API-KEY, 'Timestamp': TIME-STAMP, 'Signature': SIGNATURE, 'Nonce': NONCE}`
 
 ##GET `/v2/balances`
 
