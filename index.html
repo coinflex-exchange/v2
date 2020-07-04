@@ -2967,7 +2967,7 @@ Please also subscribe to the user order channel to receive push notifications fo
 <p><strong>TEST</strong> site</p>
 
 <ul>
-<li><code>https://api-test-v2.coinflex-cn.com/</code></li>
+<li><code>https://v2stgapi.coinflex.com</code></li>
 </ul>
 
 <p><strong>LIVE</strong> site</p>
@@ -2978,18 +2978,11 @@ Please also subscribe to the user order channel to receive push notifications fo
 
 <p>For clients who do not wish to take advantage of CoinFLEX&#39;s native WebSocket API, CoinFLEX offers a RESTful API that implements much of the same functionality.</p>
 <h2 id='rest-api-authentication'>Authentication</h2>
-<blockquote>
-<p><strong>Request format</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
 <p>Public market data methods do not require authentication, however private methods require a <em>Signature</em> to be sent in the header of the request.  These private REST methods  use HMAC SHA256 signatures. </p>
 
 <p>The HMAC SHA256 signature is a keyed HMAC SHA256 operation using a clients API Secret as the key and a message string as the value for the HMAC operation.  </p>
 
-<p>The message string is made up of the following formula:-</p>
+<p>The message string is constructed by the following formula:-</p>
 
 <p><code>msgString = Timestamp + &quot;\n&quot; + Nonce + &quot;\n&quot; + Verb + &quot;\n&quot; + URL + &quot;\n&quot; + Path +&quot;\n&quot; + Body</code></p>
 
@@ -3020,16 +3013,16 @@ Please also subscribe to the user order channel to receive push notifications fo
 <td></td>
 </tr>
 <tr>
-<td>URL</td>
+<td>Path</td>
 <td>Yes</td>
-<td>&#39;api-test-v2.coinflex-cn.com&#39;</td>
+<td>&#39;v2stgapi.coinflex.com&#39;</td>
 <td></td>
 </tr>
 <tr>
-<td>Path</td>
+<td>Method</td>
 <td>Yes</td>
 <td>&#39;/v2/positions</td>
-<td>REST method being called</td>
+<td>Available REST methods: <li><code>V2/positions</code></li><li><code>V2/orders</code><li><li><code>V2/balances</code><li></td>
 </tr>
 <tr>
 <td>Body</td>
@@ -3044,7 +3037,7 @@ Please also subscribe to the user order channel to receive push notifications fo
 <p><code>2020-04-30T15:20:30\n
   123\n
   GET\n
-  api-test-v2.coinflex-cn.com\n
+  v2stgapi.coinflex.com\n
   /v2/positions\n
   instrumentID=BTC-USD-SWAP-LIN</code></p>
 
@@ -3056,7 +3049,42 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <p>The signature must then be included in the header of the REST API call like so:</p>
 
 <p><code>header = {&#39;Content-Type&#39;: &#39;application/json&#39;, &#39;AccessKey&#39;: API-KEY, &#39;Timestamp&#39;: TIME-STAMP, &#39;Signature&#39;: SIGNATURE, &#39;Nonce&#39;: NONCE}</code></p>
-<h2 id='rest-api-get-v2-balances'>GET <code>/v2/balances</code></h2>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">hmac</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlencode</span>
+
+<span class="n">rest_url</span> <span class="o">=</span> <span class="s">'https://v2stgapi.coinflex.com'</span>
+<span class="n">rest_path</span> <span class="o">=</span> <span class="s">'v2stgapi.coinflex.com'</span>
+
+<span class="n">api_key</span> <span class="o">=</span> <span class="n">API</span><span class="o">-</span><span class="n">KEY</span>
+<span class="n">api_secret</span> <span class="o">=</span> <span class="n">API</span><span class="o">-</span><span class="n">SECRET</span>
+
+<span class="n">body</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({</span><span class="s">'key1'</span><span class="p">:</span> <span class="s">'value1'</span><span class="p">,</span> <span class="s">'key2'</span><span class="p">:</span> <span class="s">'value2'</span><span class="p">})</span>
+
+<span class="k">if</span> <span class="n">body</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">'/v2/positions?'</span> <span class="o">+</span> <span class="n">body</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">'/v2/positions'</span>
+
+<span class="n">ts</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="n">utcnow</span><span class="p">().</span><span class="n">isoformat</span><span class="p">()</span>
+<span class="n">nonce</span> <span class="o">=</span> <span class="mi">123</span>
+
+<span class="n">msg_string</span> <span class="o">=</span> <span class="s">'{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="s">'GET'</span><span class="p">,</span> <span class="n">rest_path</span><span class="p">,</span> <span class="s">'/v2/positions'</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+<span class="n">sig</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">msg_string</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+
+<span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span> <span class="s">'AccessKey'</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+          <span class="s">'Timestamp'</span><span class="p">:</span> <span class="n">ts</span><span class="p">,</span> <span class="s">'Signature'</span><span class="p">:</span> <span class="n">sig</span><span class="p">,</span> <span class="s">'Nonce'</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">nonce</span><span class="p">)}</span>
+
+<span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">rest_url</span> <span class="o">+</span> <span class="n">path</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">header</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">resp</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre></div><h2 id='rest-api-get-v2-balances'>GET <code>/v2/balances</code></h2>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
