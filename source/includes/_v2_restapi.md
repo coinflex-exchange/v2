@@ -2,7 +2,7 @@
 
 **TEST** site
 
-* `https://api-test-v2.coinflex-cn.com/ `
+* `https://v2stgapi.coinflex.com`
 
 **LIVE** site
 
@@ -12,19 +12,11 @@ For clients who do not wish to take advantage of CoinFLEX's native WebSocket API
 
 ##Authentication 
 
-> **Request format**
-
-```json
-{
-
-}
-```
-
 Public market data methods do not require authentication, however private methods require a *Signature* to be sent in the header of the request.  These private REST methods  use HMAC SHA256 signatures. 
 
 The HMAC SHA256 signature is a keyed HMAC SHA256 operation using a clients API Secret as the key and a message string as the value for the HMAC operation.  
 
-The message string is made up of the following formula:-
+The message string is constructed by the following formula:-
 
 `msgString = Timestamp + "\n" + Nonce + "\n" + Verb + "\n" + URL + "\n" + Path +"\n" + Body`
 
@@ -33,8 +25,8 @@ Component | Required | Example | Description|
 Timestamp | Yes | 2020-04-30T15:20:30 | YYYY-MM-DDThh:mm:ss
 Nonce | Yes | 123 | User generated
 Verb | Yes| 'GET' | 
-URL | Yes | 'api-test-v2.coinflex-cn.com' |
-Path | Yes | '/v2/positions | REST method being called
+Path | Yes | 'v2stgapi.coinflex.com' |
+Method | Yes | '/v2/positions | Available REST methods: <li>`V2/positions`</li><li>`V2/orders`<li><li>`V2/balances`<li>
 Body | No | instrumentID=BTC-USD-SWAP-LIN | Optional and dependent on the REST method being called
 
 The constructed message string should look like:-
@@ -42,7 +34,7 @@ The constructed message string should look like:-
   `2020-04-30T15:20:30\n
   123\n
   GET\n
-  api-test-v2.coinflex-cn.com\n
+  v2stgapi.coinflex.com\n
   /v2/positions\n
   instrumentID=BTC-USD-SWAP-LIN`
 
@@ -54,6 +46,42 @@ Finally you must use the HMAC SHA256 operation to get the hash value using the A
 The signature must then be included in the header of the REST API call like so:
 
 `header = {'Content-Type': 'application/json', 'AccessKey': API-KEY, 'Timestamp': TIME-STAMP, 'Signature': SIGNATURE, 'Nonce': NONCE}`
+
+> **Request**
+
+```python
+import requests
+import hmac
+import base64
+import hashlib
+import datetime
+from urllib.parse import urlencode
+
+rest_url = 'https://v2stgapi.coinflex.com'
+rest_path = 'v2stgapi.coinflex.com'
+
+api_key = API-KEY
+api_secret = API-SECRET
+
+body = urlencode({'key1': 'value1', 'key2': 'value2'})
+
+if body:
+    path = '/v2/positions?' + body
+else:
+    path = '/v2/positions'
+
+ts = datetime.datetime.utcnow().isoformat()
+nonce = 123
+
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, '/v2/positions', body)
+sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+
+header = {'Content-Type': 'application/json', 'AccessKey': api_key,
+          'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
+
+resp = requests.get(rest_url + path, headers=header)
+print(resp.json())
+```
 
 ##GET `/v2/balances`
 
