@@ -1383,4 +1383,64 @@ instrumentId| String|Contract ID，e.g .BTC-USD-170310 ,BTC-USDT-191227|
 asks|List|Sell side depth
 timestamp|String|UNIX timestamp
 
+### Trade
 
+> **Request format**
+
+```json
+
+{"op": "subscribe", "args":["trade:BTC-USD-SWAP-LIN"],"tag":1}
+
+```
+
+> **Success response format**
+
+```json
+
+{"event": "subscribe", "channel":["trade:BTC-USD-SWAP-LIN"],"success":true,"tag":"1","timestamp":"1234"}
+
+```
+
+> **Failure response format**
+
+```json
+
+{"event": "subscribe", "message": "<errorMessage>","code": "<code>","success": false}
+
+```
+
+> **Channel update format**
+
+```json
+
+{
+    "table": "trade",
+    "data": [{
+        "side": "buy",
+        "tradeId": "2778148208082945",
+        "price": "5556.91",
+        "quantity": "5",
+        "marketCode": "BTC-USD-190628",
+        "timestamp": "2349038452354309"
+    }]
+}
+
+```
+The trade channel pushes the matched order data.
+
+**Channel Name** : trade:<marketCode>
+
+**Update Speed** : real-time
+
+Request Parameters |Type | Required| Description| 
+-------------------------- | -----|--------- |-----------|
+tag |INTEGER| NO | Iff given and non-zero, it will be echoed in the reply.
+
+Update Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+tradeId   | STRING    | Transaction Id|
+price | STRING    | Matched price|
+quantity|STRING   | Matched quantity|
+side    |STRING   | Matched side|
+timestamp| STRING | Matched timestamp|
+marketCode| STRING | Market code i.e BTC-USD|
