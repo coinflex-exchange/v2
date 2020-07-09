@@ -375,6 +375,9 @@
                           <li>
                             <a href="#websocket-api-subscriptions-public-orderbook-depth" class="toc-h3 toc-link" data-title="Orderbook Depth">Orderbook Depth</a>
                           </li>
+                          <li>
+                            <a href="#websocket-api-subscriptions-public-trade" class="toc-h3 toc-link" data-title="Trade">Trade</a>
+                          </li>
                       </ul>
                   </li>
               </ul>
@@ -2961,6 +2964,105 @@ Please also subscribe to the user order channel to receive push notifications fo
 <td>timestamp</td>
 <td>String</td>
 <td>UNIX timestamp</td>
+</tr>
+</tbody></table>
+<h3 id='websocket-api-subscriptions-public-trade'>Trade</h3>
+<blockquote>
+<p><strong>Request format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"trade:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p><strong>Success response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"channel"</span><span class="p">:[</span><span class="s2">"trade:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="nl">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1234"</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p><strong>Failure response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p><strong>Channel update format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"trade"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+        </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"tradeId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2778148208082945"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5556.91"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-190628"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2349038452354309"</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>The trade channel pushes the matched order data.</p>
+
+<p><strong>Channel Name</strong> : trade:<marketCode></p>
+
+<p><strong>Update Speed</strong> : real-time</p>
+
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>tag</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>Iff given and non-zero, it will be echoed in the reply.</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Update Parameters</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>tradeId</td>
+<td>STRING</td>
+<td>Transaction Id</td>
+</tr>
+<tr>
+<td>price</td>
+<td>STRING</td>
+<td>Matched price</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING</td>
+<td>Matched quantity</td>
+</tr>
+<tr>
+<td>side</td>
+<td>STRING</td>
+<td>Matched side</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Matched timestamp</td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Market code i.e BTC-USD</td>
 </tr>
 </tbody></table>
 <h1 id='rest-api'>REST API</h1>
