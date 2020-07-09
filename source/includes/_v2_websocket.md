@@ -1397,7 +1397,7 @@ timestamp|String|UNIX timestamp
 
 ```json
 
-{"event": "subscribe", "channel":["trade:BTC-USD-SWAP-LIN"],"success":true,"tag":"1","timestamp":"1234"}
+{"event": "subscribe", "channel":["trade:BTC-USD-SWAP-LIN"],"success":true,"tag":"1","timestamp":"1594299886880"}
 
 ```
 
@@ -1405,7 +1405,7 @@ timestamp|String|UNIX timestamp
 
 ```json
 
-{"event": "subscribe", "message": "<errorMessage>","code": "<code>","success": false}
+{"event": "subscribe", "message": "<errorMessage>","code": "<code>","success": false,"tag":1,"timestamp":"1594299886880“}
 
 ```
 
@@ -1421,14 +1421,14 @@ timestamp|String|UNIX timestamp
         "price": "5556.91",
         "quantity": "5",
         "marketCode": "BTC-USD-190628",
-        "timestamp": "2349038452354309"
+        "timestamp": "1594299886890"
     }]
 }
 
 ```
 The trade channel pushes the matched order data.
 
-**Channel Name** : trade:<marketCode>
+**Channel Name** : trade:\<marketCode>\
 
 **Update Speed** : real-time
 
@@ -1444,3 +1444,4 @@ quantity|STRING   | Matched quantity|
 side    |STRING   | Matched side|
 timestamp| STRING | Matched timestamp|
 marketCode| STRING | Market code i.e BTC-USD|
+
