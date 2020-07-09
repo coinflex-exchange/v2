@@ -2978,14 +2978,14 @@ Please also subscribe to the user order channel to receive push notifications fo
 <p><strong>Success response format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"channel"</span><span class="p">:[</span><span class="s2">"trade:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="nl">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1234"</span><span class="p">}</span><span class="w">
+</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"channel"</span><span class="p">:[</span><span class="s2">"trade:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="nl">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1594299886880"</span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
 <blockquote>
 <p><strong>Failure response format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">}</span><span class="w">
+</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1594299886880“}
 
 </span></code></pre></div>
 <blockquote>
@@ -3000,14 +3000,14 @@ Please also subscribe to the user order channel to receive push notifications fo
         </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5556.91"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-190628"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2349038452354309"</span><span class="w">
+        </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1594299886890"</span><span class="w">
     </span><span class="p">}]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
 <p>The trade channel pushes the matched order data.</p>
 
-<p><strong>Channel Name</strong> : trade:<marketCode></p>
+<p><strong>Channel Name</strong> : trade:&lt;marketCode&gt;\</p>
 
 <p><strong>Update Speed</strong> : real-time</p>
 
