@@ -1571,7 +1571,7 @@ timestamp   | STRING   | Timestamp|
 ```
 The candles channel pushes the K-line.
 
-**Channel Name** : candles:\<marketCode\>\<granularity\>
+**Channel Name** : candles\<granularity\>:\<marketCode\>
 
 **Update Speed** : 500ms
 
