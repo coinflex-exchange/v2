@@ -1495,7 +1495,7 @@ marketCode| STRING | Market code i.e BTC-USD|
 }
 
 ```
-The trade channel pushes general information about the contract.
+The ticker channel pushes the general information about the contract.
 
 **Channel Name** : ticker:\<marketCode\>
 
@@ -1505,3 +1505,16 @@ Request Parameters |Type | Required| Description|
 -------------------------- | -----|--------- |-----------|
 tag |INTEGER| NO | Iff given and non-zero, it will be echoed in the reply.
 
+Update Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+marketCode    | STRING   | Market code i.e BTC-USD|
+last          | STRING   | Last traded price|
+markPrice     | STRING   | Matched quantity|
+open24h       | STRING   | 24 hour rolling opening price|
+volume24h     | STRING   | 24 hour rolling trading volume in counter currency |
+currencyVolume24h     | STRING   | 24 hour rolling trading volume in base currency|
+high24h     | STRING   | 24 hour highest price|
+low24h     | STRING   | 24 hour lowest price|
+openInterest     | STRING   | Open Interest|
+lastQty     | STRING   | Last traded price amount|
+timestamp   | STRING   | Timestamp|
