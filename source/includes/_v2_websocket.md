@@ -1518,3 +1518,70 @@ low24h     | STRING   | 24 hour lowest price|
 openInterest     | STRING   | Open Interest|
 lastQty     | STRING   | Last traded price amount|
 timestamp   | STRING   | Timestamp|
+
+
+### Candles
+
+> **Request format**
+
+```json
+
+{"op": "subscribe", "args":["candles60s:BTC-USD-SWAP-LIN"],"tag":1} 
+
+```
+
+> **Success response format**
+
+```json
+
+{"event": "subscribe", "channel":["candles60s:BTC-USD-SWAP-LIN"],"success":true,"tag":"1","timestamp":"1594313762698"}
+
+```
+
+> **Failure response format**
+
+```json
+
+{"event": "subscribe", "message": "<errorMessage>","code": "<code>","success": false,"tag":"1","timestamp":"1594313762698“}
+
+```
+
+> **Channel update format**
+
+```json
+
+{
+    "table":"candle60s",
+    "data":[
+        {
+            "candle":[
+                "1594313762698", //timestamp
+                "9633.1",        //open
+                "9693.9",        //high
+                "9238.1",        //low
+                "9630.2",        //close
+                "45247",         //volume
+                "5.3"            //currencyVolume
+            ],
+            "marketCode":"BTC-USD-SWAP-LIN"
+        }
+    ]
+}
+
+```
+The candle channel pushes the K-line.
+
+**Channel Name** : candle:\<marketCode\>\<granularity\>
+
+**Update Speed** : 500ms
+
+**Granularity**  : 60s, 180s, 300s, 900s, 1800s, 3600s, 7200s, 14400s, 21600s, 43200s, 86400s
+
+Request Parameters |Type | Required| Description| 
+-------------------------- | -----|--------- |-----------|
+tag |INTEGER| NO | Iff given and non-zero, it will be echoed in the reply.
+
+Update Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+marketCode    | STRING   | Market code i.e BTC-USD|
+candle        | STRING   | Timestamp, open price, highest price, lowest price, close price,trading volume in counter currency, Trading volume in base currency|
