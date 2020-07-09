@@ -3114,7 +3114,7 @@ Please also subscribe to the user order channel to receive push notifications fo
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>The trade channel pushes general information about the contract.</p>
+<p>The ticker channel pushes the general information about the contract.</p>
 
 <p><strong>Channel Name</strong> : ticker:&lt;marketCode&gt;</p>
 
@@ -3133,6 +3133,70 @@ Please also subscribe to the user order channel to receive push notifications fo
 <td>INTEGER</td>
 <td>NO</td>
 <td>Iff given and non-zero, it will be echoed in the reply.</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Update Parameters</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Market code i.e BTC-USD</td>
+</tr>
+<tr>
+<td>last</td>
+<td>STRING</td>
+<td>Last traded price</td>
+</tr>
+<tr>
+<td>markPrice</td>
+<td>STRING</td>
+<td>Matched quantity</td>
+</tr>
+<tr>
+<td>open24h</td>
+<td>STRING</td>
+<td>24 hour rolling opening price</td>
+</tr>
+<tr>
+<td>volume24h</td>
+<td>STRING</td>
+<td>24 hour rolling trading volume in counter currency</td>
+</tr>
+<tr>
+<td>currencyVolume24h</td>
+<td>STRING</td>
+<td>24 hour rolling trading volume in base currency</td>
+</tr>
+<tr>
+<td>high24h</td>
+<td>STRING</td>
+<td>24 hour highest price</td>
+</tr>
+<tr>
+<td>low24h</td>
+<td>STRING</td>
+<td>24 hour lowest price</td>
+</tr>
+<tr>
+<td>openInterest</td>
+<td>STRING</td>
+<td>Open Interest</td>
+</tr>
+<tr>
+<td>lastQty</td>
+<td>STRING</td>
+<td>Last traded price amount</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Timestamp</td>
 </tr>
 </tbody></table>
 <h1 id='rest-api'>REST API</h1>
