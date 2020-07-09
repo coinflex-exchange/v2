@@ -1569,9 +1569,9 @@ timestamp   | STRING   | Timestamp|
 }
 
 ```
-The candle channel pushes the K-line.
+The candles channel pushes the K-line.
 
-**Channel Name** : candle:\<marketCode\>\<granularity\>
+**Channel Name** : candles:\<marketCode\>\<granularity\>
 
 **Update Speed** : 500ms
 
@@ -1584,4 +1584,4 @@ tag |INTEGER| NO | Iff given and non-zero, it will be echoed in the reply.
 Update Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 marketCode    | STRING   | Market code i.e BTC-USD|
-candle        | STRING   | Timestamp, open price, highest price, lowest price, close price,trading volume in counter currency, Trading volume in base currency|
+candle        | STRING   | Timestamp, open price, highest price, lowest price, close price, trading volume in counter currency, and trading volume in base currency|
