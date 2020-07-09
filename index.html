@@ -381,6 +381,9 @@
                           <li>
                             <a href="#websocket-api-subscriptions-public-ticker" class="toc-h3 toc-link" data-title="Ticker">Ticker</a>
                           </li>
+                          <li>
+                            <a href="#websocket-api-subscriptions-public-candles" class="toc-h3 toc-link" data-title="Candles">Candles</a>
+                          </li>
                       </ul>
                   </li>
               </ul>
@@ -3197,6 +3200,93 @@ Please also subscribe to the user order channel to receive push notifications fo
 <td>timestamp</td>
 <td>STRING</td>
 <td>Timestamp</td>
+</tr>
+</tbody></table>
+<h3 id='websocket-api-subscriptions-public-candles'>Candles</h3>
+<blockquote>
+<p><strong>Request format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"candles60s:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w"> 
+
+</span></code></pre></div>
+<blockquote>
+<p><strong>Success response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"channel"</span><span class="p">:[</span><span class="s2">"candles60s:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="nl">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1594313762698"</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p><strong>Failure response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1594313762698“}
+
+</span></code></pre></div>
+<blockquote>
+<p><strong>Channel update format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"table"</span><span class="p">:</span><span class="s2">"candle60s"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"candle"</span><span class="p">:[</span><span class="w">
+                </span><span class="s2">"1594313762698"</span><span class="p">,</span><span class="w"> </span><span class="err">//timestamp</span><span class="w">
+                </span><span class="s2">"9633.1"</span><span class="p">,</span><span class="w">        </span><span class="err">//open</span><span class="w">
+                </span><span class="s2">"9693.9"</span><span class="p">,</span><span class="w">        </span><span class="err">//high</span><span class="w">
+                </span><span class="s2">"9238.1"</span><span class="p">,</span><span class="w">        </span><span class="err">//low</span><span class="w">
+                </span><span class="s2">"9630.2"</span><span class="p">,</span><span class="w">        </span><span class="err">//close</span><span class="w">
+                </span><span class="s2">"45247"</span><span class="p">,</span><span class="w">         </span><span class="err">//volume</span><span class="w">
+                </span><span class="s2">"5.3"</span><span class="w">            </span><span class="err">//currencyVolume</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>The candle channel pushes the K-line.</p>
+
+<p><strong>Channel Name</strong> : candle:&lt;marketCode&gt;&lt;granularity&gt;</p>
+
+<p><strong>Update Speed</strong> : 500ms</p>
+
+<p><strong>Granularity</strong>  : 60s, 180s, 300s, 900s, 1800s, 3600s, 7200s, 14400s, 21600s, 43200s, 86400s</p>
+
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>tag</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>Iff given and non-zero, it will be echoed in the reply.</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Update Parameters</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Market code i.e BTC-USD</td>
+</tr>
+<tr>
+<td>candle</td>
+<td>STRING</td>
+<td>Timestamp, open price, highest price, lowest price, close price,trading volume in counter currency, Trading volume in base currency</td>
 </tr>
 </tbody></table>
 <h1 id='rest-api'>REST API</h1>
