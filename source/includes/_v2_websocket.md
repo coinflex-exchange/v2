@@ -1405,7 +1405,7 @@ timestamp|String|UNIX timestamp
 
 ```json
 
-{"event": "subscribe", "message": "<errorMessage>","code": "<code>","success": false,"tag":1,"timestamp":"1594299886880“}
+{"event": "subscribe", "message": "<errorMessage>","code": "<code>","success": false,"tag":"1","timestamp":"1594299886880“}
 
 ```
 
@@ -1428,7 +1428,7 @@ timestamp|String|UNIX timestamp
 ```
 The trade channel pushes the matched order data.
 
-**Channel Name** : trade:\<marketCode>\
+**Channel Name** : trade:\<marketCode\>
 
 **Update Speed** : real-time
 
@@ -1444,4 +1444,64 @@ quantity|STRING   | Matched quantity|
 side    |STRING   | Matched side|
 timestamp| STRING | Matched timestamp|
 marketCode| STRING | Market code i.e BTC-USD|
+
+### Ticker
+
+> **Request format**
+
+```json
+
+{"op": "subscribe", "args":["ticker:BTC-USD-200925-LIN"],"tag":1} 
+
+```
+
+> **Success response format**
+
+```json
+
+{"event": "subscribe", "channel":["ticker:BTC-USD-200925-LIN"],"success":true,"tag":"1","timestamp":"1594299886890"}
+
+```
+
+> **Failure response format**
+
+```json
+
+{"event": "subscribe", "message": "<errorMessage>","code": "<code>","success": false,"tag":"1","timestamp":"1594299886890“}
+
+```
+
+> **Channel update format**
+
+```json
+
+{
+    "table":"ticker",
+    "data":[
+        {
+            "marketCode":"BTC-USD-SWAP-LIN",
+            "last":"43.259", 
+            "markPrice": "11012.80409769",   
+            "open24h":"49.375",
+            "volume24h":"11295421",
+            "currencyVolume24h":"1225512",                       
+            "high24h":"49.488",
+            "low24h":"41.649",
+            "openInterest":"1726003",
+            "lastQty":"1"
+            "timestamp":"123443563454",
+        }
+    ]
+}
+
+```
+The trade channel pushes general information about the contract.
+
+**Channel Name** : ticker:\<marketCode\>
+
+**Update Speed** : 100ms
+
+Request Parameters |Type | Required| Description| 
+-------------------------- | -----|--------- |-----------|
+tag |INTEGER| NO | Iff given and non-zero, it will be echoed in the reply.
 
