@@ -219,7 +219,7 @@ accountId | STRING    | Account ID|
 timestamp | STRING    | Timestamp of this response|
 instrumentId | STRING |Contract symbol, e.g. 'BTC-USD-200626-LIN' |
 lastUpdated| STRING| Timestamp when position was last updated|
-contractValCurrency |STRING||
+contractValCurrency |STRING|Contract valuation currency|
 entryPrice|STRING|Average entry price|
 positionPnl|STRING|Postion profit and lost|
 estLiquidationPx|STRING||
@@ -319,21 +319,21 @@ Get a list of all available markets on CoinFlex.
 Response Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 timestamp | STRING    | Timestamp of this response|
-marketCode| STRING    |                   |
-name      | STRING    |                   |
-referencePair| STRING |                   |
-base      | STRING    |                   |
-counter   | STRING    |                   |
-type      | STRING    |                   |
-tickSize  | STRING    |                   |
+marketCode| STRING    | Market Code                  |
+name      | STRING    | Name of the contract                  |
+referencePair| STRING | Reference pair                  |
+base      | STRING    | Base asset                  |
+counter   | STRING    | Counter asset                  |
+type      | STRING    | Type of the contract                  |
+tickSize  | STRING    | Tick size of the contract                  |
 qtyIncrement| STRING  |Minimum increamet quantity|
-listingDate| STRING   |                   |
-endDate    |STRING    |                   |
-marginCurrency|STRING |                   |
+listingDate| STRING   | Listing date of the contract                  |
+endDate    |STRING    | Ending date of the contract                  |
+marginCurrency|STRING | Margining currency                  |
 contractValCurrency| STRING| Contract valuation currency|
-upperPriceBound| STRING|                  |
-lowerPriceBound| STRING|                  |
-marketPrice    | STRING|                  |
+upperPriceBound| STRING| Upper price bound                 |
+lowerPriceBound| STRING| Lower price bound                 |
+marketPrice    | STRING| Market price                 |
 
 
 
@@ -385,15 +385,15 @@ Get a list of all assets available on CoinFLEX. These include coins and bookable
 Response Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 timestamp | STRING    | Timestamp of this response|
-instrumentId| STRING    |                   |
-name      | STRING    |                   |
-base      | STRING    |                   |
-counter   | STRING    |                   |
-type      | STRING    |                   |
-marginCurrency| STRING |                  |
-contractValCurrency| STRING|              |
-deliveryDate       | STRING|              |
-deliveryInstrument | STRING|              |
+instrumentId| STRING    | Instrument ID                   |
+name      | STRING    | Name of the asset                  |
+base      | STRING    | Base of the asset                  |
+counter   | STRING    | Counter of the asset                  |
+type      | STRING    | type of the asset                  |
+marginCurrency| STRING | Margining currency                 |
+contractValCurrency| STRING| Contract valuation currency              |
+deliveryDate       | STRING| Delivery date             |
+deliveryInstrument | STRING| Delivery instrument             |
 
 
 
