@@ -6,7 +6,7 @@
 
 **LIVE** site
 
-* 'COMING SOON'
+* `https://v2api.coinflex.com/v2/`
 
 For clients who do not wish to take advantage of CoinFLEX's native WebSocket API, CoinFLEX offers a RESTful API that implements much of the same functionality.
 
