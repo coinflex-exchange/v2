@@ -519,6 +519,30 @@ lastModified| STRING  |Timestamp when order was last mordified|
 lastTradeTimestamp| STRING| Timestamp when order was last traded|
 timeInForce | STRING  | Time in force          |
 
+##DELETE `/v2/cancle/orders`
+
+> **Request**
+
+```json
+DELETE/v2/cancel/orders 
+```
+
+> **RESPONSE**
+
+
+```json
+{
+    "event": "orders",
+    "accountId":"<AccountID>",
+    "timestamp":"1234",
+    "data":[
+    "msg": "All open orders for the account have been queued for cancellation"
+    ]
+}
+ 
+```
+
+Requires authentication. Cancel all open orders.
 
 
 
