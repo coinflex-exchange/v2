@@ -6,7 +6,7 @@
 
 **LIVE** site
 
-* `https://v2api.coinflex.com/v2/`
+* `https://v2api.coinflex.com/v2`
 
 For clients who do not wish to take advantage of CoinFLEX's native WebSocket API, CoinFLEX offers a RESTful API that implements much of the same functionality.
 
@@ -523,102 +523,4 @@ timeInForce | STRING  |           |
 
 
 
-##POST `/auction/`
-Delivered positions of current user for auction.
 
-Login Required. Please pass x-cf-token in the HTTP header.
-
-> **RESPONSE**
-
-```json
-{
-    "event": delivery,
-    "success": true,
-    "message": null,
-    "code": "0000",
-    "data":[ 
-    {
-      "repoId": 12341234123256 (BTC-USD-REPO-LIN),
-      "qtyDeliver": 1,
-      "instrumentIdDeliver": "BTC",
-      "markPrice": 9855,
-    }
-}
-```
-##POST `/deliveryWallet/`
-
-Description: Record users' delivery
-
-Login Required. Please pass x-cf-token in the HTTP header.
-
-> **RESPONSE**
-
-```json
-{
-    "event": delivery,
-    "success": true,
-    "message": null,
-    "code": "0000",
-    "data":[ 
-    {
-      "instrumentId": "BTC-USD-SWAP-LIN",
-      "side": "long",
-      "quantity": 2.000000000,
-      "assetTransfer": 20000 (USD)
-      "timestamp": 1558588585858,
-    }
-}
-```
-
-
-##GET `/deliveryWallet/`
-
-Description: Get info in the “delivery wallet”
-
-Login Required. Please pass x-cf-token in the HTTP header.
-
-> **RESPONSE**
-
-```json
-{
-    "event": delivery,
-    "success": true,
-    "message": null,
-    "code": "0000",
-    "data":[ 
-    {
-      "timestamp": 1558588585858,
-      "instrumentId": "BTC-USD-SWAP-LIN",
-      "side": "long",
-      "quantity": 2.000000000,
-      “entryPrice”: 7800.000000000,
-    }
-}
-```
-
-
-##GET `/deliver/`
-
-Description: Get position info when user clicks “next delivery cycle”
-
-Login Required. Please pass x-cf-token in the HTTP header.
-
-> **RESPONSE**
-
-```json
-{
-    "event": delivery,
-    "success": true,
-    "message": null,
-    "code": "0000",
-    "data":[ 
-    {
-      "instrumentId": "BTC-USD-SWAP-LIN",
-      "side": "long",
-      "markPrice": 9855,
-      "base": "BTC",
-      "counter": "USD",
-      
-    }
-}
-```
