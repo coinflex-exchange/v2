@@ -519,7 +519,7 @@ lastModified| STRING  |Timestamp when order was last mordified|
 lastTradeTimestamp| STRING| Timestamp when order was last traded|
 timeInForce | STRING  | Time in force          |
 
-##DELETE `/v2/cancle/orders`
+##DELETE `/v2/cancel/orders`
 
 > **Request**
 
@@ -544,7 +544,7 @@ DELETE/v2/cancel/orders
 
 Requires authentication. Cancel all open orders.
 
-##DELETE `/v2/cancle/orders/{marketCode}`
+##DELETE `/v2/cancel/orders/{marketCode}`
 
 > **Request**
 
