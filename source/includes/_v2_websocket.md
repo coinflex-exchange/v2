@@ -463,12 +463,13 @@ quantity|decimal|Yes|  Quantity (denominated by `contractValCurrency`)|
 > **Request format**
 
 ```json
-{"op":"subscribe", 
- "args":["order:BTC-USD"]}
+{"op":"subscribe", "args":["order:BTC-USD"],"tag":1}
 ```
 Requires authentication. Get the user's order information.
 
-order is the channel name.  BTC-USD is the market code.  Example responses are in Webosocket Private Data Stream Section.
+**Channel Name** : order:\<marketCode\>
+
+**Update Speed** : real-time
 
 #### Order: OrderOpened
 
