@@ -29,16 +29,16 @@ api_key = API-KEY
 api_secret = API-SECRET
 
 body = urlencode({'key1': 'value1', 'key2': 'value2'})
-
-if body:
-    path = '/v2/positions?' + body
-else:
-    path = '/v2/positions'
-
 ts = datetime.datetime.utcnow().isoformat()
 nonce = 123
 
-msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, '/v2/positions', body)
+if body:
+    path = '/v2/positions?' + body
+    msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, '/v2/positions', body)
+else:
+    path = '/v2/positions'
+    msg_string = '{}\n{}\n{}\n{}\n{}\n'.format(ts, nonce, 'GET', rest_path, '/v2/positions')
+
 sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
 
 header = {'Content-Type': 'application/json', 'AccessKey': api_key,
@@ -83,7 +83,9 @@ The signature must then be included in the header of the REST API call like so:
 
 `header = {'Content-Type': 'application/json', 'AccessKey': API-KEY, 'Timestamp': TIME-STAMP, 'Signature': SIGNATURE, 'Nonce': NONCE}`
 
-##GET `/v2/balances`
+##Methods - Private
+
+###GET `/v2/balances`
 
 > **Request**
 
@@ -96,9 +98,9 @@ GET/v2/balances
 ```json
 {
     "event": "balances",
-    "accountId":"<Your Account ID>",
-    "timestamp":"1593627419000",
-    "tradeType":"LINEAR"|"INVERSE",
+    "accountId": "<Your Account ID>",
+    "timestamp": "1593627419000",
+    "tradeType": "LINEAR"|"INVERSE",
     "data":[
     {   
         "instrumentId": "BTC",
@@ -110,10 +112,10 @@ GET/v2/balances
     .....
     {
         "instrumentId": "EOS",
-        "total":"1585.890"              
+        "total": "1585.890"              
         "available": "325.890",         
         "reserved": "1260",
-        "quantityLastUpdated":"1593627415123"
+        "quantityLastUpdated": "1593627415123"
     }
     ]
 }
@@ -133,8 +135,7 @@ reserved|STRING|Reserved balance (unavailable)|
 quantityLastUpdated|STRING|Timestamp when was balance last updated|
 
 
-##GET `/v2/balances/<instrumentId>`
-
+###GET `/v2/balances/<instrumentId>`
 
 >**Request**
 
@@ -148,16 +149,16 @@ GET/v2/balances/BTC
 ```json
 {
     "event": "balancesById",
-    "accountId":"<Your Account ID>",
-    "timestamp":"1593627415293",
-    "tradeType":"LINEAR"|"INVERSE",
+    "accountId": "<Your Account ID>",
+    "timestamp": "1593627415293",
+    "tradeType": "LINEAR"|"INVERSE",
     "data":[
     {   
         "instrumentId": "BTC",
-        "total":"4468.823"              
+        "total": "4468.823"              
         "available": "4468.823",        
         "reserved": "0",
-        "quantityLastUpdated":"1593627415001"
+        "quantityLastUpdated": "1593627415001"
     }
     ]
 }
@@ -176,8 +177,7 @@ available |STRING|Available balance|
 reserved|STRING|Reserved balance (unavailable)|
 quantityLastUpdated|STRING|Timestamp when was balance last updated|
 
-##GET  `/v2/positions`
-
+###GET  `/v2/positions`
 
 > **Request**
 
@@ -226,9 +226,7 @@ estLiquidationPx|STRING||
 estLiqPrice|STRING|Estimated liquidation price|
 
 
-
-##GET  `/v2/positions/<instrumentId>`
-
+###GET  `/v2/positions/<instrumentId>`
 
 > **Request**
 
@@ -274,132 +272,7 @@ estLiquidationPx|STRING||
 estLiqPrice|STRING|Estimated liquidation price|
 
 
-
-
-##GET `/v2/all/markets`
-
-
-> **Request**
-
-```json
-GET/v2/all/markets`
-```
-
-> **RESPONSE**
-
-
-```json
-{
-    "event": "markets",
-    "timestamp":"1593617005438",
-    "data": [
-        {
-            "marketCode": "BTC-USD",
-            "name": "BTC/USD Spot",
-            "referencePair": "BTC/USD"
-            "base": "BTC",
-            "counter": "USD",
-            "type": "SPOT",
-            "tickSize": "0.1",
-            "qtyIncrement": "0.001",
-            "listingDate": "-2208988800000",
-            "endDate": null,
-            "marginCurrency": null,
-            "contractValCurrency": "BTC",
-            "upperPriceBound": "11000.00",
-            "lowerPriceBound": "9000.00",
-            "marketPrice": "10000.00",
-        }
-        ...
-    ]
-}
-```
-Get a list of all available markets on CoinFlex.
-
-Response Parameters |Type | Description| 
--------------------------- | -----|--------- |
-timestamp | STRING    | Timestamp of this response|
-marketCode| STRING    | Market Code                  |
-name      | STRING    | Name of the contract                  |
-referencePair| STRING | Reference pair                  |
-base      | STRING    | Base asset                  |
-counter   | STRING    | Counter asset                  |
-type      | STRING    | Type of the contract                  |
-tickSize  | STRING    | Tick size of the contract                  |
-qtyIncrement| STRING  |Minimum increamet quantity|
-listingDate| STRING   | Listing date of the contract                  |
-endDate    |STRING    | Ending date of the contract                  |
-marginCurrency|STRING | Margining currency                  |
-contractValCurrency| STRING| Contract valuation currency|
-upperPriceBound| STRING| Upper price bound                 |
-lowerPriceBound| STRING| Lower price bound                 |
-marketPrice    | STRING| Market price                 |
-
-
-
-
-
-##GET `/v2/all/assets`
-
-> **Request**
-
-```json
-GET/v2/all/assets
-```
-
-> **RESPONSE**
-
-```json
-{
-    "event": "assets",
-    "timestamp":"1593617008698",
-    "data": [
-        {
-            "instrumentId": "BTC-USD-200626-LIN",
-            "name": "BTC/USD 20-06-26 Future (Linear)",
-            "base": "BTC",
-            "counter": "USD",
-            "type": "FUTURE",
-            "marginCurrency": "USD",
-            "contractValCurrency": "BTC",
-            "deliveryDate": null,
-            "deliveryInstrument": null
-        },
-        {
-            "instrumentId": "BTC",
-            "name": "Bitcoin",
-            "base": null,
-            "counter": null,
-            "type": "SPOT",
-            "marginCurrency": null,
-            "contractValCurrency": null,
-            "deliveryDate": null,
-            "deliveryInstrument": null
-        }
-    ]
-}
-```
-
-Get a list of all assets available on CoinFLEX. These include coins and bookable contracts.
-
-Response Parameters |Type | Description| 
--------------------------- | -----|--------- |
-timestamp | STRING    | Timestamp of this response|
-instrumentId| STRING    | Instrument ID                   |
-name      | STRING    | Name of the asset                  |
-base      | STRING    | Base of the asset                  |
-counter   | STRING    | Counter of the asset                  |
-type      | STRING    | type of the asset                  |
-marginCurrency| STRING | Margining currency                 |
-contractValCurrency| STRING| Contract valuation currency              |
-deliveryDate       | STRING| Delivery date             |
-deliveryInstrument | STRING| Delivery instrument             |
-
-
-
-
-
-##GET `/v2/trades`
+###GET `/v2/trades`
 
 > **Request**
 
@@ -459,16 +332,15 @@ feeInstrumentId   | STRING    |   Instrument ID of the fees        |
 orderId   | STRING    | Order ID generated by the server           |
 
 
-##GET  `/v2/orders`
+###GET  `/v2/orders`
+
 > **Request**
 
 ```json
 GET/v2/orders
 ```
 
-
 > **RESPONSE**
-
 
 ```json
 {
@@ -499,7 +371,6 @@ GET/v2/orders
 ```
 Requires authentication. Get all open orders of current user.
 
-
 Response Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 accountId | STRING    | Account ID|
@@ -519,7 +390,8 @@ lastModified| STRING  |Timestamp when order was last mordified|
 lastTradeTimestamp| STRING| Timestamp when order was last traded|
 timeInForce | STRING  | Time in force          |
 
-##DELETE `/v2/cancel/orders`
+
+###DELETE `/v2/cancel/orders`
 
 > **Request**
 
@@ -544,7 +416,7 @@ DELETE/v2/cancel/orders
 
 Requires authentication. Cancel all open orders.
 
-##DELETE `/v2/cancel/orders/{marketCode}`
+###DELETE `/v2/cancel/orders/{marketCode}`
 
 > **Request**
 
@@ -571,4 +443,120 @@ DELETE/v2/cancel/orders/BTC-USD
 Requires authentication. Cancel all open orders for a specific market code.
 
 
+##Methods - Public
 
+###GET `/v2/all/markets`
+
+
+> **Request**
+
+```json
+GET/v2/all/markets`
+```
+
+> **RESPONSE**
+
+
+```json
+{
+    "event": "markets",
+    "timestamp":"1593617005438",
+    "data": [
+        {
+            "marketCode": "BTC-USD",
+            "name": "BTC/USD Spot",
+            "referencePair": "BTC/USD"
+            "base": "BTC",
+            "counter": "USD",
+            "type": "SPOT",
+            "tickSize": "0.1",
+            "qtyIncrement": "0.001",
+            "listingDate": "-2208988800000",
+            "endDate": null,
+            "marginCurrency": null,
+            "contractValCurrency": "BTC",
+            "upperPriceBound": "11000.00",
+            "lowerPriceBound": "9000.00",
+            "marketPrice": "10000.00",
+        }
+        ...
+    ]
+}
+```
+Get a list of all available markets on CoinFlex.
+
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+timestamp | STRING    | Timestamp of this response|
+marketCode| STRING    | Market Code                  |
+name      | STRING    | Name of the contract                  |
+referencePair| STRING | Reference pair                  |
+base      | STRING    | Base asset                  |
+counter   | STRING    | Counter asset                  |
+type      | STRING    | Type of the contract                  |
+tickSize  | STRING    | Tick size of the contract                  |
+qtyIncrement| STRING  |Minimum increamet quantity|
+listingDate| STRING   | Listing date of the contract                  |
+endDate    |STRING    | Ending date of the contract                  |
+marginCurrency|STRING | Margining currency                  |
+contractValCurrency| STRING| Contract valuation currency|
+upperPriceBound| STRING| Upper price bound                 |
+lowerPriceBound| STRING| Lower price bound                 |
+marketPrice    | STRING| Market price                 |
+
+
+###GET `/v2/all/assets`
+
+> **Request**
+
+```json
+GET/v2/all/assets
+```
+
+> **RESPONSE**
+
+```json
+{
+    "event": "assets",
+    "timestamp":"1593617008698",
+    "data": [
+        {
+            "instrumentId": "BTC-USD-200626-LIN",
+            "name": "BTC/USD 20-06-26 Future (Linear)",
+            "base": "BTC",
+            "counter": "USD",
+            "type": "FUTURE",
+            "marginCurrency": "USD",
+            "contractValCurrency": "BTC",
+            "deliveryDate": null,
+            "deliveryInstrument": null
+        },
+        {
+            "instrumentId": "BTC",
+            "name": "Bitcoin",
+            "base": null,
+            "counter": null,
+            "type": "SPOT",
+            "marginCurrency": null,
+            "contractValCurrency": null,
+            "deliveryDate": null,
+            "deliveryInstrument": null
+        }
+    ]
+}
+```
+
+Get a list of all assets available on CoinFLEX. These include coins and bookable contracts.
+
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+timestamp | STRING    | Timestamp of this response|
+instrumentId| STRING    | Instrument ID                   |
+name      | STRING    | Name of the asset                  |
+base      | STRING    | Base of the asset                  |
+counter   | STRING    | Counter of the asset                  |
+type      | STRING    | type of the asset                  |
+marginCurrency| STRING | Margining currency                 |
+contractValCurrency| STRING| Contract valuation currency              |
+deliveryDate       | STRING| Delivery date             |
+deliveryInstrument | STRING| Delivery instrument             |
