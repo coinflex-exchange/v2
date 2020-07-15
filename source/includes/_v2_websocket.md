@@ -517,7 +517,7 @@ Requires authentication. Get the user's order information.
 ```
 
 
-> **Notification:**
+> **Channel updatte format for stop limit order:**
 
 ```json
  
