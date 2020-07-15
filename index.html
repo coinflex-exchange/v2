@@ -395,34 +395,44 @@
                     <a href="#rest-api-authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
                   </li>
                   <li>
-                    <a href="#rest-api-get-v2-balances" class="toc-h2 toc-link" data-title="GET /v2/balances">GET <code>/v2/balances</code></a>
+                    <a href="#rest-api-methods-private" class="toc-h2 toc-link" data-title="Methods - Private">Methods - Private</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#rest-api-methods-private-get-v2-balances" class="toc-h3 toc-link" data-title="GET <code>/v2/balances</code>">GET <code>/v2/balances</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-get-v2-balances-lt-instrumentid-gt" class="toc-h3 toc-link" data-title="GET <code>/v2/balances/&lt;instrumentId&gt;</code>">GET <code>/v2/balances/&lt;instrumentId&gt;</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-get-v2-positions" class="toc-h3 toc-link" data-title="GET  <code>/v2/positions</code>">GET  <code>/v2/positions</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-get-v2-positions-lt-instrumentid-gt" class="toc-h3 toc-link" data-title="GET  <code>/v2/positions/&lt;instrumentId&gt;</code>">GET  <code>/v2/positions/&lt;instrumentId&gt;</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-get-v2-trades" class="toc-h3 toc-link" data-title="GET <code>/v2/trades</code>">GET <code>/v2/trades</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-get-v2-orders" class="toc-h3 toc-link" data-title="GET  <code>/v2/orders</code>">GET  <code>/v2/orders</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-delete-v2-cancel-orders" class="toc-h3 toc-link" data-title="DELETE <code>/v2/cancel/orders</code>">DELETE <code>/v2/cancel/orders</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-delete-v2-cancel-orders-marketcode" class="toc-h3 toc-link" data-title="DELETE <code>/v2/cancel/orders/{marketCode}</code>">DELETE <code>/v2/cancel/orders/{marketCode}</code></a>
+                          </li>
+                      </ul>
                   </li>
                   <li>
-                    <a href="#rest-api-get-v2-balances-lt-instrumentid-gt" class="toc-h2 toc-link" data-title="GET /v2/balances/&lt;instrumentId&gt;">GET <code>/v2/balances/&lt;instrumentId&gt;</code></a>
-                  </li>
-                  <li>
-                    <a href="#rest-api-get-v2-positions" class="toc-h2 toc-link" data-title="GET  /v2/positions">GET  <code>/v2/positions</code></a>
-                  </li>
-                  <li>
-                    <a href="#rest-api-get-v2-positions-lt-instrumentid-gt" class="toc-h2 toc-link" data-title="GET  /v2/positions/&lt;instrumentId&gt;">GET  <code>/v2/positions/&lt;instrumentId&gt;</code></a>
-                  </li>
-                  <li>
-                    <a href="#rest-api-get-v2-all-markets" class="toc-h2 toc-link" data-title="GET /v2/all/markets">GET <code>/v2/all/markets</code></a>
-                  </li>
-                  <li>
-                    <a href="#rest-api-get-v2-all-assets" class="toc-h2 toc-link" data-title="GET /v2/all/assets">GET <code>/v2/all/assets</code></a>
-                  </li>
-                  <li>
-                    <a href="#rest-api-get-v2-trades" class="toc-h2 toc-link" data-title="GET /v2/trades">GET <code>/v2/trades</code></a>
-                  </li>
-                  <li>
-                    <a href="#rest-api-get-v2-orders" class="toc-h2 toc-link" data-title="GET  /v2/orders">GET  <code>/v2/orders</code></a>
-                  </li>
-                  <li>
-                    <a href="#rest-api-delete-v2-cancel-orders" class="toc-h2 toc-link" data-title="DELETE /v2/cancel/orders">DELETE <code>/v2/cancel/orders</code></a>
-                  </li>
-                  <li>
-                    <a href="#rest-api-delete-v2-cancel-orders-marketcode" class="toc-h2 toc-link" data-title="DELETE /v2/cancel/orders/{marketCode}">DELETE <code>/v2/cancel/orders/{marketCode}</code></a>
+                    <a href="#rest-api-methods-public" class="toc-h2 toc-link" data-title="Methods - Public">Methods - Public</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#rest-api-methods-public-get-v2-all-markets" class="toc-h3 toc-link" data-title="GET <code>/v2/all/markets</code>">GET <code>/v2/all/markets</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-public-get-v2-all-assets" class="toc-h3 toc-link" data-title="GET <code>/v2/all/assets</code>">GET <code>/v2/all/assets</code></a>
+                          </li>
+                      </ul>
                   </li>
               </ul>
           </li>
@@ -3404,7 +3414,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <p>The signature must then be included in the header of the REST API call like so:</p>
 
 <p><code>header = {&#39;Content-Type&#39;: &#39;application/json&#39;, &#39;AccessKey&#39;: API-KEY, &#39;Timestamp&#39;: TIME-STAMP, &#39;Signature&#39;: SIGNATURE, &#39;Nonce&#39;: NONCE}</code></p>
-<h2 id='rest-api-get-v2-balances'>GET <code>/v2/balances</code></h2>
+<h2 id='rest-api-methods-private'>Methods - Private</h2><h3 id='rest-api-methods-private-get-v2-balances'>GET <code>/v2/balances</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
@@ -3415,9 +3425,9 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"balances"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1593627419000"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"tradeType"</span><span class="p">:</span><span class="s2">"LINEAR"</span><span class="err">|</span><span class="s2">"INVERSE"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1593627419000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tradeType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LINEAR"</span><span class="err">|</span><span class="s2">"INVERSE"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
     </span><span class="p">{</span><span class="w">   
         </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
@@ -3429,10 +3439,10 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
     </span><span class="err">.....</span><span class="w">
     </span><span class="p">{</span><span class="w">
         </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EOS"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"total"</span><span class="p">:</span><span class="s2">"1585.890"</span><span class="w">              
+        </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1585.890"</span><span class="w">              
         </span><span class="nl">"available"</span><span class="p">:</span><span class="w"> </span><span class="s2">"325.890"</span><span class="p">,</span><span class="w">         
         </span><span class="nl">"reserved"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1260"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"quantityLastUpdated"</span><span class="p">:</span><span class="s2">"1593627415123"</span><span class="w">
+        </span><span class="nl">"quantityLastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1593627415123"</span><span class="w">
     </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -3487,7 +3497,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>Timestamp when was balance last updated</td>
 </tr>
 </tbody></table>
-<h2 id='rest-api-get-v2-balances-lt-instrumentid-gt'>GET <code>/v2/balances/&lt;instrumentId&gt;</code></h2>
+<h3 id='rest-api-methods-private-get-v2-balances-lt-instrumentid-gt'>GET <code>/v2/balances/&lt;instrumentId&gt;</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
@@ -3498,16 +3508,16 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"balancesById"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1593627415293"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"tradeType"</span><span class="p">:</span><span class="s2">"LINEAR"</span><span class="err">|</span><span class="s2">"INVERSE"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1593627415293"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tradeType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LINEAR"</span><span class="err">|</span><span class="s2">"INVERSE"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
     </span><span class="p">{</span><span class="w">   
         </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"total"</span><span class="p">:</span><span class="s2">"4468.823"</span><span class="w">              
+        </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4468.823"</span><span class="w">              
         </span><span class="nl">"available"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4468.823"</span><span class="p">,</span><span class="w">        
         </span><span class="nl">"reserved"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"quantityLastUpdated"</span><span class="p">:</span><span class="s2">"1593627415001"</span><span class="w">
+        </span><span class="nl">"quantityLastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1593627415001"</span><span class="w">
     </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -3562,7 +3572,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>Timestamp when was balance last updated</td>
 </tr>
 </tbody></table>
-<h2 id='rest-api-get-v2-positions'>GET  <code>/v2/positions</code></h2>
+<h3 id='rest-api-methods-private-get-v2-positions'>GET  <code>/v2/positions</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
@@ -3646,7 +3656,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>Estimated liquidation price</td>
 </tr>
 </tbody></table>
-<h2 id='rest-api-get-v2-positions-lt-instrumentid-gt'>GET  <code>/v2/positions/&lt;instrumentId&gt;</code></h2>
+<h3 id='rest-api-methods-private-get-v2-positions-lt-instrumentid-gt'>GET  <code>/v2/positions/&lt;instrumentId&gt;</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
@@ -3729,229 +3739,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>Estimated liquidation price</td>
 </tr>
 </tbody></table>
-<h2 id='rest-api-get-v2-all-markets'>GET <code>/v2/all/markets</code></h2>
-<blockquote>
-<p><strong>Request</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET/v</span><span class="mi">2</span><span class="err">/all/markets`</span><span class="w">
-</span></code></pre></div>
-<blockquote>
-<p><strong>RESPONSE</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"markets"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1593617005438"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/USD Spot"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"referencePair"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/USD"</span><span class="w">
-            </span><span class="nl">"base"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"counter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SPOT"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"tickSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"qtyIncrement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.001"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"listingDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-2208988800000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"endDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"marginCurrency"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"upperPriceBound"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11000.00"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"lowerPriceBound"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9000.00"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"marketPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10000.00"</span><span class="p">,</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-        </span><span class="err">...</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>Get a list of all available markets on CoinFlex.</p>
-
-<table><thead>
-<tr>
-<th>Response Parameters</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>timestamp</td>
-<td>STRING</td>
-<td>Timestamp of this response</td>
-</tr>
-<tr>
-<td>marketCode</td>
-<td>STRING</td>
-<td>Market Code</td>
-</tr>
-<tr>
-<td>name</td>
-<td>STRING</td>
-<td>Name of the contract</td>
-</tr>
-<tr>
-<td>referencePair</td>
-<td>STRING</td>
-<td>Reference pair</td>
-</tr>
-<tr>
-<td>base</td>
-<td>STRING</td>
-<td>Base asset</td>
-</tr>
-<tr>
-<td>counter</td>
-<td>STRING</td>
-<td>Counter asset</td>
-</tr>
-<tr>
-<td>type</td>
-<td>STRING</td>
-<td>Type of the contract</td>
-</tr>
-<tr>
-<td>tickSize</td>
-<td>STRING</td>
-<td>Tick size of the contract</td>
-</tr>
-<tr>
-<td>qtyIncrement</td>
-<td>STRING</td>
-<td>Minimum increamet quantity</td>
-</tr>
-<tr>
-<td>listingDate</td>
-<td>STRING</td>
-<td>Listing date of the contract</td>
-</tr>
-<tr>
-<td>endDate</td>
-<td>STRING</td>
-<td>Ending date of the contract</td>
-</tr>
-<tr>
-<td>marginCurrency</td>
-<td>STRING</td>
-<td>Margining currency</td>
-</tr>
-<tr>
-<td>contractValCurrency</td>
-<td>STRING</td>
-<td>Contract valuation currency</td>
-</tr>
-<tr>
-<td>upperPriceBound</td>
-<td>STRING</td>
-<td>Upper price bound</td>
-</tr>
-<tr>
-<td>lowerPriceBound</td>
-<td>STRING</td>
-<td>Lower price bound</td>
-</tr>
-<tr>
-<td>marketPrice</td>
-<td>STRING</td>
-<td>Market price</td>
-</tr>
-</tbody></table>
-<h2 id='rest-api-get-v2-all-assets'>GET <code>/v2/all/assets</code></h2>
-<blockquote>
-<p><strong>Request</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET/v</span><span class="mi">2</span><span class="err">/all/assets</span><span class="w">
-</span></code></pre></div>
-<blockquote>
-<p><strong>RESPONSE</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assets"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1593617008698"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-200626-LIN"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/USD 20-06-26 Future (Linear)"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"base"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"counter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FUTURE"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"marginCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deliveryDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deliveryInstrument"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bitcoin"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"base"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"counter"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SPOT"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"marginCurrency"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deliveryDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deliveryInstrument"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>Get a list of all assets available on CoinFLEX. These include coins and bookable contracts.</p>
-
-<table><thead>
-<tr>
-<th>Response Parameters</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>timestamp</td>
-<td>STRING</td>
-<td>Timestamp of this response</td>
-</tr>
-<tr>
-<td>instrumentId</td>
-<td>STRING</td>
-<td>Instrument ID</td>
-</tr>
-<tr>
-<td>name</td>
-<td>STRING</td>
-<td>Name of the asset</td>
-</tr>
-<tr>
-<td>base</td>
-<td>STRING</td>
-<td>Base of the asset</td>
-</tr>
-<tr>
-<td>counter</td>
-<td>STRING</td>
-<td>Counter of the asset</td>
-</tr>
-<tr>
-<td>type</td>
-<td>STRING</td>
-<td>type of the asset</td>
-</tr>
-<tr>
-<td>marginCurrency</td>
-<td>STRING</td>
-<td>Margining currency</td>
-</tr>
-<tr>
-<td>contractValCurrency</td>
-<td>STRING</td>
-<td>Contract valuation currency</td>
-</tr>
-<tr>
-<td>deliveryDate</td>
-<td>STRING</td>
-<td>Delivery date</td>
-</tr>
-<tr>
-<td>deliveryInstrument</td>
-<td>STRING</td>
-<td>Delivery instrument</td>
-</tr>
-</tbody></table>
-<h2 id='rest-api-get-v2-trades'>GET <code>/v2/trades</code></h2>
+<h3 id='rest-api-methods-private-get-v2-trades'>GET <code>/v2/trades</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
@@ -4077,7 +3865,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>Order ID generated by the server</td>
 </tr>
 </tbody></table>
-<h2 id='rest-api-get-v2-orders'>GET  <code>/v2/orders</code></h2>
+<h3 id='rest-api-methods-private-get-v2-orders'>GET  <code>/v2/orders</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
@@ -4202,7 +3990,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>Time in force</td>
 </tr>
 </tbody></table>
-<h2 id='rest-api-delete-v2-cancel-orders'>DELETE <code>/v2/cancel/orders</code></h2>
+<h3 id='rest-api-methods-private-delete-v2-cancel-orders'>DELETE <code>/v2/cancel/orders</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
@@ -4222,7 +4010,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 
 </span></code></pre></div>
 <p>Requires authentication. Cancel all open orders.</p>
-<h2 id='rest-api-delete-v2-cancel-orders-marketcode'>DELETE <code>/v2/cancel/orders/{marketCode}</code></h2>
+<h3 id='rest-api-methods-private-delete-v2-cancel-orders-marketcode'>DELETE <code>/v2/cancel/orders/{marketCode}</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
@@ -4243,6 +4031,228 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 
 </span></code></pre></div>
 <p>Requires authentication. Cancel all open orders for a specific market code.</p>
+<h2 id='rest-api-methods-public'>Methods - Public</h2><h3 id='rest-api-methods-public-get-v2-all-markets'>GET <code>/v2/all/markets</code></h3>
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET/v</span><span class="mi">2</span><span class="err">/all/markets`</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"markets"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1593617005438"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/USD Spot"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"referencePair"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/USD"</span><span class="w">
+            </span><span class="nl">"base"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"counter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SPOT"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"tickSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"qtyIncrement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.001"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"listingDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-2208988800000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"endDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marginCurrency"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"upperPriceBound"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11000.00"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lowerPriceBound"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9000.00"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10000.00"</span><span class="p">,</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Get a list of all available markets on CoinFlex.</p>
+
+<table><thead>
+<tr>
+<th>Response Parameters</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Timestamp of this response</td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Market Code</td>
+</tr>
+<tr>
+<td>name</td>
+<td>STRING</td>
+<td>Name of the contract</td>
+</tr>
+<tr>
+<td>referencePair</td>
+<td>STRING</td>
+<td>Reference pair</td>
+</tr>
+<tr>
+<td>base</td>
+<td>STRING</td>
+<td>Base asset</td>
+</tr>
+<tr>
+<td>counter</td>
+<td>STRING</td>
+<td>Counter asset</td>
+</tr>
+<tr>
+<td>type</td>
+<td>STRING</td>
+<td>Type of the contract</td>
+</tr>
+<tr>
+<td>tickSize</td>
+<td>STRING</td>
+<td>Tick size of the contract</td>
+</tr>
+<tr>
+<td>qtyIncrement</td>
+<td>STRING</td>
+<td>Minimum increamet quantity</td>
+</tr>
+<tr>
+<td>listingDate</td>
+<td>STRING</td>
+<td>Listing date of the contract</td>
+</tr>
+<tr>
+<td>endDate</td>
+<td>STRING</td>
+<td>Ending date of the contract</td>
+</tr>
+<tr>
+<td>marginCurrency</td>
+<td>STRING</td>
+<td>Margining currency</td>
+</tr>
+<tr>
+<td>contractValCurrency</td>
+<td>STRING</td>
+<td>Contract valuation currency</td>
+</tr>
+<tr>
+<td>upperPriceBound</td>
+<td>STRING</td>
+<td>Upper price bound</td>
+</tr>
+<tr>
+<td>lowerPriceBound</td>
+<td>STRING</td>
+<td>Lower price bound</td>
+</tr>
+<tr>
+<td>marketPrice</td>
+<td>STRING</td>
+<td>Market price</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-public-get-v2-all-assets'>GET <code>/v2/all/assets</code></h3>
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET/v</span><span class="mi">2</span><span class="err">/all/assets</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assets"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1593617008698"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-200626-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/USD 20-06-26 Future (Linear)"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"base"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"counter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FUTURE"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marginCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deliveryDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deliveryInstrument"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bitcoin"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"base"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"counter"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SPOT"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marginCurrency"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deliveryDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deliveryInstrument"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Get a list of all assets available on CoinFLEX. These include coins and bookable contracts.</p>
+
+<table><thead>
+<tr>
+<th>Response Parameters</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Timestamp of this response</td>
+</tr>
+<tr>
+<td>instrumentId</td>
+<td>STRING</td>
+<td>Instrument ID</td>
+</tr>
+<tr>
+<td>name</td>
+<td>STRING</td>
+<td>Name of the asset</td>
+</tr>
+<tr>
+<td>base</td>
+<td>STRING</td>
+<td>Base of the asset</td>
+</tr>
+<tr>
+<td>counter</td>
+<td>STRING</td>
+<td>Counter of the asset</td>
+</tr>
+<tr>
+<td>type</td>
+<td>STRING</td>
+<td>type of the asset</td>
+</tr>
+<tr>
+<td>marginCurrency</td>
+<td>STRING</td>
+<td>Margining currency</td>
+</tr>
+<tr>
+<td>contractValCurrency</td>
+<td>STRING</td>
+<td>Contract valuation currency</td>
+</tr>
+<tr>
+<td>deliveryDate</td>
+<td>STRING</td>
+<td>Delivery date</td>
+</tr>
+<tr>
+<td>deliveryInstrument</td>
+<td>STRING</td>
+<td>Delivery instrument</td>
+</tr>
+</tbody></table>
 
       </div>
       <div class="dark-box">
