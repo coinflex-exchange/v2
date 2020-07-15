@@ -378,6 +378,12 @@
                           <li>
                             <a href="#websocket-api-subscriptions-public-trade" class="toc-h3 toc-link" data-title="Trade">Trade</a>
                           </li>
+                          <li>
+                            <a href="#websocket-api-subscriptions-public-ticker" class="toc-h3 toc-link" data-title="Ticker">Ticker</a>
+                          </li>
+                          <li>
+                            <a href="#websocket-api-subscriptions-public-candles" class="toc-h3 toc-link" data-title="Candles">Candles</a>
+                          </li>
                       </ul>
                   </li>
               </ul>
@@ -413,16 +419,10 @@
                     <a href="#rest-api-get-v2-orders" class="toc-h2 toc-link" data-title="GET  /v2/orders">GET  <code>/v2/orders</code></a>
                   </li>
                   <li>
-                    <a href="#rest-api-post-auction" class="toc-h2 toc-link" data-title="POST /auction/">POST <code>/auction/</code></a>
+                    <a href="#rest-api-delete-v2-cancel-orders" class="toc-h2 toc-link" data-title="DELETE /v2/cancel/orders">DELETE <code>/v2/cancel/orders</code></a>
                   </li>
                   <li>
-                    <a href="#rest-api-post-deliverywallet" class="toc-h2 toc-link" data-title="POST /deliveryWallet/">POST <code>/deliveryWallet/</code></a>
-                  </li>
-                  <li>
-                    <a href="#rest-api-get-deliverywallet" class="toc-h2 toc-link" data-title="GET /deliveryWallet/">GET <code>/deliveryWallet/</code></a>
-                  </li>
-                  <li>
-                    <a href="#rest-api-get-deliver" class="toc-h2 toc-link" data-title="GET /deliver/">GET <code>/deliver/</code></a>
+                    <a href="#rest-api-delete-v2-cancel-orders-marketcode" class="toc-h2 toc-link" data-title="DELETE /v2/cancel/orders/{marketCode}">DELETE <code>/v2/cancel/orders/{marketCode}</code></a>
                   </li>
               </ul>
           </li>
@@ -514,7 +514,7 @@
 <p><strong>LIVE</strong> site</p>
 
 <ul>
-<li>&#39;COMING SOON&#39;</li>
+<li><code>wss://v2api.coinflex.com/v2/websocket</code></li>
 </ul>
 
 <p>CoinFLEX&#39;s application programming interface (API) provides our clients programmatic access to control aspects of their accounts and to place orders on the CoinFLEX trading platform. The API is accessible via WebSocket connection to the URIs listed above. Commands, replies, and notifications all traverse the WebSocket in text frames with JSON-formatted payloads.</p>
@@ -2978,14 +2978,14 @@ Please also subscribe to the user order channel to receive push notifications fo
 <p><strong>Success response format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"channel"</span><span class="p">:[</span><span class="s2">"trade:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="nl">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1234"</span><span class="p">}</span><span class="w">
+</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"channel"</span><span class="p">:[</span><span class="s2">"trade:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="nl">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1594299886880"</span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
 <blockquote>
 <p><strong>Failure response format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">}</span><span class="w">
+</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1594299886880“}
 
 </span></code></pre></div>
 <blockquote>
@@ -3000,14 +3000,14 @@ Please also subscribe to the user order channel to receive push notifications fo
         </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5556.91"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-190628"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2349038452354309"</span><span class="w">
+        </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1594299886890"</span><span class="w">
     </span><span class="p">}]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
 <p>The trade channel pushes the matched order data.</p>
 
-<p><strong>Channel Name</strong> : trade: &lt;marketCode&gt;</p>
+<p><strong>Channel Name</strong> : trade:&lt;marketCode&gt;</p>
 
 <p><strong>Update Speed</strong> : real-time</p>
 
@@ -3065,6 +3065,224 @@ Please also subscribe to the user order channel to receive push notifications fo
 <td>Market code i.e BTC-USD</td>
 </tr>
 </tbody></table>
+<h3 id='websocket-api-subscriptions-public-ticker'>Ticker</h3>
+<blockquote>
+<p><strong>Request format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"ticker:BTC-USD-200925-LIN"</span><span class="p">],</span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w"> 
+
+</span></code></pre></div>
+<blockquote>
+<p><strong>Success response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"channel"</span><span class="p">:[</span><span class="s2">"ticker:BTC-USD-200925-LIN"</span><span class="p">],</span><span class="nl">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1594299886890"</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p><strong>Failure response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1594299886890“}
+
+</span></code></pre></div>
+<blockquote>
+<p><strong>Channel update format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"table"</span><span class="p">:</span><span class="s2">"ticker"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"last"</span><span class="p">:</span><span class="s2">"43.259"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"markPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11012.80409769"</span><span class="p">,</span><span class="w">   
+            </span><span class="nl">"open24h"</span><span class="p">:</span><span class="s2">"49.375"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"volume24h"</span><span class="p">:</span><span class="s2">"11295421"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"currencyVolume24h"</span><span class="p">:</span><span class="s2">"1225512"</span><span class="p">,</span><span class="w">                       
+            </span><span class="nl">"high24h"</span><span class="p">:</span><span class="s2">"49.488"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"low24h"</span><span class="p">:</span><span class="s2">"41.649"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"openInterest"</span><span class="p">:</span><span class="s2">"1726003"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lastQty"</span><span class="p">:</span><span class="s2">"1"</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"123443563454"</span><span class="p">,</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>The ticker channel pushes the general information about the contract.</p>
+
+<p><strong>Channel Name</strong> : ticker:&lt;marketCode&gt;</p>
+
+<p><strong>Update Speed</strong> : 100ms</p>
+
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>tag</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>Iff given and non-zero, it will be echoed in the reply.</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Update Parameters</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Market code i.e BTC-USD</td>
+</tr>
+<tr>
+<td>last</td>
+<td>STRING</td>
+<td>Last traded price</td>
+</tr>
+<tr>
+<td>markPrice</td>
+<td>STRING</td>
+<td>Matched quantity</td>
+</tr>
+<tr>
+<td>open24h</td>
+<td>STRING</td>
+<td>24 hour rolling opening price</td>
+</tr>
+<tr>
+<td>volume24h</td>
+<td>STRING</td>
+<td>24 hour rolling trading volume in counter currency</td>
+</tr>
+<tr>
+<td>currencyVolume24h</td>
+<td>STRING</td>
+<td>24 hour rolling trading volume in base currency</td>
+</tr>
+<tr>
+<td>high24h</td>
+<td>STRING</td>
+<td>24 hour highest price</td>
+</tr>
+<tr>
+<td>low24h</td>
+<td>STRING</td>
+<td>24 hour lowest price</td>
+</tr>
+<tr>
+<td>openInterest</td>
+<td>STRING</td>
+<td>Open Interest</td>
+</tr>
+<tr>
+<td>lastQty</td>
+<td>STRING</td>
+<td>Last traded price amount</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Timestamp</td>
+</tr>
+</tbody></table>
+<h3 id='websocket-api-subscriptions-public-candles'>Candles</h3>
+<blockquote>
+<p><strong>Request format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"candles60s:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w"> 
+
+</span></code></pre></div>
+<blockquote>
+<p><strong>Success response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"channel"</span><span class="p">:[</span><span class="s2">"candles60s:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="nl">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1594313762698"</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<blockquote>
+<p><strong>Failure response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="nl">"tag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1594313762698“}
+
+</span></code></pre></div>
+<blockquote>
+<p><strong>Channel update format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"table"</span><span class="p">:</span><span class="s2">"candle60s"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"candle"</span><span class="p">:[</span><span class="w">
+                </span><span class="s2">"1594313762698"</span><span class="p">,</span><span class="w"> </span><span class="err">//timestamp</span><span class="w">
+                </span><span class="s2">"9633.1"</span><span class="p">,</span><span class="w">        </span><span class="err">//open</span><span class="w">
+                </span><span class="s2">"9693.9"</span><span class="p">,</span><span class="w">        </span><span class="err">//high</span><span class="w">
+                </span><span class="s2">"9238.1"</span><span class="p">,</span><span class="w">        </span><span class="err">//low</span><span class="w">
+                </span><span class="s2">"9630.2"</span><span class="p">,</span><span class="w">        </span><span class="err">//close</span><span class="w">
+                </span><span class="s2">"45247"</span><span class="p">,</span><span class="w">         </span><span class="err">//volume</span><span class="w">
+                </span><span class="s2">"5.3"</span><span class="w">            </span><span class="err">//currencyVolume</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>The candles channel pushes the K-line.</p>
+
+<p><strong>Channel Name</strong> : candles&lt;granularity&gt;:&lt;marketCode&gt;</p>
+
+<p><strong>Update Speed</strong> : 500ms</p>
+
+<p><strong>Granularity</strong>  : 60s, 180s, 300s, 900s, 1800s, 3600s, 7200s, 14400s, 21600s, 43200s, 86400s</p>
+
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>tag</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>Iff given and non-zero, it will be echoed in the reply.</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Update Parameters</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Market code i.e BTC-USD</td>
+</tr>
+<tr>
+<td>candle</td>
+<td>STRING</td>
+<td>Timestamp, open price, highest price, lowest price, close price, trading volume in counter currency, and trading volume in base currency</td>
+</tr>
+</tbody></table>
 <h1 id='rest-api'>REST API</h1>
 <p><strong>TEST</strong> site</p>
 
@@ -3075,7 +3293,7 @@ Please also subscribe to the user order channel to receive push notifications fo
 <p><strong>LIVE</strong> site</p>
 
 <ul>
-<li>&#39;COMING SOON&#39;</li>
+<li><code>https://v2api.coinflex.com/v2</code></li>
 </ul>
 
 <p>For clients who do not wish to take advantage of CoinFLEX&#39;s native WebSocket API, CoinFLEX offers a RESTful API that implements much of the same functionality.</p>
@@ -3405,7 +3623,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <tr>
 <td>contractValCurrency</td>
 <td>STRING</td>
-<td></td>
+<td>Contract valuation currency</td>
 </tr>
 <tr>
 <td>entryPrice</td>
@@ -3562,37 +3780,37 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <tr>
 <td>marketCode</td>
 <td>STRING</td>
-<td></td>
+<td>Market Code</td>
 </tr>
 <tr>
 <td>name</td>
 <td>STRING</td>
-<td></td>
+<td>Name of the contract</td>
 </tr>
 <tr>
 <td>referencePair</td>
 <td>STRING</td>
-<td></td>
+<td>Reference pair</td>
 </tr>
 <tr>
 <td>base</td>
 <td>STRING</td>
-<td></td>
+<td>Base asset</td>
 </tr>
 <tr>
 <td>counter</td>
 <td>STRING</td>
-<td></td>
+<td>Counter asset</td>
 </tr>
 <tr>
 <td>type</td>
 <td>STRING</td>
-<td></td>
+<td>Type of the contract</td>
 </tr>
 <tr>
 <td>tickSize</td>
 <td>STRING</td>
-<td></td>
+<td>Tick size of the contract</td>
 </tr>
 <tr>
 <td>qtyIncrement</td>
@@ -3602,17 +3820,17 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <tr>
 <td>listingDate</td>
 <td>STRING</td>
-<td></td>
+<td>Listing date of the contract</td>
 </tr>
 <tr>
 <td>endDate</td>
 <td>STRING</td>
-<td></td>
+<td>Ending date of the contract</td>
 </tr>
 <tr>
 <td>marginCurrency</td>
 <td>STRING</td>
-<td></td>
+<td>Margining currency</td>
 </tr>
 <tr>
 <td>contractValCurrency</td>
@@ -3622,17 +3840,17 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <tr>
 <td>upperPriceBound</td>
 <td>STRING</td>
-<td></td>
+<td>Upper price bound</td>
 </tr>
 <tr>
 <td>lowerPriceBound</td>
 <td>STRING</td>
-<td></td>
+<td>Lower price bound</td>
 </tr>
 <tr>
 <td>marketPrice</td>
 <td>STRING</td>
-<td></td>
+<td>Market price</td>
 </tr>
 </tbody></table>
 <h2 id='rest-api-get-v2-all-assets'>GET <code>/v2/all/assets</code></h2>
@@ -3690,47 +3908,47 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <tr>
 <td>instrumentId</td>
 <td>STRING</td>
-<td></td>
+<td>Instrument ID</td>
 </tr>
 <tr>
 <td>name</td>
 <td>STRING</td>
-<td></td>
+<td>Name of the asset</td>
 </tr>
 <tr>
 <td>base</td>
 <td>STRING</td>
-<td></td>
+<td>Base of the asset</td>
 </tr>
 <tr>
 <td>counter</td>
 <td>STRING</td>
-<td></td>
+<td>Counter of the asset</td>
 </tr>
 <tr>
 <td>type</td>
 <td>STRING</td>
-<td></td>
+<td>type of the asset</td>
 </tr>
 <tr>
 <td>marginCurrency</td>
 <td>STRING</td>
-<td></td>
+<td>Margining currency</td>
 </tr>
 <tr>
 <td>contractValCurrency</td>
 <td>STRING</td>
-<td></td>
+<td>Contract valuation currency</td>
 </tr>
 <tr>
 <td>deliveryDate</td>
 <td>STRING</td>
-<td></td>
+<td>Delivery date</td>
 </tr>
 <tr>
 <td>deliveryInstrument</td>
 <td>STRING</td>
-<td></td>
+<td>Delivery instrument</td>
 </tr>
 </tbody></table>
 <h2 id='rest-api-get-v2-trades'>GET <code>/v2/trades</code></h2>
@@ -3806,57 +4024,57 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <tr>
 <td>matchId</td>
 <td>STRING</td>
-<td></td>
+<td>Match ID</td>
 </tr>
 <tr>
 <td>matchTimestamp</td>
 <td>STRING</td>
-<td></td>
+<td>Order Matched timestamp</td>
 </tr>
 <tr>
 <td>marketCode</td>
 <td>STRING</td>
-<td></td>
+<td>Market code</td>
 </tr>
 <tr>
 <td>matchQuantity</td>
 <td>STRING</td>
-<td></td>
+<td>Match quantity</td>
 </tr>
 <tr>
 <td>matchPrice</td>
 <td>STRING</td>
-<td></td>
+<td>Match price</td>
 </tr>
 <tr>
 <td>total</td>
 <td>STRING</td>
-<td></td>
+<td>Total price</td>
 </tr>
 <tr>
 <td>side</td>
 <td>STRING</td>
-<td></td>
+<td>Side of the match</td>
 </tr>
 <tr>
 <td>orderMatchType</td>
 <td>STRING</td>
-<td></td>
+<td>Define taker or maker</td>
 </tr>
 <tr>
 <td>fees</td>
 <td>STRING</td>
-<td></td>
+<td>fees</td>
 </tr>
 <tr>
 <td>feeInstrumentId</td>
 <td>STRING</td>
-<td></td>
+<td>Instrument ID of the fees</td>
 </tr>
 <tr>
 <td>orderId</td>
 <td>STRING</td>
-<td></td>
+<td>Order ID generated by the server</td>
 </tr>
 </tbody></table>
 <h2 id='rest-api-get-v2-orders'>GET  <code>/v2/orders</code></h2>
@@ -3916,52 +4134,52 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <tr>
 <td>orderId</td>
 <td>STRING</td>
-<td></td>
+<td>Order ID which generated by the server</td>
 </tr>
 <tr>
 <td>marketCode</td>
 <td>STRING</td>
-<td></td>
+<td>Market code</td>
 </tr>
 <tr>
 <td>clientOrderId</td>
 <td>STRING</td>
-<td></td>
+<td>Client order ID which given by the user</td>
 </tr>
 <tr>
 <td>side</td>
 <td>STRING</td>
-<td></td>
+<td>Side of the order</td>
 </tr>
 <tr>
 <td>orderType</td>
 <td>STRING</td>
-<td></td>
+<td>Type of the order</td>
 </tr>
 <tr>
 <td>quantity</td>
 <td>STRING</td>
-<td></td>
+<td>Quantity submitted</td>
 </tr>
 <tr>
 <td>remainQuantity</td>
 <td>STRING</td>
-<td></td>
+<td>Remainning quantity</td>
 </tr>
 <tr>
 <td>price</td>
 <td>STRING</td>
-<td></td>
+<td>Price submitted</td>
 </tr>
 <tr>
 <td>stopPrice</td>
 <td>STRING</td>
-<td></td>
+<td>Stop price for the stop order</td>
 </tr>
 <tr>
 <td>limitPrice</td>
 <td>STRING</td>
-<td></td>
+<td>Limit price for the stop limit order</td>
 </tr>
 <tr>
 <td>orderCreated</td>
@@ -3981,98 +4199,51 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <tr>
 <td>timeInForce</td>
 <td>STRING</td>
-<td></td>
+<td>Time in force</td>
 </tr>
 </tbody></table>
-<h2 id='rest-api-post-auction'>POST <code>/auction/</code></h2>
-<p>Delivered positions of current user for auction.</p>
-
-<p>Login Required. Please pass x-cf-token in the HTTP header.</p>
-
+<h2 id='rest-api-delete-v2-cancel-orders'>DELETE <code>/v2/cancel/orders</code></h2>
 <blockquote>
-<p><strong>RESPONSE</strong></p>
+<p><strong>Request</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="err">delivery</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0000"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w"> 
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"repoId"</span><span class="p">:</span><span class="w"> </span><span class="mi">12341234123256</span><span class="w"> </span><span class="err">(BTC-USD-REPO-LIN)</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"qtyDeliver"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"instrumentIdDeliver"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"markPrice"</span><span class="p">:</span><span class="w"> </span><span class="mi">9855</span><span class="p">,</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-</span><span class="err">}</span><span class="w">
-</span></code></pre></div><h2 id='rest-api-post-deliverywallet'>POST <code>/deliveryWallet/</code></h2>
-<p>Description: Record users&#39; delivery</p>
-
-<p>Login Required. Please pass x-cf-token in the HTTP header.</p>
-
-<blockquote>
-<p><strong>RESPONSE</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="err">delivery</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0000"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w"> 
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"long"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.000000000</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"assetTransfer"</span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="w"> </span><span class="err">(USD)</span><span class="w">
-      </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1558588585858</span><span class="p">,</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-</span><span class="err">}</span><span class="w">
-</span></code></pre></div><h2 id='rest-api-get-deliverywallet'>GET <code>/deliveryWallet/</code></h2>
-<p>Description: Get info in the “delivery wallet”</p>
-
-<p>Login Required. Please pass x-cf-token in the HTTP header.</p>
-
-<blockquote>
-<p><strong>RESPONSE</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="err">delivery</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0000"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w"> 
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1558588585858</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"long"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.000000000</span><span class="p">,</span><span class="w">
-      </span><span class="err">“entryPrice”:</span><span class="w"> </span><span class="mf">7800.000000000</span><span class="p">,</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-</span><span class="err">}</span><span class="w">
-</span></code></pre></div><h2 id='rest-api-get-deliver'>GET <code>/deliver/</code></h2>
-<p>Description: Get position info when user clicks “next delivery cycle”</p>
-
-<p>Login Required. Please pass x-cf-token in the HTTP header.</p>
-
-<blockquote>
-<p><strong>RESPONSE</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="err">delivery</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0000"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w"> 
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"long"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"markPrice"</span><span class="p">:</span><span class="w"> </span><span class="mi">9855</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"base"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"counter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
-
-    </span><span class="p">}</span><span class="w">
-</span><span class="err">}</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">DELETE/v</span><span class="mi">2</span><span class="err">/cancel/orders</span><span class="w"> 
 </span></code></pre></div>
+<blockquote>
+<p><strong>RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"orders"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"&lt;AccountID&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1594412077100"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
+    </span><span class="s2">"msg"</span><span class="err">:</span><span class="w"> </span><span class="s2">"All open orders for the account have been queued for cancellation"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>Requires authentication. Cancel all open orders.</p>
+<h2 id='rest-api-delete-v2-cancel-orders-marketcode'>DELETE <code>/v2/cancel/orders/{marketCode}</code></h2>
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">DELETE/v</span><span class="mi">2</span><span class="err">/cancel/orders/BTC-USD</span><span class="w"> 
+</span></code></pre></div>
+<blockquote>
+<p><strong>RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"orders"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"&lt;AccountID&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1594412077100"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
+    </span><span class="s2">"msg"</span><span class="err">:</span><span class="w"> </span><span class="s2">"All open orders for the specified market have been queued for cancellation"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>Requires authentication. Cancel all open orders for a specific market code.</p>
+
       </div>
       <div class="dark-box">
           <div class="lang-selector">
