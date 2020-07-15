@@ -570,7 +570,7 @@ status|STRING|  OPEN = success
 timestamp|STRING |UNIX timestamp
 orderType| STRING |`STOP`
 stopPrice|STRING|Stop price submitted
-limitPrice|STRING|limit price3 submitted
+limitPrice|STRING|limit price submitted
 
 
 
