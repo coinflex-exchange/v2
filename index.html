@@ -1072,12 +1072,13 @@ Please also subscribe to the user order channel to receive push notifications fo
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"op"</span><span class="p">:</span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
- </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"order:BTC-USD"</span><span class="p">]}</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"op"</span><span class="p">:</span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"args"</span><span class="p">:[</span><span class="s2">"order:BTC-USD"</span><span class="p">],</span><span class="nl">"tag"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Requires authentication. Get the user&#39;s order information.</p>
 
-<p>order is the channel name.  BTC-USD is the market code.  Example responses are in Webosocket Private Data Stream Section.</p>
+<p><strong>Channel Name</strong> : order:&lt;marketCode&gt;</p>
+
+<p><strong>Update Speed</strong> : real-time</p>
 <h4 id='websocket-api-subscriptions-private-user-order-channel-order-orderopened'>Order: OrderOpened</h4>
 <p>A new limit order has been opened.</p>
 
