@@ -476,7 +476,7 @@ Requires authentication. Get the user's order information.
 #### Order: OrderOpened
 
 
-A new limit order has been opened.
+
 
 Recipients: Authenticated users who subscribed user order channel can receive notice of their own limit orders status.
 
