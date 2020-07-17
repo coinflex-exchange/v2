@@ -1099,7 +1099,7 @@ Please also subscribe to the user order channel to receive push notifications fo
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1592491654"</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1594943491077"</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -1124,7 +1124,7 @@ Please also subscribe to the user order channel to receive push notifications fo
             </span><span class="nl">"stopPrice"</span><span class="p">:</span><span class="s2">"9280"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="s2">"9300"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"15924910987"</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1594943491077"</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -1134,7 +1134,7 @@ Please also subscribe to the user order channel to receive push notifications fo
 <tr>
 <th>Parameters</th>
 <th>Type</th>
-<th>Required</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
@@ -1185,7 +1185,7 @@ Please also subscribe to the user order channel to receive push notifications fo
 <tr>
 <td>status</td>
 <td>STRING</td>
-<td>OPEN = success</td>
+<td>OPEN</td>
 </tr>
 <tr>
 <td>timestamp</td>
@@ -1195,7 +1195,7 @@ Please also subscribe to the user order channel to receive push notifications fo
 <tr>
 <td>orderType</td>
 <td>STRING</td>
-<td><code>STOP</code></td>
+<td>Define the order type</td>
 </tr>
 <tr>
 <td>stopPrice</td>
@@ -1208,11 +1208,7 @@ Please also subscribe to the user order channel to receive push notifications fo
 <td>limit price submitted</td>
 </tr>
 </tbody></table>
-<h4 id='websocket-api-subscriptions-private-user-order-channel-order-ordermodified'>Order: OrderModified</h4>
-<ul>
-<li>Order modified</li>
-</ul>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+<h4 id='websocket-api-subscriptions-private-user-order-channel-order-ordermodified'>Order: OrderModified</h4><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"table"</span><span class="p">:</span><span class="s2">"order"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
         </span><span class="p">{</span><span class="w">   
@@ -1227,7 +1223,7 @@ Please also subscribe to the user order channel to receive push notifications fo
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1592491223"</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1594943491077"</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -1237,7 +1233,7 @@ Please also subscribe to the user order channel to receive push notifications fo
 <tr>
 <th>Parameters</th>
 <th>Type</th>
-<th>Required</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
@@ -1288,7 +1284,7 @@ Please also subscribe to the user order channel to receive push notifications fo
 <tr>
 <td>status</td>
 <td>STRING</td>
-<td>OPEN = success</td>
+<td>OPEN</td>
 </tr>
 <tr>
 <td>timestamp</td>
@@ -1298,14 +1294,10 @@ Please also subscribe to the user order channel to receive push notifications fo
 <tr>
 <td>orderType</td>
 <td>STRING</td>
-<td><code>LIMIT</code></td>
+<td>Define order type</td>
 </tr>
 </tbody></table>
 <h4 id='websocket-api-subscriptions-private-user-order-channel-order-orderclosed'>Order: OrderClosed</h4>
-<ul>
-<li>Order partially cancelled by IOC</li>
-</ul>
-
 <blockquote>
 <p><strong>Notification:</strong></p>
 </blockquote>
