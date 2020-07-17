@@ -9,7 +9,7 @@ CoinFLEX's APIs provide our clients programmatic access to control aspects of th
 
 Using these interfaces it is possible to place both authenticated and unauthenticated API commands for public and prvate commands respectively.
 
-To get started please register for a TEST account at `https://test-v2.coinflex-cn.com/login`
+To get started please register for a TEST account at `https://v2stg.coinflex.com/user-console/register`
 
 
 # API Key Management
