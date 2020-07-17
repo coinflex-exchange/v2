@@ -475,7 +475,7 @@ Requires authentication. Get the user's order information.
 
 #### Order: OrderOpened
 
-> **Update format for limit order:**
+> **Update format for limit order**
 
 ```json
  
@@ -501,7 +501,7 @@ Requires authentication. Get the user's order information.
 
 ```
 
-> **Update format for stop-limit order:**
+> **Update format for stop-limit order**
 
 ```json
  
@@ -549,7 +549,7 @@ limitPrice|STRING|limit price submitted
 
 #### Order: OrderModified
 
-> **Update format for modify order:**
+> **Update format for modify order**
 
 ```json
 {
@@ -557,7 +557,7 @@ limitPrice|STRING|limit price submitted
     "data":[
         {   
             "notice":"OrderModified",
-            "accountId":"1", 
+            "accountId":"<Your Account ID>", 
             "marketCode":"BTC-USD-SWAP-LIN",
             "orderId":"123",
             "clientOrderId":"16", 
@@ -592,7 +592,7 @@ orderType| STRING| Define order type
 
 #### Order: OrderClosed
 
-> **Notification:**
+> **Update format for canceled partially by IOC**
 
 ```json
  
@@ -601,18 +601,18 @@ orderType| STRING| Define order type
     "data":[
         {
           "notice":"OrderClosed",
-          "accountId":"1", 
+          "accountId":"<Your account ID>", 
           "marketCode":"BTC-USD-SWAP-LIN",
           "orderId" :"73",  
           "clientOrderId": "16", 
           "price":"9600", 
           "quantity":"2",
-          "remainQuantity":"0",
+          "remainQuantity":"1.5",
           "orderType":"LIMIT"
           "side": "BUY", 
           "timeInForce":"IOC", 
           "status": "CANCELED_PARTIAL_BY_IOC",
-          "timestamp":"1592496154"
+          "timestamp":"1594943491077"
         }
     ]
 }
@@ -638,7 +638,7 @@ timestamp|STRING|UNIX timestamp
 
 * Order fully cancelled by IOC:
 
-> **Notification:**
+> **Update format for canceled all by IOC**
 
 ```json
  
@@ -647,13 +647,13 @@ timestamp|STRING|UNIX timestamp
     "data":[
         {
           "notice":"OrderClosed"
-          "accountId":"1", 
+          "accountId":"<Your account ID>", 
           "marketCode":"BTC-USD-SWAP-LIN",
           "orderId" : "133",  
           "clientOrderId":"16", 
           "price":"8000", 
           "quantity": "2",
-          "remainQuantity":"0",
+          "remainQuantity":"2",
           "orderType":"LIMIT"
           "side": "BUY", 
           "timeInForce": "IOC", 
