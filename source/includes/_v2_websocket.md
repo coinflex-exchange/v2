@@ -475,7 +475,7 @@ Requires authentication. Get the user's order information.
 
 #### Order: OrderOpened
 
-> **Notification:**
+> **Update format for limit order:**
 
 ```json
  
@@ -501,7 +501,7 @@ Requires authentication. Get the user's order information.
 
 ```
 
-> **Notification:**
+> **Update format for stop-limit order:**
 
 ```json
  
@@ -548,6 +548,8 @@ limitPrice|STRING|limit price submitted
 
 
 #### Order: OrderModified
+
+> **Update format for modify order:**
 
 ```json
 {
