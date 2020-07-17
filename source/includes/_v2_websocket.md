@@ -494,7 +494,7 @@ Requires authentication. Get the user's order information.
             "side": "BUY", 
             "timeInForce": "GTC", 
             "status": "OPEN",
-            "timestamp":"1592491654"
+            "timestamp":"1594943491077"
         }
     ]
 }
@@ -520,7 +520,7 @@ Requires authentication. Get the user's order information.
             "stopPrice":"9280",
             "limitPrice":"9300",
             "status": "OPEN",
-            "timestamp":"15924910987"
+            "timestamp":"1594943491077"
         }
     ]
 }
@@ -528,7 +528,7 @@ Requires authentication. Get the user's order information.
 ```
 
 
-Parameters |Type| Required |
+Parameters |Type| Description |
 --------|-----|---|
 notice | STRING| `OrderOpened`
 accountId | STRING|  Account identifer   
@@ -539,17 +539,15 @@ price |STRING | Price submitted
 quantity | STRING| Quantity submitted
 side|STRING|`BUY` / `SELL`
 timeInForce|STRING|Confirming user setting
-status|STRING|  OPEN = success
+status|STRING|  OPEN
 timestamp|STRING |UNIX timestamp
-orderType| STRING |`STOP`
+orderType| STRING | Define the order type
 stopPrice|STRING|Stop price submitted
 limitPrice|STRING|limit price submitted
 
 
 
 #### Order: OrderModified
-
-* Order modified
 
 ```json
 {
@@ -567,7 +565,7 @@ limitPrice|STRING|limit price submitted
             "side": "BUY", 
             "timeInForce": "GTC", 
             "status": "OPEN",
-            "timestamp":"1592491223"
+            "timestamp":"1594943491077"
         }
     ]
 }
@@ -575,7 +573,7 @@ limitPrice|STRING|limit price submitted
 ```
 
 
-Parameters |Type| Required |
+Parameters |Type| Description |
 --------|-----|---|
 notice | STRING | `OrderModified`
 accountId | STRING | Account identifer   
@@ -586,13 +584,11 @@ price | STRING | Price submitted
 quantity | STRING| Quantity submitted
 side|STRING|`BUY` / `SELL`
 timeInForce|STRING|Confirming user setting
-status|STRING|  OPEN = success
+status|STRING|  OPEN
 timestamp|STRING|UNIX timestamp
-orderType| STRING|`LIMIT`
+orderType| STRING| Define order type
 
 #### Order: OrderClosed
-
-* Order partially cancelled by IOC
 
 > **Notification:**
 
