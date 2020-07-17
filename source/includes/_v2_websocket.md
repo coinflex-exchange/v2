@@ -636,8 +636,6 @@ timeInForce|STRING|Confirming user setting
 status|STRING|CANCELED PARTIAL BY IOC
 timestamp|STRING|UNIX timestamp
 
-* Order fully cancelled by IOC:
-
 > **Update format for canceled all by IOC**
 
 ```json
@@ -681,9 +679,8 @@ timeInForce|STRING|Confirming user setting
 status|STRING|cancelled all by IOC
 timestamp|STRING|UNIX timestamp
 
-* Order fully cancelled by FOK
 
-> **Notification:**
+> **Update format for cancled by FOK**
 
 ```json
  
@@ -726,9 +723,8 @@ status|STRING |cancelled all by FOK
 timestamp|STRING|UNIX timestamp
 orderType|STRING |`LIMIT`
 
-* Order fully cancelled by MAKER_ONLY
 
-> **Notification:**
+> **Update format for canceled by maker only**
 
 ```json
  
@@ -772,9 +768,7 @@ status|String|CANCELED BY MAKER ONLY
 timestamp|String|UNIX timestamp
 
 
-*  Limit order cancelled by the user:
-
-> **Notification:**
+> **Update format for limit order canceled by user**
 
 
 ```json
@@ -819,7 +813,7 @@ timestamp|STRING |UNIX timestamp
 
 * stop-limit order cancelled by the user:
 
-> **Notification:**
+> **Update format for stop-limit order canceled by user**
 
 ```json
  
