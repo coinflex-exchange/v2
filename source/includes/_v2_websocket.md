@@ -47,7 +47,7 @@ OR
 
 **TEST** site
 
-* `wss://api-test-v2.coinflex-cn.com/v2/websocket`
+* `wss://v2stgapi.coinflex.com/v2/websocket`
 
 **LIVE** site
 
