@@ -24,6 +24,9 @@ API keys are also only bound to a single sub-account, defined upon creation. Thi
 
 
 # Change Log
+2020-07-25
+- Added GET /v2/publictrades/{marketCode}
+- Added GET /v2/trades/{marketCode}
 
 2020-06-16
 - Added general guidance for getting a login/password to create tokens
