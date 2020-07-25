@@ -285,23 +285,23 @@ GET/v2/trades/{marketCode}?limit={limit}&startTime={startTime}&endTime{endTime}
 
 ```json
 {
-  'event': 'trades', 
-  'timestamp': 1595635101845, 
-  'accountId': '<Your Account ID>', 
-  'data': [
-  {
-    'matchId': '160067484555913077', 
-    'matchTimestamp': '1595514663626', 
-    'marketCode': 'BTC-USD-SWAP-LIN', 
-    'matchQuantity': '0.010000000', 
-    'matchPrice': '9680.000000000', 
-    'total': '96.800000000000000000', 
-    'orderMatchType': 'TAKER', 
-    'fees': '0.009600000', 
-    'feeInstrumentId': 'FLEX', 
-    'orderId': '160067484555913076', 
-    'side': 'SELL', 
-    'clientOrderId': '123'
+  "event": "trades", 
+  "timestamp": "1595635101845", 
+  "accountId": "<Your Account ID>", 
+  "data": [
+    {
+    "matchId": "160067484555913077", 
+    "matchTimestamp": "1595514663626", 
+    "marketCode": "BTC-USD-SWAP-LIN", 
+    "matchQuantity": "0.010000000", 
+    "matchPrice": "9680.000000000", 
+    "total": "96.800000000000000000", 
+    "orderMatchType": "TAKER", 
+    "fees": "0.009600000", 
+    "feeInstrumentId": "FLEX", 
+    "orderId": "160067484555913076", 
+    "side": "SELL", 
+    "clientOrderId": "123"
    },
 ...
 ]
@@ -563,3 +563,51 @@ marginCurrency| STRING | Margining currency                 |
 contractValCurrency| STRING| Contract valuation currency              |
 deliveryDate       | STRING| Delivery date             |
 deliveryInstrument | STRING| Delivery instrument             |
+
+###GET `/v2/publictrades/{marketCode}`
+
+> **Request**
+
+```json
+GET/v2/publictrades/{marketCode}?limit={limit}&startTime={startTime}&endTime{endTime}
+```
+
+> **RESPONSE**
+
+
+```json
+{
+  "event": "publicTrades", 
+  "timestamp": "1595636619410", 
+  "marketCode": "BTC-USD-SWAP-LIN", 
+  "data": [
+    {
+      "matchId": "160070803925856675", 
+      "matchQuantity": "0.100000000", 
+      "matchPrice": "9600.000000000", 
+      "side": "BUY", 
+      "matchTimestamp": "1595585860254"
+      },
+      ...
+      ]
+}
+ 
+```
+Get most recent trades.
+
+Request Parameters | Type | Required |Description| 
+-------------------------- | -----|--------- | -------------|
+marketCode| STRING | YES |  | 
+limit| LONG | NO | Default 100, max 300 | 
+startTime| LONG | NO |  | 
+endTime| LONG | NO |  | 
+
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+timestamp | STRING    | Timestamp of this response|
+marketCode | STRING    | |
+matchID | STRING    | |
+matchQuantity | STRING    | |
+matchPrice | STRING    | |
+side | STRING    | |
+matchTimestamp | STRING    | |
