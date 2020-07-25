@@ -432,6 +432,9 @@
                           <li>
                             <a href="#rest-api-methods-public-get-v2-all-assets" class="toc-h3 toc-link" data-title="GET <code>/v2/all/assets</code>">GET <code>/v2/all/assets</code></a>
                           </li>
+                          <li>
+                            <a href="#rest-api-methods-public-get-v2-publictrades-marketcode" class="toc-h3 toc-link" data-title="GET <code>/v2/publictrades/{marketCode}</code>">GET <code>/v2/publictrades/{marketCode}</code></a>
+                          </li>
                       </ul>
                   </li>
               </ul>
@@ -3285,23 +3288,23 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <p><strong>RESPONSE</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">'event':</span><span class="w"> </span><span class="err">'trades'</span><span class="p">,</span><span class="w"> 
-  </span><span class="err">'timestamp':</span><span class="w"> </span><span class="mi">1595635101845</span><span class="p">,</span><span class="w"> 
-  </span><span class="err">'accountId':</span><span class="w"> </span><span class="err">'&lt;Your</span><span class="w"> </span><span class="err">Account</span><span class="w"> </span><span class="err">ID&gt;'</span><span class="p">,</span><span class="w"> 
-  </span><span class="err">'data':</span><span class="w"> </span><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="err">'matchId':</span><span class="w"> </span><span class="err">'</span><span class="mi">160067484555913077</span><span class="err">'</span><span class="p">,</span><span class="w"> 
-    </span><span class="err">'matchTimestamp':</span><span class="w"> </span><span class="err">'</span><span class="mi">1595514663626</span><span class="err">'</span><span class="p">,</span><span class="w"> 
-    </span><span class="err">'marketCode':</span><span class="w"> </span><span class="err">'BTC-USD-SWAP-LIN'</span><span class="p">,</span><span class="w"> 
-    </span><span class="err">'matchQuantity':</span><span class="w"> </span><span class="err">'</span><span class="mf">0.010000000</span><span class="err">'</span><span class="p">,</span><span class="w"> 
-    </span><span class="err">'matchPrice':</span><span class="w"> </span><span class="err">'</span><span class="mf">9680.000000000</span><span class="err">'</span><span class="p">,</span><span class="w"> 
-    </span><span class="err">'total':</span><span class="w"> </span><span class="err">'</span><span class="mf">96.800000000000000000</span><span class="err">'</span><span class="p">,</span><span class="w"> 
-    </span><span class="err">'orderMatchType':</span><span class="w"> </span><span class="err">'TAKER'</span><span class="p">,</span><span class="w"> 
-    </span><span class="err">'fees':</span><span class="w"> </span><span class="err">'</span><span class="mf">0.009600000</span><span class="err">'</span><span class="p">,</span><span class="w"> 
-    </span><span class="err">'feeInstrumentId':</span><span class="w"> </span><span class="err">'FLEX'</span><span class="p">,</span><span class="w"> 
-    </span><span class="err">'orderId':</span><span class="w"> </span><span class="err">'</span><span class="mi">160067484555913076</span><span class="err">'</span><span class="p">,</span><span class="w"> 
-    </span><span class="err">'side':</span><span class="w"> </span><span class="err">'SELL'</span><span class="p">,</span><span class="w"> 
-    </span><span class="err">'clientOrderId':</span><span class="w"> </span><span class="err">'</span><span class="mi">123</span><span class="err">'</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"trades"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1595635101845"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"matchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160067484555913077"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"matchTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1595514663626"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.010000000"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"matchPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9680.000000000"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"96.800000000000000000"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"orderMatchType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TAKER"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.009600000"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"feeInstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160067484555913076"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="w">
    </span><span class="p">},</span><span class="w">
 </span><span class="err">...</span><span class="w">
 </span><span class="p">]</span><span class="w">
@@ -3808,6 +3811,111 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>deliveryInstrument</td>
 <td>STRING</td>
 <td>Delivery instrument</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-public-get-v2-publictrades-marketcode'>GET <code>/v2/publictrades/{marketCode}</code></h3>
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET/v</span><span class="mi">2</span><span class="err">/publictrades/</span><span class="p">{</span><span class="err">marketCode</span><span class="p">}</span><span class="err">?limit=</span><span class="p">{</span><span class="err">limit</span><span class="p">}</span><span class="err">&amp;startTime=</span><span class="p">{</span><span class="err">startTime</span><span class="p">}</span><span class="err">&amp;endTime</span><span class="p">{</span><span class="err">endTime</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"publicTrades"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1595636619410"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"matchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160070803925856675"</span><span class="p">,</span><span class="w"> 
+      </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.100000000"</span><span class="p">,</span><span class="w"> 
+      </span><span class="nl">"matchPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9600.000000000"</span><span class="p">,</span><span class="w"> 
+      </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w"> 
+      </span><span class="nl">"matchTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1595585860254"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>Get most recent trades.</p>
+
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>limit</td>
+<td>LONG</td>
+<td>NO</td>
+<td>Default 100, max 300</td>
+</tr>
+<tr>
+<td>startTime</td>
+<td>LONG</td>
+<td>NO</td>
+<td></td>
+</tr>
+<tr>
+<td>endTime</td>
+<td>LONG</td>
+<td>NO</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Parameters</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Timestamp of this response</td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>matchID</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>matchQuantity</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>matchPrice</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>side</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>matchTimestamp</td>
+<td>STRING</td>
+<td></td>
 </tr>
 </tbody></table>
 
