@@ -308,10 +308,10 @@ timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `I
 tag| INTEGER| No|Iff given and non-zero, it will be echoed in the reply.
 
 
-### Market Order  &nbsp;&nbsp;*****COMING SOON*****
+### Market Order  &nbsp;&nbsp;*****NOT AVAILABLE*****
 
 
-### Stop Limit Order  &nbsp;&nbsp;*****COMING SOON*****
+### Stop Limit Order  &nbsp;&nbsp;*****NOT AVAILABLE*****
 
 Requires authentication. Please subscribe user order channel to receive the order updates.
 
