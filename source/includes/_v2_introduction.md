@@ -9,7 +9,7 @@ CoinFLEX's APIs provide our clients programmatic access to control aspects of th
 
 Using these interfaces it is possible to place both authenticated and unauthenticated API commands for public and prvate commands respectively.
 
-To get started please register for a TEST account at `https://test-v2.coinflex-cn.com/login`
+To get started please register for a TEST account at `https://v2stg.coinflex.com/user-console/register`
 
 
 # API Key Management
@@ -24,6 +24,9 @@ API keys are also only bound to a single sub-account, defined upon creation. Thi
 
 
 # Change Log
+2020-07-25
+- Added GET /v2/publictrades/{marketCode}
+- Added GET /v2/trades/{marketCode}
 
 2020-06-16
 - Added general guidance for getting a login/password to create tokens
