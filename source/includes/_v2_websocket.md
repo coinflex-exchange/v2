@@ -5,15 +5,15 @@
 
 ```json
 {
-  "op": "<value>", 
+  "op": "<value>",
    "args": ["<value>"]
 }
 
 OR
-   
+
 {
   "op": "<value>,
-  "data": {"<key1>":"<value1>",.....}
+  "data": {"<key1>": "<value1>",.....}
 }
 ```
 
@@ -21,7 +21,7 @@ OR
 
 ```json
 {
-  "event": "<op value>", 
+  "event": "<op value>",
   "channel": "<args value>",
   "success": true
 }
@@ -38,7 +38,7 @@ OR
 
 ```json
 {
-  "event": "error", 
+  "event": "error",
   "message": "<errorMessage>",
   "code": "<code>",
   "success": false
@@ -92,11 +92,11 @@ Websocket commands can be sent in either of the following two formats:
 ```json
 {
   "op": "login",
-  "tag": <integer>,
+  "tag": "<integer>",
   "data":{
-          "apiKey": <string>,
-          "timestamp": <string>,
-          "signature": <string>
+          "apiKey": "<string>",
+          "timestamp": "<string>",
+          "signature": "<string>"
          }
 }
 ```
@@ -166,10 +166,10 @@ ws.onopen = function () {
 ```
 ```python
 {
-  "event":"login",
-  "success":true,
-  "tag":"1",
-  "timestamp":"1592491808"
+  "event": "login",
+  "success": True,
+  "tag": "1",
+  "timestamp": "1592491808"
 }
 ```
 ```javascript
@@ -185,22 +185,22 @@ ws.onopen = function () {
 
 ```json
 {
-  "event":"login",
-  "success":false,
-  "code":"<code>",
-  "message":"<errorMessage>",
-  "tag":"1",
-  "timestamp":"1592492032"
+  "event": "login",
+  "success": false,
+  "code": "<code>",
+  "message": "<errorMessage>",
+  "tag": "1",
+  "timestamp": "1592492032"
 }
 ```
 ```python
 {
-  "event":"login",
-  "success":false,
-  "code":"<code>",
-  "message":"<errorMessage>",
-  "tag":"1",
-  "timestamp":"1592492032"
+  "event": "login",
+  "success": False,
+  "code": "<code>",
+  "message": "<errorMessage>",
+  "tag": "1",
+  "timestamp": "1592492032"
 }
 ```
 ```javascript
@@ -218,7 +218,7 @@ The Websocket API consists of public and private methods. The public methods do 
 
 To autenticate a websocket connection a "login" message must be sent containing the clients signature.
 
-To construct the signature a clients API-Secret key is required.  API keys (public and corresponding secret key) can be generated via the GUI within the clients account.  
+To construct the signature a clients API-Secret key is required.  API keys (public and corresponding secret key) can be generated via the GUI within the clients account.
 
 The signature is calculated as:
 
@@ -226,35 +226,35 @@ The signature is calculated as:
 
 **Parameters - Login**
 
-Parameter | Type | Required | Description | 
+Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | **'login'** |
 tag| INTEGER| No | If given, it will be echoed in the reply. |
 data | ARRAY object | Yes |
-\>apiKey | STRING | Yes | Clients public API key, visible in the GUI when created. | 
-\>timestamp | STRING | Yes | Current millisecond timestamp |  
+\>apiKey | STRING | Yes | Clients public API key, visible in the GUI when created. |
+\>timestamp | STRING | Yes | Current millisecond timestamp |
 \>signature | STRING | Yes | `Base64(HmacSHA256(API-Secret, timestamp + 'GET/auth/self/verify'))` |
 
 
 ## Place Order
 
-### Limit Order 
+### Limit Order
 
 > **Request format**
 
 ```json
-{   
-  "op":"placeorder", 
+{
+  "op": "placeorder",
   "data":{
-          "clientOrderId":1, 
+          "clientOrderId": 1,
           "marketCode": "BTC-USD-SWAP-LIN",
-          "side":"BUY", 
-          "orderType":"LIMIT", 
-          "quantity":1.5, 
-          "timeInForce":"GTC", 
-          "price":9431.48
+          "side": "BUY",
+          "orderType": "LIMIT",
+          "quantity": 1.5,
+          "timeInForce": "GTC",
+          "price": 9431.48
           },
-  "tag":1       
+  "tag": 1
 }
 ```
 
@@ -262,19 +262,19 @@ data | ARRAY object | Yes |
 
 ```json
 {
-  "event":"placeorder",
-  "submitted":true, 
-  "tag":"1", 
+  "event": "placeorder",
+  "submitted": true,
+  "tag": "1",
   "data":{
-          "clientOrderId":"1", 
+          "clientOrderId": "1",
           "marketCode": "BTC-USD-SWAP-LIN",
-          "side":"BUY", 
-          "orderType":"LIMIT", 
-          "quantity":"1.5", 
-          "timeInForce":"GTC", 
-          "price":"9431.48"
+          "side": "BUY",
+          "orderType": "LIMIT",
+          "quantity": "1.5",
+          "timeInForce": "GTC",
+          "price": "9431.48"
          },
-  "timestamp":"1592491945"
+  "timestamp": "1592491945"
 }
 ```
 
@@ -282,28 +282,28 @@ data | ARRAY object | Yes |
 
 ```json
 {
-  "event":"placeorder",
-  "message":"<errorMessage>",
-  "code":"<code>",
+  "event": "placeorder",
+  "message": "<errorMessage>",
+  "code": "<code>",
   "submitted": false,
-  "tag":"1",
-  "timestamp":"1592491503"
+  "tag": "1",
+  "timestamp": "1592491503"
 }
 ```
 
-Requires authentication. 
+Requires authentication.
 Please also subscribe to the user order channel to receive push notifications for all message udpates related to a clients orders.
 
 **Request Parameters Specification:**
 
-Parameters | Type | Required | Description | 
+Parameters | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
-clientOrderId | INTEGER | No | Customized order ID to identify your orders | 
-marketCode | STRING | Yes | Market Code i.e. `BTC-USD-SWAP-LIN` |    
-orderType | STRING | Yes |  LIMIT for limit orders | 
+clientOrderId | INTEGER | No | Customized order ID to identify your orders |
+marketCode | STRING | Yes | Market Code i.e. `BTC-USD-SWAP-LIN` |
+orderType | STRING | Yes |  LIMIT for limit orders |
 price | DECIMAL |  Yes |  Price |    Price for limit orders |
-quantity |  DECIMAL | Yes | Quantity (denominated by contractValCurrency) |  
-side | STRING | Yes | BUY / SELL | 
+quantity |  DECIMAL | Yes | Quantity (denominated by contractValCurrency) |
+side | STRING | Yes | BUY / SELL |
 timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker price if specified price otherwise leads to a taker trade)</li></ul>
 tag| INTEGER| No|Iff given and non-zero, it will be echoed in the reply.
 
@@ -319,44 +319,44 @@ Requires authentication. Please subscribe user order channel to receive the orde
 
 ```json
 {
-  "op":"placeorder", 
+  "op": "placeorder",
   "data":{
-          "clientOrderId":1, 
-          "marketCode": "BTC-USD-SWAP-LIN", 
-          "side":"BUY", 
-          "orderType":"STOP", 
-          "quantity":10,
-          "stopPrice":100,
-          "limitPrice":120
+          "clientOrderId": 1,
+          "marketCode": "BTC-USD-SWAP-LIN",
+          "side": "BUY",
+          "orderType": "STOP",
+          "quantity": 10,
+          "stopPrice": 100,
+          "limitPrice": 120
          }
 }
 ```
 
 **Request Parameters Specification:**
 
-Parameters | Type | Required |Description| 
+Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
-clientOrderId| NUMBER | No | User-generated order ID to identify orders | 
+clientOrderId| NUMBER | No | User-generated order ID to identify orders |
 limitPrice| NUMBER|Yes | Limit price for the stop-limit order. <p><p>The limit price must be greater or equal to the stop price for buy-side.<p><p>The limit price must be less or equal to the stop price for sell-side.|
-marketCode| STRING| Yes| Market Code i.e. `BTC-USD-SWAP-LIN`| 
-orderType|STRING| Yes|  `STOP` for Stop-Limit orders (no Stop-market currently)| 
+marketCode| STRING| Yes| Market Code i.e. `BTC-USD-SWAP-LIN`|
+orderType|STRING| Yes|  `STOP` for Stop-Limit orders (no Stop-market currently)|
 quantity|NUMBER|Yes|Quantity (denominated by contractValCurrency)|
-side|STRING| Yes| `BUY `/ `SELL`| 
+side|STRING| Yes| `BUY `/ `SELL`|
 stopPrice|NUMBER|Yes|Stop price for the stop-limit order.<p><p>Triggered by the best bid price for the SELL side stop-limit order.<p><p>Triggered by the best ask price for the BUY side stop-limit order. |
 
 
-### Cancel Order 
+### Cancel Order
 
 > **Request format**
 
 ```json
 {
-  "op":"cancelorder",
+  "op": "cancelorder",
   "data":{
-          "marketCode":"BTC-USD-SWAP-LIN", 
-          "orderId":12
+          "marketCode": "BTC-USD-SWAP-LIN",
+          "orderId": 12
          },
-  "tag":1
+  "tag": 1
 }
 ```
 
@@ -366,21 +366,21 @@ Requires authentication. Please subscribe user order channel to receive the orde
 
 Parameters | TYPE | REQUIRED| Description
 -------------------------- | -----|--------- | -------------|
-marketCode|STRING|YES|Market Code i.e. `BTC-USD-SWAP-LIN`| 
+marketCode|STRING|YES|Market Code i.e. `BTC-USD-SWAP-LIN`|
 orderId|INTEGER|YES|Order ID is generated by the server.|
 
 > **Submitted response format**
 
 ```json
 {
-  "event":"cancelorder",
-  "submitted":true,
+  "event": "cancelorder",
+  "submitted": true,
   "data":{
-          "marketCode":"BTC-USD-SWAP-LIN", 
-          "orderId":"12"
+          "marketCode": "BTC-USD-SWAP-LIN",
+          "orderId": "12"
          },
-  "tag":"1",
-  "timestamp":"1592491173"
+  "tag": "1",
+  "timestamp": "1592491173"
 }
 ```
 
@@ -388,12 +388,12 @@ orderId|INTEGER|YES|Order ID is generated by the server.|
 
 ```json
 {
-  "event":"cancelorder",
-  "message":"<errorMessage>",
-  "code":"<code>",
+  "event": "cancelorder",
+  "message": "<errorMessage>",
+  "code": "<code>",
   "submitted": false,
-  "tag":"1",
-  "timestamp":"1592491473"
+  "tag": "1",
+  "timestamp": "1592491473"
 }
 ```
 
@@ -403,15 +403,15 @@ orderId|INTEGER|YES|Order ID is generated by the server.|
 
 ```json
 {
-  "op":"modifyorder",
+  "op": "modifyorder",
   "data":{
-          "marketCode":"BTC-USD-SWAP-LIN", 
-          "orderId":888,
-          "side":"BUY",
-          "price":9800,
-          "quantity":2,
+          "marketCode": "BTC-USD-SWAP-LIN",
+          "orderId": 888,
+          "side": "BUY",
+          "price": 9800,
+          "quantity": 2
          },
-  "tag":1
+  "tag": 1
 }
 ```
 
@@ -419,17 +419,17 @@ orderId|INTEGER|YES|Order ID is generated by the server.|
 
 ```json
 {
-  "event":"modifyorder",
-  "submitted":true,
+  "event": "modifyorder",
+  "submitted": true,
   "data":{
-          "marketCode":"BTC-USD-SWAP-LIN", 
-          "orderId":888,
-          "side":"BUY",
-          "price":9800,
-          "quantity":2,
+          "marketCode": "BTC-USD-SWAP-LIN",
+          "orderId": 888,
+          "side": "BUY",
+          "price": 9800,
+          "quantity": 2
          },
-  "tag":"1",
-  "timestamp":"1592491032"
+  "tag": "1",
+  "timestamp": "1592491032"
 }
 ```
 
@@ -437,12 +437,12 @@ orderId|INTEGER|YES|Order ID is generated by the server.|
 
 ```json
 {
-  "event":"modifyorder",
-  "message":"<errorMessage>",
-  "code":"<code>",
+  "event": "modifyorder",
+  "message": "<errorMessage>",
+  "code": "<code>",
   "submitted": false,
-  "tag":"1",
-  "timestamp":"1592491173"
+  "tag": "1",
+  "timestamp": "1592491173"
 }
 ```
 
@@ -452,18 +452,148 @@ Parameters | Type | Required | Description|
 -------------------------- | -----|--------- | -------------|
 marketCode|string|Yes|market id| Market Code i.e. `BTC-USD-SWAP-LIN`|
 orderId| integer|Yes|Order ID generated by the server|
-side| string|Yes| `BUY` or `SELL`| 
-price|decimal|Yes|Price for limit orders| 
-quantity|decimal|Yes|  Quantity (denominated by `contractValCurrency`)| 
+side| string|Yes| `BUY` or `SELL`|
+price|decimal|Yes|Price for limit orders|
+quantity|decimal|Yes|  Quantity (denominated by `contractValCurrency`)|
 
 
-## Subscriptions - Private 
-### User Order Channel 
+## Subscriptions - Private
+
+### User Balance Channel
 
 > **Request format**
 
 ```json
-{"op":"subscribe", "args":["order:BTC-USD"],"tag":1}
+{"op": "subscribe", "args": ["balance:all"], "tag": 1}
+```
+
+```json
+{"op": "subscribe", "args": ["balance:USD"], "tag": 1}
+```
+
+
+Requires authentication. Get the user's order information.
+
+**Channel Name** : balance: \<all or assetId>\
+
+**Update Speed** : 250ms
+
+> **Unfiltered balance update format**
+
+```json
+
+{
+    "accountId": "3",
+    "data": [
+        {
+            "total": "10000",
+            "reserved": "1000",
+            "instrumentId": "USD",
+            "available": "9000",
+            "quantityLastUpdated": "1599694369431"
+        },
+        {
+            "total": "100000",
+            "reserved": "0",
+            "instrumentId": "FLEX",
+            "available": "100000",
+            "quantityLastUpdated": "1599694343242"
+        }
+    ],
+    "table": "balance",
+    "timestamp": "1599693365059",
+    "tradeType": "Linear"
+}
+
+```
+
+> **Filtered balance update format**
+
+```json
+
+{
+    "accountId": "3",
+    "data": [
+        {
+            "total": "10000",
+            "reserved": "1000",
+            "instrumentId": "USD",
+            "available": "9000",
+            "quantityLastUpdated": "1599694369431"
+        }
+    ],
+    "table": "balance",
+    "timestamp": "1599693365059",
+    "tradeType": "Linear"
+}
+```
+
+### User Position Channel
+
+> **Request format**
+
+```json
+{"op": "subscribe", "args": ["position:all"], "tag": 1}
+```
+```json
+{"op": "subscribe", "args": ["position:BTC-USD-SWAP-LIN"], "tag": 1}
+```
+
+
+Requires authentication. Get the user's order information.
+
+**Channel Name** : position: <all or marketCode>
+
+**Update Speed** : on position update
+
+> **Unfiltered position update format**
+
+```json
+
+{
+    "accountId": "3",
+    "data": [
+        {
+            "entryPrice": "10000.00000000",
+            "lastUpdated": "1599693362699",
+            "contractValCurrency": "BTC",
+            "quantity" : "1.00000000",
+            "instrumentId": "BTC-USD-SWAP-LIN"
+        }
+    ],
+    "table": "position",
+    "timestamp": "1599693365059"
+}
+
+```
+
+> **Filtered position update format**
+
+```json
+
+{
+    "accountId": "3",
+    "data": [
+        {
+            "entryPrice": "10000.00000000",
+            "lastUpdated": "1599693362699",
+            "contractValCurrency": "BTC",
+            "quantity" : "1.00000000",
+            "instrumentId": "BTC-USD-SWAP-LIN"
+        }
+    ],
+    "table": "position",
+    "timestamp": "1599693365059"
+}
+
+```
+
+### User Order Channel
+
+> **Request format**
+
+```json
+{"op": "subscribe", "args": ["order:BTC-USD"], "tag": 1}
 ```
 
 
@@ -471,30 +601,30 @@ Requires authentication. Get the user's order information.
 
 **Channel Name** : order:\<marketCode\>
 
-**Update Speed** : real-time
+**Update Spe ed** : real-time
 
 #### Order: OrderOpened
 
 > **Update format for limit order**
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
-        {   
-            "notice":"OrderOpened",
-            "accountId":"<Your account ID>", 
-            "marketCode":"BTC-USD-SWAP-LIN",
-            "orderId" : "123",  
-            "clientOrderId": "16", 
-            "price": "9600", 
-            "quantity":"2" ,
-            "orderType":"LIMIT" 
-            "side": "BUY", 
-            "timeInForce": "GTC", 
+    "table": "order",
+    "data": [
+        {
+            "notice": "OrderOpened",
+            "accountId": "<Your account ID>",
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "orderId" : "123",
+            "clientOrderId": "16",
+            "price": "9600",
+            "quantity": "2" ,
+            "orderType": "LIMIT",
+            "side": "BUY",
+            "timeInForce": "GTC",
             "status": "OPEN",
-            "timestamp":"1594943491077"
+            "timestamp": "1594943491077"
         }
     ]
 }
@@ -504,23 +634,23 @@ Requires authentication. Get the user's order information.
 > **Update format for stop-limit order**
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
-        {   
-            "notice":"OrderOpened",
-            "accountId":"<Your account ID>", 
-            "marketCode":"BTC-USD-SWAP-LIN",
-            "orderId":"22", 
-            "clientOrderId":"16",  
-            "quantity":"2", 
-            "orderType":"STOP" 
-            "side": "BUY", 
-            "stopPrice":"9280",
-            "limitPrice":"9300",
+    "table": "order",
+    "data": [
+        {
+            "notice": "OrderOpened",
+            "accountId": "<Your account ID>",
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "orderId": "22",
+            "clientOrderId": "16",
+            "quantity": "2",
+            "orderType": "STOP",
+            "side": "BUY",
+            "stopPrice": "9280",
+            "limitPrice": "9300",
             "status": "OPEN",
-            "timestamp":"1594943491077"
+            "timestamp": "1594943491077"
         }
     ]
 }
@@ -531,10 +661,10 @@ Requires authentication. Get the user's order information.
 Parameters |Type| Description |
 --------|-----|---|
 notice | STRING| `OrderOpened`
-accountId | STRING|  Account identifer   
+accountId | STRING|  Account identifier
 marketCode | STRING |  Market Code i.e. `BTC-USD-SWAP-LIN`
 orderId | STRING |     Order ID generated by the server
-clientOrderId |  STRING | Client order ID submitted   
+clientOrderId |  STRING | Client order ID submitted
 price |STRING | Price submitted
 quantity | STRING| Quantity submitted
 side|STRING|`BUY` / `SELL`
@@ -553,21 +683,21 @@ limitPrice|STRING|Limit price submitted
 
 ```json
 {
-    "table":"order",
-    "data":[
-        {   
-            "notice":"OrderModified",
-            "accountId":"<Your Account ID>", 
-            "marketCode":"BTC-USD-SWAP-LIN",
-            "orderId":"123",
-            "clientOrderId":"16", 
-            "price":"9600", 
-            "quantity":"1", 
-            "orderType":"LIMIT" 
-            "side": "BUY", 
-            "timeInForce": "GTC", 
+    "table": "order",
+    "data": [
+        {
+            "notice": "OrderModified",
+            "accountId": "<Your Account ID>",
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "orderId": "123",
+            "clientOrderId": "16",
+            "price": "9600",
+            "quantity": "1",
+            "orderType": "LIMIT",
+            "side": "BUY",
+            "timeInForce": "GTC",
             "status": "OPEN",
-            "timestamp":"1594943491077"
+            "timestamp": "1594943491077"
         }
     ]
 }
@@ -578,10 +708,10 @@ limitPrice|STRING|Limit price submitted
 Parameters |Type| Description |
 --------|-----|---|
 notice | STRING | `OrderModified`
-accountId | STRING | Account identifer   
+accountId | STRING | Account identifier
 marketCode | STRING |  Market Code i.e. `BTC-USD-SWAP-LIN`
 orderId | STRING |     Order ID generated by the server
-clientOrderId |  STRING | Client order ID submitted   
+clientOrderId |  STRING | Client order ID submitted
 price | STRING | Price submitted
 quantity | STRING| Quantity submitted
 side|STRING|`BUY` / `SELL`
@@ -595,24 +725,24 @@ orderType| STRING| Define order type
 > **Update format for canceled partially by IOC**
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
+    "table": "order",
+    "data": [
         {
-          "notice":"OrderClosed",
-          "accountId":"<Your account ID>", 
-          "marketCode":"BTC-USD-SWAP-LIN",
-          "orderId" :"73",  
-          "clientOrderId": "16", 
-          "price":"9600", 
-          "quantity":"2",
-          "remainQuantity":"1.5",
-          "orderType":"LIMIT"
-          "side": "BUY", 
-          "timeInForce":"IOC", 
+          "notice": "OrderClosed",
+          "accountId": "<Your account ID>",
+          "marketCode": "BTC-USD-SWAP-LIN",
+          "orderId": "73",
+          "clientOrderId": "16",
+          "price": "9600",
+          "quantity": "2",
+          "remainQuantity": "1.5",
+          "orderType": "LIMIT",
+          "side": "BUY",
+          "timeInForce": "IOC",
           "status": "CANCELED_PARTIAL_BY_IOC",
-          "timestamp":"1594943491077"
+          "timestamp": "1594943491077"
         }
     ]
 }
@@ -623,24 +753,24 @@ orderType| STRING| Define order type
 > **Update format for canceled all by IOC**
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
+    "table": "order",
+    "data": [
         {
-          "notice":"OrderClosed"
-          "accountId":"<Your account ID>", 
-          "marketCode":"BTC-USD-SWAP-LIN",
-          "orderId" : "133",  
-          "clientOrderId":"16", 
-          "price":"8000", 
+          "notice": "OrderClosed",
+          "accountId": "<Your account ID>",
+          "marketCode": "BTC-USD-SWAP-LIN",
+          "orderId": "133",
+          "clientOrderId": "16",
+          "price": "8000",
           "quantity": "2",
-          "remainQuantity":"2",
-          "orderType":"LIMIT"
-          "side": "BUY", 
-          "timeInForce": "IOC", 
+          "remainQuantity": "2",
+          "orderType": "LIMIT",
+          "side": "BUY",
+          "timeInForce": "IOC",
           "status": "CANCELED_ALL_BY_IOC",
-          "timestamp":"1594943491077"
+          "timestamp": "1594943491077"
         }
     ]
 }
@@ -652,24 +782,24 @@ orderType| STRING| Define order type
 > **Update format for cancled by FOK**
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
+    "table": "order",
+    "data": [
         {
-          "notice":"OrderClosed",
-          "accountId":"1", 
-          "marketCode":"BTC-USD-SWAP-LIN",
-          "orderId" :"73",  
-          "clientOrderId":"16", 
-          "price":"9609", 
-          "quantity":"2",
-          "remainQuantity":"2",
-          "orderType":"LIMIT"
-          "side": "BUY", 
-          "timeInForce": "FOK", 
+          "notice": "OrderClosed",
+          "accountId": "1",
+          "marketCode": "BTC-USD-SWAP-LIN",
+          "orderId": "73",
+          "clientOrderId": "16",
+          "price": "9609",
+          "quantity": "2",
+          "remainQuantity": "2",
+          "orderType": "LIMIT",
+          "side": "BUY",
+          "timeInForce": "FOK",
           "status": "CANCELED_BY_FOK",
-          "timestamp":"1594943491077"
+          "timestamp": "1594943491077"
         }
     ]
 }
@@ -680,24 +810,24 @@ orderType| STRING| Define order type
 > **Update format for canceled by maker only**
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
+    "table": "order",
+    "data": [
         {
-          "notice":"OrderClosed",
-          "accountId":"3", 
-          "marketCode":"BTC-USD-SWAP-LIN",
-          "orderId" : "7",  
-          "clientOrderId":"16", 
-          "price":"9600", 
-          "quantity":"1",
-          "remainQuantity":"1",
-          "orderType":"LIMIT"
-          "side": "BUY", 
-          "timeInForce": "MAKER_ONLY", 
+          "notice": "OrderClosed",
+          "accountId": "3",
+          "marketCode": "BTC-USD-SWAP-LIN",
+          "orderId": "7",
+          "clientOrderId": "16",
+          "price": "9600",
+          "quantity": "1",
+          "remainQuantity": "1",
+          "orderType": "LIMIT",
+          "side": "BUY",
+          "timeInForce": "MAKER_ONLY",
           "status": "CANCELED_BY_MAKER_ONLY",
-          "timestamp":"1594943491077"
+          "timestamp": "1594943491077"
         }
     ]
 }
@@ -707,24 +837,24 @@ orderType| STRING| Define order type
 
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
+    "table": "order",
+    "data": [
         {
-          "notice":"OrderClosed", 
-          "accountId":"1", 
-          "marketCode":"BTC-USD-SWAP-LIN",
-          "orderId" :"13",  
-          "clientOrderId":"16", 
-          "price":"9060", 
-          "quantity":"2",
-          "remainQuantity":"0",
-          "orderType":"LIMIT"
-          "side": "BUY", 
-          "timeInForce": "GTC", 
+          "notice": "OrderClosed",
+          "accountId": "1",
+          "marketCode": "BTC-USD-SWAP-LIN",
+          "orderId": "13",
+          "clientOrderId": "16",
+          "price": "9060",
+          "quantity": "2",
+          "remainQuantity": "0",
+          "orderType": "LIMIT",
+          "side": "BUY",
+          "timeInForce": "GTC",
           "status": "CANCELED_BY_USER",
-          "timestamp":"1594943491077"
+          "timestamp": "1594943491077"
         }
     ]
 }
@@ -733,40 +863,40 @@ orderType| STRING| Define order type
 > **Update format for stop-limit order canceled by user**
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
+    "table": "order",
+    "data": [
         {
-          "notice":"OrderClosed", 
-          "accountId":"9", 
-          "marketCode":"BTC-USD-SWAP-LIN",
-          "orderId" :"13",  
-          "clientOrderId":"16", 
-          "stopPrice":"9100",
-          "limitPrice":"9120", 
-          "quantity":"2",
-          "remainQuantity":"1.5",
-          "orderType":"STOP"
-          "side": "BUY", 
-          "timeInForce": "GTC", 
+          "notice": "OrderClosed",
+          "accountId": "9",
+          "marketCode": "BTC-USD-SWAP-LIN",
+          "orderId": "13",
+          "clientOrderId": "16",
+          "stopPrice": "9100",
+          "limitPrice": "9120",
+          "quantity": "2",
+          "remainQuantity": "1.5",
+          "orderType": "STOP",
+          "side": "BUY",
+          "timeInForce": "GTC",
           "status": "CANCELED_BY_USER",
-          "timestamp":"1594943491077"
+          "timestamp": "1594943491077"
         }
     ]
 }
 
 ```
 
-Parameters | Type | Required 
--------------------------- | -----|--------- | 
+Parameters | Type | Required
+-------------------------- | -----|--------- |
 notice | STRING | `OrderClosed`
-accountId | STRING  |  Account identifer 
+accountId | STRING  |  Account identifier
 clientOrderId|STRING |  Client order ID submitted
 marketCode|STRING |  Market Code i.e. `BTC-USD-SWAP-LIN`
 orderId | STRING  |    Order ID generated by the server
 ordertype|STRING  | Define the order type
-price|STRING |Price submitted 
+price|STRING |Price submitted
 quantity|STRING |Quantity submitted
 remainQuantity|STRING |Remaining quantity
 side|STRING |`BUY` / `SELL`
@@ -784,24 +914,24 @@ limitPrice|STRING|Limit price submitted
 > **Notification:**
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
+    "table": "order",
+    "data": [
         {
-          "notice":"OrderRejected",
-          "quantity":"0",
-          "clientOrderID":"13",
-          "status":"REJECT_QUANTITY_ZERO",
-          "timestamp":"1592496454"
+          "notice": "OrderRejected",
+          "quantity": "0",
+          "clientOrderID": "13",
+          "status": "REJECT_QUANTITY_ZERO",
+          "timestamp": "1592496454"
         }
     ]
 }
 
 ```
 
-Parameters | Type | Required 
--------------------------- | -----|--------- | 
+Parameters | Type | Required
+-------------------------- | -----|--------- |
 notice | STRING | `OrderRejected`
 quantity|STRING|Quantity submitted
 status|STRING|REJECT QUANTITY ZERO
@@ -816,14 +946,14 @@ clientOrderId|STRING|  Client order ID submitted
 
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
+    "table": "order",
+    "data": [
         {
-          "notice":"OrderRejected",
+          "notice": "OrderRejected",
           "status": "REJECT_UNKNOW_ORDER_ACTION",
-          "timestamp":"1592495554"
+          "timestamp": "1592495554"
         }
     ]
 }
@@ -836,14 +966,14 @@ clientOrderId|STRING|  Client order ID submitted
 
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
+    "table": "order",
+    "data": [
         {
-          "notice":"OrderRejected",
+          "notice": "OrderRejected",
           "status": "REJECT_LIMITE_ORDER_WITH_MARKET_PRICE",
-          "timestamp":"1592493454"
+          "timestamp": "1592493454"
         }
     ]
 }
@@ -855,19 +985,19 @@ clientOrderId|STRING|  Client order ID submitted
 > **Notification:**
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
+    "table": "order",
+    "data": [
         {
-          "notice":"OrderRejected",
-          "clientOrderId":"12"
-          "orderType":"STOP",
-          "side":"BUY",
-          "stopPrice":"9630",
-          "limitPrice":"9650",
+          "notice": "OrderRejected",
+          "clientOrderId": "12",
+          "orderType": "STOP",
+          "side": "BUY",
+          "stopPrice": "9630",
+          "limitPrice": "9650",
           "status": "STOP_PRICE_LARGER_THAN_LIMIT_PRICE",
-          "timestamp":"1592496774"
+          "timestamp": "1592496774"
         }
     ]
 }
@@ -875,14 +1005,14 @@ clientOrderId|STRING|  Client order ID submitted
 ```
 
 
-Parameters | Type | Required 
--------------------------- | -----|--------- | 
+Parameters | Type | Required
+-------------------------- | -----|--------- |
 notice | String | `OrderRejected`
-accountId | String |  Account identifer    
+accountId | String |  Account identifier
 clientOrderId|String|  Client order ID submitted
 orderType|string|`STOP`
 side|String|`BUY` / `SELL`
-status|String|STOP PRICE LARGER THAN LIMIT PRIC
+status|String|STOP PRICE LARGER THAN LIMIT PRICE
 stopPrice|String|Stop price submitted
 limitPrice|String|Limit price submitted
 timestamp|String|UNIX timestamp
@@ -890,19 +1020,19 @@ timestamp|String|UNIX timestamp
 > **Notification:**
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
+    "table": "order",
+    "data": [
         {
-          "notice":"OrderRejected",
-          "clientOrderId":"12",
-          "orderType":"STOP",
-          "side":"SELL",
-          "stopPrice":"9800",
-          "limitPrice":"9900",
+          "notice": "OrderRejected",
+          "clientOrderId": "12",
+          "orderType": "STOP",
+          "side": "SELL",
+          "stopPrice": "9800",
+          "limitPrice": "9900",
           "status": "STOP_PRICE_LESS_THAN_LIMIT_PRICE",
-          "timestamp":"1592496574"
+          "timestamp": "1592496574"
         }
     ]
 }
@@ -910,14 +1040,14 @@ timestamp|String|UNIX timestamp
 ```
 
 
-Parameters | Type | Required 
--------------------------- | -----|--------- | 
+Parameters | Type | Required
+-------------------------- | -----|--------- |
 notice | String | `OrderRejected`
-accountId | String |  Account identifer    
+accountId | String |  Account identifier
 clientOrderId|String|  Client order ID submitted
 orderType|string|`STOP`
 side|String|`BUY` / `SELL`
-status|String|STOP PRICE LARGER THAN LIMIT PRIC
+status|String|STOP PRICE LARGER THAN LIMIT PRICE
 stopPrice|String|Stop price submitted
 limitPrice|String|Limit price submitted
 timestamp|String|UNIX timestamp
@@ -928,23 +1058,23 @@ timestamp|String|UNIX timestamp
 > **Notification:**
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
+    "table": "order",
+    "data": [
         {
-          "notice":"OrderRejected",
-          "orderId":"13"
+          "notice": "OrderRejected",
+          "orderId": "13",
           "status": "REJECT_CANCEL_ORDER_ID_NOT_FOUND",
-          "timestamp":"1592494474"
+          "timestamp": "1592494474"
         }
     ]
 }
 
 ```
 
-Parameters | Type | Required 
--------------------------- | -----|--------- | 
+Parameters | Type | Required
+-------------------------- | -----|--------- |
 notice | STRING |`OrderReject`
 orderId | STRING |    Order ID generated by the server
 status|STRING|REJECT CANCEL ORDER ID NOT FOUND
@@ -955,15 +1085,15 @@ timestamp|STRING|UNIX timestamp
 > **Notification:**
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
+    "table": "order",
+    "data": [
         {
-          "notice":"OrderRejected",
-          "orderId":"12",
+          "notice": "OrderRejected",
+          "orderId": "12",
           "status": "REJECT_AMEND_ORDER_ID_NOT_FOUND",
-          "timestamp":"1592498890"
+          "timestamp": "1592498890"
         }
     ]
 }
@@ -985,30 +1115,30 @@ timestamp|STRING  |UNIX timestamp
 > **Notification:**
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
+    "table": "order",
+    "data": [
         {
-          "notice":"OrderMatched",
-          "accountId":"1", 
-          "marketCode":"BTC-USD-SWAP-LIN",
-          "orderId" :"39",  
-          "clientOrderId":"16", 
-          "matchId":"1", 
-          "price":"9300", 
-          "quantity":"2",
-          "matchPrice":"9300",
-          "matchQuantity":"2",
-          "orderMatchType":"MAKER",
-          "remainQuantity":"0",
-          "orderType":"LIMIT"
-          "side": "BUY", 
-          "timeInForce": "GTC", 
-          "fees":"3.7"
-          "feeInstrumentId":"FLEX",
+          "notice": "OrderMatched",
+          "accountId": "1",
+          "marketCode": "BTC-USD-SWAP-LIN",
+          "orderId": "39",
+          "clientOrderId": "16",
+          "matchId": "1",
+          "price": "9300",
+          "quantity": "2",
+          "matchPrice": "9300",
+          "matchQuantity": "2",
+          "orderMatchType": "MAKER",
+          "remainQuantity": "0",
+          "orderType": "LIMIT",
+          "side": "BUY",
+          "timeInForce": "GTC",
+          "fees": "3.7",
+          "feeInstrumentId": "FLEX",
           "status": "FILLED",
-          "timestamp":"1592490254"
+          "timestamp": "1592490254"
         }
     ]
 }
@@ -1017,11 +1147,11 @@ timestamp|STRING  |UNIX timestamp
 ```
 
 
-Parameters | Type | Required 
--------------------------- | -----|--------- | 
+Parameters | Type | Required
+-------------------------- | -----|--------- |
 notice | STRING | `OrderMatched`
-accountId | STRING | Account identifer  
-marketCode|STRING|      Market Code i.e. `BTC-USD-SWAP-LIN` 
+accountId | STRING | Account identifier
+marketCode|STRING|      Market Code i.e. `BTC-USD-SWAP-LIN`
 orderId | STRING|     Order ID generated by the server
 orderId|STRING|Order ID generated by the server
 clientOrderId|STRING|  Client order ID submitted
@@ -1041,30 +1171,30 @@ orderType|STRING|`LIMIT`
 > **Notification:**
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
+    "table": "order",
+    "data": [
         {
-          "notice":"OrderMatched",
-          "accountId":"11", 
-          "marketCode":"BTC-USD-SWAP-LIN",
-          "orderId" :"13",  
-          "clientOrderId":"16", 
-          "matchId":"2", 
-          "price":"9333", 
-          "quantity":"2",
-          "matchPrice":"9333",
-          "matchQuantity":"1",
-          "orderMatchType":"MAKER",
-          "remainQuantity":"1",
-          "orderType":"LIMIT"
-          "side": "BUY", 
-          "timeInForce": "GTC", 
-          "fees":"1.8"
-          "feeInstrumentId":"FLEX",
+          "notice": "OrderMatched",
+          "accountId": "11",
+          "marketCode": "BTC-USD-SWAP-LIN",
+          "orderId": "13",
+          "clientOrderId": "16",
+          "matchId": "2",
+          "price": "9333",
+          "quantity": "2",
+          "matchPrice": "9333",
+          "matchQuantity": "1",
+          "orderMatchType": "MAKER",
+          "remainQuantity": "1",
+          "orderType": "LIMIT",
+          "side": "BUY",
+          "timeInForce": "GTC",
+          "fees": "1.8",
+          "feeInstrumentId": "FLEX",
           "status": "PARTIAL_FILL",
-          "timestamp":"1592497054"
+          "timestamp": "1592497054"
         }
     ]
 }
@@ -1074,10 +1204,10 @@ orderType|STRING|`LIMIT`
 
 
 
-Parameters | Type | Required 
--------------------------- | -----|--------- | 
+Parameters | Type | Required
+-------------------------- | -----|--------- |
 notice | STRING | `OrderOpened`
-accountId | STRING | Account identifer    
+accountId | STRING | Account identifier
 orderId | STRING |     Order ID generated by the server
 fees|STRING|Fee amount
 feeInstrumentId|STRING|Fee instrument (e.g. USD)
@@ -1101,41 +1231,41 @@ timestamp|STRING|UNIX timestamp
 > **Notification:**
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
+    "table": "order",
+    "data": [
         {
-          "notice":"OrderMatched",
-          "accountId":"7", 
-          "marketCode":"BTC-USD-SWAP-LIN",
-          "orderId" :"12",  
-          "clientOrderId":"16", 
-          "matchId":"1", 
-          "stopPrice":"9700",
-          "limitPrice":"9650",
-          "quantity":"3",
-          "matchPrice":"9650",
-          "matchQuantity":"1",
-          "orderMatchType":"MAKER",
-          "remainQuantity":"2",
-          "orderType":"STOP"
-          "side": "BUY", 
-          "timeInForce": "GTC", 
-          "fees":"1.9",
-          "feeInstrumentId":"FLEX",
+          "notice": "OrderMatched",
+          "accountId": "7",
+          "marketCode": "BTC-USD-SWAP-LIN",
+          "orderId": "12",
+          "clientOrderId": "16",
+          "matchId": "1",
+          "stopPrice": "9700",
+          "limitPrice": "9650",
+          "quantity": "3",
+          "matchPrice": "9650",
+          "matchQuantity": "1",
+          "orderMatchType": "MAKER",
+          "remainQuantity": "2",
+          "orderType": "STOP",
+          "side": "BUY",
+          "timeInForce": "GTC",
+          "fees": "1.9",
+          "feeInstrumentId": "FLEX",
           "status": "PARTIAL_FILL",
-          "timestamp":"15924979954"
+          "timestamp": "15924979954"
         }
     ]
 }
 
 ```
 
-Parameters | Type | Required 
--------------------------- | -----|--------- | 
+Parameters | Type | Required
+-------------------------- | -----|--------- |
 notice | STRING | `OrderOpened`
-accountId | STRING | Account identifer    
+accountId | STRING | Account identifier
 clientOrderId|STRING|  Client order ID submitted
 marketCode|STRING|  Fee instrument (e.g. USD)
 orderId | STRING |    Order ID generated by the server
@@ -1160,31 +1290,31 @@ orderType|STRING|`STOP`
 > **Notification:**
 
 ```json
- 
+
 {
-    "table":"order",
-    "data":[
+    "table": "order",
+    "data": [
         {
-          "notice":"OrderMatched",
-          "accountId":"1", 
-          "marketCode":"BTC-USD-SWAP-LIN",
-          "orderId" : "123",  
-          "clientOrderId":"16", 
-          "matchId":"1", 
-          "stopPrice":"9700",
-          "limitPrice":"9650",
+          "notice": "OrderMatched",
+          "accountId": "1",
+          "marketCode": "BTC-USD-SWAP-LIN",
+          "orderId": "123",
+          "clientOrderId": "16",
+          "matchId": "1",
+          "stopPrice": "9700",
+          "limitPrice": "9650",
           "quantity": "2",
-          "matchPrice":"9650",
-          "matchQuantity":"2",
-          "orderMatchType":"MAKER",
-          "remainQuantity":"0",
-          "orderType":"STOP"
-          "side": "BUY", 
-          "timeInForce": "GTC", 
-          "fees":"3.8",
-          "feeInstrumentId":"FLEX",
+          "matchPrice": "9650",
+          "matchQuantity": "2",
+          "orderMatchType": "MAKER",
+          "remainQuantity": "0",
+          "orderType": "STOP",
+          "side": "BUY",
+          "timeInForce": "GTC",
+          "fees": "3.8",
+          "feeInstrumentId": "FLEX",
           "status": "FILLED",
-          "timestamp":"15924979954"
+          "timestamp": "15924979954"
         }
     ]
 }
@@ -1192,10 +1322,10 @@ orderType|STRING|`STOP`
 ```
 
 
-Parameters | Type | Required 
--------------------------- | -----|--------- | 
+Parameters | Type | Required
+-------------------------- | -----|--------- |
 notice | STRING | `OrderMatched`
-accountId | STRING | Account identifer    
+accountId | STRING | Account identifier
 marketCode|STRING|  Market Code i.e. `BTC-USD-SWAP-LIN`
 orderId | STRING |    Order ID generated by the server
 clientOrderId|STRING|  Client order ID submitted
@@ -1216,15 +1346,15 @@ feeInstrumentId|STRING|Fee instrument (e.g. USD)
 orderType|STRING|`STOP`
 
 
-## Subscriptions - Public 
+## Subscriptions - Public
 ### Orderbook Depth
 
 > **Request**
 
 ```json
 {
-  "op": "subscribe", 
-  "args":["futures/depth:BTC-USD-190628"]
+  "op": "subscribe",
+  "args": ["futures/depth:BTC-USD-190628"]
 }
 ```
 
@@ -1262,7 +1392,7 @@ bids and asks value example:
 
 ["411.8", "10", "0", "0"] 411.8 is the price; 10 is the quantity.
 
-Parameters | Parameters Types | Description| 
+Parameters | Parameters Types | Description|
 -------------------------- | -----| -------------|
 bids| List<String>|Buy side depth |
 instrumentId| String|Contract ID，e.g .BTC-USD-170310 ,BTC-USDT-191227|
@@ -1275,7 +1405,7 @@ timestamp|String|UNIX timestamp
 
 ```json
 
-{"op": "subscribe", "args":["trade:BTC-USD-SWAP-LIN"],"tag":1}
+{"op": "subscribe", "args": ["trade:BTC-USD-SWAP-LIN"], "tag": 1}
 
 ```
 
@@ -1283,7 +1413,7 @@ timestamp|String|UNIX timestamp
 
 ```json
 
-{"event": "subscribe", "channel":["trade:BTC-USD-SWAP-LIN"],"success":true,"tag":"1","timestamp":"1594299886880"}
+{"event": "subscribe", "channel": ["trade:BTC-USD-SWAP-LIN"], "success": true, "tag": "1", "timestamp": "1594299886880"}
 
 ```
 
@@ -1291,7 +1421,7 @@ timestamp|String|UNIX timestamp
 
 ```json
 
-{"event": "subscribe", "message": "<errorMessage>","code": "<code>","success": false,"tag":"1","timestamp":"1594299886880“}
+{"event": "subscribe", "message": "<errorMessage>", "code": "<code>", "success": false, "tag": "1", "timestamp": "1594299886880"}
 
 ```
 
@@ -1318,11 +1448,11 @@ The trade channel pushes the matched order data.
 
 **Update Speed** : real-time
 
-Request Parameters |Type | Required| Description| 
+Request Parameters |Type | Required| Description|
 -------------------------- | -----|--------- |-----------|
 tag |INTEGER| NO | Iff given and non-zero, it will be echoed in the reply.
 
-Update Parameters |Type | Description| 
+Update Parameters |Type | Description|
 -------------------------- | -----|--------- |
 tradeId   | STRING    | Transaction Id|
 price | STRING    | Matched price|
@@ -1337,7 +1467,7 @@ marketCode| STRING | Market code i.e BTC-USD|
 
 ```json
 
-{"op": "subscribe", "args":["ticker:BTC-USD-200925-LIN"],"tag":1} 
+{"op": "subscribe", "args": ["ticker:BTC-USD-200925-LIN"], "tag": 1}
 
 ```
 
@@ -1345,7 +1475,7 @@ marketCode| STRING | Market code i.e BTC-USD|
 
 ```json
 
-{"event": "subscribe", "channel":["ticker:BTC-USD-200925-LIN"],"success":true,"tag":"1","timestamp":"1594299886890"}
+{"event": "subscribe", "channel": ["ticker:BTC-USD-200925-LIN"], "success": true, "tag": "1", "timestamp": "1594299886890"}
 
 ```
 
@@ -1353,7 +1483,7 @@ marketCode| STRING | Market code i.e BTC-USD|
 
 ```json
 
-{"event": "subscribe", "message": "<errorMessage>","code": "<code>","success": false,"tag":"1","timestamp":"1594299886890“}
+{"event": "subscribe", "message": "<errorMessage>", "code": "<code>", "success": false, "tag": "1", "timestamp": "1594299886890"}
 
 ```
 
@@ -1362,20 +1492,20 @@ marketCode| STRING | Market code i.e BTC-USD|
 ```json
 
 {
-    "table":"ticker",
-    "data":[
+    "table": "ticker",
+    "data": [
         {
-            "marketCode":"BTC-USD-SWAP-LIN",
-            "last":"43.259", 
-            "markPrice": "11012.80409769",   
-            "open24h":"49.375",
-            "volume24h":"11295421",
-            "currencyVolume24h":"1225512",                       
-            "high24h":"49.488",
-            "low24h":"41.649",
-            "openInterest":"1726003",
-            "lastQty":"1"
-            "timestamp":"123443563454",
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "last": "43.259",
+            "markPrice": "11012.80409769",
+            "open24h": "49.375",
+            "volume24h": "11295421",
+            "currencyVolume24h": "1225512",
+            "high24h": "49.488",
+            "low24h": "41.649",
+            "openInterest": "1726003",
+            "lastQty": "1",
+            "timestamp": "123443563454"
         }
     ]
 }
@@ -1387,11 +1517,11 @@ The ticker channel pushes the general information about the contract.
 
 **Update Speed** : 100ms
 
-Request Parameters |Type | Required| Description| 
+Request Parameters |Type | Required| Description|
 -------------------------- | -----|--------- |-----------|
 tag |INTEGER| NO | Iff given and non-zero, it will be echoed in the reply.
 
-Update Parameters |Type | Description| 
+Update Parameters |Type | Description|
 -------------------------- | -----|--------- |
 marketCode    | STRING   | Market code i.e BTC-USD|
 last          | STRING   | Last traded price|
@@ -1412,7 +1542,7 @@ timestamp   | STRING   | Timestamp|
 
 ```json
 
-{"op": "subscribe", "args":["candles60s:BTC-USD-SWAP-LIN"],"tag":1} 
+{"op": "subscribe", "args": ["candles60s:BTC-USD-SWAP-LIN"], "tag": 1}
 
 ```
 
@@ -1420,7 +1550,7 @@ timestamp   | STRING   | Timestamp|
 
 ```json
 
-{"event": "subscribe", "channel":["candles60s:BTC-USD-SWAP-LIN"],"success":true,"tag":"1","timestamp":"1594313762698"}
+{"event": "subscribe", "channel": ["candles60s:BTC-USD-SWAP-LIN"], "success": true, "tag": "1", "timestamp": "1594313762698"}
 
 ```
 
@@ -1428,7 +1558,7 @@ timestamp   | STRING   | Timestamp|
 
 ```json
 
-{"event": "subscribe", "message": "<errorMessage>","code": "<code>","success": false,"tag":"1","timestamp":"1594313762698“}
+{"event": "subscribe", "message": "<errorMessage>", "code": "<code>", "success": false, "tag": "1", "timestamp": "1594313762698"}
 
 ```
 
@@ -1437,10 +1567,10 @@ timestamp   | STRING   | Timestamp|
 ```json
 
 {
-    "table":"candle60s",
-    "data":[
+    "table": "candle60s",
+    "data": [
         {
-            "candle":[
+            "candle": [
                 "1594313762698", //timestamp
                 "9633.1",        //open
                 "9693.9",        //high
@@ -1449,7 +1579,7 @@ timestamp   | STRING   | Timestamp|
                 "45247",         //volume
                 "5.3"            //currencyVolume
             ],
-            "marketCode":"BTC-USD-SWAP-LIN"
+            "marketCode": "BTC-USD-SWAP-LIN"
         }
     ]
 }
@@ -1463,11 +1593,11 @@ The candles channel pushes the K-line.
 
 **Granularity**  : 60s, 180s, 300s, 900s, 1800s, 3600s, 7200s, 14400s, 21600s, 43200s, 86400s
 
-Request Parameters |Type | Required| Description| 
+Request Parameters |Type | Required| Description|
 -------------------------- | -----|--------- |-----------|
 tag |INTEGER| NO | Iff given and non-zero, it will be echoed in the reply.
 
-Update Parameters |Type | Description| 
+Update Parameters |Type | Description|
 -------------------------- | -----|--------- |
 marketCode    | STRING   | Market code i.e BTC-USD|
 candle        | STRING   | Timestamp, open price, highest price, lowest price, close price, trading volume in counter currency, and trading volume in base currency|
