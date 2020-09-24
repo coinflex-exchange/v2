@@ -601,7 +601,7 @@ Requires authentication. Get the user's order information.
 
 **Channel Name** : order:\<marketCode\>
 
-**Update Spe ed** : real-time
+**Update Speed** : real-time
 
 #### Order: OrderOpened
 

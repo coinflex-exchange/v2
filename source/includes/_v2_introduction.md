@@ -38,9 +38,8 @@ API keys are also only bound to a single sub-account, defined upon creation. Thi
 # Rate Limit
 
 CoinFLEX's application programming interface (API) allows our clients to access and control their accounts or view our market data using custom-written software. To protect the performance of the system, we impose certain limits:
-| Type                    |                            Limit |
-|:------------------------|---------------------------------:|
-| Rest API                |                   100 per second |
-| Websocket API           |                   200 per second |
 
-
+Type                    |                            Limit|
+------------------------|---------------------------------|
+Rest API                |                  100 per second |
+Websocket API           |                  200 per second |
