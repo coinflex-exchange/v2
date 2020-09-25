@@ -85,6 +85,52 @@ The signature must then be included in the header of the REST API call like so:
 
 ##Methods - Private
 
+###GET `/v2/accountinfo`
+
+> **Request**
+
+```json
+GET/v2/accountinfo
+```
+
+> **Response**
+
+```json
+{
+    "event": "accountinfo",
+    "success": true,
+    "message": null,
+    "code": "0000",
+    "data":[
+        {
+            "accountId": "123",
+            "tradeType": "LINEAR",
+            "marginCurrency": "USD",
+            "totalBalance": "10000",
+            "collateralBalance": "10000",
+            "availableBalance": "10000",
+            "portfolioVarMargin": "500",
+            "riskRatio": "20.0000",
+            "timestamp": "1235445"
+        } 
+    ]
+}
+```
+
+Requires authentication. GET your account info. 
+
+Response Parameter |Type | Description 
+-------------------------- | -----|--------- |
+accountId | STRING    | Account ID
+tradeType | STRING    | Account type
+marginCurrency | STRING |Asset e.g. 'USD'
+totalBalance | STRING | Total balance denoted in marginCurrency
+collateralBalance | STRING | Collateral balance with LTV applied
+availableBalance | STRING | Available balance
+portfolioVarMargin| STRING | Portfolio margin
+riskRatio | STRING | collateralBalance / portfolioVarMargin, Orders are rejected/cancelled if the risk ratio drops below 1 and liquidation occurs if the risk ratio drops below 0.5
+timestamp | STRING | UNIX timestamp
+
 ###GET `/v2/balances`
 
 > **Request**
@@ -104,15 +150,15 @@ GET/v2/balances
     "data":[
     {   
         "instrumentId": "BTC",
-        "total":"4468.823"              
+        "total": "4468.823",              
         "available": "4468.823",        
         "reserved": "0",
-        "quantityLastUpdated":"1593627415234"
+        "quantityLastUpdated": "1593627415234"
     },
-    .....
+    ...
     {
         "instrumentId": "EOS",
-        "total": "1585.890"              
+        "total": "1585.890",              
         "available": "325.890",         
         "reserved": "1260",
         "quantityLastUpdated": "1593627415123"
@@ -121,9 +167,9 @@ GET/v2/balances
 }
 ```
 
-Requires authentication. GET coin balanaces in your account. 
+Requires authentication. GET coin balances in your account. 
 
-Reponse Parameter |Type | Description| 
+Response Parameter |Type | Description| 
 -------------------------- | -----|--------- |
 accountId | STRING    | Account ID|
 timestamp | STRING    | Timestamp of this response|
@@ -133,7 +179,6 @@ total| STRING| Total balance|
 available |STRING|Available balance|
 reserved|STRING|Reserved balance (unavailable)|
 quantityLastUpdated|STRING|Timestamp when was balance last updated|
-
 
 ###GET `/v2/balances/<instrumentId>`
 
@@ -155,7 +200,7 @@ GET/v2/balances/BTC
     "data":[
     {   
         "instrumentId": "BTC",
-        "total": "4468.823"              
+        "total": "4468.823",              
         "available": "4468.823",        
         "reserved": "0",
         "quantityLastUpdated": "1593627415001"
@@ -194,7 +239,7 @@ GET/v2/positions
     "event": "positions",
     "accountId":"<Your Account ID>",
     "timestamp":"1593627415000",
-    “data”: [
+    "data": [
         {
             "instrumentId": "BTC-USD-200626-LIN",
             "quantity": "0.94",
@@ -203,9 +248,8 @@ GET/v2/positions
             "entryPrice": "7800.00",       
             "positionPnl": "200.3",
             "estLiquidationPx": "6301.1",
-            "estLiqPrice": "2342.2",                  
-
-        }
+            "estLiqPrice": "2342.2"                  
+        },
         ...
     ]
 }
@@ -224,7 +268,6 @@ entryPrice|STRING|Average entry price|
 positionPnl|STRING|Postion profit and lost|
 estLiquidationPx|STRING||
 estLiqPrice|STRING|Estimated liquidation price|
-
 
 ###GET  `/v2/positions/<instrumentId>`
 
@@ -251,8 +294,7 @@ GET/v2/positions/BTC-USD-200626-LIN
             "entryPrice": "7800.00",       
             "positionPnl": "200.3",
             "estLiquidationPx": "6301.1",
-            "estLiqPrice": "2342.2",                  
-
+            "estLiqPrice": "2342.2"                  
         }
     ]
 }
@@ -270,7 +312,6 @@ entryPrice|STRING|Average entry price|
 positionPnl|STRING|Postion profit and lost|
 estLiquidationPx|STRING||
 estLiqPrice|STRING|Estimated liquidation price|
-
 
 ###GET `/v2/trades/{marketCode}`
 
@@ -366,7 +407,7 @@ GET/v2/orders
           "lastModified": "1593617008698",      
           "lastTradeTimestamp": "1593617008698",
           "timeInForce": "GTC"
-      }
+      },
       ...
   ]
 }
@@ -393,7 +434,6 @@ lastModified| STRING  |Timestamp when order was last mordified|
 lastTradeTimestamp| STRING| Timestamp when order was last traded|
 timeInForce | STRING  | Time in force          |
 
-
 ###DELETE `/v2/cancel/orders`
 
 > **Request**
@@ -408,10 +448,12 @@ DELETE/v2/cancel/orders
 ```json
 {
     "event": "orders",
-    "accountId":"<AccountID>",
-    "timestamp":"1594412077100",
+    "accountId": "<AccountID>",
+    "timestamp": "1594412077100",
     "data":[
-    "msg": "All open orders for the account have been queued for cancellation"
+       {
+          "msg": "All open orders for the account have been queued for cancellation"
+       }
     ]
 }
  
@@ -419,7 +461,7 @@ DELETE/v2/cancel/orders
 
 Requires authentication. Cancel all open orders.
 
-###DELETE `/v2/cancel/orders/{marketCode}`
+###DELETE `/v2/cancel/orders/
 
 > **Request**
 
@@ -433,11 +475,13 @@ DELETE/v2/cancel/orders/BTC-USD
 ```json
 {
     "event": "orders",
-    "accountId":"<AccountID>",
-    "marketCode":"BTC-USD",
-    "timestamp":"1594412077100",
+    "accountId": "<AccountID>",
+    "marketCode": "BTC-USD",
+    "timestamp": "1594412077100",
     "data":[
-    "msg": "All open orders for the specified market have been queued for cancellation"
+      {
+          "msg": "All open orders for the specified market have been queued for cancellation"
+      }
     ]
 }
  
@@ -445,6 +489,231 @@ DELETE/v2/cancel/orders/BTC-USD
 
 Requires authentication. Cancel all open orders for a specific market code.
 
+###DELETE `/v2/cancel/orders/
+
+> **Request**
+
+```json
+DELETE/v2/cancel/orders/BTC-USD 
+```
+
+> **RESPONSE**
+
+
+```json
+{
+    "event": "orders",
+    "accountId": "<AccountID>",
+    "marketCode": "BTC-USD",
+    "timestamp": "1594412077100",
+    "data":[
+      {
+          "msg": "All open orders for the specified market have been queued for cancellation"
+      }
+    ]
+}
+ 
+```
+
+Requires authentication. Cancel all open orders for a specific market code.
+
+###GET `/v2.1/delivery/orders`
+> **Request**
+
+```json
+GET/v2.1/delivery/orders
+```
+
+> **RESPONSE**
+
+```json
+{
+    "event": "deliverOrders",
+    "timestamp": 1596685339910,
+    "data": [
+        {
+            "timestamp": "1595781719394",
+            "instrumentId": "BTC-USD-SWAP-LIN",
+            "status": "DELIVERED",
+            "quantity": null,
+            "deliverPrice": "9938.480000000",
+            "transferAsset": "USD",
+            "transferQty": "993.848000000",
+            "instrumentIdDeliver": "BTC",
+            "deliverQty": "0.100000000",
+            "deliverOrderId": "575770851486007299",
+            "clientOrderId": null
+        },
+        {
+            "timestamp": "1595786511155",
+            "instrumentId": "BTC-USD-SWAP-LIN",
+            "status": "CANCELLED",
+            "quantity": null,
+            "deliverPrice": "9911.470000000",
+            "transferAsset": "USD",
+            "transferQty": "0.000000000",
+            "instrumentIdDeliver": "BTC",
+            "deliverQty": "0.000000000",
+            "deliverOrderId": "575786553086246913",
+            "clientOrderId": null
+        },
+    ]
+}
+```
+
+Requires authentication. Get entire delivery history.
+
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+timestamp | STRING    | UNIX Timestamp of the response|
+deliverOrderId | STRING | Order id
+clientOrderId | Null Type|  null
+quantity | Null Type| null
+instrumentId | STRING | Perpetual swap market code
+deliverPrice | STRING|  Mark price at delivery
+instrumentIdDeliver | STRING |Asset being received: long position = coin, short position = USD
+deliverQty | STRING |  Quantity of the received asset
+transferAsset | STRING | Asset being sent
+transferQty | STRING | Quantity being sent
+auctionTime | STRING | UNIX timestamp of the next auction
+status | STRING | Request status
+
+###POST `/v2.1/delivery/orders`
+
+> **Request**
+
+```json
+POST/v2.1/delivery/orders
+
+# Request body
+{
+    "instrumentId": "BTC-USD-SWAP-LIN",
+    "qtyDeliver": "1"
+}
+```
+
+> **RESPONSE**
+
+```json
+{
+    "event": "delivery",
+    "timestamp": "1599204123484",
+    "accountId": "164",
+    "data": [{
+        "deliverOrderId": "586985384617312258",
+        "accountId": "164",
+        "clientOrderId": null,
+        "instrumentId": "BTC-USD-SWAP-LIN",
+        "deliverPrice": "10000.000000000",
+        "deliverPosition": "1.000",
+        "deliverType": "NEXT_CYCLE",
+        "instrumentIdDeliver": "BTC",
+        "deliverQty": "1.000",
+        "remainingQty": "1.000",
+        "remainingPosition": "1.000",
+        "transferAsset": "USD",
+        "transferQty": "1",
+        "auctionTime": "1599204122693",
+        "created": "1599204122693",
+        "lastUpdated": "1599204122693",
+        "status": "PENDING"
+    }]
+}
+```
+
+Requires authentication. Submits a delivery request for a specified market and size.
+
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+timestamp | STRING    | UNIX Timestamp of the response|
+accountId | STRING    | Account ID|
+deliverOrderId | STRING | Order id
+clientOrderId | Null Type|  null
+instrumentId | STRING | Perpetual swap market code
+deliverPrice | STRING|  Mark price at delivery
+deliverPosition | STRING | Delivered position size
+deliverType | STRING| ‘NEXT_CYCLE’: Queueing for the upcoming auction
+instrumentIdDeliver | STRING |Asset being received: long position = coin, short position = USD
+deliverQty | STRING |  Quantity of the received asset
+remainingQty | STRING | Remaining quantity
+remainingPosition | STRING | Remaining position
+transferAsset | STRING | Asset being sent
+transferQty | STRING | Quantity being sent
+auctionTime | STRING | UNIX timestamp of the next auction
+created | STRING | UNIX timestamp
+lastUpdated | STRING | UNIX timestamp 
+status | STRING | Delivery status
+
+###DELETE `/v2.1/delivery/orders/<DELIVERY-ORDER-ID>`
+> **Request**
+
+```json
+DELETE/v2.1/delivery/orders/<DELIVERY-ORDER-ID>
+```
+
+> **SUCCESSFUL RESPONSE**
+
+```json
+{
+    "event": "delivery",
+    "timestamp": "1599204310297",
+    "accountId": "164",
+    "data": [
+       "Cancel of user order was successful"
+    ]
+}
+```
+
+> **FAILED RESPONSE**
+
+```json
+{
+    "event": "delivery",
+    "timestamp": "1599204310297",
+    "accountId": "164",
+    "data": [
+       "Cancel exception please try again"
+    ]
+}
+```
+
+Requires authentication. Cancels a pending delivery.
+
+###GET `/v2.1/deliver-auction/{instrumentId}`
+> **Request**
+
+```json
+GET/v2.1/deliver-auction
+GET/v2.1/deliver-auction/<instrumentId>
+```
+
+> **RESPONSE**
+
+```json
+{
+    "event": "deliverAuction",
+    "timestamp": "1596620815090",
+    "data": [
+        {
+            "instrumentId": "BTC-USD-SWAP-LIN",
+            "auctionTime": "1596620805000",
+            "netDeliver": "-5.100000000",
+            "estFundingRate": "0.0001"
+        },
+      ...
+    ]
+}
+```
+
+Requires authentication. Get entire delivery history.
+
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+timestamp | STRING | UNIX Timestamp of the response|
+instrumentId | STRING |  Market code
+auctionTime | STRING | UNIX timestamp of the next auction
+netDeliver | STRING | Delivery imbalance (negative = more longs than shorts and vice versa)
+estFundingRate | STRING | Estimated funding rate a positive rate means longs pay shorts
 
 ##Methods - Public
 
@@ -463,12 +732,12 @@ GET/v2/all/markets`
 ```json
 {
     "event": "markets",
-    "timestamp":"1593617005438",
+    "timestamp": "1593617005438",
     "data": [
         {
             "marketCode": "BTC-USD",
             "name": "BTC/USD Spot",
-            "referencePair": "BTC/USD"
+            "referencePair": "BTC/USD",
             "base": "BTC",
             "counter": "USD",
             "type": "SPOT",
@@ -480,8 +749,8 @@ GET/v2/all/markets`
             "contractValCurrency": "BTC",
             "upperPriceBound": "11000.00",
             "lowerPriceBound": "9000.00",
-            "marketPrice": "10000.00",
-        }
+            "marketPrice": "10000.00"
+        },
         ...
     ]
 }
@@ -611,3 +880,54 @@ matchQuantity | STRING    | |
 matchPrice | STRING    | |
 side | STRING    | |
 matchTimestamp | STRING    | |
+
+
+###GET `/v2/ticker/`
+
+> **Request**
+
+```json
+GET/v2/ticker
+```
+
+> **RESPONSE**
+
+
+```json
+{
+  "event":"ticker",
+  "timestamp":"123443563454",
+  "data" :
+  [
+      {
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "last": "43.259", 
+            "markPrice": "11012.80409769",  
+            "open24h": "49.375",
+            "volume24h": "11295421",
+            "currencyVolume24h": "1025.7",                       
+            "high24h": "49.488",
+            "low24h": "41.649",
+            "openInterest": "1726003",
+            "lastQty": "1"
+      },
+      ...
+  ]
+}
+ 
+```
+Get a list of all of the tickers.
+
+Response Parameters | Type | Description| 
+-------------------------- | -----|--------- |
+timestamp | STRING | Timestamp of this response|
+marketCode | STRING | "BTC-USD-SWAP-LIN",
+last| STRING | Last traded price
+markPrice| STRING | Mark price  
+open24h| STRING | Daily opening price
+volume24h| STRING | 24 hour volume (USD)
+currencyVolume24h| STRING | 24 hour volume (coin)                       
+high24h| STRING | 24 hour high
+low24h| STRING | 24 hour low
+openInterest| STRING | Current open interest
+lastQty| STRING | Last traded quantity
