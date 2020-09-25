@@ -434,10 +434,10 @@
                             <a href="#rest-api-methods-private-delete-v2-cancel-orders" class="toc-h3 toc-link" data-title="DELETE <code>/v2/cancel/orders</code>">DELETE <code>/v2/cancel/orders</code></a>
                           </li>
                           <li>
-                            <a href="#rest-api-methods-private-delete-v2-cancel-orders" class="toc-h3 toc-link" data-title="DELETE `/v2/cancel/orders/">DELETE `/v2/cancel/orders/</a>
+                            <a href="#rest-api-methods-private-delete-v2-cancel-orders" class="toc-h3 toc-link" data-title="DELETE <code>/v2/cancel/orders</code>">DELETE <code>/v2/cancel/orders</code></a>
                           </li>
                           <li>
-                            <a href="#rest-api-methods-private-delete-v2-cancel-orders" class="toc-h3 toc-link" data-title="DELETE `/v2/cancel/orders/">DELETE `/v2/cancel/orders/</a>
+                            <a href="#rest-api-methods-private-delete-v2-cancel-orders" class="toc-h3 toc-link" data-title="DELETE <code>/v2/cancel/orders</code>">DELETE <code>/v2/cancel/orders</code></a>
                           </li>
                           <li>
                             <a href="#rest-api-methods-private-get-v2-1-delivery-orders" class="toc-h3 toc-link" data-title="GET <code>/v2.1/delivery/orders</code>">GET <code>/v2.1/delivery/orders</code></a>
@@ -446,7 +446,7 @@
                             <a href="#rest-api-methods-private-post-v2-1-delivery-orders" class="toc-h3 toc-link" data-title="POST <code>/v2.1/delivery/orders</code>">POST <code>/v2.1/delivery/orders</code></a>
                           </li>
                           <li>
-                            <a href="#rest-api-methods-private-delete-v2-1-delivery-orders-lt-delivery-order-id-gt" class="toc-h3 toc-link" data-title="DELETE <code>/v2.1/delivery/orders/&lt;DELIVERY-ORDER-ID&gt;</code>">DELETE <code>/v2.1/delivery/orders/&lt;DELIVERY-ORDER-ID&gt;</code></a>
+                            <a href="#rest-api-methods-private-delete-v2-1-delivery-orders-deliveryorderid" class="toc-h3 toc-link" data-title="DELETE <code>/v2.1/delivery/orders/{deliveryOrderId}</code>">DELETE <code>/v2.1/delivery/orders/{deliveryOrderId}</code></a>
                           </li>
                           <li>
                             <a href="#rest-api-methods-private-get-v2-1-deliver-auction-instrumentid" class="toc-h3 toc-link" data-title="GET <code>/v2.1/deliver-auction/{instrumentId}</code>">GET <code>/v2.1/deliver-auction/{instrumentId}</code></a>
@@ -466,7 +466,7 @@
                             <a href="#rest-api-methods-public-get-v2-publictrades-marketcode" class="toc-h3 toc-link" data-title="GET <code>/v2/publictrades/{marketCode}</code>">GET <code>/v2/publictrades/{marketCode}</code></a>
                           </li>
                           <li>
-                            <a href="#rest-api-methods-public-get-v2-ticker" class="toc-h3 toc-link" data-title="GET <code>/v2/ticker/</code>">GET <code>/v2/ticker/</code></a>
+                            <a href="#rest-api-methods-public-get-v2-ticker" class="toc-h3 toc-link" data-title="GET <code>/v2/ticker</code>">GET <code>/v2/ticker</code></a>
                           </li>
                       </ul>
                   </li>
@@ -3936,7 +3936,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 
 </span></code></pre></div>
 <p>Requires authentication. Cancel all open orders.</p>
-<h3 id='rest-api-methods-private-delete-v2-cancel-orders'>DELETE `/v2/cancel/orders/</h3>
+<h3 id='rest-api-methods-private-delete-v2-cancel-orders'>DELETE <code>/v2/cancel/orders</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
@@ -3959,7 +3959,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 
 </span></code></pre></div>
 <p>Requires authentication. Cancel all open orders for a specific market code.</p>
-<h3 id='rest-api-methods-private-delete-v2-cancel-orders'>DELETE `/v2/cancel/orders/</h3>
+<h3 id='rest-api-methods-private-delete-v2-cancel-orders'>DELETE <code>/v2/cancel/orders</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
@@ -4234,11 +4234,11 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>Delivery status</td>
 </tr>
 </tbody></table>
-<h3 id='rest-api-methods-private-delete-v2-1-delivery-orders-lt-delivery-order-id-gt'>DELETE <code>/v2.1/delivery/orders/&lt;DELIVERY-ORDER-ID&gt;</code></h3>
+<h3 id='rest-api-methods-private-delete-v2-1-delivery-orders-deliveryorderid'>DELETE <code>/v2.1/delivery/orders/{deliveryOrderId}</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">DELETE/v</span><span class="mf">2.1</span><span class="err">/delivery/orders/&lt;DELIVERY-ORDER-ID&gt;</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">DELETE/v</span><span class="mf">2.1</span><span class="err">/delivery/orders/</span><span class="p">{</span><span class="err">deliveryOrderId</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p><strong>SUCCESSFUL RESPONSE</strong></p>
@@ -4651,7 +4651,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td></td>
 </tr>
 </tbody></table>
-<h3 id='rest-api-methods-public-get-v2-ticker'>GET <code>/v2/ticker/</code></h3>
+<h3 id='rest-api-methods-public-get-v2-ticker'>GET <code>/v2/ticker</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
