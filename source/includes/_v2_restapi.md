@@ -461,12 +461,12 @@ DELETE/v2/cancel/orders
 
 Requires authentication. Cancel all open orders.
 
-###DELETE `/v2/cancel/orders`
+###DELETE `/v2/cancel/orders/{marketCode}`
 
 > **Request**
 
 ```json
-DELETE/v2/cancel/orders/BTC-USD 
+DELETE/v2/cancel/orders/BTC-USD
 ```
 
 > **RESPONSE**
@@ -484,38 +484,10 @@ DELETE/v2/cancel/orders/BTC-USD
       }
     ]
 }
- 
 ```
 
 Requires authentication. Cancel all open orders for a specific market code.
 
-###DELETE `/v2/cancel/orders`
-
-> **Request**
-
-```json
-DELETE/v2/cancel/orders/BTC-USD 
-```
-
-> **RESPONSE**
-
-
-```json
-{
-    "event": "orders",
-    "accountId": "<AccountID>",
-    "marketCode": "BTC-USD",
-    "timestamp": "1594412077100",
-    "data":[
-      {
-          "msg": "All open orders for the specified market have been queued for cancellation"
-      }
-    ]
-}
- 
-```
-
-Requires authentication. Cancel all open orders for a specific market code.
 
 ###GET `/v2.1/delivery/orders`
 > **Request**
