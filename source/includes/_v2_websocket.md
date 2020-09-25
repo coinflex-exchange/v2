@@ -528,6 +528,18 @@ Requires authentication. Get the user's order information.
 }
 ```
 
+Parameters |Type| Description |
+--------|-----|---|
+accountId | STRING|  Account identifier
+total | STRING | Total spot balance
+reserved | STRING | Balance reserved by orders
+instrumentId | STRING |  Base asset i.e. `BTC`
+available | STRING| Available balance (total - reserved)
+quantityLastUpdated|STRING | UNIX timestamp
+table | STRING| Table identifier
+timestamp|STRING | UNIX timestamp
+tradeType | STRING | Account type
+
 ### User Position Channel
 
 > **Request format**
@@ -588,10 +600,26 @@ Requires authentication. Get the user's order information.
 
 ```
 
+Parameters |Type| Description |
+--------|-----|---|
+accountId | STRING|  Account identifier
+entryPrice | STRING | Average Entry Price (Cost / Size)
+lastUpdated|STRING | UNIX timestamp
+contractValCurrency | STRING | Base Asset
+quantity | STRING| Position Size (+/-)
+instrumentId | STRING |  Market Code i.e. `BTC-USD-SWAP-LIN`
+table | STRING| Table identifier
+timestamp|STRING | UNIX timestamp
+
+
 ### User Order Channel
 
 > **Request format**
 
+
+```json
+{"op": "subscribe", "args": ["order:all"], "tag": 1}
+```
 ```json
 {"op": "subscribe", "args": ["order:BTC-USD"], "tag": 1}
 ```
