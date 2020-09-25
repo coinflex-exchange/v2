@@ -461,7 +461,7 @@ DELETE/v2/cancel/orders
 
 Requires authentication. Cancel all open orders.
 
-###DELETE `/v2/cancel/orders/
+###DELETE `/v2/cancel/orders/`
 
 > **Request**
 
@@ -489,7 +489,7 @@ DELETE/v2/cancel/orders/BTC-USD
 
 Requires authentication. Cancel all open orders for a specific market code.
 
-###DELETE `/v2/cancel/orders/
+###DELETE `/v2/cancel/orders/`
 
 > **Request**
 
