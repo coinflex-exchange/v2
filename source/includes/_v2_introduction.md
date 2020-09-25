@@ -24,6 +24,15 @@ API keys are also only bound to a single sub-account, defined upon creation. Thi
 
 
 # Change Log
+2020-09-25
+- Added physical delivery API endpoints
+- Added position WebSocket channel
+- Added balance WebSocket channel
+- Added GET /v2/accountinfo
+- Added GET /v2/ticker
+- Added rate limits
+- Added guidance for maintaining connections
+
 2020-07-25
 - Added GET /v2/publictrades/{marketCode}
 - Added GET /v2/trades/{marketCode}
@@ -43,3 +52,7 @@ Type                    |                            Limit|
 ------------------------|---------------------------------|
 Rest API                |                  100 per second |
 Websocket API           |                  200 per second |
+
+# Session Keep Alive
+
+To maintain an active WebSocket connection it is imperative to either be subscribed to a channel that pushes data at least once per minute (Depth or Balance) or send a ping to the server once per minute.
