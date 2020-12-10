@@ -94,11 +94,11 @@ Websocket commands can be sent in either of the following two formats:
 {
   "op": "login",
   "tag": "<integer>",
-  "data":{
-          "apiKey": "<string>",
-          "timestamp": "<string>",
-          "signature": "<string>"
-         }
+  "data": {
+            "apiKey": "<string>",
+            "timestamp": "<string>",
+            "signature": "<string>"
+          }
 }
 ```
 ```python
@@ -162,7 +162,7 @@ ws.onopen = function () {
   "event": "login",
   "success": true,
   "tag": "1",
-  "timestamp": "1592491808"
+  "timestamp": "1592491803978"
 }
 ```
 ```python
@@ -170,7 +170,7 @@ ws.onopen = function () {
   "event": "login",
   "success": true,
   "tag": "1",
-  "timestamp": "1592491808"
+  "timestamp": "1592491808328"
 }
 ```
 ```javascript
@@ -178,7 +178,7 @@ ws.onopen = function () {
   "event": "login",
   "success": true,
   "tag": "1",
-  "timestamp": "1592491808"
+  "timestamp": "1592491808329"
 }
 ```
 
@@ -191,7 +191,7 @@ ws.onopen = function () {
   "code": "<code>",
   "message": "<errorMessage>",
   "tag": "1",
-  "timestamp": "1592492032"
+  "timestamp": "1592492069732"
 }
 ```
 ```python
@@ -201,7 +201,7 @@ ws.onopen = function () {
   "code": "<code>",
   "message": "<errorMessage>",
   "tag": "1",
-  "timestamp": "1592492032"
+  "timestamp": "1592492031972"
 }
 ```
 ```javascript
@@ -211,7 +211,7 @@ ws.onopen = function () {
   "code": "<code>",
   "message": "<errorMessage>",
   "tag": "1",
-  "timestamp": "1592492032"
+  "timestamp": "1592492031982"
 }
 ```
 
@@ -247,7 +247,7 @@ To maintain an active WebSocket connection it is imperative to either be subscri
 ```json
 {
   "op": "placeorder",
-  "tag": 123
+  "tag": 123,
   "data": {
             "clientOrderId": 1,
             "marketCode": "BTC-USD-SWAP-LIN",
@@ -256,7 +256,7 @@ To maintain an active WebSocket connection it is imperative to either be subscri
             "quantity": 1.5,
             "timeInForce": "GTC",
             "price": 9431.48
-          },
+          }
 }
 ```
 
@@ -267,6 +267,7 @@ To maintain an active WebSocket connection it is imperative to either be subscri
   "event": "placeorder",
   "submitted": true,
   "tag": "123",
+  "timestamp": "1592491945248",
   "data": {
             "clientOrderId": "1",
             "marketCode": "BTC-USD-SWAP-LIN",
@@ -275,8 +276,7 @@ To maintain an active WebSocket connection it is imperative to either be subscri
             "quantity": "1.5",
             "timeInForce": "GTC",
             "price": "9431.48"
-          },
-  "timestamp": "1592491945"
+          }
 }
 ```
 
@@ -285,60 +285,108 @@ To maintain an active WebSocket connection it is imperative to either be subscri
 ```json
 {
   "event": "placeorder",
+  "submitted": false,
+  "tag": "123",
   "message": "<errorMessage>",
   "code": "<code>",
   "submitted": false,
-  "tag": "1",
-  "timestamp": "1592491503"
+  "timestamp": "1592491503359"
 }
 ```
 
-Requires an authenticated websocket connection.  Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).
+Requires an authenticated websocket connection.  
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).
 
 Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
 clientOrderId | INTEGER | No | Client unique order ID to help manage and identify orders |
 marketCode | STRING | Yes | Market code e.g. `BTC-USD-SWAP-LIN` |
 orderType | STRING | Yes |  `LIMIT` or `MARKET` |
-price | DECIMAL |  No | Price *not required for market orders* |
-quantity |  DECIMAL | Yes | Quantity *denominated by contractValCurrency* |
+price | DECIMAL |  No | Price, *not required for market orders* |
+quantity |  DECIMAL | Yes | Quantity, *denominated by contractValCurrency* |
 side | STRING | Yes | `BUY` or `SELL` |
 timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul> *not required for market orders*
-tag| INTEGER| No|If given and non-zero, it will be echoed in the reply.
+tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
 
-### Stop Limit Order  &nbsp;&nbsp;*****NOT AVAILABLE*****
+### Stop Limit Order
 
 > **Request format**
 
 ```json
 {
   "op": "placeorder",
-  "data":{
-          "clientOrderId": 1,
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "side": "BUY",
-          "orderType": "STOP",
-          "quantity": 10,
-          "stopPrice": 100,
-          "limitPrice": 120
+  "tag": 123,
+  "data": {
+            "clientOrderId": 1,
+            "marketCode": "ETH-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "STOP",
+            "quantity": 10,
+            "timeInForce": "MAKER_ONLY_REPRICE",
+            "stopPrice": 100,
+            "limitPrice": 120
          }
 }
 ```
 
-Requires an authenticated websocket connection.  Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to a clients orders (e.g. OrderModified etc......).
+> **Success response format**
 
-**Request Parameters Specification:**
+```json
+{
+  "event": "placeorder",
+  "submitted": true,
+  "tag": "123",
+  "timestamp": "1607639739098",
+  "data": {
+            "clientOrderId": "1",
+            "marketCode": "ETH-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "STOP",
+            "quantity": "10",
+            "timeInForce": "MAKER_ONLY_REPRICE",
+            "stopPrice": "100",
+            "limitPrice": "120"
+          }
+}
+```
+
+> **Failure response format**
+
+```json
+{
+  "event": "placeorder",
+  "submitted": false,
+  "tag": "123",
+  "message": "<errorMessage>",
+  "code": "<code>",
+  "timestamp": "1592491503359",
+  "data": {
+            "clientOrderId": "1",
+            "marketCode": "ETH-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "STOP",
+            "quantity": "10",
+            "timeInForce": "MAKER_ONLY_REPRICE",
+            "stopPrice": "100",
+            "limitPrice": "120"
+          }
+}
+```
+
+Requires an authenticated websocket connection.  
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).
 
 Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
 clientOrderId| NUMBER | No | User-generated order ID to identify orders |
-limitPrice| NUMBER|Yes | Limit price for the stop-limit order. <p><p>The limit price must be greater or equal to the stop price for buy-side.<p><p>The limit price must be less or equal to the stop price for sell-side.|
-marketCode| STRING| Yes| Market Code i.e. `BTC-USD-SWAP-LIN`|
-orderType|STRING| Yes|  `STOP` for Stop-Limit orders (no Stop-market currently)|
+marketCode| STRING| Yes| Market Code i.e. `ETH-USD-SWAP-LIN`|
+orderType|STRING| Yes|  `STOP` for stop-limit orders (stop-market orders not supported)|
 quantity|NUMBER|Yes|Quantity (denominated by contractValCurrency)|
-side|STRING| Yes| `BUY `/ `SELL`|
-stopPrice|NUMBER|Yes|Stop price for the stop-limit order.<p><p>Triggered by the best bid price for the SELL side stop-limit order.<p><p>Triggered by the best ask price for the BUY side stop-limit order. |
-
+side|STRING| Yes| `BUY ` or `SELL`|
+limitPrice| NUMBER|Yes | Limit price for the stop-limit order. <p><p>For **BUY** the limit price must be greater or equal to the stop price.<p><p>For **SELL** the limit price must be less or equal to the stop price.|
+stopPrice|NUMBER|Yes|Stop price for the stop-limit order.<p><p>Triggered by the best bid price for the **SELL** stop-limit order.<p><p>Triggered by the best ask price for the **BUY** stop-limit order. |
+timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul>
+tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
 
 ### Cancel Order
 
@@ -347,11 +395,11 @@ stopPrice|NUMBER|Yes|Stop price for the stop-limit order.<p><p>Triggered by the 
 ```json
 {
   "op": "cancelorder",
-  "data":{
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": 12
-         },
-  "tag": 1
+  "tag": 1,
+  "data": {
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "orderId": 12
+          }
 }
 ```
 
