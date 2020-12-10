@@ -479,9 +479,7 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to CoinFLEX&#39;s v2 application programming interface (API). Please note, this is a beta version and should be considered a test net.</p>
-
-<p>CoinFLEX&#39;s APIs provide our clients programmatic access to control aspects of their accounts and to place orders on CoinFLEX&#39;s trading platform. CoinFLEX provides the following APIs:</p>
+<p>Welcome to CoinFLEX&#39;s v2 application programming interface (API). CoinFLEX&#39;s APIs provide clients programmatic access to control aspects of their accounts and to place orders on CoinFLEX&#39;s trading platform. CoinFLEX supports the following types of APIs:</p>
 
 <ul>
 <li>a WebSocket API</li>
@@ -500,25 +498,25 @@
 
 <p>API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.</p>
 <h1 id='change-log'>Change Log</h1>
-<p>2020-09-25
-- Added physical delivery API endpoints
-- Added position WebSocket channel
-- Added balance WebSocket channel
-- Added GET /v2/accountinfo
-- Added GET /v2/ticker
-- Added rate limits
-- Added guidance for maintaining connections</p>
+<p><strong>2020-09-25</strong>
+* Added physical delivery API endpoints
+* Added position WebSocket channel
+* Added balance WebSocket channel
+* Added GET /v2/accountinfo
+* Added GET /v2/ticker
+* Added rate limits
+* Added guidance for maintaining connections</p>
 
-<p>2020-07-25
-- Added GET /v2/publictrades/{marketCode}
-- Added GET /v2/trades/{marketCode}</p>
+<p><strong>2020-07-25</strong>
+* Added GET /v2/publictrades/{marketCode}
+* Added GET /v2/trades/{marketCode}</p>
 
-<p>2020-06-16
-- Added general guidance for getting a login/password to create tokens
-- Updated some addresses for REST API</p>
+<p><strong>2020-06-16</strong>
+* Added general guidance for getting a login/password to create tokens
+* Updated some addresses for REST API</p>
 
-<p>2020-06-15
-- First version of beta API endpoints - Websocket and REST</p>
+<p><strong>2020-06-15</strong>
+* First beta version of API endpoints. Websocket and REST</p>
 <h1 id='rate-limit'>Rate Limit</h1>
 <p>CoinFLEX&#39;s application programming interface (API) allows our clients to access and control their accounts or view our market data using custom-written software. To protect the performance of the system, we impose certain limits:</p>
 
