@@ -23,6 +23,10 @@ API keys are also only bound to a single sub-account, defined upon creation. Thi
 
 # Change Log
 
+**2020-12-10**
+
+* Added to the documentation market order and stop-limit order websocket API 
+
 **2020-09-25**
 
 * Added physical delivery API endpoints
