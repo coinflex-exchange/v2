@@ -228,9 +228,9 @@ The signature is calculated as:
 Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | **'login'** |
-tag| INTEGER| No | If given, it will be echoed in the reply. |
+tag| INTEGER| No | If given, it will be echoed in the reply |
 data | ARRAY object | Yes |
-\>apiKey | STRING | Yes | Clients public API key, visible in the GUI when created. |
+\>apiKey | STRING | Yes | Clients public API key, visible in the GUI when created |
 \>timestamp | STRING | Yes | Current millisecond timestamp |
 \>signature | STRING | Yes | `Base64(HmacSHA256(API-Secret, timestamp + 'GET/auth/self/verify'))` |
 
@@ -302,8 +302,8 @@ Parameter | Type | Required | Description |
 clientOrderId | INTEGER | No | Client unique order ID to help manage and identify orders |
 marketCode | STRING | Yes | Market code e.g. `BTC-USD-SWAP-LIN` |
 orderType | STRING | Yes |  `LIMIT` or `MARKET` |
-price | DECIMAL |  No | Price, *not required for market orders* |
-quantity |  DECIMAL | Yes | Quantity, *denominated by contractValCurrency* |
+price | DECIMAL |  No | Price (not required for market orders) |
+quantity |  DECIMAL | Yes | Quantity (denominated by contractValCurrency) |
 side | STRING | Yes | `BUY` or `SELL` |
 timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul> *not required for market orders*
 tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
