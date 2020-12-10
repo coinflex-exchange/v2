@@ -322,13 +322,13 @@
             <a href="#rate-limit" class="toc-h1 toc-link" data-title="Rate Limit">Rate Limit</a>
           </li>
           <li>
-            <a href="#session-keep-alive" class="toc-h1 toc-link" data-title="Session Keep Alive">Session Keep Alive</a>
-          </li>
-          <li>
             <a href="#websocket-api" class="toc-h1 toc-link" data-title="Websocket API">Websocket API</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#websocket-api-authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
+                  </li>
+                  <li>
+                    <a href="#websocket-api-session-keep-alive" class="toc-h2 toc-link" data-title="Session Keep Alive">Session Keep Alive</a>
                   </li>
                   <li>
                     <a href="#websocket-api-place-order" class="toc-h2 toc-link" data-title="Place Order">Place Order</a>
@@ -498,27 +498,39 @@
 
 <p>API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.</p>
 <h1 id='change-log'>Change Log</h1>
-<p><strong>2020-09-25</strong>
-* Added physical delivery API endpoints
-* Added position WebSocket channel
-* Added balance WebSocket channel
-* Added GET /v2/accountinfo
-* Added GET /v2/ticker
-* Added rate limits
-* Added guidance for maintaining connections</p>
+<p><strong>2020-09-25</strong></p>
 
-<p><strong>2020-07-25</strong>
-* Added GET /v2/publictrades/{marketCode}
-* Added GET /v2/trades/{marketCode}</p>
+<ul>
+<li>Added physical delivery API endpoints</li>
+<li>Added position WebSocket channel</li>
+<li>Added balance WebSocket channel</li>
+<li>Added GET /v2/accountinfo</li>
+<li>Added GET /v2/ticker</li>
+<li>Added rate limits</li>
+<li>Added guidance for maintaining connections</li>
+</ul>
 
-<p><strong>2020-06-16</strong>
-* Added general guidance for getting a login/password to create tokens
-* Updated some addresses for REST API</p>
+<p><strong>2020-07-25</strong></p>
 
-<p><strong>2020-06-15</strong>
-* First beta version of API endpoints. Websocket and REST</p>
+<ul>
+<li>Added GET /v2/publictrades/{marketCode}</li>
+<li>Added GET /v2/trades/{marketCode}</li>
+</ul>
+
+<p><strong>2020-06-16</strong></p>
+
+<ul>
+<li>Added general guidance for getting a login/password to create tokens</li>
+<li>Updated some addresses for REST API</li>
+</ul>
+
+<p><strong>2020-06-15</strong></p>
+
+<ul>
+<li>First beta version of API endpoints. Websocket and REST</li>
+</ul>
 <h1 id='rate-limit'>Rate Limit</h1>
-<p>CoinFLEX&#39;s application programming interface (API) allows our clients to access and control their accounts or view our market data using custom-written software. To protect the performance of the system, we impose certain limits:</p>
+<p>CoinFLEX&#39;s APIs allows our clients to access and control their accounts or view our market data using custom-written software. To protect the performance of the system, we impose certain limits:</p>
 
 <table><thead>
 <tr>
@@ -535,8 +547,6 @@
 <td>200 per second</td>
 </tr>
 </tbody></table>
-<h1 id='session-keep-alive'>Session Keep Alive</h1>
-<p>To maintain an active WebSocket connection it is imperative to either be subscribed to a channel that pushes data at least once per minute (Depth or Balance) or send a ping to the server once per minute.</p>
 <h1 id='websocket-api'>Websocket API</h1>
 <blockquote>
 <p><strong>Request format</strong></p>
@@ -799,6 +809,8 @@
 <td><code>Base64(HmacSHA256(API-Secret, timestamp + &#39;GET/auth/self/verify&#39;))</code></td>
 </tr>
 </tbody></table>
+<h2 id='websocket-api-session-keep-alive'>Session Keep Alive</h2>
+<p>To maintain an active WebSocket connection it is imperative to either be subscribed to a channel that pushes data at least once per minute (Depth or Balance) or send a ping to the server once per minute.</p>
 <h2 id='websocket-api-place-order'>Place Order</h2><h3 id='websocket-api-place-order-limit-order'>Limit Order</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
