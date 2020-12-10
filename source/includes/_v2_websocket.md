@@ -6,7 +6,7 @@
 ```json
 {
   "op": "<value>",
-   "args": ["<value>"]
+  "args": ["<value1>", "<value2>",.....]
 }
 
 OR
@@ -59,17 +59,18 @@ Websocket commands can be sent in either of the following two formats:
 
 **For subscription based commands**
 
-`{"op": "<value>", "args": ["<value>"]}`
+`{"op": "<value>", "args": ["<value1>", "<value2>",.....]}`
 
 `op`: can either be:
 
 * subscribe
 * unsubscribe
 
-`args`: the value is the channel name, for example:
+`args`: the value(s) will be the market code(s), for example:
 
 * order:BTC-USD-SWAP-LIN
-* futures/depth:BTC-USD-SPR-QP-LIN
+* futures/depth:ETH-USD-REPO-LIN
+* position:all
 
 **All other commands**
 
@@ -127,7 +128,7 @@ msg_auth = \
 }
 
 async def subscribe():
-    async with websockets.connect('wss://api-test-v2.coinflex-cn.com/v2/websocket') as ws:
+    async with websockets.connect('wss://v2stgapi.coinflex.com/v2/websocket') as ws:
         await ws.send(json.dumps(msg_auth))
         while ws.open:
             resp = await ws.recv()
@@ -143,7 +144,7 @@ const ts = '' + Date.now();
 var sign = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(secretKey, ts +'GET/auth/self/verify'));
 var msg = '{"op":"login","data":{"apiKey":"' + apiKey + '", "timestamp": "'+ ts + '", "signature":"'+ sign + '"}}';
 
-var ws = new WebSocket('wss://api-test-v2.coinflex-cn.com/v2/websocket');
+var ws = new WebSocket('wss://v2stgapi.coinflex.com/v2/websocket');
 
 ws.onmessage = function (e) {
   console.log('websocket message from server : ', e.data);
@@ -167,17 +168,17 @@ ws.onopen = function () {
 ```python
 {
   "event": "login",
-  "success": True,
+  "success": true,
   "tag": "1",
   "timestamp": "1592491808"
 }
 ```
 ```javascript
 {
-  "event":"login",
-  "success":true,
-  "tag":"1",
-  "timestamp":"1592491808"
+  "event": "login",
+  "success": true,
+  "tag": "1",
+  "timestamp": "1592491808"
 }
 ```
 
@@ -196,7 +197,7 @@ ws.onopen = function () {
 ```python
 {
   "event": "login",
-  "success": False,
+  "success": false,
   "code": "<code>",
   "message": "<errorMessage>",
   "tag": "1",
@@ -205,12 +206,12 @@ ws.onopen = function () {
 ```
 ```javascript
 {
-  "event":"login",
-  "success":false,
-  "code":"<code>",
-  "message":"<errorMessage>",
-  "tag":"1",
-  "timestamp":"1592492032"
+  "event": "login",
+  "success": false,
+  "code": "<code>",
+  "message": "<errorMessage>",
+  "tag": "1",
+  "timestamp": "1592492032"
 }
 ```
 
@@ -223,8 +224,6 @@ To construct the signature a clients API-Secret key is required.  API keys (publ
 The signature is calculated as:
 
 * `Base64(HmacSHA256(API-Secret, timestamp + 'GET/auth/self/verify'))`
-
-**Parameters - Login**
 
 Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
@@ -239,44 +238,44 @@ data | ARRAY object | Yes |
 
 To maintain an active WebSocket connection it is imperative to either be subscribed to a channel that pushes data at least once per minute (Depth or Balance) or send a ping to the server once per minute.
 
-## Place Order
+## Order Commands
 
-### Limit Order
+### Limit & Market Order
 
 > **Request format**
 
 ```json
 {
   "op": "placeorder",
-  "data":{
-          "clientOrderId": 1,
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "side": "BUY",
-          "orderType": "LIMIT",
-          "quantity": 1.5,
-          "timeInForce": "GTC",
-          "price": 9431.48
+  "tag": 123
+  "data": {
+            "clientOrderId": 1,
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "LIMIT",
+            "quantity": 1.5,
+            "timeInForce": "GTC",
+            "price": 9431.48
           },
-  "tag": 1
 }
 ```
 
-> **Submitted response format**
+> **Success response format**
 
 ```json
 {
   "event": "placeorder",
   "submitted": true,
-  "tag": "1",
-  "data":{
-          "clientOrderId": "1",
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "side": "BUY",
-          "orderType": "LIMIT",
-          "quantity": "1.5",
-          "timeInForce": "GTC",
-          "price": "9431.48"
-         },
+  "tag": "123",
+  "data": {
+            "clientOrderId": "1",
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "LIMIT",
+            "quantity": "1.5",
+            "timeInForce": "GTC",
+            "price": "9431.48"
+          },
   "timestamp": "1592491945"
 }
 ```
@@ -294,29 +293,22 @@ To maintain an active WebSocket connection it is imperative to either be subscri
 }
 ```
 
-Requires authentication.
-Please also subscribe to the user order channel to receive push notifications for all message udpates related to a clients orders.
+Requires an authenticated websocket connection.  Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).
 
 **Request Parameters Specification:**
 
-Parameters | Type | Required | Description |
+Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
-clientOrderId | INTEGER | No | Customized order ID to identify your orders |
-marketCode | STRING | Yes | Market Code i.e. `BTC-USD-SWAP-LIN` |
-orderType | STRING | Yes |  LIMIT for limit orders |
-price | DECIMAL |  Yes |  Price |    Price for limit orders |
+clientOrderId | INTEGER | No | Client unique order ID to help manage and identify orders |
+marketCode | STRING | Yes | Market Code e.g. `BTC-USD-SWAP-LIN` |
+orderType | STRING | Yes |  `LIMIT` or `MARKET` |
+price | DECIMAL |  No |  Price |  Price, *not required for Market orders* |
 quantity |  DECIMAL | Yes | Quantity (denominated by contractValCurrency) |
-side | STRING | Yes | BUY / SELL |
-timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker price if specified price otherwise leads to a taker trade)</li></ul>
-tag| INTEGER| No|Iff given and non-zero, it will be echoed in the reply.
-
-
-### Market Order  &nbsp;&nbsp;*****NOT AVAILABLE*****
-
+side | STRING | Yes | `BUY` or `SELL` |
+timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul> *not required for Market orders*
+tag| INTEGER| No|If given and non-zero, it will be echoed in the reply.
 
 ### Stop Limit Order  &nbsp;&nbsp;*****NOT AVAILABLE*****
-
-Requires authentication. Please subscribe user order channel to receive the order updates.
 
 > **Request format**
 
@@ -334,6 +326,8 @@ Requires authentication. Please subscribe user order channel to receive the orde
          }
 }
 ```
+
+Requires an authenticated websocket connection.  Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to a clients orders (e.g. OrderModified etc......).
 
 **Request Parameters Specification:**
 
