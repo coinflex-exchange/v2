@@ -495,6 +495,12 @@
 
 <p>API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.</p>
 <h1 id='change-log'>Change Log</h1>
+<p><strong>2020-12-10</strong></p>
+
+<ul>
+<li>Added to the documentation market order and stop-limit order websocket API </li>
+</ul>
+
 <p><strong>2020-09-25</strong></p>
 
 <ul>
@@ -778,7 +784,7 @@
 <td>tag</td>
 <td>INTEGER</td>
 <td>No</td>
-<td>If given, it will be echoed in the reply.</td>
+<td>If given, it will be echoed in the reply</td>
 </tr>
 <tr>
 <td>data</td>
@@ -790,7 +796,7 @@
 <td>&gt;apiKey</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>Clients public API key, visible in the GUI when created.</td>
+<td>Clients public API key, visible in the GUI when created</td>
 </tr>
 <tr>
 <td>&gt;timestamp</td>
@@ -890,13 +896,13 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>price</td>
 <td>DECIMAL</td>
 <td>No</td>
-<td>Price, <em>not required for market orders</em></td>
+<td>Price (not required for market orders)</td>
 </tr>
 <tr>
 <td>quantity</td>
 <td>DECIMAL</td>
 <td>Yes</td>
-<td>Quantity, <em>denominated by contractValCurrency</em></td>
+<td>Quantity (denominated by contractValCurrency)</td>
 </tr>
 <tr>
 <td>side</td>
@@ -1057,9 +1063,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Requires authentication. Please subscribe user order channel to receive the order updates.</p>
-
-<p><strong>Request Parameters Specification:</strong></p>
+<p>Requires an authenticated websocket connection.<br>
+Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to a clients orders (e.g. OrderClosed etc......).</p>
 
 <table><thead>
 <tr>
@@ -1089,10 +1094,10 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cancelorder"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:{</span><span class="w">
-          </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="w">
-         </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491173"</span><span class="w">
 </span><span class="p">}</span><span class="w">
