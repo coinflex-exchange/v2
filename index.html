@@ -858,8 +858,6 @@
 </span></code></pre></div>
 <p>Requires an authenticated websocket connection.  Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).</p>
 
-<p><strong>Request Parameters Specification:</strong></p>
-
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -878,7 +876,7 @@
 <td>marketCode</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>Market Code e.g. <code>BTC-USD-SWAP-LIN</code></td>
+<td>Market code e.g. <code>BTC-USD-SWAP-LIN</code></td>
 </tr>
 <tr>
 <td>orderType</td>
@@ -890,13 +888,13 @@
 <td>price</td>
 <td>DECIMAL</td>
 <td>No</td>
-<td>Price</td>
+<td>Price <em>not required for market orders</em></td>
 </tr>
 <tr>
 <td>quantity</td>
 <td>DECIMAL</td>
 <td>Yes</td>
-<td>Quantity (denominated by contractValCurrency)</td>
+<td>Quantity <em>denominated by contractValCurrency</em></td>
 </tr>
 <tr>
 <td>side</td>
@@ -908,7 +906,7 @@
 <td>timeInForce</td>
 <td>ENUM</td>
 <td>No</td>
-<td><ul><li><code>GTC</code> (Good-till-Cancel) - Default</li><li> <code>IOC</code> (Immediate or Cancel, i.e. Taker-only)</li><li> <code>FOK</code> (Fill or Kill, for full size)</li><li><code>MAKER_ONLY</code> (i.e. Post-only)</li><li> <code>MAKER_ONLY_REPRICE</code> (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul> <em>not required for Market orders</em></td>
+<td><ul><li><code>GTC</code> (Good-till-Cancel) - Default</li><li> <code>IOC</code> (Immediate or Cancel, i.e. Taker-only)</li><li> <code>FOK</code> (Fill or Kill, for full size)</li><li><code>MAKER_ONLY</code> (i.e. Post-only)</li><li> <code>MAKER_ONLY_REPRICE</code> (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul> <em>not required for market orders</em></td>
 </tr>
 <tr>
 <td>tag</td>
