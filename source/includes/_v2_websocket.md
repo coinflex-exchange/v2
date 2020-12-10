@@ -295,17 +295,15 @@ To maintain an active WebSocket connection it is imperative to either be subscri
 
 Requires an authenticated websocket connection.  Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).
 
-**Request Parameters Specification:**
-
 Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
 clientOrderId | INTEGER | No | Client unique order ID to help manage and identify orders |
-marketCode | STRING | Yes | Market Code e.g. `BTC-USD-SWAP-LIN` |
+marketCode | STRING | Yes | Market code e.g. `BTC-USD-SWAP-LIN` |
 orderType | STRING | Yes |  `LIMIT` or `MARKET` |
-price | DECIMAL |  No |  Price |  Price, *not required for Market orders* |
-quantity |  DECIMAL | Yes | Quantity (denominated by contractValCurrency) |
+price | DECIMAL |  No | Price *not required for market orders* |
+quantity |  DECIMAL | Yes | Quantity *denominated by contractValCurrency* |
 side | STRING | Yes | `BUY` or `SELL` |
-timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul> *not required for Market orders*
+timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul> *not required for market orders*
 tag| INTEGER| No|If given and non-zero, it will be echoed in the reply.
 
 ### Stop Limit Order  &nbsp;&nbsp;*****NOT AVAILABLE*****
