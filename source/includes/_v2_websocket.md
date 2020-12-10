@@ -235,6 +235,9 @@ data | ARRAY object | Yes |
 \>timestamp | STRING | Yes | Current millisecond timestamp |
 \>signature | STRING | Yes | `Base64(HmacSHA256(API-Secret, timestamp + 'GET/auth/self/verify'))` |
 
+## Session Keep Alive
+
+To maintain an active WebSocket connection it is imperative to either be subscribed to a channel that pushes data at least once per minute (Depth or Balance) or send a ping to the server once per minute.
 
 ## Place Order
 
