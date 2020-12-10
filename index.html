@@ -331,22 +331,19 @@
                     <a href="#websocket-api-session-keep-alive" class="toc-h2 toc-link" data-title="Session Keep Alive">Session Keep Alive</a>
                   </li>
                   <li>
-                    <a href="#websocket-api-place-order" class="toc-h2 toc-link" data-title="Place Order">Place Order</a>
+                    <a href="#websocket-api-order-commands" class="toc-h2 toc-link" data-title="Order Commands">Order Commands</a>
                       <ul class="toc-list-h3">
                           <li>
-                            <a href="#websocket-api-place-order-limit-order" class="toc-h3 toc-link" data-title="Limit Order">Limit Order</a>
+                            <a href="#websocket-api-order-commands-limit-amp-market-order" class="toc-h3 toc-link" data-title="Limit &amp; Market Order">Limit &amp; Market Order</a>
                           </li>
                           <li>
-                            <a href="#websocket-api-place-order-market-order-nbsp-nbsp-not-available" class="toc-h3 toc-link" data-title="Market Order    **<strong><em>NOT AVAILABLE</em></strong>**">Market Order    **<strong><em>NOT AVAILABLE</em></strong>**</a>
+                            <a href="#websocket-api-order-commands-stop-limit-order-nbsp-nbsp-not-available" class="toc-h3 toc-link" data-title="Stop Limit Order    **<strong><em>NOT AVAILABLE</em></strong>**">Stop Limit Order    **<strong><em>NOT AVAILABLE</em></strong>**</a>
                           </li>
                           <li>
-                            <a href="#websocket-api-place-order-stop-limit-order-nbsp-nbsp-not-available" class="toc-h3 toc-link" data-title="Stop Limit Order    **<strong><em>NOT AVAILABLE</em></strong>**">Stop Limit Order    **<strong><em>NOT AVAILABLE</em></strong>**</a>
+                            <a href="#websocket-api-order-commands-cancel-order" class="toc-h3 toc-link" data-title="Cancel Order">Cancel Order</a>
                           </li>
                           <li>
-                            <a href="#websocket-api-place-order-cancel-order" class="toc-h3 toc-link" data-title="Cancel Order">Cancel Order</a>
-                          </li>
-                          <li>
-                            <a href="#websocket-api-place-order-modify-order" class="toc-h3 toc-link" data-title="Modify Order">Modify Order</a>
+                            <a href="#websocket-api-order-commands-modify-order" class="toc-h3 toc-link" data-title="Modify Order">Modify Order</a>
                           </li>
                       </ul>
                   </li>
@@ -553,7 +550,7 @@
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value&gt;"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;value&gt;"</span><span class="p">]</span><span class="w">
+  </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;value1&gt;"</span><span class="p">,</span><span class="w"> </span><span class="s2">"&lt;value2&gt;"</span><span class="p">,</span><span class="err">.....</span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span><span class="err">OR</span><span class="w">
@@ -607,7 +604,7 @@
 
 <p><strong>For subscription based commands</strong></p>
 
-<p><code>{&quot;op&quot;: &quot;&lt;value&gt;&quot;, &quot;args&quot;: [&quot;&lt;value&gt;&quot;]}</code></p>
+<p><code>{&quot;op&quot;: &quot;&lt;value&gt;&quot;, &quot;args&quot;: [&quot;&lt;value1&gt;&quot;, &quot;&lt;value2&gt;&quot;,.....]}</code></p>
 
 <p><code>op</code>: can either be:</p>
 
@@ -616,11 +613,12 @@
 <li>unsubscribe</li>
 </ul>
 
-<p><code>args</code>: the value is the channel name, for example:</p>
+<p><code>args</code>: the value(s) will be the market code(s), for example:</p>
 
 <ul>
 <li>order:BTC-USD-SWAP-LIN</li>
-<li>futures/depth:BTC-USD-SPR-QP-LIN</li>
+<li>futures/depth:ETH-USD-REPO-LIN</li>
+<li>position:all</li>
 </ul>
 
 <p><strong>All other commands</strong></p>
@@ -676,7 +674,7 @@
 <span class="p">}</span>
 
 <span class="k">async</span> <span class="k">def</span> <span class="nf">subscribe</span><span class="p">():</span>
-    <span class="k">async</span> <span class="k">with</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="s">'wss://api-test-v2.coinflex-cn.com/v2/websocket'</span><span class="p">)</span> <span class="k">as</span> <span class="n">ws</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="s">'wss://v2stgapi.coinflex.com/v2/websocket'</span><span class="p">)</span> <span class="k">as</span> <span class="n">ws</span><span class="p">:</span>
         <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg_auth</span><span class="p">))</span>
         <span class="k">while</span> <span class="n">ws</span><span class="p">.</span><span class="nb">open</span><span class="p">:</span>
             <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
@@ -690,7 +688,7 @@
 <span class="kd">var</span> <span class="nx">sign</span> <span class="o">=</span> <span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">enc</span><span class="p">.</span><span class="nx">Base64</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">HmacSHA256</span><span class="p">(</span><span class="nx">secretKey</span><span class="p">,</span> <span class="nx">ts</span> <span class="o">+</span><span class="dl">'</span><span class="s1">GET/auth/self/verify</span><span class="dl">'</span><span class="p">));</span>
 <span class="kd">var</span> <span class="nx">msg</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{"op":"login","data":{"apiKey":"</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">apiKey</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">", "timestamp": "</span><span class="dl">'</span><span class="o">+</span> <span class="nx">ts</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">", "signature":"</span><span class="dl">'</span><span class="o">+</span> <span class="nx">sign</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">"}}</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="kd">var</span> <span class="nx">ws</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="dl">'</span><span class="s1">wss://api-test-v2.coinflex-cn.com/v2/websocket</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ws</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="dl">'</span><span class="s1">wss://v2stgapi.coinflex.com/v2/websocket</span><span class="dl">'</span><span class="p">);</span>
 
 <span class="nx">ws</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">websocket message from server : </span><span class="dl">'</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
@@ -711,15 +709,15 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="p">{</span>
   <span class="s">"event"</span><span class="p">:</span> <span class="s">"login"</span><span class="p">,</span>
-  <span class="s">"success"</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+  <span class="s">"success"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
   <span class="s">"tag"</span><span class="p">:</span> <span class="s">"1"</span><span class="p">,</span>
   <span class="s">"timestamp"</span><span class="p">:</span> <span class="s">"1592491808"</span>
 <span class="p">}</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
-  <span class="dl">"</span><span class="s2">event</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">login</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">success</span><span class="dl">"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">tag</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">timestamp</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1592491808</span><span class="dl">"</span>
+  <span class="dl">"</span><span class="s2">event</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">login</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">success</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">tag</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">timestamp</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1592491808</span><span class="dl">"</span>
 <span class="p">}</span>
 </code></pre></div>
 <blockquote>
@@ -735,19 +733,19 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="p">{</span>
   <span class="s">"event"</span><span class="p">:</span> <span class="s">"login"</span><span class="p">,</span>
-  <span class="s">"success"</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+  <span class="s">"success"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
   <span class="s">"code"</span><span class="p">:</span> <span class="s">"&lt;code&gt;"</span><span class="p">,</span>
   <span class="s">"message"</span><span class="p">:</span> <span class="s">"&lt;errorMessage&gt;"</span><span class="p">,</span>
   <span class="s">"tag"</span><span class="p">:</span> <span class="s">"1"</span><span class="p">,</span>
   <span class="s">"timestamp"</span><span class="p">:</span> <span class="s">"1592492032"</span>
 <span class="p">}</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
-  <span class="dl">"</span><span class="s2">event</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">login</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">success</span><span class="dl">"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">&lt;code&gt;</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">&lt;errorMessage&gt;</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">tag</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">timestamp</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">1592492032</span><span class="dl">"</span>
+  <span class="dl">"</span><span class="s2">event</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">login</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">success</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">&lt;code&gt;</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">&lt;errorMessage&gt;</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">tag</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">timestamp</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1592492032</span><span class="dl">"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The Websocket API consists of public and private methods. The public methods do not require authentication.  The private methods requires an authenticated websocket connection.</p>
@@ -761,8 +759,6 @@
 <ul>
 <li><code>Base64(HmacSHA256(API-Secret, timestamp + &#39;GET/auth/self/verify&#39;))</code></li>
 </ul>
-
-<p><strong>Parameters - Login</strong></p>
 
 <table><thead>
 <tr>
@@ -811,40 +807,40 @@
 </tbody></table>
 <h2 id='websocket-api-session-keep-alive'>Session Keep Alive</h2>
 <p>To maintain an active WebSocket connection it is imperative to either be subscribed to a channel that pushes data at least once per minute (Depth or Balance) or send a ping to the server once per minute.</p>
-<h2 id='websocket-api-place-order'>Place Order</h2><h3 id='websocket-api-place-order-limit-order'>Limit Order</h3>
+<h2 id='websocket-api-order-commands'>Order Commands</h2><h3 id='websocket-api-order-commands-limit-amp-market-order'>Limit &amp; Market Order</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"placeorder"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:{</span><span class="w">
-          </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">9431.48</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">9431.48</span><span class="w">
           </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p><strong>Submitted response format</strong></p>
+<p><strong>Success response format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"placeorder"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:{</span><span class="w">
-          </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.5"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9431.48"</span><span class="w">
-         </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.5"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9431.48"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491945"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -860,14 +856,13 @@
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491503"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Requires authentication.
-Please also subscribe to the user order channel to receive push notifications for all message udpates related to a clients orders.</p>
+<p>Requires an authenticated websocket connection.  Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).</p>
 
 <p><strong>Request Parameters Specification:</strong></p>
 
 <table><thead>
 <tr>
-<th>Parameters</th>
+<th>Parameter</th>
 <th>Type</th>
 <th>Required</th>
 <th>Description</th>
@@ -877,24 +872,24 @@ Please also subscribe to the user order channel to receive push notifications fo
 <td>clientOrderId</td>
 <td>INTEGER</td>
 <td>No</td>
-<td>Customized order ID to identify your orders</td>
+<td>Client unique order ID to help manage and identify orders</td>
 </tr>
 <tr>
 <td>marketCode</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>Market Code i.e. <code>BTC-USD-SWAP-LIN</code></td>
+<td>Market Code e.g. <code>BTC-USD-SWAP-LIN</code></td>
 </tr>
 <tr>
 <td>orderType</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>LIMIT for limit orders</td>
+<td><code>LIMIT</code> or <code>MARKET</code></td>
 </tr>
 <tr>
 <td>price</td>
 <td>DECIMAL</td>
-<td>Yes</td>
+<td>No</td>
 <td>Price</td>
 </tr>
 <tr>
@@ -907,24 +902,22 @@ Please also subscribe to the user order channel to receive push notifications fo
 <td>side</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>BUY / SELL</td>
+<td><code>BUY</code> or <code>SELL</code></td>
 </tr>
 <tr>
 <td>timeInForce</td>
 <td>ENUM</td>
 <td>No</td>
-<td><ul><li><code>GTC</code> (Good-till-Cancel) - Default</li><li> <code>IOC</code> (Immediate or Cancel, i.e. Taker-only)</li><li> <code>FOK</code> (Fill or Kill, for full size)</li><li><code>MAKER_ONLY</code> (i.e. Post-only)</li><li> <code>MAKER_ONLY_REPRICE</code> (Reprices order to the best maker price if specified price otherwise leads to a taker trade)</li></ul></td>
+<td><ul><li><code>GTC</code> (Good-till-Cancel) - Default</li><li> <code>IOC</code> (Immediate or Cancel, i.e. Taker-only)</li><li> <code>FOK</code> (Fill or Kill, for full size)</li><li><code>MAKER_ONLY</code> (i.e. Post-only)</li><li> <code>MAKER_ONLY_REPRICE</code> (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul> <em>not required for Market orders</em></td>
 </tr>
 <tr>
 <td>tag</td>
 <td>INTEGER</td>
 <td>No</td>
-<td>Iff given and non-zero, it will be echoed in the reply.</td>
+<td>If given and non-zero, it will be echoed in the reply.</td>
 </tr>
 </tbody></table>
-<h3 id='websocket-api-place-order-market-order-nbsp-nbsp-not-available'>Market Order  &nbsp;&nbsp;**<strong><em>NOT AVAILABLE</em></strong>**</h3><h3 id='websocket-api-place-order-stop-limit-order-nbsp-nbsp-not-available'>Stop Limit Order  &nbsp;&nbsp;**<strong><em>NOT AVAILABLE</em></strong>**</h3>
-<p>Requires authentication. Please subscribe user order channel to receive the order updates.</p>
-
+<h3 id='websocket-api-order-commands-stop-limit-order-nbsp-nbsp-not-available'>Stop Limit Order  &nbsp;&nbsp;**<strong><em>NOT AVAILABLE</em></strong>**</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
@@ -941,6 +934,8 @@ Please also subscribe to the user order channel to receive push notifications fo
          </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p>Requires an authenticated websocket connection.  Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to a clients orders (e.g. OrderModified etc......).</p>
+
 <p><strong>Request Parameters Specification:</strong></p>
 
 <table><thead>
@@ -994,7 +989,7 @@ Please also subscribe to the user order channel to receive push notifications fo
 <td>Stop price for the stop-limit order.<p><p>Triggered by the best bid price for the SELL side stop-limit order.<p><p>Triggered by the best ask price for the BUY side stop-limit order.</td>
 </tr>
 </tbody></table>
-<h3 id='websocket-api-place-order-cancel-order'>Cancel Order</h3>
+<h3 id='websocket-api-order-commands-cancel-order'>Cancel Order</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
@@ -1058,7 +1053,7 @@ Please also subscribe to the user order channel to receive push notifications fo
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491473"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='websocket-api-place-order-modify-order'>Modify Order</h3>
+</span></code></pre></div><h3 id='websocket-api-order-commands-modify-order'>Modify Order</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
