@@ -1258,6 +1258,13 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <p>Requires an authenticated websocket connection.<br>
 Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to a clients orders (e.g. OrderModified etc......).</p>
 
+<ul>
+<li>The price and/or quantity of an order can be modified.</li>
+<li>Modifying the price will <strong>always</strong> move the modified order to the back of the order queue.</li>
+<li>Reducing the quantity will leave the modified orders position in the order queue <strong>unchanged</strong>.</li>
+<li>Increasing the quantity will <strong>always</strong> move the modified order to the back of the order queue.</li>
+</ul>
+
 <table><thead>
 <tr>
 <th>Parameters</th>
@@ -1287,13 +1294,13 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>price</td>
 <td>DECIMAL</td>
-<td>Yes</td>
+<td>No</td>
 <td>Price for limit orders</td>
 </tr>
 <tr>
 <td>quantity</td>
 <td>DECIMAL</td>
-<td>Yes</td>
+<td>No</td>
 <td>Quantity (denominated by <code>contractValCurrency</code>)</td>
 </tr>
 </tbody></table>
