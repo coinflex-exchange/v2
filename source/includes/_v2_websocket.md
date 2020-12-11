@@ -555,13 +555,18 @@ orderId|INTEGER|YES|Unique order ID from the exchange|
 Requires an authenticated websocket connection.  
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to a clients orders (e.g. OrderModified etc......).
 
+* The price and/or quantity of an order can be modified.
+* Modifying the price will **always** move the modified order to the back of the order queue.
+* Reducing the quantity will leave the modified orders position in the order queue **unchanged**.
+* Increasing the quantity will **always** move the modified order to the back of the order queue.
+
 Parameters | Type | Required | Description|
 -------------------------- | -----|--------- | -------------|
 marketCode|STRING|Yes|market id| Market code i.e. `BTC-USD-SWAP-LIN`|
 orderId|INTEGER|YES|Unique order ID from the exchange|
 side| STRING|Yes| `BUY` or `SELL`|
-price|DECIMAL|Yes|Price for limit orders|
-quantity|DECIMAL|Yes|  Quantity (denominated by `contractValCurrency`)|
+price|DECIMAL|No|Price for limit orders|
+quantity|DECIMAL|No|  Quantity (denominated by `contractValCurrency`)|
 
 
 ## Subscriptions - Private
