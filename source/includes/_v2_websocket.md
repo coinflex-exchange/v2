@@ -570,7 +570,7 @@ AND
 Requires an authenticated websocket connection.  
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
 
-All existing single order types are supported:-
+All existing single order placement methods are supported:-
 
 * LIMIT
 * MARKET
@@ -967,10 +967,10 @@ OR
 ```
 
 Requires an authenticated websocket connection.  
-
 **Channel Update Frequency** : 250ms
 
 **Request Parameters**
+
 Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | String| Yes |  `subscribe`
@@ -978,6 +978,7 @@ args | ARRAY | Yes | `balance:all` or a list of individual assets `balance:<asse
 tag | Integer | No | If given and non-zero, it will be echoed in the reply
 
 **Channel Update Parameters**
+
 Parameters |Type| Description |
 --------|-----|---|
 table | STRING| `balance`
