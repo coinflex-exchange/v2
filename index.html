@@ -869,11 +869,20 @@
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491503359"</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491945248"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.5"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9431.48"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Requires an authenticated websocket connection.<br>
-Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).</p>
+Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).</p>
 
 <table><thead>
 <tr>
@@ -985,7 +994,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Requires an authenticated websocket connection.<br>
-Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).</p>
+Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).</p>
 
 <table><thead>
 <tr>
@@ -1100,7 +1109,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Requires an authenticated websocket connection.<br>
-Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).</p>
+Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).</p>
 
 <table><thead>
 <tr>
@@ -1271,7 +1280,17 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Requires an authenticated websocket connection.<br>
-Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).</p>
+Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).</p>
+
+<p>All existing single order types are supported:-</p>
+
+<ul>
+<li>LIMIT</li>
+<li>MARKET</li>
+<li>STOP</li>
+</ul>
+
+<p>The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time and has the same reponse message format as the reponse for the single order placement method.</p>
 
 <table><thead>
 <tr>
@@ -1300,8 +1319,6 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>An array of orders with each order in JSON format, the same format as the method for placing single orders.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be placed in a batch, assuming that each order JSON has 200 characters.</td>
 </tr>
 </tbody></table>
-
-<p>The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time and has the same message format as the reponse for the single order placement method.</p>
 <h3 id='websocket-api-order-commands-cancel-order'>Cancel Order</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
@@ -1335,14 +1352,18 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cancelorder"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"456"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491473984"</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491173964"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Requires an authenticated websocket connection.<br>
-Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to a clients orders (e.g. OrderClosed etc......).</p>
+Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderClosed etc......).</p>
 
 <table><thead>
 <tr>
@@ -1408,7 +1429,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491173547"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491032427"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">888</span><span class="p">,</span><span class="w">
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
@@ -1419,14 +1440,19 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Requires an authenticated websocket connection.<br>
-Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to a clients orders (e.g. OrderModified etc......).</p>
+Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderModified etc......).</p>
+
+<p>Currently only LIMIT orders are supported by the modify order command.</p>
 
 <ul>
-<li>The price and/or quantity of an order can be modified.</li>
-<li>Modifying the price will <strong>always</strong> move the modified order to the back of the order queue.</li>
+<li>The price and/or quantity and/or side of an order can be modified.</li>
 <li>Reducing the quantity will leave the modified orders position in the order queue <strong>unchanged</strong>.</li>
 <li>Increasing the quantity will <strong>always</strong> move the modified order to the back of the order queue.</li>
+<li>Modifying the price will <strong>always</strong> move the modified order to the back of the order queue.</li>
+<li>Modifying the side will <strong>always</strong> move the modified order to the back of the order queue.</li>
 </ul>
+
+<p>Please be aware that modifying the side of an existing GTC LIMIT order from BUY to SELL or vice versa <strong>without</strong> modifying the price could result in the order matching immediately since its quite likely the new order will become an agressing taker order.  </p>
 
 <table><thead>
 <tr>
@@ -1451,7 +1477,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>side</td>
 <td>STRING</td>
-<td>Yes</td>
+<td>No</td>
 <td><code>BUY</code> or <code>SELL</code></td>
 </tr>
 <tr>
@@ -1482,7 +1508,6 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
                 </span><span class="p">},</span><span class="w"> 
                 </span><span class="p">{</span><span class="w">
                   </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
-                  </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
                   </span><span class="nl">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="mi">304304315061864646</span><span class="p">,</span><span class="w">
                   </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10001</span><span class="p">,</span><span class="w">
                   </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.21</span><span class="w">
@@ -1535,13 +1560,10 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491503359"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="mi">304304315061932310</span><span class="p">,</span><span class="w">
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER_ONLY"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">101</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="w">                 
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
@@ -1555,16 +1577,17 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491503457"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.2"</span><span class="w">
+            </span><span class="nl">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="mi">304304315061864646</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.21</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10001</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="w">  
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Requires an authenticated websocket connection.<br>
-Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).</p>
+Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).</p>
+
+<p>The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time and has the same message format as the reponse for the single order modify method.</p>
 
 <table><thead>
 <tr>
@@ -1593,8 +1616,6 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>An array of orders with each order in JSON format, the same format as the method for modifying single orders.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be modified in a batch, assuming that each order JSON has 200 characters.</td>
 </tr>
 </tbody></table>
-
-<p>The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time and has the same message format as the reponse for the single order modify method.</p>
 <h2 id='websocket-api-subscriptions-private'>Subscriptions - Private</h2><h3 id='websocket-api-subscriptions-private-user-balance-channel'>User Balance Channel</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
