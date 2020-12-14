@@ -25,9 +25,9 @@ API keys are also only bound to a single sub-account, defined upon creation. Thi
 
 **2020-12-14**
 
-* Added to the documentation new websocket API order commands; Place Batch Orders 
-* Added to the documentation new websocket API order commands; Cancel Batch Orders 
-* Added to the documentation new websocket API order commands; Modify Batch Orders 
+* Added new websocket API Place Batch Orders command
+* Added new websocket API Cancel Batch Orders command
+* Added new websocket API Modify Batch Orders command
 
 **2020-12-10**
 
