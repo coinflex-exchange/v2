@@ -290,12 +290,21 @@ To maintain an active WebSocket connection it is imperative to either be subscri
   "message": "<errorMessage>",
   "code": "<code>",
   "submitted": false,
-  "timestamp": "1592491503359"
+  "timestamp": "1592491945248",
+  "data": {
+            "clientOrderId": "1",
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "LIMIT",
+            "quantity": "1.5",
+            "timeInForce": "GTC",
+            "price": "9431.48"
+          }
 }
 ```
 
 Requires an authenticated websocket connection.  
-Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
 
 Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
@@ -360,7 +369,7 @@ tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
 ```
 
 Requires an authenticated websocket connection.  
-Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
 
 Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
@@ -439,7 +448,7 @@ tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
 ```
 
 Requires an authenticated websocket connection.  
-Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
 
 Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
@@ -559,15 +568,21 @@ AND
 ```
 
 Requires an authenticated websocket connection.  
-Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
+
+All existing single order types are supported:-
+
+* LIMIT
+* MARKET
+* STOP
+
+The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time and has the same reponse message format as the reponse for the single order placement method.
 
 Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `placeorders`
 tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
 dataArray | ARRAY Object | Yes | An array of orders with each order in JSON format, the same format as the method for placing single orders.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be placed in a batch, assuming that each order JSON has 200 characters.
-
-The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time and has the same message format as the reponse for the single order placement method.
 
 
 ### Cancel Order
@@ -606,15 +621,19 @@ The websocket reply from the exchange will repond to each order in the batch sep
 {
   "event": "cancelorder",
   "submitted": false,
-  "tag": "1",
+  "tag": "456",
   "message": "<errorMessage>",
   "code": "<code>",
-  "timestamp": "1592491473984"
+  "timestamp": "1592491173964",
+  "data": {
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "orderId": "12"
+          }
 }
 ```
 
 Requires an authenticated websocket connection.  
-Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to a clients orders (e.g. OrderClosed etc......).
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderClosed etc......).
 
 Parameters | Type | Required | Description
 -------------------------- | -----|--------- | -------------|
@@ -668,7 +687,7 @@ orderId|INTEGER|YES|Unique order ID from the exchange|
   "tag": "1",
   "message": "<errorMessage>",
   "code": "<code>",
-  "timestamp": "1592491173547",
+  "timestamp": "1592491032427",
   "data": {
             "orderId": 888,
             "side": "BUY",
@@ -680,18 +699,23 @@ orderId|INTEGER|YES|Unique order ID from the exchange|
 ```
 
 Requires an authenticated websocket connection.  
-Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to a clients orders (e.g. OrderModified etc......).
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderModified etc......).
 
-* The price and/or quantity of an order can be modified.
-* Modifying the price will **always** move the modified order to the back of the order queue.
+Currently only LIMIT orders are supported by the modify order command.
+
+* The price and/or quantity and/or side of an order can be modified.
 * Reducing the quantity will leave the modified orders position in the order queue **unchanged**.
 * Increasing the quantity will **always** move the modified order to the back of the order queue.
+* Modifying the price will **always** move the modified order to the back of the order queue.
+* Modifying the side will **always** move the modified order to the back of the order queue.
+
+Please be aware that modifying the side of an existing GTC LIMIT order from BUY to SELL or vice versa **without** modifying the price could result in the order matching immediately since its quite likely the new order will become an agressing taker order.  
 
 Parameters | Type | Required | Description|
 -------------------------- | -----|--------- | -------------|
 marketCode|STRING|Yes|market id| Market code i.e. `BTC-USD-SWAP-LIN`|
 orderId|INTEGER|YES|Unique order ID from the exchange|
-side| STRING|Yes| `BUY` or `SELL`|
+side| STRING|No| `BUY` or `SELL`|
 price|DECIMAL|No|Price for limit orders|
 quantity|DECIMAL|No|  Quantity (denominated by `contractValCurrency`)|
 
@@ -712,7 +736,6 @@ quantity|DECIMAL|No|  Quantity (denominated by `contractValCurrency`)|
                 }, 
                 {
                   "marketCode": "BTC-USD",
-                  "side": "SELL",
                   "orderID": 304304315061864646,
                   "price": 10001,
                   "quantity": 0.21
@@ -767,13 +790,10 @@ AND
   "code": "<code>",
   "timestamp": "1592491503359",
   "data": {
-            "clientOrderId": "1",
-            "marketCode": "ETH-USD-SWAP-LIN",
+            "orderID": 304304315061932310,
             "side": "BUY",
-            "orderType": "LIMIT",
-            "quantity": "10",
-            "timeInForce": "MAKER_ONLY",
-            "price": "100"
+            "price": 101,
+            "marketCode": "ETH-USD-SWAP-LIN"                 
           }
 }
 
@@ -787,25 +807,24 @@ AND
   "code": "<code>",
   "timestamp": "1592491503457",
   "data": {
-            "clientOrderId": "2",
-            "marketCode": "BTC-USD",
-            "side": "SELL",
-            "orderType": "MARKET",
-            "quantity": "0.2"
+            "orderID": 304304315061864646,
+            "quantity": 0.21,
+            "price": 10001,
+            "marketCode": "BTC-USD"  
           }
 }
 ```
 
 Requires an authenticated websocket connection.  
-Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
+
+The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time and has the same message format as the reponse for the single order modify method.
 
 Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `modifyorders`
 tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
 dataArray | ARRAY Object | Yes | An array of orders with each order in JSON format, the same format as the method for modifying single orders.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be modified in a batch, assuming that each order JSON has 200 characters.
-
-The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time and has the same message format as the reponse for the single order modify method.
 
 
 ## Subscriptions - Private
