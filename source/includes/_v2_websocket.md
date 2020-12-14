@@ -638,8 +638,8 @@ Please also subscribe to the **User Order Channel** to receive push notification
 Parameters | Type | Required | Description
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `cancelorder`
-marketCode|STRING|YES|Market code i.e. `BTC-USD-SWAP-LIN`|
-orderId|INTEGER|YES|Unique order ID from the exchange|
+marketCode|STRING|Yes|Market code i.e. `BTC-USD-SWAP-LIN`|
+orderId|INTEGER|Yes|Unique order ID from the exchange|
 
 
 ### Cancel Batch Order
@@ -657,6 +657,7 @@ orderId|INTEGER|YES|Unique order ID from the exchange|
                 {
                   "marketCode": "BCH-USD",
                   "orderId": 34
+                }]
 }
 ```
 
@@ -727,8 +728,8 @@ Please also subscribe to the **User Order Channel** to receive push notification
 Parameters | Type | Required | Description
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `cancelorders`
-marketCode|STRING|YES|Market code i.e. `BTC-USD-SWAP-LIN`|
-orderId|INTEGER|YES|Unique order ID from the exchange|
+marketCode|STRING|Yes|Market code i.e. `BTC-USD-SWAP-LIN`|
+orderId|INTEGER|Yes|Unique order ID from the exchange|
 
 
 ### Modify Order
@@ -805,7 +806,7 @@ Parameters | Type | Required | Description|
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `modifyorder`
 marketCode|STRING|Yes|market id| Market code i.e. `BTC-USD-SWAP-LIN`|
-orderId|INTEGER|YES|Unique order ID from the exchange|
+orderId|INTEGER|Yes|Unique order ID from the exchange|
 side| STRING|No| `BUY` or `SELL`|
 price|DECIMAL|No|Price for limit orders|
 quantity|DECIMAL|No|  Quantity (denominated by `contractValCurrency`)|
