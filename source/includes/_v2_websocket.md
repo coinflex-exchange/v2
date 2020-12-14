@@ -451,6 +451,116 @@ stopPrice|DECIMAL|Yes|Stop price for the stop-limit order.<p><p>Triggered by the
 timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul>
 tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
 
+
+### Place Multiple Orders
+
+> **Request format**
+
+```json
+{
+  "op": "placeorders",
+  "tag": 123,
+  "dataArray": [{
+                  "clientOrderId": 1,
+                  "marketCode": "ETH-USD-SWAP-LIN",
+                  "side": "BUY",
+                  "orderType": "LIMIT",
+                  "quantity": 10,
+                  "timeInForce": "MAKER_ONLY",
+                  "price": 100
+                }, 
+                {
+                  "clientOrderId": 2,
+                  "marketCode": "BTC-USD",
+                  "side": "SELL",
+                  "orderType": "MARKET",
+                  "quantity": 0.2
+                }]
+}
+```
+
+> **Success response format**
+
+```json
+{
+  "event": "placeorder",
+  "submitted": true,
+  "tag": "123",
+  "timestamp": "1607639739098",
+  "data": {
+            "clientOrderId": 1,
+            "marketCode": "ETH-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "LIMIT",
+            "quantity": 10,
+            "timeInForce": "MAKER_ONLY",
+            "price": 100
+          }
+}
+
+AND
+
+{
+  "event": "placeorder",
+  "submitted": true,
+  "tag": "123",
+  "timestamp": "1607639739136",
+  "data": {
+            "clientOrderId": 2,
+            "marketCode": "BTC-USD",
+            "side": "SELL",
+            "orderType": "MARKET",
+            "quantity": 0.2
+          }
+}
+```
+
+> **Failure response format**
+
+```json
+{
+  "event": "placeorder",
+  "submitted": false,
+  "tag": "123",
+  "message": "<errorMessage>",
+  "code": "<code>",
+  "timestamp": "1592491503359",
+  "data": {
+            "clientOrderId": 1,
+            "marketCode": "ETH-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "LIMIT",
+            "quantity": 10,
+            "timeInForce": "MAKER_ONLY",
+            "price": 100
+          }
+}
+
+AND
+
+{
+  "event": "placeorder",
+  "submitted": false,
+  "tag": "123",
+  "message": "<errorMessage>",
+  "code": "<code>",
+  "timestamp": "1592491503359",
+  "data": {
+            "clientOrderId": 2,
+            "marketCode": "BTC-USD",
+            "side": "SELL",
+            "orderType": "MARKET",
+            "quantity": 0.2
+          }
+}
+```
+
+Requires an authenticated websocket connection.  
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).
+
+For the required payload parameters see documentaion above for "Limit Order", "Market Order" and "Stop Limit Order".
+
+
 ### Cancel Order
 
 > **Request format**
