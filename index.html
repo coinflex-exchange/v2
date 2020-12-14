@@ -343,13 +343,16 @@
                             <a href="#websocket-api-order-commands-stop-limit-order" class="toc-h3 toc-link" data-title="Stop Limit Order">Stop Limit Order</a>
                           </li>
                           <li>
-                            <a href="#websocket-api-order-commands-place-multiple-orders" class="toc-h3 toc-link" data-title="Place Multiple Orders">Place Multiple Orders</a>
+                            <a href="#websocket-api-order-commands-place-batch-orders" class="toc-h3 toc-link" data-title="Place Batch Orders">Place Batch Orders</a>
                           </li>
                           <li>
                             <a href="#websocket-api-order-commands-cancel-order" class="toc-h3 toc-link" data-title="Cancel Order">Cancel Order</a>
                           </li>
                           <li>
                             <a href="#websocket-api-order-commands-modify-order" class="toc-h3 toc-link" data-title="Modify Order">Modify Order</a>
+                          </li>
+                          <li>
+                            <a href="#websocket-api-order-commands-modify-batch-orders" class="toc-h3 toc-link" data-title="Modify Batch Orders">Modify Batch Orders</a>
                           </li>
                       </ul>
                   </li>
@@ -1168,7 +1171,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>If given and non-zero, it will be echoed in the reply</td>
 </tr>
 </tbody></table>
-<h3 id='websocket-api-order-commands-place-multiple-orders'>Place Multiple Orders</h3>
+<h3 id='websocket-api-order-commands-place-batch-orders'>Place Batch Orders</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
@@ -1202,13 +1205,13 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1607639739098"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER_ONLY"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
@@ -1220,11 +1223,11 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1607639739136"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.2"</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -1239,13 +1242,13 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491503359"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER_ONLY"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
@@ -1259,11 +1262,11 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491503457"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.2"</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -1294,11 +1297,11 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>dataArray</td>
 <td>ARRAY Object</td>
 <td>Yes</td>
-<td>An array of orders with each order in a JSON format, the same JSON format as the method for placing single orders.  The records of orders are still limited by the message length validation, by default it can only place at most about 20 orders in a batch assuming that each order JSON has 200 characters.</td>
+<td>An array of orders with each order in JSON format, the same format as the method for placing single orders.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be placed in a batch, assuming that each order JSON has 200 characters.</td>
 </tr>
 </tbody></table>
 
-<p>The websocket reply from the exchange takes the form of a response for each order, one at a time and has the same format as the reply for the method for placing single orders.</p>
+<p>The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time and has the same message format as the reponse for the single order placement method.</p>
 <h3 id='websocket-api-order-commands-cancel-order'>Cancel Order</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
@@ -1387,11 +1390,12 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491032427"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:{</span><span class="w">
-          </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">888</span><span class="p">,</span><span class="w">
           </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">9800</span><span class="p">,</span><span class="w">
           </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">9800</span><span class="p">,</span><span class="w">
+          </span><span class="err">'orderType':</span><span class="w"> </span><span class="err">'LIMIT'</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="w">
          </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -1404,7 +1408,14 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491173547"</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491173547"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">888</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">9800</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Requires an authenticated websocket connection.<br>
@@ -1456,6 +1467,134 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>Quantity (denominated by <code>contractValCurrency</code>)</td>
 </tr>
 </tbody></table>
+<h3 id='websocket-api-order-commands-modify-batch-orders'>Modify Batch Orders</h3>
+<blockquote>
+<p><strong>Request format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"modifyorders"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"dataArray"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+                  </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+                  </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
+                  </span><span class="nl">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="mi">304304315061932310</span><span class="p">,</span><span class="w">
+                  </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">101</span><span class="p">,</span><span class="w">
+                </span><span class="p">},</span><span class="w"> 
+                </span><span class="p">{</span><span class="w">
+                  </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
+                  </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
+                  </span><span class="nl">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="mi">304304315061864646</span><span class="p">,</span><span class="w">
+                  </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10001</span><span class="p">,</span><span class="w">
+                  </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.21</span><span class="w">
+                </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>Success response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"modifyorder"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1607639739098"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"304304315061932310"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"101"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="err">AND</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"modifyorder"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1607639739136"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"304304315061864646"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.21</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10001"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>Failure response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"placeorder"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491503359"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER_ONLY"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="err">AND</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"placeorder"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491503457"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.2"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Requires an authenticated websocket connection.<br>
+Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).</p>
+
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>op</td>
+<td>STRING</td>
+<td>Yes</td>
+<td><code>modifyorders</code></td>
+</tr>
+<tr>
+<td>tag</td>
+<td>INTEGER</td>
+<td>No</td>
+<td>If given and non-zero, it will be echoed in the reply</td>
+</tr>
+<tr>
+<td>dataArray</td>
+<td>ARRAY Object</td>
+<td>Yes</td>
+<td>An array of orders with each order in JSON format, the same format as the method for modifying single orders.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be modified in a batch, assuming that each order JSON has 200 characters.</td>
+</tr>
+</tbody></table>
+
+<p>The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time and has the same message format as the reponse for the single order modify method.</p>
 <h2 id='websocket-api-subscriptions-private'>Subscriptions - Private</h2><h3 id='websocket-api-subscriptions-private-user-balance-channel'>User Balance Channel</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
