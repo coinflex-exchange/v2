@@ -12,7 +12,7 @@
 OR
 
 {
-  "op": "<value>,
+  "op": "<value>",
   "data": {"<key1>": "<value1>",.....}
 }
 ```
@@ -763,7 +763,7 @@ orderId|INTEGER|Yes|Unique order ID from the exchange|
           "side": "BUY",
           "quantity": 2
           "price": 9800,
-          'orderType': 'LIMIT',
+          "orderType": "LIMIT",
           "marketCode": "BTC-USD-SWAP-LIN"
          }
 }
@@ -921,88 +921,76 @@ dataArray | ARRAY Object | Yes | An array of orders with each order in JSON form
 
 ## Subscriptions - Private
 
-### User Balance Channel
+### Balance Channel
 
 > **Request format**
 
 ```json
-{"op": "subscribe", "args": ["balance:all"], "tag": 1}
+{"op": "subscribe", "args": ["balance:all"], "tag": 101}
+
+OR
+
+{"op": "subscribe", "args": ["balance:USD", "balance:FLEX", ........], "tag": 101}
 ```
 
+> **Success response format**
+
 ```json
-{"op": "subscribe", "args": ["balance:USD"], "tag": 1}
+{"success": True, "tag": "101", "event": "subscribe", "channel": 'balance:all', 'timestamp': '1607985371401'}
 ```
 
-
-Requires authentication. Get the user's order information.
-
-**Channel Name** : balance: \<all or assetId>\
-
-**Update Speed** : 250ms
-
-> **Unfiltered balance update format**
+> **Balance channel format**
 
 ```json
-
 {
-    "accountId": "3",
-    "data": [
-        {
-            "total": "10000",
-            "reserved": "1000",
-            "instrumentId": "USD",
-            "available": "9000",
-            "quantityLastUpdated": "1599694369431"
-        },
-        {
-            "total": "100000",
-            "reserved": "0",
-            "instrumentId": "FLEX",
-            "available": "100000",
-            "quantityLastUpdated": "1599694343242"
-        }
-    ],
-    "table": "balance",
-    "timestamp": "1599693365059",
-    "tradeType": "Linear"
-}
-
-```
-
-> **Filtered balance update format**
-
-```json
-
-{
-    "accountId": "3",
-    "data": [
-        {
-            "total": "10000",
-            "reserved": "1000",
-            "instrumentId": "USD",
-            "available": "9000",
-            "quantityLastUpdated": "1599694369431"
-        }
-    ],
-    "table": "balance",
-    "timestamp": "1599693365059",
-    "tradeType": "Linear"
+  "table": "balance",
+  "accountId": "3",
+  "timestamp": "1599693365059",
+  "tradeType": "Linear",
+  "data": [ {
+              "total": "10000",
+              "reserved": "1000",
+              "instrumentId": "USD",
+              "available": "9000",
+              "quantityLastUpdated": "1599694369431"
+            },
+            {
+              "total": "100000",
+              "reserved": "0",
+              "instrumentId": "FLEX",
+              "available": "100000",
+              "quantityLastUpdated": "1599694343242"
+            }, 
+            ........
+          ]
 }
 ```
 
+Requires an authenticated websocket connection.  
+
+**Channel Update Frequency** : 250ms
+
+**Request Parameters**
+Parameters |Type| Required| Description |
+--------|-----|---|-----------|
+op | String| Yes |  `subscribe`
+args | ARRAY | Yes | `balance:all` or a list of individual assets `balance:<assetId>`
+tag | Integer | No | If given and non-zero, it will be echoed in the reply
+
+**Channel Update Parameters**
 Parameters |Type| Description |
 --------|-----|---|
+table | STRING| `balance`
 accountId | STRING|  Account identifier
-total | STRING | Total spot balance
-reserved | STRING | Balance reserved by orders
-instrumentId | STRING |  Base asset i.e. `BTC`
-available | STRING| Available balance (total - reserved)
-quantityLastUpdated|STRING | UNIX timestamp
-table | STRING| Table identifier
-timestamp|STRING | UNIX timestamp
-tradeType | STRING | Account type
+timestamp|STRING | Millisecond timestamp
+tradeType|STRING | `LINEAR`
+total | STRING | Total spot asset balance
+reserved | STRING | Reserved asset balance for working spot and repo orders
+instrumentId | STRING |  Base asset ID e.g. `BTC`
+available | STRING| Remaining available asset balance (total - reserved)
+quantityLastUpdated|STRING | Millisecond timestamp
 
-### User Position Channel
+### Position Channel
 
 > **Request format**
 
@@ -1014,7 +1002,7 @@ tradeType | STRING | Account type
 ```
 
 
-Requires authentication. Get the user's order information.
+Requires an authenticated websocket connection.  
 
 **Channel Name** : position: <all or marketCode>
 
@@ -1074,7 +1062,7 @@ table | STRING| Table identifier
 timestamp|STRING | UNIX timestamp
 
 
-### User Order Channel
+### Order Channel
 
 > **Request format**
 
