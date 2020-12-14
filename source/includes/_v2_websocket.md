@@ -299,6 +299,7 @@ Please also subscribe to the **User Order Channel** to receive push notification
 
 Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
+op | STRING | Yes | `placeorder`
 clientOrderId | INTEGER | No | Client assigned ID to help manage and identify orders |
 marketCode | STRING | Yes | Market code e.g. `BTC-USD-SWAP-LIN` |
 orderType | STRING | Yes |  `LIMIT` |
@@ -363,6 +364,7 @@ Please also subscribe to the **User Order Channel** to receive push notification
 
 Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
+op | STRING | Yes | `placeorder`
 clientOrderId | INTEGER | No | Client assigned ID to help manage and identify orders |
 marketCode | STRING | Yes | Market code e.g. `BTC-USD-SWAP-LIN` |
 orderType | STRING | Yes |  `MARKET` |
@@ -441,6 +443,7 @@ Please also subscribe to the **User Order Channel** to receive push notification
 
 Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
+op | STRING | Yes | `placeorder`
 clientOrderId | INTEGER | No | Client assigned ID to help manage and identify orders |
 marketCode| STRING| Yes| Market code i.e. `ETH-USD-SWAP-LIN`|
 orderType|STRING| Yes|  `STOP` for stop-limit orders (stop-market orders not supported)|
@@ -558,7 +561,13 @@ AND
 Requires an authenticated websocket connection.  
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).
 
-For the required payload parameters see documentaion above for "Limit Order", "Market Order" and "Stop Limit Order".
+Parameters | Type | Required |Description|
+-------------------------- | -----|--------- | -------------|
+op | STRING | Yes | `placeorders`
+tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
+dataArray | ARRAY Object | Yes | An array of orders with each order in a JSON format, the same JSON format as the method for placing single orders.  The records of orders are still limited by the message length validation, by default it can only place at most about 20 orders in a batch assuming that each order JSON has 200 characters.
+
+The websocket reply from the exchange takes the form of a response for each order, one at a time and has the same format as the reply for the method for placing single orders.
 
 
 ### Cancel Order
