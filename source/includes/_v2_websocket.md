@@ -576,7 +576,7 @@ All existing single order types are supported:-
 * MARKET
 * STOP
 
-The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time and has the same reponse message format as the reponse for the single order placement method.
+The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time, and has the same message format as the reponse for the single order placement method.
 
 Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
@@ -637,6 +637,96 @@ Please also subscribe to the **User Order Channel** to receive push notification
 
 Parameters | Type | Required | Description
 -------------------------- | -----|--------- | -------------|
+op | STRING | Yes | `cancelorder`
+marketCode|STRING|YES|Market code i.e. `BTC-USD-SWAP-LIN`|
+orderId|INTEGER|YES|Unique order ID from the exchange|
+
+
+### Cancel Batch Order
+
+> **Request format**
+
+```json
+{
+  "op": "cancelorders",
+  "tag": 456,
+  "dataArray": [{
+                  "marketCode": "BTC-USD-SWAP-LIN",
+                  "orderId": 12
+                },
+                {
+                  "marketCode": "BCH-USD",
+                  "orderId": 34
+}
+```
+
+> **Success response format**
+
+```json
+{
+  "event": "cancelorder",
+  "submitted": true,
+  "tag": "456",
+  "timestamp": "1592491173964",
+  "data": {
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "orderId": "12"
+          }
+}
+
+AND
+
+{
+  "event": "cancelorder",
+  "submitted": true,
+  "tag": "456",
+  "timestamp": "1592491173978",
+  "data": {
+            "marketCode": "BCH-USD",
+            "orderId": "34"
+          }
+}
+
+```
+
+> **Failure response format**
+
+```json
+{
+  "event": "cancelorder",
+  "submitted": false,
+  "tag": "456",
+  "message": "<errorMessage>",
+  "code": "<code>",
+  "timestamp": "1592491173964",
+  "data": {
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "orderId": "12"
+          }
+}
+
+AND
+
+{
+  "event": "cancelorder",
+  "submitted": false,
+  "tag": "456",
+  "message": "<errorMessage>",
+  "code": "<code>",
+  "timestamp": "1592491173989",
+  "data": {
+            "marketCode": "BCH-USD",
+            "orderId": "12"
+          }
+}
+```
+
+Requires an authenticated websocket connection.  
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderClosed etc......).
+
+Parameters | Type | Required | Description
+-------------------------- | -----|--------- | -------------|
+op | STRING | Yes | `cancelorders`
 marketCode|STRING|YES|Market code i.e. `BTC-USD-SWAP-LIN`|
 orderId|INTEGER|YES|Unique order ID from the exchange|
 
@@ -713,6 +803,7 @@ Please be aware that modifying the side of an existing GTC LIMIT order from BUY 
 
 Parameters | Type | Required | Description|
 -------------------------- | -----|--------- | -------------|
+op | STRING | Yes | `modifyorder`
 marketCode|STRING|Yes|market id| Market code i.e. `BTC-USD-SWAP-LIN`|
 orderId|INTEGER|YES|Unique order ID from the exchange|
 side| STRING|No| `BUY` or `SELL`|
@@ -818,7 +909,7 @@ AND
 Requires an authenticated websocket connection.  
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
 
-The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time and has the same message format as the reponse for the single order modify method.
+The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time, and has the same message format as the reponse for the single order modify method.
 
 Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
