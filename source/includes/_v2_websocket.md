@@ -455,7 +455,7 @@ timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `I
 tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
 
 
-### Place Multiple Orders
+### Place Batch Orders
 
 > **Request format**
 
@@ -491,13 +491,13 @@ tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
   "tag": "123",
   "timestamp": "1607639739098",
   "data": {
-            "clientOrderId": 1,
+            "clientOrderId": "1",
             "marketCode": "ETH-USD-SWAP-LIN",
             "side": "BUY",
             "orderType": "LIMIT",
-            "quantity": 10,
+            "quantity": "10",
             "timeInForce": "MAKER_ONLY",
-            "price": 100
+            "price": "100"
           }
 }
 
@@ -509,11 +509,11 @@ AND
   "tag": "123",
   "timestamp": "1607639739136",
   "data": {
-            "clientOrderId": 2,
+            "clientOrderId": "2",
             "marketCode": "BTC-USD",
             "side": "SELL",
             "orderType": "MARKET",
-            "quantity": 0.2
+            "quantity": "0.2"
           }
 }
 ```
@@ -529,13 +529,13 @@ AND
   "code": "<code>",
   "timestamp": "1592491503359",
   "data": {
-            "clientOrderId": 1,
+            "clientOrderId": "1",
             "marketCode": "ETH-USD-SWAP-LIN",
             "side": "BUY",
             "orderType": "LIMIT",
-            "quantity": 10,
+            "quantity": "10",
             "timeInForce": "MAKER_ONLY",
-            "price": 100
+            "price": "100"
           }
 }
 
@@ -549,11 +549,11 @@ AND
   "code": "<code>",
   "timestamp": "1592491503457",
   "data": {
-            "clientOrderId": 2,
+            "clientOrderId": "2",
             "marketCode": "BTC-USD",
             "side": "SELL",
             "orderType": "MARKET",
-            "quantity": 0.2
+            "quantity": "0.2"
           }
 }
 ```
@@ -565,9 +565,9 @@ Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `placeorders`
 tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
-dataArray | ARRAY Object | Yes | An array of orders with each order in a JSON format, the same JSON format as the method for placing single orders.  The records of orders are still limited by the message length validation, by default it can only place at most about 20 orders in a batch assuming that each order JSON has 200 characters.
+dataArray | ARRAY Object | Yes | An array of orders with each order in JSON format, the same format as the method for placing single orders.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be placed in a batch, assuming that each order JSON has 200 characters.
 
-The websocket reply from the exchange takes the form of a response for each order, one at a time and has the same format as the reply for the method for placing single orders.
+The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time and has the same message format as the reponse for the single order placement method.
 
 
 ### Cancel Order
@@ -649,11 +649,12 @@ orderId|INTEGER|YES|Unique order ID from the exchange|
   "tag": "1",
   "timestamp": "1592491032427",
   "data":{
-          "marketCode": "BTC-USD-SWAP-LIN",
           "orderId": 888,
           "side": "BUY",
-          "price": 9800,
           "quantity": 2
+          "price": 9800,
+          'orderType': 'LIMIT',
+          "marketCode": "BTC-USD-SWAP-LIN"
          }
 }
 ```
@@ -667,7 +668,14 @@ orderId|INTEGER|YES|Unique order ID from the exchange|
   "tag": "1",
   "message": "<errorMessage>",
   "code": "<code>",
-  "timestamp": "1592491173547"
+  "timestamp": "1592491173547",
+  "data": {
+            "orderId": 888,
+            "side": "BUY",
+            "quantity": 2,
+            "price": 9800,
+            "marketCode": "BTC-USD-SWAP-LIN"
+          }
 }
 ```
 
@@ -686,6 +694,118 @@ orderId|INTEGER|YES|Unique order ID from the exchange|
 side| STRING|Yes| `BUY` or `SELL`|
 price|DECIMAL|No|Price for limit orders|
 quantity|DECIMAL|No|  Quantity (denominated by `contractValCurrency`)|
+
+
+### Modify Batch Orders
+
+> **Request format**
+
+```json
+{
+  "op": "modifyorders",
+  "tag": 123,
+  "dataArray": [{
+                  "marketCode": "ETH-USD-SWAP-LIN",
+                  "side": "BUY",
+                  "orderID": 304304315061932310,
+                  "price": 101,
+                }, 
+                {
+                  "marketCode": "BTC-USD",
+                  "side": "SELL",
+                  "orderID": 304304315061864646,
+                  "price": 10001,
+                  "quantity": 0.21
+                }]
+}
+```
+
+> **Success response format**
+
+```json
+{
+  "event": "modifyorder",
+  "submitted": true,
+  "tag": "123",
+  "timestamp": "1607639739098",
+  "data": {
+            "orderId": "304304315061932310",
+            "side": "BUY",
+            "quantity": "5"
+            "price": "101",
+            "orderType": "LIMIT",
+            "marketCode": "ETH-USD-SWAP-LIN"
+          }
+}
+
+AND
+
+{
+  "event": "modifyorder",
+  "submitted": true,
+  "tag": "123",
+  "timestamp": "1607639739136",
+  "data": {
+            "orderId": "304304315061864646",
+            "side": "SELL",
+            "quantity": 0.21,
+            "price": "10001",
+            "orderType": "LIMIT",
+            "marketCode": "BTC-USD"
+          }
+}
+```
+
+> **Failure response format**
+
+```json
+{
+  "event": "placeorder",
+  "submitted": false,
+  "tag": "123",
+  "message": "<errorMessage>",
+  "code": "<code>",
+  "timestamp": "1592491503359",
+  "data": {
+            "clientOrderId": "1",
+            "marketCode": "ETH-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "LIMIT",
+            "quantity": "10",
+            "timeInForce": "MAKER_ONLY",
+            "price": "100"
+          }
+}
+
+AND
+
+{
+  "event": "placeorder",
+  "submitted": false,
+  "tag": "123",
+  "message": "<errorMessage>",
+  "code": "<code>",
+  "timestamp": "1592491503457",
+  "data": {
+            "clientOrderId": "2",
+            "marketCode": "BTC-USD",
+            "side": "SELL",
+            "orderType": "MARKET",
+            "quantity": "0.2"
+          }
+}
+```
+
+Requires an authenticated websocket connection.  
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to a clients orders (e.g. OrderOpened, OrderMatched etc......).
+
+Parameters | Type | Required |Description|
+-------------------------- | -----|--------- | -------------|
+op | STRING | Yes | `modifyorders`
+tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
+dataArray | ARRAY Object | Yes | An array of orders with each order in JSON format, the same format as the method for modifying single orders.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be modified in a batch, assuming that each order JSON has 200 characters.
+
+The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time and has the same message format as the reponse for the single order modify method.
 
 
 ## Subscriptions - Private
