@@ -510,9 +510,9 @@
 <p><strong>2020-12-14</strong></p>
 
 <ul>
-<li>Added to the documentation new websocket API order commands; Place Batch Orders </li>
-<li>Added to the documentation new websocket API order commands; Cancel Batch Orders </li>
-<li>Added to the documentation new websocket API order commands; Modify Batch Orders </li>
+<li>Added new websocket API Place Batch Orders command</li>
+<li>Added new websocket API Cancel Batch Orders command</li>
+<li>Added new websocket API Modify Batch Orders command</li>
 </ul>
 
 <p><strong>2020-12-10</strong></p>
@@ -1293,7 +1293,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <p>Requires an authenticated websocket connection.<br>
 Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).</p>
 
-<p>All existing single order types are supported:-</p>
+<p>All existing single order placement methods are supported:-</p>
 
 <ul>
 <li>LIMIT</li>
@@ -1786,29 +1786,94 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
           </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Requires an authenticated websocket connection.  </p>
+<p>Requires an authenticated websocket connection.<br>
+<strong>Channel Update Frequency</strong> : 250ms</p>
 
-<p><strong>Channel Update Frequency</strong> : 250ms</p>
+<p><strong>Request Parameters</strong></p>
 
-<p><strong>Request Parameters</strong>
-Parameters |Type| Required| Description |
---------|-----|---|-----------|
-op | String| Yes |  <code>subscribe</code>
-args | ARRAY | Yes | <code>balance:all</code> or a list of individual assets <code>balance:&lt;assetId&gt;</code>
-tag | Integer | No | If given and non-zero, it will be echoed in the reply</p>
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>op</td>
+<td>String</td>
+<td>Yes</td>
+<td><code>subscribe</code></td>
+</tr>
+<tr>
+<td>args</td>
+<td>ARRAY</td>
+<td>Yes</td>
+<td><code>balance:all</code> or a list of individual assets <code>balance:&lt;assetId&gt;</code></td>
+</tr>
+<tr>
+<td>tag</td>
+<td>Integer</td>
+<td>No</td>
+<td>If given and non-zero, it will be echoed in the reply</td>
+</tr>
+</tbody></table>
 
-<p><strong>Channel Update Parameters</strong>
-Parameters |Type| Description |
---------|-----|---|
-table | STRING| <code>balance</code>
-accountId | STRING|  Account identifier
-timestamp|STRING | Millisecond timestamp
-tradeType|STRING | <code>LINEAR</code>
-total | STRING | Total spot asset balance
-reserved | STRING | Reserved asset balance for working spot and repo orders
-instrumentId | STRING |  Base asset ID e.g. <code>BTC</code>
-available | STRING| Remaining available asset balance (total - reserved)
-quantityLastUpdated|STRING | Millisecond timestamp</p>
+<p><strong>Channel Update Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>table</td>
+<td>STRING</td>
+<td><code>balance</code></td>
+</tr>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account identifier</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Millisecond timestamp</td>
+</tr>
+<tr>
+<td>tradeType</td>
+<td>STRING</td>
+<td><code>LINEAR</code></td>
+</tr>
+<tr>
+<td>total</td>
+<td>STRING</td>
+<td>Total spot asset balance</td>
+</tr>
+<tr>
+<td>reserved</td>
+<td>STRING</td>
+<td>Reserved asset balance for working spot and repo orders</td>
+</tr>
+<tr>
+<td>instrumentId</td>
+<td>STRING</td>
+<td>Base asset ID e.g. <code>BTC</code></td>
+</tr>
+<tr>
+<td>available</td>
+<td>STRING</td>
+<td>Remaining available asset balance (total - reserved)</td>
+</tr>
+<tr>
+<td>quantityLastUpdated</td>
+<td>STRING</td>
+<td>Millisecond timestamp</td>
+</tr>
+</tbody></table>
 <h3 id='websocket-api-subscriptions-private-position-channel'>Position Channel</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
