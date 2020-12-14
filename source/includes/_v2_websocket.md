@@ -544,7 +544,7 @@ AND
   "tag": "123",
   "message": "<errorMessage>",
   "code": "<code>",
-  "timestamp": "1592491503359",
+  "timestamp": "1592491503457",
   "data": {
             "clientOrderId": 2,
             "marketCode": "BTC-USD",
