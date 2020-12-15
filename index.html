@@ -1766,27 +1766,18 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <blockquote>
 <p><strong>Success response format</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">The</span><span class="w"> </span><span class="err">websocket</span><span class="w"> </span><span class="err">will</span><span class="w"> </span><span class="err">reply</span><span class="w"> </span><span class="err">with</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">following</span><span class="w"> </span><span class="err">response</span><span class="w"> </span><span class="err">format</span><span class="w"> 
-</span><span class="err">for</span><span class="w"> </span><span class="err">each</span><span class="w"> </span><span class="err">balance</span><span class="w"> </span><span class="err">channel</span><span class="w"> </span><span class="err">which</span><span class="w"> </span><span class="err">has</span><span class="w"> </span><span class="err">been</span><span class="w"> </span><span class="err">successfully</span><span class="w"> </span><span class="err">subscribed</span><span class="w"> </span><span class="err">to</span><span class="w">
-
-</span><span class="p">{</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="err">True</span><span class="p">,</span><span class="w"> 
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"101"</span><span class="p">,</span><span class="w"> 
   </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
-  </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="err">'balance:all'</span><span class="p">,</span><span class="w"> 
-  </span><span class="err">'timestamp':</span><span class="w"> </span><span class="err">'</span><span class="mi">1607985371401</span><span class="err">'</span><span class="w">
+  </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"balance:all"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1607985371401"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p><strong>Balance channel format</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">If</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">subscription</span><span class="w"> </span><span class="err">has</span><span class="w"> </span><span class="err">been</span><span class="w"> </span><span class="err">made</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">balance:all,</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">data</span><span class="w"> </span><span class="err">array</span><span class="w"> </span><span class="err">in</span><span class="w"> 
-</span><span class="err">the</span><span class="w"> </span><span class="err">message</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">channel</span><span class="w"> </span><span class="err">will</span><span class="w"> </span><span class="err">contain</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">JSON</span><span class="w"> </span><span class="err">list.</span><span class="w"> </span><span class="err">Each</span><span class="w"> </span><span class="err">JSON</span><span class="w"> 
-</span><span class="err">will</span><span class="w"> </span><span class="err">contain</span><span class="w"> </span><span class="err">balance</span><span class="w"> </span><span class="err">details</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">each</span><span class="w"> </span><span class="err">spot</span><span class="w"> </span><span class="err">asset.</span><span class="w">
-</span><span class="err">Otherwise</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">data</span><span class="w"> </span><span class="err">array</span><span class="w"> </span><span class="err">will</span><span class="w"> </span><span class="err">contain</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">single</span><span class="w"> </span><span class="err">JSON</span><span class="w"> </span><span class="err">corresponding</span><span class="w">
-</span><span class="err">to</span><span class="w"> </span><span class="err">one</span><span class="w"> </span><span class="err">spot</span><span class="w"> </span><span class="err">asset</span><span class="w"> </span><span class="err">per</span><span class="w"> </span><span class="err">channel</span><span class="w"> </span><span class="err">subscription.</span><span class="w">
-
-</span><span class="p">{</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"balance"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599693365059"</span><span class="p">,</span><span class="w">
@@ -1811,6 +1802,10 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </span></code></pre></div>
 <p>Requires an authenticated websocket connection.<br>
 <strong>Channel Update Frequency</strong> : 250ms</p>
+
+<p>The websocket will reply with the shown success response format for EACH balance asset channel which has been successfully subscribed to.</p>
+
+<p>If a subscription has been made to balance:all, the data array in the message from this balance channel will contain a JSON <strong>list</strong>. Each JSON will contain balance details for each spot asset.  Otherwise the data array will contain a <strong>single</strong> JSON corresponding to one spot asset per asset channel subscription.</p>
 
 <p><strong>Request Parameters</strong></p>
 
@@ -1901,55 +1896,53 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"position:all"</span><span class="p">],</span><span class="w"> </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"position:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="w"> </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"position:all"</span><span class="p">],</span><span class="w"> 
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">102</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="err">OR</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"position:BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> </span><span class="s2">"position:BCH-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> </span><span class="err">........</span><span class="p">],</span><span class="w"> 
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">102</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>Success response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="err">True</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"102"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"position:all"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1607985371401"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>Position channel format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10000.00000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599693362699"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1.00000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"position"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599693365059"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Requires an authenticated websocket connection.  </p>
 
-<p><strong>Channel Name</strong> : position: <all or marketCode></p>
+<p><strong>Channel Update Frequency</strong> : on position update</p>
 
-<p><strong>Update Speed</strong> : on position update</p>
-
-<blockquote>
-<p><strong>Unfiltered position update format</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10000.00000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599693362699"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1.00000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"position"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599693365059"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
-<blockquote>
-<p><strong>Filtered position update format</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10000.00000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599693362699"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1.00000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"position"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599693365059"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
 <table><thead>
 <tr>
 <th>Parameters</th>
