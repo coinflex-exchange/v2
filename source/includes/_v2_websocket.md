@@ -922,7 +922,9 @@ dataArray | ARRAY Object | Yes | An array of orders with each order in JSON form
 ## Subscriptions - Private
 
 All subscriptions to private account channels requires an authenticated websocket connection.  
-Multiple subscriptions to different channels can be made within a single subscription command. `{"op": "subscribe", "args": ["<value1>", "<value2>",.....]}`
+
+Multiple subscriptions to different channels can be made within a single subscription command: 
+`{"op": "subscribe", "args": ["<value1>", "<value2>",.....]}`
 
 
 ### Balance Channel
@@ -962,7 +964,7 @@ OR
 ```json
 {
   "table": "balance",
-  "accountId": "3",
+  "accountId": "<Your account ID>",
   "timestamp": "1599693365059",
   "tradeType": "Linear",
   "data": [ {
@@ -1050,7 +1052,7 @@ OR
 ```json
 {
   "table": "position",
-  "accountId": "3",
+  "accountId": "<Your account ID>",
   "timestamp": "1607985371481",
   "data": [ {
               "entryPrice": "10000",
@@ -1083,7 +1085,6 @@ op | STRING| Yes |  `subscribe`
 args | ARRAY | Yes | `position:all` or a list of individual instruments `position:<instrumentId>`
 tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
 
-
 **Channel Update Parameters**
 
 Parameters |Type| Description |
@@ -1103,72 +1104,94 @@ instrumentId | STRING | e.g. `ETH-USD-SWAP-LIN`
 > **Request format**
 
 ```json
-{"op": "subscribe", "args": ["order:all"], "tag": 1}
+{
+  "op": "subscribe", 
+  "args": ["order:all"], 
+  "tag": 102
+}
 
 OR
 
-{"op": "subscribe", "args": ["order:BTC-USD"], "tag": 1}
+{
+  "op": "subscribe", 
+  "args": ["order:FLEX-USD", "order:ETH-USD-SWAP-LIN", .....], 
+  "tag": 102
+}
 ```
 
-
-**Channel Name** : order:\<marketCode\>
-
-**Update Speed** : real-time
-
-#### Order: OrderOpened
-
-> **Update format for limit order**
+> **Success response format**
 
 ```json
-
 {
-    "table": "order",
-    "data": [
-        {
-            "notice": "OrderOpened",
-            "accountId": "<Your account ID>",
-            "marketCode": "BTC-USD-SWAP-LIN",
-            "orderId" : "123",
-            "clientOrderId": "16",
-            "price": "9600",
-            "quantity": "2" ,
-            "orderType": "LIMIT",
-            "side": "BUY",
-            "timeInForce": "GTC",
-            "status": "OPEN",
-            "timestamp": "1594943491077"
-        }
-    ]
+  "success": True, 
+  "tag": "102", 
+  "event": "subscribe", 
+  "channel": "order:all", 
+  "timestamp": "1607985371401"
 }
-
 ```
 
-> **Update format for stop-limit order**
+**Channel Update Frequency** : real-time
+
+The websocket will reply with the shown success response format for EACH order channel which has been successfully subscribed to.
+
+**Request Parameters**
+
+Parameters |Type| Required| Description |
+--------|-----|---|-----------|
+op | STRING| Yes |  `subscribe`
+args | ARRAY | Yes | `order:all` or a list of individual markets `order:<marketCode>`
+tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
+
+
+#### OrderOpened
+
+> **OrderOpened message format - limit order**
 
 ```json
-
 {
-    "table": "order",
-    "data": [
-        {
-            "notice": "OrderOpened",
-            "accountId": "<Your account ID>",
-            "marketCode": "BTC-USD-SWAP-LIN",
-            "orderId": "22",
-            "clientOrderId": "16",
-            "quantity": "2",
-            "orderType": "STOP",
-            "side": "BUY",
-            "stopPrice": "9280",
-            "limitPrice": "9300",
-            "status": "OPEN",
-            "timestamp": "1594943491077"
-        }
-    ]
+  "table": "order",
+  "data": [ {
+              "notice": "OrderOpened",
+              "accountId": "<Your account ID>",
+              "clientOrderId": "16",
+              "orderId" : "123",
+              "price": "9600",
+              "quantity": "2" ,
+              "side": "BUY",
+              "status": "OPEN",
+              "marketCode": "BTC-USD-SWAP-LIN",
+              "timeInForce": "MAKER_ONLY",
+              "timestamp": "1594943491077"
+              "orderType": "LIMIT",
+              "isTriggered": "false"
+            } ]
 }
-
 ```
 
+> **OrderOpened message format - stop-limit order**
+
+```json
+{
+  "table": "order",
+  "data": [ {
+              "notice": "OrderOpened",
+              "accountId": "<Your account ID>",
+              "clientOrderId": "17",
+              "orderId": "2245",
+              "quantity": "2",
+              "side": "BUY",
+              "status": "OPEN",
+              "marketCode": "USDT-USD-SWAP-LIN",
+              "timeInForce": "IOC",
+              "timestamp": "1594943491077",
+              "stopPrice": "9280",
+              "limitPrice": "9300",
+              "orderType": "STOP",
+              "isTriggered": "true"
+            } ]
+}
+```
 
 Parameters |Type| Description |
 --------|-----|---|
