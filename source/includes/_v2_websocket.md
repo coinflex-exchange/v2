@@ -66,7 +66,7 @@ Websocket commands can be sent in either of the following two formats:
 * subscribe
 * unsubscribe
 
-`args`: the value(s) will be the market code(s), for example:
+`args`: the value(s) will be the instrument ID(s) or asset ID(s), for example:
 
 * order:BTC-USD-SWAP-LIN
 * futures/depth:ETH-USD-REPO-LIN
@@ -921,6 +921,10 @@ dataArray | ARRAY Object | Yes | An array of orders with each order in JSON form
 
 ## Subscriptions - Private
 
+All subscriptions to private account channels requires an authenticated websocket connection.  
+Multiple subscriptions to different channels can be made within a single subscription command. `{"op": "subscribe", "args": ["<value1>", "<value2>",.....]}`
+
+
 ### Balance Channel
 
 > **Request format**
@@ -980,7 +984,6 @@ OR
 }
 ```
 
-Requires an authenticated websocket connection.  
 **Channel Update Frequency** : 250ms
 
 The websocket will reply with the shown success response format for EACH balance asset channel which has been successfully subscribed to.
@@ -1066,7 +1069,6 @@ OR
 }
 ```
 
-Requires an authenticated websocket connection.  
 **Channel Update Frequency** : on position update
 
 The websocket will reply with the shown success response format for EACH position channel which has been successfully subscribed to.
@@ -1100,16 +1102,14 @@ instrumentId | STRING | e.g. `ETH-USD-SWAP-LIN`
 
 > **Request format**
 
-
 ```json
 {"op": "subscribe", "args": ["order:all"], "tag": 1}
-```
-```json
+
+OR
+
 {"op": "subscribe", "args": ["order:BTC-USD"], "tag": 1}
 ```
 
-
-Requires authentication. Get the user's order information.
 
 **Channel Name** : order:\<marketCode\>
 
