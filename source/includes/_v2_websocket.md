@@ -944,7 +944,8 @@ OR
 > **Success response format**
 
 ```json
-The websocket will reply with the following response format for each balance channel which has been successfully subscribed to
+The websocket will reply with the following response format 
+for each balance channel which has been successfully subscribed to
 
 {
   "success": True, 
@@ -958,6 +959,12 @@ The websocket will reply with the following response format for each balance cha
 > **Balance channel format**
 
 ```json
+If a subscription has been made to balance:all, the data array in 
+the message from this channel will contain a JSON list. Each JSON 
+will contain balance details for each spot asset.
+Otherwise the data array will contain a single JSON corresponding
+to one spot asset per channel subscription.
+
 {
   "table": "balance",
   "accountId": "3",
@@ -989,9 +996,9 @@ Requires an authenticated websocket connection.
 
 Parameters |Type| Required| Description |
 --------|-----|---|-----------|
-op | String| Yes |  `subscribe`
+op | STRING| Yes |  `subscribe`
 args | ARRAY | Yes | `balance:all` or a list of individual assets `balance:<assetId>`
-tag | Integer | No | If given and non-zero, it will be echoed in the reply
+tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
 
 **Channel Update Parameters**
 
