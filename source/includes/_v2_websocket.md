@@ -926,17 +926,33 @@ dataArray | ARRAY Object | Yes | An array of orders with each order in JSON form
 > **Request format**
 
 ```json
-{"op": "subscribe", "args": ["balance:all"], "tag": 101}
+{
+  "op": "subscribe",
+  "args": ["balance:all"],
+  "tag": 101
+}
 
 OR
 
-{"op": "subscribe", "args": ["balance:USD", "balance:FLEX", ........], "tag": 101}
+{
+  "op": "subscribe", 
+  "args": ["balance:USD", "balance:FLEX", ........], 
+  "tag": 101
+}
 ```
 
 > **Success response format**
 
 ```json
-{"success": True, "tag": "101", "event": "subscribe", "channel": 'balance:all', 'timestamp': '1607985371401'}
+The websocket will reply with the following response format for each balance channel which has been successfully subscribed to
+
+{
+  "success": True, 
+  "tag": "101", 
+  "event": "subscribe", 
+  "channel": 'balance:all', 
+  'timestamp': '1607985371401'
+}
 ```
 
 > **Balance channel format**
