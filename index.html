@@ -1766,7 +1766,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <blockquote>
 <p><strong>Success response format</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">The</span><span class="w"> </span><span class="err">websocket</span><span class="w"> </span><span class="err">will</span><span class="w"> </span><span class="err">reply</span><span class="w"> </span><span class="err">with</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">following</span><span class="w"> </span><span class="err">response</span><span class="w"> </span><span class="err">format</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">each</span><span class="w"> </span><span class="err">balance</span><span class="w"> </span><span class="err">channel</span><span class="w"> </span><span class="err">which</span><span class="w"> </span><span class="err">has</span><span class="w"> </span><span class="err">been</span><span class="w"> </span><span class="err">successfully</span><span class="w"> </span><span class="err">subscribed</span><span class="w"> </span><span class="err">to</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">The</span><span class="w"> </span><span class="err">websocket</span><span class="w"> </span><span class="err">will</span><span class="w"> </span><span class="err">reply</span><span class="w"> </span><span class="err">with</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">following</span><span class="w"> </span><span class="err">response</span><span class="w"> </span><span class="err">format</span><span class="w"> 
+</span><span class="err">for</span><span class="w"> </span><span class="err">each</span><span class="w"> </span><span class="err">balance</span><span class="w"> </span><span class="err">channel</span><span class="w"> </span><span class="err">which</span><span class="w"> </span><span class="err">has</span><span class="w"> </span><span class="err">been</span><span class="w"> </span><span class="err">successfully</span><span class="w"> </span><span class="err">subscribed</span><span class="w"> </span><span class="err">to</span><span class="w">
 
 </span><span class="p">{</span><span class="w">
   </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="err">True</span><span class="p">,</span><span class="w"> 
@@ -1779,7 +1780,13 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <blockquote>
 <p><strong>Balance channel format</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">If</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">subscription</span><span class="w"> </span><span class="err">has</span><span class="w"> </span><span class="err">been</span><span class="w"> </span><span class="err">made</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">balance:all,</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">data</span><span class="w"> </span><span class="err">array</span><span class="w"> </span><span class="err">in</span><span class="w"> 
+</span><span class="err">the</span><span class="w"> </span><span class="err">message</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">channel</span><span class="w"> </span><span class="err">will</span><span class="w"> </span><span class="err">contain</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">JSON</span><span class="w"> </span><span class="err">list.</span><span class="w"> </span><span class="err">Each</span><span class="w"> </span><span class="err">JSON</span><span class="w"> 
+</span><span class="err">will</span><span class="w"> </span><span class="err">contain</span><span class="w"> </span><span class="err">balance</span><span class="w"> </span><span class="err">details</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">each</span><span class="w"> </span><span class="err">spot</span><span class="w"> </span><span class="err">asset.</span><span class="w">
+</span><span class="err">Otherwise</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">data</span><span class="w"> </span><span class="err">array</span><span class="w"> </span><span class="err">will</span><span class="w"> </span><span class="err">contain</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">single</span><span class="w"> </span><span class="err">JSON</span><span class="w"> </span><span class="err">corresponding</span><span class="w">
+</span><span class="err">to</span><span class="w"> </span><span class="err">one</span><span class="w"> </span><span class="err">spot</span><span class="w"> </span><span class="err">asset</span><span class="w"> </span><span class="err">per</span><span class="w"> </span><span class="err">channel</span><span class="w"> </span><span class="err">subscription.</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
   </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"balance"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599693365059"</span><span class="p">,</span><span class="w">
@@ -1817,7 +1824,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </thead><tbody>
 <tr>
 <td>op</td>
-<td>String</td>
+<td>STRING</td>
 <td>Yes</td>
 <td><code>subscribe</code></td>
 </tr>
@@ -1829,7 +1836,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </tr>
 <tr>
 <td>tag</td>
-<td>Integer</td>
+<td>INTEGER</td>
 <td>No</td>
 <td>If given and non-zero, it will be echoed in the reply</td>
 </tr>
