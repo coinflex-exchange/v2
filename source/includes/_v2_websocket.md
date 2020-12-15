@@ -995,13 +995,14 @@ op | STRING| Yes |  `subscribe`
 args | ARRAY | Yes | `balance:all` or a list of individual assets `balance:<assetId>`
 tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
 
+
 **Channel Update Parameters**
 
 Parameters |Type| Description |
 --------|-----|---|
 table | STRING| `balance`
 accountId | STRING|  Account identifier
-timestamp|STRING | Millisecond timestamp
+timestamp|STRING | Current millisecond timestamp
 tradeType|STRING | `LINEAR`
 total | STRING | Total spot asset balance
 reserved | STRING | Reserved asset balance for working spot and repo orders
@@ -1045,35 +1046,54 @@ OR
 
 ```json
 {
-    "accountId": "3",
-    "data": [
-        {
-            "entryPrice": "10000.00000000",
-            "lastUpdated": "1599693362699",
-            "contractValCurrency": "BTC",
-            "quantity" : "1.00000000",
-            "instrumentId": "BTC-USD-SWAP-LIN"
-        }
-    ],
-    "table": "position",
-    "timestamp": "1599693365059"
+  "table": "position",
+  "accountId": "3",
+  "timestamp": "1607985371481",
+  "data": [ {
+              "entryPrice": "10000",
+              "lastUpdated": "1599693362699",
+              "contractValCurrency": "BTC",
+              "quantity" : "1.5",
+              "instrumentId": "BTC-USD-SWAP-LIN"
+            },
+            {
+              "entryPrice": "205.1",
+              "lastUpdated": "1599693362699",
+              "contractValCurrency": "ETH",
+              "quantity" : "-0.5",
+              "instrumentId": "ETH-USD-SWAP-LIN"
+            } ]
 }
 ```
 
 Requires an authenticated websocket connection.  
-
 **Channel Update Frequency** : on position update
+
+The websocket will reply with the shown success response format for EACH position channel which has been successfully subscribed to.
+
+If a subscription has been made to position:all, the data array in the message from this position channel will contain a JSON list. Each JSON will contain position details for instrument. Otherwise the data array will contain a single JSON corresponding to one instrument per position channel subscription.
+
+**Request Parameters**
+
+Parameters |Type| Required| Description |
+--------|-----|---|-----------|
+op | STRING| Yes |  `subscribe`
+args | ARRAY | Yes | `position:all` or a list of individual instruments `position:<instrumentId>`
+tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
+
+
+**Channel Update Parameters**
 
 Parameters |Type| Description |
 --------|-----|---|
+table | STRING| `position`
 accountId | STRING|  Account identifier
-entryPrice | STRING | Average Entry Price (Cost / Size)
-lastUpdated|STRING | UNIX timestamp
-contractValCurrency | STRING | Base Asset
-quantity | STRING| Position Size (+/-)
-instrumentId | STRING |  Market Code i.e. `BTC-USD-SWAP-LIN`
-table | STRING| Table identifier
-timestamp|STRING | UNIX timestamp
+timestamp|STRING | Current millisecond timestamp
+entryPrice | STRING | Average entry price of total position (Cost / Size)
+lastUpdated|STRING | Millisecond timestamp
+contractValCurrency | STRING | Base asset ID e.g. `ETH`
+quantity | STRING| Position size (+/-)
+instrumentId | STRING | e.g. `ETH-USD-SWAP-LIN`
 
 
 ### Order Channel
