@@ -1859,7 +1859,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>timestamp</td>
 <td>STRING</td>
-<td>Millisecond timestamp</td>
+<td>Current millisecond timestamp</td>
 </tr>
 <tr>
 <td>tradeType</td>
@@ -1925,23 +1925,63 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <p><strong>Position channel format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10000.00000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599693362699"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1.00000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"position"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599693365059"</span><span class="w">
+  </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"position"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1607985371481"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10000"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599693362699"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1.5"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"205.1"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599693362699"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"-0.5"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="w">
+            </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Requires an authenticated websocket connection.  </p>
+<p>Requires an authenticated websocket connection.<br>
+<strong>Channel Update Frequency</strong> : on position update</p>
 
-<p><strong>Channel Update Frequency</strong> : on position update</p>
+<p>The websocket will reply with the shown success response format for EACH position channel which has been successfully subscribed to.</p>
+
+<p>If a subscription has been made to position:all, the data array in the message from this position channel will contain a JSON list. Each JSON will contain position details for instrument. Otherwise the data array will contain a single JSON corresponding to one instrument per position channel subscription.</p>
+
+<p><strong>Request Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>op</td>
+<td>STRING</td>
+<td>Yes</td>
+<td><code>subscribe</code></td>
+</tr>
+<tr>
+<td>args</td>
+<td>ARRAY</td>
+<td>Yes</td>
+<td><code>position:all</code> or a list of individual instruments <code>position:&lt;instrumentId&gt;</code></td>
+</tr>
+<tr>
+<td>tag</td>
+<td>INTEGER</td>
+<td>No</td>
+<td>If given and non-zero, it will be echoed in the reply</td>
+</tr>
+</tbody></table>
+
+<p><strong>Channel Update Parameters</strong></p>
 
 <table><thead>
 <tr>
@@ -1951,44 +1991,44 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </tr>
 </thead><tbody>
 <tr>
+<td>table</td>
+<td>STRING</td>
+<td><code>position</code></td>
+</tr>
+<tr>
 <td>accountId</td>
 <td>STRING</td>
 <td>Account identifier</td>
 </tr>
 <tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Current millisecond timestamp</td>
+</tr>
+<tr>
 <td>entryPrice</td>
 <td>STRING</td>
-<td>Average Entry Price (Cost / Size)</td>
+<td>Average entry price of total position (Cost / Size)</td>
 </tr>
 <tr>
 <td>lastUpdated</td>
 <td>STRING</td>
-<td>UNIX timestamp</td>
+<td>Millisecond timestamp</td>
 </tr>
 <tr>
 <td>contractValCurrency</td>
 <td>STRING</td>
-<td>Base Asset</td>
+<td>Base asset ID e.g. <code>ETH</code></td>
 </tr>
 <tr>
 <td>quantity</td>
 <td>STRING</td>
-<td>Position Size (+/-)</td>
+<td>Position size (+/-)</td>
 </tr>
 <tr>
 <td>instrumentId</td>
 <td>STRING</td>
-<td>Market Code i.e. <code>BTC-USD-SWAP-LIN</code></td>
-</tr>
-<tr>
-<td>table</td>
-<td>STRING</td>
-<td>Table identifier</td>
-</tr>
-<tr>
-<td>timestamp</td>
-<td>STRING</td>
-<td>UNIX timestamp</td>
+<td>e.g. <code>ETH-USD-SWAP-LIN</code></td>
 </tr>
 </tbody></table>
 <h3 id='websocket-api-subscriptions-private-order-channel'>Order Channel</h3>
