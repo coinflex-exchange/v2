@@ -944,27 +944,18 @@ OR
 > **Success response format**
 
 ```json
-The websocket will reply with the following response format 
-for each balance channel which has been successfully subscribed to
-
 {
   "success": True, 
   "tag": "101", 
   "event": "subscribe", 
-  "channel": 'balance:all', 
-  'timestamp': '1607985371401'
+  "channel": "balance:all", 
+  "timestamp": "1607985371401"
 }
 ```
 
 > **Balance channel format**
 
 ```json
-If a subscription has been made to balance:all, the data array in 
-the message from this channel will contain a JSON list. Each JSON 
-will contain balance details for each spot asset.
-Otherwise the data array will contain a single JSON corresponding
-to one spot asset per channel subscription.
-
 {
   "table": "balance",
   "accountId": "3",
@@ -991,6 +982,10 @@ to one spot asset per channel subscription.
 
 Requires an authenticated websocket connection.  
 **Channel Update Frequency** : 250ms
+
+The websocket will reply with the shown success response format for EACH balance asset channel which has been successfully subscribed to.
+
+If a subscription has been made to balance:all, the data array in the message from this balance channel will contain a JSON **list**. Each JSON will contain balance details for each spot asset.  Otherwise the data array will contain a **single** JSON corresponding to one spot asset per asset channel subscription.
 
 **Request Parameters**
 
@@ -1019,60 +1014,55 @@ quantityLastUpdated|STRING | Millisecond timestamp
 > **Request format**
 
 ```json
-{"op": "subscribe", "args": ["position:all"], "tag": 1}
-```
-```json
-{"op": "subscribe", "args": ["position:BTC-USD-SWAP-LIN"], "tag": 1}
+{
+  "op": "subscribe", 
+  "args": ["position:all"], 
+  "tag": 102
+}
+
+OR
+
+{
+  "op": "subscribe",
+  "args": ["position:BTC-USD-SWAP-LIN", "position:BCH-USD-SWAP-LIN", ........], 
+  "tag": 102
+}
 ```
 
+> **Success response format**
+
+```json
+{
+  "success": True, 
+  "tag": "102", 
+  "event": "subscribe", 
+  "channel": "position:all", 
+  "timestamp": "1607985371401"
+}
+```
+
+> **Position channel format**
+
+```json
+{
+    "accountId": "3",
+    "data": [
+        {
+            "entryPrice": "10000.00000000",
+            "lastUpdated": "1599693362699",
+            "contractValCurrency": "BTC",
+            "quantity" : "1.00000000",
+            "instrumentId": "BTC-USD-SWAP-LIN"
+        }
+    ],
+    "table": "position",
+    "timestamp": "1599693365059"
+}
+```
 
 Requires an authenticated websocket connection.  
 
-**Channel Name** : position: <all or marketCode>
-
-**Update Speed** : on position update
-
-> **Unfiltered position update format**
-
-```json
-
-{
-    "accountId": "3",
-    "data": [
-        {
-            "entryPrice": "10000.00000000",
-            "lastUpdated": "1599693362699",
-            "contractValCurrency": "BTC",
-            "quantity" : "1.00000000",
-            "instrumentId": "BTC-USD-SWAP-LIN"
-        }
-    ],
-    "table": "position",
-    "timestamp": "1599693365059"
-}
-
-```
-
-> **Filtered position update format**
-
-```json
-
-{
-    "accountId": "3",
-    "data": [
-        {
-            "entryPrice": "10000.00000000",
-            "lastUpdated": "1599693362699",
-            "contractValCurrency": "BTC",
-            "quantity" : "1.00000000",
-            "instrumentId": "BTC-USD-SWAP-LIN"
-        }
-    ],
-    "table": "position",
-    "timestamp": "1599693365059"
-}
-
-```
+**Channel Update Frequency** : on position update
 
 Parameters |Type| Description |
 --------|-----|---|
