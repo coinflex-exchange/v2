@@ -1212,54 +1212,6 @@ stopPrice|STRING|Stop price submitted (only applicable for STOP order types)
 limitPrice|STRING|Limit price submitted (only applicable for STOP order types)
 
 
-#### OrderModified
-
-> **OrderModified message format**
-
-```json
-{
-  "table": "order",
-  "data": [ {
-              "notice": "OrderModified",
-              "accountId": "<Your Account ID>",
-              "clientOrderId": "16",
-              "orderId": "94335",
-              "price": "9600",
-              "quantity": "1",
-              "side": "BUY",
-              "status": "OPEN",
-              "marketCode": "BTC-USD-SWAP-LIN",    
-              "timeInForce": "GTC",
-              "timestamp": "1594943491077"
-              "orderType": "LIMIT",
-              "isTriggered": "false" 
-            } ]
-}
-```
-
-As described in a previous section [Order Commands - Modify Order](#websocket-api-order-commands-modify-order), the Modify Order command can potentially affect the queue position of the order depending on which parameter of the original order has been modified.
-
-If the orders queue position is **unchanged** because the orders quantity has been **reduced** ano no other order parameter has been changed then this **OrderModified** message will be sent via the Order Channel giving the full details of the modified order.
-
-If however the order queue position has changed becuase the orders: (1) side was modified, (2) quantity was increased, (3) price was changed or any combination of these then the exchange will cancel the orginal order with an **OrderClosed** message and open a new order with an **OrderModified** message with a new orderID to reflect the orders new position in the order queue.
-
-Parameters |Type| Description |
---------|-----|---|
-notice | STRING | `OrderModified`
-accountId | STRING | Account identifier
-clientOrderId |  STRING | Client assigned ID to help manage and identify orders
-orderId | STRING | Unique order ID from the exchange
-price |STRING | Limit price of modified order (only applicable for LIMIT order types)
-quantity | STRING| Quantity of modified order
-side|STRING|`BUY` or `SELL`
-status|STRING|  Order status
-marketCode | STRING |  Market code e.g. `BTC-USD-SWAP-LIN`
-timeInForce|STRING| Client submitted time in force, `GTC` by default
-timestamp|STRING |Current millisecond timestamp
-orderType| STRING | `LIMIT` or `STOP`
-stopPrice|STRING|Stop price of modified order (only applicable for STOP order types)
-limitPrice|STRING|Limit price of modified order (only applicable for STOP order types)
-
 #### OrderClosed
 
 > **OrderClosed message format - LIMIT orders**
@@ -1314,9 +1266,11 @@ limitPrice|STRING|Limit price of modified order (only applicable for STOP order 
 There are multiple scenarios in which an order is closed as described by the **status** field in the OrderClosed message.  In summary orders can be closed by:-
 
 * `CANCELED_BY_USER` - the client themselves initiating this action or the liquidation engine on the clients behalf if the clients account is below the maintenance margin threshold
-* `CANCELED_BY_MAKER_ONLY` - if a time in force MAKER_ONLY order is priced such that it would actually be an agressing taker trade, the order is automatically canceled by to prevent this order from matching as a taker
-* `CANCELED_BY_FOK` - since time in force fill-or-kill orders require **all** the of the order quantity to immediately take and match at the specified limit price or better, if no such match is possible then the whole order quantity is canceled
-* `CANCELED_ALL_BY_IOC` - 
+* `CANCELED_BY_MAKER_ONLY` - if a maker-only order is priced such that it would actually be an agressing taker trade, the order is automatically canceled to prevent this order from matching as a taker
+* `CANCELED_BY_FOK` - since fill-or-kill orders requires **all** of the order quantity to immediately take and match at the submitted limit price or better, if no such match is possible then the whole order quantity is canceled
+* `CANCELED_ALL_BY_IOC` - since immediate-or-cancel orders also requires an immediate match at the specified limit price or better, if no such match price is possible for **any** of the submitted order quantity then the whole order quantity is canceled
+* `CANCELED_PARTIAL_BY_IOC` - since immediate-or-cancel orders only requires **some** of the submitted order quantity to immediately take and match at the specified limit price or better, if a match is possible for only a **partial** quantity then only the remaining order quantity which didn't immediately match is canceled
+* `CANCELED_BY_AMEND` - if a **Modify Order** command updated an order such that it changed its position in the order queue, the original order would be closed and an OrderClosed notice would be broadcasted in the Order Channel with this status
 
 Parameters | Type | Description
 -------------------------- | -----|--------- |
@@ -1327,7 +1281,7 @@ orderId | STRING  |  Unique order ID from the exchange
 price|STRING |Limit price of closed order (only applicable for LIMIT order types)
 quantity|STRING |Original order quantity of closed order
 side|STRING |`BUY` or `SELL`
-status|STRING | <ul><li>`CANCELED_BY_USER`</li><li>`CANCELED_BY_MAKER_ONLY`</li><li>`CANCELED_BY_FOK`</li><li>`CANCELED_ALL_BY_IOC`</li><li>`CANCELED_PARTIAL_BY_IOC`</li></ul>
+status|STRING | <ul><li>`CANCELED_BY_USER`</li><li>`CANCELED_BY_MAKER_ONLY`</li><li>`CANCELED_BY_FOK`</li><li>`CANCELED_ALL_BY_IOC`</li><li>`CANCELED_PARTIAL_BY_IOC`</li><li>`CANCELED_BY_AMEND`</li></ul>
 marketCode|STRING |  Market code e.g. `BTC-USD-SWAP-LIN`
 timeInForce|STRING |Time in force of closed order
 timestamp|STRING |Current millisecond timestamp
@@ -1335,6 +1289,56 @@ remainQuantity|STRING |Remaining order quantity of closed order
 stopPrice|STRING|Stop price of closed stop order (only applicable for STOP order types)
 limitPrice|STRING|Limit price of closed stop order (only applicable for STOP order types)
 ordertype|STRING  | `LIMIT` or `STOP`
+
+
+#### OrderModified
+
+> **OrderModified message format**
+
+```json
+{
+  "table": "order",
+  "data": [ {
+              "notice": "OrderModified",
+              "accountId": "<Your Account ID>",
+              "clientOrderId": "16",
+              "orderId": "94335",
+              "price": "9600",
+              "quantity": "1",
+              "side": "BUY",
+              "status": "OPEN",
+              "marketCode": "BTC-USD-SWAP-LIN",    
+              "timeInForce": "GTC",
+              "timestamp": "1594943491077"
+              "orderType": "LIMIT",
+              "isTriggered": "false" 
+            } ]
+}
+```
+
+As described in a previous section [Order Commands - Modify Order](#websocket-api-order-commands-modify-order), the Modify Order command can potentially affect the queue position of the order depending on which parameter of the original order has been modified.
+
+If the orders queue position is **unchanged** because the orders quantity has been **reduced** and no other order parameter has been changed then this **OrderModified** message will be sent via the Order Channel giving the full details of the modified order.
+
+If however the order queue position has changed becuase the orders: (1) side was modified, (2) quantity was increased, (3) price was changed or any combination of these then the exchange will cancel the orginal order with an **OrderClosed** message with **status** `CANCELED_BY_AMEND`, followed by the opening of a new order with an **OrderModified** message containing a new orderID to reflect the orders new position in the order queue.
+
+Parameters |Type| Description |
+--------|-----|---|
+notice | STRING | `OrderModified`
+accountId | STRING | Account identifier
+clientOrderId |  STRING | Client assigned ID to help manage and identify orders
+orderId | STRING | Unique order ID from the exchange
+price |STRING | Limit price of modified order (only applicable for LIMIT order types)
+quantity | STRING| Quantity of modified order
+side|STRING|`BUY` or `SELL`
+status|STRING|  Order status
+marketCode | STRING |  Market code e.g. `BTC-USD-SWAP-LIN`
+timeInForce|STRING| Client submitted time in force, `GTC` by default
+timestamp|STRING |Current millisecond timestamp
+orderType| STRING | `LIMIT` or `STOP`
+stopPrice|STRING|Stop price of modified order (only applicable for STOP order types)
+limitPrice|STRING|Limit price of modified order (only applicable for STOP order types)
+
 
 #### OrderRejected
 
