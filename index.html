@@ -375,13 +375,13 @@
                                     <a href="#websocket-api-subscriptions-private-order-channel-orderopened" class="toc-h4 toc-link" data-title="OrderOpened">OrderOpened</a>
                                   </li>
                                   <li>
-                                    <a href="#websocket-api-subscriptions-private-order-channel-order-ordermodified" class="toc-h4 toc-link" data-title="Order: OrderModified">Order: OrderModified</a>
+                                    <a href="#websocket-api-subscriptions-private-order-channel-ordermodified" class="toc-h4 toc-link" data-title="OrderModified">OrderModified</a>
                                   </li>
                                   <li>
-                                    <a href="#websocket-api-subscriptions-private-order-channel-order-orderclosed" class="toc-h4 toc-link" data-title="Order: OrderClosed">Order: OrderClosed</a>
+                                    <a href="#websocket-api-subscriptions-private-order-channel-orderclosed" class="toc-h4 toc-link" data-title="OrderClosed">OrderClosed</a>
                                   </li>
                                   <li>
-                                    <a href="#websocket-api-subscriptions-private-order-channel-order-orderrejected" class="toc-h4 toc-link" data-title="Order: OrderRejected">Order: OrderRejected</a>
+                                    <a href="#websocket-api-subscriptions-private-order-channel-orderrejected" class="toc-h4 toc-link" data-title="OrderRejected">OrderRejected</a>
                                   </li>
                                   <li>
                                     <a href="#websocket-api-subscriptions-private-order-channel-order-ordermatched" class="toc-h4 toc-link" data-title="Order: OrderMatched">Order: OrderMatched</a>
@@ -1146,7 +1146,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>marketCode</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>Market code i.e. <code>ETH-USD-SWAP-LIN</code></td>
+<td>Market code e.g. <code>ETH-USD-SWAP-LIN</code></td>
 </tr>
 <tr>
 <td>orderType</td>
@@ -1394,7 +1394,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>marketCode</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>Market code i.e. <code>BTC-USD-SWAP-LIN</code></td>
+<td>Market code e.g. <code>BTC-USD-SWAP-LIN</code></td>
 </tr>
 <tr>
 <td>orderId</td>
@@ -1500,7 +1500,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>marketCode</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>Market code i.e. <code>BTC-USD-SWAP-LIN</code></td>
+<td>Market code e.g. <code>BTC-USD-SWAP-LIN</code></td>
 </tr>
 <tr>
 <td>orderId</td>
@@ -1595,7 +1595,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>marketCode</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>market id</td>
+<td>Market code e.g. <code>BTC-USD-SWAP-LIN</code></td>
 </tr>
 <tr>
 <td>orderId</td>
@@ -1748,8 +1748,9 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <h2 id='websocket-api-subscriptions-private'>Subscriptions - Private</h2>
 <p>All subscriptions to private account channels requires an authenticated websocket connection.  </p>
 
-<p>Multiple subscriptions to different channels can be made within a single subscription command: 
-<code>{&quot;op&quot;: &quot;subscribe&quot;, &quot;args&quot;: [&quot;&lt;value1&gt;&quot;, &quot;&lt;value2&gt;&quot;,.....]}</code></p>
+<p>Multiple subscriptions to different channels can be made within a single subscription command: </p>
+
+<p><code>{&quot;op&quot;: &quot;subscribe&quot;, &quot;args&quot;: [&quot;&lt;value1&gt;&quot;, &quot;&lt;value2&gt;&quot;,.....]}</code></p>
 <h3 id='websocket-api-subscriptions-private-balance-channel'>Balance Channel</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
@@ -1775,7 +1776,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="err">True</span><span class="p">,</span><span class="w"> 
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"101"</span><span class="p">,</span><span class="w"> 
   </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
-  </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"balance:all"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;args value&gt;"</span><span class="p">,</span><span class="w"> 
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1607985371401"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -1921,7 +1922,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="err">True</span><span class="p">,</span><span class="w"> 
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"102"</span><span class="p">,</span><span class="w"> 
   </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
-  </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"position:all"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;args value&gt;"</span><span class="p">,</span><span class="w"> 
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1607985371401"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -2059,7 +2060,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="err">True</span><span class="p">,</span><span class="w"> 
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"102"</span><span class="p">,</span><span class="w"> 
   </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
-  </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order:all"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;args value&gt;"</span><span class="p">,</span><span class="w"> 
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1607985371401"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -2098,7 +2099,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </tbody></table>
 <h4 id='websocket-api-subscriptions-private-order-channel-orderopened'>OrderOpened</h4>
 <blockquote>
-<p><strong>OrderOpened message format - limit order</strong></p>
+<p><strong>OrderOpened message format - LIMIT order</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
@@ -2120,7 +2121,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p><strong>OrderOpened message format - stop-limit order</strong></p>
+<p><strong>OrderOpened message format - STOP order</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
@@ -2160,24 +2161,19 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>Account identifier</td>
 </tr>
 <tr>
-<td>marketCode</td>
+<td>clientOrderId</td>
 <td>STRING</td>
-<td>Market Code i.e. <code>BTC-USD-SWAP-LIN</code></td>
+<td>Client assigned ID to help manage and identify orders</td>
 </tr>
 <tr>
 <td>orderId</td>
 <td>STRING</td>
-<td>Order ID generated by the server</td>
-</tr>
-<tr>
-<td>clientOrderId</td>
-<td>STRING</td>
-<td>Client order ID submitted</td>
+<td>Unique order ID from the exchange</td>
 </tr>
 <tr>
 <td>price</td>
 <td>STRING</td>
-<td>Price submitted</td>
+<td>Limit price submitted (only applicable for LIMIT order types)</td>
 </tr>
 <tr>
 <td>quantity</td>
@@ -2187,64 +2183,73 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>side</td>
 <td>STRING</td>
-<td><code>BUY</code> / <code>SELL</code></td>
-</tr>
-<tr>
-<td>timeInForce</td>
-<td>STRING</td>
-<td>Confirming user setting</td>
+<td><code>BUY</code> or <code>SELL</code></td>
 </tr>
 <tr>
 <td>status</td>
 <td>STRING</td>
-<td>Update status</td>
+<td>Order status</td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Market code e.g. <code>FLEX-USD</code></td>
+</tr>
+<tr>
+<td>timeInForce</td>
+<td>STRING</td>
+<td>Client submitted time in force, <code>GTC</code> by default</td>
 </tr>
 <tr>
 <td>timestamp</td>
 <td>STRING</td>
-<td>UNIX timestamp</td>
+<td>Current millisecond timestamp</td>
 </tr>
 <tr>
 <td>orderType</td>
 <td>STRING</td>
-<td>Define the order type</td>
+<td><code>LIMIT</code> or <code>STOP</code></td>
 </tr>
 <tr>
 <td>stopPrice</td>
 <td>STRING</td>
-<td>Stop price submitted</td>
+<td>Stop price submitted (only applicable for STOP order types)</td>
 </tr>
 <tr>
 <td>limitPrice</td>
 <td>STRING</td>
-<td>Limit price submitted</td>
+<td>Limit price submitted (only applicable for STOP order types)</td>
 </tr>
 </tbody></table>
-<h4 id='websocket-api-subscriptions-private-order-channel-order-ordermodified'>Order: OrderModified</h4>
+<h4 id='websocket-api-subscriptions-private-order-channel-ordermodified'>OrderModified</h4>
 <blockquote>
-<p><strong>Update format for modify order</strong></p>
+<p><strong>OrderModified message format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderModified"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9600"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1594943491077"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+  </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderModified"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"94335"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9600"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">    
+              </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1594943491077"</span><span class="w">
+              </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"isTriggered"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w"> 
+            </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-
 </span></code></pre></div>
+<p>As described in a previous section <a href="###modify-order">Order Commands - Modify Order</a>, the Modify Order command can potentially affect the queue position of the order depending on which parameter of the original order has been modified.</p>
+
+<p>If the orders queue position is <strong>unchanged</strong> because the orders quantity has been <strong>reduced</strong> ano no other order parameter has been changed then this <strong>OrderModified</strong> message will be sent via the Order Channel giving the full details of the modified order.</p>
+
+<p>If however the order queue position has changed becuase the orders: (1) side was modified, (2) quantity was increased, (3) price was changed or any combination of these then the exchange will cancel the orginal order with an <strong>OrderClosed</strong> message and open a new order with an <strong>OrderModified</strong> message with a new orderID to reflect the orders new position in the order queue.</p>
+
 <table><thead>
 <tr>
 <th>Parameters</th>
@@ -2263,57 +2268,67 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>Account identifier</td>
 </tr>
 <tr>
-<td>marketCode</td>
+<td>clientOrderId</td>
 <td>STRING</td>
-<td>Market Code i.e. <code>BTC-USD-SWAP-LIN</code></td>
+<td>Client assigned ID to help manage and identify orders</td>
 </tr>
 <tr>
 <td>orderId</td>
 <td>STRING</td>
-<td>Order ID generated by the server</td>
-</tr>
-<tr>
-<td>clientOrderId</td>
-<td>STRING</td>
-<td>Client order ID submitted</td>
+<td>Unique order ID from the exchange</td>
 </tr>
 <tr>
 <td>price</td>
 <td>STRING</td>
-<td>Price submitted</td>
+<td>Limit price of modified order (only applicable for LIMIT order types)</td>
 </tr>
 <tr>
 <td>quantity</td>
 <td>STRING</td>
-<td>Quantity submitted</td>
+<td>Quantity of modified order</td>
 </tr>
 <tr>
 <td>side</td>
 <td>STRING</td>
-<td><code>BUY</code> / <code>SELL</code></td>
-</tr>
-<tr>
-<td>timeInForce</td>
-<td>STRING</td>
-<td>Confirming user setting</td>
+<td><code>BUY</code> or <code>SELL</code></td>
 </tr>
 <tr>
 <td>status</td>
 <td>STRING</td>
-<td>Update status</td>
+<td>Order status</td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Market code e.g. <code>BTC-USD-SWAP-LIN</code></td>
+</tr>
+<tr>
+<td>timeInForce</td>
+<td>STRING</td>
+<td>Client submitted time in force, <code>GTC</code> by default</td>
 </tr>
 <tr>
 <td>timestamp</td>
 <td>STRING</td>
-<td>UNIX timestamp</td>
+<td>Current millisecond timestamp</td>
 </tr>
 <tr>
 <td>orderType</td>
 <td>STRING</td>
-<td>Define order type</td>
+<td><code>LIMIT</code> or <code>STOP</code></td>
+</tr>
+<tr>
+<td>stopPrice</td>
+<td>STRING</td>
+<td>Stop price of modified order (only applicable for STOP order types)</td>
+</tr>
+<tr>
+<td>limitPrice</td>
+<td>STRING</td>
+<td>Limit price of modified order (only applicable for STOP order types)</td>
 </tr>
 </tbody></table>
-<h4 id='websocket-api-subscriptions-private-order-channel-order-orderclosed'>Order: OrderClosed</h4>
+<h4 id='websocket-api-subscriptions-private-order-channel-orderclosed'>OrderClosed</h4>
 <blockquote>
 <p><strong>Update format for canceled partially by IOC</strong></p>
 </blockquote>
@@ -2555,7 +2570,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>Limit price submitted</td>
 </tr>
 </tbody></table>
-<h4 id='websocket-api-subscriptions-private-order-channel-order-orderrejected'>Order: OrderRejected</h4>
+<h4 id='websocket-api-subscriptions-private-order-channel-orderrejected'>OrderRejected</h4>
 <ul>
 <li>Reject order with 0 quantity</li>
 </ul>
