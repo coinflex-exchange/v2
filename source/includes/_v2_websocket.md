@@ -1237,7 +1237,7 @@ limitPrice|STRING|Limit price submitted (only applicable for STOP order types)
 }
 ```
 
-As described in a previous section [Order Commands - Modify Order](###modify-order), the Modify Order command can potentially affect the queue position of the order depending on which parameter of the original order has been modified.
+As described in a previous section [Order Commands - Modify Order](#websocket-api-order-commands-modify-order), the Modify Order command can potentially affect the queue position of the order depending on which parameter of the original order has been modified.
 
 If the orders queue position is **unchanged** because the orders quantity has been **reduced** ano no other order parameter has been changed then this **OrderModified** message will be sent via the Order Channel giving the full details of the modified order.
 
@@ -1262,190 +1262,79 @@ limitPrice|STRING|Limit price of modified order (only applicable for STOP order 
 
 #### OrderClosed
 
-> **Update format for canceled partially by IOC**
+> **OrderClosed message format - LIMIT orders**
 
 ```json
-
 {
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderClosed",
-          "accountId": "<Your account ID>",
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": "73",
-          "clientOrderId": "16",
-          "price": "9600",
-          "quantity": "2",
-          "remainQuantity": "1.5",
-          "orderType": "LIMIT",
-          "side": "BUY",
-          "timeInForce": "IOC",
-          "status": "CANCELED_PARTIAL_BY_IOC",
-          "timestamp": "1594943491077"
-        }
-    ]
-}
-
-
-```
-
-> **Update format for canceled all by IOC**
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderClosed",
-          "accountId": "<Your account ID>",
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": "133",
-          "clientOrderId": "16",
-          "price": "8000",
-          "quantity": "2",
-          "remainQuantity": "2",
-          "orderType": "LIMIT",
-          "side": "BUY",
-          "timeInForce": "IOC",
-          "status": "CANCELED_ALL_BY_IOC",
-          "timestamp": "1594943491077"
-        }
-    ]
-}
-
-
-```
-
-
-> **Update format for cancled by FOK**
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderClosed",
-          "accountId": "1",
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": "73",
-          "clientOrderId": "16",
-          "price": "9609",
-          "quantity": "2",
-          "remainQuantity": "2",
-          "orderType": "LIMIT",
-          "side": "BUY",
-          "timeInForce": "FOK",
-          "status": "CANCELED_BY_FOK",
-          "timestamp": "1594943491077"
-        }
-    ]
-}
-
-```
-
-
-> **Update format for canceled by maker only**
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderClosed",
-          "accountId": "3",
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": "7",
-          "clientOrderId": "16",
-          "price": "9600",
-          "quantity": "1",
-          "remainQuantity": "1",
-          "orderType": "LIMIT",
-          "side": "BUY",
-          "timeInForce": "MAKER_ONLY",
-          "status": "CANCELED_BY_MAKER_ONLY",
-          "timestamp": "1594943491077"
-        }
-    ]
-}
-
-```
-> **Update format for limit order canceled by user**
-
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderClosed",
-          "accountId": "1",
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": "13",
-          "clientOrderId": "16",
-          "price": "9060",
-          "quantity": "2",
-          "remainQuantity": "0",
-          "orderType": "LIMIT",
-          "side": "BUY",
-          "timeInForce": "GTC",
-          "status": "CANCELED_BY_USER",
-          "timestamp": "1594943491077"
-        }
-    ]
+  "table": "order",
+  "data": [ {
+              "notice": "OrderClosed",
+              "accountId": "<Your account ID>",
+              "clientOrderId": "16",
+              "orderId": "73",
+              "price": "9600",
+              "quantity": "2",
+              "side": "BUY",
+              "status": "<Canceled status>",
+              "marketCode": "BTC-USD-SWAP-LIN",
+              "timeInForce": "<Time in force>",
+              "timestamp": "1594943491077",
+              "remainQuantity": "1.5",
+              "orderType": "LIMIT",
+              "isTriggered": "false" 
+            } ]
 }
 ```
 
-> **Update format for stop-limit order canceled by user**
+> **OrderClosed message format - STOP orders**
 
 ```json
-
 {
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderClosed",
-          "accountId": "9",
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": "13",
-          "clientOrderId": "16",
-          "stopPrice": "9100",
-          "limitPrice": "9120",
-          "quantity": "2",
-          "remainQuantity": "1.5",
-          "orderType": "STOP",
-          "side": "BUY",
-          "timeInForce": "GTC",
-          "status": "CANCELED_BY_USER",
-          "timestamp": "1594943491077"
-        }
-    ]
+  "table": "order",
+  "data": [ {
+              "notice": "OrderClosed",
+              "accountId": "<Your account ID>",
+              "clientOrderId": "16",
+              "orderId": "13",
+              "quantity": "2",
+              "side": "BUY",
+              "status": "CANCELED_BY_USER",
+              "marketCode": "BTC-USD-SWAP-LIN",
+              "timeInForce": "<Time in force>",
+              "timestamp": "1594943491077",
+              "remainQuantity": "1.5",
+              "stopPrice": "9100",
+              "limitPrice": "9120",
+              "orderType": "STOP",
+              "isTriggered": "true" 
+            } ]
 }
-
 ```
 
-Parameters | Type | Required
+There are multiple scenarios in which an order is closed as described by the **status** field in the OrderClosed message.  In summary orders can be closed by:-
+
+* `CANCELED_BY_USER` - the client themselves initiating this action or the liquidation engine on the clients behalf if the clients account is below the maintenance margin threshold
+* `CANCELED_BY_MAKER_ONLY` - if a time in force MAKER_ONLY order is priced such that it would actually be an agressing taker trade, the order is automatically canceled by to prevent this order from matching as a taker
+* `CANCELED_BY_FOK` - since time in force fill-or-kill orders require **all** the of the order quantity to immediately take and match at the specified limit price or better, if no such match is possible then the whole order quantity is canceled
+* `CANCELED_ALL_BY_IOC` - 
+
+Parameters | Type | Description
 -------------------------- | -----|--------- |
 notice | STRING | `OrderClosed`
 accountId | STRING  |  Account identifier
-clientOrderId|STRING |  Client order ID submitted
-marketCode|STRING |  Market Code i.e. `BTC-USD-SWAP-LIN`
-orderId | STRING  |    Order ID generated by the server
-ordertype|STRING  | Define the order type
-price|STRING |Price submitted
-quantity|STRING |Quantity submitted
-remainQuantity|STRING |Remaining quantity
-side|STRING |`BUY` / `SELL`
-status|STRING | Update status
-timeInForce|STRING |Confirming user setting
-timestamp|STRING |UNIX timestamp
-stopPrice|STRING|Stop price submitted
-limitPrice|STRING|Limit price submitted
-
+clientOrderId|STRING |  Client assigned ID to help manage and identify orders
+orderId | STRING  |  Unique order ID from the exchange
+price|STRING |Limit price of closed order (only applicable for LIMIT order types)
+quantity|STRING |Original order quantity of closed order
+side|STRING |`BUY` or `SELL`
+status|STRING | <ul><li>`CANCELED_BY_USER`</li><li>`CANCELED_BY_MAKER_ONLY`</li><li>`CANCELED_BY_FOK`</li><li>`CANCELED_ALL_BY_IOC`</li><li>`CANCELED_PARTIAL_BY_IOC`</li></ul>
+marketCode|STRING |  Market code e.g. `BTC-USD-SWAP-LIN`
+timeInForce|STRING |Time in force of closed order
+timestamp|STRING |Current millisecond timestamp
+remainQuantity|STRING |Remaining order quantity of closed order
+stopPrice|STRING|Stop price of closed stop order (only applicable for STOP order types)
+limitPrice|STRING|Limit price of closed stop order (only applicable for STOP order types)
+ordertype|STRING  | `LIMIT` or `STOP`
 
 #### OrderRejected
 
