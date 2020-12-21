@@ -384,7 +384,7 @@
                                     <a href="#websocket-api-subscriptions-private-order-channel-orderrejected" class="toc-h4 toc-link" data-title="OrderRejected">OrderRejected</a>
                                   </li>
                                   <li>
-                                    <a href="#websocket-api-subscriptions-private-order-channel-order-ordermatched" class="toc-h4 toc-link" data-title="Order: OrderMatched">Order: OrderMatched</a>
+                                    <a href="#websocket-api-subscriptions-private-order-channel-ordermatched" class="toc-h4 toc-link" data-title="OrderMatched">OrderMatched</a>
                                   </li>
                               </ul>
                           </li>
@@ -2220,10 +2220,15 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>STRING</td>
 <td>Limit price submitted (only applicable for STOP order types)</td>
 </tr>
+<tr>
+<td>isTriggered</td>
+<td>STRING</td>
+<td><code>false</code> or <code>true</code></td>
+</tr>
 </tbody></table>
 <h4 id='websocket-api-subscriptions-private-order-channel-orderclosed'>OrderClosed</h4>
 <blockquote>
-<p><strong>OrderClosed message format - LIMIT orders</strong></p>
+<p><strong>OrderClosed message format - LIMIT order</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
@@ -2246,7 +2251,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p><strong>OrderClosed message format - STOP orders</strong></p>
+<p><strong>OrderClosed message format - STOP order</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
@@ -2362,6 +2367,11 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>STRING</td>
 <td><code>LIMIT</code> or <code>STOP</code></td>
 </tr>
+<tr>
+<td>isTriggered</td>
+<td>STRING</td>
+<td><code>false</code> or <code>true</code></td>
+</tr>
 </tbody></table>
 <h4 id='websocket-api-subscriptions-private-order-channel-ordermodified'>OrderModified</h4>
 <blockquote>
@@ -2371,7 +2381,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
               </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderModified"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Your account ID&gt;"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"94335"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9600"</span><span class="p">,</span><span class="w">
@@ -2468,6 +2478,11 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>limitPrice</td>
 <td>STRING</td>
 <td>Limit price of modified order (only applicable for STOP order types)</td>
+</tr>
+<tr>
+<td>isTriggered</td>
+<td>STRING</td>
+<td><code>false</code> or <code>true</code></td>
 </tr>
 </tbody></table>
 <h4 id='websocket-api-subscriptions-private-order-channel-orderrejected'>OrderRejected</h4>
@@ -2820,44 +2835,39 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>UNIX timestamp</td>
 </tr>
 </tbody></table>
-<h4 id='websocket-api-subscriptions-private-order-channel-order-ordermatched'>Order: OrderMatched</h4>
-<ul>
-<li>Limit order fully matched</li>
-</ul>
-
+<h4 id='websocket-api-subscriptions-private-order-channel-ordermatched'>OrderMatched</h4>
 <blockquote>
-<p><strong>Notification:</strong></p>
+<p><strong>OrderMatched message format - LIMIT order</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderMatched"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"39"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"matchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9300"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"matchPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9300"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderMatchType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.7"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"feeInstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILLED"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592490254"</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderMatched"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Your account ID&gt;"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"567531657"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9300"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Matched status&gt;"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592490254168"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"matchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11568123"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"matchPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9300"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"orderMatchType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">         
+              </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.7"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"feeInstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX"</span><span class="p">,</span><span class="w">   
+              </span><span class="nl">"isTriggered"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-
-
 </span></code></pre></div>
+<p>**LIMIT order</p>
+
 <table><thead>
 <tr>
 <th>Parameters</th>
@@ -2876,165 +2886,69 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>Account identifier</td>
 </tr>
 <tr>
-<td>marketCode</td>
-<td>STRING</td>
-<td>Market Code i.e. <code>BTC-USD-SWAP-LIN</code></td>
-</tr>
-<tr>
-<td>orderId</td>
-<td>STRING</td>
-<td>Order ID generated by the server</td>
-</tr>
-<tr>
-<td>orderId</td>
-<td>STRING</td>
-<td>Order ID generated by the server</td>
-</tr>
-<tr>
 <td>clientOrderId</td>
 <td>STRING</td>
-<td>Client order ID submitted</td>
+<td>Client assigned ID to help manage and identify orders</td>
+</tr>
+<tr>
+<td>orderId</td>
+<td>STRING</td>
+<td>Unique order ID from the exchange</td>
 </tr>
 <tr>
 <td>price</td>
 <td>STRING</td>
-<td>Price submitted</td>
+<td>Limit price submitted</td>
 </tr>
 <tr>
 <td>quantity</td>
 <td>STRING</td>
-<td>Quantity submitted</td>
-</tr>
-<tr>
-<td>remainQuantity</td>
-<td>STRING</td>
-<td>Remaining quantity</td>
+<td>Order quantity submitted</td>
 </tr>
 <tr>
 <td>side</td>
 <td>STRING</td>
-<td><code>BUY</code> / <code>SELL</code></td>
-</tr>
-<tr>
-<td>timeInForce</td>
-<td>STRING</td>
-<td>Confirming user setting</td>
+<td><code>BUY</code> or <code>SELL</code></td>
 </tr>
 <tr>
 <td>status</td>
 <td>STRING</td>
-<td><code>FILL</code></td>
-</tr>
-<tr>
-<td>timestamp</td>
-<td>STRING</td>
-<td>UNIX timestamp</td>
-</tr>
-<tr>
-<td>orderType</td>
-<td>STRING</td>
-<td><code>LIMIT</code></td>
-</tr>
-</tbody></table>
-
-<ul>
-<li>Limit order partially matched</li>
-</ul>
-
-<blockquote>
-<p><strong>Notification:</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderMatched"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"13"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"matchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9333"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"matchPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9333"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderMatchType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.8"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"feeInstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PARTIAL_FILL"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592497054"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-
-</span></code></pre></div>
-<table><thead>
-<tr>
-<th>Parameters</th>
-<th>Type</th>
-<th>Required</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>notice</td>
-<td>STRING</td>
-<td><code>OrderOpened</code></td>
-</tr>
-<tr>
-<td>accountId</td>
-<td>STRING</td>
-<td>Account identifier</td>
-</tr>
-<tr>
-<td>orderId</td>
-<td>STRING</td>
-<td>Order ID generated by the server</td>
-</tr>
-<tr>
-<td>fees</td>
-<td>STRING</td>
-<td>Fee amount</td>
-</tr>
-<tr>
-<td>feeInstrumentId</td>
-<td>STRING</td>
-<td>Fee instrument (e.g. USD)</td>
+<td><code>FILLED</code> or <code>PARTIAL_FILL</code></td>
 </tr>
 <tr>
 <td>marketCode</td>
 <td>STRING</td>
-<td>Market Code i.e. BTC-USD-SWAP-LIN</td>
+<td>Market code i.e. <code>BTC-USD-SWAP-LIN</code></td>
 </tr>
 <tr>
-<td>matchId</td>
+<td>timeInForce</td>
 <td>STRING</td>
-<td>Match/trade identifier</td>
+<td>Client submitted time in force</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Millisecond timestamp of order match</td>
+</tr>
+<tr>
+<td>matchID</td>
+<td>STRING</td>
+<td>Exchange match ID</td>
 </tr>
 <tr>
 <td>matchPrice</td>
 <td>STRING</td>
-<td>Traded price</td>
+<td>Match price of order from this match ID</td>
 </tr>
 <tr>
 <td>matchQuantity</td>
 <td>STRING</td>
-<td>Traded quantity</td>
+<td>Match quantity of order from this match ID</td>
 </tr>
 <tr>
-<td>orderId</td>
+<td>remainQuantity</td>
 <td>STRING</td>
-<td>Order ID generated by the server</td>
-</tr>
-<tr>
-<td>orderMatchType</td>
-<td>STRING</td>
-<td><code>MAKER</code>/<code>TAKER</code></td>
+<td>Remaining order quantity</td>
 </tr>
 <tr>
 <td>orderType</td>
@@ -3042,78 +2956,50 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td><code>LIMIT</code></td>
 </tr>
 <tr>
-<td>price</td>
+<td>fees</td>
 <td>STRING</td>
-<td>Price submitted</td>
+<td>Amount of fees paid from this match ID</td>
 </tr>
 <tr>
-<td>quantity</td>
+<td>feeInstrumentId</td>
 <td>STRING</td>
-<td>Quantity submitted</td>
+<td>Instrument ID of fees paid from this match ID</td>
 </tr>
 <tr>
-<td>remainQuantity</td>
+<td>isTriggered</td>
 <td>STRING</td>
-<td>Remaining quantity</td>
-</tr>
-<tr>
-<td>side</td>
-<td>STRING</td>
-<td><code>BUY</code> / <code>SELL</code></td>
-</tr>
-<tr>
-<td>status</td>
-<td>STRING</td>
-<td><code>PARTIAL_FILL</code></td>
-</tr>
-<tr>
-<td>timeInForce</td>
-<td>STRING</td>
-<td>Confirming user setting</td>
-</tr>
-<tr>
-<td>timestamp</td>
-<td>STRING</td>
-<td>UNIX timestamp</td>
+<td><code>false</code></td>
 </tr>
 </tbody></table>
 
-<ul>
-<li>Stop limit order partially matched:</li>
-</ul>
-
 <blockquote>
-<p><strong>Notification:</strong></p>
+<p><strong>OrderMatched message format - STOP order</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderMatched"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"matchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"stopPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9700"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9650"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"matchPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9650"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderMatchType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STOP"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.9"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"feeInstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PARTIAL_FILL"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15924979954"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderMatched"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"matchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"stopPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9700"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9650"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"matchPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9650"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"orderMatchType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STOP"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.9"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"feeInstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PARTIAL_FILL"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15924979954"</span><span class="w">
+            </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-
 </span></code></pre></div>
 <table><thead>
 <tr>
@@ -3201,152 +3087,6 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>status</td>
 <td>STRING</td>
 <td><code>PARTIAL_FILL</code></td>
-</tr>
-<tr>
-<td>timestamp</td>
-<td>STRING</td>
-<td>UNIX timestamp</td>
-</tr>
-<tr>
-<td>fees</td>
-<td>STRING</td>
-<td>Fee amount</td>
-</tr>
-<tr>
-<td>feeInstrumentId</td>
-<td>STRING</td>
-<td>Fee instrument (e.g. USD)</td>
-</tr>
-<tr>
-<td>orderType</td>
-<td>STRING</td>
-<td><code>STOP</code></td>
-</tr>
-</tbody></table>
-
-<ul>
-<li>Stop-limit order fully matched:</li>
-</ul>
-
-<blockquote>
-<p><strong>Notification:</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderMatched"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"matchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"stopPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9700"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9650"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"matchPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9650"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderMatchType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STOP"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.8"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"feeInstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILLED"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15924979954"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
-<table><thead>
-<tr>
-<th>Parameters</th>
-<th>Type</th>
-<th>Required</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>notice</td>
-<td>STRING</td>
-<td><code>OrderMatched</code></td>
-</tr>
-<tr>
-<td>accountId</td>
-<td>STRING</td>
-<td>Account identifier</td>
-</tr>
-<tr>
-<td>marketCode</td>
-<td>STRING</td>
-<td>Market Code i.e. <code>BTC-USD-SWAP-LIN</code></td>
-</tr>
-<tr>
-<td>orderId</td>
-<td>STRING</td>
-<td>Order ID generated by the server</td>
-</tr>
-<tr>
-<td>clientOrderId</td>
-<td>STRING</td>
-<td>Client order ID submitted</td>
-</tr>
-<tr>
-<td>matchId</td>
-<td>STRING</td>
-<td>Match/trade identifier</td>
-</tr>
-<tr>
-<td>stopPrice</td>
-<td>STRING</td>
-<td>Stop price submitted</td>
-</tr>
-<tr>
-<td>limitPrice</td>
-<td>STRING</td>
-<td>Limit price submitted</td>
-</tr>
-<tr>
-<td>quantity</td>
-<td>STRING</td>
-<td>Quantity submitted</td>
-</tr>
-<tr>
-<td>matchPrice</td>
-<td>STRING</td>
-<td>Traded price</td>
-</tr>
-<tr>
-<td>matchQuantity</td>
-<td>STRING</td>
-<td>Traded quantity</td>
-</tr>
-<tr>
-<td>orderMatchType</td>
-<td>STRING</td>
-<td><code>MAKER</code>/<code>TAKER</code></td>
-</tr>
-<tr>
-<td>remainQuantity</td>
-<td>SSTRING</td>
-<td>Remaining quantity</td>
-</tr>
-<tr>
-<td>side</td>
-<td>STRING</td>
-<td><code>BUY</code> / <code>SELL</code></td>
-</tr>
-<tr>
-<td>timeInForce</td>
-<td>STRING</td>
-<td>Confirming user setting</td>
-</tr>
-<tr>
-<td>status</td>
-<td>STRING</td>
-<td><code>FILLED</code></td>
 </tr>
 <tr>
 <td>timestamp</td>
