@@ -1406,12 +1406,6 @@ isTriggered|STRING|`false` (or `true` for STOP order types)
 
 #### OrderRejected
 
-There are multiple scenarios in which an order command could be rejected.  In summary orders can be rejected by:-
-
-* `REJECT_QUANTITY_ZERO` -
-* `REJECT_UNKNOW_ORDER_ACTION` -
-* `REJECT_LIMIT_ORDER_WITH_MARKET_PRICE` - 
-
 > **OrderRejected message format**
 
 ```json
@@ -1419,13 +1413,17 @@ There are multiple scenarios in which an order command could be rejected.  In su
   "table": "order",
   "data": [ {
               "notice": "OrderRejected",
-              "quantity": "0",
-              "clientOrderID": "111",
               "status": "<Rejected status>",
               "timestamp": "1592496454358"
             } ]
 }
 ```
+
+There are multiple scenarios in which an order command could be rejected.  In summary orders can be rejected by:-
+
+* `REJECT_QUANTITY_ZERO` -
+* `REJECT_UNKNOW_ORDER_ACTION` -
+* `REJECT_LIMIT_ORDER_WITH_MARKET_PRICE` - 
 
 Parameters | Type | Required
 -------------------------- | -----|--------- |
