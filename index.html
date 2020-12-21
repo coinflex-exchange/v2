@@ -381,10 +381,10 @@
                                     <a href="#websocket-api-subscriptions-private-order-channel-ordermodified" class="toc-h4 toc-link" data-title="OrderModified">OrderModified</a>
                                   </li>
                                   <li>
-                                    <a href="#websocket-api-subscriptions-private-order-channel-orderrejected" class="toc-h4 toc-link" data-title="OrderRejected">OrderRejected</a>
+                                    <a href="#websocket-api-subscriptions-private-order-channel-ordermatched" class="toc-h4 toc-link" data-title="OrderMatched">OrderMatched</a>
                                   </li>
                                   <li>
-                                    <a href="#websocket-api-subscriptions-private-order-channel-ordermatched" class="toc-h4 toc-link" data-title="OrderMatched">OrderMatched</a>
+                                    <a href="#websocket-api-subscriptions-private-order-channel-orderrejected" class="toc-h4 toc-link" data-title="OrderRejected">OrderRejected</a>
                                   </li>
                               </ul>
                           </li>
@@ -2485,359 +2485,9 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td><code>false</code> or <code>true</code></td>
 </tr>
 </tbody></table>
-<h4 id='websocket-api-subscriptions-private-order-channel-orderrejected'>OrderRejected</h4>
-<ul>
-<li>Reject order with 0 quantity</li>
-</ul>
-
-<blockquote>
-<p><strong>Notification:</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderRejected"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"clientOrderID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"13"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"REJECT_QUANTITY_ZERO"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592496454"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
-<table><thead>
-<tr>
-<th>Parameters</th>
-<th>Type</th>
-<th>Required</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>notice</td>
-<td>STRING</td>
-<td><code>OrderRejected</code></td>
-</tr>
-<tr>
-<td>quantity</td>
-<td>STRING</td>
-<td>Quantity submitted</td>
-</tr>
-<tr>
-<td>status</td>
-<td>STRING</td>
-<td>REJECT QUANTITY ZERO</td>
-</tr>
-<tr>
-<td>timestamp</td>
-<td>STRING</td>
-<td>UNIX timestamp</td>
-</tr>
-<tr>
-<td>clientOrderId</td>
-<td>STRING</td>
-<td>Client order ID submitted</td>
-</tr>
-</tbody></table>
-
-<ul>
-<li>Reject order with unknown order action</li>
-</ul>
-
-<blockquote>
-<p><strong>Notification:</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderRejected"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"REJECT_UNKNOW_ORDER_ACTION"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592495554"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
-<ul>
-<li>Reject limit order with the market price</li>
-</ul>
-
-<blockquote>
-<p><strong>Notification:</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderRejected"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"REJECT_LIMITE_ORDER_WITH_MARKET_PRICE"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592493454"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
-<ul>
-<li>Reject stop-limit order</li>
-</ul>
-
-<blockquote>
-<p><strong>Notification:</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderRejected"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STOP"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"stopPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9630"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9650"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STOP_PRICE_LARGER_THAN_LIMIT_PRICE"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592496774"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
-<table><thead>
-<tr>
-<th>Parameters</th>
-<th>Type</th>
-<th>Required</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>notice</td>
-<td>String</td>
-<td><code>OrderRejected</code></td>
-</tr>
-<tr>
-<td>accountId</td>
-<td>String</td>
-<td>Account identifier</td>
-</tr>
-<tr>
-<td>clientOrderId</td>
-<td>String</td>
-<td>Client order ID submitted</td>
-</tr>
-<tr>
-<td>orderType</td>
-<td>string</td>
-<td><code>STOP</code></td>
-</tr>
-<tr>
-<td>side</td>
-<td>String</td>
-<td><code>BUY</code> / <code>SELL</code></td>
-</tr>
-<tr>
-<td>status</td>
-<td>String</td>
-<td>STOP PRICE LARGER THAN LIMIT PRICE</td>
-</tr>
-<tr>
-<td>stopPrice</td>
-<td>String</td>
-<td>Stop price submitted</td>
-</tr>
-<tr>
-<td>limitPrice</td>
-<td>String</td>
-<td>Limit price submitted</td>
-</tr>
-<tr>
-<td>timestamp</td>
-<td>String</td>
-<td>UNIX timestamp</td>
-</tr>
-</tbody></table>
-
-<blockquote>
-<p><strong>Notification:</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderRejected"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STOP"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"stopPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9800"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9900"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STOP_PRICE_LESS_THAN_LIMIT_PRICE"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592496574"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
-<table><thead>
-<tr>
-<th>Parameters</th>
-<th>Type</th>
-<th>Required</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>notice</td>
-<td>String</td>
-<td><code>OrderRejected</code></td>
-</tr>
-<tr>
-<td>accountId</td>
-<td>String</td>
-<td>Account identifier</td>
-</tr>
-<tr>
-<td>clientOrderId</td>
-<td>String</td>
-<td>Client order ID submitted</td>
-</tr>
-<tr>
-<td>orderType</td>
-<td>string</td>
-<td><code>STOP</code></td>
-</tr>
-<tr>
-<td>side</td>
-<td>String</td>
-<td><code>BUY</code> / <code>SELL</code></td>
-</tr>
-<tr>
-<td>status</td>
-<td>String</td>
-<td>STOP PRICE LARGER THAN LIMIT PRICE</td>
-</tr>
-<tr>
-<td>stopPrice</td>
-<td>String</td>
-<td>Stop price submitted</td>
-</tr>
-<tr>
-<td>limitPrice</td>
-<td>String</td>
-<td>Limit price submitted</td>
-</tr>
-<tr>
-<td>timestamp</td>
-<td>String</td>
-<td>UNIX timestamp</td>
-</tr>
-</tbody></table>
-
-<ul>
-<li>Reject cancel an order:</li>
-</ul>
-
-<blockquote>
-<p><strong>Notification:</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderRejected"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"13"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"REJECT_CANCEL_ORDER_ID_NOT_FOUND"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592494474"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
-<table><thead>
-<tr>
-<th>Parameters</th>
-<th>Type</th>
-<th>Required</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>notice</td>
-<td>STRING</td>
-<td><code>OrderReject</code></td>
-</tr>
-<tr>
-<td>orderId</td>
-<td>STRING</td>
-<td>Order ID generated by the server</td>
-</tr>
-<tr>
-<td>status</td>
-<td>STRING</td>
-<td>REJECT CANCEL ORDER ID NOT FOUND</td>
-</tr>
-<tr>
-<td>timestamp</td>
-<td>STRING</td>
-<td>UNIX timestamp</td>
-</tr>
-</tbody></table>
-
-<ul>
-<li>Reject modify the order</li>
-</ul>
-
-<blockquote>
-<p><strong>Notification:</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderRejected"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"REJECT_AMEND_ORDER_ID_NOT_FOUND"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592498890"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
-<table><thead>
-<tr>
-<th>Parameters</th>
-<th>Type</th>
-<th>Required</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>notice</td>
-<td>STRING</td>
-<td><code>OrderRejected</code></td>
-</tr>
-<tr>
-<td>orderId</td>
-<td>STRING</td>
-<td>Order ID generated by the server</td>
-</tr>
-<tr>
-<td>status</td>
-<td>STRING</td>
-<td>REJECT AMEND ORDER ID NOT FOUND</td>
-</tr>
-<tr>
-<td>timestamp</td>
-<td>STRING</td>
-<td>UNIX timestamp</td>
-</tr>
-</tbody></table>
 <h4 id='websocket-api-subscriptions-private-order-channel-ordermatched'>OrderMatched</h4>
 <blockquote>
-<p><strong>OrderMatched message format - LIMIT order</strong></p>
+<p><strong>OrderMatched message format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
@@ -2858,7 +2508,9 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
               </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"orderMatchType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">         
+              </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Order type&gt;"</span><span class="p">,</span><span class="w"> 
+              </span><span class="nl">"stopPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9000"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9050"</span><span class="p">,</span><span class="w"> 
               </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.7"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"feeInstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX"</span><span class="p">,</span><span class="w">   
               </span><span class="nl">"isTriggered"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w">
@@ -2866,8 +2518,6 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>**LIMIT order</p>
-
 <table><thead>
 <tr>
 <th>Parameters</th>
@@ -2898,7 +2548,17 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>price</td>
 <td>STRING</td>
-<td>Limit price submitted</td>
+<td>Limit price submitted (only applicable for LIMIT order types)</td>
+</tr>
+<tr>
+<td>stopPrice</td>
+<td>STRING</td>
+<td>Stop price submitted (only applicable for STOP order types)</td>
+</tr>
+<tr>
+<td>limitPrice</td>
+<td>STRING</td>
+<td>Limit price submitted (only applicable for STOP order types)</td>
 </tr>
 <tr>
 <td>quantity</td>
@@ -2923,7 +2583,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>timeInForce</td>
 <td>STRING</td>
-<td>Client submitted time in force</td>
+<td>Client submitted time in force (only applicable for LIMIT and STOP order types)</td>
 </tr>
 <tr>
 <td>timestamp</td>
@@ -2946,6 +2606,11 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>Match quantity of order from this match ID</td>
 </tr>
 <tr>
+<td>orderMatchType</td>
+<td>STRING</td>
+<td><code>MAKER</code> or <code>TAKER</code></td>
+</tr>
+<tr>
 <td>remainQuantity</td>
 <td>STRING</td>
 <td>Remaining order quantity</td>
@@ -2953,7 +2618,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>orderType</td>
 <td>STRING</td>
-<td><code>LIMIT</code></td>
+<td><ul><li><code>LIMIT</code></li><li><code>MARKET</code></li><li><code>STOP</code></li></ul></td>
 </tr>
 <tr>
 <td>fees</td>
@@ -2968,36 +2633,29 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>isTriggered</td>
 <td>STRING</td>
-<td><code>false</code></td>
+<td><code>false</code> (or <code>true</code> for STOP order types)</td>
 </tr>
 </tbody></table>
+<h4 id='websocket-api-subscriptions-private-order-channel-orderrejected'>OrderRejected</h4>
+<p>There are multiple scenarios in which an order command could be rejected.  In summary orders can be rejected by:-</p>
+
+<ul>
+<li><code>REJECT_QUANTITY_ZERO</code> -</li>
+<li><code>REJECT_UNKNOW_ORDER_ACTION</code> -</li>
+<li><code>REJECT_LIMIT_ORDER_WITH_MARKET_PRICE</code> - </li>
+</ul>
 
 <blockquote>
-<p><strong>OrderMatched message format - STOP order</strong></p>
+<p><strong>OrderRejected message format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
-              </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderMatched"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"matchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"stopPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9700"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9650"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"matchPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9650"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"orderMatchType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STOP"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.9"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"feeInstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PARTIAL_FILL"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15924979954"</span><span class="w">
+              </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderRejected"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"clientOrderID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"111"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Rejected status&gt;"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592496454358"</span><span class="w">
             </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -3011,102 +2669,17 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>notice</td>
 <td>STRING</td>
-<td><code>OrderOpened</code></td>
-</tr>
-<tr>
-<td>accountId</td>
-<td>STRING</td>
-<td>Account identifier</td>
-</tr>
-<tr>
-<td>clientOrderId</td>
-<td>STRING</td>
-<td>Client order ID submitted</td>
-</tr>
-<tr>
-<td>marketCode</td>
-<td>STRING</td>
-<td>Fee instrument (e.g. USD)</td>
-</tr>
-<tr>
-<td>orderId</td>
-<td>STRING</td>
-<td>Order ID generated by the server</td>
-</tr>
-<tr>
-<td>matchId</td>
-<td>STRING</td>
-<td>Match/trade identifier</td>
-</tr>
-<tr>
-<td>stopPrice</td>
-<td>STRING</td>
-<td>Stop price submitted</td>
-</tr>
-<tr>
-<td>limitPrice</td>
-<td>STRING</td>
-<td>Limit price submitted</td>
-</tr>
-<tr>
-<td>quantity</td>
-<td>STRING</td>
-<td>Quantity submitted</td>
-</tr>
-<tr>
-<td>matchPrice</td>
-<td>STRING</td>
-<td>Traded price</td>
-</tr>
-<tr>
-<td>matchQuantity</td>
-<td>STRING</td>
-<td>Traded quantity</td>
-</tr>
-<tr>
-<td>orderMatchType</td>
-<td>STRING</td>
-<td><code>MAKER</code>/<code>TAKER</code></td>
-</tr>
-<tr>
-<td>remainQuantity</td>
-<td>STRING</td>
-<td>Remaining quantity</td>
-</tr>
-<tr>
-<td>side</td>
-<td>STRING</td>
-<td><code>BUY</code> / <code>SELL</code></td>
-</tr>
-<tr>
-<td>timeInForce</td>
-<td>STRING</td>
-<td>Confirming user setting</td>
+<td><code>OrderRejected</code></td>
 </tr>
 <tr>
 <td>status</td>
 <td>STRING</td>
-<td><code>PARTIAL_FILL</code></td>
+<td><ul><li><code>REJECT_QUANTITY_ZERO</code></li><li><code>REJECT_UNKNOW_ORDER_ACTION</code></li><li><code>REJECT_LIMIT_ORDER_WITH_MARKET_PRICE</code></li><li><code>STOP_PRICE_LARGER_THAN_LIMIT_PRICE</code></li><li><code>STOP_PRICE_LESS_THAN_LIMIT_PRICE</code></li><li><code>REJECT_CANCEL_ORDER_ID_NOT_FOUND</code></li><li><code>REJECT_AMEND_ORDER_ID_NOT_FOUND</code></li></ul></td>
 </tr>
 <tr>
 <td>timestamp</td>
 <td>STRING</td>
 <td>UNIX timestamp</td>
-</tr>
-<tr>
-<td>fees</td>
-<td>STRING</td>
-<td>Fee amount</td>
-</tr>
-<tr>
-<td>feeInstrumentId</td>
-<td>STRING</td>
-<td>Fee instrument (e.g. USD)</td>
-</tr>
-<tr>
-<td>orderType</td>
-<td>STRING</td>
-<td><code>STOP</code></td>
 </tr>
 </tbody></table>
 <h2 id='websocket-api-subscriptions-public'>Subscriptions - Public</h2><h3 id='websocket-api-subscriptions-public-orderbook-depth'>Orderbook Depth</h3>
