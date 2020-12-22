@@ -576,7 +576,7 @@ All existing single order placement methods are supported:-
 * MARKET
 * STOP
 
-The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time, and has the same message format as the reponse for the single order placement method.
+The websocket reply from the exchange will repond to each order in the batch separately, one order at a time, and has the same message format as the reponse for the single order placement method.
 
 Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
@@ -910,7 +910,7 @@ AND
 Requires an authenticated websocket connection.  
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
 
-The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time, and has the same message format as the reponse for the single order modify method.
+The websocket reply from the exchange will repond to each order in the batch separately, one order at a time, and has the same message format as the reponse for the single order modify method.
 
 Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
@@ -1072,7 +1072,7 @@ OR
 }
 ```
 
-**Channel Update Frequency** : on position update
+**Channel Update Frequency** : real-time, on position update
 
 The websocket will reply with the shown success response format for EACH position channel which has been successfully subscribed to.
 
@@ -1132,7 +1132,7 @@ OR
 }
 ```
 
-**Channel Update Frequency** : real-time
+**Channel Update Frequency** : real-time, on order update
 
 The websocket will reply with the shown success response format for EACH order channel which has been successfully subscribed to.
 
@@ -1421,15 +1421,19 @@ isTriggered|STRING|`false` (or `true` for STOP order types)
 
 There are multiple scenarios in which an order command could be rejected.  In summary orders can be rejected by:-
 
-* `REJECT_QUANTITY_ZERO` -
+* `REJECT_QUANTITY_ZERO` - if a place or modify order command is submitted with a quanitity of 0 then the command is rejected
 * `REJECT_UNKNOW_ORDER_ACTION` -
 * `REJECT_LIMIT_ORDER_WITH_MARKET_PRICE` - 
+* `STOP_PRICE_LARGER_THAN_LIMIT_PRICE` -
+* `STOP_PRICE_LESS_THAN_LIMIT_PRICE` - 
+* `REJECT_CANCEL_ORDER_ID_NOT_FOUND`
+* `REJECT_AMEND_ORDER_ID_NOT_FOUND` -
 
 Parameters | Type | Required
 -------------------------- | -----|--------- |
 notice | STRING | `OrderRejected`
 status|STRING|<ul><li>`REJECT_QUANTITY_ZERO`</li><li>`REJECT_UNKNOW_ORDER_ACTION`</li><li>`REJECT_LIMIT_ORDER_WITH_MARKET_PRICE`</li><li>`STOP_PRICE_LARGER_THAN_LIMIT_PRICE`</li><li>`STOP_PRICE_LESS_THAN_LIMIT_PRICE`</li><li>`REJECT_CANCEL_ORDER_ID_NOT_FOUND`</li><li>`REJECT_AMEND_ORDER_ID_NOT_FOUND`</li></ul>
-timestamp|STRING|UNIX timestamp
+timestamp|STRING|Millisecond timestamp of rejected order command
 
 
 ## Subscriptions - Public
@@ -1478,7 +1482,7 @@ bids and asks value example:
 
 ["411.8", "10", "0", "0"] 411.8 is the price; 10 is the quantity.
 
-Parameters | Parameters Types | Description|
+Parameters | Type | Description|
 -------------------------- | -----| -------------|
 bids| List<String>|Buy side depth |
 instrumentId| String|Contract ID，e.g .BTC-USD-170310 ,BTC-USDT-191227|
