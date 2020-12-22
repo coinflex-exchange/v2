@@ -1301,7 +1301,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <li>STOP</li>
 </ul>
 
-<p>The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time, and has the same message format as the reponse for the single order placement method.</p>
+<p>The websocket reply from the exchange will repond to each order in the batch separately, one order at a time, and has the same message format as the reponse for the single order placement method.</p>
 
 <table><thead>
 <tr>
@@ -1716,7 +1716,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <p>Requires an authenticated websocket connection.<br>
 Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).</p>
 
-<p>The websocket reply from the exchange will repond to each order in the batch seperately, one order at a time, and has the same message format as the reponse for the single order modify method.</p>
+<p>The websocket reply from the exchange will repond to each order in the batch separately, one order at a time, and has the same message format as the reponse for the single order modify method.</p>
 
 <table><thead>
 <tr>
@@ -1949,7 +1949,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
             </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Channel Update Frequency</strong> : on position update</p>
+<p><strong>Channel Update Frequency</strong> : real-time, on position update</p>
 
 <p>The websocket will reply with the shown success response format for EACH position channel which has been successfully subscribed to.</p>
 
@@ -2064,7 +2064,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1607985371401"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Channel Update Frequency</strong> : real-time</p>
+<p><strong>Channel Update Frequency</strong> : real-time, on order update</p>
 
 <p>The websocket will reply with the shown success response format for EACH order channel which has been successfully subscribed to.</p>
 
@@ -2637,14 +2637,6 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </tr>
 </tbody></table>
 <h4 id='websocket-api-subscriptions-private-order-channel-orderrejected'>OrderRejected</h4>
-<p>There are multiple scenarios in which an order command could be rejected.  In summary orders can be rejected by:-</p>
-
-<ul>
-<li><code>REJECT_QUANTITY_ZERO</code> -</li>
-<li><code>REJECT_UNKNOW_ORDER_ACTION</code> -</li>
-<li><code>REJECT_LIMIT_ORDER_WITH_MARKET_PRICE</code> - </li>
-</ul>
-
 <blockquote>
 <p><strong>OrderRejected message format</strong></p>
 </blockquote>
@@ -2652,13 +2644,23 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
               </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderRejected"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"clientOrderID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"111"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Rejected status&gt;"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592496454358"</span><span class="w">
             </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p>There are multiple scenarios in which an order command could be rejected.  In summary orders can be rejected by:-</p>
+
+<ul>
+<li><code>REJECT_QUANTITY_ZERO</code> - if a place or modify order command is submitted with a quanitity of 0 then the command is rejected</li>
+<li><code>REJECT_UNKNOW_ORDER_ACTION</code> -</li>
+<li><code>REJECT_LIMIT_ORDER_WITH_MARKET_PRICE</code> - </li>
+<li><code>STOP_PRICE_LARGER_THAN_LIMIT_PRICE</code> -</li>
+<li><code>STOP_PRICE_LESS_THAN_LIMIT_PRICE</code> - </li>
+<li><code>REJECT_CANCEL_ORDER_ID_NOT_FOUND</code></li>
+<li><code>REJECT_AMEND_ORDER_ID_NOT_FOUND</code> -</li>
+</ul>
+
 <table><thead>
 <tr>
 <th>Parameters</th>
@@ -2679,7 +2681,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>timestamp</td>
 <td>STRING</td>
-<td>UNIX timestamp</td>
+<td>Millisecond timestamp of rejected order command</td>
 </tr>
 </tbody></table>
 <h2 id='websocket-api-subscriptions-public'>Subscriptions - Public</h2><h3 id='websocket-api-subscriptions-public-orderbook-depth'>Orderbook Depth</h3>
@@ -2727,7 +2729,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <table><thead>
 <tr>
 <th>Parameters</th>
-<th>Parameters Types</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
