@@ -1,47 +1,73 @@
 
 # Websocket API
 
-> **Request format**
+> **Subscription request format**
 
 ```json
 {
   "op": "<value>",
+  "tag": "<value>",
   "args": ["<value1>", "<value2>",.....]
 }
+```
 
-OR
+> **Subscription success response format**
 
+```json
+{
+  "event": "<opValue>",
+  "success": true,
+  "tag": "<value>",
+  "channel": "<argsValue>",
+  "timestamp": "1592491945368"
+}
+```
+
+> **Subscription failure response format**
+
+```json
+{
+  "event": "<opValue>",
+  "success": false,
+  "tag": "<value>",
+  "message": "<errorMessage>",
+  "code": "<errorCode>",
+  "timestamp": "1592498745368"
+}
+```
+
+> **Command request format**
+
+```json
 {
   "op": "<value>",
+  "tag": "<value>",
   "data": {"<key1>": "<value1>",.....}
 }
 ```
 
-> **Success response format**
+> **Command success response format**
 
 ```json
 {
-  "event": "<op value>",
-  "channel": "<args value>",
+  "event": "<opValue>",
   "success": true
-}
-
-OR
-
-{
-  "event": "<op value>",
-  "success": true
+  "tag": "<value>",
+  "timestamp": "1592498745368",
+  "data": {"<key1>": "<value1>",.....}
 }
 ```
 
-> **Failure response format**
+> **Command failure response format**
 
 ```json
 {
-  "event": "error",
+  "event": "<opValue>",
+  "success": false,
   "message": "<errorMessage>",
-  "code": "<code>",
-  "success": false
+  "code": "<codeCode>",
+  "timestamp": "1592498745368",
+  "data": {"<key1>": "<value1>",.....}
 }
 ```
 
@@ -57,7 +83,7 @@ CoinFLEX's application programming interface (API) provides our clients programm
 
 Websocket commands can be sent in either of the following two formats:
 
-**For subscription based commands**
+**For subscription based requests**
 
 `{"op": "<value>", "args": ["<value1>", "<value2>",.....]}`
 
@@ -93,7 +119,7 @@ Websocket commands can be sent in either of the following two formats:
 ```json
 {
   "op": "login",
-  "tag": "<integer>",
+  "tag": "<value>",
   "data": {
             "apiKey": "<string>",
             "timestamp": "<string>",
@@ -161,7 +187,7 @@ ws.onopen = function () {
 {
   "event": "login",
   "success": true,
-  "tag": "1",
+  "tag": "<value>",
   "timestamp": "1592491803978"
 }
 ```
@@ -188,7 +214,7 @@ ws.onopen = function () {
 {
   "event": "login",
   "success": false,
-  "code": "<code>",
+  "code": "<errorCode>",
   "message": "<errorMessage>",
   "tag": "1",
   "timestamp": "1592492069732"
@@ -198,7 +224,7 @@ ws.onopen = function () {
 {
   "event": "login",
   "success": false,
-  "code": "<code>",
+  "code": "<errorCode>",
   "message": "<errorMessage>",
   "tag": "1",
   "timestamp": "1592492031972"
@@ -208,7 +234,7 @@ ws.onopen = function () {
 {
   "event": "login",
   "success": false,
-  "code": "<code>",
+  "code": "<errorCode>",
   "message": "<errorMessage>",
   "tag": "1",
   "timestamp": "1592492031982"
@@ -288,7 +314,7 @@ To maintain an active WebSocket connection it is imperative to either be subscri
   "submitted": false,
   "tag": "123",
   "message": "<errorMessage>",
-  "code": "<code>",
+  "code": "<errorCode>",
   "submitted": false,
   "timestamp": "1592491945248",
   "data": {
@@ -362,7 +388,7 @@ tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
   "submitted": false,
   "tag": "123",
   "message": "<errorMessage>",
-  "code": "<code>",
+  "code": "<errorCode>",
   "submitted": false,
   "timestamp": "1592491503359"
 }
@@ -432,7 +458,7 @@ tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
   "submitted": false,
   "tag": "123",
   "message": "<errorMessage>",
-  "code": "<code>",
+  "code": "<errorCode>",
   "timestamp": "1592491503359",
   "data": {
             "clientOrderId": "1",
@@ -535,7 +561,7 @@ AND
   "submitted": false,
   "tag": "123",
   "message": "<errorMessage>",
-  "code": "<code>",
+  "code": "<errorCode>",
   "timestamp": "1592491503359",
   "data": {
             "clientOrderId": "1",
@@ -555,7 +581,7 @@ AND
   "submitted": false,
   "tag": "123",
   "message": "<errorMessage>",
-  "code": "<code>",
+  "code": "<errorCode>",
   "timestamp": "1592491503457",
   "data": {
             "clientOrderId": "2",
@@ -623,7 +649,7 @@ dataArray | ARRAY Object | Yes | An array of orders with each order in JSON form
   "submitted": false,
   "tag": "456",
   "message": "<errorMessage>",
-  "code": "<code>",
+  "code": "<errorCode>",
   "timestamp": "1592491173964",
   "data": {
             "marketCode": "BTC-USD-SWAP-LIN",
@@ -698,7 +724,7 @@ AND
   "submitted": false,
   "tag": "456",
   "message": "<errorMessage>",
-  "code": "<code>",
+  "code": "<errorCode>",
   "timestamp": "1592491173964",
   "data": {
             "marketCode": "BTC-USD-SWAP-LIN",
@@ -713,7 +739,7 @@ AND
   "submitted": false,
   "tag": "456",
   "message": "<errorMessage>",
-  "code": "<code>",
+  "code": "<errorCode>",
   "timestamp": "1592491173989",
   "data": {
             "marketCode": "BCH-USD",
@@ -777,7 +803,7 @@ orderId|INTEGER|Yes|Unique order ID from the exchange|
   "submitted": false,
   "tag": "1",
   "message": "<errorMessage>",
-  "code": "<code>",
+  "code": "<errorCode>",
   "timestamp": "1592491032427",
   "data": {
             "orderId": 888,
@@ -879,7 +905,7 @@ AND
   "submitted": false,
   "tag": "123",
   "message": "<errorMessage>",
-  "code": "<code>",
+  "code": "<errorCode>",
   "timestamp": "1592491503359",
   "data": {
             "orderID": 304304315061932310,
@@ -896,7 +922,7 @@ AND
   "submitted": false,
   "tag": "123",
   "message": "<errorMessage>",
-  "code": "<code>",
+  "code": "<errorCode>",
   "timestamp": "1592491503457",
   "data": {
             "orderID": 304304315061864646,
@@ -918,6 +944,28 @@ op | STRING | Yes | `modifyorders`
 tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
 dataArray | ARRAY Object | Yes | An array of orders with each order in JSON format, the same format as the method for modifying single orders.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be modified in a batch, assuming that each order JSON has 200 characters.
 
+
+## Error Codes
+
+> **Failure response format**
+
+```json
+{
+  "event": "<opValue>",
+  "message": "<errorMessage>",
+  "code": "<errorCode>",
+  "success": false
+}
+```
+
+Requests (subscription and order commands) sent via websocket can be rejected and the failure response will return an error code and corresponding error message.
+
+Error Code | Error Message | Description
+-------------------------- | -----|--------- |
+20000 | Signature is invalid |
+20001| Operation failed, please contact system administrator |
+20002| Unexpected error, please check if your request data complies with the specification. |
+20006| Quantity must be greater than zero | if a place or modify order command is submitted with a quanitity of 0 then the command is rejected
 
 ## Subscriptions - Private
 
@@ -1402,38 +1450,6 @@ orderType|STRING|<ul><li>`LIMIT`</li><li>`MARKET`</li><li>`STOP`</li></ul>
 fees|STRING|Amount of fees paid from this match ID 
 feeInstrumentId|STRING|Instrument ID of fees paid from this match ID 
 isTriggered|STRING|`false` (or `true` for STOP order types)
-
-
-#### OrderRejected
-
-> **OrderRejected message format**
-
-```json
-{
-  "table": "order",
-  "data": [ {
-              "notice": "OrderRejected",
-              "status": "<Rejected status>",
-              "timestamp": "1592496454358"
-            } ]
-}
-```
-
-There are multiple scenarios in which an order command could be rejected.  In summary orders can be rejected by:-
-
-* `REJECT_QUANTITY_ZERO` - if a place or modify order command is submitted with a quanitity of 0 then the command is rejected
-* `REJECT_UNKNOW_ORDER_ACTION` -
-* `REJECT_LIMIT_ORDER_WITH_MARKET_PRICE` - 
-* `STOP_PRICE_LARGER_THAN_LIMIT_PRICE` -
-* `STOP_PRICE_LESS_THAN_LIMIT_PRICE` - 
-* `REJECT_CANCEL_ORDER_ID_NOT_FOUND`
-* `REJECT_AMEND_ORDER_ID_NOT_FOUND` -
-
-Parameters | Type | Required
--------------------------- | -----|--------- |
-notice | STRING | `OrderRejected`
-status|STRING|<ul><li>`REJECT_QUANTITY_ZERO`</li><li>`REJECT_UNKNOW_ORDER_ACTION`</li><li>`REJECT_LIMIT_ORDER_WITH_MARKET_PRICE`</li><li>`STOP_PRICE_LARGER_THAN_LIMIT_PRICE`</li><li>`STOP_PRICE_LESS_THAN_LIMIT_PRICE`</li><li>`REJECT_CANCEL_ORDER_ID_NOT_FOUND`</li><li>`REJECT_AMEND_ORDER_ID_NOT_FOUND`</li></ul>
-timestamp|STRING|Millisecond timestamp of rejected order command
 
 
 ## Subscriptions - Public
