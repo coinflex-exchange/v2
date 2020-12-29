@@ -1491,18 +1491,24 @@ isTriggered|STRING|`false` (or `true` for STOP order types)
 
 
 ## Subscriptions - Public
+
+All subscriptions to public channels does **not** require an authenticated websocket connection.
+
+Multiple subscriptions to different channels can be made within a single subscription command:
+`{"op": "subscribe", "args": ["<value1>", "<value2>",.....]}`
+
 ### Orderbook Depth
 
-> **Request**
+> **Request format**
 
 ```json
 {
   "op": "subscribe",
-  "args": ["futures/depth:BTC-USD-190628"]
+  "args": ["futures/depth:BTC-USD-SWAP-LIN"]
 }
 ```
 
-> **Response**
+> **Orderbook depth channel format**
 
 ```json
 {
