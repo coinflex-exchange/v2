@@ -958,14 +958,42 @@ dataArray | ARRAY Object | Yes | An array of orders with each order in JSON form
 }
 ```
 
-Requests (subscription and order commands) sent via websocket can be rejected and the failure response will return an error code and corresponding error message.
+Both subscription and order command requests sent via websocket can be rejected and the failure response will return an error code and a corresponding error message explaining the reason for the rejection.
 
-Error Code | Error Message | Description
--------------------------- | -----|--------- |
-20000 | Signature is invalid |
-20001| Operation failed, please contact system administrator |
-20002| Unexpected error, please check if your request data complies with the specification. |
-20006| Quantity must be greater than zero | if a place or modify order command is submitted with a quanitity of 0 then the command is rejected
+Error Code | Error Message 
+-----------| -------- 
+20000| Signature is invalid 
+20001| Operation failed, please contact system administrator 
+20002| Unexpected error, please check if your request data complies with the specification. 
+20003| Unrecognized operation
+05001| Your operation authority is invalid
+20005| Already logged in
+20006| Quantity must be greater than zero 
+20007| You are accessing server too rapidly 
+20008| clientOrderId must be greater than zero if provided 
+20009| JSON data format is invalid 
+20010| Either clientOrderId or orderId is required 
+20011| marketCode is required 
+20012| side is required 
+20013| orderType is required 
+20014| clientOrderId is not long type 
+20015| marketCode is invalid 
+20016| side is invalid 
+20017| orderType is invalid 
+20018| timeInForce is invalid 
+20019| orderId is invalid 
+20020| stopPrice or limitPrice is invalid 
+20021| price is invalid 
+20022| price is required for LIMIT order 
+20023| timestamp is required 
+20024| timestamp exceeds the threshold 
+20025| API key is invalid 
+20026| Token is invalid or expired 
+20027| The length of the message exceeds the maximum length 
+20028| price or stopPrice or limitPrice must be greater than zero 
+20029| stopPrice must be less than limitPrice for Buy Stop Order 
+20030| limitPrice must be less than stopPrice for Sell Stop Order
+
 
 ## Subscriptions - Private
 
