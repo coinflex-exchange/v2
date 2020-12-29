@@ -360,6 +360,9 @@
                       </ul>
                   </li>
                   <li>
+                    <a href="#websocket-api-error-codes" class="toc-h2 toc-link" data-title="Error Codes">Error Codes</a>
+                  </li>
+                  <li>
                     <a href="#websocket-api-subscriptions-private" class="toc-h2 toc-link" data-title="Subscriptions - Private">Subscriptions - Private</a>
                       <ul class="toc-list-h3">
                           <li>
@@ -382,9 +385,6 @@
                                   </li>
                                   <li>
                                     <a href="#websocket-api-subscriptions-private-order-channel-ordermatched" class="toc-h4 toc-link" data-title="OrderMatched">OrderMatched</a>
-                                  </li>
-                                  <li>
-                                    <a href="#websocket-api-subscriptions-private-order-channel-orderrejected" class="toc-h4 toc-link" data-title="OrderRejected">OrderRejected</a>
                                   </li>
                               </ul>
                           </li>
@@ -572,44 +572,67 @@
 </tbody></table>
 <h1 id='websocket-api'>Websocket API</h1>
 <blockquote>
-<p><strong>Request format</strong></p>
+<p><strong>Subscription request format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;value1&gt;"</span><span class="p">,</span><span class="w"> </span><span class="s2">"&lt;value2&gt;"</span><span class="p">,</span><span class="err">.....</span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-
-</span><span class="err">OR</span><span class="w">
-
-</span><span class="p">{</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>Subscription success response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;opValue&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;argsValue&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491945368"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>Subscription failure response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;opValue&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorCode&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592498745368"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>Command request format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"&lt;key1&gt;"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value1&gt;"</span><span class="p">,</span><span class="err">.....</span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p><strong>Success response format</strong></p>
+<p><strong>Command success response format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;op value&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;args value&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;opValue&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span><span class="err">OR</span><span class="w">
-
-</span><span class="p">{</span><span class="w">
-  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;op value&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592498745368"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"&lt;key1&gt;"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value1&gt;"</span><span class="p">,</span><span class="err">.....</span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p><strong>Failure response format</strong></p>
+<p><strong>Command failure response format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;opValue&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;codeCode&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592498745368"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"&lt;key1&gt;"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value1&gt;"</span><span class="p">,</span><span class="err">.....</span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p><strong>TEST</strong> site</p>
@@ -628,7 +651,7 @@
 
 <p>Websocket commands can be sent in either of the following two formats:</p>
 
-<p><strong>For subscription based commands</strong></p>
+<p><strong>For subscription based requests</strong></p>
 
 <p><code>{&quot;op&quot;: &quot;&lt;value&gt;&quot;, &quot;args&quot;: [&quot;&lt;value1&gt;&quot;, &quot;&lt;value2&gt;&quot;,.....]}</code></p>
 
@@ -667,7 +690,7 @@
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"login"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;integer&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nl">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string&gt;"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string&gt;"</span><span class="p">,</span><span class="w">
@@ -730,7 +753,7 @@
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"login"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491803978"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="p">{</span>
@@ -752,7 +775,7 @@
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"login"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorCode&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592492069732"</span><span class="w">
@@ -760,7 +783,7 @@
 </span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="p">{</span>
   <span class="s">"event"</span><span class="p">:</span> <span class="s">"login"</span><span class="p">,</span>
   <span class="s">"success"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
-  <span class="s">"code"</span><span class="p">:</span> <span class="s">"&lt;code&gt;"</span><span class="p">,</span>
+  <span class="s">"code"</span><span class="p">:</span> <span class="s">"&lt;errorCode&gt;"</span><span class="p">,</span>
   <span class="s">"message"</span><span class="p">:</span> <span class="s">"&lt;errorMessage&gt;"</span><span class="p">,</span>
   <span class="s">"tag"</span><span class="p">:</span> <span class="s">"1"</span><span class="p">,</span>
   <span class="s">"timestamp"</span><span class="p">:</span> <span class="s">"1592492031972"</span>
@@ -768,7 +791,7 @@
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
   <span class="dl">"</span><span class="s2">event</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">login</span><span class="dl">"</span><span class="p">,</span>
   <span class="dl">"</span><span class="s2">success</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">&lt;code&gt;</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">&lt;errorCode&gt;</span><span class="dl">"</span><span class="p">,</span>
   <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">&lt;errorMessage&gt;</span><span class="dl">"</span><span class="p">,</span>
   <span class="dl">"</span><span class="s2">tag</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span>
   <span class="dl">"</span><span class="s2">timestamp</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1592492031982</span><span class="dl">"</span>
@@ -878,7 +901,7 @@
   </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorCode&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491945248"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -999,7 +1022,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorCode&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491503359"</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -1105,7 +1128,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorCode&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491503359"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
@@ -1259,7 +1282,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorCode&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491503359"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
@@ -1279,7 +1302,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorCode&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491503457"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
@@ -1365,7 +1388,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"456"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorCode&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491173964"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
@@ -1456,7 +1479,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"456"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorCode&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491173964"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
@@ -1471,7 +1494,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"456"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorCode&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491173989"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BCH-USD"</span><span class="p">,</span><span class="w">
@@ -1551,7 +1574,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorCode&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491032427"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">888</span><span class="p">,</span><span class="w">
@@ -1686,7 +1709,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorCode&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491503359"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nl">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="mi">304304315061932310</span><span class="p">,</span><span class="w">
@@ -1703,7 +1726,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorCode&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491503457"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nl">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="mi">304304315061864646</span><span class="p">,</span><span class="w">
@@ -1743,6 +1766,150 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>ARRAY Object</td>
 <td>Yes</td>
 <td>An array of orders with each order in JSON format, the same format as the method for modifying single orders.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be modified in a batch, assuming that each order JSON has 200 characters.</td>
+</tr>
+</tbody></table>
+<h2 id='websocket-api-error-codes'>Error Codes</h2>
+<blockquote>
+<p><strong>Failure response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;opValue&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorCode&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Both subscription and order command requests sent via websocket can be rejected and the failure response will return an error code and a corresponding error message explaining the reason for the rejection.</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Error Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>20000</td>
+<td>Signature is invalid</td>
+</tr>
+<tr>
+<td>20001</td>
+<td>Operation failed, please contact system administrator</td>
+</tr>
+<tr>
+<td>20002</td>
+<td>Unexpected error, please check if your request data complies with the specification.</td>
+</tr>
+<tr>
+<td>20003</td>
+<td>Unrecognized operation</td>
+</tr>
+<tr>
+<td>05001</td>
+<td>Your operation authority is invalid</td>
+</tr>
+<tr>
+<td>20005</td>
+<td>Already logged in</td>
+</tr>
+<tr>
+<td>20006</td>
+<td>Quantity must be greater than zero</td>
+</tr>
+<tr>
+<td>20007</td>
+<td>You are accessing server too rapidly</td>
+</tr>
+<tr>
+<td>20008</td>
+<td>clientOrderId must be greater than zero if provided</td>
+</tr>
+<tr>
+<td>20009</td>
+<td>JSON data format is invalid</td>
+</tr>
+<tr>
+<td>20010</td>
+<td>Either clientOrderId or orderId is required</td>
+</tr>
+<tr>
+<td>20011</td>
+<td>marketCode is required</td>
+</tr>
+<tr>
+<td>20012</td>
+<td>side is required</td>
+</tr>
+<tr>
+<td>20013</td>
+<td>orderType is required</td>
+</tr>
+<tr>
+<td>20014</td>
+<td>clientOrderId is not long type</td>
+</tr>
+<tr>
+<td>20015</td>
+<td>marketCode is invalid</td>
+</tr>
+<tr>
+<td>20016</td>
+<td>side is invalid</td>
+</tr>
+<tr>
+<td>20017</td>
+<td>orderType is invalid</td>
+</tr>
+<tr>
+<td>20018</td>
+<td>timeInForce is invalid</td>
+</tr>
+<tr>
+<td>20019</td>
+<td>orderId is invalid</td>
+</tr>
+<tr>
+<td>20020</td>
+<td>stopPrice or limitPrice is invalid</td>
+</tr>
+<tr>
+<td>20021</td>
+<td>price is invalid</td>
+</tr>
+<tr>
+<td>20022</td>
+<td>price is required for LIMIT order</td>
+</tr>
+<tr>
+<td>20023</td>
+<td>timestamp is required</td>
+</tr>
+<tr>
+<td>20024</td>
+<td>timestamp exceeds the threshold</td>
+</tr>
+<tr>
+<td>20025</td>
+<td>API key is invalid</td>
+</tr>
+<tr>
+<td>20026</td>
+<td>Token is invalid or expired</td>
+</tr>
+<tr>
+<td>20027</td>
+<td>The length of the message exceeds the maximum length</td>
+</tr>
+<tr>
+<td>20028</td>
+<td>price or stopPrice or limitPrice must be greater than zero</td>
+</tr>
+<tr>
+<td>20029</td>
+<td>stopPrice must be less than limitPrice for Buy Stop Order</td>
+</tr>
+<tr>
+<td>20030</td>
+<td>limitPrice must be less than stopPrice for Sell Stop Order</td>
 </tr>
 </tbody></table>
 <h2 id='websocket-api-subscriptions-private'>Subscriptions - Private</h2>
@@ -2634,54 +2801,6 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>isTriggered</td>
 <td>STRING</td>
 <td><code>false</code> (or <code>true</code> for STOP order types)</td>
-</tr>
-</tbody></table>
-<h4 id='websocket-api-subscriptions-private-order-channel-orderrejected'>OrderRejected</h4>
-<blockquote>
-<p><strong>OrderRejected message format</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
-              </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderRejected"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Rejected status&gt;"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592496454358"</span><span class="w">
-            </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>There are multiple scenarios in which an order command could be rejected.  In summary orders can be rejected by:-</p>
-
-<ul>
-<li><code>REJECT_QUANTITY_ZERO</code> - if a place or modify order command is submitted with a quanitity of 0 then the command is rejected</li>
-<li><code>REJECT_UNKNOW_ORDER_ACTION</code> -</li>
-<li><code>REJECT_LIMIT_ORDER_WITH_MARKET_PRICE</code> - </li>
-<li><code>STOP_PRICE_LARGER_THAN_LIMIT_PRICE</code> -</li>
-<li><code>STOP_PRICE_LESS_THAN_LIMIT_PRICE</code> - </li>
-<li><code>REJECT_CANCEL_ORDER_ID_NOT_FOUND</code></li>
-<li><code>REJECT_AMEND_ORDER_ID_NOT_FOUND</code> -</li>
-</ul>
-
-<table><thead>
-<tr>
-<th>Parameters</th>
-<th>Type</th>
-<th>Required</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>notice</td>
-<td>STRING</td>
-<td><code>OrderRejected</code></td>
-</tr>
-<tr>
-<td>status</td>
-<td>STRING</td>
-<td><ul><li><code>REJECT_QUANTITY_ZERO</code></li><li><code>REJECT_UNKNOW_ORDER_ACTION</code></li><li><code>REJECT_LIMIT_ORDER_WITH_MARKET_PRICE</code></li><li><code>STOP_PRICE_LARGER_THAN_LIMIT_PRICE</code></li><li><code>STOP_PRICE_LESS_THAN_LIMIT_PRICE</code></li><li><code>REJECT_CANCEL_ORDER_ID_NOT_FOUND</code></li><li><code>REJECT_AMEND_ORDER_ID_NOT_FOUND</code></li></ul></td>
-</tr>
-<tr>
-<td>timestamp</td>
-<td>STRING</td>
-<td>Millisecond timestamp of rejected order command</td>
 </tr>
 </tbody></table>
 <h2 id='websocket-api-subscriptions-public'>Subscriptions - Public</h2><h3 id='websocket-api-subscriptions-public-orderbook-depth'>Orderbook Depth</h3>
