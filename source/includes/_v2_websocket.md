@@ -960,13 +960,13 @@ dataArray | ARRAY Object | Yes | An array of orders with each order in JSON form
 
 Both subscription and order command requests sent via websocket can be rejected and the failure response will return an error code and a corresponding error message explaining the reason for the rejection.
 
-Error Code | Error Message 
+Code | Error Message 
 -----------| -------- 
+05001| Your operation authority is invalid
 20000| Signature is invalid 
 20001| Operation failed, please contact system administrator 
 20002| Unexpected error, please check if your request data complies with the specification. 
 20003| Unrecognized operation
-05001| Your operation authority is invalid
 20005| Already logged in
 20006| Quantity must be greater than zero 
 20007| You are accessing server too rapidly 
@@ -993,6 +993,14 @@ Error Code | Error Message
 20028| price or stopPrice or limitPrice must be greater than zero 
 20029| stopPrice must be less than limitPrice for Buy Stop Order 
 20030| limitPrice must be less than stopPrice for Sell Stop Order
+100005| Open order not found with id
+100006| Open order does not match to the given account
+200050| The market is not active
+710002| FAILED sanity bound check as price (.....) < lower bound (.....)
+710003| FAILED sanity bound check as price (.....) > upper bound (.....)
+710004| FAILED net position check as position (.....) > threshold (.....)
+710005| FAILED margin check as collateral (.....) < var (.....)   
+710006| FAILED balance check as balance (.....) < value (.....)
 
 
 ## Subscriptions - Private
