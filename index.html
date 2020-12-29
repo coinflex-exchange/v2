@@ -684,6 +684,8 @@
 </ul>
 
 <p><code>data</code>: JSON string of the request object containing the required parameters</p>
+
+<p>Further information regarding the error codes and corresponding error messages from a failed subscription or order command request can be found in a later section of this documentation <a href="#websocket-api-error-codes">Error Codes</a>.</p>
 <h2 id='websocket-api-authentication'>Authentication</h2>
 <blockquote>
 <p><strong>Request format</strong></p>
@@ -1783,10 +1785,14 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 
 <table><thead>
 <tr>
-<th>Error Code</th>
+<th>Code</th>
 <th>Error Message</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>05001</td>
+<td>Your operation authority is invalid</td>
+</tr>
 <tr>
 <td>20000</td>
 <td>Signature is invalid</td>
@@ -1802,10 +1808,6 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>20003</td>
 <td>Unrecognized operation</td>
-</tr>
-<tr>
-<td>05001</td>
-<td>Your operation authority is invalid</td>
 </tr>
 <tr>
 <td>20005</td>
@@ -1910,6 +1912,38 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>20030</td>
 <td>limitPrice must be less than stopPrice for Sell Stop Order</td>
+</tr>
+<tr>
+<td>100005</td>
+<td>Open order not found with id</td>
+</tr>
+<tr>
+<td>100006</td>
+<td>Open order does not match to the given account</td>
+</tr>
+<tr>
+<td>200050</td>
+<td>The market is not active</td>
+</tr>
+<tr>
+<td>710002</td>
+<td>FAILED sanity bound check as price (.....) &lt; lower bound (.....)</td>
+</tr>
+<tr>
+<td>710003</td>
+<td>FAILED sanity bound check as price (.....) &gt; upper bound (.....)</td>
+</tr>
+<tr>
+<td>710004</td>
+<td>FAILED net position check as position (.....) &gt; threshold (.....)</td>
+</tr>
+<tr>
+<td>710005</td>
+<td>FAILED margin check as collateral (.....) &lt; var (.....)</td>
+</tr>
+<tr>
+<td>710006</td>
+<td>FAILED balance check as balance (.....) &lt; value (.....)</td>
 </tr>
 </tbody></table>
 <h2 id='websocket-api-subscriptions-private'>Subscriptions - Private</h2>
@@ -2803,17 +2837,22 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td><code>false</code> (or <code>true</code> for STOP order types)</td>
 </tr>
 </tbody></table>
-<h2 id='websocket-api-subscriptions-public'>Subscriptions - Public</h2><h3 id='websocket-api-subscriptions-public-orderbook-depth'>Orderbook Depth</h3>
+<h2 id='websocket-api-subscriptions-public'>Subscriptions - Public</h2>
+<p>All subscriptions to public channels does <strong>not</strong> require an authenticated websocket connection.</p>
+
+<p>Multiple subscriptions to different channels can be made within a single subscription command:
+<code>{&quot;op&quot;: &quot;subscribe&quot;, &quot;args&quot;: [&quot;&lt;value1&gt;&quot;, &quot;&lt;value2&gt;&quot;,.....]}</code></p>
+<h3 id='websocket-api-subscriptions-public-orderbook-depth'>Orderbook Depth</h3>
 <blockquote>
-<p><strong>Request</strong></p>
+<p><strong>Request format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"futures/depth:BTC-USD-190628"</span><span class="p">]</span><span class="w">
+  </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"futures/depth:BTC-USD-SWAP-LIN"</span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p><strong>Response</strong></p>
+<p><strong>Orderbook depth channel format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"futures/depth"</span><span class="p">,</span><span class="w">
