@@ -1009,7 +1009,7 @@ Code | Error Message
 
 All subscriptions to private account channels requires an authenticated websocket connection.  
 
-Multiple subscriptions to different channels can be made within a single subscription command: 
+Multiple subscriptions to different channels both public and private can be made within a single subscription command: 
 
 `{"op": "subscribe", "args": ["<value1>", "<value2>",.....]}`
 
@@ -1492,9 +1492,10 @@ isTriggered|STRING|`false` (or `true` for STOP order types)
 
 ## Subscriptions - Public
 
-All subscriptions to public channels does **not** require an authenticated websocket connection.
+All subscriptions to public channels do **not** require an authenticated websocket connection.
 
-Multiple subscriptions to different channels can be made within a single subscription command:
+Multiple subscriptions to different channels both public and private can be made within a single subscription command:
+
 `{"op": "subscribe", "args": ["<value1>", "<value2>",.....]}`
 
 ### Orderbook Depth
@@ -1504,7 +1505,20 @@ Multiple subscriptions to different channels can be made within a single subscri
 ```json
 {
   "op": "subscribe",
+  "tag": 103,
   "args": ["futures/depth:BTC-USD-SWAP-LIN"]
+}
+```
+
+> **Success response format**
+
+```json
+{
+  "success": True, 
+  "tag": "103", 
+  "event": "subscribe", 
+  "channel": "futures/depth:BTC-USD-SWAP-LIN", 
+  "timestamp": "1607985371601"
 }
 ```
 
@@ -1512,24 +1526,26 @@ Multiple subscriptions to different channels can be made within a single subscri
 
 ```json
 {
-    "table": "futures/depth",
-    "data": [{
-        "asks": [
-            ["5556.82", "11", "0", "0"],
-            ["5556.84", "98", "0", "0"],
-            ["5556.92", "1", "0", "0"],
-            ["5557.6", "4", "0", "0"],
-            ["5557.85", "2", "0", "0"]
-        ],
-        "bids": [
-            ["5556.81", "1", "0", "0"],
-            ["5556.8", "2", "0", "0"],
-            ["5556.79", "1", "0", "0"],
-            ["5556.19", "100", "0", "0"],
-            ["5556.08", "2", "0", "0"]
-        ],
-        "instrumentId": "BTC-USD-190628",
-        "timestamp": "2019-05-06T07:19:39.348Z"
+  "table": "futures/depth",
+  "data": [{
+      "instrumentId": "BTC-USD-SWAP-LIN",
+      "seqNum": 1608898592006137237,
+      "timestamp": "1609350022785",
+      "checksum": 1139901235, 
+      "asks": [
+          [5556.82, 11, 0, 0],
+          [5556.84, 98.13, 0, 0],
+          [5556.92, 1.582, 0, 0],
+          [5557.6, 4.291, 0, 0],
+          [5557.85, 2.54, 0, 0]
+      ],
+      "bids": [
+          [5556.81, 1.92, 0, 0],
+          ["5556.8, 2.1, 0, 0],
+          [5556.79, 1.9, 0, 0],
+          [5556.19, 100, 0, 0],
+          [5556.08, 2.972, 0, 0]
+      ],
     }]
 }
 ```
