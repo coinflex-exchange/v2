@@ -1550,20 +1550,18 @@ Multiple subscriptions to different channels both public and private can be made
 }
 ```
 
-**Description**
+**Channel Update Frequency:** 50ms
 
-futures/depth is channel name ，BTC-USD-190628 is instrumentId
-
-bids and asks value example:
-
-["411.8", "10", "0", "0"] 411.8 is the price; 10 is the quantity.
+This orderbook depth channel sends a snapshot of the entire orderbook every 50ms.  
 
 Parameters | Type | Description|
 -------------------------- | -----| -------------|
-bids| List<String>|Buy side depth |
-instrumentId| String|Contract ID，e.g .BTC-USD-170310 ,BTC-USDT-191227|
-asks|List|Sell side depth
-timestamp|String|UNIX timestamp
+bids| LIST-FLOAT |Buy side depth |
+asks| LIST-FLOAT | Sell side depth |
+instrumentId | STRING |Instrument ID |
+seqNum | INTEGER | Sequence number of the order book snapshot
+timestamp| STRING | Millisecond timestamp |
+
 
 ### Trade
 
