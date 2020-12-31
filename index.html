@@ -1949,7 +1949,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <h2 id='websocket-api-subscriptions-private'>Subscriptions - Private</h2>
 <p>All subscriptions to private account channels requires an authenticated websocket connection.  </p>
 
-<p>Multiple subscriptions to different channels can be made within a single subscription command: </p>
+<p>Multiple subscriptions to different channels both public and private can be made within a single subscription command: </p>
 
 <p><code>{&quot;op&quot;: &quot;subscribe&quot;, &quot;args&quot;: [&quot;&lt;value1&gt;&quot;, &quot;&lt;value2&gt;&quot;,.....]}</code></p>
 <h3 id='websocket-api-subscriptions-private-balance-channel'>Balance Channel</h3>
@@ -2838,51 +2838,62 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </tr>
 </tbody></table>
 <h2 id='websocket-api-subscriptions-public'>Subscriptions - Public</h2>
-<p>All subscriptions to public channels does <strong>not</strong> require an authenticated websocket connection.</p>
+<p>All subscriptions to public channels do <strong>not</strong> require an authenticated websocket connection.</p>
 
-<p>Multiple subscriptions to different channels can be made within a single subscription command:
-<code>{&quot;op&quot;: &quot;subscribe&quot;, &quot;args&quot;: [&quot;&lt;value1&gt;&quot;, &quot;&lt;value2&gt;&quot;,.....]}</code></p>
+<p>Multiple subscriptions to different channels both public and private can be made within a single subscription command:</p>
+
+<p><code>{&quot;op&quot;: &quot;subscribe&quot;, &quot;args&quot;: [&quot;&lt;value1&gt;&quot;, &quot;&lt;value2&gt;&quot;,.....]}</code></p>
 <h3 id='websocket-api-subscriptions-public-orderbook-depth'>Orderbook Depth</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">103</span><span class="p">,</span><span class="w">
   </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"futures/depth:BTC-USD-SWAP-LIN"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>Success response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="err">True</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"103"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"futures/depth:BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1607985371601"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p><strong>Orderbook depth channel format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"futures/depth"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
-        </span><span class="nl">"asks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-            </span><span class="p">[</span><span class="s2">"5556.82"</span><span class="p">,</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">],</span><span class="w">
-            </span><span class="p">[</span><span class="s2">"5556.84"</span><span class="p">,</span><span class="w"> </span><span class="s2">"98"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">],</span><span class="w">
-            </span><span class="p">[</span><span class="s2">"5556.92"</span><span class="p">,</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">],</span><span class="w">
-            </span><span class="p">[</span><span class="s2">"5557.6"</span><span class="p">,</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">],</span><span class="w">
-            </span><span class="p">[</span><span class="s2">"5557.85"</span><span class="p">,</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">]</span><span class="w">
-        </span><span class="p">],</span><span class="w">
-        </span><span class="nl">"bids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-            </span><span class="p">[</span><span class="s2">"5556.81"</span><span class="p">,</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">],</span><span class="w">
-            </span><span class="p">[</span><span class="s2">"5556.8"</span><span class="p">,</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">],</span><span class="w">
-            </span><span class="p">[</span><span class="s2">"5556.79"</span><span class="p">,</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">],</span><span class="w">
-            </span><span class="p">[</span><span class="s2">"5556.19"</span><span class="p">,</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">],</span><span class="w">
-            </span><span class="p">[</span><span class="s2">"5556.08"</span><span class="p">,</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">]</span><span class="w">
-        </span><span class="p">],</span><span class="w">
-        </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-190628"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-06T07:19:39.348Z"</span><span class="w">
-    </span><span class="p">}]</span><span class="w">
-</span><span class="p">}</span><span class="w">
+  </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"futures/depth"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"seqNum"</span><span class="p">:</span><span class="w"> </span><span class="mi">1608898592006137237</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1609350022785"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"checksum"</span><span class="p">:</span><span class="w"> </span><span class="mi">1139901235</span><span class="p">,</span><span class="w"> 
+      </span><span class="nl">"asks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">[</span><span class="mf">5556.82</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
+          </span><span class="p">[</span><span class="mf">5556.84</span><span class="p">,</span><span class="w"> </span><span class="mf">98.13</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
+          </span><span class="p">[</span><span class="mf">5556.92</span><span class="p">,</span><span class="w"> </span><span class="mf">1.582</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
+          </span><span class="p">[</span><span class="mf">5557.6</span><span class="p">,</span><span class="w"> </span><span class="mf">4.291</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
+          </span><span class="p">[</span><span class="mf">5557.85</span><span class="p">,</span><span class="w"> </span><span class="mf">2.54</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"bids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">[</span><span class="mf">5556.81</span><span class="p">,</span><span class="w"> </span><span class="mf">1.92</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
+          </span><span class="p">[</span><span class="s2">"5556.8, 2.1, 0, 0],
+          [5556.79, 1.9, 0, 0],
+          [5556.19, 100, 0, 0],
+          [5556.08, 2.972, 0, 0]
+      ],
+    }]
+}
 </span></code></pre></div>
-<p><strong>Description</strong></p>
+<p><strong>Channel Update Frequency:</strong> 50ms</p>
 
-<p>futures/depth is channel name ，BTC-USD-190628 is instrumentId</p>
-
-<p>bids and asks value example:</p>
-
-<p>[&quot;411.8&quot;, &quot;10&quot;, &quot;0&quot;, &quot;0&quot;] 411.8 is the price; 10 is the quantity.</p>
+<p>This orderbook depth channel sends a snapshot of the entire orderbook every 50ms.  </p>
 
 <table><thead>
 <tr>
@@ -2893,23 +2904,28 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </thead><tbody>
 <tr>
 <td>bids</td>
-<td>List<String></td>
+<td>LIST-FLOAT</td>
 <td>Buy side depth</td>
 </tr>
 <tr>
-<td>instrumentId</td>
-<td>String</td>
-<td>Contract ID，e.g .BTC-USD-170310 ,BTC-USDT-191227</td>
-</tr>
-<tr>
 <td>asks</td>
-<td>List</td>
+<td>LIST-FLOAT</td>
 <td>Sell side depth</td>
 </tr>
 <tr>
+<td>instrumentId</td>
+<td>STRING</td>
+<td>Instrument ID</td>
+</tr>
+<tr>
+<td>seqNum</td>
+<td>INTEGER</td>
+<td>Sequence number of the order book snapshot</td>
+</tr>
+<tr>
 <td>timestamp</td>
-<td>String</td>
-<td>UNIX timestamp</td>
+<td>STRING</td>
+<td>Millisecond timestamp</td>
 </tr>
 </tbody></table>
 <h3 id='websocket-api-subscriptions-public-trade'>Trade</h3>
