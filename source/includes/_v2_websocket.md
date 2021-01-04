@@ -253,11 +253,13 @@ The signature is calculated as:
 
 * `Base64(HmacSHA256(API-Secret, timestamp + 'GET/auth/self/verify'))`
 
+<sub>**Request Parameters**</sub> 
+
 Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | **'login'** |
 tag| INTEGER| No | If given, it will be echoed in the reply |
-data | ARRAY object | Yes |
+data | DICTIONARY object | Yes |
 \>apiKey | STRING | Yes | Clients public API key, visible in the GUI when created |
 \>timestamp | STRING | Yes | Current millisecond timestamp |
 \>signature | STRING | Yes | `Base64(HmacSHA256(API-Secret, timestamp + 'GET/auth/self/verify'))` |
@@ -334,17 +336,21 @@ To maintain an active WebSocket connection it is imperative to either be subscri
 Requires an authenticated websocket connection.  
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
 
+<sub>**Request Parameters**</sub> 
+
 Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `placeorder`
-clientOrderId | INTEGER | No | Client assigned ID to help manage and identify orders |
-marketCode | STRING | Yes | Market code e.g. `BTC-USD-SWAP-LIN` |
-orderType | STRING | Yes |  `LIMIT` |
-price | DECIMAL |  No | Price |
-quantity |  DECIMAL | Yes | Quantity (denominated by contractValCurrency) |
-side | STRING | Yes | `BUY` or `SELL` |
-timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul>
 tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
+data | DICTIONARY object | Yes |
+\>clientOrderId | INTEGER | No | Client assigned ID to help manage and identify orders |
+\>marketCode | STRING | Yes | Market code e.g. `BTC-USD-SWAP-LIN` |
+\>orderType | STRING | Yes |  `LIMIT` |
+\>price | FLOAT |  No | Price |
+\>quantity |  FLOAT | Yes | Quantity (denominated by contractValCurrency) |
+\>side | STRING | Yes | `BUY` or `SELL` |
+\>timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul>
+
 
 ### Market Order
 
