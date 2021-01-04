@@ -814,6 +814,8 @@
 <li><code>Base64(HmacSHA256(API-Secret, timestamp + &#39;GET/auth/self/verify&#39;))</code></li>
 </ul>
 
+<p><sub><strong>Request Parameters</strong></sub> </p>
+
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -836,7 +838,7 @@
 </tr>
 <tr>
 <td>data</td>
-<td>ARRAY object</td>
+<td>DICTIONARY object</td>
 <td>Yes</td>
 <td></td>
 </tr>
@@ -923,6 +925,8 @@
 <p>Requires an authenticated websocket connection.<br>
 Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).</p>
 
+<p><sub><strong>Request Parameters</strong></sub> </p>
+
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -938,52 +942,58 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td><code>placeorder</code></td>
 </tr>
 <tr>
-<td>clientOrderId</td>
+<td>tag</td>
+<td>INTEGER</td>
+<td>No</td>
+<td>If given and non-zero, it will be echoed in the reply</td>
+</tr>
+<tr>
+<td>data</td>
+<td>DICTIONARY object</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;clientOrderId</td>
 <td>INTEGER</td>
 <td>No</td>
 <td>Client assigned ID to help manage and identify orders</td>
 </tr>
 <tr>
-<td>marketCode</td>
+<td>&gt;marketCode</td>
 <td>STRING</td>
 <td>Yes</td>
 <td>Market code e.g. <code>BTC-USD-SWAP-LIN</code></td>
 </tr>
 <tr>
-<td>orderType</td>
+<td>&gt;orderType</td>
 <td>STRING</td>
 <td>Yes</td>
 <td><code>LIMIT</code></td>
 </tr>
 <tr>
-<td>price</td>
-<td>DECIMAL</td>
+<td>&gt;price</td>
+<td>FLOAT</td>
 <td>No</td>
 <td>Price</td>
 </tr>
 <tr>
-<td>quantity</td>
-<td>DECIMAL</td>
+<td>&gt;quantity</td>
+<td>FLOAT</td>
 <td>Yes</td>
 <td>Quantity (denominated by contractValCurrency)</td>
 </tr>
 <tr>
-<td>side</td>
+<td>&gt;side</td>
 <td>STRING</td>
 <td>Yes</td>
 <td><code>BUY</code> or <code>SELL</code></td>
 </tr>
 <tr>
-<td>timeInForce</td>
+<td>&gt;timeInForce</td>
 <td>ENUM</td>
 <td>No</td>
 <td><ul><li><code>GTC</code> (Good-till-Cancel) - Default</li><li> <code>IOC</code> (Immediate or Cancel, i.e. Taker-only)</li><li> <code>FOK</code> (Fill or Kill, for full size)</li><li><code>MAKER_ONLY</code> (i.e. Post-only)</li><li> <code>MAKER_ONLY_REPRICE</code> (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul></td>
-</tr>
-<tr>
-<td>tag</td>
-<td>INTEGER</td>
-<td>No</td>
-<td>If given and non-zero, it will be echoed in the reply</td>
 </tr>
 </tbody></table>
 <h3 id='websocket-api-order-commands-market-order'>Market Order</h3>
