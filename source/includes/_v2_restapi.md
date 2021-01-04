@@ -903,3 +903,43 @@ high24h| STRING | 24 hour high
 low24h| STRING | 24 hour low
 openInterest| STRING | Current open interest
 lastQty| STRING | Last traded quantity
+
+###GET `/v2/delivery/public/funding`
+
+> **Request**
+
+```json
+GET /v2/delivery/public/funding
+```
+
+> **RESPONSE**
+
+
+```json
+[
+    {
+        "timestamp": "2020-12-08 04:00:00",
+        "instrumentId": "COMP-USD-SWAP-LIN",
+        "fundingRate": "0.000000000"
+    },
+    {
+        "timestamp": "2020-12-08 04:00:00",
+        "instrumentId": "CRV-USD-SWAP-LIN",
+        "fundingRate": "0.000000000"
+    },
+    ...
+]
+```
+Get funding rate
+
+Request Parameters | Type | Description| 
+-------------------------- | -----|--------- |
+column | STRING | limit size of results, e.g. 3 |
+instrumentId | STRING | e.g. UNI-USD-SWAP-LIN |
+startTime | STRING | e.g. 2020-12-08 20:00:00 |
+
+Response Parameters | Type | Description| 
+-------------------------- | -----|--------- |
+timestamp | STRING | Timestamp of this response |
+instrumentId | STRING | "BTC-USD-SWAP-LIN" |
+fundingRate| STRING | e.g. 0.000060000 |
