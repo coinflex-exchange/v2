@@ -474,6 +474,9 @@
                           <li>
                             <a href="#rest-api-methods-public-get-v2-ticker" class="toc-h3 toc-link" data-title="GET <code>/v2/ticker</code>">GET <code>/v2/ticker</code></a>
                           </li>
+                          <li>
+                            <a href="#rest-api-methods-public-get-v2-delivery-public-funding" class="toc-h3 toc-link" data-title="GET <code>/v2/delivery/public/funding</code>">GET <code>/v2/delivery/public/funding</code></a>
+                          </li>
                       </ul>
                   </li>
               </ul>
@@ -518,7 +521,7 @@
 <p><strong>2020-12-10</strong></p>
 
 <ul>
-<li>Added to the documentation market order and stop-limit order websocket API details</li>
+<li>Added market order and stop-limit order websocket API details</li>
 </ul>
 
 <p><strong>2020-09-25</strong></p>
@@ -4852,6 +4855,78 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>lastQty</td>
 <td>STRING</td>
 <td>Last traded quantity</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-public-get-v2-delivery-public-funding'>GET <code>/v2/delivery/public/funding</code></h3>
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/delivery/public/funding</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-08 04:00:00"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMP-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fundingRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.000000000"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-08 04:00:00"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CRV-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fundingRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.000000000"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p>Get funding rate</p>
+
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>column</td>
+<td>STRING</td>
+<td>limit size of results, e.g. 3</td>
+</tr>
+<tr>
+<td>instrumentId</td>
+<td>STRING</td>
+<td>e.g. UNI-USD-SWAP-LIN</td>
+</tr>
+<tr>
+<td>startTime</td>
+<td>STRING</td>
+<td>e.g. 2020-12-08 20:00:00</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Parameters</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Timestamp of this response</td>
+</tr>
+<tr>
+<td>instrumentId</td>
+<td>STRING</td>
+<td>&quot;BTC-USD-SWAP-LIN&quot;</td>
+</tr>
+<tr>
+<td>fundingRate</td>
+<td>STRING</td>
+<td>e.g. 0.000060000</td>
 </tr>
 </tbody></table>
 
