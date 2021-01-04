@@ -1045,6 +1045,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <p>Requires an authenticated websocket connection.<br>
 Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).</p>
 
+<p><sub><strong>Request Parameters</strong></sub> </p>
+
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1060,40 +1062,46 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td><code>placeorder</code></td>
 </tr>
 <tr>
-<td>clientOrderId</td>
+<td>tag</td>
+<td>INTEGER</td>
+<td>No</td>
+<td>If given and non-zero, it will be echoed in the reply</td>
+</tr>
+<tr>
+<td>data</td>
+<td>DICTIONARY object</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;clientOrderId</td>
 <td>INTEGER</td>
 <td>No</td>
 <td>Client assigned ID to help manage and identify orders</td>
 </tr>
 <tr>
-<td>marketCode</td>
+<td>&gt;marketCode</td>
 <td>STRING</td>
 <td>Yes</td>
 <td>Market code e.g. <code>BTC-USD-SWAP-LIN</code></td>
 </tr>
 <tr>
-<td>orderType</td>
+<td>&gt;orderType</td>
 <td>STRING</td>
 <td>Yes</td>
 <td><code>MARKET</code></td>
 </tr>
 <tr>
-<td>quantity</td>
-<td>DECIMAL</td>
+<td>&gt;quantity</td>
+<td>FLOAT</td>
 <td>Yes</td>
 <td>Quantity (denominated by contractValCurrency)</td>
 </tr>
 <tr>
-<td>side</td>
+<td>&gt;side</td>
 <td>STRING</td>
 <td>Yes</td>
 <td><code>BUY</code> or <code>SELL</code></td>
-</tr>
-<tr>
-<td>tag</td>
-<td>INTEGER</td>
-<td>No</td>
-<td>If given and non-zero, it will be echoed in the reply</td>
 </tr>
 </tbody></table>
 <h3 id='websocket-api-order-commands-stop-limit-order'>Stop Limit Order</h3>
@@ -1160,6 +1168,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <p>Requires an authenticated websocket connection.<br>
 Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).</p>
 
+<p><sub><strong>Request Parameters</strong></sub> </p>
+
 <table><thead>
 <tr>
 <th>Parameters</th>
@@ -1175,58 +1185,64 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td><code>placeorder</code></td>
 </tr>
 <tr>
-<td>clientOrderId</td>
+<td>tag</td>
+<td>INTEGER</td>
+<td>No</td>
+<td>If given and non-zero, it will be echoed in the reply</td>
+</tr>
+<tr>
+<td>data</td>
+<td>DICTIONARY object</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;clientOrderId</td>
 <td>INTEGER</td>
 <td>No</td>
 <td>Client assigned ID to help manage and identify orders</td>
 </tr>
 <tr>
-<td>marketCode</td>
+<td>&gt;marketCode</td>
 <td>STRING</td>
 <td>Yes</td>
 <td>Market code e.g. <code>ETH-USD-SWAP-LIN</code></td>
 </tr>
 <tr>
-<td>orderType</td>
+<td>&gt;orderType</td>
 <td>STRING</td>
 <td>Yes</td>
 <td><code>STOP</code> for stop-limit orders (stop-market orders not supported)</td>
 </tr>
 <tr>
-<td>quantity</td>
-<td>DECIMAL</td>
+<td>&gt;quantity</td>
+<td>FLOAT</td>
 <td>Yes</td>
 <td>Quantity (denominated by contractValCurrency)</td>
 </tr>
 <tr>
-<td>side</td>
+<td>&gt;side</td>
 <td>STRING</td>
 <td>Yes</td>
 <td><code>BUY</code> or <code>SELL</code></td>
 </tr>
 <tr>
-<td>limitPrice</td>
+<td>&gt;limitPrice</td>
 <td>DECIMAL</td>
 <td>Yes</td>
 <td>Limit price for the stop-limit order. <p><p>For <strong>BUY</strong> the limit price must be greater or equal to the stop price.<p><p>For <strong>SELL</strong> the limit price must be less or equal to the stop price.</td>
 </tr>
 <tr>
-<td>stopPrice</td>
+<td>&gt;stopPrice</td>
 <td>DECIMAL</td>
 <td>Yes</td>
 <td>Stop price for the stop-limit order.<p><p>Triggered by the best bid price for the <strong>SELL</strong> stop-limit order.<p><p>Triggered by the best ask price for the <strong>BUY</strong> stop-limit order.</td>
 </tr>
 <tr>
-<td>timeInForce</td>
+<td>&gt;timeInForce</td>
 <td>ENUM</td>
 <td>No</td>
 <td><ul><li><code>GTC</code> (Good-till-Cancel) - Default</li><li> <code>IOC</code> (Immediate or Cancel, i.e. Taker-only)</li><li> <code>FOK</code> (Fill or Kill, for full size)</li><li><code>MAKER_ONLY</code> (i.e. Post-only)</li><li> <code>MAKER_ONLY_REPRICE</code> (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul></td>
-</tr>
-<tr>
-<td>tag</td>
-<td>INTEGER</td>
-<td>No</td>
-<td>If given and non-zero, it will be echoed in the reply</td>
 </tr>
 </tbody></table>
 <h3 id='websocket-api-order-commands-place-batch-orders'>Place Batch Orders</h3>
@@ -1341,6 +1357,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 
 <p>The websocket reply from the exchange will repond to each order in the batch separately, one order at a time, and has the same message format as the reponse for the single order placement method.</p>
 
+<p><sub><strong>Request Parameters</strong></sub> </p>
+
 <table><thead>
 <tr>
 <th>Parameters</th>
@@ -1363,9 +1381,9 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </tr>
 <tr>
 <td>dataArray</td>
-<td>ARRAY Object</td>
+<td>LIST Object</td>
 <td>Yes</td>
-<td>An array of orders with each order in JSON format, the same format as the method for placing single orders.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be placed in a batch, assuming that each order JSON has 200 characters.</td>
+<td>A list of orders with each order in JSON format, the same format as the method for placing a single order.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be placed in a batch, assuming that each order JSON has 200 characters.</td>
 </tr>
 </tbody></table>
 <h3 id='websocket-api-order-commands-cancel-order'>Cancel Order</h3>
@@ -1414,6 +1432,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <p>Requires an authenticated websocket connection.<br>
 Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderClosed etc......).</p>
 
+<p><sub><strong>Request Parameters</strong></sub> </p>
+
 <table><thead>
 <tr>
 <th>Parameters</th>
@@ -1429,13 +1449,25 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td><code>cancelorder</code></td>
 </tr>
 <tr>
-<td>marketCode</td>
+<td>tag</td>
+<td>INTEGER</td>
+<td>No</td>
+<td>If given and non-zero, it will be echoed in the reply</td>
+</tr>
+<tr>
+<td>data</td>
+<td>DICTIONARY object</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;marketCode</td>
 <td>STRING</td>
 <td>Yes</td>
 <td>Market code e.g. <code>BTC-USD-SWAP-LIN</code></td>
 </tr>
 <tr>
-<td>orderId</td>
+<td>&gt;orderId</td>
 <td>INTEGER</td>
 <td>Yes</td>
 <td>Unique order ID from the exchange</td>
@@ -1520,6 +1552,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <p>Requires an authenticated websocket connection.<br>
 Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderClosed etc......).</p>
 
+<p><sub><strong>Request Parameters</strong></sub> </p>
+
 <table><thead>
 <tr>
 <th>Parameters</th>
@@ -1535,13 +1569,25 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td><code>cancelorders</code></td>
 </tr>
 <tr>
-<td>marketCode</td>
+<td>tag</td>
+<td>INTEGER</td>
+<td>No</td>
+<td>If given and non-zero, it will be echoed in the reply</td>
+</tr>
+<tr>
+<td>data</td>
+<td>DICTIONARY object</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;marketCode</td>
 <td>STRING</td>
 <td>Yes</td>
 <td>Market code e.g. <code>BTC-USD-SWAP-LIN</code></td>
 </tr>
 <tr>
-<td>orderId</td>
+<td>&gt;orderId</td>
 <td>INTEGER</td>
 <td>Yes</td>
 <td>Unique order ID from the exchange</td>
@@ -1553,14 +1599,14 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"modifyorder"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:{</span><span class="w">
-          </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">888</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">9800</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
-         </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">888</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">9800</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+          </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
@@ -1615,6 +1661,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 
 <p>Please be aware that modifying the side of an existing GTC LIMIT order from BUY to SELL or vice versa <strong>without</strong> modifying the price could result in the order matching immediately since its quite likely the new order will become an agressing taker order.  </p>
 
+<p><sub><strong>Request Parameters</strong></sub> </p>
+
 <table><thead>
 <tr>
 <th>Parameters</th>
@@ -1628,6 +1676,12 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>STRING</td>
 <td>Yes</td>
 <td><code>modifyorder</code></td>
+</tr>
+<tr>
+<td>tag</td>
+<td>INTEGER</td>
+<td>No</td>
+<td>If given and non-zero, it will be echoed in the reply</td>
 </tr>
 <tr>
 <td>marketCode</td>
@@ -1756,6 +1810,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 
 <p>The websocket reply from the exchange will repond to each order in the batch separately, one order at a time, and has the same message format as the reponse for the single order modify method.</p>
 
+<p><sub><strong>Request Parameters</strong></sub> </p>
+
 <table><thead>
 <tr>
 <th>Parameters</th>
@@ -1778,9 +1834,9 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </tr>
 <tr>
 <td>dataArray</td>
-<td>ARRAY Object</td>
+<td>LIST Object</td>
 <td>Yes</td>
-<td>An array of orders with each order in JSON format, the same format as the method for modifying single orders.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be modified in a batch, assuming that each order JSON has 200 characters.</td>
+<td>A list of orders with each order in JSON format, the same format as the method for modifying a single order.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be modified in a batch, assuming that each order JSON has 200 characters.</td>
 </tr>
 </tbody></table>
 <h2 id='websocket-api-error-codes'>Error Codes</h2>
@@ -2024,9 +2080,9 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 
 <p>The websocket will reply with the shown success response format for EACH balance asset channel which has been successfully subscribed to.</p>
 
-<p>If a subscription has been made to balance:all, the data array in the message from this balance channel will contain a JSON <strong>list</strong>. Each JSON will contain balance details for each spot asset.  Otherwise the data array will contain a <strong>single</strong> JSON corresponding to one spot asset per asset channel subscription.</p>
+<p>If a subscription has been made to <strong>balance:all</strong>, the data array in the message from this balance channel will contain a JSON <strong>list</strong>. Each JSON will contain balance details for each spot asset.  Otherwise the data array will contain a <strong>single</strong> JSON corresponding to one spot asset per asset channel subscription.</p>
 
-<p><strong>Request Parameters</strong></p>
+<p><sub><strong>Request Parameters</strong></sub> </p>
 
 <table><thead>
 <tr>
@@ -2044,7 +2100,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </tr>
 <tr>
 <td>args</td>
-<td>ARRAY</td>
+<td>LIST</td>
 <td>Yes</td>
 <td><code>balance:all</code> or a list of individual assets <code>balance:&lt;assetId&gt;</code></td>
 </tr>
@@ -2056,11 +2112,11 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </tr>
 </tbody></table>
 
-<p><strong>Channel Update Parameters</strong></p>
+<p><sub><strong>Channel Update Fields</strong></sub> </p>
 
 <table><thead>
 <tr>
-<th>Parameters</th>
+<th>Fields</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
@@ -2086,27 +2142,32 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td><code>LINEAR</code></td>
 </tr>
 <tr>
-<td>total</td>
+<td>data</td>
+<td>LIST of dictionary</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;total</td>
 <td>STRING</td>
 <td>Total spot asset balance</td>
 </tr>
 <tr>
-<td>reserved</td>
+<td>&gt;reserved</td>
 <td>STRING</td>
 <td>Reserved asset balance for working spot and repo orders</td>
 </tr>
 <tr>
-<td>instrumentId</td>
+<td>&gt;instrumentId</td>
 <td>STRING</td>
 <td>Base asset ID e.g. <code>BTC</code></td>
 </tr>
 <tr>
-<td>available</td>
+<td>&gt;available</td>
 <td>STRING</td>
 <td>Remaining available asset balance (total - reserved)</td>
 </tr>
 <tr>
-<td>quantityLastUpdated</td>
+<td>&gt;quantityLastUpdated</td>
 <td>STRING</td>
 <td>Millisecond timestamp</td>
 </tr>
