@@ -1,8 +1,6 @@
 # Introduction
 
-Welcome to CoinFLEX's v2 application programming interface (API). Please note, this is a beta version and should be considered a test net.
-
-CoinFLEX's APIs provide our clients programmatic access to control aspects of their accounts and to place orders on CoinFLEX's trading platform. CoinFLEX provides the following APIs:
+Welcome to CoinFLEX's v2 application programming interface (API). CoinFLEX's APIs provide clients programmatic access to control aspects of their accounts and to place orders on CoinFLEX's trading platform. CoinFLEX supports the following types of APIs:
 
 * a WebSocket API
 * a REST API
@@ -24,35 +22,47 @@ API keys are also only bound to a single sub-account, defined upon creation. Thi
 
 
 # Change Log
-2020-09-25
-- Added physical delivery API endpoints
-- Added position WebSocket channel
-- Added balance WebSocket channel
-- Added GET /v2/accountinfo
-- Added GET /v2/ticker
-- Added rate limits
-- Added guidance for maintaining connections
 
-2020-07-25
-- Added GET /v2/publictrades/{marketCode}
-- Added GET /v2/trades/{marketCode}
+**2020-12-14**
 
-2020-06-16
-- Added general guidance for getting a login/password to create tokens
-- Updated some addresses for REST API
+* Added new websocket API Place Batch Orders command
+* Added new websocket API Cancel Batch Orders command
+* Added new websocket API Modify Batch Orders command
 
-2020-06-15
-- First version of beta API endpoints - Websocket and REST
+**2020-12-10**
+
+* Added market order and stop-limit order websocket API details
+
+**2020-09-25**
+
+* Added physical delivery API endpoints
+* Added position WebSocket channel
+* Added balance WebSocket channel
+* Added GET /v2/accountinfo
+* Added GET /v2/ticker
+* Added rate limits
+* Added guidance for maintaining connections
+
+**2020-07-25**
+
+* Added GET /v2/publictrades/{marketCode}
+* Added GET /v2/trades/{marketCode}
+
+**2020-06-16**
+
+* Added general guidance for getting a login/password to create tokens
+* Updated some addresses for REST API
+
+**2020-06-15**
+
+* First beta version of API endpoints. Websocket and REST
+
 
 # Rate Limit
 
-CoinFLEX's application programming interface (API) allows our clients to access and control their accounts or view our market data using custom-written software. To protect the performance of the system, we impose certain limits:
+CoinFLEX's APIs allows our clients to access and control their accounts or view our market data using custom-written software. To protect the performance of the system, we impose certain limits:
 
 Type                    |                            Limit|
 ------------------------|---------------------------------|
 Rest API                |                  100 per second |
 Websocket API           |                  200 per second |
-
-# Session Keep Alive
-
-To maintain an active WebSocket connection it is imperative to either be subscribed to a channel that pushes data at least once per minute (Depth or Balance) or send a ping to the server once per minute.

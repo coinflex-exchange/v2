@@ -1,47 +1,73 @@
 
 # Websocket API
 
-> **Request format**
+> **Subscription request format**
 
 ```json
 {
   "op": "<value>",
-   "args": ["<value>"]
+  "tag": "<value>",
+  "args": ["<value1>", "<value2>",.....]
 }
+```
 
-OR
+> **Subscription success response format**
 
+```json
 {
-  "op": "<value>,
+  "event": "<opValue>",
+  "success": true,
+  "tag": "<value>",
+  "channel": "<argsValue>",
+  "timestamp": "1592491945368"
+}
+```
+
+> **Subscription failure response format**
+
+```json
+{
+  "event": "<opValue>",
+  "success": false,
+  "tag": "<value>",
+  "message": "<errorMessage>",
+  "code": "<errorCode>",
+  "timestamp": "1592498745368"
+}
+```
+
+> **Command request format**
+
+```json
+{
+  "op": "<value>",
+  "tag": "<value>",
   "data": {"<key1>": "<value1>",.....}
 }
 ```
 
-> **Success response format**
+> **Command success response format**
 
 ```json
 {
-  "event": "<op value>",
-  "channel": "<args value>",
+  "event": "<opValue>",
   "success": true
-}
-
-OR
-
-{
-  "event": "<op value>",
-  "success": true
+  "tag": "<value>",
+  "timestamp": "1592498745368",
+  "data": {"<key1>": "<value1>",.....}
 }
 ```
 
-> **Failure response format**
+> **Command failure response format**
 
 ```json
 {
-  "event": "error",
+  "event": "<opValue>",
+  "success": false,
   "message": "<errorMessage>",
-  "code": "<code>",
-  "success": false
+  "code": "<codeCode>",
+  "timestamp": "1592498745368",
+  "data": {"<key1>": "<value1>",.....}
 }
 ```
 
@@ -57,19 +83,20 @@ CoinFLEX's application programming interface (API) provides our clients programm
 
 Websocket commands can be sent in either of the following two formats:
 
-**For subscription based commands**
+**For subscription based requests**
 
-`{"op": "<value>", "args": ["<value>"]}`
+`{"op": "<value>", "args": ["<value1>", "<value2>",.....]}`
 
 `op`: can either be:
 
 * subscribe
 * unsubscribe
 
-`args`: the value is the channel name, for example:
+`args`: the value(s) will be the instrument ID(s) or asset ID(s), for example:
 
 * order:BTC-USD-SWAP-LIN
-* futures/depth:BTC-USD-SPR-QP-LIN
+* futures/depth:ETH-USD-REPO-LIN
+* position:all
 
 **All other commands**
 
@@ -84,6 +111,8 @@ Websocket commands can be sent in either of the following two formats:
 
 `data`: JSON string of the request object containing the required parameters
 
+Further information regarding the error codes and corresponding error messages from a failed subscription or order command request can be found in a later section of this documentation [Error Codes](#websocket-api-error-codes).
+
 
 ## Authentication
 
@@ -92,12 +121,12 @@ Websocket commands can be sent in either of the following two formats:
 ```json
 {
   "op": "login",
-  "tag": "<integer>",
-  "data":{
-          "apiKey": "<string>",
-          "timestamp": "<string>",
-          "signature": "<string>"
-         }
+  "tag": "<value>",
+  "data": {
+            "apiKey": "<string>",
+            "timestamp": "<string>",
+            "signature": "<string>"
+          }
 }
 ```
 ```python
@@ -127,7 +156,7 @@ msg_auth = \
 }
 
 async def subscribe():
-    async with websockets.connect('wss://api-test-v2.coinflex-cn.com/v2/websocket') as ws:
+    async with websockets.connect('wss://v2stgapi.coinflex.com/v2/websocket') as ws:
         await ws.send(json.dumps(msg_auth))
         while ws.open:
             resp = await ws.recv()
@@ -143,7 +172,7 @@ const ts = '' + Date.now();
 var sign = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(secretKey, ts +'GET/auth/self/verify'));
 var msg = '{"op":"login","data":{"apiKey":"' + apiKey + '", "timestamp": "'+ ts + '", "signature":"'+ sign + '"}}';
 
-var ws = new WebSocket('wss://api-test-v2.coinflex-cn.com/v2/websocket');
+var ws = new WebSocket('wss://v2stgapi.coinflex.com/v2/websocket');
 
 ws.onmessage = function (e) {
   console.log('websocket message from server : ', e.data);
@@ -160,24 +189,24 @@ ws.onopen = function () {
 {
   "event": "login",
   "success": true,
-  "tag": "1",
-  "timestamp": "1592491808"
+  "tag": "<value>",
+  "timestamp": "1592491803978"
 }
 ```
 ```python
 {
   "event": "login",
-  "success": True,
+  "success": true,
   "tag": "1",
-  "timestamp": "1592491808"
+  "timestamp": "1592491808328"
 }
 ```
 ```javascript
 {
-  "event":"login",
-  "success":true,
-  "tag":"1",
-  "timestamp":"1592491808"
+  "event": "login",
+  "success": true,
+  "tag": "1",
+  "timestamp": "1592491808329"
 }
 ```
 
@@ -187,30 +216,30 @@ ws.onopen = function () {
 {
   "event": "login",
   "success": false,
-  "code": "<code>",
+  "code": "<errorCode>",
   "message": "<errorMessage>",
   "tag": "1",
-  "timestamp": "1592492032"
+  "timestamp": "1592492069732"
 }
 ```
 ```python
 {
   "event": "login",
-  "success": False,
-  "code": "<code>",
+  "success": false,
+  "code": "<errorCode>",
   "message": "<errorMessage>",
   "tag": "1",
-  "timestamp": "1592492032"
+  "timestamp": "1592492031972"
 }
 ```
 ```javascript
 {
-  "event":"login",
-  "success":false,
-  "code":"<code>",
-  "message":"<errorMessage>",
-  "tag":"1",
-  "timestamp":"1592492032"
+  "event": "login",
+  "success": false,
+  "code": "<errorCode>",
+  "message": "<errorMessage>",
+  "tag": "1",
+  "timestamp": "1592492031982"
 }
 ```
 
@@ -224,19 +253,20 @@ The signature is calculated as:
 
 * `Base64(HmacSHA256(API-Secret, timestamp + 'GET/auth/self/verify'))`
 
-**Parameters - Login**
-
 Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | **'login'** |
-tag| INTEGER| No | If given, it will be echoed in the reply. |
+tag| INTEGER| No | If given, it will be echoed in the reply |
 data | ARRAY object | Yes |
-\>apiKey | STRING | Yes | Clients public API key, visible in the GUI when created. |
+\>apiKey | STRING | Yes | Clients public API key, visible in the GUI when created |
 \>timestamp | STRING | Yes | Current millisecond timestamp |
 \>signature | STRING | Yes | `Base64(HmacSHA256(API-Secret, timestamp + 'GET/auth/self/verify'))` |
 
+## Session Keep Alive
 
-## Place Order
+To maintain an active WebSocket connection it is imperative to either be subscribed to a channel that pushes data at least once per minute (Depth or Balance) or send a ping to the server once per minute.
+
+## Order Commands
 
 ### Limit Order
 
@@ -245,36 +275,36 @@ data | ARRAY object | Yes |
 ```json
 {
   "op": "placeorder",
-  "data":{
-          "clientOrderId": 1,
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "side": "BUY",
-          "orderType": "LIMIT",
-          "quantity": 1.5,
-          "timeInForce": "GTC",
-          "price": 9431.48
-          },
-  "tag": 1
+  "tag": 123,
+  "data": {
+            "clientOrderId": 1,
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "LIMIT",
+            "quantity": 1.5,
+            "timeInForce": "GTC",
+            "price": 9431.48
+          }
 }
 ```
 
-> **Submitted response format**
+> **Success response format**
 
 ```json
 {
   "event": "placeorder",
   "submitted": true,
-  "tag": "1",
-  "data":{
-          "clientOrderId": "1",
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "side": "BUY",
-          "orderType": "LIMIT",
-          "quantity": "1.5",
-          "timeInForce": "GTC",
-          "price": "9431.48"
-         },
-  "timestamp": "1592491945"
+  "tag": "123",
+  "timestamp": "1592491945248",
+  "data": {
+            "clientOrderId": "1",
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "LIMIT",
+            "quantity": "1.5",
+            "timeInForce": "GTC",
+            "price": "9431.48"
+          }
 }
 ```
 
@@ -283,66 +313,304 @@ data | ARRAY object | Yes |
 ```json
 {
   "event": "placeorder",
-  "message": "<errorMessage>",
-  "code": "<code>",
   "submitted": false,
-  "tag": "1",
-  "timestamp": "1592491503"
+  "tag": "123",
+  "message": "<errorMessage>",
+  "code": "<errorCode>",
+  "submitted": false,
+  "timestamp": "1592491945248",
+  "data": {
+            "clientOrderId": "1",
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "LIMIT",
+            "quantity": "1.5",
+            "timeInForce": "GTC",
+            "price": "9431.48"
+          }
 }
 ```
 
-Requires authentication.
-Please also subscribe to the user order channel to receive push notifications for all message udpates related to a clients orders.
+Requires an authenticated websocket connection.  
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
 
-**Request Parameters Specification:**
-
-Parameters | Type | Required | Description |
+Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
-clientOrderId | INTEGER | No | Customized order ID to identify your orders |
-marketCode | STRING | Yes | Market Code i.e. `BTC-USD-SWAP-LIN` |
-orderType | STRING | Yes |  LIMIT for limit orders |
-price | DECIMAL |  Yes |  Price |    Price for limit orders |
+op | STRING | Yes | `placeorder`
+clientOrderId | INTEGER | No | Client assigned ID to help manage and identify orders |
+marketCode | STRING | Yes | Market code e.g. `BTC-USD-SWAP-LIN` |
+orderType | STRING | Yes |  `LIMIT` |
+price | DECIMAL |  No | Price |
 quantity |  DECIMAL | Yes | Quantity (denominated by contractValCurrency) |
-side | STRING | Yes | BUY / SELL |
-timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker price if specified price otherwise leads to a taker trade)</li></ul>
-tag| INTEGER| No|Iff given and non-zero, it will be echoed in the reply.
+side | STRING | Yes | `BUY` or `SELL` |
+timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul>
+tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
 
-
-### Market Order  &nbsp;&nbsp;*****NOT AVAILABLE*****
-
-
-### Stop Limit Order  &nbsp;&nbsp;*****NOT AVAILABLE*****
-
-Requires authentication. Please subscribe user order channel to receive the order updates.
+### Market Order
 
 > **Request format**
 
 ```json
 {
   "op": "placeorder",
-  "data":{
-          "clientOrderId": 1,
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "side": "BUY",
-          "orderType": "STOP",
-          "quantity": 10,
-          "stopPrice": 100,
-          "limitPrice": 120
+  "tag": 123,
+  "data": {
+            "clientOrderId": 1,
+            "marketCode": "ETH-USD-SWAP-LIN",
+            "side": "SELL",
+            "orderType": "MARKET",
+            "quantity": 5
+          }
+}
+```
+
+> **Success response format**
+
+```json
+{
+  "event": "placeorder",
+  "submitted": true,
+  "tag": "123",
+  "timestamp": "1592491945248",
+  "data": {
+            "clientOrderId": "1",
+            "marketCode": "ETH-USD-SWAP-LIN",
+            "side": "SELL",
+            "orderType": "MARKET",
+            "quantity": "5"
+          }
+}
+```
+
+> **Failure response format**
+
+```json
+{
+  "event": "placeorder",
+  "submitted": false,
+  "tag": "123",
+  "message": "<errorMessage>",
+  "code": "<errorCode>",
+  "submitted": false,
+  "timestamp": "1592491503359"
+}
+```
+
+Requires an authenticated websocket connection.  
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
+
+Parameter | Type | Required | Description |
+-------------------------- | -----|--------- | -------------|
+op | STRING | Yes | `placeorder`
+clientOrderId | INTEGER | No | Client assigned ID to help manage and identify orders |
+marketCode | STRING | Yes | Market code e.g. `BTC-USD-SWAP-LIN` |
+orderType | STRING | Yes |  `MARKET` |
+quantity |  DECIMAL | Yes | Quantity (denominated by contractValCurrency) |
+side | STRING | Yes | `BUY` or `SELL` |
+tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
+
+
+### Stop Limit Order
+
+> **Request format**
+
+```json
+{
+  "op": "placeorder",
+  "tag": 123,
+  "data": {
+            "clientOrderId": 1,
+            "marketCode": "ETH-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "STOP",
+            "quantity": 10,
+            "timeInForce": "MAKER_ONLY_REPRICE",
+            "stopPrice": 100,
+            "limitPrice": 120
          }
 }
 ```
 
-**Request Parameters Specification:**
+> **Success response format**
+
+```json
+{
+  "event": "placeorder",
+  "submitted": true,
+  "tag": "123",
+  "timestamp": "1607639739098",
+  "data": {
+            "clientOrderId": "1",
+            "marketCode": "ETH-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "STOP",
+            "quantity": "10",
+            "timeInForce": "MAKER_ONLY_REPRICE",
+            "stopPrice": "100",
+            "limitPrice": "120"
+          }
+}
+```
+
+> **Failure response format**
+
+```json
+{
+  "event": "placeorder",
+  "submitted": false,
+  "tag": "123",
+  "message": "<errorMessage>",
+  "code": "<errorCode>",
+  "timestamp": "1592491503359",
+  "data": {
+            "clientOrderId": "1",
+            "marketCode": "ETH-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "STOP",
+            "quantity": "10",
+            "timeInForce": "MAKER_ONLY_REPRICE",
+            "stopPrice": "100",
+            "limitPrice": "120"
+          }
+}
+```
+
+Requires an authenticated websocket connection.  
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
 
 Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
-clientOrderId| NUMBER | No | User-generated order ID to identify orders |
-limitPrice| NUMBER|Yes | Limit price for the stop-limit order. <p><p>The limit price must be greater or equal to the stop price for buy-side.<p><p>The limit price must be less or equal to the stop price for sell-side.|
-marketCode| STRING| Yes| Market Code i.e. `BTC-USD-SWAP-LIN`|
-orderType|STRING| Yes|  `STOP` for Stop-Limit orders (no Stop-market currently)|
-quantity|NUMBER|Yes|Quantity (denominated by contractValCurrency)|
-side|STRING| Yes| `BUY `/ `SELL`|
-stopPrice|NUMBER|Yes|Stop price for the stop-limit order.<p><p>Triggered by the best bid price for the SELL side stop-limit order.<p><p>Triggered by the best ask price for the BUY side stop-limit order. |
+op | STRING | Yes | `placeorder`
+clientOrderId | INTEGER | No | Client assigned ID to help manage and identify orders |
+marketCode| STRING| Yes| Market code e.g. `ETH-USD-SWAP-LIN`|
+orderType|STRING| Yes|  `STOP` for stop-limit orders (stop-market orders not supported)|
+quantity|DECIMAL|Yes|Quantity (denominated by contractValCurrency)|
+side|STRING| Yes| `BUY ` or `SELL`|
+limitPrice| DECIMAL|Yes | Limit price for the stop-limit order. <p><p>For **BUY** the limit price must be greater or equal to the stop price.<p><p>For **SELL** the limit price must be less or equal to the stop price.|
+stopPrice|DECIMAL|Yes|Stop price for the stop-limit order.<p><p>Triggered by the best bid price for the **SELL** stop-limit order.<p><p>Triggered by the best ask price for the **BUY** stop-limit order. |
+timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul>
+tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
+
+
+### Place Batch Orders
+
+> **Request format**
+
+```json
+{
+  "op": "placeorders",
+  "tag": 123,
+  "dataArray": [{
+                  "clientOrderId": 1,
+                  "marketCode": "ETH-USD-SWAP-LIN",
+                  "side": "BUY",
+                  "orderType": "LIMIT",
+                  "quantity": 10,
+                  "timeInForce": "MAKER_ONLY",
+                  "price": 100
+                }, 
+                {
+                  "clientOrderId": 2,
+                  "marketCode": "BTC-USD",
+                  "side": "SELL",
+                  "orderType": "MARKET",
+                  "quantity": 0.2
+                }]
+}
+```
+
+> **Success response format**
+
+```json
+{
+  "event": "placeorder",
+  "submitted": true,
+  "tag": "123",
+  "timestamp": "1607639739098",
+  "data": {
+            "clientOrderId": "1",
+            "marketCode": "ETH-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "LIMIT",
+            "quantity": "10",
+            "timeInForce": "MAKER_ONLY",
+            "price": "100"
+          }
+}
+
+AND
+
+{
+  "event": "placeorder",
+  "submitted": true,
+  "tag": "123",
+  "timestamp": "1607639739136",
+  "data": {
+            "clientOrderId": "2",
+            "marketCode": "BTC-USD",
+            "side": "SELL",
+            "orderType": "MARKET",
+            "quantity": "0.2"
+          }
+}
+```
+
+> **Failure response format**
+
+```json
+{
+  "event": "placeorder",
+  "submitted": false,
+  "tag": "123",
+  "message": "<errorMessage>",
+  "code": "<errorCode>",
+  "timestamp": "1592491503359",
+  "data": {
+            "clientOrderId": "1",
+            "marketCode": "ETH-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "LIMIT",
+            "quantity": "10",
+            "timeInForce": "MAKER_ONLY",
+            "price": "100"
+          }
+}
+
+AND
+
+{
+  "event": "placeorder",
+  "submitted": false,
+  "tag": "123",
+  "message": "<errorMessage>",
+  "code": "<errorCode>",
+  "timestamp": "1592491503457",
+  "data": {
+            "clientOrderId": "2",
+            "marketCode": "BTC-USD",
+            "side": "SELL",
+            "orderType": "MARKET",
+            "quantity": "0.2"
+          }
+}
+```
+
+Requires an authenticated websocket connection.  
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
+
+All existing single order placement methods are supported:-
+
+* LIMIT
+* MARKET
+* STOP
+
+The websocket reply from the exchange will repond to each order in the batch separately, one order at a time, and has the same message format as the reponse for the single order placement method.
+
+Parameters | Type | Required |Description|
+-------------------------- | -----|--------- | -------------|
+op | STRING | Yes | `placeorders`
+tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
+dataArray | ARRAY Object | Yes | An array of orders with each order in JSON format, the same format as the method for placing single orders.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be placed in a batch, assuming that each order JSON has 200 characters.
 
 
 ### Cancel Order
@@ -352,35 +620,26 @@ stopPrice|NUMBER|Yes|Stop price for the stop-limit order.<p><p>Triggered by the 
 ```json
 {
   "op": "cancelorder",
-  "data":{
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": 12
-         },
-  "tag": 1
+  "tag": 456,
+  "data": {
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "orderId": 12
+          }
 }
 ```
 
-Requires authentication. Please subscribe user order channel to receive the order updates.
-
-**Request Parameters Specification:**
-
-Parameters | TYPE | REQUIRED| Description
--------------------------- | -----|--------- | -------------|
-marketCode|STRING|YES|Market Code i.e. `BTC-USD-SWAP-LIN`|
-orderId|INTEGER|YES|Order ID is generated by the server.|
-
-> **Submitted response format**
+> **Success response format**
 
 ```json
 {
   "event": "cancelorder",
   "submitted": true,
-  "data":{
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": "12"
-         },
-  "tag": "1",
-  "timestamp": "1592491173"
+  "tag": "456",
+  "timestamp": "1592491173964",
+  "data": {
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "orderId": "12"
+          }
 }
 ```
 
@@ -389,13 +648,117 @@ orderId|INTEGER|YES|Order ID is generated by the server.|
 ```json
 {
   "event": "cancelorder",
-  "message": "<errorMessage>",
-  "code": "<code>",
   "submitted": false,
-  "tag": "1",
-  "timestamp": "1592491473"
+  "tag": "456",
+  "message": "<errorMessage>",
+  "code": "<errorCode>",
+  "timestamp": "1592491173964",
+  "data": {
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "orderId": "12"
+          }
 }
 ```
+
+Requires an authenticated websocket connection.  
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderClosed etc......).
+
+Parameters | Type | Required | Description
+-------------------------- | -----|--------- | -------------|
+op | STRING | Yes | `cancelorder`
+marketCode|STRING|Yes|Market code e.g. `BTC-USD-SWAP-LIN`|
+orderId|INTEGER|Yes|Unique order ID from the exchange|
+
+
+### Cancel Batch Order
+
+> **Request format**
+
+```json
+{
+  "op": "cancelorders",
+  "tag": 456,
+  "dataArray": [{
+                  "marketCode": "BTC-USD-SWAP-LIN",
+                  "orderId": 12
+                },
+                {
+                  "marketCode": "BCH-USD",
+                  "orderId": 34
+                }]
+}
+```
+
+> **Success response format**
+
+```json
+{
+  "event": "cancelorder",
+  "submitted": true,
+  "tag": "456",
+  "timestamp": "1592491173964",
+  "data": {
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "orderId": "12"
+          }
+}
+
+AND
+
+{
+  "event": "cancelorder",
+  "submitted": true,
+  "tag": "456",
+  "timestamp": "1592491173978",
+  "data": {
+            "marketCode": "BCH-USD",
+            "orderId": "34"
+          }
+}
+
+```
+
+> **Failure response format**
+
+```json
+{
+  "event": "cancelorder",
+  "submitted": false,
+  "tag": "456",
+  "message": "<errorMessage>",
+  "code": "<errorCode>",
+  "timestamp": "1592491173964",
+  "data": {
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "orderId": "12"
+          }
+}
+
+AND
+
+{
+  "event": "cancelorder",
+  "submitted": false,
+  "tag": "456",
+  "message": "<errorMessage>",
+  "code": "<errorCode>",
+  "timestamp": "1592491173989",
+  "data": {
+            "marketCode": "BCH-USD",
+            "orderId": "12"
+          }
+}
+```
+
+Requires an authenticated websocket connection.  
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderClosed etc......).
+
+Parameters | Type | Required | Description
+-------------------------- | -----|--------- | -------------|
+op | STRING | Yes | `cancelorders`
+marketCode|STRING|Yes|Market code e.g. `BTC-USD-SWAP-LIN`|
+orderId|INTEGER|Yes|Unique order ID from the exchange|
+
 
 ### Modify Order
 
@@ -415,21 +778,22 @@ orderId|INTEGER|YES|Order ID is generated by the server.|
 }
 ```
 
-> **Submitted response format**
+> **Success response format**
 
 ```json
 {
   "event": "modifyorder",
   "submitted": true,
+  "tag": "1",
+  "timestamp": "1592491032427",
   "data":{
-          "marketCode": "BTC-USD-SWAP-LIN",
           "orderId": 888,
           "side": "BUY",
-          "price": 9800,
           "quantity": 2
-         },
-  "tag": "1",
-  "timestamp": "1592491032"
+          "price": 9800,
+          "orderType": "LIMIT",
+          "marketCode": "BTC-USD-SWAP-LIN"
+         }
 }
 ```
 
@@ -438,994 +802,766 @@ orderId|INTEGER|YES|Order ID is generated by the server.|
 ```json
 {
   "event": "modifyorder",
-  "message": "<errorMessage>",
-  "code": "<code>",
   "submitted": false,
   "tag": "1",
-  "timestamp": "1592491173"
+  "message": "<errorMessage>",
+  "code": "<errorCode>",
+  "timestamp": "1592491032427",
+  "data": {
+            "orderId": 888,
+            "side": "BUY",
+            "quantity": 2,
+            "price": 9800,
+            "marketCode": "BTC-USD-SWAP-LIN"
+          }
 }
 ```
 
-Requires authentication. Please subscribe user order channel to receive the order updates.
+Requires an authenticated websocket connection.  
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderModified etc......).
+
+Currently only LIMIT orders are supported by the modify order command.
+
+* The price and/or quantity and/or side of an order can be modified.
+* Reducing the quantity will leave the modified orders position in the order queue **unchanged**.
+* Increasing the quantity will **always** move the modified order to the back of the order queue.
+* Modifying the price will **always** move the modified order to the back of the order queue.
+* Modifying the side will **always** move the modified order to the back of the order queue.
+
+Please be aware that modifying the side of an existing GTC LIMIT order from BUY to SELL or vice versa **without** modifying the price could result in the order matching immediately since its quite likely the new order will become an agressing taker order.  
 
 Parameters | Type | Required | Description|
 -------------------------- | -----|--------- | -------------|
-marketCode|string|Yes|market id| Market Code i.e. `BTC-USD-SWAP-LIN`|
-orderId| integer|Yes|Order ID generated by the server|
-side| string|Yes| `BUY` or `SELL`|
-price|decimal|Yes|Price for limit orders|
-quantity|decimal|Yes|  Quantity (denominated by `contractValCurrency`)|
+op | STRING | Yes | `modifyorder`
+marketCode|STRING|Yes| Market code e.g. `BTC-USD-SWAP-LIN`|
+orderId|INTEGER|Yes|Unique order ID from the exchange|
+side| STRING|No| `BUY` or `SELL`|
+price|DECIMAL|No|Price for limit orders|
+quantity|DECIMAL|No|  Quantity (denominated by `contractValCurrency`)|
+
+
+### Modify Batch Orders
+
+> **Request format**
+
+```json
+{
+  "op": "modifyorders",
+  "tag": 123,
+  "dataArray": [{
+                  "marketCode": "ETH-USD-SWAP-LIN",
+                  "side": "BUY",
+                  "orderID": 304304315061932310,
+                  "price": 101,
+                }, 
+                {
+                  "marketCode": "BTC-USD",
+                  "orderID": 304304315061864646,
+                  "price": 10001,
+                  "quantity": 0.21
+                }]
+}
+```
+
+> **Success response format**
+
+```json
+{
+  "event": "modifyorder",
+  "submitted": true,
+  "tag": "123",
+  "timestamp": "1607639739098",
+  "data": {
+            "orderId": "304304315061932310",
+            "side": "BUY",
+            "quantity": "5"
+            "price": "101",
+            "orderType": "LIMIT",
+            "marketCode": "ETH-USD-SWAP-LIN"
+          }
+}
+
+AND
+
+{
+  "event": "modifyorder",
+  "submitted": true,
+  "tag": "123",
+  "timestamp": "1607639739136",
+  "data": {
+            "orderId": "304304315061864646",
+            "side": "SELL",
+            "quantity": 0.21,
+            "price": "10001",
+            "orderType": "LIMIT",
+            "marketCode": "BTC-USD"
+          }
+}
+```
+
+> **Failure response format**
+
+```json
+{
+  "event": "placeorder",
+  "submitted": false,
+  "tag": "123",
+  "message": "<errorMessage>",
+  "code": "<errorCode>",
+  "timestamp": "1592491503359",
+  "data": {
+            "orderID": 304304315061932310,
+            "side": "BUY",
+            "price": 101,
+            "marketCode": "ETH-USD-SWAP-LIN"                 
+          }
+}
+
+AND
+
+{
+  "event": "placeorder",
+  "submitted": false,
+  "tag": "123",
+  "message": "<errorMessage>",
+  "code": "<errorCode>",
+  "timestamp": "1592491503457",
+  "data": {
+            "orderID": 304304315061864646,
+            "quantity": 0.21,
+            "price": 10001,
+            "marketCode": "BTC-USD"  
+          }
+}
+```
+
+Requires an authenticated websocket connection.  
+Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
+
+The websocket reply from the exchange will repond to each order in the batch separately, one order at a time, and has the same message format as the reponse for the single order modify method.
+
+Parameters | Type | Required |Description|
+-------------------------- | -----|--------- | -------------|
+op | STRING | Yes | `modifyorders`
+tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
+dataArray | ARRAY Object | Yes | An array of orders with each order in JSON format, the same format as the method for modifying single orders.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be modified in a batch, assuming that each order JSON has 200 characters.
+
+
+## Error Codes
+
+> **Failure response format**
+
+```json
+{
+  "event": "<opValue>",
+  "message": "<errorMessage>",
+  "code": "<errorCode>",
+  "success": false
+}
+```
+
+Both subscription and order command requests sent via websocket can be rejected and the failure response will return an error code and a corresponding error message explaining the reason for the rejection.
+
+Code | Error Message 
+-----------| -------- 
+05001| Your operation authority is invalid
+20000| Signature is invalid 
+20001| Operation failed, please contact system administrator 
+20002| Unexpected error, please check if your request data complies with the specification. 
+20003| Unrecognized operation
+20005| Already logged in
+20006| Quantity must be greater than zero 
+20007| You are accessing server too rapidly 
+20008| clientOrderId must be greater than zero if provided 
+20009| JSON data format is invalid 
+20010| Either clientOrderId or orderId is required 
+20011| marketCode is required 
+20012| side is required 
+20013| orderType is required 
+20014| clientOrderId is not long type 
+20015| marketCode is invalid 
+20016| side is invalid 
+20017| orderType is invalid 
+20018| timeInForce is invalid 
+20019| orderId is invalid 
+20020| stopPrice or limitPrice is invalid 
+20021| price is invalid 
+20022| price is required for LIMIT order 
+20023| timestamp is required 
+20024| timestamp exceeds the threshold 
+20025| API key is invalid 
+20026| Token is invalid or expired 
+20027| The length of the message exceeds the maximum length 
+20028| price or stopPrice or limitPrice must be greater than zero 
+20029| stopPrice must be less than limitPrice for Buy Stop Order 
+20030| limitPrice must be less than stopPrice for Sell Stop Order
+100005| Open order not found with id
+100006| Open order does not match to the given account
+200050| The market is not active
+710002| FAILED sanity bound check as price (.....) < lower bound (.....)
+710003| FAILED sanity bound check as price (.....) > upper bound (.....)
+710004| FAILED net position check as position (.....) > threshold (.....)
+710005| FAILED margin check as collateral (.....) < var (.....)   
+710006| FAILED balance check as balance (.....) < value (.....)
 
 
 ## Subscriptions - Private
 
-### User Balance Channel
+All subscriptions to private account channels requires an authenticated websocket connection.  
+
+Multiple subscriptions to different channels both public and private can be made within a single subscription command: 
+
+`{"op": "subscribe", "args": ["<value1>", "<value2>",.....]}`
+
+
+### Balance Channel
 
 > **Request format**
 
 ```json
-{"op": "subscribe", "args": ["balance:all"], "tag": 1}
-```
-
-```json
-{"op": "subscribe", "args": ["balance:USD"], "tag": 1}
-```
-
-
-Requires authentication. Get the user's order information.
-
-**Channel Name** : balance: \<all or assetId>\
-
-**Update Speed** : 250ms
-
-> **Unfiltered balance update format**
-
-```json
-
 {
-    "accountId": "3",
-    "data": [
-        {
-            "total": "10000",
-            "reserved": "1000",
-            "instrumentId": "USD",
-            "available": "9000",
-            "quantityLastUpdated": "1599694369431"
-        },
-        {
-            "total": "100000",
-            "reserved": "0",
-            "instrumentId": "FLEX",
-            "available": "100000",
-            "quantityLastUpdated": "1599694343242"
-        }
-    ],
-    "table": "balance",
-    "timestamp": "1599693365059",
-    "tradeType": "Linear"
+  "op": "subscribe",
+  "args": ["balance:all"],
+  "tag": 101
 }
 
-```
-
-> **Filtered balance update format**
-
-```json
+OR
 
 {
-    "accountId": "3",
-    "data": [
-        {
-            "total": "10000",
-            "reserved": "1000",
-            "instrumentId": "USD",
-            "available": "9000",
-            "quantityLastUpdated": "1599694369431"
-        }
-    ],
-    "table": "balance",
-    "timestamp": "1599693365059",
-    "tradeType": "Linear"
+  "op": "subscribe", 
+  "args": ["balance:USD", "balance:FLEX", ........], 
+  "tag": 101
 }
 ```
+
+> **Success response format**
+
+```json
+{
+  "success": True, 
+  "tag": "101", 
+  "event": "subscribe", 
+  "channel": "<args value>", 
+  "timestamp": "1607985371401"
+}
+```
+
+> **Balance channel format**
+
+```json
+{
+  "table": "balance",
+  "accountId": "<Your account ID>",
+  "timestamp": "1599693365059",
+  "tradeType": "Linear",
+  "data": [ {
+              "total": "10000",
+              "reserved": "1000",
+              "instrumentId": "USD",
+              "available": "9000",
+              "quantityLastUpdated": "1599694369431"
+            },
+            {
+              "total": "100000",
+              "reserved": "0",
+              "instrumentId": "FLEX",
+              "available": "100000",
+              "quantityLastUpdated": "1599694343242"
+            }, 
+            ........
+          ]
+}
+```
+
+**Channel Update Frequency** : 250ms
+
+The websocket will reply with the shown success response format for EACH balance asset channel which has been successfully subscribed to.
+
+If a subscription has been made to balance:all, the data array in the message from this balance channel will contain a JSON **list**. Each JSON will contain balance details for each spot asset.  Otherwise the data array will contain a **single** JSON corresponding to one spot asset per asset channel subscription.
+
+**Request Parameters**
+
+Parameters |Type| Required| Description |
+--------|-----|---|-----------|
+op | STRING| Yes |  `subscribe`
+args | ARRAY | Yes | `balance:all` or a list of individual assets `balance:<assetId>`
+tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
+
+
+**Channel Update Parameters**
 
 Parameters |Type| Description |
 --------|-----|---|
+table | STRING| `balance`
 accountId | STRING|  Account identifier
-total | STRING | Total spot balance
-reserved | STRING | Balance reserved by orders
-instrumentId | STRING |  Base asset i.e. `BTC`
-available | STRING| Available balance (total - reserved)
-quantityLastUpdated|STRING | UNIX timestamp
-table | STRING| Table identifier
-timestamp|STRING | UNIX timestamp
-tradeType | STRING | Account type
+timestamp|STRING | Current millisecond timestamp
+tradeType|STRING | `LINEAR`
+total | STRING | Total spot asset balance
+reserved | STRING | Reserved asset balance for working spot and repo orders
+instrumentId | STRING |  Base asset ID e.g. `BTC`
+available | STRING| Remaining available asset balance (total - reserved)
+quantityLastUpdated|STRING | Millisecond timestamp
 
-### User Position Channel
+### Position Channel
 
 > **Request format**
 
 ```json
-{"op": "subscribe", "args": ["position:all"], "tag": 1}
-```
-```json
-{"op": "subscribe", "args": ["position:BTC-USD-SWAP-LIN"], "tag": 1}
-```
-
-
-Requires authentication. Get the user's order information.
-
-**Channel Name** : position: <all or marketCode>
-
-**Update Speed** : on position update
-
-> **Unfiltered position update format**
-
-```json
-
 {
-    "accountId": "3",
-    "data": [
-        {
-            "entryPrice": "10000.00000000",
-            "lastUpdated": "1599693362699",
-            "contractValCurrency": "BTC",
-            "quantity" : "1.00000000",
-            "instrumentId": "BTC-USD-SWAP-LIN"
-        }
-    ],
-    "table": "position",
-    "timestamp": "1599693365059"
+  "op": "subscribe", 
+  "args": ["position:all"], 
+  "tag": 102
 }
 
-```
-
-> **Filtered position update format**
-
-```json
+OR
 
 {
-    "accountId": "3",
-    "data": [
-        {
-            "entryPrice": "10000.00000000",
-            "lastUpdated": "1599693362699",
-            "contractValCurrency": "BTC",
-            "quantity" : "1.00000000",
-            "instrumentId": "BTC-USD-SWAP-LIN"
-        }
-    ],
-    "table": "position",
-    "timestamp": "1599693365059"
+  "op": "subscribe",
+  "args": ["position:BTC-USD-SWAP-LIN", "position:BCH-USD-SWAP-LIN", ........], 
+  "tag": 102
 }
-
 ```
+
+> **Success response format**
+
+```json
+{
+  "success": True, 
+  "tag": "102", 
+  "event": "subscribe", 
+  "channel": "<args value>", 
+  "timestamp": "1607985371401"
+}
+```
+
+> **Position channel format**
+
+```json
+{
+  "table": "position",
+  "accountId": "<Your account ID>",
+  "timestamp": "1607985371481",
+  "data": [ {
+              "entryPrice": "10000",
+              "lastUpdated": "1599693362699",
+              "contractValCurrency": "BTC",
+              "quantity" : "1.5",
+              "instrumentId": "BTC-USD-SWAP-LIN"
+            },
+            {
+              "entryPrice": "205.1",
+              "lastUpdated": "1599693362699",
+              "contractValCurrency": "ETH",
+              "quantity" : "-0.5",
+              "instrumentId": "ETH-USD-SWAP-LIN"
+            } ]
+}
+```
+
+**Channel Update Frequency** : real-time, on position update
+
+The websocket will reply with the shown success response format for EACH position channel which has been successfully subscribed to.
+
+If a subscription has been made to position:all, the data array in the message from this position channel will contain a JSON list. Each JSON will contain position details for instrument. Otherwise the data array will contain a single JSON corresponding to one instrument per position channel subscription.
+
+**Request Parameters**
+
+Parameters |Type| Required| Description |
+--------|-----|---|-----------|
+op | STRING| Yes |  `subscribe`
+args | ARRAY | Yes | `position:all` or a list of individual instruments `position:<instrumentId>`
+tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
+
+**Channel Update Parameters**
 
 Parameters |Type| Description |
 --------|-----|---|
+table | STRING| `position`
 accountId | STRING|  Account identifier
-entryPrice | STRING | Average Entry Price (Cost / Size)
-lastUpdated|STRING | UNIX timestamp
-contractValCurrency | STRING | Base Asset
-quantity | STRING| Position Size (+/-)
-instrumentId | STRING |  Market Code i.e. `BTC-USD-SWAP-LIN`
-table | STRING| Table identifier
-timestamp|STRING | UNIX timestamp
+timestamp|STRING | Current millisecond timestamp
+entryPrice | STRING | Average entry price of total position (Cost / Size)
+lastUpdated|STRING | Millisecond timestamp
+contractValCurrency | STRING | Base asset ID e.g. `ETH`
+quantity | STRING| Position size (+/-)
+instrumentId | STRING | e.g. `ETH-USD-SWAP-LIN`
 
 
-### User Order Channel
+### Order Channel
 
 > **Request format**
 
-
 ```json
-{"op": "subscribe", "args": ["order:all"], "tag": 1}
-```
-```json
-{"op": "subscribe", "args": ["order:BTC-USD"], "tag": 1}
-```
-
-
-Requires authentication. Get the user's order information.
-
-**Channel Name** : order:\<marketCode\>
-
-**Update Speed** : real-time
-
-#### Order: OrderOpened
-
-> **Update format for limit order**
-
-```json
-
 {
-    "table": "order",
-    "data": [
-        {
-            "notice": "OrderOpened",
-            "accountId": "<Your account ID>",
-            "marketCode": "BTC-USD-SWAP-LIN",
-            "orderId" : "123",
-            "clientOrderId": "16",
-            "price": "9600",
-            "quantity": "2" ,
-            "orderType": "LIMIT",
-            "side": "BUY",
-            "timeInForce": "GTC",
-            "status": "OPEN",
-            "timestamp": "1594943491077"
-        }
-    ]
+  "op": "subscribe", 
+  "args": ["order:all"], 
+  "tag": 102
 }
 
-```
-
-> **Update format for stop-limit order**
-
-```json
+OR
 
 {
-    "table": "order",
-    "data": [
-        {
-            "notice": "OrderOpened",
-            "accountId": "<Your account ID>",
-            "marketCode": "BTC-USD-SWAP-LIN",
-            "orderId": "22",
-            "clientOrderId": "16",
-            "quantity": "2",
-            "orderType": "STOP",
-            "side": "BUY",
-            "stopPrice": "9280",
-            "limitPrice": "9300",
-            "status": "OPEN",
-            "timestamp": "1594943491077"
-        }
-    ]
+  "op": "subscribe", 
+  "args": ["order:FLEX-USD", "order:ETH-USD-SWAP-LIN", .....], 
+  "tag": 102
 }
-
 ```
 
+> **Success response format**
+
+```json
+{
+  "success": True, 
+  "tag": "102", 
+  "event": "subscribe", 
+  "channel": "<args value>", 
+  "timestamp": "1607985371401"
+}
+```
+
+**Channel Update Frequency** : real-time, on order update
+
+The websocket will reply with the shown success response format for EACH order channel which has been successfully subscribed to.
+
+**Request Parameters**
+
+Parameters |Type| Required| Description |
+--------|-----|---|-----------|
+op | STRING| Yes |  `subscribe`
+args | ARRAY | Yes | `order:all` or a list of individual markets `order:<marketCode>`
+tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
+
+
+#### OrderOpened
+
+> **OrderOpened message format - LIMIT order**
+
+```json
+{
+  "table": "order",
+  "data": [ {
+              "notice": "OrderOpened",
+              "accountId": "<Your account ID>",
+              "clientOrderId": "16",
+              "orderId" : "123",
+              "price": "9600",
+              "quantity": "2" ,
+              "side": "BUY",
+              "status": "OPEN",
+              "marketCode": "BTC-USD-SWAP-LIN",
+              "timeInForce": "MAKER_ONLY",
+              "timestamp": "1594943491077"
+              "orderType": "LIMIT",
+              "isTriggered": "false"
+            } ]
+}
+```
+
+> **OrderOpened message format - STOP order**
+
+```json
+{
+  "table": "order",
+  "data": [ {
+              "notice": "OrderOpened",
+              "accountId": "<Your account ID>",
+              "clientOrderId": "17",
+              "orderId": "2245",
+              "quantity": "2",
+              "side": "BUY",
+              "status": "OPEN",
+              "marketCode": "USDT-USD-SWAP-LIN",
+              "timeInForce": "IOC",
+              "timestamp": "1594943491077",
+              "stopPrice": "9280",
+              "limitPrice": "9300",
+              "orderType": "STOP",
+              "isTriggered": "true"
+            } ]
+}
+```
 
 Parameters |Type| Description |
 --------|-----|---|
 notice | STRING| `OrderOpened`
-accountId | STRING|  Account identifier
-marketCode | STRING |  Market Code i.e. `BTC-USD-SWAP-LIN`
-orderId | STRING |     Order ID generated by the server
-clientOrderId |  STRING | Client order ID submitted
-price |STRING | Price submitted
+accountId | STRING| Account identifier
+clientOrderId |  STRING | Client assigned ID to help manage and identify orders
+orderId | STRING | Unique order ID from the exchange
+price |STRING | Limit price submitted (only applicable for LIMIT order types)
 quantity | STRING| Quantity submitted
-side|STRING|`BUY` / `SELL`
-timeInForce|STRING|Confirming user setting
-status|STRING|  Update status
-timestamp|STRING |UNIX timestamp
-orderType| STRING | Define the order type
-stopPrice|STRING|Stop price submitted
-limitPrice|STRING|Limit price submitted
+side|STRING|`BUY` or `SELL`
+status|STRING|  Order status
+marketCode | STRING |  Market code e.g. `FLEX-USD`
+timeInForce|STRING| Client submitted time in force, `GTC` by default
+timestamp|STRING |Current millisecond timestamp
+orderType| STRING | `LIMIT` or `STOP`
+stopPrice|STRING|Stop price submitted (only applicable for STOP order types)
+limitPrice|STRING|Limit price submitted (only applicable for STOP order types)
+isTriggered|STRING|`false` or `true` 
 
 
+#### OrderClosed
 
-#### Order: OrderModified
-
-> **Update format for modify order**
+> **OrderClosed message format - LIMIT order**
 
 ```json
 {
-    "table": "order",
-    "data": [
-        {
-            "notice": "OrderModified",
-            "accountId": "<Your Account ID>",
-            "marketCode": "BTC-USD-SWAP-LIN",
-            "orderId": "123",
-            "clientOrderId": "16",
-            "price": "9600",
-            "quantity": "1",
-            "orderType": "LIMIT",
-            "side": "BUY",
-            "timeInForce": "GTC",
-            "status": "OPEN",
-            "timestamp": "1594943491077"
-        }
-    ]
+  "table": "order",
+  "data": [ {
+              "notice": "OrderClosed",
+              "accountId": "<Your account ID>",
+              "clientOrderId": "16",
+              "orderId": "73",
+              "price": "9600",
+              "quantity": "2",
+              "side": "BUY",
+              "status": "<Canceled status>",
+              "marketCode": "BTC-USD-SWAP-LIN",
+              "timeInForce": "<Time in force>",
+              "timestamp": "1594943491077",
+              "remainQuantity": "1.5",
+              "orderType": "LIMIT",
+              "isTriggered": "false" 
+            } ]
 }
-
 ```
 
+> **OrderClosed message format - STOP order**
+
+```json
+{
+  "table": "order",
+  "data": [ {
+              "notice": "OrderClosed",
+              "accountId": "<Your account ID>",
+              "clientOrderId": "16",
+              "orderId": "13",
+              "quantity": "2",
+              "side": "BUY",
+              "status": "CANCELED_BY_USER",
+              "marketCode": "BTC-USD-SWAP-LIN",
+              "timeInForce": "<Time in force>",
+              "timestamp": "1594943491077",
+              "remainQuantity": "1.5",
+              "stopPrice": "9100",
+              "limitPrice": "9120",
+              "orderType": "STOP",
+              "isTriggered": "true" 
+            } ]
+}
+```
+
+There are multiple scenarios in which an order is closed as described by the **status** field in the OrderClosed message.  In summary orders can be closed by:-
+
+* `CANCELED_BY_USER` - the client themselves initiating this action or the liquidation engine on the clients behalf if the clients account is below the maintenance margin threshold
+* `CANCELED_BY_MAKER_ONLY` - if a maker-only order is priced such that it would actually be an agressing taker trade, the order is automatically canceled to prevent this order from matching as a taker
+* `CANCELED_BY_FOK` - since fill-or-kill orders requires **all** of the order quantity to immediately take and match at the submitted limit price or better, if no such match is possible then the whole order quantity is canceled
+* `CANCELED_ALL_BY_IOC` - since immediate-or-cancel orders also requires an immediate match at the specified limit price or better, if no such match price is possible for **any** of the submitted order quantity then the whole order quantity is canceled
+* `CANCELED_PARTIAL_BY_IOC` - since immediate-or-cancel orders only requires **some** of the submitted order quantity to immediately take and match at the specified limit price or better, if a match is possible for only a **partial** quantity then only the remaining order quantity which didn't immediately match is canceled
+* `CANCELED_BY_AMEND` - if a **Modify Order** command updated an order such that it changed its position in the order queue, the original order would be closed and an OrderClosed notice would be broadcasted in the Order Channel with this status
+
+Parameters | Type | Description
+-------------------------- | -----|--------- |
+notice | STRING | `OrderClosed`
+accountId | STRING  |  Account identifier
+clientOrderId|STRING |  Client assigned ID to help manage and identify orders
+orderId | STRING  |  Unique order ID from the exchange
+price|STRING |Limit price of closed order (only applicable for LIMIT order types)
+quantity|STRING |Original order quantity of closed order
+side|STRING |`BUY` or `SELL`
+status|STRING | <ul><li>`CANCELED_BY_USER`</li><li>`CANCELED_BY_MAKER_ONLY`</li><li>`CANCELED_BY_FOK`</li><li>`CANCELED_ALL_BY_IOC`</li><li>`CANCELED_PARTIAL_BY_IOC`</li><li>`CANCELED_BY_AMEND`</li></ul>
+marketCode|STRING |  Market code e.g. `BTC-USD-SWAP-LIN`
+timeInForce|STRING |Time in force of closed order
+timestamp|STRING |Current millisecond timestamp
+remainQuantity|STRING |Remaining order quantity of closed order
+stopPrice|STRING|Stop price of closed stop order (only applicable for STOP order types)
+limitPrice|STRING|Limit price of closed stop order (only applicable for STOP order types)
+ordertype|STRING  | `LIMIT` or `STOP`
+isTriggered|STRING|`false` or `true` 
+
+
+#### OrderModified
+
+> **OrderModified message format**
+
+```json
+{
+  "table": "order",
+  "data": [ {
+              "notice": "OrderModified",
+              "accountId": "<Your account ID>",
+              "clientOrderId": "16",
+              "orderId": "94335",
+              "price": "9600",
+              "quantity": "1",
+              "side": "BUY",
+              "status": "OPEN",
+              "marketCode": "BTC-USD-SWAP-LIN",    
+              "timeInForce": "GTC",
+              "timestamp": "1594943491077"
+              "orderType": "LIMIT",
+              "isTriggered": "false" 
+            } ]
+}
+```
+
+As described in a previous section [Order Commands - Modify Order](#websocket-api-order-commands-modify-order), the Modify Order command can potentially affect the queue position of the order depending on which parameter of the original order has been modified.
+
+If the orders queue position is **unchanged** because the orders quantity has been **reduced** and no other order parameter has been changed then this **OrderModified** message will be sent via the Order Channel giving the full details of the modified order.
+
+If however the order queue position has changed becuase the orders: (1) side was modified, (2) quantity was increased, (3) price was changed or any combination of these then the exchange will cancel the orginal order with an **OrderClosed** message with **status** `CANCELED_BY_AMEND`, followed by the opening of a new order with an **OrderModified** message containing a new orderID to reflect the orders new position in the order queue.
 
 Parameters |Type| Description |
 --------|-----|---|
 notice | STRING | `OrderModified`
 accountId | STRING | Account identifier
-marketCode | STRING |  Market Code i.e. `BTC-USD-SWAP-LIN`
-orderId | STRING |     Order ID generated by the server
-clientOrderId |  STRING | Client order ID submitted
-price | STRING | Price submitted
-quantity | STRING| Quantity submitted
-side|STRING|`BUY` / `SELL`
-timeInForce|STRING|Confirming user setting
-status|STRING|  Update status
-timestamp|STRING|UNIX timestamp
-orderType| STRING| Define order type
-
-#### Order: OrderClosed
-
-> **Update format for canceled partially by IOC**
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderClosed",
-          "accountId": "<Your account ID>",
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": "73",
-          "clientOrderId": "16",
-          "price": "9600",
-          "quantity": "2",
-          "remainQuantity": "1.5",
-          "orderType": "LIMIT",
-          "side": "BUY",
-          "timeInForce": "IOC",
-          "status": "CANCELED_PARTIAL_BY_IOC",
-          "timestamp": "1594943491077"
-        }
-    ]
-}
+clientOrderId |  STRING | Client assigned ID to help manage and identify orders
+orderId | STRING | Unique order ID from the exchange
+price |STRING | Limit price of modified order (only applicable for LIMIT order types)
+quantity | STRING| Quantity of modified order
+side|STRING|`BUY` or `SELL`
+status|STRING|  Order status
+marketCode | STRING |  Market code e.g. `BTC-USD-SWAP-LIN`
+timeInForce|STRING| Client submitted time in force, `GTC` by default
+timestamp|STRING |Current millisecond timestamp
+orderType| STRING | `LIMIT` or `STOP`
+stopPrice|STRING|Stop price of modified order (only applicable for STOP order types)
+limitPrice|STRING|Limit price of modified order (only applicable for STOP order types)
+isTriggered|STRING|`false` or `true` 
 
 
-```
+#### OrderMatched
 
-> **Update format for canceled all by IOC**
+> **OrderMatched message format**
 
 ```json
-
 {
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderClosed",
-          "accountId": "<Your account ID>",
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": "133",
-          "clientOrderId": "16",
-          "price": "8000",
-          "quantity": "2",
-          "remainQuantity": "2",
-          "orderType": "LIMIT",
-          "side": "BUY",
-          "timeInForce": "IOC",
-          "status": "CANCELED_ALL_BY_IOC",
-          "timestamp": "1594943491077"
-        }
-    ]
-}
-
-
-```
-
-
-> **Update format for cancled by FOK**
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderClosed",
-          "accountId": "1",
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": "73",
-          "clientOrderId": "16",
-          "price": "9609",
-          "quantity": "2",
-          "remainQuantity": "2",
-          "orderType": "LIMIT",
-          "side": "BUY",
-          "timeInForce": "FOK",
-          "status": "CANCELED_BY_FOK",
-          "timestamp": "1594943491077"
-        }
-    ]
-}
-
-```
-
-
-> **Update format for canceled by maker only**
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderClosed",
-          "accountId": "3",
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": "7",
-          "clientOrderId": "16",
-          "price": "9600",
-          "quantity": "1",
-          "remainQuantity": "1",
-          "orderType": "LIMIT",
-          "side": "BUY",
-          "timeInForce": "MAKER_ONLY",
-          "status": "CANCELED_BY_MAKER_ONLY",
-          "timestamp": "1594943491077"
-        }
-    ]
-}
-
-```
-> **Update format for limit order canceled by user**
-
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderClosed",
-          "accountId": "1",
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": "13",
-          "clientOrderId": "16",
-          "price": "9060",
-          "quantity": "2",
-          "remainQuantity": "0",
-          "orderType": "LIMIT",
-          "side": "BUY",
-          "timeInForce": "GTC",
-          "status": "CANCELED_BY_USER",
-          "timestamp": "1594943491077"
+  "table": "order",
+  "data": [ {
+              "notice": "OrderMatched",
+              "accountId": "<Your account ID>",
+              "clientOrderId": "16",
+              "orderId": "567531657",
+              "price": "9300",
+              "quantity": "20",
+              "side": "BUY",
+              "status": "<Matched status>",
+              "marketCode": "BTC-USD-SWAP-LIN",
+              "timeInForce": "GTC",
+              "timestamp": "1592490254168",
+              "matchId": "11568123",
+              "matchPrice": "9300",
+              "matchQuantity": "20",
+              "orderMatchType": "MAKER",
+              "remainQuantity": "0",
+              "orderType": "<Order type>", 
+              "stopPrice": "9000",
+              "limitPrice": "9050", 
+              "fees": "3.7",
+              "feeInstrumentId": "FLEX",   
+              "isTriggered": "false"
         }
     ]
 }
 ```
-
-> **Update format for stop-limit order canceled by user**
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderClosed",
-          "accountId": "9",
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": "13",
-          "clientOrderId": "16",
-          "stopPrice": "9100",
-          "limitPrice": "9120",
-          "quantity": "2",
-          "remainQuantity": "1.5",
-          "orderType": "STOP",
-          "side": "BUY",
-          "timeInForce": "GTC",
-          "status": "CANCELED_BY_USER",
-          "timestamp": "1594943491077"
-        }
-    ]
-}
-
-```
-
-Parameters | Type | Required
--------------------------- | -----|--------- |
-notice | STRING | `OrderClosed`
-accountId | STRING  |  Account identifier
-clientOrderId|STRING |  Client order ID submitted
-marketCode|STRING |  Market Code i.e. `BTC-USD-SWAP-LIN`
-orderId | STRING  |    Order ID generated by the server
-ordertype|STRING  | Define the order type
-price|STRING |Price submitted
-quantity|STRING |Quantity submitted
-remainQuantity|STRING |Remaining quantity
-side|STRING |`BUY` / `SELL`
-status|STRING | Update status
-timeInForce|STRING |Confirming user setting
-timestamp|STRING |UNIX timestamp
-stopPrice|STRING|Stop price submitted
-limitPrice|STRING|Limit price submitted
-
-
-#### Order: OrderRejected
-
-* Reject order with 0 quantity
-
-> **Notification:**
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderRejected",
-          "quantity": "0",
-          "clientOrderID": "13",
-          "status": "REJECT_QUANTITY_ZERO",
-          "timestamp": "1592496454"
-        }
-    ]
-}
-
-```
-
-Parameters | Type | Required
--------------------------- | -----|--------- |
-notice | STRING | `OrderRejected`
-quantity|STRING|Quantity submitted
-status|STRING|REJECT QUANTITY ZERO
-timestamp|STRING|UNIX timestamp
-clientOrderId|STRING|  Client order ID submitted
-
-
-
-* Reject order with unknown order action
-
-> **Notification:**
-
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderRejected",
-          "status": "REJECT_UNKNOW_ORDER_ACTION",
-          "timestamp": "1592495554"
-        }
-    ]
-}
-
-```
-
-* Reject limit order with the market price
-
-> **Notification:**
-
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderRejected",
-          "status": "REJECT_LIMITE_ORDER_WITH_MARKET_PRICE",
-          "timestamp": "1592493454"
-        }
-    ]
-}
-
-```
-
-* Reject stop-limit order
-
-> **Notification:**
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderRejected",
-          "clientOrderId": "12",
-          "orderType": "STOP",
-          "side": "BUY",
-          "stopPrice": "9630",
-          "limitPrice": "9650",
-          "status": "STOP_PRICE_LARGER_THAN_LIMIT_PRICE",
-          "timestamp": "1592496774"
-        }
-    ]
-}
-
-```
-
-
-Parameters | Type | Required
--------------------------- | -----|--------- |
-notice | String | `OrderRejected`
-accountId | String |  Account identifier
-clientOrderId|String|  Client order ID submitted
-orderType|string|`STOP`
-side|String|`BUY` / `SELL`
-status|String|STOP PRICE LARGER THAN LIMIT PRICE
-stopPrice|String|Stop price submitted
-limitPrice|String|Limit price submitted
-timestamp|String|UNIX timestamp
-
-> **Notification:**
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderRejected",
-          "clientOrderId": "12",
-          "orderType": "STOP",
-          "side": "SELL",
-          "stopPrice": "9800",
-          "limitPrice": "9900",
-          "status": "STOP_PRICE_LESS_THAN_LIMIT_PRICE",
-          "timestamp": "1592496574"
-        }
-    ]
-}
-
-```
-
-
-Parameters | Type | Required
--------------------------- | -----|--------- |
-notice | String | `OrderRejected`
-accountId | String |  Account identifier
-clientOrderId|String|  Client order ID submitted
-orderType|string|`STOP`
-side|String|`BUY` / `SELL`
-status|String|STOP PRICE LARGER THAN LIMIT PRICE
-stopPrice|String|Stop price submitted
-limitPrice|String|Limit price submitted
-timestamp|String|UNIX timestamp
-
-
-* Reject cancel an order:
-
-> **Notification:**
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderRejected",
-          "orderId": "13",
-          "status": "REJECT_CANCEL_ORDER_ID_NOT_FOUND",
-          "timestamp": "1592494474"
-        }
-    ]
-}
-
-```
-
-Parameters | Type | Required
--------------------------- | -----|--------- |
-notice | STRING |`OrderReject`
-orderId | STRING |    Order ID generated by the server
-status|STRING|REJECT CANCEL ORDER ID NOT FOUND
-timestamp|STRING|UNIX timestamp
-
-* Reject modify the order
-
-> **Notification:**
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderRejected",
-          "orderId": "12",
-          "status": "REJECT_AMEND_ORDER_ID_NOT_FOUND",
-          "timestamp": "1592498890"
-        }
-    ]
-}
-
-```
-
-Parameters |Type| Required |
---------|-----|---|
-notice | STRING | `OrderRejected`
-orderId | STRING  |     Order ID generated by the server
-status|STRING |  REJECT AMEND ORDER ID NOT FOUND
-timestamp|STRING  |UNIX timestamp
-
-
-#### Order: OrderMatched
-
-* Limit order fully matched
-
-> **Notification:**
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderMatched",
-          "accountId": "1",
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": "39",
-          "clientOrderId": "16",
-          "matchId": "1",
-          "price": "9300",
-          "quantity": "2",
-          "matchPrice": "9300",
-          "matchQuantity": "2",
-          "orderMatchType": "MAKER",
-          "remainQuantity": "0",
-          "orderType": "LIMIT",
-          "side": "BUY",
-          "timeInForce": "GTC",
-          "fees": "3.7",
-          "feeInstrumentId": "FLEX",
-          "status": "FILLED",
-          "timestamp": "1592490254"
-        }
-    ]
-}
-
-
-```
-
 
 Parameters | Type | Required
 -------------------------- | -----|--------- |
 notice | STRING | `OrderMatched`
 accountId | STRING | Account identifier
-marketCode|STRING|      Market Code i.e. `BTC-USD-SWAP-LIN`
-orderId | STRING|     Order ID generated by the server
-orderId|STRING|Order ID generated by the server
-clientOrderId|STRING|  Client order ID submitted
-price|STRING|Price submitted
-quantity|STRING|Quantity submitted
-remainQuantity|STRING|Remaining quantity
-side|STRING|`BUY` / `SELL`
-timeInForce|STRING|Confirming user setting
-status|STRING|`FILL`
-timestamp|STRING|UNIX timestamp
-orderType|STRING|`LIMIT`
-
-
-* Limit order partially matched
-
-
-> **Notification:**
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderMatched",
-          "accountId": "11",
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": "13",
-          "clientOrderId": "16",
-          "matchId": "2",
-          "price": "9333",
-          "quantity": "2",
-          "matchPrice": "9333",
-          "matchQuantity": "1",
-          "orderMatchType": "MAKER",
-          "remainQuantity": "1",
-          "orderType": "LIMIT",
-          "side": "BUY",
-          "timeInForce": "GTC",
-          "fees": "1.8",
-          "feeInstrumentId": "FLEX",
-          "status": "PARTIAL_FILL",
-          "timestamp": "1592497054"
-        }
-    ]
-}
-
-
-```
-
-
-
-Parameters | Type | Required
--------------------------- | -----|--------- |
-notice | STRING | `OrderOpened`
-accountId | STRING | Account identifier
-orderId | STRING |     Order ID generated by the server
-fees|STRING|Fee amount
-feeInstrumentId|STRING|Fee instrument (e.g. USD)
-marketCode|STRING|  Market Code i.e. BTC-USD-SWAP-LIN
-matchId|STRING|Match/trade identifier
-matchPrice|STRING|Traded price
-matchQuantity|STRING|Traded quantity
-orderId|STRING|Order ID generated by the server
-orderMatchType|STRING|`MAKER`/`TAKER`
-orderType|STRING|`LIMIT`
-price|STRING|Price submitted
-quantity|STRING|Quantity submitted
-remainQuantity|STRING|Remaining quantity
-side|STRING|`BUY` / `SELL`
-status|STRING|`PARTIAL_FILL`
-timeInForce|STRING|Confirming user setting
-timestamp|STRING|UNIX timestamp
-
-* Stop limit order partially matched:
-
-> **Notification:**
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderMatched",
-          "accountId": "7",
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": "12",
-          "clientOrderId": "16",
-          "matchId": "1",
-          "stopPrice": "9700",
-          "limitPrice": "9650",
-          "quantity": "3",
-          "matchPrice": "9650",
-          "matchQuantity": "1",
-          "orderMatchType": "MAKER",
-          "remainQuantity": "2",
-          "orderType": "STOP",
-          "side": "BUY",
-          "timeInForce": "GTC",
-          "fees": "1.9",
-          "feeInstrumentId": "FLEX",
-          "status": "PARTIAL_FILL",
-          "timestamp": "15924979954"
-        }
-    ]
-}
-
-```
-
-Parameters | Type | Required
--------------------------- | -----|--------- |
-notice | STRING | `OrderOpened`
-accountId | STRING | Account identifier
-clientOrderId|STRING|  Client order ID submitted
-marketCode|STRING|  Fee instrument (e.g. USD)
-orderId | STRING |    Order ID generated by the server
-matchId|STRING|Match/trade identifier
-stopPrice|STRING|Stop price submitted
-limitPrice|STRING|Limit price submitted
-quantity|STRING|Quantity submitted
-matchPrice|STRING|Traded price
-matchQuantity|STRING|Traded quantity
-orderMatchType|STRING|`MAKER`/`TAKER`
-remainQuantity|STRING|Remaining quantity
-side|STRING|`BUY` / `SELL`
-timeInForce|STRING|Confirming user setting
-status|STRING|`PARTIAL_FILL`
-timestamp|STRING|UNIX timestamp
-fees|STRING|Fee amount
-feeInstrumentId|STRING|Fee instrument (e.g. USD)
-orderType|STRING|`STOP`
-
-* Stop-limit order fully matched:
-
-> **Notification:**
-
-```json
-
-{
-    "table": "order",
-    "data": [
-        {
-          "notice": "OrderMatched",
-          "accountId": "1",
-          "marketCode": "BTC-USD-SWAP-LIN",
-          "orderId": "123",
-          "clientOrderId": "16",
-          "matchId": "1",
-          "stopPrice": "9700",
-          "limitPrice": "9650",
-          "quantity": "2",
-          "matchPrice": "9650",
-          "matchQuantity": "2",
-          "orderMatchType": "MAKER",
-          "remainQuantity": "0",
-          "orderType": "STOP",
-          "side": "BUY",
-          "timeInForce": "GTC",
-          "fees": "3.8",
-          "feeInstrumentId": "FLEX",
-          "status": "FILLED",
-          "timestamp": "15924979954"
-        }
-    ]
-}
-
-```
-
-
-Parameters | Type | Required
--------------------------- | -----|--------- |
-notice | STRING | `OrderMatched`
-accountId | STRING | Account identifier
-marketCode|STRING|  Market Code i.e. `BTC-USD-SWAP-LIN`
-orderId | STRING |    Order ID generated by the server
-clientOrderId|STRING|  Client order ID submitted
-matchId|STRING|Match/trade identifier
-stopPrice|STRING|Stop price submitted
-limitPrice|STRING|Limit price submitted
-quantity|STRING|Quantity submitted
-matchPrice|STRING|Traded price
-matchQuantity|STRING|Traded quantity
-orderMatchType|STRING|`MAKER`/`TAKER`
-remainQuantity|SSTRING|Remaining quantity
-side|STRING|`BUY` / `SELL`
-timeInForce|STRING|Confirming user setting
-status|STRING|`FILLED`
-timestamp|STRING|UNIX timestamp
-fees|STRING|Fee amount
-feeInstrumentId|STRING|Fee instrument (e.g. USD)
-orderType|STRING|`STOP`
+clientOrderId|STRING|  Client assigned ID to help manage and identify orders
+orderId | STRING|   Unique order ID from the exchange
+price|STRING| Limit price submitted (only applicable for LIMIT order types)
+stopPrice|STRING| Stop price submitted (only applicable for STOP order types)
+limitPrice|STRING| Limit price submitted (only applicable for STOP order types)
+quantity|STRING|Order quantity submitted
+side|STRING|`BUY` or `SELL`
+status|STRING|`FILLED` or `PARTIAL_FILL`
+marketCode|STRING| Market code i.e. `BTC-USD-SWAP-LIN`
+timeInForce|STRING|Client submitted time in force (only applicable for LIMIT and STOP order types)
+timestamp|STRING|Millisecond timestamp of order match
+matchID|STRING|Exchange match ID
+matchPrice|STRING|Match price of order from this match ID
+matchQuantity|STRING|Match quantity of order from this match ID
+orderMatchType|STRING|`MAKER` or `TAKER`
+remainQuantity|STRING|Remaining order quantity
+orderType|STRING|<ul><li>`LIMIT`</li><li>`MARKET`</li><li>`STOP`</li></ul>
+fees|STRING|Amount of fees paid from this match ID 
+feeInstrumentId|STRING|Instrument ID of fees paid from this match ID 
+isTriggered|STRING|`false` (or `true` for STOP order types)
 
 
 ## Subscriptions - Public
+
+All subscriptions to public channels do **not** require an authenticated websocket connection.
+
+Multiple subscriptions to different channels both public and private can be made within a single subscription command:
+
+`{"op": "subscribe", "args": ["<value1>", "<value2>",.....]}`
+
 ### Orderbook Depth
 
-> **Request**
+> **Request format**
 
 ```json
 {
   "op": "subscribe",
-  "args": ["futures/depth:BTC-USD-190628"]
+  "tag": 103,
+  "args": ["futures/depth:BTC-USD-SWAP-LIN"]
 }
 ```
 
-> **Response**
+> **Success response format**
 
 ```json
 {
-    "table": "futures/depth",
-    "data": [{
-        "asks": [
-            ["5556.82", "11", "0", "0"],
-            ["5556.84", "98", "0", "0"],
-            ["5556.92", "1", "0", "0"],
-            ["5557.6", "4", "0", "0"],
-            ["5557.85", "2", "0", "0"]
-        ],
-        "bids": [
-            ["5556.81", "1", "0", "0"],
-            ["5556.8", "2", "0", "0"],
-            ["5556.79", "1", "0", "0"],
-            ["5556.19", "100", "0", "0"],
-            ["5556.08", "2", "0", "0"]
-        ],
-        "instrumentId": "BTC-USD-190628",
-        "timestamp": "2019-05-06T07:19:39.348Z"
+  "success": True, 
+  "tag": "103", 
+  "event": "subscribe", 
+  "channel": "futures/depth:BTC-USD-SWAP-LIN", 
+  "timestamp": "1607985371601"
+}
+```
+
+> **Orderbook depth channel format**
+
+```json
+{
+  "table": "futures/depth",
+  "data": [{
+      "instrumentId": "BTC-USD-SWAP-LIN",
+      "seqNum": 1608898592006137237,
+      "timestamp": "1609350022785",
+      "checksum": 1139901235, 
+      "asks": [
+          [5556.82, 11, 0, 0],
+          [5556.84, 98.13, 0, 0],
+          [5556.92, 1.582, 0, 0],
+          [5557.6, 4.291, 0, 0],
+          [5557.85, 2.54, 0, 0]
+      ],
+      "bids": [
+          [5556.81, 1.92, 0, 0],
+          ["5556.8, 2.1, 0, 0],
+          [5556.79, 1.9, 0, 0],
+          [5556.19, 100, 0, 0],
+          [5556.08, 2.972, 0, 0]
+      ],
     }]
 }
 ```
 
-**Description**
+**Channel Update Frequency:** 50ms
 
-futures/depth is channel name ，BTC-USD-190628 is instrumentId
+This orderbook depth channel sends a snapshot of the entire orderbook every 50ms.  
 
-bids and asks value example:
-
-["411.8", "10", "0", "0"] 411.8 is the price; 10 is the quantity.
-
-Parameters | Parameters Types | Description|
+Parameters | Type | Description|
 -------------------------- | -----| -------------|
-bids| List<String>|Buy side depth |
-instrumentId| String|Contract ID，e.g .BTC-USD-170310 ,BTC-USDT-191227|
-asks|List|Sell side depth
-timestamp|String|UNIX timestamp
+bids| LIST-FLOAT |Buy side depth |
+asks| LIST-FLOAT | Sell side depth |
+instrumentId | STRING |Instrument ID |
+seqNum | INTEGER | Sequence number of the order book snapshot
+timestamp| STRING | Millisecond timestamp |
+
 
 ### Trade
 
