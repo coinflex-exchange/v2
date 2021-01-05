@@ -1444,7 +1444,7 @@ As described in a previous section [Order Commands - Modify Order](#websocket-ap
 
 If the orders queue position is **unchanged** because the orders quantity has been **reduced** and no other order parameter has been changed then this **OrderModified** message will be sent via the Order Channel giving the full details of the modified order.
 
-If however the order queue position has changed becuase the orders: (1) side was modified, (2) quantity was increased, (3) price was changed or any combination of these then the exchange will cancel the orginal order with an **OrderClosed** message with **status** `CANCELED_BY_AMEND`, followed by the opening of a new order with an **OrderModified** message containing a new orderID to reflect the orders new position in the order queue.
+If however the order queue position has changed becuase the orders: (1) side was modified, (2) quantity was increased, (3) price was changed or any combination of these then the exchange will cancel the orginal order with an **OrderClosed** message with **status** `CANCELED_BY_AMEND`, followed by the opening of a new order with an **OrderOpened** message containing a new orderID to reflect the orders new position in the order queue.
 
 <sub>**Channel Update Fields**</sub>
 
@@ -1615,8 +1615,8 @@ data | LIST of dictionary |
 \>instrumentId | STRING |Instrument ID |
 \>seqNum | INTEGER | Sequence number of the order book snapshot
 \>timestamp| STRING | Millisecond timestamp |
-\>asks| LIST | Sell side depth | First index price, second index quantity
-\>bids| LIST | Buy side depth | First index price, second index quantity
+\>asks| LIST | Sell side depth; First index price, second index quantity
+\>bids| LIST | Buy side depth; First index price, second index quantity
 
 
 ### Trade
