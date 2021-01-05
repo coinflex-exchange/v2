@@ -1576,21 +1576,19 @@ Multiple subscriptions to different channels both public and private can be made
       "seqNum": 1608898592006137237,
       "timestamp": "1609350022785",
       "checksum": 1139901235, 
-      "asks": [
-          [5556.82, 11, 0, 0],
-          [5556.84, 98.13, 0, 0],
-          [5556.92, 1.582, 0, 0],
-          [5557.6, 4.291, 0, 0],
-          [5557.85, 2.54, 0, 0]
-      ],
-      "bids": [
-          [5556.81, 1.92, 0, 0],
-          [5556.8, 2.1, 0, 0],
-          [5556.79, 1.9, 0, 0],
-          [5556.19, 100, 0, 0],
-          [5556.08, 2.972, 0, 0]
-      ]
-  } ]
+      "asks": [ [5556.82, 11, 0, 0],
+                [5556.84, 98.13, 0, 0],
+                [5556.92, 1.582, 0, 0],
+                [5557.6, 4.291, 0, 0],
+                [5557.85, 2.54, 0, 0]
+              ],
+      "bids": [ [5556.81, 1.92, 0, 0],
+                [5556.8, 2.1, 0, 0],
+                [5556.79, 1.9, 0, 0],
+                [5556.19, 100, 0, 0],
+                [5556.08, 2.972, 0, 0]
+              ]
+          } ]
 }
 ```
 
@@ -1635,33 +1633,29 @@ data | LIST of dictionary |
 > **Success response format**
 
 ```json
-{"event": "subscribe", "channel": ["trade:BTC-USD-SWAP-LIN"], "success": true, "tag": "1", "timestamp": "1594299886880"}
-```
-
-> **Failure response format**
-
-```json
-
-{"event": "subscribe", "message": "<errorMessage>", "code": "<code>", "success": false, "tag": "1", "timestamp": "1594299886880"}
-
-```
-
-> **Channel update format**
-
-```json
-
 {
-    "table": "trade",
-    "data": [{
-        "side": "buy",
-        "tradeId": "2778148208082945",
-        "price": "5556.91",
-        "quantity": "5",
-        "marketCode": "BTC-USD-190628",
-        "timestamp": "1594299886890"
-    }]
+  "event": "subscribe", 
+  "channel": ["trade:BTC-USD-SWAP-LIN"], 
+  "success": true, 
+  "tag": "1", 
+  "timestamp": "1594299886880"
 }
+```
 
+> **Trade channel format**
+
+```json
+{
+  "table": "trade",
+  "data": [ {
+              "side": "buy",
+              "tradeId": "2778148208082945",
+              "price": "5556.91",
+              "quantity": "5",
+              "marketCode": "BTC-USD-190628",
+              "timestamp": "1594299886890"
+            } ]
+}
 ```
 The trade channel pushes the matched order data.
 
