@@ -2698,7 +2698,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 
 <p>If the orders queue position is <strong>unchanged</strong> because the orders quantity has been <strong>reduced</strong> and no other order parameter has been changed then this <strong>OrderModified</strong> message will be sent via the Order Channel giving the full details of the modified order.</p>
 
-<p>If however the order queue position has changed becuase the orders: (1) side was modified, (2) quantity was increased, (3) price was changed or any combination of these then the exchange will cancel the orginal order with an <strong>OrderClosed</strong> message with <strong>status</strong> <code>CANCELED_BY_AMEND</code>, followed by the opening of a new order with an <strong>OrderModified</strong> message containing a new orderID to reflect the orders new position in the order queue.</p>
+<p>If however the order queue position has changed becuase the orders: (1) side was modified, (2) quantity was increased, (3) price was changed or any combination of these then the exchange will cancel the orginal order with an <strong>OrderClosed</strong> message with <strong>status</strong> <code>CANCELED_BY_AMEND</code>, followed by the opening of a new order with an <strong>OrderOpened</strong> message containing a new orderID to reflect the orders new position in the order queue.</p>
 
 <p><sub><strong>Channel Update Fields</strong></sub></p>
 
@@ -2995,21 +2995,19 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
       </span><span class="nl">"seqNum"</span><span class="p">:</span><span class="w"> </span><span class="mi">1608898592006137237</span><span class="p">,</span><span class="w">
       </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1609350022785"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"checksum"</span><span class="p">:</span><span class="w"> </span><span class="mi">1139901235</span><span class="p">,</span><span class="w"> 
-      </span><span class="nl">"asks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-          </span><span class="p">[</span><span class="mf">5556.82</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
-          </span><span class="p">[</span><span class="mf">5556.84</span><span class="p">,</span><span class="w"> </span><span class="mf">98.13</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
-          </span><span class="p">[</span><span class="mf">5556.92</span><span class="p">,</span><span class="w"> </span><span class="mf">1.582</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
-          </span><span class="p">[</span><span class="mf">5557.6</span><span class="p">,</span><span class="w"> </span><span class="mf">4.291</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
-          </span><span class="p">[</span><span class="mf">5557.85</span><span class="p">,</span><span class="w"> </span><span class="mf">2.54</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="nl">"bids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-          </span><span class="p">[</span><span class="mf">5556.81</span><span class="p">,</span><span class="w"> </span><span class="mf">1.92</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
-          </span><span class="p">[</span><span class="mf">5556.8</span><span class="p">,</span><span class="w"> </span><span class="mf">2.1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
-          </span><span class="p">[</span><span class="mf">5556.79</span><span class="p">,</span><span class="w"> </span><span class="mf">1.9</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
-          </span><span class="p">[</span><span class="mf">5556.19</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
-          </span><span class="p">[</span><span class="mf">5556.08</span><span class="p">,</span><span class="w"> </span><span class="mf">2.972</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="w">
-      </span><span class="p">]</span><span class="w">
-  </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
+      </span><span class="nl">"asks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">[</span><span class="mf">5556.82</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
+                </span><span class="p">[</span><span class="mf">5556.84</span><span class="p">,</span><span class="w"> </span><span class="mf">98.13</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
+                </span><span class="p">[</span><span class="mf">5556.92</span><span class="p">,</span><span class="w"> </span><span class="mf">1.582</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
+                </span><span class="p">[</span><span class="mf">5557.6</span><span class="p">,</span><span class="w"> </span><span class="mf">4.291</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
+                </span><span class="p">[</span><span class="mf">5557.85</span><span class="p">,</span><span class="w"> </span><span class="mf">2.54</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="w">
+              </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"bids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">[</span><span class="mf">5556.81</span><span class="p">,</span><span class="w"> </span><span class="mf">1.92</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
+                </span><span class="p">[</span><span class="mf">5556.8</span><span class="p">,</span><span class="w"> </span><span class="mf">2.1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
+                </span><span class="p">[</span><span class="mf">5556.79</span><span class="p">,</span><span class="w"> </span><span class="mf">1.9</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
+                </span><span class="p">[</span><span class="mf">5556.19</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
+                </span><span class="p">[</span><span class="mf">5556.08</span><span class="p">,</span><span class="w"> </span><span class="mf">2.972</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="w">
+              </span><span class="p">]</span><span class="w">
+          </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p><strong>Channel Update Frequency:</strong> 50ms</p>
@@ -3083,12 +3081,12 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>&gt;asks</td>
 <td>LIST</td>
-<td>Sell side depth</td>
+<td>Sell side depth; First index price, second index quantity</td>
 </tr>
 <tr>
 <td>&gt;bids</td>
 <td>LIST</td>
-<td>Buy side depth</td>
+<td>Buy side depth; First index price, second index quantity</td>
 </tr>
 </tbody></table>
 <h3 id='websocket-api-subscriptions-public-trade'>Trade</h3>
@@ -3105,31 +3103,28 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <blockquote>
 <p><strong>Success response format</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"trade:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="w"> </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w"> </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1594299886880"</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<blockquote>
-<p><strong>Failure response format</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w"> </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w"> </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w"> </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1594299886880"</span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
-<blockquote>
-<p><strong>Channel update format</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"trade"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
-        </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"tradeId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2778148208082945"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5556.91"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-190628"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1594299886890"</span><span class="w">
-    </span><span class="p">}]</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"trade:BTC-USD-SWAP-LIN"</span><span class="p">],</span><span class="w"> 
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1594299886880"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-
+</span></code></pre></div>
+<blockquote>
+<p><strong>Trade channel format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"trade"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"tradeId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2778148208082945"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5556.91"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-190628"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1594299886890"</span><span class="w">
+            </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>The trade channel pushes the matched order data.</p>
 
