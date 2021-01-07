@@ -3098,7 +3098,6 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
   </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"trade:BTC-USD-SWAP-LIN"</span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-
 </span></code></pre></div>
 <blockquote>
 <p><strong>Success response format</strong></p>
@@ -3121,40 +3120,64 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
               </span><span class="nl">"tradeId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2778148208082945"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5556.91"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-190628"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1594299886890"</span><span class="w">
             </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>The trade channel pushes the matched order data.</p>
+<p><strong>Channel Update Frequency:</strong> real-time, with every order matched event</p>
 
-<p><strong>Channel Name</strong> : trade:&lt;marketCode&gt;</p>
+<p>This trade channel sends public trade information whenever an order is matched on the orderbook. </p>
 
-<p><strong>Update Speed</strong> : real-time</p>
+<p><sub><strong>Request Parameters</strong></sub> </p>
 
 <table><thead>
 <tr>
-<th>Request Parameters</th>
+<th>Parameters</th>
 <th>Type</th>
 <th>Required</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
+<td>op</td>
+<td>STRING</td>
+<td>Yes</td>
+<td><code>subscribe</code></td>
+</tr>
+<tr>
 <td>tag</td>
 <td>INTEGER</td>
-<td>NO</td>
-<td>Iff given and non-zero, it will be echoed in the reply.</td>
+<td>No</td>
+<td>If given and non-zero, it will be echoed in the reply</td>
+</tr>
+<tr>
+<td>args</td>
+<td>LIST</td>
+<td>Yes</td>
+<td>list of individual markets <code>futures/depthtrade:&lt;marketCode&gt;</code></td>
 </tr>
 </tbody></table>
 
+<p><sub><strong>Channel Update Fields</strong></sub></p>
+
 <table><thead>
 <tr>
-<th>Update Parameters</th>
+<th>Fields</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>table</td>
+<td>STRING</td>
+<td><code>trade</code></td>
+</tr>
+<tr>
+<td>data</td>
+<td>LIST of dictionary</td>
+<td></td>
+</tr>
 <tr>
 <td>tradeId</td>
 <td>STRING</td>
@@ -3183,60 +3206,53 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>marketCode</td>
 <td>STRING</td>
-<td>Market code i.e BTC-USD</td>
+<td>Market code</td>
 </tr>
 </tbody></table>
 <h3 id='websocket-api-subscriptions-public-ticker'>Ticker</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"ticker:BTC-USD-200925-LIN"</span><span class="p">],</span><span class="w"> </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}</span><span class="w">
-
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"ticker:FLEX-USD"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p><strong>Success response format</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"ticker:BTC-USD-200925-LIN"</span><span class="p">],</span><span class="w"> </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w"> </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1594299886890"</span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
-<blockquote>
-<p><strong>Failure response format</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w"> </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;"</span><span class="p">,</span><span class="w"> </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w"> </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1594299886890"</span><span class="p">}</span><span class="w">
-
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"ticker:FLEX-USD"</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1594299886890"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p><strong>Channel update format</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ticker"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"43.259"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"markPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11012.80409769"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"open24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"49.375"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"volume24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11295421"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"currencyVolume24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1225512"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"high24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"49.488"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"low24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"41.649"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"openInterest"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1726003"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"lastQty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123443563454"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ticker"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX-USD"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"43.259"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"markPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11012.80409769"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"open24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"49.375"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"volume24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11295421"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"currencyVolume24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1225512"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"high24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"49.488"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"low24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"41.649"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"openInterest"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1726003"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"lastQty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234435634547"</span><span class="w">
+          </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-
 </span></code></pre></div>
+<p><strong>Channel Update Frequency:</strong> 100ms</p>
+
 <p>The ticker channel pushes the general information about the contract.</p>
-
-<p><strong>Channel Name</strong> : ticker:&lt;marketCode&gt;</p>
-
-<p><strong>Update Speed</strong> : 100ms</p>
 
 <table><thead>
 <tr>
