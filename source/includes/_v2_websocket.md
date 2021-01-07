@@ -1627,7 +1627,6 @@ data | LIST of dictionary |
   "tag": 1,
   "args": ["trade:BTC-USD-SWAP-LIN"]
 }
-
 ```
 
 > **Success response format**
@@ -1652,85 +1651,86 @@ data | LIST of dictionary |
               "tradeId": "2778148208082945",
               "price": "5556.91",
               "quantity": "5",
-              "marketCode": "BTC-USD-190628",
+              "marketCode": "BTC-USD-SWAP-LIN",
               "timestamp": "1594299886890"
             } ]
 }
 ```
-The trade channel pushes the matched order data.
 
-**Channel Name** : trade:\<marketCode\>
+**Channel Update Frequency:** real-time, with every order matched event
 
-**Update Speed** : real-time
+This trade channel sends public trade information whenever an order is matched on the orderbook. 
 
-Request Parameters |Type | Required| Description|
--------------------------- | -----|--------- |-----------|
-tag |INTEGER| NO | Iff given and non-zero, it will be echoed in the reply.
+<sub>**Request Parameters**</sub> 
 
-Update Parameters |Type | Description|
+Parameters |Type| Required| Description |
+--------|-----|---|-----------|
+op | STRING| Yes | `subscribe`
+tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
+args | LIST | Yes | list of individual markets `futures/depthtrade:<marketCode>`
+
+<sub>**Channel Update Fields**</sub>
+
+Fields |Type | Description|
 -------------------------- | -----|--------- |
+table | STRING | `trade`
+data | LIST of dictionary |
 tradeId   | STRING    | Transaction Id|
 price | STRING    | Matched price|
 quantity|STRING   | Matched quantity|
 side    |STRING   | Matched side|
 timestamp| STRING | Matched timestamp|
-marketCode| STRING | Market code i.e BTC-USD|
+marketCode| STRING | Market code |
+
 
 ### Ticker
 
 > **Request format**
 
 ```json
-
-{"op": "subscribe", "args": ["ticker:BTC-USD-200925-LIN"], "tag": 1}
-
+{
+  "op": "subscribe", 
+  "tag": 1,
+  "args": ["ticker:FLEX-USD"]
+}
 ```
 
 > **Success response format**
 
 ```json
-
-{"event": "subscribe", "channel": ["ticker:BTC-USD-200925-LIN"], "success": true, "tag": "1", "timestamp": "1594299886890"}
-
-```
-
-> **Failure response format**
-
-```json
-
-{"event": "subscribe", "message": "<errorMessage>", "code": "<code>", "success": false, "tag": "1", "timestamp": "1594299886890"}
-
+{
+  "event": "subscribe", 
+  "channel": ["ticker:FLEX-USD"],
+  "success": true,
+  "tag": "1",
+  "timestamp": "1594299886890"
+}
 ```
 
 > **Channel update format**
 
 ```json
-
 {
-    "table": "ticker",
-    "data": [
-        {
-            "marketCode": "BTC-USD-SWAP-LIN",
-            "last": "43.259",
-            "markPrice": "11012.80409769",
-            "open24h": "49.375",
-            "volume24h": "11295421",
-            "currencyVolume24h": "1225512",
-            "high24h": "49.488",
-            "low24h": "41.649",
-            "openInterest": "1726003",
-            "lastQty": "1",
-            "timestamp": "123443563454"
-        }
-    ]
+  "table": "ticker",
+  "data": [ {
+              "marketCode": "FLEX-USD",
+              "last": "43.259",
+              "markPrice": "11012.80409769",
+              "open24h": "49.375",
+              "volume24h": "11295421",
+              "currencyVolume24h": "1225512",
+              "high24h": "49.488",
+              "low24h": "41.649",
+              "openInterest": "1726003",
+              "lastQty": "1",
+              "timestamp": "1234435634547"
+          } ]
 }
-
 ```
+
+**Channel Update Frequency:** 100ms
+
 The ticker channel pushes the general information about the contract.
-
-**Channel Name** : ticker:\<marketCode\>
-
-**Update Speed** : 100ms
 
 Request Parameters |Type | Required| Description|
 -------------------------- | -----|--------- |-----------|
