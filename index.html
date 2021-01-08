@@ -310,13 +310,13 @@
         <ul class="search-results"></ul>
       <ul id="toc" class="toc-list-h1">
           <li>
+            <a href="#change-log" class="toc-h1 toc-link" data-title="Change Log">Change Log</a>
+          </li>
+          <li>
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
           </li>
           <li>
             <a href="#api-key-management" class="toc-h1 toc-link" data-title="API Key Management">API Key Management</a>
-          </li>
-          <li>
-            <a href="#change-log" class="toc-h1 toc-link" data-title="Change Log">Change Log</a>
           </li>
           <li>
             <a href="#rate-limit" class="toc-h1 toc-link" data-title="Rate Limit">Rate Limit</a>
@@ -490,26 +490,7 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to CoinFLEX&#39;s v2 application programming interface (API). CoinFLEX&#39;s APIs provide clients programmatic access to control aspects of their accounts and to place orders on CoinFLEX&#39;s trading platform. CoinFLEX supports the following types of APIs:</p>
-
-<ul>
-<li>a WebSocket API</li>
-<li>a REST API</li>
-</ul>
-
-<p>Using these interfaces it is possible to place both authenticated and unauthenticated API commands for public and prvate commands respectively.</p>
-
-<p>To get started please register for a TEST account at <code>https://v2stg.coinflex.com/user-console/register</code></p>
-<h1 id='api-key-management'>API Key Management</h1>
-<p>An API key is required to make an authenticated API command.  API keys (public and corresponding secret key) can be generated via the CoinFLEX GUI within a clients account. </p>
-
-<p>By default, API Keys are read-only and can only read basic account information, such as positions, orders, and trades. They cannot be used to trade such as placing, modifying or cancelling orders.</p>
-
-<p>If you wish to execute orders with your API Key, clients must select the <code>Can Trade</code> permission upon API key creation.</p>
-
-<p>API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.</p>
-<h1 id='change-log'>Change Log</h1>
+        <h1 id='change-log'>Change Log</h1>
 <p><strong>2020-12-14</strong></p>
 
 <ul>
@@ -555,6 +536,25 @@
 <ul>
 <li>First beta version of API endpoints. Websocket and REST</li>
 </ul>
+<h1 id='introduction'>Introduction</h1>
+<p>Welcome to CoinFLEX&#39;s v2 application programming interface (API). CoinFLEX&#39;s APIs provide clients programmatic access to control aspects of their accounts and to place orders on CoinFLEX&#39;s trading platform. CoinFLEX supports the following types of APIs:</p>
+
+<ul>
+<li>a WebSocket API</li>
+<li>a REST API</li>
+</ul>
+
+<p>Using these interfaces it is possible to place both authenticated and unauthenticated API commands for public and prvate commands respectively.</p>
+
+<p>To get started please register for a TEST account at <code>https://v2stg.coinflex.com/user-console/register</code></p>
+<h1 id='api-key-management'>API Key Management</h1>
+<p>An API key is required to make an authenticated API command.  API keys (public and corresponding secret key) can be generated via the CoinFLEX GUI within a clients account. </p>
+
+<p>By default, API Keys are read-only and can only read basic account information, such as positions, orders, and trades. They cannot be used to trade such as placing, modifying or cancelling orders.</p>
+
+<p>If you wish to execute orders with your API Key, clients must select the <code>Can Trade</code> permission upon API key creation.</p>
+
+<p>API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.</p>
 <h1 id='rate-limit'>Rate Limit</h1>
 <p>CoinFLEX&#39;s APIs allows our clients to access and control their accounts or view our market data using custom-written software. To protect the performance of the system, we impose certain limits:</p>
 
