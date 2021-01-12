@@ -1796,8 +1796,8 @@ data | LIST of dictionary |
                 "9693.9",        //high
                 "9238.1",        //low
                 "9630.2",        //close
-                "45247",         //volume
-                "5.3"            //currencyVolume
+                "45247",         //volume in counter currency
+                "5.3"            //volume in base currency
               ]
           } ]
 }
@@ -1817,7 +1817,6 @@ op | STRING| Yes | `subscribe`
 tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
 args | LIST | Yes | list of individual candle granularity and market `candles<granularity>::<marketCode>`
 
-
 <sub>**Channel Update Fields**</sub>
 
 Fields |Type | Description|
@@ -1825,4 +1824,4 @@ Fields |Type | Description|
 table | STRING | `candles<granularity>`
 data | LIST of dictionary |
 \>marketCode | STRING   | Market code |
-\>candle | LIST of strings  | <ol><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>counter currency volume</li><li>base currency volume</li></ol>
+\>candle | LIST of strings  | <ol><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ol>
