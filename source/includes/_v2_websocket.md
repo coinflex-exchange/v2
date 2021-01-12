@@ -1196,7 +1196,7 @@ If a subscription has been made to position:all, the data array in the message f
 Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes |  `subscribe`
-args | ARRAY | Yes | `position:all` or a list of individual instruments `position:<instrumentId>`
+args | LIST | Yes | `position:all` or a list of individual instruments `position:<instrumentId>`
 tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
 
 <sub>**Channel Update Fields**</sub> 
@@ -1558,10 +1558,10 @@ Multiple subscriptions to different channels both public and private can be made
 
 ```json
 {
-  "success": True, 
-  "tag": "103", 
   "event": "subscribe", 
   "channel": "futures/depth:BTC-USD-SWAP-LIN", 
+  "success": true, 
+  "tag": "103", 
   "timestamp": "1607985371601"
 }
 ```
@@ -1576,13 +1576,13 @@ Multiple subscriptions to different channels both public and private can be made
       "seqNum": 1608898592006137237,
       "timestamp": "1609350022785",
       "checksum": 1139901235, 
-      "asks": [ [5556.82, 11, 0, 0],    //price, volume, 0, 0
+      "asks": [ [5556.82, 11, 0, 0],    //price, quantity, 0, 0
                 [5556.84, 98.13, 0, 0],
                 [5556.92, 1.582, 0, 0],
                 [5557.6, 4.291, 0, 0],
                 [5557.85, 2.54, 0, 0]
               ],
-      "bids": [ [5556.81, 1.92, 0, 0],  //price, volume, 0, 0
+      "bids": [ [5556.81, 1.92, 0, 0],  //price, quantity, 0, 0
                 [5556.8, 2.1, 0, 0],
                 [5556.79, 1.9, 0, 0],
                 [5556.19, 100, 0, 0],
@@ -1613,8 +1613,8 @@ data | LIST of dictionary |
 \>instrumentId | STRING |Instrument ID |
 \>seqNum | INTEGER | Sequence number of the order book snapshot
 \>timestamp| STRING | Millisecond timestamp |
-\>asks| LIST | Sell side depth; First index price, second index quantity
-\>bids| LIST | Buy side depth; First index price, second index quantity
+\>asks| LIST of floats | Sell side depth; <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol>
+\>bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol>
 
 
 ### Trade
@@ -1767,7 +1767,7 @@ data | LIST of dictionary |
 {
   "op": "subscribe", 
   "tag": 1,
-  "args": ["candlesXXs:BTC-USD-SWAP-LIN"]
+  "args": ["candles60s:BTC-USD-SWAP-LIN"]
 }
 ```
 
@@ -1804,17 +1804,25 @@ data | LIST of dictionary |
 ```
 The candles channel pushes the K-line.
 
-**Channel Name** : candles\<granularity\>:\<marketCode\>
-
-**Update Speed** : 500ms
-
+**Channel Update Frequency** : 500ms
 **Granularity**  : 60s, 180s, 300s, 900s, 1800s, 3600s, 7200s, 14400s, 21600s, 43200s, 86400s
 
-Request Parameters |Type | Required| Description|
--------------------------- | -----|--------- |-----------|
-tag |INTEGER| NO | Iff given and non-zero, it will be echoed in the reply.
+The ticker channel pushes live information about the contract.
 
-Update Parameters |Type | Description|
+<sub>**Request Parameters**</sub> 
+
+Parameters |Type| Required| Description |
+--------|-----|---|-----------|
+op | STRING| Yes | `subscribe`
+tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
+args | LIST | Yes | list of individual candle granularity and market `candles<granularity>::<marketCode>`
+
+
+<sub>**Channel Update Fields**</sub>
+
+Fields |Type | Description|
 -------------------------- | -----|--------- |
-marketCode    | STRING   | Market code i.e BTC-USD|
-candle        | STRING   | Timestamp, open price, highest price, lowest price, close price, trading volume in counter currency, and trading volume in base currency|
+table | STRING | `candles<granularity>`
+data | LIST of dictionary |
+\>marketCode | STRING   | Market code |
+\>candle | LIST of strings  | <ol><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>counter currency volume</li><li>base currency volume</li></ol>
