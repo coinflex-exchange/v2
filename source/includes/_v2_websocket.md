@@ -1576,13 +1576,13 @@ Multiple subscriptions to different channels both public and private can be made
       "seqNum": 1608898592006137237,
       "timestamp": "1609350022785",
       "checksum": 1139901235, 
-      "asks": [ [5556.82, 11, 0, 0],
+      "asks": [ [5556.82, 11, 0, 0],    //price, volume, 0, 0
                 [5556.84, 98.13, 0, 0],
                 [5556.92, 1.582, 0, 0],
                 [5557.6, 4.291, 0, 0],
                 [5557.85, 2.54, 0, 0]
               ],
-      "bids": [ [5556.81, 1.92, 0, 0],
+      "bids": [ [5556.81, 1.92, 0, 0],  //price, volume, 0, 0
                 [5556.8, 2.1, 0, 0],
                 [5556.79, 1.9, 0, 0],
                 [5556.19, 100, 0, 0],
@@ -1667,7 +1667,7 @@ Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes | `subscribe`
 tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
-args | LIST | Yes | list of individual markets `futures/depthtrade:<marketCode>`
+args | LIST | Yes | list of individual markets `trade:<marketCode>`
 
 <sub>**Channel Update Fields**</sub>
 
@@ -1675,12 +1675,12 @@ Fields |Type | Description|
 -------------------------- | -----|--------- |
 table | STRING | `trade`
 data | LIST of dictionary |
-tradeId   | STRING    | Transaction Id|
-price | STRING    | Matched price|
-quantity|STRING   | Matched quantity|
-side    |STRING   | Matched side|
-timestamp| STRING | Matched timestamp|
-marketCode| STRING | Market code |
+\>tradeId   | STRING    | Transaction Id|
+\>price | STRING    | Matched price|
+\>quantity|STRING   | Matched quantity|
+\>side    |STRING   | Matched side|
+\>timestamp| STRING | Matched timestamp|
+\>marketCode| STRING | Market code |
 
 
 ### Ticker
@@ -1714,14 +1714,14 @@ marketCode| STRING | Market code |
   "table": "ticker",
   "data": [ {
               "marketCode": "FLEX-USD",
-              "last": "43.259",
-              "markPrice": "11012.80409769",
-              "open24h": "49.375",
-              "volume24h": "11295421",
-              "currencyVolume24h": "1225512",
-              "high24h": "49.488",
-              "low24h": "41.649",
-              "openInterest": "1726003",
+              "last": "5.999",
+              "markPrice": "6.001",
+              "open24h": "5.98",
+              "volume24h": "120045",
+              "currencyVolume24h": "790337",
+              "high24h": "6.121",
+              "low24h": "5.6",
+              "openInterest": "0",
               "lastQty": "1",
               "timestamp": "1234435634547"
           } ]
@@ -1730,25 +1730,33 @@ marketCode| STRING | Market code |
 
 **Channel Update Frequency:** 100ms
 
-The ticker channel pushes the general information about the contract.
+The ticker channel pushes live information about the contract.
 
-Request Parameters |Type | Required| Description|
--------------------------- | -----|--------- |-----------|
-tag |INTEGER| NO | Iff given and non-zero, it will be echoed in the reply.
+<sub>**Request Parameters**</sub> 
 
-Update Parameters |Type | Description|
+Parameters |Type| Required| Description |
+--------|-----|---|-----------|
+op | STRING| Yes | `subscribe`
+tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
+args | LIST | Yes | list of individual markets `ticker:<marketCode>`
+
+<sub>**Channel Update Fields**</sub>
+
+Fields |Type | Description|
 -------------------------- | -----|--------- |
-marketCode    | STRING   | Market code i.e BTC-USD|
-last          | STRING   | Last traded price|
-markPrice     | STRING   | Matched quantity|
-open24h       | STRING   | 24 hour rolling opening price|
-volume24h     | STRING   | 24 hour rolling trading volume in counter currency |
-currencyVolume24h     | STRING   | 24 hour rolling trading volume in base currency|
-high24h     | STRING   | 24 hour highest price|
-low24h     | STRING   | 24 hour lowest price|
-openInterest     | STRING   | Open Interest|
-lastQty     | STRING   | Last traded price amount|
-timestamp   | STRING   | Timestamp|
+table | STRING | `ticker`
+data | LIST of dictionary |
+\>marketCode    | STRING   | Market code |
+\>last          | STRING   | Last traded price|
+\>markPrice     | STRING   | Mark price|
+\>open24h       | STRING   | 24 hour rolling opening price|
+\>volume24h     | STRING   | 24 hour rolling trading volume in counter currency |
+\>currencyVolume24h     | STRING   | 24 hour rolling trading volume in base currency|
+\>high24h     | STRING   | 24 hour highest price|
+\>low24h     | STRING   | 24 hour lowest price|
+\>openInterest     | STRING   | Open interest|
+\>lastQty     | STRING   | Last traded price amount|
+\>timestamp   | STRING   | Millisecond timestamp|
 
 
 ### Candles
@@ -1756,36 +1764,33 @@ timestamp   | STRING   | Timestamp|
 > **Request format**
 
 ```json
-
-{"op": "subscribe", "args": ["candles60s:BTC-USD-SWAP-LIN"], "tag": 1}
-
+{
+  "op": "subscribe", 
+  "tag": 1,
+  "args": ["candlesXXs:BTC-USD-SWAP-LIN"]
+}
 ```
 
 > **Success response format**
 
 ```json
-
-{"event": "subscribe", "channel": ["candles60s:BTC-USD-SWAP-LIN"], "success": true, "tag": "1", "timestamp": "1594313762698"}
-
-```
-
-> **Failure response format**
-
-```json
-
-{"event": "subscribe", "message": "<errorMessage>", "code": "<code>", "success": false, "tag": "1", "timestamp": "1594313762698"}
-
+{
+  "event": "subscribe", 
+  "channel": ["candles60s:BTC-USD-SWAP-LIN"], 
+  "success": true, 
+  "tag": "1", 
+  "timestamp": "1594313762698"
+}
 ```
 
 > **Channel update format**
 
 ```json
-
 {
-    "table": "candle60s",
-    "data": [
-        {
-            "candle": [
+  "table": "candle60s",
+  "data": [ {
+              "marketCode": "BTC-USD-SWAP-LIN",
+              "candle": [
                 "1594313762698", //timestamp
                 "9633.1",        //open
                 "9693.9",        //high
@@ -1793,12 +1798,9 @@ timestamp   | STRING   | Timestamp|
                 "9630.2",        //close
                 "45247",         //volume
                 "5.3"            //currencyVolume
-            ],
-            "marketCode": "BTC-USD-SWAP-LIN"
-        }
-    ]
+              ]
+          } ]
 }
-
 ```
 The candles channel pushes the K-line.
 
