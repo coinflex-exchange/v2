@@ -1802,12 +1802,12 @@ data | LIST of dictionary |
           } ]
 }
 ```
-The candles channel pushes the K-line.
 
-**Channel Update Frequency** : 500ms
-**Granularity**  : 60s, 180s, 300s, 900s, 1800s, 3600s, 7200s, 14400s, 21600s, 43200s, 86400s
+**Channel Update Frequency**: 500ms
 
-The ticker channel pushes live information about the contract.
+**Granularity**: 60s, 180s, 300s, 900s, 1800s, 3600s, 7200s, 14400s, 21600s, 43200s, 86400s
+
+The candles channel pushes candlestick data for the current candle.
 
 <sub>**Request Parameters**</sub> 
 
@@ -1815,7 +1815,7 @@ Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes | `subscribe`
 tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
-args | LIST | Yes | list of individual candle granularity and market `candles<granularity>::<marketCode>`
+args | LIST | Yes | list of individual candle granularity and market `candles<granularity>:<marketCode>`
 
 <sub>**Channel Update Fields**</sub>
 
