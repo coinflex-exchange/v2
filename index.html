@@ -2242,7 +2242,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </tr>
 <tr>
 <td>args</td>
-<td>ARRAY</td>
+<td>LIST</td>
 <td>Yes</td>
 <td><code>position:all</code> or a list of individual instruments <code>position:&lt;instrumentId&gt;</code></td>
 </tr>
@@ -2978,10 +2978,10 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <p><strong>Success response format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="err">True</span><span class="p">,</span><span class="w"> 
-  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"103"</span><span class="p">,</span><span class="w"> 
   </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
   </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"futures/depth:BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"103"</span><span class="p">,</span><span class="w"> 
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1607985371601"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -2995,13 +2995,13 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
       </span><span class="nl">"seqNum"</span><span class="p">:</span><span class="w"> </span><span class="mi">1608898592006137237</span><span class="p">,</span><span class="w">
       </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1609350022785"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"checksum"</span><span class="p">:</span><span class="w"> </span><span class="mi">1139901235</span><span class="p">,</span><span class="w"> 
-      </span><span class="nl">"asks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">[</span><span class="mf">5556.82</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">    </span><span class="err">//price</span><span class="p">,</span><span class="w"> </span><span class="err">volume</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="nl">"asks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">[</span><span class="mf">5556.82</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">    </span><span class="err">//price</span><span class="p">,</span><span class="w"> </span><span class="err">quantity</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w">
                 </span><span class="p">[</span><span class="mf">5556.84</span><span class="p">,</span><span class="w"> </span><span class="mf">98.13</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
                 </span><span class="p">[</span><span class="mf">5556.92</span><span class="p">,</span><span class="w"> </span><span class="mf">1.582</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
                 </span><span class="p">[</span><span class="mf">5557.6</span><span class="p">,</span><span class="w"> </span><span class="mf">4.291</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
                 </span><span class="p">[</span><span class="mf">5557.85</span><span class="p">,</span><span class="w"> </span><span class="mf">2.54</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="w">
               </span><span class="p">],</span><span class="w">
-      </span><span class="nl">"bids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">[</span><span class="mf">5556.81</span><span class="p">,</span><span class="w"> </span><span class="mf">1.92</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">  </span><span class="err">//price</span><span class="p">,</span><span class="w"> </span><span class="err">volume</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="nl">"bids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">[</span><span class="mf">5556.81</span><span class="p">,</span><span class="w"> </span><span class="mf">1.92</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">  </span><span class="err">//price</span><span class="p">,</span><span class="w"> </span><span class="err">quantity</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w">
                 </span><span class="p">[</span><span class="mf">5556.8</span><span class="p">,</span><span class="w"> </span><span class="mf">2.1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
                 </span><span class="p">[</span><span class="mf">5556.79</span><span class="p">,</span><span class="w"> </span><span class="mf">1.9</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
                 </span><span class="p">[</span><span class="mf">5556.19</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
@@ -3080,13 +3080,13 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </tr>
 <tr>
 <td>&gt;asks</td>
-<td>LIST</td>
-<td>Sell side depth; First index price, second index quantity</td>
+<td>LIST of floats</td>
+<td>Sell side depth; <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol></td>
 </tr>
 <tr>
 <td>&gt;bids</td>
-<td>LIST</td>
-<td>Buy side depth; First index price, second index quantity</td>
+<td>LIST of floats</td>
+<td>Buy side depth; <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol></td>
 </tr>
 </tbody></table>
 <h3 id='websocket-api-subscriptions-public-trade'>Trade</h3>
@@ -3366,7 +3366,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"candlesXXs:BTC-USD-SWAP-LIN"</span><span class="p">]</span><span class="w">
+  </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"candles60s:BTC-USD-SWAP-LIN"</span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
@@ -3393,52 +3393,77 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
                 </span><span class="s2">"9693.9"</span><span class="p">,</span><span class="w">        </span><span class="err">//high</span><span class="w">
                 </span><span class="s2">"9238.1"</span><span class="p">,</span><span class="w">        </span><span class="err">//low</span><span class="w">
                 </span><span class="s2">"9630.2"</span><span class="p">,</span><span class="w">        </span><span class="err">//close</span><span class="w">
-                </span><span class="s2">"45247"</span><span class="p">,</span><span class="w">         </span><span class="err">//volume</span><span class="w">
-                </span><span class="s2">"5.3"</span><span class="w">            </span><span class="err">//currencyVolume</span><span class="w">
+                </span><span class="s2">"45247"</span><span class="p">,</span><span class="w">         </span><span class="err">//volume</span><span class="w"> </span><span class="err">in</span><span class="w"> </span><span class="err">counter</span><span class="w"> </span><span class="err">currency</span><span class="w">
+                </span><span class="s2">"5.3"</span><span class="w">            </span><span class="err">//volume</span><span class="w"> </span><span class="err">in</span><span class="w"> </span><span class="err">base</span><span class="w"> </span><span class="err">currency</span><span class="w">
               </span><span class="p">]</span><span class="w">
           </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>The candles channel pushes the K-line.</p>
 
-<p><strong>Channel Name</strong> : candles&lt;granularity&gt;:&lt;marketCode&gt;</p>
+<p><strong>Channel Update Frequency</strong> : 500ms
+<strong>Granularity</strong>  : 60s, 180s, 300s, 900s, 1800s, 3600s, 7200s, 14400s, 21600s, 43200s, 86400s</p>
 
-<p><strong>Update Speed</strong> : 500ms</p>
+<p>The ticker channel pushes live information about the contract.</p>
 
-<p><strong>Granularity</strong>  : 60s, 180s, 300s, 900s, 1800s, 3600s, 7200s, 14400s, 21600s, 43200s, 86400s</p>
+<p><sub><strong>Request Parameters</strong></sub> </p>
 
 <table><thead>
 <tr>
-<th>Request Parameters</th>
+<th>Parameters</th>
 <th>Type</th>
 <th>Required</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
+<td>op</td>
+<td>STRING</td>
+<td>Yes</td>
+<td><code>subscribe</code></td>
+</tr>
+<tr>
 <td>tag</td>
 <td>INTEGER</td>
-<td>NO</td>
-<td>Iff given and non-zero, it will be echoed in the reply.</td>
+<td>No</td>
+<td>If given and non-zero, it will be echoed in the reply</td>
+</tr>
+<tr>
+<td>args</td>
+<td>LIST</td>
+<td>Yes</td>
+<td>list of individual candle granularity and market <code>candles&lt;granularity&gt;::&lt;marketCode&gt;</code></td>
 </tr>
 </tbody></table>
 
+<p><sub><strong>Channel Update Fields</strong></sub></p>
+
 <table><thead>
 <tr>
-<th>Update Parameters</th>
+<th>Fields</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>marketCode</td>
+<td>table</td>
 <td>STRING</td>
-<td>Market code i.e BTC-USD</td>
+<td><code>candles&lt;granularity&gt;</code></td>
 </tr>
 <tr>
-<td>candle</td>
+<td>data</td>
+<td>LIST of dictionary</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;marketCode</td>
 <td>STRING</td>
-<td>Timestamp, open price, highest price, lowest price, close price, trading volume in counter currency, and trading volume in base currency</td>
+<td>Market code</td>
+</tr>
+<tr>
+<td>&gt;candle</td>
+<td>LIST of strings</td>
+<td><ol><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ol></td>
 </tr>
 </tbody></table>
 <h1 id='rest-api'>REST API</h1>
