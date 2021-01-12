@@ -456,7 +456,6 @@ DELETE/v2/cancel/orders
        }
     ]
 }
- 
 ```
 
 Requires authentication. Cancel all open orders.
@@ -470,7 +469,6 @@ DELETE/v2/cancel/orders/BTC-USD
 ```
 
 > **RESPONSE**
-
 
 ```json
 {
@@ -487,6 +485,68 @@ DELETE/v2/cancel/orders/BTC-USD
 ```
 
 Requires authentication. Cancel all open orders for a specific market code.
+
+
+###GET `/v2.1/delivery/orders`
+> **Request**
+
+```json
+GET/v2.1/delivery/orders
+```
+
+> **RESPONSE**
+
+```json
+{
+    "event": "deliverOrders",
+    "timestamp": 1596685339910,
+    "data": [
+        {
+            "timestamp": "1595781719394",
+            "instrumentId": "BTC-USD-SWAP-LIN",
+            "status": "DELIVERED",
+            "quantity": null,
+            "deliverPrice": "9938.480000000",
+            "transferAsset": "USD",
+            "transferQty": "993.848000000",
+            "instrumentIdDeliver": "BTC",
+            "deliverQty": "0.100000000",
+            "deliverOrderId": "575770851486007299",
+            "clientOrderId": null
+        },
+        {
+            "timestamp": "1595786511155",
+            "instrumentId": "BTC-USD-SWAP-LIN",
+            "status": "CANCELLED",
+            "quantity": null,
+            "deliverPrice": "9911.470000000",
+            "transferAsset": "USD",
+            "transferQty": "0.000000000",
+            "instrumentIdDeliver": "BTC",
+            "deliverQty": "0.000000000",
+            "deliverOrderId": "575786553086246913",
+            "clientOrderId": null
+        },
+    ]
+}
+```
+
+Requires authentication. Get entire delivery history.
+
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+timestamp | STRING    | UNIX Timestamp of the response|
+deliverOrderId | STRING | Order id
+clientOrderId | Null Type|  null
+quantity | Null Type| null
+instrumentId | STRING | Perpetual swap market code
+deliverPrice | STRING|  Mark price at delivery
+instrumentIdDeliver | STRING |Asset being received: long position = coin, short position = USD
+deliverQty | STRING |  Quantity of the received asset
+transferAsset | STRING | Asset being sent
+transferQty | STRING | Quantity being sent
+auctionTime | STRING | UNIX timestamp of the next auction
+status | STRING | Request status
 
 
 ###POST `/v2.1/delivery/orders`
@@ -590,41 +650,6 @@ DELETE/v2.1/delivery/orders/{deliveryOrderId}
 
 Requires authentication. Cancels a pending delivery.
 
-###GET `/v2.1/deliver-auction/{instrumentId}`
-> **Request**
-
-```json
-GET/v2.1/deliver-auction
-GET/v2.1/deliver-auction/<instrumentId>
-```
-
-> **RESPONSE**
-
-```json
-{
-    "event": "deliverAuction",
-    "timestamp": "1596620815090",
-    "data": [
-        {
-            "instrumentId": "BTC-USD-SWAP-LIN",
-            "auctionTime": "1596620805000",
-            "netDeliver": "-5.100000000",
-            "estFundingRate": "0.0001"
-        },
-      ...
-    ]
-}
-```
-
-Requires authentication. Get entire delivery history.
-
-Response Parameters |Type | Description| 
--------------------------- | -----|--------- |
-timestamp | STRING | UNIX Timestamp of the response|
-instrumentId | STRING |  Market code
-auctionTime | STRING | UNIX timestamp of the next auction
-netDeliver | STRING | Delivery imbalance (negative = more shorts than longs and vice versa)
-estFundingRate | STRING | Estimated funding rate a positive rate means longs pay shorts
 
 ##Methods - Public
 
@@ -883,46 +908,28 @@ instrumentId | STRING | "BTC-USD-SWAP-LIN" |
 fundingRate| STRING | e.g. 0.000060000 |
 
 
-###GET `/v2.1/delivery/orders`
+###GET `/v2.1/deliver-auction/{instrumentId}`
 > **Request**
 
 ```json
-GET/v2.1/delivery/orders
+GET/v2.1/deliver-auction
+GET/v2.1/deliver-auction/<instrumentId>
 ```
 
 > **RESPONSE**
 
 ```json
 {
-    "event": "deliverOrders",
-    "timestamp": 1596685339910,
+    "event": "deliverAuction",
+    "timestamp": "1596620815090",
     "data": [
         {
-            "timestamp": "1595781719394",
             "instrumentId": "BTC-USD-SWAP-LIN",
-            "status": "DELIVERED",
-            "quantity": null,
-            "deliverPrice": "9938.480000000",
-            "transferAsset": "USD",
-            "transferQty": "993.848000000",
-            "instrumentIdDeliver": "BTC",
-            "deliverQty": "0.100000000",
-            "deliverOrderId": "575770851486007299",
-            "clientOrderId": null
+            "auctionTime": "1596620805000",
+            "netDeliver": "-5.100000000",
+            "estFundingRate": "0.0001"
         },
-        {
-            "timestamp": "1595786511155",
-            "instrumentId": "BTC-USD-SWAP-LIN",
-            "status": "CANCELLED",
-            "quantity": null,
-            "deliverPrice": "9911.470000000",
-            "transferAsset": "USD",
-            "transferQty": "0.000000000",
-            "instrumentIdDeliver": "BTC",
-            "deliverQty": "0.000000000",
-            "deliverOrderId": "575786553086246913",
-            "clientOrderId": null
-        },
+      ...
     ]
 }
 ```
@@ -931,15 +938,8 @@ Requires authentication. Get entire delivery history.
 
 Response Parameters |Type | Description| 
 -------------------------- | -----|--------- |
-timestamp | STRING    | UNIX Timestamp of the response|
-deliverOrderId | STRING | Order id
-clientOrderId | Null Type|  null
-quantity | Null Type| null
-instrumentId | STRING | Perpetual swap market code
-deliverPrice | STRING|  Mark price at delivery
-instrumentIdDeliver | STRING |Asset being received: long position = coin, short position = USD
-deliverQty | STRING |  Quantity of the received asset
-transferAsset | STRING | Asset being sent
-transferQty | STRING | Quantity being sent
+timestamp | STRING | UNIX Timestamp of the response|
+instrumentId | STRING |  Market code
 auctionTime | STRING | UNIX timestamp of the next auction
-status | STRING | Request status
+netDeliver | STRING | Delivery imbalance (negative = more shorts than longs and vice versa)
+estFundingRate | STRING | Estimated funding rate a positive rate means longs pay shorts
