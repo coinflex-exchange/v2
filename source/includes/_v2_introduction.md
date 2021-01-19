@@ -1,4 +1,6 @@
 # Change Log
+**2021-01-18**
+* Updated rate limits to reflect new Rest and unauthenticated websocket rate limits
 
 **2020-12-14**
 
@@ -60,7 +62,10 @@ API keys are also only bound to a single sub-account, defined upon creation. Thi
 
 CoinFLEX's APIs allows our clients to access and control their accounts or view our market data using custom-written software. To protect the performance of the system, we impose certain limits:
 
-Type                    |                            Limit|
-------------------------|---------------------------------|
-Rest API                |                  100 per second |
-Websocket API           |                  200 per second |
+Type                           |                             Limit|
+-------------------------------|----------------------------------|
+Rest API                       |                   100 per second |
+Rest API                       |                  2500 per 5 mins |
+Rest POST v2.1/delivery/orders |                 2 per 10 seconds |
+Websocket API (Auth)           |                   200 per second | 
+Websocket API (No Auth)        |                     1 per second | 
