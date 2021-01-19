@@ -491,6 +491,9 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-01-18</strong>
+* Updated rate limits to reflect new Rest and unauthenticated websocket rate limits</p>
+
 <p><strong>2020-12-14</strong></p>
 
 <ul>
@@ -569,8 +572,20 @@
 <td>100 per second</td>
 </tr>
 <tr>
-<td>Websocket API</td>
+<td>Rest API</td>
+<td>2500 per 5 mins</td>
+</tr>
+<tr>
+<td>Rest POST v2.1/delivery/orders</td>
+<td>2 per 10 seconds</td>
+</tr>
+<tr>
+<td>Websocket API (Auth)</td>
 <td>200 per second</td>
+</tr>
+<tr>
+<td>Websocket API (No Auth)</td>
+<td>1 per second</td>
 </tr>
 </tbody></table>
 <h1 id='websocket-api'>Websocket API</h1>
