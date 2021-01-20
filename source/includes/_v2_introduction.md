@@ -1,5 +1,7 @@
 # Change Log
+
 **2021-01-18**
+
 * Updated rate limits to reflect new Rest and unauthenticated websocket rate limits
 
 **2020-12-14**
