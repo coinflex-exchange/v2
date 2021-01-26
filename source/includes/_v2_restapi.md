@@ -261,7 +261,8 @@ Response Parameters |Type | Description|
 -------------------------- | -----|--------- |
 accountId | STRING    | Account ID|
 timestamp | STRING    | Timestamp of this response|
-instrumentId | STRING |Contract symbol, e.g. 'BTC-USD-200626-LIN' |
+instrumentId | STRING | Contract symbol, e.g. 'BTC-USD-200626-LIN' |
+quantity | STRING | Quantity of position, e.g. '0.94' |
 lastUpdated| STRING| Timestamp when position was last updated|
 contractValCurrency |STRING|Contract valuation currency|
 entryPrice|STRING|Average entry price|
@@ -306,6 +307,8 @@ Response Parameters |Type | Description|
 accountId | STRING    | Account ID|
 timestamp | STRING    | Timestamp of this response|
 instrumentId | STRING |Contract symbol, e.g. 'BTC-USD-200626-LIN' |
+quantity | STRING | Quantity of position, e.g. '0.94' |
+lastUpdated| STRING| Timestamp when position was last updated|
 lastUpdated| STRING| Timestamp when position was last updated|
 contractValCurrency |STRING|Contract valuation currency|
 entryPrice|STRING|Average entry price|
