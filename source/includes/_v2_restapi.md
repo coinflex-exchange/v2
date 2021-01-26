@@ -30,18 +30,25 @@ import hmac
 import base64
 import hashlib
 import datetime
+from urllib.parse import urlencode
 
 rest_url = 'https://v2stgapi.coinflex.com'
 rest_path = 'v2stgapi.coinflex.com'
 
-api_key = 'kireMivV1QWyDArJTH+8QXYdsmFhsjGGrN/4QfHvkag='
-api_secret = 'm30UgOHonxet6nphrcJtJADb2PNONy22g4RS5RqhH6k='
+api_key = API-KEY
+api_secret = API-SECRET
 
+body = urlencode({'key1': 'value1', 'key2': 'value2'})
 ts = datetime.datetime.utcnow().isoformat()
 nonce = 123
 
-path = '/v2/positions'
-msg_string = '{}\n{}\n{}\n{}\n{}\n'.format(ts, nonce, 'GET', rest_path, '/v2/positions')
+if body:
+    path = '/v2/positions?' + body
+    msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, '/v2/positions', body)
+else:
+    path = '/v2/positions'
+    msg_string = '{}\n{}\n{}\n{}\n{}\n'.format(ts, nonce, 'GET', rest_path, '/v2/positions')
+
 sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
 
 header = {'Content-Type': 'application/json', 'AccessKey': api_key,
@@ -88,8 +95,7 @@ The signature must then be included in the header of the REST API call like so:
 
 ##Methods - Private
 
-All private REST API methods requires authentication using the approach explained above. 
-
+All private REST API methods require authentication using the approach explained above. 
 
 ###GET `/v2/accountinfo`
 
@@ -104,7 +110,7 @@ GET/v2/accountinfo
 ```json
 {
   "event": "accountinfo",
-  "timestamp": "1611665626191"
+  "timestamp": 1611665626191
   "accountId": <Your Account ID>,
   "data": [ {
               "accountId": <Your Account ID>,
@@ -120,19 +126,50 @@ GET/v2/accountinfo
 }
 ```
 
-Returns the account level information connected to the API key. 
+```python
+import requests
+import hmac
+import base64
+import hashlib
+import datetime
+
+rest_url = 'https://v2stgapi.coinflex.com'
+rest_path = 'v2stgapi.coinflex.com'
+
+api_key = API-KEY
+api_secret = API-SECRET
+
+ts = datetime.datetime.utcnow().isoformat()
+nonce = 123
+
+path = '/v2/accountinfo'
+msg_string = '{}\n{}\n{}\n{}\n{}\n'.format(ts, nonce, 'GET', rest_path, '/v2/accountinfo')
+sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+
+header = {'Content-Type': 'application/json', 'AccessKey': api_key,
+          'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
+
+resp = requests.get(rest_url + path, headers=header)
+print(resp.json())
+```
+
+Returns the account level information connected to the API key initiating the request. 
 
 Response Parameter |Type | Description 
 -------------------------- | -----|--------- |
+event | STRING | `accountinfo`
+timestamp | INTEGER | Millisecond timestamp
 accountId | STRING    | Account ID
-tradeType | STRING    | Account type
-marginCurrency | STRING |Asset e.g. 'USD'
-totalBalance | STRING | Total balance denoted in marginCurrency
-collateralBalance | STRING | Collateral balance with LTV applied
-availableBalance | STRING | Available balance
-portfolioVarMargin| STRING | Portfolio margin
-riskRatio | STRING | collateralBalance / portfolioVarMargin, Orders are rejected/cancelled if the risk ratio drops below 1 and liquidation occurs if the risk ratio drops below 0.5
-timestamp | STRING | UNIX timestamp
+data | List of dictionary |
+\> accountId | STRING    | Account ID
+\> tradeType | STRING    | Account type `LINEAR`
+\> marginCurrency | STRING | Asset `USD`
+\> totalBalance | STRING | Total balance denoted in marginCurrency
+\> collateralBalance | STRING | Collateral balance with LTV applied
+\> availableBalance | STRING | Available balance
+\> portfolioVarMargin| STRING | Portfolio margin
+\> riskRatio | STRING | collateralBalance / portfolioVarMargin, Orders are rejected/cancelled if the risk ratio drops below 1 and liquidation occurs if the risk ratio drops below 0.5
+timestamp | STRING | Millisecond timestamp
 
 ###GET `/v2/balances`
 
