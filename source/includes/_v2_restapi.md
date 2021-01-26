@@ -14,31 +14,34 @@ For clients who do not wish to take advantage of CoinFLEX's native WebSocket API
 
 > **Request**
 
+```json
+header = {
+            'Content-Type': 'application/json',
+            'AccessKey': <string>,
+            'Timestamp': <string>, 
+            'Signature': <string>, 
+            'Nonce': <string>
+          }
+```
+
 ```python
 import requests
 import hmac
 import base64
 import hashlib
 import datetime
-from urllib.parse import urlencode
 
 rest_url = 'https://v2stgapi.coinflex.com'
 rest_path = 'v2stgapi.coinflex.com'
 
-api_key = API-KEY
-api_secret = API-SECRET
+api_key = 'kireMivV1QWyDArJTH+8QXYdsmFhsjGGrN/4QfHvkag='
+api_secret = 'm30UgOHonxet6nphrcJtJADb2PNONy22g4RS5RqhH6k='
 
-body = urlencode({'key1': 'value1', 'key2': 'value2'})
 ts = datetime.datetime.utcnow().isoformat()
 nonce = 123
 
-if body:
-    path = '/v2/positions?' + body
-    msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, '/v2/positions', body)
-else:
-    path = '/v2/positions'
-    msg_string = '{}\n{}\n{}\n{}\n{}\n'.format(ts, nonce, 'GET', rest_path, '/v2/positions')
-
+path = '/v2/positions'
+msg_string = '{}\n{}\n{}\n{}\n{}\n'.format(ts, nonce, 'GET', rest_path, '/v2/positions')
 sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
 
 header = {'Content-Type': 'application/json', 'AccessKey': api_key,
@@ -60,7 +63,7 @@ Component | Required | Example | Description|
 -------------------------- |--------- |------- |------- | 
 Timestamp | Yes | 2020-04-30T15:20:30 | YYYY-MM-DDThh:mm:ss
 Nonce | Yes | 123 | User generated
-Verb | Yes| 'GET' | 
+Verb | Yes| 'GET' | Uppercase
 Path | Yes | 'v2stgapi.coinflex.com' |
 Method | Yes | '/v2/positions | Available REST methods: <li>`V2/positions`</li><li>`V2/orders`</li><li>`V2/balances`</li>
 Body | No | instrumentID=BTC-USD-SWAP-LIN | Optional and dependent on the REST method being called
@@ -85,6 +88,9 @@ The signature must then be included in the header of the REST API call like so:
 
 ##Methods - Private
 
+All private REST API methods requires authentication using the approach explained above. 
+
+
 ###GET `/v2/accountinfo`
 
 > **Request**
@@ -97,27 +103,24 @@ GET/v2/accountinfo
 
 ```json
 {
-    "event": "accountinfo",
-    "success": true,
-    "message": null,
-    "code": "0000",
-    "data":[
-        {
-            "accountId": "123",
-            "tradeType": "LINEAR",
-            "marginCurrency": "USD",
-            "totalBalance": "10000",
-            "collateralBalance": "10000",
-            "availableBalance": "10000",
-            "portfolioVarMargin": "500",
-            "riskRatio": "20.0000",
-            "timestamp": "1235445"
-        } 
-    ]
+  "event": "accountinfo",
+  "timestamp": "1611665626191"
+  "accountId": <Your Account ID>,
+  "data": [ {
+              "accountId": <Your Account ID>,
+              "tradeType": "LINEAR",
+              "marginCurrency": "USD",
+              "totalBalance": "10000",
+              "availableBalance": "10000",
+              "collateralBalance": "10000",
+              "portfolioVarMargin": "500",
+              "riskRatio": "20.0000",
+              "timestamp": "1611665624601"
+          } ]
 }
 ```
 
-Requires authentication. GET your account info. 
+Returns the account level information connected to the API key. 
 
 Response Parameter |Type | Description 
 -------------------------- | -----|--------- |
