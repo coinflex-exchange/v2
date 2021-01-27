@@ -1080,7 +1080,7 @@ OR
   "table": "balance",
   "accountId": "<Your account ID>",
   "timestamp": "1599693365059",
-  "tradeType": "Linear",
+  "tradeType": "LINEAR",
   "data": [ {
               "total": "10000",
               "reserved": "1000",

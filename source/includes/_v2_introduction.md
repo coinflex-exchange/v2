@@ -1,5 +1,9 @@
 # Change Log
 
+**2021-01-26**
+
+* Correction to REST API documentation for /v2/accountinfo, /v2/balances and /v2/positions
+
 **2021-01-18**
 
 * Updated rate limits to reflect new Rest and unauthenticated websocket rate limits
