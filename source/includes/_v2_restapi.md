@@ -146,9 +146,28 @@ print(resp.json())
 {
   "event": "accountinfo",
   "timestamp": 1611665626191
-  "accountId": <Your Account ID>,
+  "accountId": "<Your Account ID>",
   "data": [ {
-              "accountId": <Your Account ID>,
+              "accountId": "<Your Account ID>",
+              "tradeType": "LINEAR",
+              "marginCurrency": "USD",
+              "totalBalance": "10000",
+              "availableBalance": "10000",
+              "collateralBalance": "10000",
+              "portfolioVarMargin": "500",
+              "riskRatio": "20.0000",
+              "timestamp": "1611665624601"
+          } ]
+}
+```
+
+```python
+{
+  "event": "accountinfo",
+  "timestamp": 1611665626191
+  "accountId": "<Your Account ID>",
+  "data": [ {
+              "accountId": "<Your Account ID>",
               "tradeType": "LINEAR",
               "marginCurrency": "USD",
               "totalBalance": "10000",
@@ -163,21 +182,21 @@ print(resp.json())
 
 Returns the account level information connected to the API key initiating the request. 
 
-Response Parameter |Type | Description 
+Field |Type | Description 
 -------------------------- | -----|--------- |
 event | STRING | `accountinfo`
 timestamp | INTEGER | Millisecond timestamp
 accountId | STRING    | Account ID
 data | LIST of dictionary |
-\> accountId | STRING    | Account ID
-\> tradeType | STRING    | Account type `LINEAR`
-\> marginCurrency | STRING | Asset `USD`
-\> totalBalance | STRING | Total balance denoted in marginCurrency
-\> collateralBalance | STRING | Collateral balance with LTV applied
-\> availableBalance | STRING | Available balance
-\> portfolioVarMargin| STRING | Portfolio margin
-\> riskRatio | STRING | collateralBalance / portfolioVarMargin, Orders are rejected/cancelled if the risk ratio drops below 1 and liquidation occurs if the risk ratio drops below 0.5
-timestamp | STRING | Millisecond timestamp
+\>accountId | STRING    | Account ID
+\>tradeType | STRING    | Account type `LINEAR`
+\>marginCurrency | STRING | Asset `USD`
+\>totalBalance | STRING | Total balance denoted in marginCurrency
+\>collateralBalance | STRING | Collateral balance with LTV applied
+\>availableBalance | STRING | Available balance
+\>portfolioVarMargin| STRING | Portfolio margin
+\>riskRatio | STRING | collateralBalance / portfolioVarMargin, Orders are rejected/cancelled if the risk ratio drops below 1 and liquidation occurs if the risk ratio drops below 0.5
+\>timestamp | STRING | Millisecond timestamp
 
 ###GET `/v2/balances`
 
@@ -247,20 +266,45 @@ print(resp.json())
 }
 ```
 
+```python
+{
+  "event": "balances",
+  "timestamp": 1611665626191,
+  "accountId": "<Your Account ID>",
+  "tradeType": "LINEAR",
+  "data": [ {   
+              "instrumentId": "BTC",
+              "total": "4468.823",              
+              "available": "4468.823",        
+              "reserved": "0",
+              "quantityLastUpdated": "1593627415234"
+            },
+            ...
+            {
+              "instrumentId": "FLEX",
+              "total": "1585.890",              
+              "available": "325.890",         
+              "reserved": "1260",
+              "quantityLastUpdated": "1593627415123"
+            }
+          ]
+}
+```
+
 Returns the coin balances of the account connected to the API key initiating the request. 
 
-Response Parameter |Type | Description| 
+Field |Type | Description| 
 -------------------------- | -----|--------- |
 event | STRING | `balances`
 timestamp | INTEGER | Millisecond timestamp
 accountId | STRING    | Account ID
 tradeType | STRING    | `LINEAR` |
 data | LIST of dictionaries |
-\> instrumentId | STRING |Coin symbol, e.g. 'BTC' |
-\> total| STRING| Total balance|
-\> available |STRING| Available balance|
-\> reserved|STRING|Reserved balance for spot working orders|
-\> quantityLastUpdated|STRING|Millisecond timestamp of when balance was last updated|
+\>instrumentId | STRING |Coin symbol, e.g. 'BTC' |
+\>total| STRING| Total balance|
+\>available |STRING| Available balance|
+\>reserved|STRING|Reserved balance for spot working orders|
+\>quantityLastUpdated|STRING|Millisecond timestamp of when balance was last updated|
 
 
 ###GET `/v2/balances/<instrumentId>`
@@ -268,11 +312,11 @@ data | LIST of dictionaries |
 >**Request**
 
 ```json
-GET/v2/balances/BTC
+GET /v2/balances/BTC
 ```
 
 
-> **RESPONSE**
+> **Response**
 
 ```json
 {
