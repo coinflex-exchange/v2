@@ -291,7 +291,7 @@ print(resp.json())
 }
 ```
 
-Returns the coin balances of the account connected to the API key initiating the request. 
+Returns all the coin balances of the account connected to the API key initiating the request. 
 
 Field |Type | Description| 
 -------------------------- | -----|--------- |
@@ -303,7 +303,7 @@ data | LIST of dictionaries |
 \>instrumentId | STRING |Coin symbol, e.g. 'BTC' |
 \>total| STRING| Total balance|
 \>available |STRING| Available balance|
-\>reserved|STRING|Reserved balance for spot working orders|
+\>reserved|STRING|Reserved balance (unavailable) due to working spot orders|
 \>quantityLastUpdated|STRING|Millisecond timestamp of when balance was last updated|
 
 
@@ -312,7 +312,130 @@ data | LIST of dictionaries |
 >**Request**
 
 ```json
-GET /v2/balances/BTC
+GET /v2/balances/<instrumentId>
+```
+
+```python
+import requests
+import hmac
+import base64
+import hashlib
+import datetime
+from urllib.parse import urlencode
+
+rest_url = 'https://v2stgapi.coinflex.com'
+rest_path = 'v2stgapi.coinflex.com'
+
+api_key = <API-KEY>
+api_secret = <API-SECRET>
+
+ts = datetime.datetime.utcnow().isoformat()
+nonce = 123
+
+# REST API method, for example FLEX balances
+method = '/v2/balances/FLEX'
+
+body = urlencode({})
+path = method
+
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, body)
+sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+
+header = {'Content-Type': 'application/json', 'AccessKey': api_key,
+          'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
+
+resp = requests.get(rest_url + path, headers=header)
+print(resp.json())
+```
+
+> **Response**
+
+```json
+{
+  "event": "balancesById",
+  "timestamp": 1593627415293,
+  "accountId": "<Your Account ID>",
+  "tradeType": "LINEAR",
+  "data": [ {   
+              "instrumentId": "FLEX",
+              "total": "4468.823",              
+              "available": "4468.823",        
+              "reserved": "0",
+              "quantityLastUpdated": "1593627415001"
+            } ]
+}
+```
+
+```python
+{
+  "event": "balancesById",
+  "timestamp": 1593627415293,
+  "accountId": "<Your Account ID>",
+  "tradeType": "LINEAR",
+  "data": [ {   
+              "instrumentId": "FLEX",
+              "total": "4468.823",              
+              "available": "4468.823",        
+              "reserved": "0",
+              "quantityLastUpdated": "1593627415001"
+            } ]
+}
+```
+
+Returns the specified coin balance of the account connected to the API key initiating the request. 
+
+Field |Type | Description| 
+-------------------------- | -----|--------- |
+event | STRING | `balancesById`
+timestamp | INTEGER | Millisecond timestamp
+accountId | STRING    | Account ID
+tradeType | STRING    | `LINEAR` |
+data | LIST of dictionary |
+\>instrumentId | STRING |Coin symbol, e.g. 'FLEX' |
+\>total| STRING| Total balance|
+\>available |STRING|Available balance|
+\>reserved|STRING|Reserved balance (unavailable) due to working spot orders|
+\>quantityLastUpdated|STRING|Timestamp when was balance last updated|
+
+###GET  `/v2/positions`
+
+> **Request**
+
+```json
+GET /v2/positions
+```
+
+```python
+import requests
+import hmac
+import base64
+import hashlib
+import datetime
+from urllib.parse import urlencode
+
+rest_url = 'https://v2stgapi.coinflex.com'
+rest_path = 'v2stgapi.coinflex.com'
+
+api_key = <API-KEY>
+api_secret = <API-SECRET>
+
+ts = datetime.datetime.utcnow().isoformat()
+nonce = 123
+
+# REST API method
+method = '/v2/positions'
+
+body = urlencode({})
+path = method
+
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, body)
+sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+
+header = {'Content-Type': 'application/json', 'AccessKey': api_key,
+          'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
+
+resp = requests.get(rest_url + path, headers=header)
+print(resp.json())
 ```
 
 
@@ -320,91 +443,67 @@ GET /v2/balances/BTC
 
 ```json
 {
-    "event": "balancesById",
-    "accountId": "<Your Account ID>",
-    "timestamp": "1593627415293",
-    "tradeType": "LINEAR"|"INVERSE",
-    "data":[
-    {   
-        "instrumentId": "BTC",
-        "total": "4468.823",              
-        "available": "4468.823",        
-        "reserved": "0",
-        "quantityLastUpdated": "1593627415001"
-    }
-    ]
+  "event": "positions",
+  "timestamp": 1593627415000,
+  "accountId":"<Your Account ID>",
+  "data": [ {
+              "instrumentId": "BTC-USD-SWAP-LIN",
+              "quantity": "0.94",
+              "lastUpdated": "1592486212218",
+              "contractValCurrency": "BTC",
+              "entryPrice": "7800.00",       
+              "positionPnl": "200.3"              
+            },
+            ...
+          ]
 }
 ```
 
-Requires authentication. GET balance for a specific coin.
-
-Response Parameters |Type | Description| 
--------------------------- | -----|--------- |
-accountId | STRING    | Account ID|
-timestamp | STRING    | Timestamp of this response|
-tradeType | STRING    | Define this account is trading linear or inverse derivatives|
-instrumentId | STRING |Token symbol, e.g. 'BTC' |
-total| STRING| Total balance|
-available |STRING|Available balance|
-reserved|STRING|Reserved balance (unavailable)|
-quantityLastUpdated|STRING|Timestamp when was balance last updated|
-
-###GET  `/v2/positions`
-
-> **Request**
-
-```json
-GET/v2/positions
-```
-
-
-
-> **RESPONSE**
-
-```json
+```python
 {
-    "event": "positions",
-    "accountId":"<Your Account ID>",
-    "timestamp": 1593627415000,
-    "data": [
-        {
-            "instrumentId": "BTC-USD-200626-LIN",
-            "quantity": "0.94",
-            "lastUpdated": "1592486212218",
-            "contractValCurrency": "BTC",
-            "entryPrice": "7800.00",       
-            "positionPnl": "200.3"              
-        },
-        ...
-    ]
+  "event": "positions",
+  "timestamp": 1593627415000,
+  "accountId":"<Your Account ID>",
+  "data": [ {
+              "instrumentId": "BTC-USD-SWAP-LIN",
+              "quantity": "0.94",
+              "lastUpdated": "1592486212218",
+              "contractValCurrency": "BTC",
+              "entryPrice": "7800.00",       
+              "positionPnl": "200.3"              
+            },
+            ...
+          ]
 }
 ```
 
-Requires authentication. GET all positions for current user.
+Returns all the positions of the account connected to the API key initiating the request. 
 
-Response Parameters |Type | Description| 
+Field |Type | Description| 
 -------------------------- | -----|--------- |
-accountId | STRING    | Account ID|
-timestamp | STRING    | Timestamp of this response|
-instrumentId | STRING | Contract symbol, e.g. 'BTC-USD-200626-LIN' |
-quantity | STRING | Quantity of position, e.g. '0.94' |
-lastUpdated| STRING| Timestamp when position was last updated|
-contractValCurrency |STRING|Contract valuation currency|
-entryPrice|STRING|Average entry price|
-positionPnl|STRING|Postion profit and lost|
-estLiquidationPx|STRING||
-estLiqPrice|STRING|Estimated liquidation price|
+event | STRING | `positions`
+timestamp | INTEGER | Millisecond timestamp
+accountId | STRING    | Account ID
+tradeType | STRING    | `LINEAR` |
+data | LIST of dictionaries |
+\>instrumentId | STRING | Contract symbol, e.g. 'BTC-USD-SWAP-LIN' |
+\>quantity | STRING | Quantity of position, e.g. '0.94' |
+\>lastUpdated| STRING| Timestamp when position was last updated|
+\>contractValCurrency |STRING|Contract valuation currency|
+\>entryPrice|STRING|Average entry price|
+\>positionPnl|STRING|Postion profit and lost|
+
 
 ###GET  `/v2/positions/<instrumentId>`
 
 > **Request**
 
 ```json
-GET/v2/positions/BTC-USD-200626-LIN
+GET /v2/positions/BTC-USD-SWAP-LIN
 ```
 
 
-> **RESPONSE**
+> **Response**
 
 ```json
 {
