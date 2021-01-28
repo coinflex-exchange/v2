@@ -430,7 +430,7 @@
                             <a href="#rest-api-methods-private-get-v2-positions" class="toc-h3 toc-link" data-title="GET  <code>/v2/positions</code>">GET  <code>/v2/positions</code></a>
                           </li>
                           <li>
-                            <a href="#rest-api-methods-private-get-v2-positions-lt-instrumentid-gt" class="toc-h3 toc-link" data-title="GET  <code>/v2/positions/&lt;instrumentId&gt;</code>">GET  <code>/v2/positions/&lt;instrumentId&gt;</code></a>
+                            <a href="#rest-api-methods-private-get-v2-positions-instrumentid" class="toc-h3 toc-link" data-title="GET  <code>/v2/positions/{instrumentId}</code>">GET  <code>/v2/positions/{instrumentId}</code></a>
                           </li>
                           <li>
                             <a href="#rest-api-methods-private-get-v2-trades-marketcode" class="toc-h3 toc-link" data-title="GET <code>/v2/trades/{marketCode}</code>">GET <code>/v2/trades/{marketCode}</code></a>
@@ -452,6 +452,12 @@
                           </li>
                           <li>
                             <a href="#rest-api-methods-private-delete-v2-1-delivery-orders-deliveryorderid" class="toc-h3 toc-link" data-title="DELETE <code>/v2.1/delivery/orders/{deliveryOrderId}</code>">DELETE <code>/v2.1/delivery/orders/{deliveryOrderId}</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-get-v2-2-orders-pending" class="toc-h3 toc-link" data-title="GET <code>/v2.2/orders</code> (pending)">GET <code>/v2.2/orders</code> (pending)</a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-get-v2-candles-pending" class="toc-h3 toc-link" data-title="GET <code>/v2/candles</code> (pending)">GET <code>/v2/candles</code> (pending)</a>
                           </li>
                       </ul>
                   </li>
@@ -3508,10 +3514,10 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"Content-Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"AccessKey"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;string&gt;</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"Timestamp"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;string&gt;</span><span class="p">,</span><span class="w"> 
-  </span><span class="nl">"Signature"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;string&gt;</span><span class="p">,</span><span class="w"> 
-  </span><span class="nl">"Nonce"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;string&gt;</span><span class="w">
+  </span><span class="nl">"AccessKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string&gt;"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"Signature"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string&gt;"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"Nonce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string&gt;"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">hmac</span>
@@ -3644,8 +3650,13 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <span class="c1"># REST API method
 </span><span class="n">method</span> <span class="o">=</span> <span class="s">'/v2/accountinfo'</span>
 
-<span class="n">body</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({})</span>
-<span class="n">path</span> <span class="o">=</span> <span class="n">method</span>
+<span class="c1"># Not required for /v2/accountinfo
+</span><span class="n">body</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({})</span>
+
+<span class="k">if</span> <span class="n">body</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span> <span class="o">+</span> <span class="s">'?'</span> <span class="o">+</span> <span class="n">body</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span>
 
 <span class="n">msg_string</span> <span class="o">=</span> <span class="s">'{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="s">'GET'</span><span class="p">,</span> <span class="n">rest_path</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
 <span class="n">sig</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">msg_string</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
@@ -3694,9 +3705,11 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </code></pre></div>
 <p>Returns the account level information connected to the API key initiating the request. </p>
 
+<p><sub><strong>Response Fields</strong></sub> </p>
+
 <table><thead>
 <tr>
-<th>Field</th>
+<th>Fields</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
@@ -3791,8 +3804,13 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <span class="c1"># REST API method
 </span><span class="n">method</span> <span class="o">=</span> <span class="s">'/v2/balances'</span>
 
-<span class="n">body</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({})</span>
-<span class="n">path</span> <span class="o">=</span> <span class="n">method</span>
+<span class="c1"># Not required for /v2/balances
+</span><span class="n">body</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({})</span>
+
+<span class="k">if</span> <span class="n">body</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span> <span class="o">+</span> <span class="s">'?'</span> <span class="o">+</span> <span class="n">body</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span>
 
 <span class="n">msg_string</span> <span class="o">=</span> <span class="s">'{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="s">'GET'</span><span class="p">,</span> <span class="n">rest_path</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
 <span class="n">sig</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">msg_string</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
@@ -3853,9 +3871,11 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </code></pre></div>
 <p>Returns all the coin balances of the account connected to the API key initiating the request. </p>
 
+<p><sub><strong>Response Fields</strong></sub> </p>
+
 <table><thead>
 <tr>
-<th>Field</th>
+<th>Fields</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
@@ -3915,7 +3935,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/balances/&lt;instrumentId&gt;</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/balances/</span><span class="p">{</span><span class="err">instrumentId</span><span class="p">}</span><span class="w">
 </span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">hmac</span>
 <span class="kn">import</span> <span class="nn">base64</span>
@@ -3935,8 +3955,13 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <span class="c1"># REST API method, for example FLEX balances
 </span><span class="n">method</span> <span class="o">=</span> <span class="s">'/v2/balances/FLEX'</span>
 
-<span class="n">body</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({})</span>
-<span class="n">path</span> <span class="o">=</span> <span class="n">method</span>
+<span class="c1"># Not required for /v2/balances/{instrumentId}
+</span><span class="n">body</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({})</span>
+
+<span class="k">if</span> <span class="n">body</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span> <span class="o">+</span> <span class="s">'?'</span> <span class="o">+</span> <span class="n">body</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span>
 
 <span class="n">msg_string</span> <span class="o">=</span> <span class="s">'{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="s">'GET'</span><span class="p">,</span> <span class="n">rest_path</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
 <span class="n">sig</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">msg_string</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
@@ -3979,9 +4004,11 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </code></pre></div>
 <p>Returns the specified coin balance of the account connected to the API key initiating the request. </p>
 
+<p><sub><strong>Response Fields</strong></sub> </p>
+
 <table><thead>
 <tr>
-<th>Field</th>
+<th>Fields</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
@@ -4061,8 +4088,13 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <span class="c1"># REST API method
 </span><span class="n">method</span> <span class="o">=</span> <span class="s">'/v2/positions'</span>
 
-<span class="n">body</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({})</span>
-<span class="n">path</span> <span class="o">=</span> <span class="n">method</span>
+<span class="c1"># Not required for /v2/positions
+</span><span class="n">body</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({})</span>
+
+<span class="k">if</span> <span class="n">body</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span> <span class="o">+</span> <span class="s">'?'</span> <span class="o">+</span> <span class="n">body</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span>
 
 <span class="n">msg_string</span> <span class="o">=</span> <span class="s">'{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="s">'GET'</span><span class="p">,</span> <span class="n">rest_path</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
 <span class="n">sig</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">msg_string</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
@@ -4109,9 +4141,11 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </code></pre></div>
 <p>Returns all the positions of the account connected to the API key initiating the request. </p>
 
+<p><sub><strong>Response Fields</strong></sub> </p>
+
 <table><thead>
 <tr>
-<th>Field</th>
+<th>Fields</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
@@ -4172,134 +4206,238 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>Postion profit and lost</td>
 </tr>
 </tbody></table>
-<h3 id='rest-api-methods-private-get-v2-positions-lt-instrumentid-gt'>GET  <code>/v2/positions/&lt;instrumentId&gt;</code></h3>
+<h3 id='rest-api-methods-private-get-v2-positions-instrumentid'>GET  <code>/v2/positions/{instrumentId}</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/positions/BTC-USD-SWAP-LIN</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/positions/</span><span class="p">{</span><span class="err">instrumentId</span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">hmac</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlencode</span>
+
+<span class="n">rest_url</span> <span class="o">=</span> <span class="s">'https://v2stgapi.coinflex.com'</span>
+<span class="n">rest_path</span> <span class="o">=</span> <span class="s">'v2stgapi.coinflex.com'</span>
+
+<span class="n">api_key</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">API</span><span class="o">-</span><span class="n">KEY</span><span class="o">&gt;</span>
+<span class="n">api_secret</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">API</span><span class="o">-</span><span class="n">SECRET</span><span class="o">&gt;</span>
+
+<span class="n">ts</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="n">utcnow</span><span class="p">().</span><span class="n">isoformat</span><span class="p">()</span>
+<span class="n">nonce</span> <span class="o">=</span> <span class="mi">123</span>
+
+<span class="c1"># REST API method, for example FLEX-USD-SWAP-LIN position
+</span><span class="n">method</span> <span class="o">=</span> <span class="s">'/v2/positions/FLEX-USD-SWAP-LIN'</span>
+
+<span class="c1"># Not required for /v2/positions/{instrumentId}
+</span><span class="n">body</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({})</span>
+
+<span class="k">if</span> <span class="n">body</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span> <span class="o">+</span> <span class="s">'?'</span> <span class="o">+</span> <span class="n">body</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span>
+
+<span class="n">msg_string</span> <span class="o">=</span> <span class="s">'{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="s">'GET'</span><span class="p">,</span> <span class="n">rest_path</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+<span class="n">sig</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">msg_string</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+
+<span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span> <span class="s">'AccessKey'</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+          <span class="s">'Timestamp'</span><span class="p">:</span> <span class="n">ts</span><span class="p">,</span> <span class="s">'Signature'</span><span class="p">:</span> <span class="n">sig</span><span class="p">,</span> <span class="s">'Nonce'</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">nonce</span><span class="p">)}</span>
+
+<span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">rest_url</span> <span class="o">+</span> <span class="n">path</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">header</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">resp</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre></div>
 <blockquote>
 <p><strong>Response</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"positionsById"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1593617005438</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-200626-LIN"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.94"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592486212218"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7800.00"</span><span class="p">,</span><span class="w">       
-            </span><span class="nl">"positionPnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200.3"</span><span class="w">              
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"positionsById"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1593617005438</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.94"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592486212218"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.1"</span><span class="p">,</span><span class="w">       
+              </span><span class="nl">"positionPnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200.3"</span><span class="w">              
+          </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>Requires authentication. GET specific positions for current user.</p>
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="p">{</span>
+  <span class="s">"event"</span><span class="p">:</span> <span class="s">"positionsById"</span><span class="p">,</span>
+  <span class="s">"timestamp"</span><span class="p">:</span> <span class="mi">1593617005438</span><span class="p">,</span>
+  <span class="s">"accountId"</span><span class="p">:</span><span class="s">"&lt;Your Account ID&gt;"</span><span class="p">,</span>
+  <span class="s">"data"</span><span class="p">:</span> <span class="p">[</span> <span class="p">{</span>
+              <span class="s">"instrumentId"</span><span class="p">:</span> <span class="s">"FLEX-USD-SWAP-LIN"</span><span class="p">,</span>
+              <span class="s">"quantity"</span><span class="p">:</span> <span class="s">"0.94"</span><span class="p">,</span>
+              <span class="s">"lastUpdated"</span><span class="p">:</span> <span class="s">"1592486212218"</span><span class="p">,</span>
+              <span class="s">"contractValCurrency"</span><span class="p">:</span> <span class="s">"FLEX"</span><span class="p">,</span>
+              <span class="s">"entryPrice"</span><span class="p">:</span> <span class="s">"1.1"</span><span class="p">,</span>       
+              <span class="s">"positionPnl"</span><span class="p">:</span> <span class="s">"200.3"</span>              
+          <span class="p">}</span> <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Returns the specified instrument ID position of the account connected to the API key initiating the request.</p>
+
+<p><sub><strong>Response Fields</strong></sub> </p>
 
 <table><thead>
 <tr>
-<th>Response Parameters</th>
+<th>Fields</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>event</td>
+<td>STRING</td>
+<td><code>positionsById</code></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>INTEGER</td>
+<td>Millisecond timestamp</td>
+</tr>
 <tr>
 <td>accountId</td>
 <td>STRING</td>
 <td>Account ID</td>
 </tr>
 <tr>
-<td>timestamp</td>
+<td>tradeType</td>
 <td>STRING</td>
-<td>Timestamp of this response</td>
+<td><code>LINEAR</code></td>
 </tr>
 <tr>
-<td>instrumentId</td>
-<td>STRING</td>
-<td>Contract symbol, e.g. &#39;BTC-USD-200626-LIN&#39;</td>
+<td>data</td>
+<td>LIST of dictionaries</td>
+<td></td>
 </tr>
 <tr>
-<td>quantity</td>
+<td>&gt;instrumentId</td>
+<td>STRING</td>
+<td>Contract symbol, e.g. &#39;FLEX-USD-SWAP-LIN&#39;</td>
+</tr>
+<tr>
+<td>&gt;quantity</td>
 <td>STRING</td>
 <td>Quantity of position, e.g. &#39;0.94&#39;</td>
 </tr>
 <tr>
-<td>lastUpdated</td>
+<td>&gt;lastUpdated</td>
 <td>STRING</td>
 <td>Timestamp when position was last updated</td>
 </tr>
 <tr>
-<td>lastUpdated</td>
-<td>STRING</td>
-<td>Timestamp when position was last updated</td>
-</tr>
-<tr>
-<td>contractValCurrency</td>
+<td>&gt;contractValCurrency</td>
 <td>STRING</td>
 <td>Contract valuation currency</td>
 </tr>
 <tr>
-<td>entryPrice</td>
+<td>&gt;entryPrice</td>
 <td>STRING</td>
 <td>Average entry price</td>
 </tr>
 <tr>
-<td>positionPnl</td>
+<td>&gt;positionPnl</td>
 <td>STRING</td>
 <td>Postion profit and lost</td>
-</tr>
-<tr>
-<td>estLiquidationPx</td>
-<td>STRING</td>
-<td></td>
-</tr>
-<tr>
-<td>estLiqPrice</td>
-<td>STRING</td>
-<td>Estimated liquidation price</td>
 </tr>
 </tbody></table>
 <h3 id='rest-api-methods-private-get-v2-trades-marketcode'>GET <code>/v2/trades/{marketCode}</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET/v</span><span class="mi">2</span><span class="err">/trades/</span><span class="p">{</span><span class="err">marketCode</span><span class="p">}</span><span class="err">?limit=</span><span class="p">{</span><span class="err">limit</span><span class="p">}</span><span class="err">&amp;startTime=</span><span class="p">{</span><span class="err">startTime</span><span class="p">}</span><span class="err">&amp;endTime</span><span class="p">{</span><span class="err">endTime</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/trades/</span><span class="p">{</span><span class="err">marketCode</span><span class="p">}</span><span class="err">?limit=</span><span class="p">{</span><span class="err">limit</span><span class="p">}</span><span class="err">&amp;startTime=</span><span class="p">{</span><span class="err">startTime</span><span class="p">}</span><span class="err">&amp;endTime=</span><span class="p">{</span><span class="err">endTime</span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">hmac</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlencode</span>
+
+<span class="n">rest_url</span> <span class="o">=</span> <span class="s">'https://v2stgapi.coinflex.com'</span>
+<span class="n">rest_path</span> <span class="o">=</span> <span class="s">'v2stgapi.coinflex.com'</span>
+
+<span class="n">api_key</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">API</span><span class="o">-</span><span class="n">KEY</span><span class="o">&gt;</span>
+<span class="n">api_secret</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">API</span><span class="o">-</span><span class="n">SECRET</span><span class="o">&gt;</span>
+
+<span class="n">ts</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="n">utcnow</span><span class="p">().</span><span class="n">isoformat</span><span class="p">()</span>
+<span class="n">nonce</span> <span class="o">=</span> <span class="mi">123</span>
+
+<span class="c1"># REST API method, for example FLEX-USD spot trades
+</span><span class="n">method</span> <span class="o">=</span> <span class="s">'/v2/trades/FLEX-USD'</span>
+
+<span class="c1"># Optional for /v2/trades/{marketCode}
+</span><span class="n">body</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({</span><span class="s">'limit'</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s">'startTime'</span><span class="p">:</span> <span class="mi">1611850042397</span><span class="p">,</span> <span class="s">'endTime'</span><span class="p">:</span> <span class="mi">1611850059021</span><span class="p">})</span>
+
+<span class="k">if</span> <span class="n">body</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span> <span class="o">+</span> <span class="s">'?'</span> <span class="o">+</span> <span class="n">body</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span>
+
+<span class="n">msg_string</span> <span class="o">=</span> <span class="s">'{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="s">'GET'</span><span class="p">,</span> <span class="n">rest_path</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+<span class="n">sig</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">msg_string</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+
+<span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span> <span class="s">'AccessKey'</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+          <span class="s">'Timestamp'</span><span class="p">:</span> <span class="n">ts</span><span class="p">,</span> <span class="s">'Signature'</span><span class="p">:</span> <span class="n">sig</span><span class="p">,</span> <span class="s">'Nonce'</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">nonce</span><span class="p">)}</span>
+
+<span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">rest_url</span> <span class="o">+</span> <span class="n">path</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">header</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">resp</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre></div>
 <blockquote>
-<p><strong>RESPONSE</strong></p>
+<p><strong>Response</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"trades"</span><span class="p">,</span><span class="w"> 
-  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1595635101845"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1595635101845</span><span class="p">,</span><span class="w"> 
   </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w"> 
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"matchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160067484555913077"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nl">"matchTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1595514663626"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.010000000"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nl">"matchPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9680.000000000"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"96.800000000000000000"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nl">"orderMatchType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TAKER"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.009600000"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nl">"feeInstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160067484555913076"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="w">
-   </span><span class="p">},</span><span class="w">
-</span><span class="err">...</span><span class="w">
-</span><span class="p">]</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"matchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160067484555913077"</span><span class="p">,</span><span class="w"> 
+              </span><span class="nl">"matchTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1595514663626"</span><span class="p">,</span><span class="w"> 
+              </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX-USD"</span><span class="p">,</span><span class="w"> 
+              </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1"</span><span class="p">,</span><span class="w"> 
+              </span><span class="nl">"matchPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.065"</span><span class="p">,</span><span class="w"> 
+              </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0065"</span><span class="p">,</span><span class="w"> 
+              </span><span class="nl">"orderMatchType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TAKER"</span><span class="p">,</span><span class="w"> 
+              </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0096"</span><span class="p">,</span><span class="w"> 
+              </span><span class="nl">"feeInstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX"</span><span class="p">,</span><span class="w"> 
+              </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160067484555913076"</span><span class="p">,</span><span class="w"> 
+              </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w"> 
+              </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="err">...</span><span class="w">
+          </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="p">{</span>
+  <span class="s">"event"</span><span class="p">:</span> <span class="s">"trades"</span><span class="p">,</span> 
+  <span class="s">"timestamp"</span><span class="p">:</span> <span class="mi">1595635101845</span><span class="p">,</span> 
+  <span class="s">"accountId"</span><span class="p">:</span> <span class="s">"&lt;Your Account ID&gt;"</span><span class="p">,</span> 
+  <span class="s">"data"</span><span class="p">:</span> <span class="p">[</span> <span class="p">{</span>
+              <span class="s">"matchId"</span><span class="p">:</span> <span class="s">"160067484555913077"</span><span class="p">,</span> 
+              <span class="s">"matchTimestamp"</span><span class="p">:</span> <span class="s">"1595514663626"</span><span class="p">,</span> 
+              <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"FLEX-USD"</span><span class="p">,</span> 
+              <span class="s">"matchQuantity"</span><span class="p">:</span> <span class="s">"0.1"</span><span class="p">,</span> 
+              <span class="s">"matchPrice"</span><span class="p">:</span> <span class="s">"0.065"</span><span class="p">,</span> 
+              <span class="s">"total"</span><span class="p">:</span> <span class="s">"0.0065"</span><span class="p">,</span> 
+              <span class="s">"orderMatchType"</span><span class="p">:</span> <span class="s">"TAKER"</span><span class="p">,</span> 
+              <span class="s">"fees"</span><span class="p">:</span> <span class="s">"0.0096"</span><span class="p">,</span> 
+              <span class="s">"feeInstrumentId"</span><span class="p">:</span> <span class="s">"FLEX"</span><span class="p">,</span> 
+              <span class="s">"orderId"</span><span class="p">:</span> <span class="s">"160067484555913076"</span><span class="p">,</span> 
+              <span class="s">"side"</span><span class="p">:</span> <span class="s">"SELL"</span><span class="p">,</span> 
+              <span class="s">"clientOrderId"</span><span class="p">:</span> <span class="s">"123"</span>
+            <span class="p">},</span>
+            <span class="p">...</span>
+          <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Returns the most recent trades of the account connected to the API key initiating the request.</p>
 
-</span></code></pre></div>
-<p>Requires authentication. Get most recent trades of current user.</p>
+<p><sub><strong>Request Parameters</strong></sub> </p>
 
 <table><thead>
 <tr>
-<th>Request Parameters</th>
+<th>Parameters</th>
 <th>Type</th>
 <th>Required</th>
 <th>Description</th>
@@ -4315,135 +4453,208 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>limit</td>
 <td>LONG</td>
 <td>NO</td>
-<td>Default 500, max 1000</td>
+<td>Default <code>500</code>, max <code>1000</code></td>
 </tr>
 <tr>
 <td>startTime</td>
 <td>LONG</td>
 <td>NO</td>
-<td></td>
+<td>Millisecond timestamp</td>
 </tr>
 <tr>
 <td>endTime</td>
 <td>LONG</td>
 <td>NO</td>
-<td></td>
+<td>Millisecond timestamp</td>
 </tr>
 </tbody></table>
 
+<p><sub><strong>Response Fields</strong></sub> </p>
+
 <table><thead>
 <tr>
-<th>Response Parameters</th>
+<th>Fields</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>event</td>
+<td>STRING</td>
+<td><code>trades</code></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>INTEGER</td>
+<td>Millisecond timestamp</td>
+</tr>
 <tr>
 <td>accountId</td>
 <td>STRING</td>
 <td>Account ID</td>
 </tr>
 <tr>
-<td>timestamp</td>
+<td>tradeType</td>
 <td>STRING</td>
-<td>Timestamp of this response</td>
+<td><code>LINEAR</code></td>
 </tr>
 <tr>
-<td>matchId</td>
+<td>data</td>
+<td>LIST of dictionaries</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;matchId</td>
 <td>STRING</td>
 <td>Match ID</td>
 </tr>
 <tr>
-<td>matchTimestamp</td>
+<td>&gt;matchTimestamp</td>
 <td>STRING</td>
 <td>Order Matched timestamp</td>
 </tr>
 <tr>
-<td>marketCode</td>
+<td>&gt;marketCode</td>
 <td>STRING</td>
 <td>Market code</td>
 </tr>
 <tr>
-<td>matchQuantity</td>
+<td>&gt;matchQuantity</td>
 <td>STRING</td>
 <td>Match quantity</td>
 </tr>
 <tr>
-<td>matchPrice</td>
+<td>&gt;matchPrice</td>
 <td>STRING</td>
 <td>Match price</td>
 </tr>
 <tr>
-<td>total</td>
+<td>&gt;total</td>
 <td>STRING</td>
 <td>Total price</td>
 </tr>
 <tr>
-<td>side</td>
+<td>&gt;side</td>
 <td>STRING</td>
 <td>Side of the match</td>
 </tr>
 <tr>
-<td>orderMatchType</td>
+<td>&gt;orderMatchType</td>
 <td>STRING</td>
 <td>Define taker or maker</td>
 </tr>
 <tr>
-<td>fees</td>
+<td>&gt;fees</td>
 <td>STRING</td>
 <td>fees</td>
 </tr>
 <tr>
-<td>feeInstrumentId</td>
+<td>&gt;feeInstrumentId</td>
 <td>STRING</td>
 <td>Instrument ID of the fees</td>
 </tr>
 <tr>
-<td>orderId</td>
+<td>&gt;orderId</td>
 <td>STRING</td>
-<td>Order ID generated by the server</td>
+<td>Unique order ID from the exchange</td>
 </tr>
 <tr>
-<td>clientOrderID</td>
+<td>&gt;clientOrderID</td>
 <td>STRING</td>
-<td>Client order ID generated by the user</td>
+<td>Client assigned ID to help manage and identify orders</td>
 </tr>
 </tbody></table>
 <h3 id='rest-api-methods-private-get-v2-orders'>GET  <code>/v2/orders</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET/v</span><span class="mi">2</span><span class="err">/orders</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/orders</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">hmac</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlencode</span>
+
+<span class="n">rest_url</span> <span class="o">=</span> <span class="s">'https://v2stgapi.coinflex.com'</span>
+<span class="n">rest_path</span> <span class="o">=</span> <span class="s">'v2stgapi.coinflex.com'</span>
+
+<span class="n">api_key</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">API</span><span class="o">-</span><span class="n">KEY</span><span class="o">&gt;</span>
+<span class="n">api_secret</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">API</span><span class="o">-</span><span class="n">SECRET</span><span class="o">&gt;</span>
+
+<span class="n">ts</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="n">utcnow</span><span class="p">().</span><span class="n">isoformat</span><span class="p">()</span>
+<span class="n">nonce</span> <span class="o">=</span> <span class="mi">123</span>
+
+<span class="c1"># REST API method
+</span><span class="n">method</span> <span class="o">=</span> <span class="s">'/v2/orders'</span>
+
+<span class="c1"># Not required for /v2/orders
+</span><span class="n">body</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({})</span>
+
+<span class="k">if</span> <span class="n">body</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span> <span class="o">+</span> <span class="s">'?'</span> <span class="o">+</span> <span class="n">body</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span>
+
+<span class="n">msg_string</span> <span class="o">=</span> <span class="s">'{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="s">'GET'</span><span class="p">,</span> <span class="n">rest_path</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+<span class="n">sig</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">msg_string</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+
+<span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span> <span class="s">'AccessKey'</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+          <span class="s">'Timestamp'</span><span class="p">:</span> <span class="n">ts</span><span class="p">,</span> <span class="s">'Signature'</span><span class="p">:</span> <span class="n">sig</span><span class="p">,</span> <span class="s">'Nonce'</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">nonce</span><span class="p">)}</span>
+
+<span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">rest_url</span> <span class="o">+</span> <span class="n">path</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">header</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">resp</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre></div>
 <blockquote>
-<p><strong>RESPONSE</strong></p>
+<p><strong>Response</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"orders"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1593617005438"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
-       </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160039151345856176"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-200626-LIN"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="err">|</span><span class="s2">"&lt;clientOrderId&gt;"</span><span class="p">,</span><span class="w">              
-          </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="err">|</span><span class="s2">"STOP"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.00"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.00"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.00"</span><span class="err">|</span><span class="kc">null</span><span class="p">,</span><span class="w">               </span><span class="err">#for</span><span class="w"> </span><span class="err">limit</span><span class="w"> </span><span class="err">order</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">stop</span><span class="w"> </span><span class="err">order</span><span class="w">
-          </span><span class="nl">"stopPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;stopPrice&gt;"</span><span class="err">|</span><span class="kc">null</span><span class="p">,</span><span class="w">    </span><span class="err">#for</span><span class="w"> </span><span class="err">stop</span><span class="w"> </span><span class="err">order</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">limit</span><span class="w"> </span><span class="err">order</span><span class="w"> 
-          </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"《limitPrice&gt;"</span><span class="err">|</span><span class="kc">null</span><span class="p">,</span><span class="w">    </span><span class="err">#for</span><span class="w"> </span><span class="err">stop</span><span class="w"> </span><span class="err">order</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">limit</span><span class="w"> </span><span class="err">order</span><span class="w"> 
-          </span><span class="nl">"orderCreated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1593617008698"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"lastModified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1593617008698"</span><span class="p">,</span><span class="w">      
-          </span><span class="nl">"lastTradeTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1593617008698"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="err">...</span><span class="w">
-  </span><span class="p">]</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"orders"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1593617005438"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160039151345856176"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-200626-LIN"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="err">|</span><span class="s2">"&lt;clientOrderId&gt;"</span><span class="p">,</span><span class="w">              
+              </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="err">|</span><span class="s2">"STOP"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.00"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.00"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.00"</span><span class="err">|</span><span class="kc">null</span><span class="p">,</span><span class="w">               </span><span class="err">#for</span><span class="w"> </span><span class="err">limit</span><span class="w"> </span><span class="err">order</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">stop</span><span class="w"> </span><span class="err">order</span><span class="w">
+              </span><span class="nl">"stopPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;stopPrice&gt;"</span><span class="err">|</span><span class="kc">null</span><span class="p">,</span><span class="w">    </span><span class="err">#for</span><span class="w"> </span><span class="err">stop</span><span class="w"> </span><span class="err">order</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">limit</span><span class="w"> </span><span class="err">order</span><span class="w"> 
+              </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;limitPrice&gt;"</span><span class="err">|</span><span class="kc">null</span><span class="p">,</span><span class="w">  </span><span class="err">#for</span><span class="w"> </span><span class="err">stop</span><span class="w"> </span><span class="err">order</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">limit</span><span class="w"> </span><span class="err">order</span><span class="w"> 
+              </span><span class="nl">"orderCreated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1593617008698"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"lastModified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1593617008698"</span><span class="p">,</span><span class="w">      
+              </span><span class="nl">"lastTradeTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1593617008698"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="err">...</span><span class="w">
+          </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="p">{</span>
+  <span class="s">"event"</span><span class="p">:</span> <span class="s">"orders"</span><span class="p">,</span>
+  <span class="s">"accountId"</span><span class="p">:</span><span class="s">"&lt;Your Account ID&gt;"</span><span class="p">,</span>
+  <span class="s">"timestamp"</span><span class="p">:</span><span class="s">"1593617005438"</span><span class="p">,</span>
+  <span class="s">"data"</span><span class="p">:</span> <span class="p">[</span> <span class="p">{</span>
+              <span class="s">"orderId"</span><span class="p">:</span> <span class="s">"160039151345856176"</span><span class="p">,</span>
+              <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"BTC-USD-200626-LIN"</span><span class="p">,</span>
+              <span class="s">"clientOrderId"</span><span class="p">:</span> <span class="n">null</span><span class="o">|</span><span class="s">"&lt;clientOrderId&gt;"</span><span class="p">,</span>              
+              <span class="s">"side"</span><span class="p">:</span> <span class="s">"BUY"</span><span class="p">,</span>
+              <span class="s">"orderType"</span><span class="p">:</span> <span class="s">"LIMIT"</span><span class="o">|</span><span class="s">"STOP"</span><span class="p">,</span>
+              <span class="s">"quantity"</span><span class="p">:</span> <span class="s">"1.00"</span><span class="p">,</span>
+              <span class="s">"remainQuantity"</span><span class="p">:</span> <span class="s">"1.00"</span><span class="p">,</span>
+              <span class="s">"price"</span><span class="p">:</span> <span class="s">"1.00"</span><span class="o">|</span><span class="n">null</span><span class="p">,</span>               <span class="c1">#for limit order, null for stop order
+</span>              <span class="s">"stopPrice"</span><span class="p">:</span> <span class="s">"&lt;stopPrice&gt;"</span><span class="o">|</span><span class="n">null</span><span class="p">,</span>    <span class="c1">#for stop order, null for limit order 
+</span>              <span class="s">"limitPrice"</span><span class="p">:</span> <span class="s">"&lt;limitPrice&gt;"</span><span class="o">|</span><span class="n">null</span><span class="p">,</span>  <span class="c1">#for stop order, null for limit order 
+</span>              <span class="s">"orderCreated"</span><span class="p">:</span> <span class="s">"1593617008698"</span><span class="p">,</span>
+              <span class="s">"lastModified"</span><span class="p">:</span> <span class="s">"1593617008698"</span><span class="p">,</span>      
+              <span class="s">"lastTradeTimestamp"</span><span class="p">:</span> <span class="s">"1593617008698"</span><span class="p">,</span>
+              <span class="s">"timeInForce"</span><span class="p">:</span> <span class="s">"GTC"</span>
+            <span class="p">},</span>
+            <span class="p">...</span>
+          <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>Requires authentication. Get all open orders of current user.</p>
 
 <table><thead>
@@ -4860,6 +5071,341 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Requires authentication. Cancels a pending delivery.</p>
+<h3 id='rest-api-methods-private-get-v2-2-orders-pending'>GET <code>/v2.2/orders</code> (pending)</h3>
+<p>Requires authentication. Get all orders of current user.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mf">2.2</span><span class="err">/orders</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>Request body</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"987654321"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>orderId</td>
+<td>Integer</td>
+<td>NO</td>
+<td></td>
+</tr>
+<tr>
+<td>clientId</td>
+<td>Integer</td>
+<td>NO</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4499257"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"orders"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1611645666834"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderOpened"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">304330302278421284</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1611727170448</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sell"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33108"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lastTradedPrice"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"averageFillPrice"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"stopPrice"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderMatchType"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"matchId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"leg1Price"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"leg2Price"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"feeInstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER_ONLY"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"isTriggered"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1611727170650"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderMatched"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">5204263117330811401</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1611644738148</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-Rate-Jan21"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sell"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"472"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lastTradedPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"472"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"averageFillPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"472"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"stopPrice"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.5"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.5"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderMatchType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"matchId"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="mi">5204263117330811403</span><span class="p">,</span><span class="w">
+                </span><span class="mi">5204263117330811405</span><span class="p">,</span><span class="w">
+                </span><span class="mi">5204263117330811407</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"leg1Price"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"leg2Price"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-0.0028391"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"feeInstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"isTriggered"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1611645088765"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Response Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Timestamp of this response</td>
+</tr>
+<tr>
+<td>status</td>
+<td>STRING</td>
+<td>Status of the order</td>
+</tr>
+<tr>
+<td>orderId</td>
+<td></td>
+<td>Order ID which generated by the server</td>
+</tr>
+<tr>
+<td>clientOrderId</td>
+<td></td>
+<td>Client order ID which given by the user</td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Market code</td>
+</tr>
+<tr>
+<td>side</td>
+<td>STRING</td>
+<td>Side of the order</td>
+</tr>
+<tr>
+<td>orderType</td>
+<td>STRING</td>
+<td>Type of the order</td>
+</tr>
+<tr>
+<td>price</td>
+<td>STRING</td>
+<td>Price submitted</td>
+</tr>
+<tr>
+<td>lastTradedPrice</td>
+<td></td>
+<td>Price when order was last traded</td>
+</tr>
+<tr>
+<td>averageFillPrice</td>
+<td></td>
+<td>Price when order was last traded</td>
+</tr>
+<tr>
+<td>stopPrice</td>
+<td>STRING</td>
+<td>Stop price for the stop order</td>
+</tr>
+<tr>
+<td>limitPrice</td>
+<td>STRING</td>
+<td>Limit price for the stop limit order</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING</td>
+<td>Quantity submitted</td>
+</tr>
+<tr>
+<td>matchQuantity</td>
+<td>STRING</td>
+<td>Match quantity</td>
+</tr>
+<tr>
+<td>remainQuantity</td>
+<td>STRING</td>
+<td>Remainning quantity</td>
+</tr>
+<tr>
+<td>orderMatchType</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>matchId</td>
+<td>ARRAY</td>
+<td></td>
+</tr>
+<tr>
+<td>leg1Price</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>leg2Price</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>fees</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>feeInstrumentId</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>timeInForce</td>
+<td>STRING</td>
+<td>Time in force</td>
+</tr>
+<tr>
+<td>isTriggered</td>
+<td>BOOLEAN</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp(in data)</td>
+<td>STRING</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-private-get-v2-candles-pending'>GET <code>/v2/candles</code> (pending)</h3>
+<p>Requires authentication. Get candlestick data for the current candle.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/candles</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>Request body</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timeframe"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1m"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>timeframe</td>
+<td>STRING</td>
+<td>YES</td>
+<td>e.g. 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>default value: 500</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timeframe"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1m"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"candle1m"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1611718910850"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"1604301120000"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"11814.464"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"1.006"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>FAILED RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VALIDATION_FAIL"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"must not be blank"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>candle</td>
+<td>LIST of strings</td>
+<td><ul><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ul></td>
+</tr>
+</tbody></table>
 <h2 id='rest-api-methods-public'>Methods - Public</h2><h3 id='rest-api-methods-public-get-v2-all-markets'>GET <code>/v2/all/markets</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
