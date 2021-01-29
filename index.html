@@ -4166,11 +4166,6 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>Account ID</td>
 </tr>
 <tr>
-<td>tradeType</td>
-<td>STRING</td>
-<td><code>LINEAR</code></td>
-</tr>
-<tr>
 <td>data</td>
 <td>LIST of dictionaries</td>
 <td></td>
@@ -4302,11 +4297,6 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>accountId</td>
 <td>STRING</td>
 <td>Account ID</td>
-</tr>
-<tr>
-<td>tradeType</td>
-<td>STRING</td>
-<td><code>LINEAR</code></td>
 </tr>
 <tr>
 <td>data</td>
@@ -4494,11 +4484,6 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>Account ID</td>
 </tr>
 <tr>
-<td>tradeType</td>
-<td>STRING</td>
-<td><code>LINEAR</code></td>
-</tr>
-<tr>
 <td>data</td>
 <td>LIST of dictionaries</td>
 <td></td>
@@ -4541,12 +4526,12 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <tr>
 <td>&gt;orderMatchType</td>
 <td>STRING</td>
-<td>Define taker or maker</td>
+<td><code>TAKER</code> or <code>MAKER</code></td>
 </tr>
 <tr>
 <td>&gt;fees</td>
 <td>STRING</td>
-<td>fees</td>
+<td>Fees</td>
 </tr>
 <tr>
 <td>&gt;feeInstrumentId</td>
@@ -4610,11 +4595,11 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"orders"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1593617005438"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1593617005438</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
               </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"160039151345856176"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-200626-LIN"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="err">|</span><span class="s2">"&lt;clientOrderId&gt;"</span><span class="p">,</span><span class="w">              
               </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="err">|</span><span class="s2">"STOP"</span><span class="p">,</span><span class="w">
@@ -4633,11 +4618,11 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="p">{</span>
   <span class="s">"event"</span><span class="p">:</span> <span class="s">"orders"</span><span class="p">,</span>
-  <span class="s">"accountId"</span><span class="p">:</span><span class="s">"&lt;Your Account ID&gt;"</span><span class="p">,</span>
-  <span class="s">"timestamp"</span><span class="p">:</span><span class="s">"1593617005438"</span><span class="p">,</span>
+  <span class="s">"timestamp"</span><span class="p">:</span> <span class="mi">1593617005438</span><span class="p">,</span>
+  <span class="s">"accountId"</span><span class="p">:</span> <span class="s">"&lt;Your Account ID&gt;"</span><span class="p">,</span>
   <span class="s">"data"</span><span class="p">:</span> <span class="p">[</span> <span class="p">{</span>
               <span class="s">"orderId"</span><span class="p">:</span> <span class="s">"160039151345856176"</span><span class="p">,</span>
-              <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"BTC-USD-200626-LIN"</span><span class="p">,</span>
+              <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"BTC-USD-SWAP-LIN"</span><span class="p">,</span>
               <span class="s">"clientOrderId"</span><span class="p">:</span> <span class="n">null</span><span class="o">|</span><span class="s">"&lt;clientOrderId&gt;"</span><span class="p">,</span>              
               <span class="s">"side"</span><span class="p">:</span> <span class="s">"BUY"</span><span class="p">,</span>
               <span class="s">"orderType"</span><span class="p">:</span> <span class="s">"LIMIT"</span><span class="o">|</span><span class="s">"STOP"</span><span class="p">,</span>
@@ -4655,92 +4640,104 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
           <span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Requires authentication. Get all open orders of current user.</p>
+<p>Returns all the open orders of the account connected to the API key initiating the request.</p>
+
+<p><sub><strong>Response Fields</strong></sub> </p>
 
 <table><thead>
 <tr>
-<th>Response Parameters</th>
+<th>Fields</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>event</td>
+<td>STRING</td>
+<td><code>orders</code></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>INTEGER</td>
+<td>Millisecond timestamp</td>
+</tr>
 <tr>
 <td>accountId</td>
 <td>STRING</td>
 <td>Account ID</td>
 </tr>
 <tr>
-<td>timestamp</td>
-<td>STRING</td>
-<td>Timestamp of this response</td>
+<td>data</td>
+<td>LIST of dictionaries</td>
+<td></td>
 </tr>
 <tr>
-<td>orderId</td>
+<td>&gt;orderId</td>
 <td>STRING</td>
-<td>Order ID which generated by the server</td>
+<td>Unique order ID from the exchange</td>
 </tr>
 <tr>
-<td>marketCode</td>
+<td>&gt;marketCode</td>
 <td>STRING</td>
 <td>Market code</td>
 </tr>
 <tr>
-<td>clientOrderId</td>
+<td>&gt;clientOrderId</td>
 <td>STRING</td>
-<td>Client order ID which given by the user</td>
+<td>Client assigned ID to help manage and identify orders</td>
 </tr>
 <tr>
-<td>side</td>
+<td>&gt;side</td>
 <td>STRING</td>
-<td>Side of the order</td>
+<td><code>BUY</code> or <code>SELL</code></td>
 </tr>
 <tr>
-<td>orderType</td>
+<td>&gt;orderType</td>
 <td>STRING</td>
-<td>Type of the order</td>
+<td><code>LIMIT</code> or <code>STOP</code></td>
 </tr>
 <tr>
-<td>quantity</td>
+<td>&gt;quantity</td>
 <td>STRING</td>
 <td>Quantity submitted</td>
 </tr>
 <tr>
-<td>remainQuantity</td>
+<td>&gt;remainQuantity</td>
 <td>STRING</td>
 <td>Remainning quantity</td>
 </tr>
 <tr>
-<td>price</td>
+<td>&gt;price</td>
 <td>STRING</td>
 <td>Price submitted</td>
 </tr>
 <tr>
-<td>stopPrice</td>
+<td>&gt;stopPrice</td>
 <td>STRING</td>
 <td>Stop price for the stop order</td>
 </tr>
 <tr>
-<td>limitPrice</td>
+<td>&gt;limitPrice</td>
 <td>STRING</td>
 <td>Limit price for the stop limit order</td>
 </tr>
 <tr>
-<td>orderCreated</td>
+<td>&gt;orderCreated</td>
 <td>STRING</td>
 <td>Timestamp when order was created</td>
 </tr>
 <tr>
-<td>lastModified</td>
+<td>&gt;lastModified</td>
 <td>STRING</td>
 <td>Timestamp when order was last mordified</td>
 </tr>
 <tr>
-<td>lastTradeTimestamp</td>
+<td>&gt;lastTradeTimestamp</td>
 <td>STRING</td>
 <td>Timestamp when order was last traded</td>
 </tr>
 <tr>
-<td>timeInForce</td>
+<td>&gt;timeInForce</td>
 <td>STRING</td>
 <td>Time in force</td>
 </tr>
@@ -4749,23 +4746,62 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">DELETE/v</span><span class="mi">2</span><span class="err">/cancel/orders</span><span class="w"> 
-</span></code></pre></div>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">DELETE</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/cancel/orders</span><span class="w"> 
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">hmac</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlencode</span>
+
+<span class="n">rest_url</span> <span class="o">=</span> <span class="s">'https://v2stgapi.coinflex.com'</span>
+<span class="n">rest_path</span> <span class="o">=</span> <span class="s">'v2stgapi.coinflex.com'</span>
+
+<span class="n">api_key</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">API</span><span class="o">-</span><span class="n">KEY</span><span class="o">&gt;</span>
+<span class="n">api_secret</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">API</span><span class="o">-</span><span class="n">SECRET</span><span class="o">&gt;</span>
+
+<span class="n">ts</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="n">utcnow</span><span class="p">().</span><span class="n">isoformat</span><span class="p">()</span>
+<span class="n">nonce</span> <span class="o">=</span> <span class="mi">123</span>
+
+<span class="c1"># REST API method
+</span><span class="n">method</span> <span class="o">=</span> <span class="s">'/v2/cancel/orders'</span>
+
+<span class="c1"># Not required for /v2/orders
+</span><span class="n">body</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({})</span>
+
+<span class="k">if</span> <span class="n">body</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span> <span class="o">+</span> <span class="s">'?'</span> <span class="o">+</span> <span class="n">body</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span>
+
+<span class="n">msg_string</span> <span class="o">=</span> <span class="s">'{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="s">'DELETE'</span><span class="p">,</span> <span class="n">rest_path</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+<span class="n">sig</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">msg_string</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+
+<span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span> <span class="s">'AccessKey'</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+          <span class="s">'Timestamp'</span><span class="p">:</span> <span class="n">ts</span><span class="p">,</span> <span class="s">'Signature'</span><span class="p">:</span> <span class="n">sig</span><span class="p">,</span> <span class="s">'Nonce'</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">nonce</span><span class="p">)}</span>
+
+<span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="n">rest_url</span> <span class="o">+</span> <span class="n">path</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">header</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">resp</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre></div>
 <blockquote>
-<p><strong>RESPONSE</strong></p>
+<p><strong>Response</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"orders"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;AccountID&gt;"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1594412077100"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
-       </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"All open orders for the account have been queued for cancellation"</span><span class="w">
-       </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"orders"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1594412077100</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;AccountID&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"All open orders for the account have been queued for cancellation"</span><span class="p">}</span><span class="w"> 
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>Requires authentication. Cancel all open orders.</p>
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="p">{</span>
+  <span class="s">"event"</span><span class="p">:</span> <span class="s">"orders"</span><span class="p">,</span>
+  <span class="s">"timestamp"</span><span class="p">:</span> <span class="mi">1594412077100</span><span class="p">,</span>
+  <span class="s">"accountId"</span><span class="p">:</span> <span class="s">"&lt;AccountID&gt;"</span><span class="p">,</span>
+  <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span><span class="s">"msg"</span><span class="p">:</span> <span class="s">"All open orders for the account have been queued for cancellation"</span><span class="p">}</span> 
+<span class="p">}</span>
+</code></pre></div>
+<p>Cancels <strong>all</strong> open orders of the account connected to the API key initiating the request.</p>
+
+<p>If this action was sucessful it will also trigger a message in the private websocket order channel.</p>
 <h3 id='rest-api-methods-private-delete-v2-cancel-orders-marketcode'>DELETE <code>/v2/cancel/orders/{marketCode}</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
