@@ -1,5 +1,10 @@
 # Change Log
 
+**2021-02-01**
+
+* Added new REST API [GET /v2.1/orders](#rest-api-methods-private-get-v2-1-orders) to get all orders of current user
+* Added new REST API [GET /v2/candles](#rest-api-methods-private-get-v2-candles) to get candlestick data for the current candle
+
 **2021-01-26**
 
 * Correction to REST API documentation for /v2/accountinfo, /v2/balances and /v2/positions
