@@ -456,6 +456,9 @@
                           <li>
                             <a href="#rest-api-methods-private-get-v2-1-orders" class="toc-h3 toc-link" data-title="GET <code>/v2.1/orders</code>">GET <code>/v2.1/orders</code></a>
                           </li>
+                          <li>
+                            <a href="#rest-api-methods-private-get-v2-candles" class="toc-h3 toc-link" data-title="GET <code>/v2/candles</code>">GET <code>/v2/candles</code></a>
+                          </li>
                       </ul>
                   </li>
                   <li>
@@ -479,9 +482,6 @@
                           <li>
                             <a href="#rest-api-methods-public-get-v2-1-deliver-auction-instrumentid" class="toc-h3 toc-link" data-title="GET <code>/v2.1/deliver-auction/{instrumentId}</code>">GET <code>/v2.1/deliver-auction/{instrumentId}</code></a>
                           </li>
-                          <li>
-                            <a href="#rest-api-methods-public-get-v2-candles" class="toc-h3 toc-link" data-title="GET <code>/v2/candles</code>">GET <code>/v2/candles</code></a>
-                          </li>
                       </ul>
                   </li>
               </ul>
@@ -496,7 +496,7 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
-<p><strong>2021-02-03</strong></p>
+<p><strong>2021-02-01</strong></p>
 
 <ul>
 <li>Added new REST API <a href="#rest-api-methods-private-get-v2-1-orders">GET /v2.1/orders</a> to get all orders of current user</li>
@@ -5348,6 +5348,97 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td></td>
 </tr>
 </tbody></table>
+<h3 id='rest-api-methods-private-get-v2-candles'>GET <code>/v2/candles</code></h3>
+<p>Requires authentication. Get candlestick data for the current candle.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/candles</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>Request body</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timeframe"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1m"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>timeframe</td>
+<td>STRING</td>
+<td>YES</td>
+<td>e.g. 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>default value: 500</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timeframe"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1m"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"candle1m"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1611718910850"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"1604301120000"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"11814.464"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"1.006"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>FAILED RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VALIDATION_FAIL"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"must not be blank"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>candle</td>
+<td>LIST of strings</td>
+<td><ul><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ul></td>
+</tr>
+</tbody></table>
 <h2 id='rest-api-methods-public'>Methods - Public</h2><h3 id='rest-api-methods-public-get-v2-all-markets'>GET <code>/v2/all/markets</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
@@ -5899,86 +5990,6 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>estFundingRate</td>
 <td>STRING</td>
 <td>Estimated funding rate a positive rate means longs pay shorts</td>
-</tr>
-</tbody></table>
-<h3 id='rest-api-methods-public-get-v2-candles'>GET <code>/v2/candles</code></h3>
-<p>Get candlestick data for the current candle.</p>
-
-<blockquote>
-<p><strong>Request</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/candles</span><span class="w">
-</span></code></pre></div>
-<blockquote>
-<p><strong>Request body</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timeframe"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1m"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<table><thead>
-<tr>
-<th>Request Parameters</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>marketCode</td>
-<td>STRING</td>
-<td>YES</td>
-<td></td>
-</tr>
-<tr>
-<td>timeframe</td>
-<td>STRING</td>
-<td>YES</td>
-<td>e.g. 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w</td>
-</tr>
-<tr>
-<td>limit</td>
-<td>INTEGER</td>
-<td>NO</td>
-<td>default value: 500</td>
-</tr>
-</tbody></table>
-
-<blockquote>
-<p><strong>RESPONSE</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timeframe"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1m"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"candle1m"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1611718910850"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">[</span><span class="w">
-            </span><span class="s2">"1604301120000"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"11814.464"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"1.006"</span><span class="w">
-        </span><span class="p">],</span><span class="w">
-        </span><span class="err">...</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<table><thead>
-<tr>
-<th>Fields</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>candle</td>
-<td>LIST of strings</td>
-<td><ul><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ul></td>
 </tr>
 </tbody></table>
 
