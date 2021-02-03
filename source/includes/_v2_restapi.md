@@ -1254,70 +1254,6 @@ timeInForce | STRING | Time in force |
 isTriggered | BOOLEAN | |
 timestamp(in data) | STRING | |
 
-### GET `/v2/candles`
-
-Requires authentication. Get candlestick data for the current candle.
-
-> **Request**
-
-```json
-GET /v2/candles
-```
-> **Request body**
-
-```json
-{
-    "marketCode": "BTC-USD-SWAP-LIN",
-    "timeframe": "1m",
-    "limit": 1000
-}
-```
-
-Request Parameters | Type | Required | Description |
------------------- | ---- | -------- | ----------- |
-marketCode | STRING | YES | |
-timeframe | STRING | YES | e.g. 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w |
-limit | INTEGER | NO | default value: 500 |
-
-> **SUCCESSFUL RESPONSE**
-
-```json
-{
-    "marketCode": "BTC-USD-SWAP-LIN",
-    "timeframe": "1m",
-    "event": "candle1m",
-    "timestamp": "1611718910850",
-    "data": [
-        [
-            "1604301120000",
-            "11744",
-            "11744",
-            "11744",
-            "11744",
-            "11814.464",
-            "1.006"
-        ],
-        ...
-    ]
-}
-```
-
-> **FAILED RESPONSE**
-
-```json
-{
-    "event": "VALIDATION_FAIL",
-    "success": false,
-    "message": null,
-    "code": "must not be blank",
-    "data": null
-}
-```
-
-Fields |Type | Description|
--------------------------- | -----|--------- |
-candle | LIST of strings  | <ul><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ul>
-
 ##Methods - Public
 
 ###GET `/v2/all/markets`
@@ -1610,3 +1546,55 @@ instrumentId | STRING |  Market code
 auctionTime | STRING | UNIX timestamp of the next auction
 netDeliver | STRING | Delivery imbalance (negative = more shorts than longs and vice versa)
 estFundingRate | STRING | Estimated funding rate a positive rate means longs pay shorts
+
+### GET `/v2/candles`
+
+Get candlestick data for the current candle.
+
+> **Request**
+
+```json
+GET /v2/candles
+```
+> **Request body**
+
+```json
+{
+    "marketCode": "BTC-USD-SWAP-LIN",
+    "timeframe": "1m",
+    "limit": 1000
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+marketCode | STRING | YES | |
+timeframe | STRING | YES | e.g. 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w |
+limit | INTEGER | NO | default value: 500 |
+
+> **RESPONSE**
+
+```json
+{
+    "marketCode": "BTC-USD-SWAP-LIN",
+    "timeframe": "1m",
+    "event": "candle1m",
+    "timestamp": "1611718910850",
+    "data": [
+        [
+            "1604301120000",
+            "11744",
+            "11744",
+            "11744",
+            "11744",
+            "11814.464",
+            "1.006"
+        ],
+        ...
+    ]
+}
+```
+
+Fields |Type | Description|
+-------------------------- | -----|--------- |
+candle | LIST of strings  | <ul><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ul>
