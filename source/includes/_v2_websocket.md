@@ -1779,14 +1779,15 @@ By subscribing to an authenticated websocket there may be instances when a REST 
 
 ```json
 {
-  'event': "CANCEL",
-  'submitted': true,
-  'timestamp': "1612476498953"
+  "event": "CANCEL",
+  "submitted": true,
+  "timestamp": "1612476498953"
 }
 ```
 
-Documentation for the REST method for cancelling **all** open orders for the account can be found here [Cancel All Orders](#rest-api-methods-private-delete-v2-cancel-orders)
-Documentation for the REST method for cancelling open orders **by market** for an account can be found here [Cancel Orders By Market](#rest-api-methods-private-delete-v2-cancel-orders-marketcode)
+Documentation for the REST method for cancelling **all** open orders for the account can be found here [Cancel All Orders](#rest-api-methods-private-delete-v2-cancel-orders).
+
+Documentation for the REST method for cancelling open orders **by market** for an account can be found here [Cancel Orders By Market](#rest-api-methods-private-delete-v2-cancel-orders-marketcode).
 
 In both these instances a successful action will generate the shown websocket repsonse.
 
