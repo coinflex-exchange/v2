@@ -945,7 +945,17 @@ print(resp.json())
 
 Cancels **all** open orders of the account connected to the API key initiating the request.
 
-If this action was sucessful it will also trigger a reponse message in an authenticated websocket of the account.  This is documented here [Cancel Open Orders](#websocket-api-other-responses-cancel-open-orders).
+If this REST method was sucessful it will also trigger a reponse message in an authenticated websocket of the account.  This is documented here [Cancel Open Orders](#websocket-api-other-responses-cancel-open-orders).
+
+<sub>**Response Fields**</sub> 
+
+Fields |Type | Description| 
+-------------------------- | -----|--------- |
+event | STRING | `orders`
+timestamp | INTEGER | Millisecond timestamp
+accountId | STRING    | Account ID
+data | Dictionary |
+\>msg   | STRING    | Confirmation of action |
 
 
 ###DELETE `/v2/cancel/orders/{marketCode}`
@@ -1008,7 +1018,32 @@ print(resp.json())
 }
 ```
 
+```python
+{
+  "event": "orders",
+  "timestamp": 1594412077100,
+  "accountId": "<AccountID>",
+  "data": {
+            "marketCode": "FLEX-USD",
+            "msg": "All open orders for the specified market have been queued for cancellation"
+          }
+}
+```
+
 Cancels all open orders for the **specified market** for the account connected to the API key initiating the request.
+
+If this REST method was sucessful it will also trigger a reponse message in an authenticated websocket of the account.  This is documented here [Cancel Open Orders](#websocket-api-other-responses-cancel-open-orders).
+
+<sub>**Response Fields**</sub> 
+
+Fields |Type | Description| 
+-------------------------- | -----|--------- |
+event | STRING | `orders`
+timestamp | INTEGER | Millisecond timestamp
+accountId | STRING    | Account ID
+data | Dictionary |
+\>marketCode   | STRING | Market code |
+\>msg   | STRING | Confirmation of action |
 
 
 ###GET `/v2.1/delivery/orders`
