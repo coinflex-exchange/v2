@@ -359,9 +359,6 @@
                       </ul>
                   </li>
                   <li>
-                    <a href="#websocket-api-error-codes" class="toc-h2 toc-link" data-title="Error Codes">Error Codes</a>
-                  </li>
-                  <li>
                     <a href="#websocket-api-subscriptions-private" class="toc-h2 toc-link" data-title="Subscriptions - Private">Subscriptions - Private</a>
                       <ul class="toc-list-h3">
                           <li>
@@ -406,6 +403,17 @@
                           </li>
                       </ul>
                   </li>
+                  <li>
+                    <a href="#websocket-api-other-responses" class="toc-h2 toc-link" data-title="Other Responses">Other Responses</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#websocket-api-other-responses-cancel-open-orders" class="toc-h3 toc-link" data-title="Cancel Open Orders">Cancel Open Orders</a>
+                          </li>
+                      </ul>
+                  </li>
+                  <li>
+                    <a href="#websocket-api-error-codes" class="toc-h2 toc-link" data-title="Error Codes">Error Codes</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -424,7 +432,7 @@
                             <a href="#rest-api-methods-private-get-v2-balances" class="toc-h3 toc-link" data-title="GET <code>/v2/balances</code>">GET <code>/v2/balances</code></a>
                           </li>
                           <li>
-                            <a href="#rest-api-methods-private-get-v2-balances-lt-instrumentid-gt" class="toc-h3 toc-link" data-title="GET <code>/v2/balances/&lt;instrumentId&gt;</code>">GET <code>/v2/balances/&lt;instrumentId&gt;</code></a>
+                            <a href="#rest-api-methods-private-get-v2-balances-instrumentid" class="toc-h3 toc-link" data-title="GET <code>/v2/balances/{instrumentId}</code>">GET <code>/v2/balances/{instrumentId}</code></a>
                           </li>
                           <li>
                             <a href="#rest-api-methods-private-get-v2-positions" class="toc-h3 toc-link" data-title="GET  <code>/v2/positions</code>">GET  <code>/v2/positions</code></a>
@@ -1860,182 +1868,6 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>LIST of dictionaries</td>
 <td>Yes</td>
 <td>A list of orders with each order in JSON format, the same format/parameters as the request for modifying a single order.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be modified in a batch, assuming that each order JSON has 200 characters.</td>
-</tr>
-</tbody></table>
-<h2 id='websocket-api-error-codes'>Error Codes</h2>
-<blockquote>
-<p><strong>Failure response format</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;opValue&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorCode&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>Both subscription and order command requests sent via websocket can be rejected and the failure response will return an error code and a corresponding error message explaining the reason for the rejection.</p>
-
-<table><thead>
-<tr>
-<th>Code</th>
-<th>Error Message</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>05001</td>
-<td>Your operation authority is invalid</td>
-</tr>
-<tr>
-<td>20000</td>
-<td>Signature is invalid</td>
-</tr>
-<tr>
-<td>20001</td>
-<td>Operation failed, please contact system administrator</td>
-</tr>
-<tr>
-<td>20002</td>
-<td>Unexpected error, please check if your request data complies with the specification.</td>
-</tr>
-<tr>
-<td>20003</td>
-<td>Unrecognized operation</td>
-</tr>
-<tr>
-<td>20005</td>
-<td>Already logged in</td>
-</tr>
-<tr>
-<td>20006</td>
-<td>Quantity must be greater than zero</td>
-</tr>
-<tr>
-<td>20007</td>
-<td>You are accessing server too rapidly</td>
-</tr>
-<tr>
-<td>20008</td>
-<td>clientOrderId must be greater than zero if provided</td>
-</tr>
-<tr>
-<td>20009</td>
-<td>JSON data format is invalid</td>
-</tr>
-<tr>
-<td>20010</td>
-<td>Either clientOrderId or orderId is required</td>
-</tr>
-<tr>
-<td>20011</td>
-<td>marketCode is required</td>
-</tr>
-<tr>
-<td>20012</td>
-<td>side is required</td>
-</tr>
-<tr>
-<td>20013</td>
-<td>orderType is required</td>
-</tr>
-<tr>
-<td>20014</td>
-<td>clientOrderId is not long type</td>
-</tr>
-<tr>
-<td>20015</td>
-<td>marketCode is invalid</td>
-</tr>
-<tr>
-<td>20016</td>
-<td>side is invalid</td>
-</tr>
-<tr>
-<td>20017</td>
-<td>orderType is invalid</td>
-</tr>
-<tr>
-<td>20018</td>
-<td>timeInForce is invalid</td>
-</tr>
-<tr>
-<td>20019</td>
-<td>orderId is invalid</td>
-</tr>
-<tr>
-<td>20020</td>
-<td>stopPrice or limitPrice is invalid</td>
-</tr>
-<tr>
-<td>20021</td>
-<td>price is invalid</td>
-</tr>
-<tr>
-<td>20022</td>
-<td>price is required for LIMIT order</td>
-</tr>
-<tr>
-<td>20023</td>
-<td>timestamp is required</td>
-</tr>
-<tr>
-<td>20024</td>
-<td>timestamp exceeds the threshold</td>
-</tr>
-<tr>
-<td>20025</td>
-<td>API key is invalid</td>
-</tr>
-<tr>
-<td>20026</td>
-<td>Token is invalid or expired</td>
-</tr>
-<tr>
-<td>20027</td>
-<td>The length of the message exceeds the maximum length</td>
-</tr>
-<tr>
-<td>20028</td>
-<td>price or stopPrice or limitPrice must be greater than zero</td>
-</tr>
-<tr>
-<td>20029</td>
-<td>stopPrice must be less than limitPrice for Buy Stop Order</td>
-</tr>
-<tr>
-<td>20030</td>
-<td>limitPrice must be less than stopPrice for Sell Stop Order</td>
-</tr>
-<tr>
-<td>100005</td>
-<td>Open order not found with id</td>
-</tr>
-<tr>
-<td>100006</td>
-<td>Open order does not match to the given account</td>
-</tr>
-<tr>
-<td>200050</td>
-<td>The market is not active</td>
-</tr>
-<tr>
-<td>710002</td>
-<td>FAILED sanity bound check as price (.....) &lt; lower bound (.....)</td>
-</tr>
-<tr>
-<td>710003</td>
-<td>FAILED sanity bound check as price (.....) &gt; upper bound (.....)</td>
-</tr>
-<tr>
-<td>710004</td>
-<td>FAILED net position check as position (.....) &gt; threshold (.....)</td>
-</tr>
-<tr>
-<td>710005</td>
-<td>FAILED margin check as collateral (.....) &lt; var (.....)</td>
-</tr>
-<tr>
-<td>710006</td>
-<td>FAILED balance check as balance (.....) &lt; value (.....)</td>
 </tr>
 </tbody></table>
 <h2 id='websocket-api-subscriptions-private'>Subscriptions - Private</h2>
@@ -3494,6 +3326,198 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td><ol><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ol></td>
 </tr>
 </tbody></table>
+<h2 id='websocket-api-other-responses'>Other Responses</h2>
+<p>By subscribing to an authenticated websocket there may be instances when a REST method will also generate a websocket reponse in addition to the REST reply. </p>
+<h3 id='websocket-api-other-responses-cancel-open-orders'>Cancel Open Orders</h3>
+<blockquote>
+<p><strong>Success response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="err">'event':</span><span class="w"> </span><span class="s2">"CANCEL"</span><span class="p">,</span><span class="w">
+  </span><span class="err">'submitted':</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="err">'timestamp':</span><span class="w"> </span><span class="s2">"1612476498953"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Documentation for the REST method for cancelling <strong>all</strong> open orders for the account can be found here <a href="#rest-api-methods-private-delete-v2-cancel-orders">Cancel All Orders</a>
+Documentation for the REST method for cancelling open orders <strong>by market</strong> for an account can be found here <a href="#rest-api-methods-private-delete-v2-cancel-orders-marketcode">Cancel Orders By Market</a></p>
+
+<p>In both these instances a successful action will generate the shown websocket repsonse.</p>
+<h2 id='websocket-api-error-codes'>Error Codes</h2>
+<blockquote>
+<p><strong>Failure response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;opValue&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorCode&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Both subscription and order command requests sent via websocket can be rejected and the failure response will return an error code and a corresponding error message explaining the reason for the rejection.</p>
+
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Error Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>05001</td>
+<td>Your operation authority is invalid</td>
+</tr>
+<tr>
+<td>20000</td>
+<td>Signature is invalid</td>
+</tr>
+<tr>
+<td>20001</td>
+<td>Operation failed, please contact system administrator</td>
+</tr>
+<tr>
+<td>20002</td>
+<td>Unexpected error, please check if your request data complies with the specification.</td>
+</tr>
+<tr>
+<td>20003</td>
+<td>Unrecognized operation</td>
+</tr>
+<tr>
+<td>20005</td>
+<td>Already logged in</td>
+</tr>
+<tr>
+<td>20006</td>
+<td>Quantity must be greater than zero</td>
+</tr>
+<tr>
+<td>20007</td>
+<td>You are accessing server too rapidly</td>
+</tr>
+<tr>
+<td>20008</td>
+<td>clientOrderId must be greater than zero if provided</td>
+</tr>
+<tr>
+<td>20009</td>
+<td>JSON data format is invalid</td>
+</tr>
+<tr>
+<td>20010</td>
+<td>Either clientOrderId or orderId is required</td>
+</tr>
+<tr>
+<td>20011</td>
+<td>marketCode is required</td>
+</tr>
+<tr>
+<td>20012</td>
+<td>side is required</td>
+</tr>
+<tr>
+<td>20013</td>
+<td>orderType is required</td>
+</tr>
+<tr>
+<td>20014</td>
+<td>clientOrderId is not long type</td>
+</tr>
+<tr>
+<td>20015</td>
+<td>marketCode is invalid</td>
+</tr>
+<tr>
+<td>20016</td>
+<td>side is invalid</td>
+</tr>
+<tr>
+<td>20017</td>
+<td>orderType is invalid</td>
+</tr>
+<tr>
+<td>20018</td>
+<td>timeInForce is invalid</td>
+</tr>
+<tr>
+<td>20019</td>
+<td>orderId is invalid</td>
+</tr>
+<tr>
+<td>20020</td>
+<td>stopPrice or limitPrice is invalid</td>
+</tr>
+<tr>
+<td>20021</td>
+<td>price is invalid</td>
+</tr>
+<tr>
+<td>20022</td>
+<td>price is required for LIMIT order</td>
+</tr>
+<tr>
+<td>20023</td>
+<td>timestamp is required</td>
+</tr>
+<tr>
+<td>20024</td>
+<td>timestamp exceeds the threshold</td>
+</tr>
+<tr>
+<td>20025</td>
+<td>API key is invalid</td>
+</tr>
+<tr>
+<td>20026</td>
+<td>Token is invalid or expired</td>
+</tr>
+<tr>
+<td>20027</td>
+<td>The length of the message exceeds the maximum length</td>
+</tr>
+<tr>
+<td>20028</td>
+<td>price or stopPrice or limitPrice must be greater than zero</td>
+</tr>
+<tr>
+<td>20029</td>
+<td>stopPrice must be less than limitPrice for Buy Stop Order</td>
+</tr>
+<tr>
+<td>20030</td>
+<td>limitPrice must be less than stopPrice for Sell Stop Order</td>
+</tr>
+<tr>
+<td>100005</td>
+<td>Open order not found with id</td>
+</tr>
+<tr>
+<td>100006</td>
+<td>Open order does not match to the given account</td>
+</tr>
+<tr>
+<td>200050</td>
+<td>The market is not active</td>
+</tr>
+<tr>
+<td>710002</td>
+<td>FAILED sanity bound check as price (.....) &lt; lower bound (.....)</td>
+</tr>
+<tr>
+<td>710003</td>
+<td>FAILED sanity bound check as price (.....) &gt; upper bound (.....)</td>
+</tr>
+<tr>
+<td>710004</td>
+<td>FAILED net position check as position (.....) &gt; threshold (.....)</td>
+</tr>
+<tr>
+<td>710005</td>
+<td>FAILED margin check as collateral (.....) &lt; var (.....)</td>
+</tr>
+<tr>
+<td>710006</td>
+<td>FAILED balance check as balance (.....) &lt; value (.....)</td>
+</tr>
+</tbody></table>
 <h1 id='rest-api'>REST API</h1>
 <p><strong>TEST</strong> site</p>
 
@@ -3931,7 +3955,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>Millisecond timestamp of when balance was last updated</td>
 </tr>
 </tbody></table>
-<h3 id='rest-api-methods-private-get-v2-balances-lt-instrumentid-gt'>GET <code>/v2/balances/&lt;instrumentId&gt;</code></h3>
+<h3 id='rest-api-methods-private-get-v2-balances-instrumentid'>GET <code>/v2/balances/{instrumentId}</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
@@ -4790,40 +4814,77 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
   </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"orders"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1594412077100</span><span class="p">,</span><span class="w">
   </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;AccountID&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"All open orders for the account have been queued for cancellation"</span><span class="p">}</span><span class="w"> 
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"All open orders for the account have been queued for cancellation"</span><span class="w">
+          </span><span class="p">}</span><span class="w"> 
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="p">{</span>
   <span class="s">"event"</span><span class="p">:</span> <span class="s">"orders"</span><span class="p">,</span>
   <span class="s">"timestamp"</span><span class="p">:</span> <span class="mi">1594412077100</span><span class="p">,</span>
   <span class="s">"accountId"</span><span class="p">:</span> <span class="s">"&lt;AccountID&gt;"</span><span class="p">,</span>
-  <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span><span class="s">"msg"</span><span class="p">:</span> <span class="s">"All open orders for the account have been queued for cancellation"</span><span class="p">}</span> 
+  <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">"msg"</span><span class="p">:</span> <span class="s">"All open orders for the account have been queued for cancellation"</span>
+          <span class="p">}</span> 
 <span class="p">}</span>
 </code></pre></div>
 <p>Cancels <strong>all</strong> open orders of the account connected to the API key initiating the request.</p>
 
-<p>If this action was sucessful it will also trigger a message in the private websocket order channel.</p>
+<p>If this action was sucessful it will also trigger a reponse message in an authenticated websocket of the account.  This is documented here <a href="#websocket-api-other-responses-cancel-open-orders">Cancel Open Orders</a>.</p>
 <h3 id='rest-api-methods-private-delete-v2-cancel-orders-marketcode'>DELETE <code>/v2/cancel/orders/{marketCode}</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">DELETE/v</span><span class="mi">2</span><span class="err">/cancel/orders/BTC-USD</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">DELETE</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/cancel/orders/</span><span class="p">{</span><span class="err">marketCode</span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">hmac</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlencode</span>
+
+<span class="n">rest_url</span> <span class="o">=</span> <span class="s">'https://v2stgapi.coinflex.com'</span>
+<span class="n">rest_path</span> <span class="o">=</span> <span class="s">'v2stgapi.coinflex.com'</span>
+
+<span class="n">api_key</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">API</span><span class="o">-</span><span class="n">KEY</span><span class="o">&gt;</span>
+<span class="n">api_secret</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">API</span><span class="o">-</span><span class="n">SECRET</span><span class="o">&gt;</span>
+
+<span class="n">ts</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="n">utcnow</span><span class="p">().</span><span class="n">isoformat</span><span class="p">()</span>
+<span class="n">nonce</span> <span class="o">=</span> <span class="mi">123</span>
+
+<span class="c1"># REST API method, for example FLEX-USD spot market
+</span><span class="n">method</span> <span class="o">=</span> <span class="s">'/v2/cancel/orders/FLEX-USD'</span> 
+
+<span class="c1"># Not required for /v2/orders/{marketCode}
+</span><span class="n">body</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({})</span>
+
+<span class="k">if</span> <span class="n">body</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span> <span class="o">+</span> <span class="s">'?'</span> <span class="o">+</span> <span class="n">body</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span>
+
+<span class="n">msg_string</span> <span class="o">=</span> <span class="s">'{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="s">'DELETE'</span><span class="p">,</span> <span class="n">rest_path</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+<span class="n">sig</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">msg_string</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+
+<span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span> <span class="s">'AccessKey'</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+          <span class="s">'Timestamp'</span><span class="p">:</span> <span class="n">ts</span><span class="p">,</span> <span class="s">'Signature'</span><span class="p">:</span> <span class="n">sig</span><span class="p">,</span> <span class="s">'Nonce'</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">nonce</span><span class="p">)}</span>
+
+<span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="n">rest_url</span> <span class="o">+</span> <span class="n">path</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">header</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">resp</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre></div>
 <blockquote>
-<p><strong>RESPONSE</strong></p>
+<p><strong>Response</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"orders"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;AccountID&gt;"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1594412077100"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"All open orders for the specified market have been queued for cancellation"</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"orders"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1594412077100</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;AccountID&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX-USD"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"All open orders for the specified market have been queued for cancellation"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Requires authentication. Cancel all open orders for a specific market code.</p>
+<p>Cancels all open orders for the <strong>specified market</strong> for the account connected to the API key initiating the request.</p>
 <h3 id='rest-api-methods-private-get-v2-1-delivery-orders'>GET <code>/v2.1/delivery/orders</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
