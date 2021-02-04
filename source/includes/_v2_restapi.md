@@ -1151,15 +1151,21 @@ GET /v2.1/orders
 {
     "marketCode": "BTC-USD-SWAP-LIN",
     "orderId": "123456789",
-    "clientOrderId": "987654321"
+    "clientOrderId": "987654321",
+    "limit": "3",
+    "startTime": "2020-12-08 20:00:00",
+    "endTime": "2020-12-09 20:00:00"
 }
 ```
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-marketCode | STRING | YES | |
+marketCode | STRING | NO | |
 orderId | Integer | NO | |
 clientId | Integer | NO | |
+limit | STRING | NO | should equal to or less than `1000`, default is `1000` |
+startTime | STRING | NO | e.g. `2020-02-01 20:00:00`, default is 24 hours ago from time now |
+endTime | STRING | NO | e.g. `2020-02-02 20:00:00`, default is time now |
 
 > **SUCCESSFUL RESPONSE**
 
