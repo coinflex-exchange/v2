@@ -3333,13 +3333,14 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <p><strong>Success response format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">'event':</span><span class="w"> </span><span class="s2">"CANCEL"</span><span class="p">,</span><span class="w">
-  </span><span class="err">'submitted':</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="err">'timestamp':</span><span class="w"> </span><span class="s2">"1612476498953"</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CANCEL"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1612476498953"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Documentation for the REST method for cancelling <strong>all</strong> open orders for the account can be found here <a href="#rest-api-methods-private-delete-v2-cancel-orders">Cancel All Orders</a>
-Documentation for the REST method for cancelling open orders <strong>by market</strong> for an account can be found here <a href="#rest-api-methods-private-delete-v2-cancel-orders-marketcode">Cancel Orders By Market</a></p>
+<p>Documentation for the REST method for cancelling <strong>all</strong> open orders for the account can be found here <a href="#rest-api-methods-private-delete-v2-cancel-orders">Cancel All Orders</a>.</p>
+
+<p>Documentation for the REST method for cancelling open orders <strong>by market</strong> for an account can be found here <a href="#rest-api-methods-private-delete-v2-cancel-orders-marketcode">Cancel Orders By Market</a>.</p>
 
 <p>In both these instances a successful action will generate the shown websocket repsonse.</p>
 <h2 id='websocket-api-error-codes'>Error Codes</h2>
@@ -4829,7 +4830,43 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </code></pre></div>
 <p>Cancels <strong>all</strong> open orders of the account connected to the API key initiating the request.</p>
 
-<p>If this action was sucessful it will also trigger a reponse message in an authenticated websocket of the account.  This is documented here <a href="#websocket-api-other-responses-cancel-open-orders">Cancel Open Orders</a>.</p>
+<p>If this REST method was sucessful it will also trigger a reponse message in an authenticated websocket of the account.  This is documented here <a href="#websocket-api-other-responses-cancel-open-orders">Cancel Open Orders</a>.</p>
+
+<p><sub><strong>Response Fields</strong></sub> </p>
+
+<table><thead>
+<tr>
+<th>Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>event</td>
+<td>STRING</td>
+<td><code>orders</code></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>INTEGER</td>
+<td>Millisecond timestamp</td>
+</tr>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
+</tr>
+<tr>
+<td>data</td>
+<td>Dictionary</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;msg</td>
+<td>STRING</td>
+<td>Confirmation of action</td>
+</tr>
+</tbody></table>
 <h3 id='rest-api-methods-private-delete-v2-cancel-orders-marketcode'>DELETE <code>/v2/cancel/orders/{marketCode}</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
@@ -4883,8 +4920,60 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
             </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"All open orders for the specified market have been queued for cancellation"</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="p">{</span>
+  <span class="s">"event"</span><span class="p">:</span> <span class="s">"orders"</span><span class="p">,</span>
+  <span class="s">"timestamp"</span><span class="p">:</span> <span class="mi">1594412077100</span><span class="p">,</span>
+  <span class="s">"accountId"</span><span class="p">:</span> <span class="s">"&lt;AccountID&gt;"</span><span class="p">,</span>
+  <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"FLEX-USD"</span><span class="p">,</span>
+            <span class="s">"msg"</span><span class="p">:</span> <span class="s">"All open orders for the specified market have been queued for cancellation"</span>
+          <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>Cancels all open orders for the <strong>specified market</strong> for the account connected to the API key initiating the request.</p>
+
+<p>If this REST method was sucessful it will also trigger a reponse message in an authenticated websocket of the account.  This is documented here <a href="#websocket-api-other-responses-cancel-open-orders">Cancel Open Orders</a>.</p>
+
+<p><sub><strong>Response Fields</strong></sub> </p>
+
+<table><thead>
+<tr>
+<th>Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>event</td>
+<td>STRING</td>
+<td><code>orders</code></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>INTEGER</td>
+<td>Millisecond timestamp</td>
+</tr>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
+</tr>
+<tr>
+<td>data</td>
+<td>Dictionary</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;marketCode</td>
+<td>STRING</td>
+<td>Market code</td>
+</tr>
+<tr>
+<td>&gt;msg</td>
+<td>STRING</td>
+<td>Confirmation of action</td>
+</tr>
+</tbody></table>
 <h3 id='rest-api-methods-private-get-v2-1-delivery-orders'>GET <code>/v2.1/delivery/orders</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
