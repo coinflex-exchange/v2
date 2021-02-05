@@ -974,64 +974,6 @@ tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
 dataArray | LIST of dictionaries | Yes | A list of orders with each order in JSON format, the same format/parameters as the request for modifying a single order.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be modified in a batch, assuming that each order JSON has 200 characters.
 
 
-## Error Codes
-
-> **Failure response format**
-
-```json
-{
-  "event": "<opValue>",
-  "message": "<errorMessage>",
-  "code": "<errorCode>",
-  "success": false
-}
-```
-
-Both subscription and order command requests sent via websocket can be rejected and the failure response will return an error code and a corresponding error message explaining the reason for the rejection.
-
-Code | Error Message 
------------| -------- 
-05001| Your operation authority is invalid
-20000| Signature is invalid 
-20001| Operation failed, please contact system administrator 
-20002| Unexpected error, please check if your request data complies with the specification. 
-20003| Unrecognized operation
-20005| Already logged in
-20006| Quantity must be greater than zero 
-20007| You are accessing server too rapidly 
-20008| clientOrderId must be greater than zero if provided 
-20009| JSON data format is invalid 
-20010| Either clientOrderId or orderId is required 
-20011| marketCode is required 
-20012| side is required 
-20013| orderType is required 
-20014| clientOrderId is not long type 
-20015| marketCode is invalid 
-20016| side is invalid 
-20017| orderType is invalid 
-20018| timeInForce is invalid 
-20019| orderId is invalid 
-20020| stopPrice or limitPrice is invalid 
-20021| price is invalid 
-20022| price is required for LIMIT order 
-20023| timestamp is required 
-20024| timestamp exceeds the threshold 
-20025| API key is invalid 
-20026| Token is invalid or expired 
-20027| The length of the message exceeds the maximum length 
-20028| price or stopPrice or limitPrice must be greater than zero 
-20029| stopPrice must be less than limitPrice for Buy Stop Order 
-20030| limitPrice must be less than stopPrice for Sell Stop Order
-100005| Open order not found with id
-100006| Open order does not match to the given account
-200050| The market is not active
-710002| FAILED sanity bound check as price (.....) < lower bound (.....)
-710003| FAILED sanity bound check as price (.....) > upper bound (.....)
-710004| FAILED net position check as position (.....) > threshold (.....)
-710005| FAILED margin check as collateral (.....) < var (.....)   
-710006| FAILED balance check as balance (.....) < value (.....)
-
-
 ## Subscriptions - Private
 
 All subscriptions to private account channels requires an authenticated websocket connection.  
@@ -1825,3 +1767,84 @@ table | STRING | `candles<granularity>`
 data | LIST of dictionary |
 \>marketCode | STRING   | Market code |
 \>candle | LIST of strings  | <ol><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ol>
+
+
+## Other Responses
+
+By subscribing to an authenticated websocket there may be instances when a REST method will also generate a websocket reponse in addition to the REST reply. 
+
+### Cancel Open Orders
+
+> **Success response format**
+
+```json
+{
+  "event": "CANCEL",
+  "submitted": true,
+  "timestamp": "1612476498953"
+}
+```
+
+Documentation for the REST method for cancelling **all** open orders for the account can be found here [Cancel All Orders](#rest-api-methods-private-delete-v2-cancel-orders).
+
+Documentation for the REST method for cancelling open orders **by market** for an account can be found here [Cancel Orders By Market](#rest-api-methods-private-delete-v2-cancel-orders-marketcode).
+
+In both these instances a successful action will generate the shown websocket repsonse.
+
+
+## Error Codes
+
+> **Failure response format**
+
+```json
+{
+  "event": "<opValue>",
+  "message": "<errorMessage>",
+  "code": "<errorCode>",
+  "success": false
+}
+```
+
+Both subscription and order command requests sent via websocket can be rejected and the failure response will return an error code and a corresponding error message explaining the reason for the rejection.
+
+Code | Error Message 
+-----------| -------- 
+05001| Your operation authority is invalid
+20000| Signature is invalid 
+20001| Operation failed, please contact system administrator 
+20002| Unexpected error, please check if your request data complies with the specification. 
+20003| Unrecognized operation
+20005| Already logged in
+20006| Quantity must be greater than zero 
+20007| You are accessing server too rapidly 
+20008| clientOrderId must be greater than zero if provided 
+20009| JSON data format is invalid 
+20010| Either clientOrderId or orderId is required 
+20011| marketCode is required 
+20012| side is required 
+20013| orderType is required 
+20014| clientOrderId is not long type 
+20015| marketCode is invalid 
+20016| side is invalid 
+20017| orderType is invalid 
+20018| timeInForce is invalid 
+20019| orderId is invalid 
+20020| stopPrice or limitPrice is invalid 
+20021| price is invalid 
+20022| price is required for LIMIT order 
+20023| timestamp is required 
+20024| timestamp exceeds the threshold 
+20025| API key is invalid 
+20026| Token is invalid or expired 
+20027| The length of the message exceeds the maximum length 
+20028| price or stopPrice or limitPrice must be greater than zero 
+20029| stopPrice must be less than limitPrice for Buy Stop Order 
+20030| limitPrice must be less than stopPrice for Sell Stop Order
+100005| Open order not found with id
+100006| Open order does not match to the given account
+200050| The market is not active
+710002| FAILED sanity bound check as price (.....) < lower bound (.....)
+710003| FAILED sanity bound check as price (.....) > upper bound (.....)
+710004| FAILED net position check as position (.....) > threshold (.....)
+710005| FAILED margin check as collateral (.....) < var (.....)   
+710006| FAILED balance check as balance (.....) < value (.....)

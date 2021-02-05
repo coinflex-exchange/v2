@@ -321,7 +321,7 @@ data | LIST of dictionaries |
 \>quantityLastUpdated|STRING|Millisecond timestamp of when balance was last updated|
 
 
-###GET `/v2/balances/<instrumentId>`
+###GET `/v2/balances/{instrumentId}`
 
 >**Request**
 
@@ -926,7 +926,9 @@ print(resp.json())
   "event": "orders",
   "timestamp": 1594412077100,
   "accountId": "<AccountID>",
-  "data": {"msg": "All open orders for the account have been queued for cancellation"} 
+  "data": {
+            "msg": "All open orders for the account have been queued for cancellation"
+          } 
 }
 ```
 
@@ -935,13 +937,25 @@ print(resp.json())
   "event": "orders",
   "timestamp": 1594412077100,
   "accountId": "<AccountID>",
-  "data": {"msg": "All open orders for the account have been queued for cancellation"} 
+  "data": {
+            "msg": "All open orders for the account have been queued for cancellation"
+          } 
 }
 ```
 
 Cancels **all** open orders of the account connected to the API key initiating the request.
 
-If this action was sucessful it will also trigger a message in the private websocket order channel.
+If this REST method was sucessful it will also trigger a reponse message in an authenticated websocket of the account.  This is documented here [Cancel Open Orders](#websocket-api-other-responses-cancel-open-orders).
+
+<sub>**Response Fields**</sub> 
+
+Fields |Type | Description| 
+-------------------------- | -----|--------- |
+event | STRING | `orders`
+timestamp | INTEGER | Millisecond timestamp
+accountId | STRING    | Account ID
+data | Dictionary |
+\>msg   | STRING    | Confirmation of action |
 
 
 ###DELETE `/v2/cancel/orders/{marketCode}`
@@ -949,26 +963,87 @@ If this action was sucessful it will also trigger a message in the private webso
 > **Request**
 
 ```json
-DELETE/v2/cancel/orders/BTC-USD
+DELETE /v2/cancel/orders/{marketCode}
 ```
 
-> **RESPONSE**
+```python
+import requests
+import hmac
+import base64
+import hashlib
+import datetime
+from urllib.parse import urlencode
+
+rest_url = 'https://v2stgapi.coinflex.com'
+rest_path = 'v2stgapi.coinflex.com'
+
+api_key = <API-KEY>
+api_secret = <API-SECRET>
+
+ts = datetime.datetime.utcnow().isoformat()
+nonce = 123
+
+# REST API method, for example FLEX-USD spot market
+method = '/v2/cancel/orders/FLEX-USD' 
+
+# Not required for /v2/orders/{marketCode}
+body = urlencode({})
+
+if body:
+    path = method + '?' + body
+else:
+    path = method
+
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'DELETE', rest_path, method, body)
+sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+
+header = {'Content-Type': 'application/json', 'AccessKey': api_key,
+          'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
+
+resp = requests.delete(rest_url + path, headers=header)
+print(resp.json())
+```
+
+> **Response**
 
 ```json
 {
-    "event": "orders",
-    "accountId": "<AccountID>",
-    "marketCode": "BTC-USD",
-    "timestamp": "1594412077100",
-    "data":[
-      {
-          "msg": "All open orders for the specified market have been queued for cancellation"
-      }
-    ]
+  "event": "orders",
+  "timestamp": 1594412077100,
+  "accountId": "<AccountID>",
+  "data": {
+            "marketCode": "FLEX-USD",
+            "msg": "All open orders for the specified market have been queued for cancellation"
+          }
 }
 ```
 
-Requires authentication. Cancel all open orders for a specific market code.
+```python
+{
+  "event": "orders",
+  "timestamp": 1594412077100,
+  "accountId": "<AccountID>",
+  "data": {
+            "marketCode": "FLEX-USD",
+            "msg": "All open orders for the specified market have been queued for cancellation"
+          }
+}
+```
+
+Cancels all open orders for the **specified market** for the account connected to the API key initiating the request.
+
+If this REST method was sucessful it will also trigger a reponse message in an authenticated websocket of the account.  This is documented here [Cancel Open Orders](#websocket-api-other-responses-cancel-open-orders).
+
+<sub>**Response Fields**</sub> 
+
+Fields |Type | Description| 
+-------------------------- | -----|--------- |
+event | STRING | `orders`
+timestamp | INTEGER | Millisecond timestamp
+accountId | STRING    | Account ID
+data | Dictionary |
+\>marketCode   | STRING | Market code |
+\>msg   | STRING | Confirmation of action |
 
 
 ###GET `/v2.1/delivery/orders`
