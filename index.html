@@ -299,7 +299,7 @@
     <div class="toc-wrapper">
       <img src="images/logo-20378f63.svg" class="logo" alt="" />
         <div class="lang-selector">
-              <a href="#" data-language-name="json">json</a>
+              <a href="#" data-language-name="json">curl</a>
               <a href="#" data-language-name="javascript">javascript</a>
               <a href="#" data-language-name="python">python</a>
         </div>
@@ -462,10 +462,10 @@
                             <a href="#rest-api-methods-private-delete-v2-1-delivery-orders-deliveryorderid" class="toc-h3 toc-link" data-title="DELETE <code>/v2.1/delivery/orders/{deliveryOrderId}</code>">DELETE <code>/v2.1/delivery/orders/{deliveryOrderId}</code></a>
                           </li>
                           <li>
-                            <a href="#rest-api-methods-private-get-v2-2-orders-pending" class="toc-h3 toc-link" data-title="GET <code>/v2.2/orders</code> (pending)">GET <code>/v2.2/orders</code> (pending)</a>
+                            <a href="#rest-api-methods-private-get-v2-1-orders" class="toc-h3 toc-link" data-title="GET <code>/v2.1/orders</code>">GET <code>/v2.1/orders</code></a>
                           </li>
                           <li>
-                            <a href="#rest-api-methods-private-get-v2-candles-pending" class="toc-h3 toc-link" data-title="GET <code>/v2/candles</code> (pending)">GET <code>/v2/candles</code> (pending)</a>
+                            <a href="#rest-api-methods-private-get-v2-funding-rates-marketcode" class="toc-h3 toc-link" data-title="GET <code>/v2/funding-rates/{marketCode}</code>">GET <code>/v2/funding-rates/{marketCode}</code></a>
                           </li>
                       </ul>
                   </li>
@@ -490,6 +490,9 @@
                           <li>
                             <a href="#rest-api-methods-public-get-v2-1-deliver-auction-instrumentid" class="toc-h3 toc-link" data-title="GET <code>/v2.1/deliver-auction/{instrumentId}</code>">GET <code>/v2.1/deliver-auction/{instrumentId}</code></a>
                           </li>
+                          <li>
+                            <a href="#rest-api-methods-public-get-v2-candles" class="toc-h3 toc-link" data-title="GET <code>/v2/candles</code>">GET <code>/v2/candles</code></a>
+                          </li>
                       </ul>
                   </li>
               </ul>
@@ -504,6 +507,14 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-02-05</strong></p>
+
+<ul>
+<li>Added new REST API <a href="#rest-api-methods-private-get-v2-1-orders">GET /v2.1/orders</a> to get all orders of current user</li>
+<li>Added new REST API <a href="#rest-api-methods-public-get-v2-candles">GET /v2/candles</a> to get candlestick data for the current candle</li>
+<li>Added new REST API <a href="#rest-api-methods-private-get-v2-funding-rates-marketcode">GET /v2/funding-rates/{marketCode}</a> to get funding rates by marketCode</li>
+</ul>
+
 <p><strong>2021-01-26</strong></p>
 
 <ul>
@@ -5257,13 +5268,13 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Requires authentication. Cancels a pending delivery.</p>
-<h3 id='rest-api-methods-private-get-v2-2-orders-pending'>GET <code>/v2.2/orders</code> (pending)</h3>
+<h3 id='rest-api-methods-private-get-v2-1-orders'>GET <code>/v2.1/orders</code></h3>
 <p>Requires authentication. Get all orders of current user.</p>
 
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mf">2.2</span><span class="err">/orders</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mf">2.1</span><span class="err">/orders</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p><strong>Request body</strong></p>
@@ -5271,7 +5282,10 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"987654321"</span><span class="w">
+    </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"987654321"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"startTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-08 20:00:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"endTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-09 20:00:00"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <table><thead>
@@ -5285,7 +5299,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <tr>
 <td>marketCode</td>
 <td>STRING</td>
-<td>YES</td>
+<td>NO</td>
 <td></td>
 </tr>
 <tr>
@@ -5299,6 +5313,24 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>Integer</td>
 <td>NO</td>
 <td></td>
+</tr>
+<tr>
+<td>limit</td>
+<td>STRING</td>
+<td>NO</td>
+<td>should equal to or less than <code>1000</code>, default is <code>1000</code></td>
+</tr>
+<tr>
+<td>startTime</td>
+<td>STRING</td>
+<td>NO</td>
+<td>e.g. <code>2020-02-01 20:00:00</code>, default is 24 hours ago from time now</td>
+</tr>
+<tr>
+<td>endTime</td>
+<td>STRING</td>
+<td>NO</td>
+<td>e.g. <code>2020-02-02 20:00:00</code>, default is time now</td>
 </tr>
 </tbody></table>
 
@@ -5392,18 +5424,8 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </tr>
 <tr>
 <td>orderId</td>
-<td></td>
+<td>INTEGER</td>
 <td>Order ID which generated by the server</td>
-</tr>
-<tr>
-<td>clientOrderId</td>
-<td></td>
-<td>Client order ID which given by the user</td>
-</tr>
-<tr>
-<td>marketCode</td>
-<td>STRING</td>
-<td>Market code</td>
 </tr>
 <tr>
 <td>side</td>
@@ -5422,12 +5444,12 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </tr>
 <tr>
 <td>lastTradedPrice</td>
-<td></td>
+<td>STRING</td>
 <td>Price when order was last traded</td>
 </tr>
 <tr>
 <td>averageFillPrice</td>
-<td></td>
+<td>STRING</td>
 <td>Price when order was last traded</td>
 </tr>
 <tr>
@@ -5458,32 +5480,32 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <tr>
 <td>orderMatchType</td>
 <td>STRING</td>
-<td></td>
+<td><code>MAKER</code> or <code>TAKER</code></td>
 </tr>
 <tr>
 <td>matchId</td>
 <td>ARRAY</td>
-<td></td>
+<td>Exchange match ID</td>
 </tr>
 <tr>
 <td>leg1Price</td>
-<td></td>
+<td>STRING</td>
 <td></td>
 </tr>
 <tr>
 <td>leg2Price</td>
-<td></td>
+<td>STRING</td>
 <td></td>
 </tr>
 <tr>
 <td>fees</td>
-<td></td>
-<td></td>
+<td>STRING</td>
+<td>Amount of fees paid from this match ID</td>
 </tr>
 <tr>
 <td>feeInstrumentId</td>
-<td></td>
-<td></td>
+<td>STRING</td>
+<td>Instrument ID of fees paid from this match ID</td>
 </tr>
 <tr>
 <td>timeInForce</td>
@@ -5501,21 +5523,21 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td></td>
 </tr>
 </tbody></table>
-<h3 id='rest-api-methods-private-get-v2-candles-pending'>GET <code>/v2/candles</code> (pending)</h3>
-<p>Requires authentication. Get candlestick data for the current candle.</p>
+<h3 id='rest-api-methods-private-get-v2-funding-rates-marketcode'>GET <code>/v2/funding-rates/{marketCode}</code></h3>
+<p>Requires authentication. Get funding rates by marketCode.</p>
 
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/candles</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">`/v</span><span class="mf">2.1</span><span class="err">/funding-rates/</span><span class="p">{</span><span class="err">marketCode</span><span class="p">}</span><span class="err">`</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p><strong>Request body</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timeframe"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1m"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="w">
+    </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"startTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-08 20:00:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"endTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-09 20:00:00"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <table><thead>
@@ -5530,19 +5552,25 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>marketCode</td>
 <td>STRING</td>
 <td>YES</td>
-<td></td>
-</tr>
-<tr>
-<td>timeframe</td>
-<td>STRING</td>
-<td>YES</td>
-<td>e.g. 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w</td>
+<td>e.g. BTC-USD-REPO-LIN , available values: BTC-USD-REPO-LIN ETH-USD-REPO-LIN</td>
 </tr>
 <tr>
 <td>limit</td>
-<td>INTEGER</td>
+<td>STRING</td>
 <td>NO</td>
-<td>default value: 500</td>
+<td>default is <code>50</code></td>
+</tr>
+<tr>
+<td>startTime</td>
+<td>STRING</td>
+<td>NO</td>
+<td>e.g. <code>2020-02-01 20:00:00</code>, default is 7 days ago from time now</td>
+</tr>
+<tr>
+<td>endTime</td>
+<td>STRING</td>
+<td>NO</td>
+<td>e.g. <code>2020-02-02 20:00:00</code>, default is time now</td>
 </tr>
 </tbody></table>
 
@@ -5550,46 +5578,56 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <p><strong>SUCCESSFUL RESPONSE</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timeframe"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1m"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"candle1m"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1611718910850"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fundingRates"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1611645666834"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">[</span><span class="w">
-            </span><span class="s2">"1604301120000"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"11814.464"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"1.006"</span><span class="w">
-        </span><span class="p">],</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"fundingRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00008"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-REPO-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33937.2848"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"index"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.78222423"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1606461774458"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
         </span><span class="err">...</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<blockquote>
-<p><strong>FAILED RESPONSE</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VALIDATION_FAIL"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"must not be blank"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
 <table><thead>
 <tr>
-<th>Fields</th>
+<th>Response Fields</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>candle</td>
-<td>LIST of strings</td>
-<td><ul><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ul></td>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Timestamp of this response</td>
+</tr>
+<tr>
+<td>fundingRate</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>marketPrice</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>index</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp(in the data list)</td>
+<td>STRING</td>
+<td></td>
 </tr>
 </tbody></table>
 <h2 id='rest-api-methods-public'>Methods - Public</h2><h3 id='rest-api-methods-public-get-v2-all-markets'>GET <code>/v2/all/markets</code></h3>
@@ -5836,9 +5874,8 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
       </span><span class="nl">"matchTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1595585860254"</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="err">...</span><span class="w">
-      </span><span class="p">]</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-
 </span></code></pre></div>
 <p>Get most recent trades.</p>
 
@@ -6145,11 +6182,91 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>Estimated funding rate a positive rate means longs pay shorts</td>
 </tr>
 </tbody></table>
+<h3 id='rest-api-methods-public-get-v2-candles'>GET <code>/v2/candles</code></h3>
+<p>Get candlestick data for the current candle.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/candles</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>Request body</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timeframe"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1m"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>timeframe</td>
+<td>STRING</td>
+<td>YES</td>
+<td>e.g. 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>INTEGER</td>
+<td>NO</td>
+<td>default value: 500</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p><strong>RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timeframe"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1m"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"candle1m"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1611718910850"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"1604301120000"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"11814.464"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"1.006"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>candle</td>
+<td>LIST of strings</td>
+<td><ul><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ul></td>
+</tr>
+</tbody></table>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="json">json</a>
+                <a href="#" data-language-name="json">curl</a>
                 <a href="#" data-language-name="javascript">javascript</a>
                 <a href="#" data-language-name="python">python</a>
           </div>
