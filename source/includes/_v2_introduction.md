@@ -1,9 +1,10 @@
 # Change Log
 
-**2021-02-03**
+**2021-02-05**
 
 * Added new REST API [GET /v2.1/orders](#rest-api-methods-private-get-v2-1-orders) to get all orders of current user
-* Added new REST API [GET /v2/candles](#rest-api-methods-private-get-v2-candles) to get candlestick data for the current candle
+* Added new REST API [GET /v2/candles](#rest-api-methods-public-get-v2-candles) to get candlestick data for the current candle
+* Added new REST API [GET /v2/funding-rates/{marketCode}](#rest-api-methods-private-get-v2-funding-rates-marketcode) to get funding rates by marketCode
 
 **2021-01-26**
 
