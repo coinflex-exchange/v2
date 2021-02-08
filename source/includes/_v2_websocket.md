@@ -1275,7 +1275,7 @@ data | LIST of dictionary |
 
 #### OrderClosed
 
-> **OrderClosed message format - LIMIT order**
+> **Successful OrderClosed message format - LIMIT order**
 
 ```json
 {
@@ -1324,6 +1324,38 @@ data | LIST of dictionary |
 }
 ```
 
+> **Failed OrderClosed message format - ANY order**
+
+```json
+{
+"event": "CANCEL",
+"submitted": False,
+"message": "Order request was rejected : REJECT_CANCEL_ORDER_ID_NOT_FOUND",
+"code": "100004"
+"timestamp": "0",
+"data": [{
+          "orderId": "304333939697029753",
+          "displayQuantity": 0.0, 
+          "lastMatchPrice": 0.0,
+          "lastMatchQuantity": 0.0,
+          "lastMatchedOrderId": 0,
+          "lastMatchedOrderId2": 0, 
+          "matchedId": 0, 
+          "matchedType": "MAKER",
+          "remainQuantity": 0.0, 
+          "side": "BUY", 
+          "status": "REJECT_CANCEL_ORDER_ID_NOT_FOUND", 
+          "timeCondition': "GTC", 
+          "marketCode": "BTC-USD-SWAP-LIN", 
+          "timestampEpochMs": 1612364177927, 
+          "orderType": "LIMIT", 
+          "price": 0.0, 
+          "quantity": 0.0, 
+          "isTriggered": False
+          }]
+}
+```
+
 There are multiple scenarios in which an order is closed as described by the **status** field in the OrderClosed message.  In summary orders can be closed by:-
 
 * `CANCELED_BY_USER` - the client themselves initiating this action or the liquidation engine on the clients behalf if the clients account is below the maintenance margin threshold
@@ -1359,7 +1391,7 @@ data | LIST of dictionary |
 
 #### OrderModified
 
-> **OrderModified message format**
+> **Successful OrderModified message format**
 
 ```json
 {
@@ -1379,6 +1411,28 @@ data | LIST of dictionary |
               "orderType": "LIMIT",
               "isTriggered": "false" 
             } ]
+}
+```
+
+> ** Failed OrderModified message format**
+
+```json
+
+{
+"event": 'modifyorder',
+"submitted": False,
+"tag": "1",
+"message": "Open order not found with id 6645422908539436904", 
+"code": "100005", 
+"timestamp": "1612622307651", 
+"data": {
+         "clientOrderId": "96", 
+         "orderId": "6645422908539436904", 
+         "side": "SELL", 
+         "quantity": "5", 
+         "price": "20000.5", 
+         "marketCode": "BTC-USD-SWAP-LIN"
+        }
 }
 ```
 
