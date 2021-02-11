@@ -844,10 +844,12 @@ Please also subscribe to the **User Order Channel** to receive push notification
 Currently only LIMIT orders are supported by the modify order command.
 
 * The price and/or quantity and/or side of an order can be modified.
-* Reducing the quantity will leave the modified orders position in the order queue **unchanged**.
-* Increasing the quantity will **always** move the modified order to the back of the order queue.
-* Modifying the price will **always** move the modified order to the back of the order queue.
-* Modifying the side will **always** move the modified order to the back of the order queue.
+* Reducing the quantity will leave the modified orders position in the order queue **unchanged** meaning the order ID is unchanged.
+* Increasing the quantity will **always** move the modified order to the back of the order queue, resulting in a new order ID.
+* Modifying the price will **always** move the modified order to the back of the order queue, resulting in a new order ID.
+* Modifying the side will **always** move the modified order to the back of the order queue, resulting in a new order ID.
+
+Please note that when a new order ID is issued the original order is actually **closed** and a new order with a new order ID is **opened**, replacing the original order.  This is described in further detail in the section [Order Channel - OrderModified](#websocket-api-subscriptions-private-order-channel-ordermodified).    
 
 Please be aware that modifying the side of an existing GTC LIMIT order from BUY to SELL or vice versa **without** modifying the price could result in the order matching immediately since its quite likely the new order will become an agressing taker order.  
 
@@ -1384,9 +1386,9 @@ data | LIST of dictionary |
 
 As described in a previous section [Order Commands - Modify Order](#websocket-api-order-commands-modify-order), the Modify Order command can potentially affect the queue position of the order depending on which parameter of the original order has been modified.
 
-If the orders queue position is **unchanged** because the orders quantity has been **reduced** and no other order parameter has been changed then this **OrderModified** message will be sent via the Order Channel giving the full details of the modified order.
+If the orders queue position is **unchanged** because the orders quantity has been **reduced** and no other order parameter has been changed then this **OrderModified** message will be sent via the Order Channel giving the full details of the modified order.  In this case the order ID is unchanged.
 
-If however the order queue position has changed becuase the orders: (1) side was modified, (2) quantity was increased, (3) price was changed or any combination of these then the exchange will cancel the orginal order with an **OrderClosed** message with **status** `CANCELED_BY_AMEND`, followed by the opening of a new order with an **OrderOpened** message containing a new orderID to reflect the orders new position in the order queue.
+If however the order queue position has changed becuase the orders: (1) side was modified, (2) quantity was increased, (3) price was changed or any combination of these, then the exchange will close the orginal order with an **OrderClosed** message with **status** `CANCELED_BY_AMEND`, followed by the opening of a new order with an **OrderOpened** message containing a new order ID to reflect the orders new position in the order queue.
 
 <sub>**Channel Update Fields**</sub>
 
@@ -1785,11 +1787,11 @@ By subscribing to an authenticated websocket there may be instances when a REST 
 }
 ```
 
-Documentation for the REST method for cancelling **all** open orders for the account can be found here [Cancel All Orders](#rest-api-methods-private-delete-v2-cancel-orders).
+Documentation for the REST method for cancelling **all** open orders for an account can be found here [Cancel All Orders](#rest-api-methods-private-delete-v2-cancel-orders).
 
-Documentation for the REST method for cancelling open orders **by market** for an account can be found here [Cancel Orders By Market](#rest-api-methods-private-delete-v2-cancel-orders-marketcode).
+Documentation for the REST method for cancelling open orders **by market** for an account can be found here [Cancel All Orders By Market](#rest-api-methods-private-delete-v2-cancel-orders-marketcode).
 
-In both these instances a successful action will generate the shown websocket repsonse.
+In both these instances a successful action will generate the shown repsonse in an authenticated websocket.
 
 
 ## Error Codes
