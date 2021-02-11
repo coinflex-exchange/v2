@@ -1689,11 +1689,13 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 
 <ul>
 <li>The price and/or quantity and/or side of an order can be modified.</li>
-<li>Reducing the quantity will leave the modified orders position in the order queue <strong>unchanged</strong>.</li>
-<li>Increasing the quantity will <strong>always</strong> move the modified order to the back of the order queue.</li>
-<li>Modifying the price will <strong>always</strong> move the modified order to the back of the order queue.</li>
-<li>Modifying the side will <strong>always</strong> move the modified order to the back of the order queue.</li>
+<li>Reducing the quantity will leave the modified orders position in the order queue <strong>unchanged</strong> meaning the order ID is unchanged.</li>
+<li>Increasing the quantity will <strong>always</strong> move the modified order to the back of the order queue, resulting in a new order ID.</li>
+<li>Modifying the price will <strong>always</strong> move the modified order to the back of the order queue, resulting in a new order ID.</li>
+<li>Modifying the side will <strong>always</strong> move the modified order to the back of the order queue, resulting in a new order ID.</li>
 </ul>
+
+<p>Please note that when a new order ID is issued the original order is actually <strong>closed</strong> and a new order with a new order ID is <strong>opened</strong>, replacing the original order.  This is described in further detail in the section <a href="#websocket-api-subscriptions-private-order-channel-ordermodified">Order Channel - OrderModified</a>.    </p>
 
 <p>Please be aware that modifying the side of an existing GTC LIMIT order from BUY to SELL or vice versa <strong>without</strong> modifying the price could result in the order matching immediately since its quite likely the new order will become an agressing taker order.  </p>
 
@@ -2568,9 +2570,9 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </span></code></pre></div>
 <p>As described in a previous section <a href="#websocket-api-order-commands-modify-order">Order Commands - Modify Order</a>, the Modify Order command can potentially affect the queue position of the order depending on which parameter of the original order has been modified.</p>
 
-<p>If the orders queue position is <strong>unchanged</strong> because the orders quantity has been <strong>reduced</strong> and no other order parameter has been changed then this <strong>OrderModified</strong> message will be sent via the Order Channel giving the full details of the modified order.</p>
+<p>If the orders queue position is <strong>unchanged</strong> because the orders quantity has been <strong>reduced</strong> and no other order parameter has been changed then this <strong>OrderModified</strong> message will be sent via the Order Channel giving the full details of the modified order.  In this case the order ID is unchanged.</p>
 
-<p>If however the order queue position has changed becuase the orders: (1) side was modified, (2) quantity was increased, (3) price was changed or any combination of these then the exchange will cancel the orginal order with an <strong>OrderClosed</strong> message with <strong>status</strong> <code>CANCELED_BY_AMEND</code>, followed by the opening of a new order with an <strong>OrderOpened</strong> message containing a new orderID to reflect the orders new position in the order queue.</p>
+<p>If however the order queue position has changed becuase the orders: (1) side was modified, (2) quantity was increased, (3) price was changed or any combination of these, then the exchange will close the orginal order with an <strong>OrderClosed</strong> message with <strong>status</strong> <code>CANCELED_BY_AMEND</code>, followed by the opening of a new order with an <strong>OrderOpened</strong> message containing a new order ID to reflect the orders new position in the order queue.</p>
 
 <p><sub><strong>Channel Update Fields</strong></sub></p>
 
@@ -3349,11 +3351,11 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1612476498953"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Documentation for the REST method for cancelling <strong>all</strong> open orders for the account can be found here <a href="#rest-api-methods-private-delete-v2-cancel-orders">Cancel All Orders</a>.</p>
+<p>Documentation for the REST method for cancelling <strong>all</strong> open orders for an account can be found here <a href="#rest-api-methods-private-delete-v2-cancel-orders">Cancel All Orders</a>.</p>
 
-<p>Documentation for the REST method for cancelling open orders <strong>by market</strong> for an account can be found here <a href="#rest-api-methods-private-delete-v2-cancel-orders-marketcode">Cancel Orders By Market</a>.</p>
+<p>Documentation for the REST method for cancelling open orders <strong>by market</strong> for an account can be found here <a href="#rest-api-methods-private-delete-v2-cancel-orders-marketcode">Cancel All Orders By Market</a>.</p>
 
-<p>In both these instances a successful action will generate the shown websocket repsonse.</p>
+<p>In both these instances a successful action will generate the shown repsonse in an authenticated websocket.</p>
 <h2 id='websocket-api-error-codes'>Error Codes</h2>
 <blockquote>
 <p><strong>Failure response format</strong></p>
@@ -3741,11 +3743,11 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </code></pre></div>
 <p>Returns the account level information connected to the API key initiating the request. </p>
 
-<p><sub><strong>Response Fields</strong></sub> </p>
+<p><sub><strong>Response Parameters</strong></sub> </p>
 
 <table><thead>
 <tr>
-<th>Fields</th>
+<th>Parameters</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
@@ -3907,11 +3909,11 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </code></pre></div>
 <p>Returns all the coin balances of the account connected to the API key initiating the request. </p>
 
-<p><sub><strong>Response Fields</strong></sub> </p>
+<p><sub><strong>Response Parameters</strong></sub> </p>
 
 <table><thead>
 <tr>
-<th>Fields</th>
+<th>Parameters</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
@@ -4040,11 +4042,11 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </code></pre></div>
 <p>Returns the specified coin balance of the account connected to the API key initiating the request. </p>
 
-<p><sub><strong>Response Fields</strong></sub> </p>
+<p><sub><strong>Response Parameters</strong></sub> </p>
 
 <table><thead>
 <tr>
-<th>Fields</th>
+<th>Parameters</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
@@ -4177,11 +4179,11 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </code></pre></div>
 <p>Returns all the positions of the account connected to the API key initiating the request. </p>
 
-<p><sub><strong>Response Fields</strong></sub> </p>
+<p><sub><strong>Response Parameters</strong></sub> </p>
 
 <table><thead>
 <tr>
-<th>Fields</th>
+<th>Parameters</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
@@ -4310,11 +4312,11 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </code></pre></div>
 <p>Returns the specified instrument ID position of the account connected to the API key initiating the request.</p>
 
-<p><sub><strong>Response Fields</strong></sub> </p>
+<p><sub><strong>Response Parameters</strong></sub> </p>
 
 <table><thead>
 <tr>
-<th>Fields</th>
+<th>Parameters</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
@@ -4495,11 +4497,11 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </tr>
 </tbody></table>
 
-<p><sub><strong>Response Fields</strong></sub> </p>
+<p><sub><strong>Response Parameters</strong></sub> </p>
 
 <table><thead>
 <tr>
-<th>Fields</th>
+<th>Parameters</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
@@ -4678,11 +4680,11 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </code></pre></div>
 <p>Returns all the open orders of the account connected to the API key initiating the request.</p>
 
-<p><sub><strong>Response Fields</strong></sub> </p>
+<p><sub><strong>Response Parameters</strong></sub> </p>
 
 <table><thead>
 <tr>
-<th>Fields</th>
+<th>Parameters</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
@@ -4843,11 +4845,11 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 
 <p>If this REST method was sucessful it will also trigger a reponse message in an authenticated websocket of the account.  This is documented here <a href="#websocket-api-other-responses-cancel-open-orders">Cancel Open Orders</a>.</p>
 
-<p><sub><strong>Response Fields</strong></sub> </p>
+<p><sub><strong>Response Parameters</strong></sub> </p>
 
 <table><thead>
 <tr>
-<th>Fields</th>
+<th>Parameters</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
@@ -4945,11 +4947,11 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 
 <p>If this REST method was sucessful it will also trigger a reponse message in an authenticated websocket of the account.  This is documented here <a href="#websocket-api-other-responses-cancel-open-orders">Cancel Open Orders</a>.</p>
 
-<p><sub><strong>Response Fields</strong></sub> </p>
+<p><sub><strong>Response Parameters</strong></sub> </p>
 
 <table><thead>
 <tr>
-<th>Fields</th>
+<th>Parameters</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
@@ -4989,128 +4991,204 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET/v</span><span class="mf">2.1</span><span class="err">/delivery/orders</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mf">2.1</span><span class="err">/delivery/orders</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">hmac</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlencode</span>
+
+<span class="n">rest_url</span> <span class="o">=</span> <span class="s">'https://v2stgapi.coinflex.com'</span>
+<span class="n">rest_path</span> <span class="o">=</span> <span class="s">'v2stgapi.coinflex.com'</span>
+
+<span class="n">api_key</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">API</span><span class="o">-</span><span class="n">KEY</span><span class="o">&gt;</span>
+<span class="n">api_secret</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">API</span><span class="o">-</span><span class="n">SECRET</span><span class="o">&gt;</span>
+
+<span class="n">ts</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="n">utcnow</span><span class="p">().</span><span class="n">isoformat</span><span class="p">()</span>
+<span class="n">nonce</span> <span class="o">=</span> <span class="mi">123</span>
+
+<span class="c1"># REST API method
+</span><span class="n">method</span> <span class="o">=</span> <span class="s">'/v2.1/delivery/orders'</span> 
+
+<span class="c1"># Not required for /v2.1/delivery/orders
+</span><span class="n">body</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({})</span>
+
+<span class="k">if</span> <span class="n">body</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span> <span class="o">+</span> <span class="s">'?'</span> <span class="o">+</span> <span class="n">body</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">method</span>
+
+<span class="n">msg_string</span> <span class="o">=</span> <span class="s">'{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="s">'GET'</span><span class="p">,</span> <span class="n">rest_path</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+<span class="n">sig</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">msg_string</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+
+<span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span> <span class="s">'AccessKey'</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+          <span class="s">'Timestamp'</span><span class="p">:</span> <span class="n">ts</span><span class="p">,</span> <span class="s">'Signature'</span><span class="p">:</span> <span class="n">sig</span><span class="p">,</span> <span class="s">'Nonce'</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">nonce</span><span class="p">)}</span>
+
+<span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">rest_url</span> <span class="o">+</span> <span class="n">path</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">header</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">resp</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre></div>
 <blockquote>
-<p><strong>RESPONSE</strong></p>
+<p><strong>Response</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deliverOrders"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1596685339910</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1595781719394"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DELIVERED"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deliverPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9938.480000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"transferAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"transferQty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"993.848000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"instrumentIdDeliver"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deliverQty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.100000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deliverOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"575770851486007299"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1595786511155"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CANCELLED"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deliverPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9911.470000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"transferAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"transferQty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.000000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"instrumentIdDeliver"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deliverQty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.000000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deliverOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"575786553086246913"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deliverOrders"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1596685339910"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1595781719394"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DELIVERED"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"deliverPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9938.480000000"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"transferAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"transferQty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"993.848000000"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"instrumentIdDeliver"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"deliverQty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.100000000"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"deliverOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"575770851486007299"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1595786511155"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CANCELLED"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"deliverPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9911.470000000"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"transferAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"transferQty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.000000000"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"instrumentIdDeliver"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"deliverQty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.000000000"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"deliverOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"575786553086246913"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+          </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>Requires authentication. Get entire delivery history.</p>
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="p">{</span>
+  <span class="s">"event"</span><span class="p">:</span> <span class="s">"deliverOrders"</span><span class="p">,</span>
+  <span class="s">"timestamp"</span><span class="p">:</span> <span class="s">"1596685339910"</span><span class="p">,</span>
+  <span class="s">"data"</span><span class="p">:</span> <span class="p">[</span> <span class="p">{</span>
+              <span class="s">"timestamp"</span><span class="p">:</span> <span class="s">"1595781719394"</span><span class="p">,</span>
+              <span class="s">"instrumentId"</span><span class="p">:</span> <span class="s">"BTC-USD-SWAP-LIN"</span><span class="p">,</span>
+              <span class="s">"status"</span><span class="p">:</span> <span class="s">"DELIVERED"</span><span class="p">,</span>
+              <span class="s">"quantity"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+              <span class="s">"deliverPrice"</span><span class="p">:</span> <span class="s">"9938.480000000"</span><span class="p">,</span>
+              <span class="s">"transferAsset"</span><span class="p">:</span> <span class="s">"USD"</span><span class="p">,</span>
+              <span class="s">"transferQty"</span><span class="p">:</span> <span class="s">"993.848000000"</span><span class="p">,</span>
+              <span class="s">"instrumentIdDeliver"</span><span class="p">:</span> <span class="s">"BTC"</span><span class="p">,</span>
+              <span class="s">"deliverQty"</span><span class="p">:</span> <span class="s">"0.100000000"</span><span class="p">,</span>
+              <span class="s">"deliverOrderId"</span><span class="p">:</span> <span class="s">"575770851486007299"</span><span class="p">,</span>
+              <span class="s">"clientOrderId"</span><span class="p">:</span> <span class="n">null</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+              <span class="s">"timestamp"</span><span class="p">:</span> <span class="s">"1595786511155"</span><span class="p">,</span>
+              <span class="s">"instrumentId"</span><span class="p">:</span> <span class="s">"BTC-USD-SWAP-LIN"</span><span class="p">,</span>
+              <span class="s">"status"</span><span class="p">:</span> <span class="s">"CANCELLED"</span><span class="p">,</span>
+              <span class="s">"quantity"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+              <span class="s">"deliverPrice"</span><span class="p">:</span> <span class="s">"9911.470000000"</span><span class="p">,</span>
+              <span class="s">"transferAsset"</span><span class="p">:</span> <span class="s">"USD"</span><span class="p">,</span>
+              <span class="s">"transferQty"</span><span class="p">:</span> <span class="s">"0.000000000"</span><span class="p">,</span>
+              <span class="s">"instrumentIdDeliver"</span><span class="p">:</span> <span class="s">"BTC"</span><span class="p">,</span>
+              <span class="s">"deliverQty"</span><span class="p">:</span> <span class="s">"0.000000000"</span><span class="p">,</span>
+              <span class="s">"deliverOrderId"</span><span class="p">:</span> <span class="s">"575786553086246913"</span><span class="p">,</span>
+              <span class="s">"clientOrderId"</span><span class="p">:</span> <span class="n">null</span>
+            <span class="p">},</span>
+          <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Returns the entire delivery history for the account connected to the API key initiating the request.</p>
+
+<p><sub><strong>Response Parameters</strong></sub> </p>
 
 <table><thead>
 <tr>
-<th>Response Parameters</th>
+<th>Parameters</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
+<td>event</td>
+<td>STRING</td>
+<td><code>orders</code></td>
+</tr>
+<tr>
 <td>timestamp</td>
 <td>STRING</td>
-<td>UNIX Timestamp of the response</td>
+<td>Millisecond timestamp of the repsonse</td>
 </tr>
 <tr>
-<td>deliverOrderId</td>
+<td>data</td>
+<td>LIST of dictionaries</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;timestamp</td>
 <td>STRING</td>
-<td>Order id</td>
+<td>Millisecond timestamp of the delivery action</td>
 </tr>
 <tr>
-<td>clientOrderId</td>
-<td>Null Type</td>
-<td>null</td>
-</tr>
-<tr>
-<td>quantity</td>
-<td>Null Type</td>
-<td>null</td>
-</tr>
-<tr>
-<td>instrumentId</td>
+<td>&gt;instrumentId</td>
 <td>STRING</td>
 <td>Perpetual swap market code</td>
 </tr>
 <tr>
-<td>deliverPrice</td>
+<td>&gt;status</td>
+<td>STRING</td>
+<td>Request status</td>
+</tr>
+<tr>
+<td>&gt;quantity</td>
+<td>Null Type</td>
+<td>null</td>
+</tr>
+<tr>
+<td>&gt;deliverPrice</td>
 <td>STRING</td>
 <td>Mark price at delivery</td>
 </tr>
 <tr>
-<td>instrumentIdDeliver</td>
-<td>STRING</td>
-<td>Asset being received: long position = coin, short position = USD</td>
-</tr>
-<tr>
-<td>deliverQty</td>
-<td>STRING</td>
-<td>Quantity of the received asset</td>
-</tr>
-<tr>
-<td>transferAsset</td>
+<td>&gt;transferAsset</td>
 <td>STRING</td>
 <td>Asset being sent</td>
 </tr>
 <tr>
-<td>transferQty</td>
+<td>&gt;transferQty</td>
 <td>STRING</td>
 <td>Quantity being sent</td>
 </tr>
 <tr>
-<td>auctionTime</td>
+<td>&gt;instrumentIdDeliver</td>
 <td>STRING</td>
-<td>UNIX timestamp of the next auction</td>
+<td>Asset being received: long position = coin, short position = USD</td>
 </tr>
 <tr>
-<td>status</td>
+<td>&gt;deliverQty</td>
 <td>STRING</td>
-<td>Request status</td>
+<td>Quantity of the received asset</td>
+</tr>
+<tr>
+<td>&gt;deliverOrderId</td>
+<td>STRING</td>
+<td>Order id</td>
+</tr>
+<tr>
+<td>&gt;clientOrderId</td>
+<td>Null Type</td>
+<td>null</td>
 </tr>
 </tbody></table>
 <h3 id='rest-api-methods-private-post-v2-1-delivery-orders'>POST <code>/v2.1/delivery/orders</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">POST/v</span><span class="mf">2.1</span><span class="err">/delivery/orders</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">POST</span><span class="w"> </span><span class="err">/v</span><span class="mf">2.1</span><span class="err">/delivery/orders</span><span class="w">
 
-</span><span class="err">#</span><span class="w"> </span><span class="err">Request</span><span class="w"> </span><span class="err">body</span><span class="w">
 </span><span class="p">{</span><span class="w">
     </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"qtyDeliver"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p><strong>RESPONSE</strong></p>
+<p><strong>Response</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"delivery"</span><span class="p">,</span><span class="w">
