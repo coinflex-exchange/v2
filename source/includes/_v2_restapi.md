@@ -187,9 +187,9 @@ print(resp.json())
 
 Returns the account level information connected to the API key initiating the request. 
 
-<sub>**Response Fields**</sub> 
+<sub>**Response Parameters**</sub> 
 
-Fields |Type | Description 
+Parameters |Type | Description 
 -------------------------- | -----|--------- |
 event | STRING | `accountinfo`
 timestamp | INTEGER | Millisecond timestamp
@@ -305,9 +305,9 @@ print(resp.json())
 
 Returns all the coin balances of the account connected to the API key initiating the request. 
 
-<sub>**Response Fields**</sub> 
+<sub>**Response Parameters**</sub> 
 
-Fields |Type | Description| 
+Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 event | STRING | `balances`
 timestamp | INTEGER | Millisecond timestamp
@@ -403,9 +403,9 @@ print(resp.json())
 
 Returns the specified coin balance of the account connected to the API key initiating the request. 
 
-<sub>**Response Fields**</sub> 
+<sub>**Response Parameters**</sub> 
 
-Fields |Type | Description| 
+Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 event | STRING | `balancesById`
 timestamp | INTEGER | Millisecond timestamp
@@ -505,9 +505,9 @@ print(resp.json())
 
 Returns all the positions of the account connected to the API key initiating the request. 
 
-<sub>**Response Fields**</sub> 
+<sub>**Response Parameters**</sub> 
 
-Fields |Type | Description| 
+Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 event | STRING | `positions`
 timestamp | INTEGER | Millisecond timestamp
@@ -604,9 +604,9 @@ print(resp.json())
 
 Returns the specified instrument ID position of the account connected to the API key initiating the request.
 
-<sub>**Response Fields**</sub> 
+<sub>**Response Parameters**</sub> 
 
-Fields |Type | Description| 
+Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 event | STRING | `positionsById`
 timestamp | INTEGER | Millisecond timestamp
@@ -726,9 +726,9 @@ limit| LONG | NO | Default `500`, max `1000` |
 startTime| LONG | NO | Millisecond timestamp | 
 endTime| LONG | NO | Millisecond timestamp | 
 
-<sub>**Response Fields**</sub> 
+<sub>**Response Parameters**</sub> 
 
-Fields |Type | Description| 
+Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 event | STRING | `trades`
 timestamp | INTEGER | Millisecond timestamp
@@ -849,9 +849,9 @@ print(resp.json())
 
 Returns all the open orders of the account connected to the API key initiating the request.
 
-<sub>**Response Fields**</sub> 
+<sub>**Response Parameters**</sub> 
 
-Fields |Type | Description| 
+Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 event | STRING | `orders`
 timestamp | INTEGER | Millisecond timestamp
@@ -947,9 +947,9 @@ Cancels **all** open orders of the account connected to the API key initiating t
 
 If this REST method was sucessful it will also trigger a reponse message in an authenticated websocket of the account.  This is documented here [Cancel Open Orders](#websocket-api-other-responses-cancel-open-orders).
 
-<sub>**Response Fields**</sub> 
+<sub>**Response Parameters**</sub> 
 
-Fields |Type | Description| 
+Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 event | STRING | `orders`
 timestamp | INTEGER | Millisecond timestamp
@@ -1034,9 +1034,9 @@ Cancels all open orders for the **specified market** for the account connected t
 
 If this REST method was sucessful it will also trigger a reponse message in an authenticated websocket of the account.  This is documented here [Cancel Open Orders](#websocket-api-other-responses-cancel-open-orders).
 
-<sub>**Response Fields**</sub> 
+<sub>**Response Parameters**</sub> 
 
-Fields |Type | Description| 
+Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 event | STRING | `orders`
 timestamp | INTEGER | Millisecond timestamp
@@ -1050,62 +1050,137 @@ data | Dictionary |
 > **Request**
 
 ```json
-GET/v2.1/delivery/orders
+GET /v2.1/delivery/orders
 ```
 
-> **RESPONSE**
+```python
+import requests
+import hmac
+import base64
+import hashlib
+import datetime
+from urllib.parse import urlencode
+
+rest_url = 'https://v2stgapi.coinflex.com'
+rest_path = 'v2stgapi.coinflex.com'
+
+api_key = <API-KEY>
+api_secret = <API-SECRET>
+
+ts = datetime.datetime.utcnow().isoformat()
+nonce = 123
+
+# REST API method
+method = '/v2.1/delivery/orders' 
+
+# Not required for /v2.1/delivery/orders
+body = urlencode({})
+
+if body:
+    path = method + '?' + body
+else:
+    path = method
+
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, body)
+sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+
+header = {'Content-Type': 'application/json', 'AccessKey': api_key,
+          'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
+
+resp = requests.get(rest_url + path, headers=header)
+print(resp.json())
+```
+
+> **Response**
 
 ```json
 {
-    "event": "deliverOrders",
-    "timestamp": 1596685339910,
-    "data": [
-        {
-            "timestamp": "1595781719394",
-            "instrumentId": "BTC-USD-SWAP-LIN",
-            "status": "DELIVERED",
-            "quantity": null,
-            "deliverPrice": "9938.480000000",
-            "transferAsset": "USD",
-            "transferQty": "993.848000000",
-            "instrumentIdDeliver": "BTC",
-            "deliverQty": "0.100000000",
-            "deliverOrderId": "575770851486007299",
-            "clientOrderId": null
-        },
-        {
-            "timestamp": "1595786511155",
-            "instrumentId": "BTC-USD-SWAP-LIN",
-            "status": "CANCELLED",
-            "quantity": null,
-            "deliverPrice": "9911.470000000",
-            "transferAsset": "USD",
-            "transferQty": "0.000000000",
-            "instrumentIdDeliver": "BTC",
-            "deliverQty": "0.000000000",
-            "deliverOrderId": "575786553086246913",
-            "clientOrderId": null
-        },
-    ]
+  "event": "deliverOrders",
+  "timestamp": "1596685339910",
+  "data": [ {
+              "timestamp": "1595781719394",
+              "instrumentId": "BTC-USD-SWAP-LIN",
+              "status": "DELIVERED",
+              "quantity": null,
+              "deliverPrice": "9938.480000000",
+              "transferAsset": "USD",
+              "transferQty": "993.848000000",
+              "instrumentIdDeliver": "BTC",
+              "deliverQty": "0.100000000",
+              "deliverOrderId": "575770851486007299",
+              "clientOrderId": null
+            },
+            {
+              "timestamp": "1595786511155",
+              "instrumentId": "BTC-USD-SWAP-LIN",
+              "status": "CANCELLED",
+              "quantity": null,
+              "deliverPrice": "9911.470000000",
+              "transferAsset": "USD",
+              "transferQty": "0.000000000",
+              "instrumentIdDeliver": "BTC",
+              "deliverQty": "0.000000000",
+              "deliverOrderId": "575786553086246913",
+              "clientOrderId": null
+            },
+          ]
 }
 ```
 
-Requires authentication. Get entire delivery history.
+```python
+{
+  "event": "deliverOrders",
+  "timestamp": "1596685339910",
+  "data": [ {
+              "timestamp": "1595781719394",
+              "instrumentId": "BTC-USD-SWAP-LIN",
+              "status": "DELIVERED",
+              "quantity": null,
+              "deliverPrice": "9938.480000000",
+              "transferAsset": "USD",
+              "transferQty": "993.848000000",
+              "instrumentIdDeliver": "BTC",
+              "deliverQty": "0.100000000",
+              "deliverOrderId": "575770851486007299",
+              "clientOrderId": null
+            },
+            {
+              "timestamp": "1595786511155",
+              "instrumentId": "BTC-USD-SWAP-LIN",
+              "status": "CANCELLED",
+              "quantity": null,
+              "deliverPrice": "9911.470000000",
+              "transferAsset": "USD",
+              "transferQty": "0.000000000",
+              "instrumentIdDeliver": "BTC",
+              "deliverQty": "0.000000000",
+              "deliverOrderId": "575786553086246913",
+              "clientOrderId": null
+            },
+          ]
+}
+```
 
-Response Parameters |Type | Description| 
+Returns the entire delivery history for the account connected to the API key initiating the request.
+
+<sub>**Response Parameters**</sub> 
+
+Parameters |Type | Description| 
 -------------------------- | -----|--------- |
-timestamp | STRING    | UNIX Timestamp of the response|
-deliverOrderId | STRING | Order id
-clientOrderId | Null Type|  null
-quantity | Null Type| null
-instrumentId | STRING | Perpetual swap market code
-deliverPrice | STRING|  Mark price at delivery
-instrumentIdDeliver | STRING |Asset being received: long position = coin, short position = USD
-deliverQty | STRING |  Quantity of the received asset
-transferAsset | STRING | Asset being sent
-transferQty | STRING | Quantity being sent
-auctionTime | STRING | UNIX timestamp of the next auction
-status | STRING | Request status
+event | STRING | `orders`
+timestamp | STRING | Millisecond timestamp of the repsonse
+data | LIST of dictionaries |
+\>timestamp | STRING | Millisecond timestamp of the delivery action
+\>instrumentId | STRING | Perpetual swap market code
+\>status | STRING | Request status
+\>quantity | Null Type| null
+\>deliverPrice | STRING|  Mark price at delivery
+\>transferAsset | STRING | Asset being sent
+\>transferQty | STRING | Quantity being sent
+\>instrumentIdDeliver | STRING |Asset being received: long position = coin, short position = USD
+\>deliverQty | STRING |  Quantity of the received asset
+\>deliverOrderId | STRING | Order id
+\>clientOrderId | Null Type|  null
 
 
 ###POST `/v2.1/delivery/orders`
@@ -1113,16 +1188,15 @@ status | STRING | Request status
 > **Request**
 
 ```json
-POST/v2.1/delivery/orders
+POST /v2.1/delivery/orders
 
-# Request body
 {
     "instrumentId": "BTC-USD-SWAP-LIN",
     "qtyDeliver": "1"
 }
 ```
 
-> **RESPONSE**
+> **Response**
 
 ```json
 {
