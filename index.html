@@ -407,7 +407,7 @@
                     <a href="#websocket-api-other-responses" class="toc-h2 toc-link" data-title="Other Responses">Other Responses</a>
                       <ul class="toc-list-h3">
                           <li>
-                            <a href="#websocket-api-other-responses-cancel-open-orders" class="toc-h3 toc-link" data-title="Cancel Open Orders">Cancel Open Orders</a>
+                            <a href="#websocket-api-other-responses-cancel-all-open-orders" class="toc-h3 toc-link" data-title="Cancel All Open Orders">Cancel All Open Orders</a>
                           </li>
                       </ul>
                   </li>
@@ -518,7 +518,7 @@
 <p><strong>2021-01-26</strong></p>
 
 <ul>
-<li>Correction to REST API documentation for /v2/accountinfo, /v2/balances and /v2/positions</li>
+<li>Correction to REST API for <a href="#rest-api-methods-private-get-v2-accountinfo">GET /v2/accountinfo</a>, <a href="#rest-api-methods-private-get-v2-balances">GET /v2/balances</a> and <a href="#rest-api-methods-private-get-v2-positions">GET /v2/positions</a></li>
 </ul>
 
 <p><strong>2021-01-18</strong></p>
@@ -1479,6 +1479,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </span></code></pre></div>
 <p>Requires an authenticated websocket connection.<br>
 Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderClosed etc......).</p>
+
+<p>This command can also be actioned via the trading GUI using the <strong>Cancel</strong> button next to an open order in the <strong>Open Orders</strong> blotter for both Spot and Derivative markets.</p>
 
 <p><sub><strong>Request Parameters</strong></sub> </p>
 
@@ -3340,8 +3342,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </tr>
 </tbody></table>
 <h2 id='websocket-api-other-responses'>Other Responses</h2>
-<p>By subscribing to an authenticated websocket there may be instances when a REST method will also generate a websocket reponse in addition to the REST reply. </p>
-<h3 id='websocket-api-other-responses-cancel-open-orders'>Cancel Open Orders</h3>
+<p>By subscribing to an authenticated websocket there may be instances when a REST method will also generate a websocket reponse in addition to the REST reply.  There are also some GUI commands which will generate a websocket reponse.</p>
+<h3 id='websocket-api-other-responses-cancel-all-open-orders'>Cancel All Open Orders</h3>
 <blockquote>
 <p><strong>Success response format</strong></p>
 </blockquote>
@@ -3353,9 +3355,11 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </span></code></pre></div>
 <p>Documentation for the REST method for cancelling <strong>all</strong> open orders for an account can be found here <a href="#rest-api-methods-private-delete-v2-cancel-orders">Cancel All Orders</a>.</p>
 
-<p>Documentation for the REST method for cancelling open orders <strong>by market</strong> for an account can be found here <a href="#rest-api-methods-private-delete-v2-cancel-orders-marketcode">Cancel All Orders By Market</a>.</p>
+<p>Documentation for the REST method for cancelling <strong>all</strong> open orders <strong>by market</strong> for an account can be found here <a href="#rest-api-methods-private-delete-v2-cancel-orders-marketcode">Cancel All Orders By Market</a>.</p>
 
 <p>In both these instances a successful action will generate the shown repsonse in an authenticated websocket.</p>
+
+<p>This action can also be executed via the trading GUI using the <strong>Cancel All</strong> button on the <strong>Open Orders</strong> blotter for both Spot and Derivative markets.</p>
 <h2 id='websocket-api-error-codes'>Error Codes</h2>
 <blockquote>
 <p><strong>Failure response format</strong></p>
