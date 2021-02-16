@@ -678,6 +678,8 @@ dataArray | LIST of dictionaries | Yes | A list of orders with each order in JSO
 Requires an authenticated websocket connection.  
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderClosed etc......).
 
+This command can also be actioned via the trading GUI using the **Cancel** button next to an open order in the **Open Orders** blotter for both Spot and Derivative markets.
+
 <sub>**Request Parameters**</sub> 
 
 Parameters | Type | Required | Description
@@ -1773,9 +1775,9 @@ data | LIST of dictionary |
 
 ## Other Responses
 
-By subscribing to an authenticated websocket there may be instances when a REST method will also generate a websocket reponse in addition to the REST reply. 
+By subscribing to an authenticated websocket there may be instances when a REST method will also generate a websocket reponse in addition to the REST reply.  There are also some GUI commands which will generate a websocket reponse.
 
-### Cancel Open Orders
+### Cancel All Open Orders
 
 > **Success response format**
 
@@ -1789,10 +1791,11 @@ By subscribing to an authenticated websocket there may be instances when a REST 
 
 Documentation for the REST method for cancelling **all** open orders for an account can be found here [Cancel All Orders](#rest-api-methods-private-delete-v2-cancel-orders).
 
-Documentation for the REST method for cancelling open orders **by market** for an account can be found here [Cancel All Orders By Market](#rest-api-methods-private-delete-v2-cancel-orders-marketcode).
+Documentation for the REST method for cancelling **all** open orders **by market** for an account can be found here [Cancel All Orders By Market](#rest-api-methods-private-delete-v2-cancel-orders-marketcode).
 
 In both these instances a successful action will generate the shown repsonse in an authenticated websocket.
 
+This action can also be executed via the trading GUI using the **Cancel All** button on the **Open Orders** blotter for both Spot and Derivative markets.
 
 ## Error Codes
 
