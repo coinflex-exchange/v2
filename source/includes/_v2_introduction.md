@@ -8,7 +8,7 @@
 
 **2021-01-26**
 
-* Correction to REST API documentation for /v2/accountinfo, /v2/balances and /v2/positions
+* Correction to REST API for [GET /v2/accountinfo](#rest-api-methods-private-get-v2-accountinfo), [GET /v2/balances](#rest-api-methods-private-get-v2-balances) and [GET /v2/positions](#rest-api-methods-private-get-v2-positions)
 
 **2021-01-18**
 
