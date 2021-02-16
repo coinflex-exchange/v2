@@ -625,6 +625,12 @@ data | LIST of dictionaries |
 
 ```json
 GET /v2/trades/{marketCode}?limit={limit}&startTime={startTime}&endTime={endTime}
+
+{
+  "limit": {limit},
+  "startTime": {startTime},
+  "endTime": {endTime},
+}
 ```
 
 ```python
@@ -1073,7 +1079,7 @@ nonce = 123
 # REST API method
 method = '/v2.1/delivery/orders' 
 
-# Not required for /v2.1/delivery/orders
+# Not required for GET /v2.1/delivery/orders
 body = urlencode({})
 
 if body:
@@ -1184,50 +1190,123 @@ data | LIST of dictionaries |
 
 
 ###POST `/v2.1/delivery/orders`
-
 > **Request**
 
 ```json
-POST /v2.1/delivery/orders
+POST /v2.1/delivery/orders?instrumentId={instrumentId}&qtyDeliver={qtyDeliver}
 
 {
-    "instrumentId": "BTC-USD-SWAP-LIN",
-    "qtyDeliver": "1"
+  "instrumentId": {instrumentId},
+  "qtyDeliver": {qtyDeliver}
 }
+```
+
+```python
+import requests
+import hmac
+import base64
+import hashlib
+import datetime
+from urllib.parse import urlencode
+
+rest_url = 'https://v2stgapi.coinflex.com'
+rest_path = 'v2stgapi.coinflex.com'
+
+api_key = <API-KEY>
+api_secret = <API-SECRET>
+
+ts = datetime.datetime.utcnow().isoformat()
+nonce = 123
+
+# REST API method
+method = '/v2.1/delivery/orders' 
+
+# Required for POST /v2.1/delivery/orders
+body = urlencode({"instrumentId": "BTC-USD-SWAP-LIN", "qtyDeliver": "1"})
+
+if body:
+    path = method + '?' + body
+else:
+    path = method
+
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'POST', rest_path, method, body)
+sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+
+header = {'Content-Type': 'application/json', 'AccessKey': api_key,
+          'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
+
+resp = requests.post(rest_url + path, headers=header)
+print(resp.json())
 ```
 
 > **Response**
 
 ```json
 {
-    "event": "delivery",
-    "timestamp": "1599204123484",
-    "accountId": "164",
-    "data": [{
-        "deliverOrderId": "586985384617312258",
-        "accountId": "164",
-        "clientOrderId": null,
-        "instrumentId": "BTC-USD-SWAP-LIN",
-        "deliverPrice": "10000.000000000",
-        "deliverPosition": "1.000",
-        "deliverType": "NEXT_CYCLE",
-        "instrumentIdDeliver": "BTC",
-        "deliverQty": "1.000",
-        "remainingQty": "1.000",
-        "remainingPosition": "1.000",
-        "transferAsset": "USD",
-        "transferQty": "1",
-        "auctionTime": "1599204122693",
-        "created": "1599204122693",
-        "lastUpdated": "1599204122693",
-        "status": "PENDING"
-    }]
+  "event": "delivery",
+  "timestamp": "1599204123484",
+  "accountId": "164",
+  "data": [ {
+              "deliverOrderId": "586985384617312258",
+              "accountId": "164",
+              "clientOrderId": null,
+              "instrumentId": "BTC-USD-SWAP-LIN",
+              "deliverPrice": "10000.000000000",
+              "deliverPosition": "1.000",
+              "deliverType": "NEXT_CYCLE",
+              "instrumentIdDeliver": "BTC",
+              "deliverQty": "1.000",
+              "remainingQty": "1.000",
+              "remainingPosition": "1.000",
+              "transferAsset": "USD",
+              "transferQty": "1",
+              "auctionTime": "1599204122693",
+              "created": "1599204122693",
+              "lastUpdated": "1599204122693",
+              "status": "PENDING"
+          } ]
 }
 ```
 
-Requires authentication. Submits a delivery request for a specified market and size.
+```python
+{
+  "event": "delivery",
+  "timestamp": "1599204123484",
+  "accountId": "164",
+  "data": [ {
+              "deliverOrderId": "586985384617312258",
+              "accountId": "164",
+              "clientOrderId": null,
+              "instrumentId": "BTC-USD-SWAP-LIN",
+              "deliverPrice": "10000.000000000",
+              "deliverPosition": "1.000",
+              "deliverType": "NEXT_CYCLE",
+              "instrumentIdDeliver": "BTC",
+              "deliverQty": "1.000",
+              "remainingQty": "1.000",
+              "remainingPosition": "1.000",
+              "transferAsset": "USD",
+              "transferQty": "1",
+              "auctionTime": "1599204122693",
+              "created": "1599204122693",
+              "lastUpdated": "1599204122693",
+              "status": "PENDING"
+          } ]
+}
+```
 
-Response Parameters |Type | Description| 
+Submits a request for physical delivery for a specified instrument and quantity.
+
+<sub>**Request Parameters**</sub> 
+
+Parameters | Type | Required |Description| 
+-------------------------- | -----|--------- | -------------|
+instrumentID| STRING | YES | Instrument intended for delivery | 
+qtyDeliver| STRING | YES | Quantity intended for delivery | 
+
+<sub>**Response Parameters**</sub> 
+
+Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 timestamp | STRING    | UNIX Timestamp of the response|
 accountId | STRING    | Account ID|
@@ -1252,10 +1331,10 @@ status | STRING | Delivery status
 > **Request**
 
 ```json
-DELETE/v2.1/delivery/orders/{deliveryOrderId}
+DELETE /v2.1/delivery/orders/{deliveryOrderId}
 ```
 
-> **SUCCESSFUL RESPONSE**
+> **Response**
 
 ```json
 {
