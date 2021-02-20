@@ -513,6 +513,13 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-02-20</strong></p>
+
+<ul>
+<li>Added new websocket API <a href="#websocket-api-subscriptions-public-liquidation-rfq">Liquidation RFQ</a>, a subsription channel publishing upcoming liquidations</li>
+<li>Added new websocket API <a href="#websocket-api-subscriptions-public-market">Market</a>, a subsription channel publishing market information for each order book</li>
+</ul>
+
 <p><strong>2021-02-05</strong></p>
 
 <ul>
@@ -536,9 +543,9 @@
 <p><strong>2020-12-14</strong></p>
 
 <ul>
-<li>Added new websocket API Place Batch Orders command</li>
-<li>Added new websocket API Cancel Batch Orders command</li>
-<li>Added new websocket API Modify Batch Orders command</li>
+<li>Added new websocket API <a href="#websocket-api-order-commands-place-batch-orders">Place Batch Orders</a></li>
+<li>Added new websocket API <a href="#websocket-api-order-commands-cancel-batch-orders">Cancel Batch Orders</a></li>
+<li>Added new websocket API <a href="#websocket-api-order-commands-modify-batch-orders">Modify Batch Orders</a></li>
 </ul>
 
 <p><strong>2020-12-10</strong></p>
@@ -3106,7 +3113,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </span><span class="p">{</span><span class="w">
   </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"ticker:FLEX-USD"</span><span class="p">]</span><span class="w">
+  </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"ticker:FLEX-USD"</span><span class="p">,</span><span class="w"> </span><span class="err">........</span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
@@ -3114,17 +3121,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
-  </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"ticker:all"</span><span class="p">],</span><span class="w">
-  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="err">True</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1594299886890"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span><span class="err">OR</span><span class="w">
-
-</span><span class="p">{</span><span class="w">
-  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w"> 
-  </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"ticker:FLEX-USD"</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;args value&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="err">True</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1594299886890"</span><span class="w">
@@ -3153,7 +3150,11 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </span></code></pre></div>
 <p><strong>Channel Update Frequency:</strong> 100ms</p>
 
-<p>The ticker channel pushes live information about the contract.</p>
+<p>The ticker channel pushes live price and volume information about the contract.</p>
+
+<p>The websocket will reply with the shown success response format for <strong>each</strong> ticker channel which has been successfully subscribed to.</p>
+
+<p>The data array in the message from this ticker channel will contain a single JSON corresponding to one ticker subscription.</p>
 
 <p><sub><strong>Request Parameters</strong></sub> </p>
 
@@ -3501,7 +3502,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <p><strong>Channel update format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ticker"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
               </span><span class="nl">"marketPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.367"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"listingDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1593288000000"</span><span class="p">,</span><span class="w"> 
@@ -3574,7 +3575,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>table</td>
 <td>STRING</td>
-<td><code>ticker</code></td>
+<td><code>market</code></td>
 </tr>
 <tr>
 <td>data</td>
