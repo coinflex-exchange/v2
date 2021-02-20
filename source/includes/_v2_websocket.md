@@ -16,7 +16,7 @@
 ```json
 {
   "event": "<opValue>",
-  "success": true,
+  "success": True,
   "tag": "<value>",
   "channel": "<argsValue>",
   "timestamp": "1592491945368"
@@ -28,7 +28,7 @@
 ```json
 {
   "event": "<opValue>",
-  "success": false,
+  "success": False,
   "tag": "<value>",
   "message": "<errorMessage>",
   "code": "<errorCode>",
@@ -51,7 +51,7 @@
 ```json
 {
   "event": "<opValue>",
-  "success": true
+  "success": True
   "tag": "<value>",
   "timestamp": "1592498745368",
   "data": {"<key1>": "<value1>",.....}
@@ -63,7 +63,7 @@
 ```json
 {
   "event": "<opValue>",
-  "success": false,
+  "success": False,
   "message": "<errorMessage>",
   "code": "<codeCode>",
   "timestamp": "1592498745368",
@@ -188,7 +188,7 @@ ws.onopen = function () {
 ```json
 {
   "event": "login",
-  "success": true,
+  "success": True,
   "tag": "<value>",
   "timestamp": "1592491803978"
 }
@@ -196,7 +196,7 @@ ws.onopen = function () {
 ```python
 {
   "event": "login",
-  "success": true,
+  "success": True,
   "tag": "1",
   "timestamp": "1592491808328"
 }
@@ -204,7 +204,7 @@ ws.onopen = function () {
 ```javascript
 {
   "event": "login",
-  "success": true,
+  "success": True,
   "tag": "1",
   "timestamp": "1592491808329"
 }
@@ -215,7 +215,7 @@ ws.onopen = function () {
 ```json
 {
   "event": "login",
-  "success": false,
+  "success": False,
   "code": "<errorCode>",
   "message": "<errorMessage>",
   "tag": "1",
@@ -225,7 +225,7 @@ ws.onopen = function () {
 ```python
 {
   "event": "login",
-  "success": false,
+  "success": False,
   "code": "<errorCode>",
   "message": "<errorMessage>",
   "tag": "1",
@@ -235,7 +235,7 @@ ws.onopen = function () {
 ```javascript
 {
   "event": "login",
-  "success": false,
+  "success": False,
   "code": "<errorCode>",
   "message": "<errorMessage>",
   "tag": "1",
@@ -258,7 +258,7 @@ The signature is calculated as:
 Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | **'login'** |
-tag| INTEGER| No | If given, it will be echoed in the reply |
+tag | INTEGER or STRING | No | If given it will be echoed in the reply
 data | DICTIONARY object | Yes |
 \>apiKey | STRING | Yes | Clients public API key, visible in the GUI when created |
 \>timestamp | STRING | Yes | Current millisecond timestamp |
@@ -295,7 +295,7 @@ To maintain an active WebSocket connection it is imperative to either be subscri
 ```json
 {
   "event": "placeorder",
-  "submitted": true,
+  "submitted": True,
   "tag": "123",
   "timestamp": "1592491945248",
   "data": {
@@ -315,11 +315,10 @@ To maintain an active WebSocket connection it is imperative to either be subscri
 ```json
 {
   "event": "placeorder",
-  "submitted": false,
+  "submitted": False,
   "tag": "123",
   "message": "<errorMessage>",
   "code": "<errorCode>",
-  "submitted": false,
   "timestamp": "1592491945248",
   "data": {
             "clientOrderId": "1",
@@ -341,7 +340,7 @@ Please also subscribe to the **User Order Channel** to receive push notification
 Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `placeorder`
-tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply
 data | DICTIONARY object | Yes |
 \>clientOrderId | INTEGER | No | Client assigned ID to help manage and identify orders |
 \>marketCode | STRING | Yes | Market code e.g. `BTC-USD-SWAP-LIN` |
@@ -375,7 +374,7 @@ data | DICTIONARY object | Yes |
 ```json
 {
   "event": "placeorder",
-  "submitted": true,
+  "submitted": True,
   "tag": "123",
   "timestamp": "1592491945248",
   "data": {
@@ -393,11 +392,10 @@ data | DICTIONARY object | Yes |
 ```json
 {
   "event": "placeorder",
-  "submitted": false,
+  "submitted": False,
   "tag": "123",
   "message": "<errorMessage>",
   "code": "<errorCode>",
-  "submitted": false,
   "timestamp": "1592491503359"
 }
 ```
@@ -410,7 +408,7 @@ Please also subscribe to the **User Order Channel** to receive push notification
 Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `placeorder`
-tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply
 data | DICTIONARY object | Yes |
 \>clientOrderId | INTEGER | No | Client assigned ID to help manage and identify orders |
 \>marketCode | STRING | Yes | Market code e.g. `BTC-USD-SWAP-LIN` |
@@ -445,7 +443,7 @@ data | DICTIONARY object | Yes |
 ```json
 {
   "event": "placeorder",
-  "submitted": true,
+  "submitted": True,
   "tag": "123",
   "timestamp": "1607639739098",
   "data": {
@@ -466,7 +464,7 @@ data | DICTIONARY object | Yes |
 ```json
 {
   "event": "placeorder",
-  "submitted": false,
+  "submitted": False,
   "tag": "123",
   "message": "<errorMessage>",
   "code": "<errorCode>",
@@ -492,7 +490,7 @@ Please also subscribe to the **User Order Channel** to receive push notification
 Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `placeorder`
-tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply
 data | DICTIONARY object | Yes |
 \>clientOrderId | INTEGER | No | Client assigned ID to help manage and identify orders |
 \>marketCode| STRING| Yes| Market code e.g. `ETH-USD-SWAP-LIN`|
@@ -537,7 +535,7 @@ data | DICTIONARY object | Yes |
 ```json
 {
   "event": "placeorder",
-  "submitted": true,
+  "submitted": True,
   "tag": "123",
   "timestamp": "1607639739098",
   "data": {
@@ -555,7 +553,7 @@ AND
 
 {
   "event": "placeorder",
-  "submitted": true,
+  "submitted": True,
   "tag": "123",
   "timestamp": "1607639739136",
   "data": {
@@ -573,7 +571,7 @@ AND
 ```json
 {
   "event": "placeorder",
-  "submitted": false,
+  "submitted": False,
   "tag": "123",
   "message": "<errorMessage>",
   "code": "<errorCode>",
@@ -593,7 +591,7 @@ AND
 
 {
   "event": "placeorder",
-  "submitted": false,
+  "submitted": False,
   "tag": "123",
   "message": "<errorMessage>",
   "code": "<errorCode>",
@@ -624,7 +622,7 @@ The websocket reply from the exchange will repond to each order in the batch sep
 Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `placeorders`
-tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply
 dataArray | LIST of dictionaries | Yes | A list of orders with each order in JSON format, the same format/parameters as the request for placing a single order.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be placed in a batch, assuming that each order JSON has 200 characters.
 
 
@@ -648,7 +646,7 @@ dataArray | LIST of dictionaries | Yes | A list of orders with each order in JSO
 ```json
 {
   "event": "cancelorder",
-  "submitted": true,
+  "submitted": True,
   "tag": "456",
   "timestamp": "1592491173964",
   "data": {
@@ -663,7 +661,7 @@ dataArray | LIST of dictionaries | Yes | A list of orders with each order in JSO
 ```json
 {
   "event": "cancelorder",
-  "submitted": false,
+  "submitted": False,
   "tag": "456",
   "message": "<errorMessage>",
   "code": "<errorCode>",
@@ -685,7 +683,7 @@ This command can also be actioned via the trading GUI using the **Cancel** butto
 Parameters | Type | Required | Description
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `cancelorder`
-tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply
 data | DICTIONARY object | Yes |
 \>marketCode|STRING|Yes|Market code e.g. `BTC-USD-SWAP-LIN`|
 \>orderId|INTEGER|Yes|Unique order ID from the exchange|
@@ -715,7 +713,7 @@ data | DICTIONARY object | Yes |
 ```json
 {
   "event": "cancelorder",
-  "submitted": true,
+  "submitted": True,
   "tag": "456",
   "timestamp": "1592491173964",
   "data": {
@@ -728,7 +726,7 @@ AND
 
 {
   "event": "cancelorder",
-  "submitted": true,
+  "submitted": True,
   "tag": "456",
   "timestamp": "1592491173978",
   "data": {
@@ -744,7 +742,7 @@ AND
 ```json
 {
   "event": "cancelorder",
-  "submitted": false,
+  "submitted": False,
   "tag": "456",
   "message": "<errorMessage>",
   "code": "<errorCode>",
@@ -759,7 +757,7 @@ AND
 
 {
   "event": "cancelorder",
-  "submitted": false,
+  "submitted": False,
   "tag": "456",
   "message": "<errorMessage>",
   "code": "<errorCode>",
@@ -779,7 +777,7 @@ Please also subscribe to the **User Order Channel** to receive push notification
 Parameters | Type | Required | Description
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `cancelorders`
-tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply
 dataArray | LIST of dictionaries | A list of orders with each order in JSON format, the same format/parameters as the request for cancelling a single order. The max number of orders is still limited by the message length validation so by default up to 20 orders can be placed in a batch, assuming that each order JSON has 200 characters.
 
 
@@ -806,7 +804,7 @@ dataArray | LIST of dictionaries | A list of orders with each order in JSON form
 ```json
 {
   "event": "modifyorder",
-  "submitted": true,
+  "submitted": True,
   "tag": "1",
   "timestamp": "1592491032427",
   "data":{
@@ -825,7 +823,7 @@ dataArray | LIST of dictionaries | A list of orders with each order in JSON form
 ```json
 {
   "event": "modifyorder",
-  "submitted": false,
+  "submitted": False,
   "tag": "1",
   "message": "<errorMessage>",
   "code": "<errorCode>",
@@ -860,7 +858,7 @@ Please be aware that modifying the side of an existing GTC LIMIT order from BUY 
 Parameters | Type | Required | Description|
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `modifyorder`
-tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply
 data | DICTIONARY object | Yes |
 \>marketCode|STRING|Yes| Market code e.g. `BTC-USD-SWAP-LIN`|
 \>orderId|INTEGER|Yes|Unique order ID from the exchange|
@@ -897,7 +895,7 @@ data | DICTIONARY object | Yes |
 ```json
 {
   "event": "modifyorder",
-  "submitted": true,
+  "submitted": True,
   "tag": "123",
   "timestamp": "1607639739098",
   "data": {
@@ -914,7 +912,7 @@ AND
 
 {
   "event": "modifyorder",
-  "submitted": true,
+  "submitted": True,
   "tag": "123",
   "timestamp": "1607639739136",
   "data": {
@@ -933,7 +931,7 @@ AND
 ```json
 {
   "event": "placeorder",
-  "submitted": false,
+  "submitted": False,
   "tag": "123",
   "message": "<errorMessage>",
   "code": "<errorCode>",
@@ -950,7 +948,7 @@ AND
 
 {
   "event": "placeorder",
-  "submitted": false,
+  "submitted": False,
   "tag": "123",
   "message": "<errorMessage>",
   "code": "<errorCode>",
@@ -974,7 +972,7 @@ The websocket reply from the exchange will repond to each order in the batch sep
 Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `modifyorders`
-tag| INTEGER| No|If given and non-zero, it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply
 dataArray | LIST of dictionaries | Yes | A list of orders with each order in JSON format, the same format/parameters as the request for modifying a single order.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be modified in a batch, assuming that each order JSON has 200 characters.
 
 
@@ -1048,7 +1046,7 @@ OR
 
 **Channel Update Frequency** : 250ms
 
-The websocket will reply with the shown success response format for EACH balance asset channel which has been successfully subscribed to.
+The websocket will reply with the shown success response format for **each** balance asset channel which has been successfully subscribed to.
 
 If a subscription has been made to **balance:all**, the data array in the message from this balance channel will contain a JSON **list**. Each JSON will contain balance details for each spot asset.  Otherwise the data array will contain a **single** JSON corresponding to one spot asset per asset channel subscription.
 
@@ -1058,7 +1056,7 @@ Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes |  `subscribe`
 args | LIST | Yes | `balance:all` or a list of individual assets `balance:<assetId>`
-tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply
 
 <sub>**Channel Update Fields**</sub> 
 
@@ -1127,15 +1125,17 @@ OR
               "contractValCurrency": "ETH",
               "quantity" : "-0.5",
               "instrumentId": "ETH-USD-SWAP-LIN"
-            } ]
+            }.
+            ........
+          ]
 }
 ```
 
 **Channel Update Frequency** : real-time, on position update
 
-The websocket will reply with the shown success response format for EACH position channel which has been successfully subscribed to.
+The websocket will reply with the shown success response format for **each** position channel which has been successfully subscribed to.
 
-If a subscription has been made to position:all, the data array in the message from this position channel will contain a JSON list. Each JSON will contain position details for instrument. Otherwise the data array will contain a single JSON corresponding to one instrument per position channel subscription.
+If a subscription has been made to **position:all**, the data array in the message from this position channel will contain a JSON **list**. Each JSON will contain position details for instrument. Otherwise the data array will contain a **single** JSON corresponding to one instrument per position channel subscription.
 
 <sub>**Request Parameters**</sub> 
 
@@ -1143,7 +1143,7 @@ Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes |  `subscribe`
 args | LIST | Yes | `position:all` or a list of individual instruments `position:<instrumentId>`
-tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply
 
 <sub>**Channel Update Fields**</sub> 
 
@@ -1202,7 +1202,7 @@ Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes |  `subscribe`
 args | LIST | Yes | `order:all` or a list of individual markets `order:<marketCode>`
-tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply
 
 
 #### OrderOpened
@@ -1225,7 +1225,7 @@ tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
               "timeInForce": "MAKER_ONLY",
               "timestamp": "1594943491077"
               "orderType": "LIMIT",
-              "isTriggered": "false"
+              "isTriggered": "False"
             } ]
 }
 ```
@@ -1249,7 +1249,7 @@ tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
               "stopPrice": "9280",
               "limitPrice": "9300",
               "orderType": "STOP",
-              "isTriggered": "true"
+              "isTriggered": "True"
             } ]
 }
 ```
@@ -1274,7 +1274,7 @@ data | LIST of dictionary |
 \>orderType| STRING | `LIMIT` or `STOP`
 \>stopPrice|STRING|Stop price submitted (only applicable for STOP order types)
 \>limitPrice|STRING|Limit price submitted (only applicable for STOP order types)
-\>isTriggered|STRING|`false` or `true` 
+\>isTriggered|STRING|`False` or `True` 
 
 
 #### OrderClosed
@@ -1298,7 +1298,7 @@ data | LIST of dictionary |
               "timestamp": "1594943491077",
               "remainQuantity": "1.5",
               "orderType": "LIMIT",
-              "isTriggered": "false" 
+              "isTriggered": "False" 
             } ]
 }
 ```
@@ -1323,7 +1323,7 @@ data | LIST of dictionary |
               "stopPrice": "9100",
               "limitPrice": "9120",
               "orderType": "STOP",
-              "isTriggered": "true" 
+              "isTriggered": "True" 
             } ]
 }
 ```
@@ -1358,7 +1358,7 @@ data | LIST of dictionary |
 \>stopPrice|STRING|Stop price of closed stop order (only applicable for STOP order types)
 \>limitPrice|STRING|Limit price of closed stop order (only applicable for STOP order types)
 \>ordertype|STRING  | `LIMIT` or `STOP`
-\>isTriggered|STRING|`false` or `true` 
+\>isTriggered|STRING|`False` or `True` 
 
 
 #### OrderModified
@@ -1381,7 +1381,7 @@ data | LIST of dictionary |
               "timeInForce": "GTC",
               "timestamp": "1594943491077"
               "orderType": "LIMIT",
-              "isTriggered": "false" 
+              "isTriggered": "False" 
             } ]
 }
 ```
@@ -1412,7 +1412,7 @@ data | LIST of dictionary |
 \>orderType| STRING | `LIMIT` or `STOP`
 \>stopPrice|STRING|Stop price of modified order (only applicable for STOP order types)
 \>limitPrice|STRING|Limit price of modified order (only applicable for STOP order types)
-\>isTriggered|STRING|`false` or `true` 
+\>isTriggered|STRING|`False` or `True` 
 
 
 #### OrderMatched
@@ -1444,7 +1444,7 @@ data | LIST of dictionary |
               "limitPrice": "9050", 
               "fees": "3.7",
               "feeInstrumentId": "FLEX",   
-              "isTriggered": "false"
+              "isTriggered": "False"
         }
     ]
 }
@@ -1477,7 +1477,7 @@ data | LIST of dictionary |
 \>orderType|STRING|<ul><li>`LIMIT`</li><li>`MARKET`</li><li>`STOP`</li></ul>
 \>fees|STRING|Amount of fees paid from this match ID 
 \>feeInstrumentId|STRING|Instrument ID of fees paid from this match ID 
-\>isTriggered|STRING|`false` (or `true` for STOP order types)
+\>isTriggered|STRING|`False` (or `True` for STOP order types)
 
 
 ## Subscriptions - Public
@@ -1506,7 +1506,7 @@ Multiple subscriptions to different channels both public and private can be made
 {
   "event": "subscribe", 
   "channel": "futures/depth:BTC-USD-SWAP-LIN", 
-  "success": true, 
+  "success": True, 
   "tag": "103", 
   "timestamp": "1607985371601"
 }
@@ -1547,7 +1547,7 @@ This orderbook depth channel sends a snapshot of the entire orderbook every 50ms
 Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes | `subscribe`
-tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply
 args | LIST | Yes | list of individual markets `futures/depth:<marketCode>`
 
 <sub>**Channel Update Fields**</sub>
@@ -1581,7 +1581,7 @@ data | LIST of dictionary |
 {
   "event": "subscribe", 
   "channel": ["trade:BTC-USD-SWAP-LIN"], 
-  "success": true, 
+  "success": True, 
   "tag": "1", 
   "timestamp": "1594299886880"
 }
@@ -1612,7 +1612,7 @@ This trade channel sends public trade information whenever an order is matched o
 Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes | `subscribe`
-tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply
 args | LIST | Yes | list of individual markets `trade:<marketCode>`
 
 <sub>**Channel Update Fields**</sub>
@@ -1637,6 +1637,14 @@ data | LIST of dictionary |
 {
   "op": "subscribe", 
   "tag": 1,
+  "args": ["ticker:all"]
+}
+
+OR
+
+{
+  "op": "subscribe", 
+  "tag": 1,
   "args": ["ticker:FLEX-USD"]
 }
 ```
@@ -1646,8 +1654,18 @@ data | LIST of dictionary |
 ```json
 {
   "event": "subscribe", 
+  "channel": ["ticker:all"],
+  "success": True,
+  "tag": "1",
+  "timestamp": "1594299886890"
+}
+
+OR
+
+{
+  "event": "subscribe", 
   "channel": ["ticker:FLEX-USD"],
-  "success": true,
+  "success": True,
   "tag": "1",
   "timestamp": "1594299886890"
 }
@@ -1662,6 +1680,7 @@ data | LIST of dictionary |
               "marketCode": "FLEX-USD",
               "last": "5.999",
               "markPrice": "6.001",
+              "lastMarkPrice": "5.991",
               "open24h": "5.98",
               "volume24h": "120045",
               "currencyVolume24h": "790337",
@@ -1683,8 +1702,8 @@ The ticker channel pushes live information about the contract.
 Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes | `subscribe`
-tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
-args | LIST | Yes | list of individual markets `ticker:<marketCode>`
+tag | INTEGER or STRING | No | If given it will be echoed in the reply
+args | LIST | Yes | `ticker:all` or a list of individual markets `ticker:<marketCode>`
 
 <sub>**Channel Update Fields**</sub>
 
@@ -1723,7 +1742,7 @@ data | LIST of dictionary |
 {
   "event": "subscribe", 
   "channel": ["candles60s:BTC-USD-SWAP-LIN"], 
-  "success": true, 
+  "success": True, 
   "tag": "1", 
   "timestamp": "1594313762698"
 }
@@ -1760,7 +1779,7 @@ The candles channel pushes candlestick data for the current candle.
 Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes | `subscribe`
-tag | INTEGER | No | If given and non-zero, it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply
 args | LIST | Yes | list of individual candle granularity and market `candles<granularity>:<marketCode>`
 
 <sub>**Channel Update Fields**</sub>
@@ -1773,6 +1792,165 @@ data | LIST of dictionary |
 \>candle | LIST of strings  | <ol><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ol>
 
 
+### Liquidation RFQ
+
+> **Request format**
+
+```json
+{
+  "op": "subscribe", 
+  "tag": 1,
+  "args": ["liquidationRFQ"]
+}
+```
+
+> **Success response format**
+
+```json
+{
+  "event": "subscribe", 
+  "channel": "liquidationRFQ", 
+  "success": True, 
+  "tag": "1", 
+  "timestamp": "1613774604469"
+}
+```
+
+> **Channel update format**
+
+```json
+{
+  "table": "liquidationRFQ",
+  "data": [ {
+              "marketCode": "BTC-USD-SWAP-LIN",
+              "quantity": "0.103",
+              "timestamp": "1613774607889"
+          } ]
+}
+```
+
+**Channel Update Frequency**: real-time, whenever there is planned liquidation of a clients position 
+
+The liqudation RFQ (request for quotes) channel publishes a message 500ms before a liquidation event is due to occur.  The message will contain the market code and liquidation quantity and is designed to give users an opportunity to make a market for the upcoming liqudation event.
+
+<sub>**Request Parameters**</sub> 
+
+Parameters |Type| Required| Description |
+--------|-----|---|-----------|
+op | STRING| Yes | `subscribe`
+tag | INTEGER or STRING | No | If given it will be echoed in the reply
+args | Single element LIST| Yes | `liquidationRFQ`
+
+<sub>**Channel Update Fields**</sub>
+
+Fields |Type | Description|
+-------------------------- | -----|--------- |
+table | STRING | `liquidationRFQ`
+data | LIST of dictionary |
+\>marketCode | STRING   | Market code of liquidation |
+\>quantity | STRING  | Liqudation quantity | 
+\>timestamp | STRING  |  Millisecond timestamp | 
+
+
+### Market
+
+> **Request format**
+
+```json
+{
+  "op": "subscribe", 
+  "tag": 1,
+  "args": ["market:all"]
+}
+
+OR
+
+{
+  "op": "subscribe", 
+  "tag": 1,
+  "args": ["market:FLEX-USD", ........]
+}
+```
+
+> **Success response format**
+
+```json
+{
+  "event": "subscribe", 
+  "channel": "<args value>",
+  "success": True,
+  "tag": "1",
+  "timestamp": "1594299886890"
+}
+```
+
+> **Channel update format**
+
+```json
+{
+  "table": "ticker",
+  "data": [ {
+              "marketPrice": "0.367",
+              "listingDate": "1593288000000", 
+              "qtyIncrement": "0.1", 
+              "upperPriceBound": "0.417", 
+              "lowerPriceBound": "0.317", 
+              "counter": "USD", 
+              "type": "SPOT", 
+              "marketId": "3001000000000", 
+              "referencePair": "FLEX/USD", 
+              "tickSize": "0.001", 
+              "marketPriceLastUpdated": "1613769981920", 
+              "contractValCurrency": "FLEX", 
+              "name": "FLEX/USD Spot", 
+              "marketCode": "FLEX-USD", 
+              "marginCurrency": "USD", 
+              "base": "FLEX"
+          }, 
+          ........
+        ]
+}
+```
+
+**Channel Update Frequency:** 1s
+
+The market channel pushes live information about the market such as the current market price and the lower & upper sanity bounds as well as reference data related to the market.
+
+The websocket will reply with the shown success response format for **each** market which has been successfully subscribed to.
+
+If a subscription has been made to **market:all**, the data array in the message from this channel will contain a JSON **list** of all markets. Each JSON will contain information for each market seperately. Otherwise the data array will contain a single JSON corresponding to one market per market channel subscription.
+
+<sub>**Request Parameters**</sub> 
+
+Parameters |Type| Required| Description |
+--------|-----|---|-----------|
+op | STRING| Yes | `subscribe`
+tag | INTEGER or STRING | No | If given it will be echoed in the reply
+args | LIST | Yes | `market:all` or a list of individual markets `market:<marketCode>`
+
+<sub>**Channel Update Fields**</sub>
+
+Fields |Type | Description|
+-------------------------- | -----|--------- |
+table | STRING | `ticker`
+data | LIST of dictionaries |
+\>marketPrice | STRING   | Mark price|
+\>listingDate | STRING   | Millisecond timestamp |
+\>qtyIncrement | STRING   | Quantity increment |
+\>upperPriceBound | STRING   | Upper sanity price bound|
+\>lowerPriceBound     | STRING   | Lower sanity price bound |
+\>counter     | STRING   | 
+\>type     | STRING   | 
+\>marketId     | STRING   | 
+\>referencePair     | STRING   | 
+\>tickSize     | STRING   | Tick size |
+\>marketPriceLastUpdated     | STRING | Millisecond timestamp|
+\>contractValCurrency     | STRING   | 
+\>name   | STRING   | 
+\>marketCode   | STRING  | 
+\>marginCurrency   | STRING |
+\>base     | STRING   | 
+
 ## Other Responses
 
 By subscribing to an authenticated websocket there may be instances when a REST method will also generate a websocket reponse in addition to the REST reply.  There are also some GUI commands which will generate a websocket reponse.
@@ -1784,7 +1962,7 @@ By subscribing to an authenticated websocket there may be instances when a REST 
 ```json
 {
   "event": "CANCEL",
-  "submitted": true,
+  "submitted": True,
   "timestamp": "1612476498953"
 }
 ```
@@ -1806,7 +1984,7 @@ This action can also be executed via the trading GUI using the **Cancel All** bu
   "event": "<opValue>",
   "message": "<errorMessage>",
   "code": "<errorCode>",
-  "success": false
+  "success": False
 }
 ```
 
