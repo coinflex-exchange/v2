@@ -1,5 +1,10 @@
 # Change Log
 
+**2021-02-20**
+
+* Added new websocket API [Liquidation RFQ](#websocket-api-subscriptions-public-liquidation-rfq), a subsription channel publishing upcoming liquidations
+* Added new websocket API [Market](#websocket-api-subscriptions-public-market), a subsription channel publishing market information for each order book
+
 **2021-02-05**
 
 * Added new REST API [GET /v2.1/orders](#rest-api-methods-private-get-v2-1-orders) to get all orders of current user
@@ -16,9 +21,9 @@
 
 **2020-12-14**
 
-* Added new websocket API Place Batch Orders command
-* Added new websocket API Cancel Batch Orders command
-* Added new websocket API Modify Batch Orders command
+* Added new websocket API [Place Batch Orders](#websocket-api-order-commands-place-batch-orders)
+* Added new websocket API [Cancel Batch Orders](#websocket-api-order-commands-cancel-batch-orders)
+* Added new websocket API [Modify Batch Orders](#websocket-api-order-commands-modify-batch-orders)
 
 **2020-12-10**
 
