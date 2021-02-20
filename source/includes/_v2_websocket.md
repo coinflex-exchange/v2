@@ -1645,7 +1645,7 @@ OR
 {
   "op": "subscribe", 
   "tag": 1,
-  "args": ["ticker:FLEX-USD"]
+  "args": ["ticker:FLEX-USD", ........]
 }
 ```
 
@@ -1654,17 +1654,7 @@ OR
 ```json
 {
   "event": "subscribe", 
-  "channel": ["ticker:all"],
-  "success": True,
-  "tag": "1",
-  "timestamp": "1594299886890"
-}
-
-OR
-
-{
-  "event": "subscribe", 
-  "channel": ["ticker:FLEX-USD"],
+  "channel": "<args value>",
   "success": True,
   "tag": "1",
   "timestamp": "1594299886890"
@@ -1695,7 +1685,11 @@ OR
 
 **Channel Update Frequency:** 100ms
 
-The ticker channel pushes live information about the contract.
+The ticker channel pushes live price and volume information about the contract.
+
+The websocket will reply with the shown success response format for **each** ticker channel which has been successfully subscribed to.
+
+The data array in the message from this ticker channel will contain a single JSON corresponding to one ticker subscription.
 
 <sub>**Request Parameters**</sub> 
 
@@ -1888,7 +1882,7 @@ OR
 
 ```json
 {
-  "table": "ticker",
+  "table": "market",
   "data": [ {
               "marketPrice": "0.367",
               "listingDate": "1593288000000", 
@@ -1932,7 +1926,7 @@ args | LIST | Yes | `market:all` or a list of individual markets `market:<market
 
 Fields |Type | Description|
 -------------------------- | -----|--------- |
-table | STRING | `ticker`
+table | STRING | `market`
 data | LIST of dictionaries |
 \>marketPrice | STRING   | Mark price|
 \>listingDate | STRING   | Millisecond timestamp |
