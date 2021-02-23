@@ -10,6 +10,10 @@
 * Added new REST API [GET /v2.1/orders](#rest-api-methods-private-get-v2-1-orders) to get all orders of current user
 * Added new REST API [GET /v2/candles](#rest-api-methods-public-get-v2-candles) to get candlestick data for the current candle
 * Added new REST API [GET /v2/funding-rates/{marketCode}](#rest-api-methods-private-get-v2-funding-rates-marketcode) to get funding rates by marketCode
+* Updated REST API [GET /v2/orders](#rest-api-methods-private-get-v2-orders)
+    * type of timestamp changed from INTEGER to STRING
+    * changed field name from `remainQuantity` to `remainingQuantity`
+    * type of `orderCreated` and `lastModified` and `lastTradeTimestamp` changed from STRING TO INTEGER
 
 **2021-01-26**
 

@@ -830,7 +830,7 @@ print(resp.json())
 ```python
 {
   "event": "orders",
-  "timestamp": 1593617005438,
+  "timestamp": "1593617005438",
   "accountId": "<Your Account ID>",
   "data": [ {
               "orderId": "160039151345856176",
@@ -839,13 +839,13 @@ print(resp.json())
               "side": "BUY",
               "orderType": "LIMIT"|"STOP",
               "quantity": "1.00",
-              "remainQuantity": "1.00",
+              "remainingQuantity": "1.00",
               "price": "1.00"|null,               #for limit order, null for stop order
               "stopPrice": "<stopPrice>"|null,    #for stop order, null for limit order 
               "limitPrice": "<limitPrice>"|null,  #for stop order, null for limit order 
-              "orderCreated": "1593617008698",
-              "lastModified": "1593617008698",      
-              "lastTradeTimestamp": "1593617008698",
+              "orderCreated": 1593617008698,
+              "lastModified": 1593617008698,
+              "lastTradeTimestamp": 1593617008698,
               "timeInForce": "GTC"
             },
             ...
@@ -860,23 +860,23 @@ Returns all the open orders of the account connected to the API key initiating t
 Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 event | STRING | `orders`
-timestamp | INTEGER | Millisecond timestamp
-accountId | STRING    | Account ID
+timestamp | STRING | Millisecond timestamp
+accountId | STRING | Account ID
 data | LIST of dictionaries |
-\>orderId   | STRING    | Unique order ID from the exchange |
-\>marketCode| STRING    | Market code          |
+\>orderId | STRING | Unique order ID from the exchange |
+\>marketCode| STRING | Market code |
 \>clientOrderId| STRING | Client assigned ID to help manage and identify orders |
-\>side      | STRING    | `BUY` or `SELL`         |
-\>orderType | STRING    | `LIMIT` or `STOP`     |
-\>quantity  | STRING    | Quantity submitted          |
-\>remainQuantity|STRING | Remainning quantity          |
-\>price     | STRING    | Price submitted          |
-\>stopPrice | STRING    | Stop price for the stop order           |
-\>limitPrice| STRING    | Limit price for the stop limit order          |
-\>orderCreated| STRING  |Timestamp when order was created|
-\>lastModified| STRING  |Timestamp when order was last mordified|
-\>lastTradeTimestamp| STRING| Timestamp when order was last traded|
-\>timeInForce | STRING  | Time in force          |
+\>side | STRING | `BUY` or `SELL` |
+\>orderType | STRING | `LIMIT` or `STOP` |
+\>quantity  | STRING | Quantity submitted |
+\>remainingQuantity|STRING | Remainning quantity |
+\>price | STRING | Price submitted |
+\>stopPrice | STRING | Stop price for the stop order |
+\>limitPrice| STRING | Limit price for the stop limit order |
+\>orderCreated| INTEGER | Timestamp when order was created |
+\>lastModified| INTEGER | Timestamp when order was last mordified |
+\>lastTradeTimestamp| INTEGER | Timestamp when order was last traded |
+\>timeInForce | STRING | Time in force |
 
 
 ### GET `/v2.1/orders` PENDING
