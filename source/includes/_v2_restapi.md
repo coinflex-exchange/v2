@@ -804,7 +804,7 @@ print(resp.json())
 ```json
 {
   "event": "orders",
-  "timestamp": 1593617005438,
+  "timestamp": "1593617005438",
   "accountId": "<Your Account ID>",
   "data": [ {
               "orderId": "160039151345856176",
@@ -813,13 +813,13 @@ print(resp.json())
               "side": "BUY",
               "orderType": "LIMIT"|"STOP",
               "quantity": "1.00",
-              "remainQuantity": "1.00",
+              "remainingQuantity": "1.00",
               "price": "1.00"|null,               #for limit order, null for stop order
               "stopPrice": "<stopPrice>"|null,    #for stop order, null for limit order 
               "limitPrice": "<limitPrice>"|null,  #for stop order, null for limit order 
-              "orderCreated": "1593617008698",
-              "lastModified": "1593617008698",      
-              "lastTradeTimestamp": "1593617008698",
+              "orderCreated": 1593617008698,
+              "lastModified": 1593617008698,
+              "lastTradeTimestamp": 1593617008698,
               "timeInForce": "GTC"
             },
             ...
