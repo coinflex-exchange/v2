@@ -526,6 +526,13 @@
 <li>Added new REST API <a href="#rest-api-methods-private-get-v2-1-orders">GET /v2.1/orders</a> to get all orders of current user</li>
 <li>Added new REST API <a href="#rest-api-methods-public-get-v2-candles">GET /v2/candles</a> to get candlestick data for the current candle</li>
 <li>Added new REST API <a href="#rest-api-methods-private-get-v2-funding-rates-marketcode">GET /v2/funding-rates/{marketCode}</a> to get funding rates by marketCode</li>
+<li>Updated REST API <a href="#rest-api-methods-private-get-v2-orders">GET /v2/orders</a>
+
+<ul>
+<li>type of timestamp changed from INTEGER to STRING</li>
+<li>changed field name from <code>remainQuantity</code> to <code>remainingQuantity</code></li>
+<li>type of <code>orderCreated</code> and <code>lastModified</code> and <code>lastTradeTimestamp</code> changed from STRING TO INTEGER</li>
+</ul></li>
 </ul>
 
 <p><strong>2021-01-26</strong></p>
@@ -4988,7 +4995,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="p">{</span>
   <span class="s">"event"</span><span class="p">:</span> <span class="s">"orders"</span><span class="p">,</span>
-  <span class="s">"timestamp"</span><span class="p">:</span> <span class="mi">1593617005438</span><span class="p">,</span>
+  <span class="s">"timestamp"</span><span class="p">:</span> <span class="s">"1593617005438"</span><span class="p">,</span>
   <span class="s">"accountId"</span><span class="p">:</span> <span class="s">"&lt;Your Account ID&gt;"</span><span class="p">,</span>
   <span class="s">"data"</span><span class="p">:</span> <span class="p">[</span> <span class="p">{</span>
               <span class="s">"orderId"</span><span class="p">:</span> <span class="s">"160039151345856176"</span><span class="p">,</span>
@@ -4997,13 +5004,13 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
               <span class="s">"side"</span><span class="p">:</span> <span class="s">"BUY"</span><span class="p">,</span>
               <span class="s">"orderType"</span><span class="p">:</span> <span class="s">"LIMIT"</span><span class="o">|</span><span class="s">"STOP"</span><span class="p">,</span>
               <span class="s">"quantity"</span><span class="p">:</span> <span class="s">"1.00"</span><span class="p">,</span>
-              <span class="s">"remainQuantity"</span><span class="p">:</span> <span class="s">"1.00"</span><span class="p">,</span>
+              <span class="s">"remainingQuantity"</span><span class="p">:</span> <span class="s">"1.00"</span><span class="p">,</span>
               <span class="s">"price"</span><span class="p">:</span> <span class="s">"1.00"</span><span class="o">|</span><span class="n">null</span><span class="p">,</span>               <span class="c1">#for limit order, null for stop order
 </span>              <span class="s">"stopPrice"</span><span class="p">:</span> <span class="s">"&lt;stopPrice&gt;"</span><span class="o">|</span><span class="n">null</span><span class="p">,</span>    <span class="c1">#for stop order, null for limit order 
 </span>              <span class="s">"limitPrice"</span><span class="p">:</span> <span class="s">"&lt;limitPrice&gt;"</span><span class="o">|</span><span class="n">null</span><span class="p">,</span>  <span class="c1">#for stop order, null for limit order 
-</span>              <span class="s">"orderCreated"</span><span class="p">:</span> <span class="s">"1593617008698"</span><span class="p">,</span>
-              <span class="s">"lastModified"</span><span class="p">:</span> <span class="s">"1593617008698"</span><span class="p">,</span>      
-              <span class="s">"lastTradeTimestamp"</span><span class="p">:</span> <span class="s">"1593617008698"</span><span class="p">,</span>
+</span>              <span class="s">"orderCreated"</span><span class="p">:</span> <span class="mi">1593617008698</span><span class="p">,</span>
+              <span class="s">"lastModified"</span><span class="p">:</span> <span class="mi">1593617008698</span><span class="p">,</span>
+              <span class="s">"lastTradeTimestamp"</span><span class="p">:</span> <span class="mi">1593617008698</span><span class="p">,</span>
               <span class="s">"timeInForce"</span><span class="p">:</span> <span class="s">"GTC"</span>
             <span class="p">},</span>
             <span class="p">...</span>
@@ -5028,7 +5035,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </tr>
 <tr>
 <td>timestamp</td>
-<td>INTEGER</td>
+<td>STRING</td>
 <td>Millisecond timestamp</td>
 </tr>
 <tr>
@@ -5072,7 +5079,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>Quantity submitted</td>
 </tr>
 <tr>
-<td>&gt;remainQuantity</td>
+<td>&gt;remainingQuantity</td>
 <td>STRING</td>
 <td>Remainning quantity</td>
 </tr>
@@ -5093,17 +5100,17 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </tr>
 <tr>
 <td>&gt;orderCreated</td>
-<td>STRING</td>
+<td>INTEGER</td>
 <td>Timestamp when order was created</td>
 </tr>
 <tr>
 <td>&gt;lastModified</td>
-<td>STRING</td>
+<td>INTEGER</td>
 <td>Timestamp when order was last mordified</td>
 </tr>
 <tr>
 <td>&gt;lastTradeTimestamp</td>
-<td>STRING</td>
+<td>INTEGER</td>
 <td>Timestamp when order was last traded</td>
 </tr>
 <tr>
