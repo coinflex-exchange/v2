@@ -5,7 +5,7 @@
 * Updated REST API [GET /v2/funding-rates/{marketCode}](#rest-api-methods-public-get-v2-funding-rates-marketcode)
     * does not require signature anymore, it's public
     * change type of `limit` `startTime` `endTime` from STRING to LONG
-    * change `startTime` `endTime` from datetime (e.g.: `2020-12-08 20:00:00`) to millisecond timestamp(e.g.: `1579450778000`)
+    * change `startTime` `endTime` from datetime (e.g. `2020-12-08 20:00:00`) to millisecond timestamp(e.g. `1579450778000`)
 
 **2021-02-20**
 

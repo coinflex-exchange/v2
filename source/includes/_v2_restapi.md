@@ -1921,8 +1921,8 @@ Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 marketCode | STRING | YES | e.g. BTC-USD-REPO-LIN , available values: BTC-USD-REPO-LIN, ETH-USD-REPO-LIN |
 limit | LONG | NO | default is `50` |
-startTime | LONG | NO | e.g. `1579450778000`, default is 7 days ago from time now |
-endTime | LONG | NO | e.g. `1613978625000`, default is time now |
+startTime | LONG | NO | millisecond timestamp, e.g. `1579450778000`, default is 7 days ago from time now |
+endTime | LONG | NO | millisecond timestamp, e.g. `1613978625000`, default is time now |
 
 > **SUCCESSFUL RESPONSE**
 
