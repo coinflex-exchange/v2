@@ -1,5 +1,12 @@
 # Change Log
 
+**2021-02-26**
+
+* Updated REST API [GET /v2/funding-rates/{marketCode}](#rest-api-methods-public-get-v2-funding-rates-marketcode)
+    * does not require signature anymore, it's public
+    * change type of `limit` `startTime` `endTime` from STRING to LONG
+    * change `startTime` `endTime` from datetime (e.g.: `2020-12-08 20:00:00`) to millisecond timestamp(e.g.: `1579450778000`)
+
 **2021-02-20**
 
 * Added new websocket API [Liquidation RFQ](#websocket-api-subscriptions-public-liquidation-rfq), a subsription channel publishing upcoming liquidations
@@ -9,7 +16,7 @@
 
 * Added new REST API [GET /v2.1/orders](#rest-api-methods-private-get-v2-1-orders) to get all orders of current user
 * Added new REST API [GET /v2/candles](#rest-api-methods-public-get-v2-candles) to get candlestick data for the current candle
-* Added new REST API [GET /v2/funding-rates/{marketCode}](#rest-api-methods-private-get-v2-funding-rates-marketcode) to get funding rates by marketCode
+* Added new REST API [GET /v2/funding-rates/{marketCode}](#rest-api-methods-public-get-v2-funding-rates-marketcode) to get funding rates by marketCode
 * Updated REST API [GET /v2/orders](#rest-api-methods-private-get-v2-orders)
     * type of timestamp changed from INTEGER to STRING
     * changed field name from `remainQuantity` to `remainingQuantity`

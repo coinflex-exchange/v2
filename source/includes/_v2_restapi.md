@@ -1552,61 +1552,6 @@ print(resp.json())
 Cancels a pending delivery.
 
 
-### GET `/v2/funding-rates/{marketCode}`
-
-Requires authentication. Get funding rates by marketCode.
-
-> **Request**
-
-```json
-GET `/v2.1/funding-rates/{marketCode}`
-```
-
-> **Request body**
-
-```json
-{
-    "limit": "3",
-    "startTime": "2020-12-08 20:00:00",
-    "endTime": "2020-12-09 20:00:00"
-}
-```
-
-Request Parameters | Type | Required | Description |
------------------- | ---- | -------- | ----------- |
-marketCode | STRING | YES | e.g. BTC-USD-REPO-LIN , available values: BTC-USD-REPO-LIN ETH-USD-REPO-LIN |
-limit | STRING | NO | default is `50` |
-startTime | STRING | NO | e.g. `2020-02-01 20:00:00`, default is 7 days ago from time now |
-endTime | STRING | NO | e.g. `2020-02-02 20:00:00`, default is time now |
-
-> **SUCCESSFUL RESPONSE**
-
-```json
-{
-    "event": "fundingRates",
-    "timestamp": "1611645666834",
-    "data": [
-        {
-            "fundingRate": "0.00008",
-            "marketCode": "BTC-USD-REPO-LIN",
-            "marketPrice": "33937.2848",
-            "index": "2.78222423",
-            "timestamp": "1606461774458"
-        },
-        ...
-    ]
-}
-```
-
-Response Fields | Type | Description |
-------------------- | ---- | ----------- |
-timestamp | STRING | Timestamp of this response |
-fundingRate | STRING | |
-marketCode | STRING | |
-marketPrice | STRING | |
-index | STRING | |
-timestamp(in the data list) | STRING | |
-
 ##Methods - Public
 
 ###GET `/v2/all/markets`
@@ -1950,3 +1895,59 @@ limit | INTEGER | NO | default value: 500 |
 Fields |Type | Description|
 -------------------------- | -----|--------- |
 candle | LIST of strings  | <ul><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ul>
+
+
+### GET `/v2/funding-rates/{marketCode}`
+
+Get funding rates by marketCode.
+
+> **Request**
+
+```json
+GET /v2.1/funding-rates/{marketCode}
+```
+
+> **Request body**
+
+```json
+{
+    "limit": 3,
+    "startTime": 1579450778000,
+    "endTime": 1613978625000
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+marketCode | STRING | YES | e.g. BTC-USD-REPO-LIN , available values: BTC-USD-REPO-LIN, ETH-USD-REPO-LIN |
+limit | LONG | NO | default is `50` |
+startTime | LONG | NO | e.g. `1579450778000`, default is 7 days ago from time now |
+endTime | LONG | NO | e.g. `1613978625000`, default is time now |
+
+> **SUCCESSFUL RESPONSE**
+
+```json
+{
+    "event": "fundingRates",
+    "timestamp": "1611645666834",
+    "data": [
+        {
+            "fundingRate": "0.00008",
+            "marketCode": "BTC-USD-REPO-LIN",
+            "marketPrice": "33937.2848",
+            "index": "2.78222423",
+            "timestamp": "1606461774458"
+        },
+        ...
+    ]
+}
+```
+
+Response Fields | Type | Description |
+------------------- | ---- | ----------- |
+timestamp | STRING | Timestamp of this response |
+fundingRate | STRING | |
+marketCode | STRING | |
+marketPrice | STRING | |
+index | STRING | |
+timestamp(in the data list) | STRING | |
