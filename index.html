@@ -470,9 +470,6 @@
                           <li>
                             <a href="#rest-api-methods-private-delete-v2-1-delivery-orders-deliveryorderid" class="toc-h3 toc-link" data-title="DELETE <code>/v2.1/delivery/orders/{deliveryOrderId}</code>">DELETE <code>/v2.1/delivery/orders/{deliveryOrderId}</code></a>
                           </li>
-                          <li>
-                            <a href="#rest-api-methods-private-get-v2-funding-rates-marketcode" class="toc-h3 toc-link" data-title="GET <code>/v2/funding-rates/{marketCode}</code>">GET <code>/v2/funding-rates/{marketCode}</code></a>
-                          </li>
                       </ul>
                   </li>
                   <li>
@@ -499,6 +496,9 @@
                           <li>
                             <a href="#rest-api-methods-public-get-v2-candles" class="toc-h3 toc-link" data-title="GET <code>/v2/candles</code>">GET <code>/v2/candles</code></a>
                           </li>
+                          <li>
+                            <a href="#rest-api-methods-public-get-v2-funding-rates-marketcode" class="toc-h3 toc-link" data-title="GET <code>/v2/funding-rates/{marketCode}</code>">GET <code>/v2/funding-rates/{marketCode}</code></a>
+                          </li>
                       </ul>
                   </li>
               </ul>
@@ -513,6 +513,18 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-02-26</strong></p>
+
+<ul>
+<li>Updated REST API <a href="#rest-api-methods-public-get-v2-funding-rates-marketcode">GET /v2/funding-rates/{marketCode}</a>
+
+<ul>
+<li>does not require signature anymore, it&#39;s public</li>
+<li>change type of <code>limit</code> <code>startTime</code> <code>endTime</code> from STRING to LONG</li>
+<li>change <code>startTime</code> <code>endTime</code> from datetime (e.g.: <code>2020-12-08 20:00:00</code>) to millisecond timestamp(e.g.: <code>1579450778000</code>)</li>
+</ul></li>
+</ul>
+
 <p><strong>2021-02-20</strong></p>
 
 <ul>
@@ -525,7 +537,7 @@
 <ul>
 <li>Added new REST API <a href="#rest-api-methods-private-get-v2-1-orders">GET /v2.1/orders</a> to get all orders of current user</li>
 <li>Added new REST API <a href="#rest-api-methods-public-get-v2-candles">GET /v2/candles</a> to get candlestick data for the current candle</li>
-<li>Added new REST API <a href="#rest-api-methods-private-get-v2-funding-rates-marketcode">GET /v2/funding-rates/{marketCode}</a> to get funding rates by marketCode</li>
+<li>Added new REST API <a href="#rest-api-methods-public-get-v2-funding-rates-marketcode">GET /v2/funding-rates/{marketCode}</a> to get funding rates by marketCode</li>
 <li>Updated REST API <a href="#rest-api-methods-private-get-v2-orders">GET /v2/orders</a>
 
 <ul>
@@ -6092,113 +6104,6 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <span class="p">}</span>
 </code></pre></div>
 <p>Cancels a pending delivery.</p>
-<h3 id='rest-api-methods-private-get-v2-funding-rates-marketcode'>GET <code>/v2/funding-rates/{marketCode}</code></h3>
-<p>Requires authentication. Get funding rates by marketCode.</p>
-
-<blockquote>
-<p><strong>Request</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">`/v</span><span class="mf">2.1</span><span class="err">/funding-rates/</span><span class="p">{</span><span class="err">marketCode</span><span class="p">}</span><span class="err">`</span><span class="w">
-</span></code></pre></div>
-<blockquote>
-<p><strong>Request body</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"startTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-08 20:00:00"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"endTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-09 20:00:00"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<table><thead>
-<tr>
-<th>Request Parameters</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>marketCode</td>
-<td>STRING</td>
-<td>YES</td>
-<td>e.g. BTC-USD-REPO-LIN , available values: BTC-USD-REPO-LIN ETH-USD-REPO-LIN</td>
-</tr>
-<tr>
-<td>limit</td>
-<td>STRING</td>
-<td>NO</td>
-<td>default is <code>50</code></td>
-</tr>
-<tr>
-<td>startTime</td>
-<td>STRING</td>
-<td>NO</td>
-<td>e.g. <code>2020-02-01 20:00:00</code>, default is 7 days ago from time now</td>
-</tr>
-<tr>
-<td>endTime</td>
-<td>STRING</td>
-<td>NO</td>
-<td>e.g. <code>2020-02-02 20:00:00</code>, default is time now</td>
-</tr>
-</tbody></table>
-
-<blockquote>
-<p><strong>SUCCESSFUL RESPONSE</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fundingRates"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1611645666834"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"fundingRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00008"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-REPO-LIN"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"marketPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33937.2848"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"index"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.78222423"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1606461774458"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="err">...</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<table><thead>
-<tr>
-<th>Response Fields</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>timestamp</td>
-<td>STRING</td>
-<td>Timestamp of this response</td>
-</tr>
-<tr>
-<td>fundingRate</td>
-<td>STRING</td>
-<td></td>
-</tr>
-<tr>
-<td>marketCode</td>
-<td>STRING</td>
-<td></td>
-</tr>
-<tr>
-<td>marketPrice</td>
-<td>STRING</td>
-<td></td>
-</tr>
-<tr>
-<td>index</td>
-<td>STRING</td>
-<td></td>
-</tr>
-<tr>
-<td>timestamp(in the data list)</td>
-<td>STRING</td>
-<td></td>
-</tr>
-</tbody></table>
 <h2 id='rest-api-methods-public'>Methods - Public</h2><h3 id='rest-api-methods-public-get-v2-all-markets'>GET <code>/v2/all/markets</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
@@ -6829,6 +6734,113 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>candle</td>
 <td>LIST of strings</td>
 <td><ul><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ul></td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-public-get-v2-funding-rates-marketcode'>GET <code>/v2/funding-rates/{marketCode}</code></h3>
+<p>Get funding rates by marketCode.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mf">2.1</span><span class="err">/funding-rates/</span><span class="p">{</span><span class="err">marketCode</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>Request body</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"startTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">1579450778000</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"endTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">1613978625000</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>YES</td>
+<td>e.g. BTC-USD-REPO-LIN , available values: BTC-USD-REPO-LIN, ETH-USD-REPO-LIN</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>LONG</td>
+<td>NO</td>
+<td>default is <code>50</code></td>
+</tr>
+<tr>
+<td>startTime</td>
+<td>LONG</td>
+<td>NO</td>
+<td>e.g. <code>1579450778000</code>, default is 7 days ago from time now</td>
+</tr>
+<tr>
+<td>endTime</td>
+<td>LONG</td>
+<td>NO</td>
+<td>e.g. <code>1613978625000</code>, default is time now</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fundingRates"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1611645666834"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"fundingRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00008"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-REPO-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33937.2848"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"index"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.78222423"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1606461774458"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Response Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Timestamp of this response</td>
+</tr>
+<tr>
+<td>fundingRate</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>marketPrice</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>index</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp(in the data list)</td>
+<td>STRING</td>
+<td></td>
 </tr>
 </tbody></table>
 
