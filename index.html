@@ -473,6 +473,15 @@
                           <li>
                             <a href="#rest-api-methods-private-delete-v2-1-delivery-orders-deliveryorderid" class="toc-h3 toc-link" data-title="DELETE <code>/v2.1/delivery/orders/{deliveryOrderId}</code>">DELETE <code>/v2.1/delivery/orders/{deliveryOrderId}</code></a>
                           </li>
+                          <li>
+                            <a href="#rest-api-methods-private-post-v2-orders-place" class="toc-h3 toc-link" data-title="POST <code>/v2/orders/place</code>">POST <code>/v2/orders/place</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-post-v2-orders-modify" class="toc-h3 toc-link" data-title="POST <code>/v2/orders/modify</code>">POST <code>/v2/orders/modify</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-delete-v2-orders-cancel" class="toc-h3 toc-link" data-title="DELETE <code>/v2/orders/cancel</code>">DELETE <code>/v2/orders/cancel</code></a>
+                          </li>
                       </ul>
                   </li>
                   <li>
@@ -502,6 +511,9 @@
                           <li>
                             <a href="#rest-api-methods-public-get-v2-funding-rates-marketcode" class="toc-h3 toc-link" data-title="GET <code>/v2/funding-rates/{marketCode}</code>">GET <code>/v2/funding-rates/{marketCode}</code></a>
                           </li>
+                          <li>
+                            <a href="#rest-api-methods-public-get-v2-depth-marketcode-level" class="toc-h3 toc-link" data-title="GET <code>/v2/depth/{marketCode}/{level}</code>">GET <code>/v2/depth/{marketCode}/{level}</code></a>
+                          </li>
                       </ul>
                   </li>
               </ul>
@@ -516,6 +528,15 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-03-10</strong></p>
+
+<ul>
+<li>Added REST API <a href="#rest-api-methods-private-post-v2-orders-place">POST /v2/orders/place</a></li>
+<li>Added REST API <a href="#rest-api-methods-private-post-v2-orders-modify">POST /v2/orders/modify</a></li>
+<li>Added REST API <a href="#rest-api-methods-private-delete-v2-orders-cancel">DELETE /v2/orders/cancel</a></li>
+<li>Added REST API <a href="#rest-api-methods-public-get-v2-depth-marketcode-level">GET /v2/depth/{marketCode}/{level}</a></li>
+</ul>
+
 <p><strong>2021-02-26</strong></p>
 
 <ul>
@@ -6107,6 +6128,765 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <span class="p">}</span>
 </code></pre></div>
 <p>Cancels a pending delivery.</p>
+<h3 id='rest-api-methods-private-post-v2-orders-place'>POST <code>/v2/orders/place</code></h3>
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">POST</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/orders/place</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"recvWindow"</span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"responseType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FULL"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1615430912440</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"orders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1612249737724"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.001"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50007"</span><span class="w">
+        </span><span class="p">},</span><span class="w"> 
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1612249737724"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.002"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"54900"</span><span class="w">
+        </span><span class="p">},</span><span class="w"> 
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1612249737723"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.003"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"54901"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"13670827"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"placeOrder"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1615430915625"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1615430915596"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"710002"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FAILED sanity bound check as price (50007.0) &lt;  lower bound (54767.0)"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1612249737724"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50007.0"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.001"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="w">
+        </span><span class="p">},</span><span class="w"> 
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1615430915602"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1612249737724"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"54900.0"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.002"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="w">
+        </span><span class="p">},</span><span class="w"> 
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1615430915625"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1612249737723"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"54901.0"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.003"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Place orders.</p>
+
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>recvWindow</td>
+<td>LONG</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>responseType</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>NO</td>
+<td></td>
+</tr>
+<tr>
+<td>orders</td>
+<td>LIST</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>clientOrderId</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>side</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>timeInForce</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Default <code>GTC</code></td>
+</tr>
+<tr>
+<td>orderType</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>price</td>
+<td>STRING</td>
+<td>NO</td>
+<td></td>
+</tr>
+<tr>
+<td>stopPrice</td>
+<td>STRING</td>
+<td>NO</td>
+<td></td>
+</tr>
+<tr>
+<td>limitPrice</td>
+<td>STRING</td>
+<td>NO</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Parameters</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>event</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>data</td>
+<td>LIST</td>
+<td></td>
+</tr>
+<tr>
+<td>success</td>
+<td>STRING</td>
+<td>Whether an order has been successfully placed</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>code</td>
+<td>STRING</td>
+<td>Error code</td>
+</tr>
+<tr>
+<td>message</td>
+<td>STRING</td>
+<td>Error message</td>
+</tr>
+<tr>
+<td>clientOrderId</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>orderId</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>price</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>side</td>
+<td>STRING</td>
+<td><code>SELL</code> or <code>BUY</code></td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>timeInForce</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>orderType</td>
+<td>STRING</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-private-post-v2-orders-modify'>POST <code>/v2/orders/modify</code></h3>
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">POST</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/orders/modify</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"recvWindow"</span><span class="p">:</span><span class="w"> </span><span class="mi">13000</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"responseType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FULL"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1614331650143</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"orders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1614330009059"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"304369975621712260"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.007"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40001.0"</span><span class="w">
+        </span><span class="p">},</span><span class="w"> 
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"161224973777800"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.002"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40003.0"</span><span class="w">
+        </span><span class="p">},</span><span class="w"> 
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"161224973777900"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.003"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40004.0"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"modifyOrder"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1614331651243"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1614331651174"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40032"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid request data"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"161224973777800"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40003.0"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.002"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="w">
+        </span><span class="p">},</span><span class="w"> 
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1614331651174"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40032"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid request data"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"161224973777900"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40004.0"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.003"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="w">
+        </span><span class="p">},</span><span class="w"> 
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1614331651196"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1614330009059"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"304369975621712263"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40001.0"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.007"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderOpened"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"isTriggered"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Modify orders.</p>
+
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>recvWindow</td>
+<td>LONG</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>NO</td>
+<td></td>
+</tr>
+<tr>
+<td>responseType</td>
+<td>STRING</td>
+<td>YES</td>
+<td><code>FULL</code> or <code>ACK</code></td>
+</tr>
+<tr>
+<td>orders</td>
+<td>LIST</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>clientOrderId</td>
+<td>STRING</td>
+<td>NO</td>
+<td></td>
+</tr>
+<tr>
+<td>orderId</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>side</td>
+<td>STRING</td>
+<td>NO</td>
+<td></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING</td>
+<td>NO</td>
+<td></td>
+</tr>
+<tr>
+<td>price</td>
+<td>STRING</td>
+<td>NO</td>
+<td></td>
+</tr>
+<tr>
+<td>stopPrice</td>
+<td>STRING</td>
+<td>NO</td>
+<td></td>
+</tr>
+<tr>
+<td>limitPrice</td>
+<td>STRING</td>
+<td>NO</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Parameters</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>event</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>data</td>
+<td>LIST</td>
+<td></td>
+</tr>
+<tr>
+<td>success</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>code</td>
+<td>STRING</td>
+<td>Error code</td>
+</tr>
+<tr>
+<td>message</td>
+<td>STRING</td>
+<td>Error message</td>
+</tr>
+<tr>
+<td>clientOrderId</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>orderId</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>price</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>side</td>
+<td>STRING</td>
+<td><code>SELL</code> or <code>BUY</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td>STRING</td>
+<td>Status of the order</td>
+</tr>
+<tr>
+<td>status</td>
+<td>STRING</td>
+<td>Status of the order</td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>timeInForce</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>notice</td>
+<td>STRING</td>
+<td><code>OrderClosed</code> or <code>OrderMatched</code> or <code>OrderOpend</code></td>
+</tr>
+<tr>
+<td>orderType</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>isTriggered</td>
+<td>STRING</td>
+<td><code>true</code> or <code>false</code></td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-private-delete-v2-orders-cancel'>DELETE <code>/v2/orders/cancel</code></h3>
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">DELETE</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/orders/cancel</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"recvWindow"</span><span class="p">:</span><span class="w"> </span><span class="mi">200000</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"responseType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FULL"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1615454880374</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"orders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"304384250571714215"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1615453494726"</span><span class="w">
+        </span><span class="p">},</span><span class="w"> 
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1612249737724"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cancelOrder"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1615454881391"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1615454881383"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1615453494726"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"304384250571714215"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55006.0"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.006"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CANCELED_BY_USER"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.006"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderClosed"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"isTriggered"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w">
+        </span><span class="p">},</span><span class="w"> 
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1615454881433"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40035"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Open order not found with id"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1612249737724"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Cancel orders.</p>
+
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>recvWindow</td>
+<td>LONG</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>responseType</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>LONG</td>
+<td>NO</td>
+<td></td>
+</tr>
+<tr>
+<td>orders</td>
+<td>LIST</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>orderId</td>
+<td>STRING</td>
+<td>Either one of orderId or clientOrderId is required</td>
+<td></td>
+</tr>
+<tr>
+<td>clientOrderId</td>
+<td>STRING</td>
+<td>Either one of orderId or clientOrderId is required</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Parameters</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>event</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>data</td>
+<td>LIST</td>
+<td></td>
+</tr>
+<tr>
+<td>success</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>code</td>
+<td>STRING</td>
+<td>Error code</td>
+</tr>
+<tr>
+<td>message</td>
+<td>STRING</td>
+<td>Error message</td>
+</tr>
+<tr>
+<td>clientOrderId</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>orderId</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>price</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>side</td>
+<td>STRING</td>
+<td><code>SELL</code> or <code>BUY</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td>STRING</td>
+<td>Status of the order</td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>timeInForce</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>notice</td>
+<td>STRING</td>
+<td><code>OrderClosed</code> or <code>OrderMatched</code> or <code>OrderOpend</code></td>
+</tr>
+<tr>
+<td>orderType</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>isTriggered</td>
+<td>STRING</td>
+<td><code>true</code> or <code>false</code></td>
+</tr>
+</tbody></table>
 <h2 id='rest-api-methods-public'>Methods - Public</h2><h3 id='rest-api-methods-public-get-v2-all-markets'>GET <code>/v2/all/markets</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
@@ -6842,6 +7622,135 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </tr>
 <tr>
 <td>timestamp(in the data list)</td>
+<td>STRING</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-public-get-v2-depth-marketcode-level'>GET <code>/v2/depth/{marketCode}/{level}</code></h3>
+<p>Get order book by marketCode and level.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/depth/BTC-USD-SWAP-LIN/</span><span class="mi">5</span><span class="w"> 
+</span></code></pre></div>
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"depthL5"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1615457834446"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"asks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">[</span><span class="w">
+                    </span><span class="mi">54792</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mf">0.001</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="w">
+                </span><span class="p">],</span><span class="w"> 
+                </span><span class="p">[</span><span class="w">
+                    </span><span class="mf">54802.5</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mf">0.366</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="w">
+                </span><span class="p">],</span><span class="w"> 
+                </span><span class="p">[</span><span class="w">
+                    </span><span class="mi">54803</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mf">0.75</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="w">
+                </span><span class="p">],</span><span class="w"> 
+                </span><span class="p">[</span><span class="w">
+                    </span><span class="mi">54806</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mf">1.5</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="w">
+                </span><span class="p">],</span><span class="w"> 
+                </span><span class="p">[</span><span class="w">
+                    </span><span class="mf">54830.5</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mf">0.687</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+            </span><span class="p">],</span><span class="w"> 
+            </span><span class="nl">"bids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">[</span><span class="w">
+                    </span><span class="mf">54786.5</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="w">
+                </span><span class="p">],</span><span class="w"> 
+                </span><span class="p">[</span><span class="w">
+                    </span><span class="mf">54754.5</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mf">0.375</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="w">
+                </span><span class="p">],</span><span class="w"> 
+                </span><span class="p">[</span><span class="w">
+                    </span><span class="mi">54752</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mf">0.394</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="w">
+                </span><span class="p">],</span><span class="w"> 
+                </span><span class="p">[</span><span class="w">
+                    </span><span class="mf">54749.5</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mf">0.001</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="w">
+                </span><span class="p">],</span><span class="w"> 
+                </span><span class="p">[</span><span class="w">
+                    </span><span class="mf">54745.5</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mf">0.339</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+                    </span><span class="mi">0</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+            </span><span class="p">],</span><span class="w"> 
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1615457834388"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Response Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>event</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>data</td>
+<td>LIST</td>
+<td></td>
+</tr>
+<tr>
+<td>asks</td>
+<td>LIST of floats</td>
+<td>Sell side depth: <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol></td>
+</tr>
+<tr>
+<td>bids</td>
+<td>LIST of floats</td>
+<td>Buy side depth: <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol></td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp</td>
 <td>STRING</td>
 <td></td>
 </tr>
