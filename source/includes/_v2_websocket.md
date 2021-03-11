@@ -173,7 +173,15 @@ var secretKey = "API-SECRET";
 const ts = '' + Date.now();
 
 var sign = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(ts +'GET/auth/self/verify', secretKey));
-var msg = JSON.stringify({"op":"login","tag": 101,"data":{"apiKey": apiKey,"timestamp": ts,"signature": sign }});
+var msg = JSON.stringify({  
+                            "op": "login",
+                            "tag": 1,
+                            "data": {
+                              "apiKey": apiKey,
+                              "timestamp": ts,
+                              "signature": sign
+                            }
+                          });
 
 var ws = new WebSocket('wss://v2stgapi.coinflex.com/v2/websocket');
 
