@@ -1,5 +1,13 @@
 # Change Log
 
+**2021-03-10**
+
+* Added REST API [POST /v2/orders/place](#rest-api-methods-private-post-v2-orders-place)
+* Added REST API [POST /v2/orders/modify](#rest-api-methods-private-post-v2-orders-modify)
+* Added REST API [DELETE /v2/orders/cancel](#rest-api-methods-private-delete-v2-orders-cancel)
+* Added REST API [GET /v2/depth/{marketCode}/{level}](#rest-api-methods-public-get-v2-depth-marketcode-level)
+
+
 **2021-02-26**
 
 * Updated REST API [GET /v2/funding-rates/{marketCode}](#rest-api-methods-public-get-v2-funding-rates-marketcode)
