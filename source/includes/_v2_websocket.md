@@ -165,12 +165,15 @@ async def subscribe():
 asyncio.get_event_loop().run_until_complete(subscribe())
 ```
 ```javascript
+const CryptoJS = require("crypto-js");
+const WebSocket = require('ws');
+
 var apiKey = "API-KEY";
 var secretKey = "API-SECRET";
 const ts = '' + Date.now();
 
-var sign = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(secretKey, ts +'GET/auth/self/verify'));
-var msg = '{"op":"login","data":{"apiKey":"' + apiKey + '", "timestamp": "'+ ts + '", "signature":"'+ sign + '"}}';
+var sign = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(ts +'GET/auth/self/verify', secretKey));
+var msg = JSON.stringify({"op":"login","tag": 101,"data":{"apiKey": apiKey,"timestamp": ts,"signature": sign }});
 
 var ws = new WebSocket('wss://v2stgapi.coinflex.com/v2/websocket');
 
@@ -251,7 +254,7 @@ To construct the signature a clients API-Secret key is required.  API keys (publ
 
 The signature is calculated as:
 
-* `Base64(HmacSHA256(API-Secret, timestamp + 'GET/auth/self/verify'))`
+* `Base64(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret))`
 
 <sub>**Request Parameters**</sub> 
 
@@ -262,7 +265,7 @@ tag | INTEGER or STRING | No | If given it will be echoed in the reply
 data | DICTIONARY object | Yes |
 \>apiKey | STRING | Yes | Clients public API key, visible in the GUI when created |
 \>timestamp | STRING | Yes | Current millisecond timestamp |
-\>signature | STRING | Yes | `Base64(HmacSHA256(API-Secret, timestamp + 'GET/auth/self/verify'))` |
+\>signature | STRING | Yes | `Base64(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret))` |
 
 ## Session Keep Alive
 
