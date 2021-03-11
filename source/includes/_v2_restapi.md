@@ -1551,6 +1551,132 @@ print(resp.json())
 
 Cancels a pending delivery.
 
+###POST `/v2/orders/place`
+> **Request**
+
+```json
+POST /v2/orders/place
+
+{
+	"recvWindow": 20000,
+	"responseType": "FULL",
+	"timestamp": 1615430912440,
+	"orders": [
+    {
+      "clientOrderId": "1612249737724",
+      "marketCode": "BTC-USD-SWAP-LIN",
+      "side": "SELL",
+      "quantity": "0.001",
+      "timeInForce": "GTC",
+      "orderType": "LIMIT",
+      "price": "50007"
+    },
+    {
+      "clientOrderId": "1612249737724",
+      "marketCode": "BTC-USD-SWAP-LIN",
+      "side": "BUY",
+      "quantity": "0.002",
+      "timeInForce": "GTC",
+      "orderType": "LIMIT",
+      "price": "54900"
+    },
+    {
+      "clientOrderId": "1612249737723",
+      "marketCode": "BTC-USD-SWAP-LIN",
+      "side": "SELL",
+      "quantity": "0.003",
+      "timeInForce": "GTC",
+      "orderType": "LIMIT",
+      "price": "54901"
+    }
+  ]
+}
+```
+
+> **RESPONSE**
+
+```json
+{
+	"accountId": "13670827",
+	"event": "placeOrder",
+	"timestamp": "1615430915625",
+	"data": [
+    {
+      "success": "false",
+      "timestamp": "1615430915596",
+      "code": "710002",
+      "message": "FAILED sanity bound check as price (50007.0) <  lower bound (54767.0)",
+      "clientOrderId": "1612249737724",
+      "orderId": "0",
+      "price": "50007.0",
+      "quantity": "0.001",
+      "side": "SELL",
+      "marketCode": "BTC-USD-SWAP-LIN",
+      "timeInForce": "GTC",
+      "orderType": "LIMIT"
+    },
+    {
+      "success": "true",
+      "timestamp": "1615430915602",
+      "clientOrderId": "1612249737724",
+      "orderId": "0",
+      "price": "54900.0",
+      "quantity": "0.002",
+      "side": "BUY",
+      "marketCode": "BTC-USD-SWAP-LIN",
+      "timeInForce": "GTC",
+      "orderType": "LIMIT"
+    },
+    {
+      "success": "true",
+      "timestamp": "1615430915625",
+      "clientOrderId": "1612249737723",
+      "orderId": "0",
+      "price": "54901.0",
+      "quantity": "0.003",
+      "side": "SELL",
+      "marketCode": "BTC-USD-SWAP-LIN",
+      "timeInForce": "GTC",
+      "orderType": "LIMIT"
+    }
+  ]
+}
+```
+
+Place orders.
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+recvWindow | LONG | YES | |
+responseType | STRING | YES | |
+timestamp | STRING | NO | |
+orders | ARRAY | YES | |
+clientOrderId | STRING | YES | |
+marketCode | STRING | YES | |
+side | STRING | YES | |
+quantity | STRING | YES | |
+timeInForce | STRING | NO | Default `GTC` |
+orderType | STRING | YES | |
+price | STRING | NO | |
+stopPrice | STRING | NO | |
+limitPrice | STRING | NO | |
+
+
+Response Parameters | Type | Description | 
+--------------------| ---- | ----------- |
+success | STRING | Whether an order has been successfully placed |
+timestamp | STRING | |
+code | STRING | Error code |
+message | STRING | Error message |
+clientOrderId | STRING | |
+orderId | STRING | |
+price | STRING | |
+quantity | STRING | |
+side | STRING | `SELL` or `BUY` |
+marketCode | STRING | |
+timeInForce | STRING | |
+orderType | STRING | |
+
 
 ##Methods - Public
 
