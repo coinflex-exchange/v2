@@ -250,11 +250,17 @@ The Websocket API consists of public and private methods. The public methods do 
 
 To autenticate a websocket connection a "login" message must be sent containing the clients signature.
 
-To construct the signature a clients API-Secret key is required.  API keys (public and corresponding secret key) can be generated via the GUI within the clients account.
+The signature is constructed using a HMAC SHA256 operation to get a hash value, which in turn requires the clients API Secret as the key and a constructed message string as the value for the HMAC operation. This hash value is then encoded as a BASE-64 value which becomes the signature used for authentication.
 
-The signature is calculated as:
+API keys (public and corresponding secret key) can be generated via the GUI within the clients account.
 
-* `Base64(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret))`
+The message string used in the HMAC SHA256 operation is constructed in the following way:
+
+* `current millisecond timestamp + 'GET/auth/self/verify'`
+
+The signature can therefore be summarised by the following:
+
+* `Base64(HmacSHA256(current_ms_timestamp + 'GET/auth/self/verify', API-Secret))`
 
 <sub>**Request Parameters**</sub> 
 
@@ -265,7 +271,7 @@ tag | INTEGER or STRING | No | If given it will be echoed in the reply
 data | DICTIONARY object | Yes |
 \>apiKey | STRING | Yes | Clients public API key, visible in the GUI when created |
 \>timestamp | STRING | Yes | Current millisecond timestamp |
-\>signature | STRING | Yes | `Base64(HmacSHA256(timestamp + 'GET/auth/self/verify', API-Secret))` |
+\>signature | STRING | Yes | `Base64(HmacSHA256(current_ms_timestamp + 'GET/auth/self/verify', API-Secret))` |
 
 ## Session Keep Alive
 
