@@ -1,11 +1,16 @@
 # Change Log
 
+**2021-03-18**
+
+* Added [OrderClosed Failure Message](#websocket-api-subscriptions-private-order-channel-orderclosed-failure) to the websocket API documentation
+* Added [OrderModified Failure Message](#websocket-api-subscriptions-private-order-channel-ordermodified-failure) to the websocket API documentation
+
 **2021-03-10**
 
 * Added new REST API [POST /v2/orders/place](#rest-api-methods-private-post-v2-orders-place) to place orders
 * Added new REST API [POST /v2/orders/modify](#rest-api-methods-private-post-v2-orders-modify) to modify orders
 * Added new REST API [DELETE /v2/orders/cancel](#rest-api-methods-private-delete-v2-orders-cancel) to cancel orders
-* Added new REST API [GET /v2/depth/{marketCode}/{level}](#rest-api-methods-public-get-v2-depth-marketcode-level) to get order book by marketCode and level
+* Added new REST API [GET /v2/depth/{marketCode}/{level}](#rest-api-methods-public-get-v2-depth-marketcode-level) to get order book depth by marketCode and level
 
 
 **2021-02-26**
