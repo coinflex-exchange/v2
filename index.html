@@ -380,7 +380,13 @@
                                     <a href="#websocket-api-subscriptions-private-order-channel-orderclosed" class="toc-h4 toc-link" data-title="OrderClosed">OrderClosed</a>
                                   </li>
                                   <li>
+                                    <a href="#websocket-api-subscriptions-private-order-channel-orderclosed-failure" class="toc-h4 toc-link" data-title="OrderClosed Failure">OrderClosed Failure</a>
+                                  </li>
+                                  <li>
                                     <a href="#websocket-api-subscriptions-private-order-channel-ordermodified" class="toc-h4 toc-link" data-title="OrderModified">OrderModified</a>
+                                  </li>
+                                  <li>
+                                    <a href="#websocket-api-subscriptions-private-order-channel-ordermodified-failure" class="toc-h4 toc-link" data-title="OrderModified Failure">OrderModified Failure</a>
                                   </li>
                                   <li>
                                     <a href="#websocket-api-subscriptions-private-order-channel-ordermatched" class="toc-h4 toc-link" data-title="OrderMatched">OrderMatched</a>
@@ -2622,6 +2628,176 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td><code>False</code> or <code>True</code></td>
 </tr>
 </tbody></table>
+<h4 id='websocket-api-subscriptions-private-order-channel-orderclosed-failure'>OrderClosed Failure</h4>
+<blockquote>
+<p><strong>OrderClosed failure message format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CANCEL"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="err">False</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Order request was rejected : REJECT_CANCEL_ORDER_ID_NOT_FOUND"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100004"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">3330802124194931673</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"displayQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"lastMatchPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"lastMatchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"lastMatchedOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"lastMatchedOrderId2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"matchedId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"matchedType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"REJECT_CANCEL_ORDER_ID_NOT_FOUND"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timeCondition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timestampEpochMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">1615377638518</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"isTriggered"</span><span class="p">:</span><span class="w"> </span><span class="err">False</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><sub><strong>Channel Update Fields</strong></sub></p>
+
+<table><thead>
+<tr>
+<th>Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>event</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>submitted</td>
+<td>BOOL</td>
+<td></td>
+</tr>
+<tr>
+<td>message</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>code</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>data</td>
+<td>LIST of dictionary</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;clientOrderId</td>
+<td>STRING</td>
+<td>Client assigned ID to help manage and identify orders</td>
+</tr>
+<tr>
+<td>&gt;orderId</td>
+<td>STRING</td>
+<td>Unique order ID from the exchange</td>
+</tr>
+<tr>
+<td>&gt;displayQuantity</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;lastMatchPrice</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;lastMatchQuantity</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;lastMatchedOrderId</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;lastMatchedOrderId2</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;matchedId</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;matchedType</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;remainQuantity</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;side</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;status</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;timeCondition</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;marketCode</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;timestampEpochMs</td>
+<td>LONG</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;orderType</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;price</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;quantity</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;isTriggered</td>
+<td>BOOL</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>This order message can occur if an order has already been matched by the time the cancel order command is recieved and processed by the exchange which means this order is no longer active and therefore cannot be closed.</p>
 <h4 id='websocket-api-subscriptions-private-order-channel-ordermodified'>OrderModified</h4>
 <blockquote>
 <p><strong>OrderModified message format</strong></p>
@@ -2746,6 +2922,176 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td><code>False</code> or <code>True</code></td>
 </tr>
 </tbody></table>
+<h4 id='websocket-api-subscriptions-private-order-channel-ordermodified-failure'>OrderModified Failure</h4>
+<blockquote>
+<p><strong>OrderModified failure message format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AMEND"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"submitted"</span><span class="p">:</span><span class="w"> </span><span class="err">False</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Order request was rejected : REJECT_AMEND_ORDER_ID_NOT_FOUND"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100004"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">3330802124194931673</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"displayQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">917.5</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"lastMatchPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"lastMatchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"lastMatchedOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"lastMatchedOrderId2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"matchedId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"matchedType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"REJECT_AMEND_ORDER_ID_NOT_FOUND"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timeCondition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUSHI-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"timestampEpochMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">1615377638518</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">917.5</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"isTriggered"</span><span class="p">:</span><span class="w"> </span><span class="err">False</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><sub><strong>Channel Update Fields</strong></sub></p>
+
+<table><thead>
+<tr>
+<th>Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>event</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>submitted</td>
+<td>BOOL</td>
+<td></td>
+</tr>
+<tr>
+<td>message</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>code</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>data</td>
+<td>LIST of dictionary</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;clientOrderId</td>
+<td>STRING</td>
+<td>Client assigned ID to help manage and identify orders</td>
+</tr>
+<tr>
+<td>&gt;orderId</td>
+<td>STRING</td>
+<td>Unique order ID from the exchange</td>
+</tr>
+<tr>
+<td>&gt;displayQuantity</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;lastMatchPrice</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;lastMatchQuantity</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;lastMatchedOrderId</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;lastMatchedOrderId2</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;matchedId</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;matchedType</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;remainQuantity</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;side</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;status</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;timeCondition</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;marketCode</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;timestampEpochMs</td>
+<td>LONG</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;orderType</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;price</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;quantity</td>
+<td>DECIMAL</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;isTriggered</td>
+<td>BOOL</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>This order message can occur if an order has already been matched by the time the modify order command is recieved and processed by the exchange which means this order is no longer active and therefore cannot be modified.</p>
 <h4 id='websocket-api-subscriptions-private-order-channel-ordermatched'>OrderMatched</h4>
 <blockquote>
 <p><strong>OrderMatched message format</strong></p>
