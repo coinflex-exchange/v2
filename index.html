@@ -534,13 +534,20 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-03-18</strong></p>
+
+<ul>
+<li>Added <a href="#websocket-api-subscriptions-private-order-channel-orderclosed-failure">OrderClosed Failure Message</a> to the websocket API documentation</li>
+<li>Added <a href="#websocket-api-subscriptions-private-order-channel-ordermodified-failure">OrderModified Failure Message</a> to the websocket API documentation</li>
+</ul>
+
 <p><strong>2021-03-10</strong></p>
 
 <ul>
 <li>Added new REST API <a href="#rest-api-methods-private-post-v2-orders-place">POST /v2/orders/place</a> to place orders</li>
 <li>Added new REST API <a href="#rest-api-methods-private-post-v2-orders-modify">POST /v2/orders/modify</a> to modify orders</li>
 <li>Added new REST API <a href="#rest-api-methods-private-delete-v2-orders-cancel">DELETE /v2/orders/cancel</a> to cancel orders</li>
-<li>Added new REST API <a href="#rest-api-methods-public-get-v2-depth-marketcode-level">GET /v2/depth/{marketCode}/{level}</a> to get order book by marketCode and level</li>
+<li>Added new REST API <a href="#rest-api-methods-public-get-v2-depth-marketcode-level">GET /v2/depth/{marketCode}/{level}</a> to get order book depth by marketCode and level</li>
 </ul>
 
 <p><strong>2021-02-26</strong></p>
@@ -2661,6 +2668,10 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p>This order message can occur if:- 
+* an order has already been matched by the time the cancel order command is recieved and processed by the exchange which means this order is no longer active and therefore cannot be closed.
+* multiple cancel order commands for the <strong>same</strong> orderID have been sent in quick sucession to the exchange by mistake and only the first cancel order command is accepted and processed by the exchange which means this order is no longer active and therefore cannot be closed again.</p>
+
 <p><sub><strong>Channel Update Fields</strong></sub></p>
 
 <table><thead>
@@ -2796,8 +2807,6 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td></td>
 </tr>
 </tbody></table>
-
-<p>This order message can occur if an order has already been matched by the time the cancel order command is recieved and processed by the exchange which means this order is no longer active and therefore cannot be closed.</p>
 <h4 id='websocket-api-subscriptions-private-order-channel-ordermodified'>OrderModified</h4>
 <blockquote>
 <p><strong>OrderModified message format</strong></p>
@@ -2952,9 +2961,11 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
             </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">917.5</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"isTriggered"</span><span class="p">:</span><span class="w"> </span><span class="err">False</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p>This order message can occur if an order has already been matched by the time the modify order command is recieved and processed by the exchange which means this order is no longer active and therefore cannot be modified.</p>
+
 <p><sub><strong>Channel Update Fields</strong></sub></p>
 
 <table><thead>
@@ -3090,8 +3101,6 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td></td>
 </tr>
 </tbody></table>
-
-<p>This order message can occur if an order has already been matched by the time the modify order command is recieved and processed by the exchange which means this order is no longer active and therefore cannot be modified.</p>
 <h4 id='websocket-api-subscriptions-private-order-channel-ordermatched'>OrderMatched</h4>
 <blockquote>
 <p><strong>OrderMatched message format</strong></p>
