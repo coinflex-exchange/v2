@@ -1375,8 +1375,72 @@ data | LIST of dictionary |
 \>stopPrice|STRING|Stop price of closed stop order (only applicable for STOP order types)
 \>limitPrice|STRING|Limit price of closed stop order (only applicable for STOP order types)
 \>ordertype|STRING  | `LIMIT` or `STOP`
-\>isTriggered|STRING|`False` or `True` 
+\>isTriggered|STRING|`False` or `True`
 
+#### OrderClosed Failure
+
+> **OrderClosed failure message format**
+
+```json
+{
+  'event': 'CANCEL', 
+  'submitted': False, 
+  'message': 'Order request was rejected : REJECT_CANCEL_ORDER_ID_NOT_FOUND', 
+  'code': '100004', 
+  'timestamp': '0', 
+  'data': {
+            'clientOrderId': 3,
+            'orderId': 3330802124194931673, 
+            'displayQuantity': 0.0, 
+            'lastMatchPrice': 0.0, 
+            'lastMatchQuantity': 0.0, 
+            'lastMatchedOrderId': 0, 
+            'lastMatchedOrderId2': 0, 
+            'matchedId': 0, 
+            'matchedType': 'MAKER', 
+            'remainQuantity': 0.0, 
+            'side': 'BUY', 
+            'status': 'REJECT_CANCEL_ORDER_ID_NOT_FOUND', 
+            'timeCondition': 'GTC', 
+            'marketCode': 'BTC-USD-SWAP-LIN', 
+            'timestampEpochMs': 1615377638518, 
+            'orderType': 'LIMIT',
+            'price': 0.0, 
+            'quantity': 0.0, 
+            'isTriggered': False
+  }
+}
+```
+
+<sub>**Channel Update Fields**</sub>
+
+Fields | Type | Description
+-------------------------- | ----- |--------
+event | STRING |
+submitted | BOOL |
+message | STRING |
+code | STRING | 
+timestamp | STRING |
+data | LIST of dictionary |
+\>clientOrderId|STRING|  Client assigned ID to help manage and identify orders
+\>orderId | STRING|   Unique order ID from the exchange
+\>displayQuantity | DECIMAL
+\>lastMatchPrice | DECIMAL
+\>lastMatchQuantity | DECIMAL
+\>lastMatchedOrderId | DECIMAL
+\>lastMatchedOrderId2 | DECIMAL
+\>matchedId | DECIMAL
+\>matchedType | STRING
+\>remainQuantity | DECIMAL
+\>side|STRING
+\>status | STRING
+\>timeCondition | STRING 
+\>marketCode | STRING 
+\>timestampEpochMs | LONG
+\>orderType | STRING
+\>price | DECIMAL
+\>quantity | DECIMAL
+\>isTriggered | BOOL
 
 #### OrderModified
 
@@ -1430,6 +1494,71 @@ data | LIST of dictionary |
 \>stopPrice|STRING|Stop price of modified order (only applicable for STOP order types)
 \>limitPrice|STRING|Limit price of modified order (only applicable for STOP order types)
 \>isTriggered|STRING|`False` or `True` 
+
+#### OrderModified Failure
+
+> **OrderModified failure message format**
+
+```json
+{
+  'event': 'AMEND', 
+  'submitted': False, 
+  'message': 'Order request was rejected : REJECT_AMEND_ORDER_ID_NOT_FOUND', 
+  'code': '100004', 
+  'timestamp': '0', 
+  'data': {
+            'clientOrderId': 3, 
+            'orderId': 3330802124194931673, 
+            'displayQuantity': 917.5, 
+            'lastMatchPrice': 0.0, 
+            'lastMatchQuantity': 0.0, 
+            'lastMatchedOrderId': 0, 
+            'lastMatchedOrderId2': 0, 
+            'matchedId': 0, 
+            'matchedType': 'MAKER', 
+            'remainQuantity': 0.0, 
+            'side': 'BUY', 
+            'status': 'REJECT_AMEND_ORDER_ID_NOT_FOUND', 
+            'timeCondition': 'GTC', 
+            'marketCode': 'SUSHI-USD-SWAP-LIN', 
+            'timestampEpochMs': 1615377638518, 
+            'orderType': 'LIMIT', 
+            'price': 22, 
+            'quantity': 917.5, 
+            'isTriggered': False
+  }
+}
+```
+
+<sub>**Channel Update Fields**</sub>
+
+Fields | Type | Description
+-------------------------- | ----- |--------
+event | STRING |
+submitted | BOOL |
+message | STRING |
+code | STRING | 
+timestamp | STRING |
+data | LIST of dictionary |
+\>clientOrderId|STRING|  Client assigned ID to help manage and identify orders
+\>orderId | STRING|   Unique order ID from the exchange
+\>displayQuantity | DECIMAL
+\>lastMatchPrice | DECIMAL
+\>lastMatchQuantity | DECIMAL
+\>lastMatchedOrderId | DECIMAL
+\>lastMatchedOrderId2 | DECIMAL
+\>matchedId | DECIMAL
+\>matchedType | STRING
+\>remainQuantity | DECIMAL
+\>side|STRING
+\>status | STRING
+\>timeCondition | STRING 
+\>marketCode | STRING 
+\>timestampEpochMs | LONG
+\>orderType | STRING
+\>price | DECIMAL
+\>quantity | DECIMAL
+\>isTriggered | BOOL
 
 
 #### OrderMatched
@@ -1495,7 +1624,6 @@ data | LIST of dictionary |
 \>fees|STRING|Amount of fees paid from this match ID 
 \>feeInstrumentId|STRING|Instrument ID of fees paid from this match ID 
 \>isTriggered|STRING|`False` (or `True` for STOP order types)
-
 
 ## Subscriptions - Public
 
