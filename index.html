@@ -2668,9 +2668,12 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This order message can occur if:- 
-* an order has already been matched by the time the cancel order command is recieved and processed by the exchange which means this order is no longer active and therefore cannot be closed.
-* multiple cancel order commands for the <strong>same</strong> orderID have been sent in quick sucession to the exchange by mistake and only the first cancel order command is accepted and processed by the exchange which means this order is no longer active and therefore cannot be closed again.</p>
+<p>This order message can occur if:- </p>
+
+<ul>
+<li>an order has already been matched by the time the cancel order command is recieved and processed by the exchange which means this order is no longer active and therefore cannot be closed.</li>
+<li>multiple cancel order commands for the <strong>same</strong> orderID have been sent in quick sucession to the exchange by mistake and only the first cancel order command is accepted and processed by the exchange which means this order is no longer active and therefore cannot be closed again.</li>
+</ul>
 
 <p><sub><strong>Channel Update Fields</strong></sub></p>
 
