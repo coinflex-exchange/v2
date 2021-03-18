@@ -150,7 +150,7 @@ print(resp.json())
 ```json
 {
   "event": "accountinfo",
-  "timestamp": "1611665626191",
+  "timestamp": 1611665626191
   "accountId": "<Your Account ID>",
   "data": [ {
               "accountId": "<Your Account ID>",
@@ -169,7 +169,7 @@ print(resp.json())
 ```python
 {
   "event": "accountinfo",
-  "timestamp": "1611665626191",
+  "timestamp": 1611665626191
   "accountId": "<Your Account ID>",
   "data": [ {
               "accountId": "<Your Account ID>",
@@ -192,7 +192,7 @@ Returns the account level information connected to the API key initiating the re
 Parameters |Type | Description 
 -------------------------- | -----|--------- |
 event | STRING | `accountinfo`
-timestamp | STRING | Millisecond timestamp
+timestamp | INTEGER | Millisecond timestamp
 accountId | STRING    | Account ID
 data | LIST of dictionary |
 \>accountId | STRING    | Account ID
@@ -256,7 +256,7 @@ print(resp.json())
 ```json
 {
   "event": "balances",
-  "timestamp": "1611665626191",
+  "timestamp": 1611665626191,
   "accountId": "<Your Account ID>",
   "tradeType": "LINEAR",
   "data": [ {   
@@ -281,7 +281,7 @@ print(resp.json())
 ```python
 {
   "event": "balances",
-  "timestamp": "1611665626191",
+  "timestamp": 1611665626191,
   "accountId": "<Your Account ID>",
   "tradeType": "LINEAR",
   "data": [ {   
@@ -310,7 +310,7 @@ Returns all the coin balances of the account connected to the API key initiating
 Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 event | STRING | `balances`
-timestamp | STRING | Millisecond timestamp
+timestamp | INTEGER | Millisecond timestamp
 accountId | STRING    | Account ID
 tradeType | STRING    | `LINEAR` |
 data | LIST of dictionaries |
@@ -372,7 +372,7 @@ print(resp.json())
 ```json
 {
   "event": "balancesById",
-  "timestamp": "1593627415293",
+  "timestamp": 1593627415293,
   "accountId": "<Your Account ID>",
   "tradeType": "LINEAR",
   "data": [ {   
@@ -388,7 +388,7 @@ print(resp.json())
 ```python
 {
   "event": "balancesById",
-  "timestamp": "1593627415293",
+  "timestamp": 1593627415293,
   "accountId": "<Your Account ID>",
   "tradeType": "LINEAR",
   "data": [ {   
@@ -408,7 +408,7 @@ Returns the specified coin balance of the account connected to the API key initi
 Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 event | STRING | `balancesById`
-timestamp | STRING | Millisecond timestamp
+timestamp | INTEGER | Millisecond timestamp
 accountId | STRING    | Account ID
 tradeType | STRING    | `LINEAR` |
 data | LIST of dictionary |
@@ -470,7 +470,7 @@ print(resp.json())
 ```json
 {
   "event": "positions",
-  "timestamp": "1593627415000",
+  "timestamp": 1593627415000,
   "accountId":"<Your Account ID>",
   "data": [ {
               "instrumentId": "BTC-USD-SWAP-LIN",
@@ -488,7 +488,7 @@ print(resp.json())
 ```python
 {
   "event": "positions",
-  "timestamp": "1593627415000",
+  "timestamp": 1593627415000,
   "accountId":"<Your Account ID>",
   "data": [ {
               "instrumentId": "BTC-USD-SWAP-LIN",
@@ -510,7 +510,7 @@ Returns all the positions of the account connected to the API key initiating the
 Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 event | STRING | `positions`
-timestamp | STRING | Millisecond timestamp
+timestamp | INTEGER | Millisecond timestamp
 accountId | STRING    | Account ID
 data | LIST of dictionaries |
 \>instrumentId | STRING | Contract symbol, e.g. 'BTC-USD-SWAP-LIN' |
@@ -573,7 +573,7 @@ print(resp.json())
 ```json
 {
   "event": "positionsById",
-  "timestamp": "1593617005438",
+  "timestamp": 1593617005438,
   "accountId":"<Your Account ID>",
   "data": [ {
               "instrumentId": "FLEX-USD-SWAP-LIN",
@@ -589,7 +589,7 @@ print(resp.json())
 ```python
 {
   "event": "positionsById",
-  "timestamp": "1593617005438",
+  "timestamp": 1593617005438,
   "accountId":"<Your Account ID>",
   "data": [ {
               "instrumentId": "FLEX-USD-SWAP-LIN",
@@ -609,7 +609,7 @@ Returns the specified instrument ID position of the account connected to the API
 Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 event | STRING | `positionsById`
-timestamp | STRING | Millisecond timestamp
+timestamp | INTEGER | Millisecond timestamp
 accountId | STRING    | Account ID
 data | LIST of dictionaries |
 \>instrumentId | STRING | Contract symbol, e.g. 'FLEX-USD-SWAP-LIN' |
@@ -676,7 +676,7 @@ print(resp.json())
 ```json
 {
   "event": "trades", 
-  "timestamp": "1595635101845", 
+  "timestamp": 1595635101845, 
   "accountId": "<Your Account ID>", 
   "data": [ {
               "matchId": "160067484555913077", 
@@ -700,7 +700,7 @@ print(resp.json())
 ```python
 {
   "event": "trades", 
-  "timestamp": "1595635101845", 
+  "timestamp": 1595635101845, 
   "accountId": "<Your Account ID>", 
   "data": [ {
               "matchId": "160067484555913077", 
@@ -737,7 +737,7 @@ endTime| LONG | NO | Millisecond timestamp |
 Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 event | STRING | `trades`
-timestamp | STRING | Millisecond timestamp
+timestamp | INTEGER | Millisecond timestamp
 accountId | STRING    | Account ID
 data | LIST of dictionaries |
 \>matchId   | STRING    | Match ID          |
@@ -812,14 +812,14 @@ print(resp.json())
               "clientOrderId": null|"<clientOrderId>",              
               "side": "BUY",
               "orderType": "LIMIT"|"STOP",
-              "quantity": "1.0",
-              "remainingQuantity": "1.0",
-              "price": "1.0",
+              "quantity": "1.00",
+              "remainingQuantity": "1.00",
+              "price": "1.00"|null,               #for limit order, null for stop order
               "stopPrice": "<stopPrice>"|null,    #for stop order, null for limit order 
-              "limitPrice": "1.0",
-              "orderCreated": "1593617008698",
-              "lastModified": "1593617008698",      
-              "lastTradeTimestamp": "1593617008698",
+              "limitPrice": "<limitPrice>"|null,  #for stop order, null for limit order 
+              "orderCreated": 1593617008698,
+              "lastModified": 1593617008698,
+              "lastTradeTimestamp": 1593617008698,
               "timeInForce": "GTC"
             },
             ...
@@ -838,14 +838,14 @@ print(resp.json())
               "clientOrderId": null|"<clientOrderId>",              
               "side": "BUY",
               "orderType": "LIMIT"|"STOP",
-              "quantity": "1.0",
-              "remainingQuantity": "1.0",
-              "price": "1.0",
+              "quantity": "1.00",
+              "remainingQuantity": "1.00",
+              "price": "1.00"|null,               #for limit order, null for stop order
               "stopPrice": "<stopPrice>"|null,    #for stop order, null for limit order 
-              "limitPrice": "1.0",  #for stop order, null for limit order 
-              "orderCreated": "1593617008698",
-              "lastModified": "1593617008698",      
-              "lastTradeTimestamp": "1593617008698",
+              "limitPrice": "<limitPrice>"|null,  #for stop order, null for limit order 
+              "orderCreated": 1593617008698,
+              "lastModified": 1593617008698,
+              "lastTradeTimestamp": 1593617008698,
               "timeInForce": "GTC"
             },
             ...
@@ -861,22 +861,22 @@ Parameters |Type | Description|
 -------------------------- | -----|--------- |
 event | STRING | `orders`
 timestamp | STRING | Millisecond timestamp
-accountId | STRING    | Account ID
+accountId | STRING | Account ID
 data | LIST of dictionaries |
-\>orderId   | STRING    | Unique order ID from the exchange |
-\>marketCode| STRING    | Market code          |
+\>orderId | STRING | Unique order ID from the exchange |
+\>marketCode| STRING | Market code |
 \>clientOrderId| STRING | Client assigned ID to help manage and identify orders |
-\>side      | STRING    | `BUY` or `SELL`         |
-\>orderType | STRING    | `LIMIT` or `STOP`     |
-\>quantity  | STRING    | Quantity submitted          |
-\>remainingQuantity|STRING | Remaining quantity          |
-\>price     | STRING    | Price submitted          |
-\>stopPrice | STRING    | Stop price for the stop order           |
-\>limitPrice| STRING    | Limit price for the stop limit order          |
-\>orderCreated| STRING  |Timestamp when order was created|
-\>lastModified| STRING  |Timestamp when order was last mordified|
-\>lastTradeTimestamp| STRING| Timestamp when order was last traded|
-\>timeInForce | STRING  | Time in force          |
+\>side | STRING | `BUY` or `SELL` |
+\>orderType | STRING | `LIMIT` or `STOP` |
+\>quantity  | STRING | Quantity submitted |
+\>remainingQuantity|STRING | Remainning quantity |
+\>price | STRING | Price submitted |
+\>stopPrice | STRING | Stop price for the stop order |
+\>limitPrice| STRING | Limit price for the stop limit order |
+\>orderCreated| INTEGER | Timestamp when order was created |
+\>lastModified| INTEGER | Timestamp when order was last mordified |
+\>lastTradeTimestamp| INTEGER | Timestamp when order was last traded |
+\>timeInForce | STRING | Time in force |
 
 
 ### GET `/v2.1/orders` PENDING
@@ -1051,12 +1051,12 @@ resp = requests.delete(rest_url + path, headers=header)
 print(resp.json())
 ```
 
-> **Successful Response**
+> **Response**
 
 ```json
 {
   "event": "orders",
-  "timestamp": "1594412077100",
+  "timestamp": 1594412077100,
   "accountId": "<AccountID>",
   "data": {
             "msg": "All open orders for the account have been queued for cancellation"
@@ -1067,45 +1067,24 @@ print(resp.json())
 ```python
 {
   "event": "orders",
-  "timestamp": "1594412077100",
+  "timestamp": 1594412077100,
   "accountId": "<AccountID>",
   "data": {
             "msg": "All open orders for the account have been queued for cancellation"
           } 
 }
 ```
-
-> **Failure Response**
-
-```json
-{
-  "event": "Cancel Order Fail",
-  "timestamp": "1594412077100",
-  "accountId": "<AccountID>",
-  "data": null 
-}
-```
-
-```python
-{
-  "event": "Cancel Order Fail",
-  "timestamp": "1594412077100",
-  "accountId": "<AccountID>",
-  "data": null 
-}
-```
-
 
 Cancels **all** open orders of the account connected to the API key initiating the request.
 
-If this REST method was successful it will also trigger a response message in an authenticated websocket of the account.  This is documented here [Cancel Open Orders](#websocket-api-other-responses-cancel-open-orders).
+If this REST method was sucessful it will also trigger a reponse message in an authenticated websocket of the account.  This is documented here [Cancel Open Orders](#websocket-api-other-responses-cancel-open-orders).
 
 <sub>**Response Parameters**</sub> 
 
 Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 event | STRING | `orders`
-timestamp | STRING | Millisecond timestamp
+timestamp | INTEGER | Millisecond timestamp
 accountId | STRING    | Account ID
 data | Dictionary |
 \>msg   | STRING    | Confirmation of action |
@@ -1157,12 +1136,12 @@ resp = requests.delete(rest_url + path, headers=header)
 print(resp.json())
 ```
 
-> **Successful Response**
+> **Response**
 
 ```json
 {
   "event": "orders",
-  "timestamp": "1594412077100",
+  "timestamp": 1594412077100,
   "accountId": "<AccountID>",
   "data": {
             "marketCode": "FLEX-USD",
@@ -1174,45 +1153,25 @@ print(resp.json())
 ```python
 {
   "event": "orders",
-  "timestamp": "1594412077100",
+  "timestamp": 1594412077100,
   "accountId": "<AccountID>",
   "data": {
             "marketCode": "FLEX-USD",
             "msg": "All open orders for the specified market have been queued for cancellation"
           }
-}
-```
-
-> **Failure Response**
-
-```json
-{
-  "event": "Cancel Order Fail",
-  "timestamp": "1594412077100",
-  "accountId": "<AccountID>",
-  "data": null
-}
-```
-
-```python
-{
-  "event": "orders",
-  "timestamp": "1594412077100",
-  "accountId": "<AccountID>",
-  "data": null
 }
 ```
 
 Cancels all open orders for the **specified market** for the account connected to the API key initiating the request.
 
-If this REST method was successful it will also trigger a response message in an authenticated websocket of the account.  This is documented here [Cancel Open Orders](#websocket-api-other-responses-cancel-open-orders).
+If this REST method was sucessful it will also trigger a reponse message in an authenticated websocket of the account.  This is documented here [Cancel Open Orders](#websocket-api-other-responses-cancel-open-orders).
 
 <sub>**Response Parameters**</sub> 
 
 Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 event | STRING | `orders`
-timestamp | STRING | Millisecond timestamp
+timestamp | INTEGER | Millisecond timestamp
 accountId | STRING    | Account ID
 data | Dictionary |
 \>marketCode   | STRING | Market code |
@@ -1286,13 +1245,13 @@ print(resp.json())
             {
               "timestamp": "1595786511155",
               "instrumentId": "BTC-USD-SWAP-LIN",
-              "status": "PENDING",
-              "quantity": "20.0",
+              "status": "CANCELLED",
+              "quantity": null,
               "deliverPrice": "9911.470000000",
-              "transferAsset": "BTC",
-              "transferQty": "0.001",
-              "instrumentIdDeliver": "USD",
-              "deliverQty": "19.999",
+              "transferAsset": "USD",
+              "transferQty": "0.000000000",
+              "instrumentIdDeliver": "BTC",
+              "deliverQty": "0.000000000",
               "deliverOrderId": "575786553086246913",
               "clientOrderId": null
             },
@@ -1317,16 +1276,16 @@ print(resp.json())
               "deliverOrderId": "575770851486007299",
               "clientOrderId": null
             },
-           {
+            {
               "timestamp": "1595786511155",
               "instrumentId": "BTC-USD-SWAP-LIN",
-              "status": "PENDING",
-              "quantity": "20.0",
+              "status": "CANCELLED",
+              "quantity": null,
               "deliverPrice": "9911.470000000",
-              "transferAsset": "BTC",
-              "transferQty": "0.001",
-              "instrumentIdDeliver": "USD",
-              "deliverQty": "19.999",
+              "transferAsset": "USD",
+              "transferQty": "0.000000000",
+              "instrumentIdDeliver": "BTC",
+              "deliverQty": "0.000000000",
               "deliverOrderId": "575786553086246913",
               "clientOrderId": null
             },
@@ -1345,7 +1304,7 @@ timestamp | STRING | Millisecond timestamp of the repsonse
 data | LIST of dictionaries |
 \>timestamp | STRING | Millisecond timestamp of the delivery action
 \>instrumentId | STRING | Perpetual swap market code
-\>status | STRING | `PENDING` or `ROLLED_DELIVERY` or `DELIVERED` or `CANCELED` 
+\>status | STRING | Request status
 \>quantity | Null Type| null
 \>deliverPrice | STRING|  Mark price at delivery
 \>transferAsset | STRING | Asset being sent
@@ -1592,61 +1551,358 @@ print(resp.json())
 
 Cancels a pending delivery.
 
-
-### GET `/v2/funding-rates/{marketCode}`
-
-Requires authentication. Get funding rates by marketCode.
-
+###POST `/v2/orders/place`
 > **Request**
 
 ```json
-GET `/v2.1/funding-rates/{marketCode}`
-```
+POST /v2/orders/place
 
-> **Request body**
-
-```json
 {
-    "limit": "3",
-    "startTime": "2020-12-08 20:00:00",
-    "endTime": "2020-12-09 20:00:00"
-}
-```
-
-Request Parameters | Type | Required | Description |
------------------- | ---- | -------- | ----------- |
-marketCode | STRING | YES | e.g. BTC-USD-REPO-LIN , available values: BTC-USD-REPO-LIN ETH-USD-REPO-LIN |
-limit | STRING | NO | default is `50` |
-startTime | STRING | NO | e.g. `2020-02-01 20:00:00`, default is 7 days ago from time now |
-endTime | STRING | NO | e.g. `2020-02-02 20:00:00`, default is time now |
-
-> **SUCCESSFUL RESPONSE**
-
-```json
-{
-    "event": "fundingRates",
-    "timestamp": "1611645666834",
-    "data": [
+    "recvWindow": 20000, 
+    "responseType": "FULL", 
+    "timestamp": 1615430912440, 
+    "orders": [
         {
-            "fundingRate": "0.00008",
-            "marketCode": "BTC-USD-REPO-LIN",
-            "marketPrice": "33937.2848",
-            "index": "2.78222423",
-            "timestamp": "1606461774458"
-        },
-        ...
+            "clientOrderId": "1612249737724", 
+            "marketCode": "BTC-USD-SWAP-LIN", 
+            "side": "SELL", 
+            "quantity": "0.001", 
+            "timeInForce": "GTC", 
+            "orderType": "LIMIT", 
+            "price": "50007"
+        }, 
+        {
+            "clientOrderId": "1612249737724", 
+            "marketCode": "BTC-USD-SWAP-LIN", 
+            "side": "BUY", 
+            "quantity": "0.002", 
+            "timeInForce": "GTC", 
+            "orderType": "LIMIT", 
+            "price": "54900"
+        }, 
+        {
+            "clientOrderId": "1612249737723", 
+            "marketCode": "BTC-USD-SWAP-LIN", 
+            "side": "SELL", 
+            "quantity": "0.003", 
+            "timeInForce": "GTC", 
+            "orderType": "LIMIT", 
+            "price": "54901"
+        }
     ]
 }
 ```
 
-Response Fields | Type | Description |
-------------------- | ---- | ----------- |
-timestamp | STRING | Timestamp of this response |
-fundingRate | STRING | |
+> **RESPONSE**
+
+```json
+{
+    "accountId": "13670827", 
+    "event": "placeOrder", 
+    "timestamp": "1615430915625", 
+    "data": [
+        {
+            "success": "false", 
+            "timestamp": "1615430915596", 
+            "code": "710002", 
+            "message": "FAILED sanity bound check as price (50007.0) <  lower bound (54767.0)", 
+            "clientOrderId": "1612249737724", 
+            "orderId": "0", 
+            "price": "50007.0", 
+            "quantity": "0.001", 
+            "side": "SELL", 
+            "marketCode": "BTC-USD-SWAP-LIN", 
+            "timeInForce": "GTC", 
+            "orderType": "LIMIT"
+        }, 
+        {
+            "success": "true", 
+            "timestamp": "1615430915602", 
+            "clientOrderId": "1612249737724", 
+            "orderId": "0", 
+            "price": "54900.0", 
+            "quantity": "0.002", 
+            "side": "BUY", 
+            "marketCode": "BTC-USD-SWAP-LIN", 
+            "timeInForce": "GTC", 
+            "orderType": "LIMIT"
+        }, 
+        {
+            "success": "true", 
+            "timestamp": "1615430915625", 
+            "clientOrderId": "1612249737723", 
+            "orderId": "0", 
+            "price": "54901.0", 
+            "quantity": "0.003", 
+            "side": "SELL", 
+            "marketCode": "BTC-USD-SWAP-LIN", 
+            "timeInForce": "GTC", 
+            "orderType": "LIMIT"
+        }
+    ]
+}
+```
+
+Place orders.
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+recvWindow | LONG | YES | |
+responseType | STRING | YES | |
+timestamp | STRING | NO | |
+orders | LIST | YES | |
+clientOrderId | STRING | YES | |
+marketCode | STRING | YES | |
+side | STRING | YES | |
+quantity | STRING | YES | |
+timeInForce | STRING | NO | Default `GTC` |
+orderType | STRING | YES | |
+price | STRING | NO | |
+stopPrice | STRING | NO | |
+limitPrice | STRING | NO | |
+
+Response Parameters | Type | Description | 
+--------------------| ---- | ----------- |
+accountId | STRING | |
+event | STRING | |
+timestamp | STRING | |
+data | LIST | |
+success | STRING | Whether an order has been successfully placed |
+timestamp | STRING | |
+code | STRING | Error code |
+message | STRING | Error message |
+clientOrderId | STRING | |
+orderId | STRING | |
+price | STRING | |
+quantity | STRING | |
+side | STRING | `SELL` or `BUY` |
 marketCode | STRING | |
-marketPrice | STRING | |
-index | STRING | |
-timestamp(in the data list) | STRING | |
+timeInForce | STRING | |
+orderType | STRING | |
+
+
+### POST `/v2/orders/modify`
+> **Request**
+
+```json
+POST /v2/orders/modify
+
+{
+    "recvWindow": 13000, 
+    "responseType": "FULL", 
+    "timestamp": 1614331650143, 
+    "orders": [
+        {
+            "clientOrderId": "1614330009059", 
+            "orderId": "304369975621712260", 
+            "marketCode": "BTC-USD-SWAP-LIN", 
+            "side": "BUY", 
+            "quantity": "0.007", 
+            "price": "40001.0"
+        }, 
+        {
+            "clientOrderId": "161224973777800", 
+            "marketCode": "BTC-USD-SWAP-LIN", 
+            "side": "SELL", 
+            "quantity": "0.002", 
+            "price": "40003.0"
+        }, 
+        {
+            "clientOrderId": "161224973777900", 
+            "marketCode": "BTC-USD-SWAP-LIN", 
+            "side": "SELL", 
+            "quantity": "0.003", 
+            "price": "40004.0"
+        }
+    ]
+}
+```
+
+> **RESPONSE**
+
+```json
+{
+    "accountId": "495", 
+    "event": "modifyOrder", 
+    "timestamp": "1614331651243", 
+    "data": [
+        {
+            "success": "false", 
+            "timestamp": "1614331651174", 
+            "code": "40032", 
+            "message": "Invalid request data", 
+            "clientOrderId": "161224973777800", 
+            "price": "40003.0", 
+            "quantity": "0.002", 
+            "side": "SELL", 
+            "marketCode": "BTC-USD-SWAP-LIN"
+        }, 
+        {
+            "success": "false", 
+            "timestamp": "1614331651174", 
+            "code": "40032", 
+            "message": "Invalid request data", 
+            "clientOrderId": "161224973777900", 
+            "price": "40004.0", 
+            "quantity": "0.003", 
+            "side": "SELL", 
+            "marketCode": "BTC-USD-SWAP-LIN"
+        }, 
+        {
+            "success": "true", 
+            "timestamp": "1614331651196", 
+            "clientOrderId": "1614330009059", 
+            "orderId": "304369975621712263", 
+            "price": "40001.0", 
+            "quantity": "0.007", 
+            "side": "BUY", 
+            "status": "OPEN", 
+            "marketCode": "BTC-USD-SWAP-LIN", 
+            "timeInForce": "GTC", 
+            "notice": "OrderOpened", 
+            "orderType": "LIMIT", 
+            "isTriggered": "false"
+        }
+    ]
+}
+```
+
+Modify orders.
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+recvWindow | LONG | YES | |
+timestamp | STRING | NO | |
+responseType | STRING | YES | `FULL` or `ACK` |
+orders | LIST | YES | |
+clientOrderId | STRING | NO | |
+orderId | STRING | YES | |
+marketCode | STRING | YES | |
+side | STRING | NO | |
+quantity | STRING | NO | |
+price | STRING | NO | |
+stopPrice | STRING | NO | |
+limitPrice | STRING | NO | |
+
+Response Parameters | Type | Description | 
+--------------------| ---- | ----------- |
+accountId | STRING | |
+event | STRING | |
+timestamp | STRING | |
+data | LIST | |
+success | STRING | |
+timestamp | STRING | |
+code | STRING | Error code |
+message | STRING | Error message |
+clientOrderId | STRING | |
+orderId | STRING | |
+price | STRING | |
+quantity | STRING | |
+side | STRING | `SELL` or `BUY` |
+status | STRING | Status of the order |
+status | STRING | Status of the order |
+marketCode | STRING | |
+timeInForce | STRING | |
+notice | STRING | `OrderClosed` or `OrderMatched` or `OrderOpend` |
+orderType | STRING | |
+isTriggered | STRING | `true` or `false` |
+
+
+### DELETE `/v2/orders/cancel`
+
+> **Request**
+
+```json
+DELETE /v2/orders/cancel
+
+{
+    "recvWindow": 200000, 
+    "responseType": "FULL", 
+    "timestamp": 1615454880374, 
+    "orders": [
+        {
+            "marketCode": "BTC-USD-SWAP-LIN", 
+            "orderId": "304384250571714215", 
+            "clientOrderId": "1615453494726"
+        }, 
+        {
+            "marketCode": "BTC-USD-SWAP-LIN", 
+            "clientOrderId": "1612249737724"
+        }
+    ]
+}
+```
+
+> **RESPONSE**
+
+```json
+{
+    "accountId": "495", 
+    "event": "cancelOrder", 
+    "timestamp": "1615454881391", 
+    "data": [
+        {
+            "success": "true", 
+            "timestamp": "1615454881383", 
+            "clientOrderId": "1615453494726", 
+            "orderId": "304384250571714215", 
+            "price": "55006.0", 
+            "quantity": "0.006", 
+            "side": "SELL", 
+            "status": "CANCELED_BY_USER", 
+            "marketCode": "BTC-USD-SWAP-LIN", 
+            "timeInForce": "GTC", 
+            "remainQuantity": "0.006", 
+            "notice": "OrderClosed", 
+            "orderType": "LIMIT", 
+            "isTriggered": "false"
+        }, 
+        {
+            "success": "false", 
+            "timestamp": "1615454881433", 
+            "code": "40035", 
+            "message": "Open order not found with id", 
+            "clientOrderId": "1612249737724", 
+            "marketCode": "BTC-USD-SWAP-LIN"
+        }
+    ]
+}
+```
+
+Cancel orders.
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+recvWindow | LONG | YES | |
+responseType | STRING | YES | |
+timestamp | LONG | NO | |
+orders | LIST | YES | |
+marketCode | STRING | YES | |
+orderId | STRING | Either one of orderId or clientOrderId is required | |
+clientOrderId | STRING | Either one of orderId or clientOrderId is required | |
+
+Response Parameters | Type | Description | 
+--------------------| ---- | ----------- |
+accountId | STRING | |
+event | STRING | |
+timestamp | STRING | |
+data | LIST | |
+success | STRING | |
+timestamp | STRING | |
+code | STRING | Error code |
+message | STRING | Error message |
+clientOrderId | STRING | |
+orderId | STRING | |
+price | STRING | |
+quantity | STRING | |
+side | STRING | `SELL` or `BUY` |
+status | STRING | Status of the order |
+marketCode | STRING | |
+timeInForce | STRING | |
+notice | STRING | `OrderClosed` or `OrderMatched` or `OrderOpend` |
+orderType | STRING | |
+isTriggered | STRING | `true` or `false` |
+
 
 ##Methods - Public
 
@@ -1991,3 +2247,159 @@ limit | INTEGER | NO | default value: 500 |
 Fields |Type | Description|
 -------------------------- | -----|--------- |
 candle | LIST of strings  | <ul><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ul>
+
+
+### GET `/v2/funding-rates/{marketCode}`
+
+Get funding rates by marketCode.
+
+> **Request**
+
+```json
+GET /v2.1/funding-rates/{marketCode}
+```
+
+> **Request body**
+
+```json
+{
+    "limit": 3,
+    "startTime": 1579450778000,
+    "endTime": 1613978625000
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+marketCode | STRING | YES | e.g. BTC-USD-REPO-LIN , available values: BTC-USD-REPO-LIN, ETH-USD-REPO-LIN |
+limit | LONG | NO | default is `50` |
+startTime | LONG | NO | millisecond timestamp, e.g. `1579450778000`, default is 7 days ago from time now |
+endTime | LONG | NO | millisecond timestamp, e.g. `1613978625000`, default is time now |
+
+> **SUCCESSFUL RESPONSE**
+
+```json
+{
+    "event": "fundingRates",
+    "timestamp": "1611645666834",
+    "data": [
+        {
+            "fundingRate": "0.00008",
+            "marketCode": "BTC-USD-REPO-LIN",
+            "marketPrice": "33937.2848",
+            "index": "2.78222423",
+            "timestamp": "1606461774458"
+        },
+        ...
+    ]
+}
+```
+
+Response Fields | Type | Description |
+------------------- | ---- | ----------- |
+timestamp | STRING | Timestamp of this response |
+fundingRate | STRING | |
+marketCode | STRING | |
+marketPrice | STRING | |
+index | STRING | |
+timestamp(in the data list) | STRING | |
+
+
+### GET `/v2/depth/{marketCode}/{level}`
+
+Get order book by marketCode and level.
+
+> **Request**
+
+```json
+GET /v2/depth/BTC-USD-SWAP-LIN/5 
+```
+
+> **SUCCESSFUL RESPONSE**
+
+```json
+{
+    "event": "depthL5", 
+    "timestamp": "1615457834446", 
+    "data": [
+        {
+            "asks": [
+                [
+                    54792, 
+                    0.001, 
+                    0, 
+                    0
+                ], 
+                [
+                    54802.5, 
+                    0.366, 
+                    0, 
+                    0
+                ], 
+                [
+                    54803, 
+                    0.75, 
+                    0, 
+                    0
+                ], 
+                [
+                    54806, 
+                    1.5, 
+                    0, 
+                    0
+                ], 
+                [
+                    54830.5, 
+                    0.687, 
+                    0, 
+                    0
+                ]
+            ], 
+            "bids": [
+                [
+                    54786.5, 
+                    0.1, 
+                    0, 
+                    0
+                ], 
+                [
+                    54754.5, 
+                    0.375, 
+                    0, 
+                    0
+                ], 
+                [
+                    54752, 
+                    0.394, 
+                    0, 
+                    0
+                ], 
+                [
+                    54749.5, 
+                    0.001, 
+                    0, 
+                    0
+                ], 
+                [
+                    54745.5, 
+                    0.339, 
+                    0, 
+                    0
+                ]
+            ], 
+            "marketCode": "BTC-USD-SWAP-LIN", 
+            "timestamp": "1615457834388"
+        }
+    ]
+}
+```
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+event | STRING | |
+timestamp | STRING | |
+data | LIST | |
+asks | LIST of floats | Sell side depth: <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol> |
+bids | LIST of floats | Buy side depth: <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol> |
+marketCode | STRING | |
+timestamp | STRING | |
