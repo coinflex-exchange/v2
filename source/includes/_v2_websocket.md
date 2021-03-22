@@ -1981,7 +1981,7 @@ data | LIST of dictionary |
 
 **Channel Update Frequency**: real-time, whenever there is planned liquidation of a clients position 
 
-The liqudation RFQ (request for quotes) channel publishes a message 500ms before a liquidation event is due to occur.  The message will contain the market code and liquidation quantity and is designed to give users an opportunity to make a market for the upcoming liqudation event.
+The liqudation RFQ (request for quotes) channel publishes a message 500ms before a liquidation event is due to occur.  The message will contain the market code and liquidation quantity and is designed to give users an opportunity to make a 2 way market for the upcoming liqudation event.
 
 <sub>**Request Parameters**</sub> 
 
