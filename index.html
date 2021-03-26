@@ -512,7 +512,7 @@
                             <a href="#rest-api-methods-public-get-v2-1-deliver-auction-instrumentid" class="toc-h3 toc-link" data-title="GET <code>/v2.1/deliver-auction/{instrumentId}</code>">GET <code>/v2.1/deliver-auction/{instrumentId}</code></a>
                           </li>
                           <li>
-                            <a href="#rest-api-methods-public-get-v2-candles" class="toc-h3 toc-link" data-title="GET <code>/v2/candles</code>">GET <code>/v2/candles</code></a>
+                            <a href="#rest-api-methods-public-get-v2-candles-marketcode-pending" class="toc-h3 toc-link" data-title="GET <code>/v2/candles/{marketCode}</code>(PENDING)">GET <code>/v2/candles/{marketCode}</code>(PENDING)</a>
                           </li>
                           <li>
                             <a href="#rest-api-methods-public-get-v2-funding-rates-marketcode" class="toc-h3 toc-link" data-title="GET <code>/v2/funding-rates/{marketCode}</code>">GET <code>/v2/funding-rates/{marketCode}</code></a>
@@ -534,6 +534,12 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-03-26</strong></p>
+
+<ul>
+<li>Updated REST API <a href="#rest-api-methods-public-get-v2-candles-marketcode">GET <code>/v2/candles/{marketCode}</code></a> to place orders,  big change on request parameters and response fields, so please take it as new</li>
+</ul>
+
 <p><strong>2021-03-18</strong></p>
 
 <ul>
@@ -7816,22 +7822,13 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>Estimated funding rate a positive rate means longs pay shorts</td>
 </tr>
 </tbody></table>
-<h3 id='rest-api-methods-public-get-v2-candles'>GET <code>/v2/candles</code></h3>
-<p>Get candlestick data for the current candle.</p>
+<h3 id='rest-api-methods-public-get-v2-candles-marketcode-pending'>GET <code>/v2/candles/{marketCode}</code>(PENDING)</h3>
+<p>Get historical candles of active and expired markets.</p>
 
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/candles</span><span class="w">
-</span></code></pre></div>
-<blockquote>
-<p><strong>Request body</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timeframe"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1m"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="w">
-</span><span class="p">}</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/candles/</span><span class="p">{</span><span class="err">marketCode</span><span class="p">}</span><span class="err">?timeframe=</span><span class="p">{</span><span class="err">timeframe</span><span class="p">}</span><span class="err">&amp;limit=</span><span class="p">{</span><span class="err">limit</span><span class="p">}</span><span class="err">&amp;startTime=</span><span class="p">{</span><span class="err">startTime</span><span class="p">}</span><span class="err">&amp;endTime=</span><span class="p">{</span><span class="err">endTime</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <table><thead>
 <tr>
@@ -7845,19 +7842,31 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>marketCode</td>
 <td>STRING</td>
 <td>YES</td>
-<td></td>
+<td>When marketCode is expired market like <code>BTC-USD-201225-LIN</code>, the startTime and the endTime should be explicitly set in <code>2020</code></td>
 </tr>
 <tr>
 <td>timeframe</td>
 <td>STRING</td>
-<td>YES</td>
-<td>e.g. 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w</td>
+<td>NO</td>
+<td>e.g. <code>60s</code>, <code>300s</code>, <code>900s</code>, <code>1800s</code>, <code>3600s</code>, <code>7200s</code>, <code>14400s</code>, <code>86400s</code>, default <code>3600s</code></td>
 </tr>
 <tr>
 <td>limit</td>
-<td>INTEGER</td>
+<td>LONG</td>
 <td>NO</td>
-<td>default value: 500</td>
+<td>max <code>5000</code>, default <code>500</code></td>
+</tr>
+<tr>
+<td>startTime</td>
+<td>LONG</td>
+<td>NO</td>
+<td>Millisecond timestamp, e.g. <code>1579450778000</code>, default is 500 timeframe(selected above) ago, if the timeframe is <code>3600s</code> then the default startTime is <code>time now - 500x3600s</code></td>
+</tr>
+<tr>
+<td>endTime</td>
+<td>LONG</td>
+<td>NO</td>
+<td>Millisecond timestamp, e.g <code>1579450778000</code>, default time now</td>
 </tr>
 </tbody></table>
 
@@ -7865,35 +7874,83 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <p><strong>RESPONSE</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timeframe"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1m"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"candle1m"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1611718910850"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timeframe"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60s"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"candles"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1616743098781"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">[</span><span class="w">
-            </span><span class="s2">"1604301120000"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"11744"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"11814.464"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"1.006"</span><span class="w">
-        </span><span class="p">],</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1616713140000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"open"</span><span class="p">:</span><span class="w"> </span><span class="s2">"51706.50000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"high"</span><span class="p">:</span><span class="w"> </span><span class="s2">"51758.50000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"low"</span><span class="p">:</span><span class="w"> </span><span class="s2">"51705.50000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"close"</span><span class="p">:</span><span class="w"> </span><span class="s2">"51754.00000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"volume24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"currencyVolume24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1616713200000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"open"</span><span class="p">:</span><span class="w"> </span><span class="s2">"51755.50000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"high"</span><span class="p">:</span><span class="w"> </span><span class="s2">"51833.00000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"low"</span><span class="p">:</span><span class="w"> </span><span class="s2">"51748.00000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"close"</span><span class="p">:</span><span class="w"> </span><span class="s2">"51815.00000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"volume24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"currencyVolume24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
         </span><span class="err">...</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <table><thead>
 <tr>
-<th>Fields</th>
+<th>Response Fields</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>candle</td>
-<td>LIST of strings</td>
-<td><ul><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ul></td>
+<td>timestamp(outer)</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>timeframe</td>
+<td>STRING</td>
+<td>Selected timeframe</td>
+</tr>
+<tr>
+<td>timestamp(inner)</td>
+<td>STRING</td>
+<td>Beginning of the candle</td>
+</tr>
+<tr>
+<td>open</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>high</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>low</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>close</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>volume24h</td>
+<td>STRING</td>
+<td>24 hour rolling trading volume in counter currency</td>
+</tr>
+<tr>
+<td>currencyVolumn24h</td>
+<td>STRING</td>
+<td>24 hour rolling trading volume in base currency</td>
 </tr>
 </tbody></table>
 <h3 id='rest-api-methods-public-get-v2-funding-rates-marketcode'>GET <code>/v2/funding-rates/{marketCode}</code></h3>
