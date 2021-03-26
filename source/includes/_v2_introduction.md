@@ -1,5 +1,9 @@
 # Change Log
 
+**2021-03-26**
+
+* Updated REST API [GET `/v2/candles/{marketCode}`](#rest-api-methods-public-get-v2-candles-marketcode) to place orders,  big change on request parameters and response fields, so please take it as new
+
 **2021-03-10**
 
 * Added new REST API [POST /v2/orders/place](#rest-api-methods-private-post-v2-orders-place) to place orders

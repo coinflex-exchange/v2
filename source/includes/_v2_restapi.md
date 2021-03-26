@@ -2196,57 +2196,66 @@ auctionTime | STRING | UNIX timestamp of the next auction
 netDeliver | STRING | Delivery imbalance (negative = more shorts than longs and vice versa)
 estFundingRate | STRING | Estimated funding rate a positive rate means longs pay shorts
 
-### GET `/v2/candles`
+### GET `/v2/candles/{marketCode}`(PENDING)
 
-Get candlestick data for the current candle.
+Get historical candles of active and expired markets.
 
 > **Request**
 
 ```json
-GET /v2/candles
-```
-> **Request body**
-
-```json
-{
-    "marketCode": "BTC-USD-SWAP-LIN",
-    "timeframe": "1m",
-    "limit": 1000
-}
+GET /v2/candles/{marketCode}?timeframe={timeframe}&limit={limit}&startTime={startTime}&endTime={endTime}
 ```
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-marketCode | STRING | YES | |
-timeframe | STRING | YES | e.g. 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w |
-limit | INTEGER | NO | default value: 500 |
+marketCode | STRING | YES | When marketCode is expired market like `BTC-USD-201225-LIN`, the startTime and the endTime should be explicitly set in `2020` |
+timeframe | STRING | NO | e.g. `60s`, `300s`, `900s`, `1800s`, `3600s`, `7200s`, `14400s`, `86400s`, default `3600s ` |
+limit | LONG | NO | max `5000 `, default `500`|
+startTime | LONG | NO | Millisecond timestamp, e.g. `1579450778000`, default is 500 timeframe(selected above) ago, if the timeframe is `3600s` then the default startTime is `time now - 500x3600s` |
+endTime | LONG | NO | Millisecond timestamp, e.g `1579450778000`, default time now |
 
 > **RESPONSE**
 
 ```json
 {
-    "marketCode": "BTC-USD-SWAP-LIN",
-    "timeframe": "1m",
-    "event": "candle1m",
-    "timestamp": "1611718910850",
+    "timeframe": "60s",
+    "event": "candles",
+    "timestamp": "1616743098781",
     "data": [
-        [
-            "1604301120000",
-            "11744",
-            "11744",
-            "11744",
-            "11744",
-            "11814.464",
-            "1.006"
-        ],
+        {
+            "timestamp": "1616713140000",
+            "open": "51706.50000000",
+            "high": "51758.50000000",
+            "low": "51705.50000000",
+            "close": "51754.00000000",
+            "volume24h": "0",
+            "currencyVolume24h": "0"
+        },
+        {
+            "timestamp": "1616713200000",
+            "open": "51755.50000000",
+            "high": "51833.00000000",
+            "low": "51748.00000000",
+            "close": "51815.00000000",
+            "volume24h": "0",
+            "currencyVolume24h": "0"
+        },
         ...
     ]
 }
 ```
 
-Fields |Type | Description|
--------------------------- | -----|--------- |
-candle | LIST of strings  | <ul><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ul>
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+timestamp(outer) | STRING | |
+timeframe | STRING | Selected timeframe |
+timestamp(inner) | STRING | Beginning of the candle |
+open | STRING | |
+high | STRING | |
+low | STRING | |
+close | STRING | |
+volume24h | STRING | 24 hour rolling trading volume in counter currency |
+currencyVolumn24h | STRING | 24 hour rolling trading volume in base currency |
 
 
 ### GET `/v2/funding-rates/{marketCode}`
