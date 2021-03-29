@@ -1059,8 +1059,8 @@ print(resp.json())
   "timestamp": 1594412077100,
   "accountId": "<AccountID>",
   "data": {
-            "msg": "All open orders for the account have been queued for cancellation"
-          } 
+    "msg": "All open orders for the account have been queued for cancellation"
+  }
 }
 ```
 
@@ -2211,16 +2211,16 @@ Request Parameters | Type | Required | Description |
 marketCode | STRING | YES | When marketCode is expired market like `BTC-USD-201225-LIN`, the startTime and the endTime should be explicitly set in `2020` |
 timeframe | STRING | NO | e.g. `60s`, `300s`, `900s`, `1800s`, `3600s`, `7200s`, `14400s`, `86400s`, default `3600s ` |
 limit | LONG | NO | max `5000 `, default `500`|
-startTime | LONG | NO | Millisecond timestamp, e.g. `1579450778000`, default is 500 timeframe(selected above) ago, if the timeframe is `3600s` then the default startTime is `time now - 500x3600s` |
+startTime | LONG | NO | Millisecond timestamp, e.g. `1579450778000`, default is `limit` times `timeframe` ago, if the limit is `300` and the timeframe is `3600s` then the default startTime is `time now - 300x3600s`, if the limit is not present and the timeframe is `3600s` then the default startTime is `time now - 500x3600s` |
 endTime | LONG | NO | Millisecond timestamp, e.g `1579450778000`, default time now |
 
 > **RESPONSE**
 
 ```json
 {
-    "timeframe": "60s",
     "event": "candles",
     "timestamp": "1616743098781",
+    "timeframe": "60s",
     "data": [
         {
             "timestamp": "1616713140000",
