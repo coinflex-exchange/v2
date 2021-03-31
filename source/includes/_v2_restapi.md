@@ -2196,7 +2196,7 @@ auctionTime | STRING | UNIX timestamp of the next auction
 netDeliver | STRING | Delivery imbalance (negative = more shorts than longs and vice versa)
 estFundingRate | STRING | Estimated funding rate a positive rate means longs pay shorts
 
-### GET `/v2/candles/{marketCode}`(PENDING)
+### GET `/v2/candles/{marketCode}`
 
 Get historical candles of active and expired markets.
 
