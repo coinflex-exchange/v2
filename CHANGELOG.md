@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 2.9.2
+
+*March 30, 2021*
+
+* __[Security]__ Bump kramdown from 2.3.0 to 2.3.1
+* Bump nokogiri from 1.11.1 to 1.11.2
+
+## Version 2.9.1
+
+*February 27, 2021*
+
+* Fix Slate language tabs not working if localStorage is disabled
+
 ## Version 2.9.0
 
 *January 19, 2021*
