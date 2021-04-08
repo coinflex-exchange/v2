@@ -2,7 +2,7 @@
 
 **2021-03-31**
 
-* Updated REST API [GET `/v2/candles/{marketCode}`](#rest-api-methods-public-get-v2-candles-marketcode) to place orders,  big change on request parameters and response fields, so please take it as new
+* Updated REST API [GET `/v2/candles/{marketCode}`](#rest-api-methods-public-get-v2-candles-marketcode) to get historical candles of active and expired markets, big change on request parameters and response fields, so please take it as new
 
 **2021-03-18**
 
