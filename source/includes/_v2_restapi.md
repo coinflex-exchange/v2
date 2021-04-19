@@ -474,11 +474,12 @@ print(resp.json())
   "accountId":"<Your Account ID>",
   "data": [ {
               "instrumentId": "BTC-USD-SWAP-LIN",
-              "quantity": "0.94",
-              "lastUpdated": "1592486212218",
+              "quantity": "0.542000000",
+              "lastUpdated": "1617099855966",
               "contractValCurrency": "BTC",
-              "entryPrice": "7800.00",       
-              "positionPnl": "200.3"              
+              "entryPrice": "56934.8258",
+              "positionPnl": "1212.0065",
+              "estLiquidationPrice": "52454.3592"
             },
             ...
           ]
@@ -492,11 +493,12 @@ print(resp.json())
   "accountId":"<Your Account ID>",
   "data": [ {
               "instrumentId": "BTC-USD-SWAP-LIN",
-              "quantity": "0.94",
-              "lastUpdated": "1592486212218",
+              "quantity": "0.542000000",
+              "lastUpdated": "1617099855966",
               "contractValCurrency": "BTC",
-              "entryPrice": "7800.00",       
-              "positionPnl": "200.3"              
+              "entryPrice": "56934.8258",
+              "positionPnl": "1212.0065",
+              "estLiquidationPrice": "52454.3592"
             },
             ...
           ]
@@ -507,18 +509,19 @@ Returns all the positions of the account connected to the API key initiating the
 
 <sub>**Response Parameters**</sub> 
 
-Parameters |Type | Description| 
--------------------------- | -----|--------- |
-event | STRING | `positions`
-timestamp | INTEGER | Millisecond timestamp
-accountId | STRING    | Account ID
-data | LIST of dictionaries |
-\>instrumentId | STRING | Contract symbol, e.g. 'BTC-USD-SWAP-LIN' |
-\>quantity | STRING | Quantity of position, e.g. '0.94' |
-\>lastUpdated| STRING| Timestamp when position was last updated|
-\>contractValCurrency |STRING|Contract valuation currency|
-\>entryPrice|STRING|Average entry price|
-\>positionPnl|STRING|Postion profit and lost|
+Parameters | Type | Description |
+---------- | ---- | ----------- |
+event | STRING | `positions` |
+timestamp | INTEGER | Millisecond timestamp |
+accountId | STRING | Account ID |
+data | LIST of dictionaries | |
+instrumentId | STRING | Contract symbol, e.g. 'BTC-USD-SWAP-LIN' |
+quantity | STRING | Quantity of position, e.g. '0.94' |
+lastUpdated | STRING| Timestamp when position was last updated |
+contractValCurrency | STRING | Contract valuation currency |
+entryPrice | STRING | Average entry price |
+positionPnl | STRING | Postion profit and lost |
+estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative(<0) |
 
 
 ###GET  `/v2/positions/{instrumentId}`
@@ -576,12 +579,13 @@ print(resp.json())
   "timestamp": 1593617005438,
   "accountId":"<Your Account ID>",
   "data": [ {
-              "instrumentId": "FLEX-USD-SWAP-LIN",
-              "quantity": "0.94",
-              "lastUpdated": "1592486212218",
-              "contractValCurrency": "FLEX",
-              "entryPrice": "1.1",       
-              "positionPnl": "200.3"              
+              "instrumentId": "BTC-USD-SWAP-LIN",
+              "quantity": "0.542000000",
+              "lastUpdated": "1617099855966",
+              "contractValCurrency": "BTC",
+              "entryPrice": "56934.8258",
+              "positionPnl": "1216.6135",
+              "estLiquidationPrice": "53171.16"
           } ]
 }
 ```
@@ -592,12 +596,13 @@ print(resp.json())
   "timestamp": 1593617005438,
   "accountId":"<Your Account ID>",
   "data": [ {
-              "instrumentId": "FLEX-USD-SWAP-LIN",
-              "quantity": "0.94",
-              "lastUpdated": "1592486212218",
-              "contractValCurrency": "FLEX",
-              "entryPrice": "1.1",       
-              "positionPnl": "200.3"              
+              "instrumentId": "BTC-USD-SWAP-LIN",
+              "quantity": "0.542000000",
+              "lastUpdated": "1617099855966",
+              "contractValCurrency": "BTC",
+              "entryPrice": "56934.8258",
+              "positionPnl": "1216.6135",
+              "estLiquidationPrice": "53171.16"
           } ]
 }
 ```
@@ -606,18 +611,20 @@ Returns the specified instrument ID position of the account connected to the API
 
 <sub>**Response Parameters**</sub> 
 
-Parameters |Type | Description| 
--------------------------- | -----|--------- |
-event | STRING | `positionsById`
-timestamp | INTEGER | Millisecond timestamp
-accountId | STRING    | Account ID
-data | LIST of dictionaries |
-\>instrumentId | STRING | Contract symbol, e.g. 'FLEX-USD-SWAP-LIN' |
-\>quantity | STRING | Quantity of position, e.g. '0.94' |
-\>lastUpdated| STRING| Timestamp when position was last updated|
-\>contractValCurrency |STRING|Contract valuation currency|
-\>entryPrice|STRING|Average entry price|
-\>positionPnl|STRING|Postion profit and lost|
+Parameters | Type | Description |
+---------- | ---- | ----------- |
+event | STRING | `positionsById` |
+timestamp | INTEGER | Millisecond timestamp |
+accountId | STRING | Account ID |
+data | LIST of dictionaries | |
+instrumentId | STRING | Contract symbol, e.g. 'FLEX-USD-SWAP-LIN' |
+quantity | STRING | Quantity of position, e.g. '0.94' |
+lastUpdated | STRING | Timestamp when position was last updated |
+contractValCurrency | STRING | Contract valuation currency |
+entryPrice | STRING | Average entry price |
+positionPnl | STRING | Postion profit and lost |
+estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative(<0) |
+
 
 ###GET `/v2/trades/{marketCode}`
 

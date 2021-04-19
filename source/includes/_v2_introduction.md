@@ -1,8 +1,13 @@
 # Change Log
 
+**2021-04-19**
+
+* Added new response fields `positionPnl` and `estLiquidationPrice` to websocket API [Position Channel](#websocket-api-subscriptions-private-position-channel)
+* Added new response field `estLiquidationPrice` to REST APIs [GET /v2/positions](#rest-api-methods-private-get-v2-positions) and [GET /v2/positions/{instrumentId}](#rest-api-methods-private-get-v2-positions-instrumentid)
+
 **2021-03-31**
 
-* Updated REST API [GET `/v2/candles/{marketCode}`](#rest-api-methods-public-get-v2-candles-marketcode) to get historical candles of active and expired markets, big change on request parameters and response fields, so please take it as new
+* Updated REST API [GET /v2/candles/{marketCode}](#rest-api-methods-public-get-v2-candles-marketcode) to get historical candles of active and expired markets, big change on request parameters and response fields, so please take it as new
 
 **2021-03-18**
 

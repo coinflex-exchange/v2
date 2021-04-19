@@ -1130,20 +1130,24 @@ OR
   "accountId": "<Your account ID>",
   "timestamp": "1607985371481",
   "data": [ {
-              "entryPrice": "10000",
-              "lastUpdated": "1599693362699",
-              "contractValCurrency": "BTC",
-              "quantity" : "1.5",
-              "instrumentId": "BTC-USD-SWAP-LIN"
+              "entryPrice": "1900.0",
+              "lastUpdated": "1616053755423",
+              "contractValCurrency": "ETH",
+              "quantity" : "0.1",
+              "instrumentId": "ETH-USD-SWAP-LIN",
+              "positionPnl": "-5.6680",
+              "estLiquidationPrice": "0"
             },
             {
-              "entryPrice": "205.1",
-              "lastUpdated": "1599693362699",
-              "contractValCurrency": "ETH",
-              "quantity" : "-0.5",
-              "instrumentId": "ETH-USD-SWAP-LIN"
-            }.
-            ........
+              "entryPrice": "56934.8258",
+              "lastUpdated": "1617099855968",
+              "contractValCurrency": "BTC",
+              "quantity" : "0.542000000",
+              "instrumentId": "BTC-USD-SWAP-LIN",
+              "positionPnl": "1220.9494164000000",
+              "estLiquidationPrice": "53179.2"
+            },
+            ...
           ]
 }
 ```
