@@ -534,10 +534,17 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-04-19</strong></p>
+
+<ul>
+<li>Added new response fields <code>positionPnl</code> and <code>estLiquidationPrice</code> to websocket API <a href="#websocket-api-subscriptions-private-position-channel">Position Channel</a></li>
+<li>Added new response field <code>estLiquidationPrice</code> to REST APIs <a href="#rest-api-methods-private-get-v2-positions">GET /v2/positions</a> and <a href="#rest-api-methods-private-get-v2-positions-instrumentid">GET /v2/positions/{instrumentId}</a></li>
+</ul>
+
 <p><strong>2021-03-31</strong></p>
 
 <ul>
-<li>Updated REST API <a href="#rest-api-methods-public-get-v2-candles-marketcode">GET <code>/v2/candles/{marketCode}</code></a> to get historical candles of active and expired markets, big change on request parameters and response fields, so please take it as new</li>
+<li>Updated REST API <a href="#rest-api-methods-public-get-v2-candles-marketcode">GET /v2/candles/{marketCode}</a> to get historical candles of active and expired markets, big change on request parameters and response fields, so please take it as new</li>
 </ul>
 
 <p><strong>2021-03-18</strong></p>
@@ -2171,20 +2178,24 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Your account ID&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1607985371481"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
-              </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10000"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599693362699"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1.5"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="w">
+              </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1900.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1616053755423"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"positionPnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-5.6680"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"estLiquidationPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
             </span><span class="p">},</span><span class="w">
             </span><span class="p">{</span><span class="w">
-              </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"205.1"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599693362699"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"-0.5"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="w">
-            </span><span class="p">}</span><span class="err">.</span><span class="w">
-            </span><span class="err">........</span><span class="w">
+              </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56934.8258"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1617099855968"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0.542000000"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"positionPnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1220.9494164000000"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"estLiquidationPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"53179.2"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="err">...</span><span class="w">
           </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -4904,11 +4915,12 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
   </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
               </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.94"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592486212218"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.542000000"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1617099855966"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7800.00"</span><span class="p">,</span><span class="w">       
-              </span><span class="nl">"positionPnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200.3"</span><span class="w">              
+              </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56934.8258"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"positionPnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1212.0065"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"estLiquidationPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"52454.3592"</span><span class="w">
             </span><span class="p">},</span><span class="w">
             </span><span class="err">...</span><span class="w">
           </span><span class="p">]</span><span class="w">
@@ -4919,11 +4931,12 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
   <span class="s">"accountId"</span><span class="p">:</span><span class="s">"&lt;Your Account ID&gt;"</span><span class="p">,</span>
   <span class="s">"data"</span><span class="p">:</span> <span class="p">[</span> <span class="p">{</span>
               <span class="s">"instrumentId"</span><span class="p">:</span> <span class="s">"BTC-USD-SWAP-LIN"</span><span class="p">,</span>
-              <span class="s">"quantity"</span><span class="p">:</span> <span class="s">"0.94"</span><span class="p">,</span>
-              <span class="s">"lastUpdated"</span><span class="p">:</span> <span class="s">"1592486212218"</span><span class="p">,</span>
+              <span class="s">"quantity"</span><span class="p">:</span> <span class="s">"0.542000000"</span><span class="p">,</span>
+              <span class="s">"lastUpdated"</span><span class="p">:</span> <span class="s">"1617099855966"</span><span class="p">,</span>
               <span class="s">"contractValCurrency"</span><span class="p">:</span> <span class="s">"BTC"</span><span class="p">,</span>
-              <span class="s">"entryPrice"</span><span class="p">:</span> <span class="s">"7800.00"</span><span class="p">,</span>       
-              <span class="s">"positionPnl"</span><span class="p">:</span> <span class="s">"200.3"</span>              
+              <span class="s">"entryPrice"</span><span class="p">:</span> <span class="s">"56934.8258"</span><span class="p">,</span>
+              <span class="s">"positionPnl"</span><span class="p">:</span> <span class="s">"1212.0065"</span><span class="p">,</span>
+              <span class="s">"estLiquidationPrice"</span><span class="p">:</span> <span class="s">"52454.3592"</span>
             <span class="p">},</span>
             <span class="p">...</span>
           <span class="p">]</span>
@@ -4961,34 +4974,39 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td></td>
 </tr>
 <tr>
-<td>&gt;instrumentId</td>
+<td>instrumentId</td>
 <td>STRING</td>
 <td>Contract symbol, e.g. &#39;BTC-USD-SWAP-LIN&#39;</td>
 </tr>
 <tr>
-<td>&gt;quantity</td>
+<td>quantity</td>
 <td>STRING</td>
 <td>Quantity of position, e.g. &#39;0.94&#39;</td>
 </tr>
 <tr>
-<td>&gt;lastUpdated</td>
+<td>lastUpdated</td>
 <td>STRING</td>
 <td>Timestamp when position was last updated</td>
 </tr>
 <tr>
-<td>&gt;contractValCurrency</td>
+<td>contractValCurrency</td>
 <td>STRING</td>
 <td>Contract valuation currency</td>
 </tr>
 <tr>
-<td>&gt;entryPrice</td>
+<td>entryPrice</td>
 <td>STRING</td>
 <td>Average entry price</td>
 </tr>
 <tr>
-<td>&gt;positionPnl</td>
+<td>positionPnl</td>
 <td>STRING</td>
 <td>Postion profit and lost</td>
+</tr>
+<tr>
+<td>estLiquidationPrice</td>
+<td>STRING</td>
+<td>Estimated liquidation price, return 0 if it is negative(&lt;0)</td>
 </tr>
 </tbody></table>
 <h3 id='rest-api-methods-private-get-v2-positions-instrumentid'>GET  <code>/v2/positions/{instrumentId}</code></h3>
@@ -5040,12 +5058,13 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1593617005438</span><span class="p">,</span><span class="w">
   </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
-              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.94"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592486212218"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.1"</span><span class="p">,</span><span class="w">       
-              </span><span class="nl">"positionPnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200.3"</span><span class="w">              
+              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.542000000"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1617099855966"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56934.8258"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"positionPnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1216.6135"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"estLiquidationPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"53171.16"</span><span class="w">
           </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="p">{</span>
@@ -5053,12 +5072,13 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
   <span class="s">"timestamp"</span><span class="p">:</span> <span class="mi">1593617005438</span><span class="p">,</span>
   <span class="s">"accountId"</span><span class="p">:</span><span class="s">"&lt;Your Account ID&gt;"</span><span class="p">,</span>
   <span class="s">"data"</span><span class="p">:</span> <span class="p">[</span> <span class="p">{</span>
-              <span class="s">"instrumentId"</span><span class="p">:</span> <span class="s">"FLEX-USD-SWAP-LIN"</span><span class="p">,</span>
-              <span class="s">"quantity"</span><span class="p">:</span> <span class="s">"0.94"</span><span class="p">,</span>
-              <span class="s">"lastUpdated"</span><span class="p">:</span> <span class="s">"1592486212218"</span><span class="p">,</span>
-              <span class="s">"contractValCurrency"</span><span class="p">:</span> <span class="s">"FLEX"</span><span class="p">,</span>
-              <span class="s">"entryPrice"</span><span class="p">:</span> <span class="s">"1.1"</span><span class="p">,</span>       
-              <span class="s">"positionPnl"</span><span class="p">:</span> <span class="s">"200.3"</span>              
+              <span class="s">"instrumentId"</span><span class="p">:</span> <span class="s">"BTC-USD-SWAP-LIN"</span><span class="p">,</span>
+              <span class="s">"quantity"</span><span class="p">:</span> <span class="s">"0.542000000"</span><span class="p">,</span>
+              <span class="s">"lastUpdated"</span><span class="p">:</span> <span class="s">"1617099855966"</span><span class="p">,</span>
+              <span class="s">"contractValCurrency"</span><span class="p">:</span> <span class="s">"BTC"</span><span class="p">,</span>
+              <span class="s">"entryPrice"</span><span class="p">:</span> <span class="s">"56934.8258"</span><span class="p">,</span>
+              <span class="s">"positionPnl"</span><span class="p">:</span> <span class="s">"1216.6135"</span><span class="p">,</span>
+              <span class="s">"estLiquidationPrice"</span><span class="p">:</span> <span class="s">"53171.16"</span>
           <span class="p">}</span> <span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -5094,34 +5114,39 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td></td>
 </tr>
 <tr>
-<td>&gt;instrumentId</td>
+<td>instrumentId</td>
 <td>STRING</td>
 <td>Contract symbol, e.g. &#39;FLEX-USD-SWAP-LIN&#39;</td>
 </tr>
 <tr>
-<td>&gt;quantity</td>
+<td>quantity</td>
 <td>STRING</td>
 <td>Quantity of position, e.g. &#39;0.94&#39;</td>
 </tr>
 <tr>
-<td>&gt;lastUpdated</td>
+<td>lastUpdated</td>
 <td>STRING</td>
 <td>Timestamp when position was last updated</td>
 </tr>
 <tr>
-<td>&gt;contractValCurrency</td>
+<td>contractValCurrency</td>
 <td>STRING</td>
 <td>Contract valuation currency</td>
 </tr>
 <tr>
-<td>&gt;entryPrice</td>
+<td>entryPrice</td>
 <td>STRING</td>
 <td>Average entry price</td>
 </tr>
 <tr>
-<td>&gt;positionPnl</td>
+<td>positionPnl</td>
 <td>STRING</td>
 <td>Postion profit and lost</td>
+</tr>
+<tr>
+<td>estLiquidationPrice</td>
+<td>STRING</td>
+<td>Estimated liquidation price, return 0 if it is negative(&lt;0)</td>
 </tr>
 </tbody></table>
 <h3 id='rest-api-methods-private-get-v2-trades-marketcode'>GET <code>/v2/trades/{marketCode}</code></h3>
