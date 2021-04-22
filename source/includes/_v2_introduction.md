@@ -1,5 +1,11 @@
 # Change Log
 
+**2021-04-21**
+
+* Updated REST API [GET /v2/funding-rates/{marketCode}](#rest-api-methods-public-get-v2-funding-rates-marketcode)
+    * Move request parameters from body to URL
+    * Change response field `marketPrice` to `markPrice`
+
 **2021-04-19**
 
 * Added new response fields `positionPnl` and `estLiquidationPrice` to websocket API [Position Channel](#websocket-api-subscriptions-private-position-channel)

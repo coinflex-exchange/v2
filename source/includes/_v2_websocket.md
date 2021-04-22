@@ -1168,17 +1168,19 @@ tag | INTEGER or STRING | No | If given it will be echoed in the reply
 
 <sub>**Channel Update Fields**</sub> 
 
-Fields |Type| Description |
---------|-----|---|
-table | STRING| `position`
-accountId | STRING|  Account identifier
-timestamp|STRING | Current millisecond timestamp
-data | LIST of dictionaries |
-\>entryPrice | STRING | Average entry price of total position (Cost / Size)
-\>lastUpdated|STRING | Millisecond timestamp
-\>contractValCurrency | STRING | Base asset ID e.g. `ETH`
-\>quantity | STRING| Position size (+/-)
-\>instrumentId | STRING | e.g. `ETH-USD-SWAP-LIN`
+Fields | Type | Description |
+------ | ---- | ----------- |
+table | STRING | `position` |
+accountId | STRING | Account identifier |
+timestamp | STRING | Current millisecond timestamp |
+data | LIST of dictionaries | |
+entryPrice | STRING | Average entry price of total position (Cost / Size) |
+lastUpdated | STRING | Millisecond timestamp |
+contractValCurrency | STRING | Base asset ID e.g. `ETH` |
+quantity | STRING | Position size (+/-) |
+instrumentId | STRING | e.g. `ETH-USD-SWAP-LIN` |
+positionPnl | STRING | Postion profit and lost |
+estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative(<0) |
 
 
 ### Order Channel

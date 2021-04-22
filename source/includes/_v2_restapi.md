@@ -507,10 +507,8 @@ print(resp.json())
 
 Returns all the positions of the account connected to the API key initiating the request. 
 
-<sub>**Response Parameters**</sub> 
-
-Parameters | Type | Description |
----------- | ---- | ----------- |
+Response Fields | Type | Description |
+--------------- | ---- | ----------- |
 event | STRING | `positions` |
 timestamp | INTEGER | Millisecond timestamp |
 accountId | STRING | Account ID |
@@ -609,10 +607,8 @@ print(resp.json())
 
 Returns the specified instrument ID position of the account connected to the API key initiating the request.
 
-<sub>**Response Parameters**</sub> 
-
-Parameters | Type | Description |
----------- | ---- | ----------- |
+Response Fields | Type | Description |
+--------------- | ---- | ----------- |
 event | STRING | `positionsById` |
 timestamp | INTEGER | Millisecond timestamp |
 accountId | STRING | Account ID |
@@ -2258,12 +2254,6 @@ Get funding rates by marketCode.
 
 ```json
 GET /v2/funding-rates/{marketCode}?startTime={startTime}&endTime={endTime}&limit={limit}
-```
-
-> **Example**
-
-```json
-GET /v2/funding-rates/BTC-USD-REPO-LIN?startTime=1579450778000&endTime=1613978625000&limit=3
 ```
 
 Request Parameters | Type | Required | Description |
