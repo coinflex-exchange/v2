@@ -462,7 +462,7 @@
                             <a href="#rest-api-methods-private-get-v2-orders" class="toc-h3 toc-link" data-title="GET  <code>/v2/orders</code>">GET  <code>/v2/orders</code></a>
                           </li>
                           <li>
-                            <a href="#rest-api-methods-private-get-v2-1-orders-pending" class="toc-h3 toc-link" data-title="GET <code>/v2.1/orders</code> PENDING">GET <code>/v2.1/orders</code> PENDING</a>
+                            <a href="#rest-api-methods-private-get-v2-1-orders-pending" class="toc-h3 toc-link" data-title="GET <code>/v2.1/orders</code>(PENDING)">GET <code>/v2.1/orders</code>(PENDING)</a>
                           </li>
                           <li>
                             <a href="#rest-api-methods-private-delete-v2-cancel-orders" class="toc-h3 toc-link" data-title="DELETE <code>/v2/cancel/orders</code>">DELETE <code>/v2/cancel/orders</code></a>
@@ -534,6 +534,17 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-04-21</strong></p>
+
+<ul>
+<li>Updated REST API <a href="#rest-api-methods-public-get-v2-funding-rates-marketcode">GET /v2/funding-rates/{marketCode}</a>
+
+<ul>
+<li>Move request parameters from body to URL</li>
+<li>Change response field <code>marketPrice</code> to <code>markPrice</code></li>
+</ul></li>
+</ul>
+
 <p><strong>2021-04-19</strong></p>
 
 <ul>
@@ -2265,29 +2276,39 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td></td>
 </tr>
 <tr>
-<td>&gt;entryPrice</td>
+<td>entryPrice</td>
 <td>STRING</td>
 <td>Average entry price of total position (Cost / Size)</td>
 </tr>
 <tr>
-<td>&gt;lastUpdated</td>
+<td>lastUpdated</td>
 <td>STRING</td>
 <td>Millisecond timestamp</td>
 </tr>
 <tr>
-<td>&gt;contractValCurrency</td>
+<td>contractValCurrency</td>
 <td>STRING</td>
 <td>Base asset ID e.g. <code>ETH</code></td>
 </tr>
 <tr>
-<td>&gt;quantity</td>
+<td>quantity</td>
 <td>STRING</td>
 <td>Position size (+/-)</td>
 </tr>
 <tr>
-<td>&gt;instrumentId</td>
+<td>instrumentId</td>
 <td>STRING</td>
 <td>e.g. <code>ETH-USD-SWAP-LIN</code></td>
+</tr>
+<tr>
+<td>positionPnl</td>
+<td>STRING</td>
+<td>Postion profit and lost</td>
+</tr>
+<tr>
+<td>estLiquidationPrice</td>
+<td>STRING</td>
+<td>Estimated liquidation price, return 0 if it is negative(&lt;0)</td>
 </tr>
 </tbody></table>
 <h3 id='websocket-api-subscriptions-private-order-channel'>Order Channel</h3>
@@ -4944,11 +4965,9 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </code></pre></div>
 <p>Returns all the positions of the account connected to the API key initiating the request. </p>
 
-<p><sub><strong>Response Parameters</strong></sub> </p>
-
 <table><thead>
 <tr>
-<th>Parameters</th>
+<th>Response Fields</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
@@ -5084,11 +5103,9 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </code></pre></div>
 <p>Returns the specified instrument ID position of the account connected to the API key initiating the request.</p>
 
-<p><sub><strong>Response Parameters</strong></sub> </p>
-
 <table><thead>
 <tr>
-<th>Parameters</th>
+<th>Response Fields</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
@@ -5563,19 +5580,19 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>Time in force</td>
 </tr>
 </tbody></table>
-<h3 id='rest-api-methods-private-get-v2-1-orders-pending'>GET <code>/v2.1/orders</code> PENDING</h3>
+<h3 id='rest-api-methods-private-get-v2-1-orders-pending'>GET <code>/v2.1/orders</code>(PENDING)</h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mf">2.1</span><span class="err">/orders?marketCode=</span><span class="p">{</span><span class="err">marketCode</span><span class="p">}</span><span class="err">&amp;orderId=</span><span class="p">{</span><span class="err">orderId</span><span class="p">}</span><span class="err">&amp;clientOrderId=</span><span class="p">{</span><span class="err">clientOrderId</span><span class="p">}</span><span class="err">&amp;limit=</span><span class="p">{</span><span class="err">limit</span><span class="p">}</span><span class="err">&amp;startTime=</span><span class="p">{</span><span class="err">startTime</span><span class="p">}</span><span class="err">&amp;endTime=</span><span class="p">{</span><span class="err">endTime</span><span class="p">}</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mf">2.1</span><span class="err">/orders</span><span class="w">
 
 </span><span class="p">{</span><span class="w">
   </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"987654321"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"startTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-08 20:00:00"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"endTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-09 20:00:00"</span><span class="w">
+  </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">123456789</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">987654321</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"startTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">1579450778000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"endTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">1613978625000</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
@@ -5588,63 +5605,46 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
     </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderOpened"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">304330302278421284</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1611727170448</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"304330302278421284"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1611727170448"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sell"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33108"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"lastTradedPrice"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"averageFillPrice"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"stopPrice"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"orderMatchType"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"matchId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"leg1Price"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"leg2Price"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"feeInstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER_ONLY"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"isTriggered"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1611727170650"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderMatched"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">5204263117330811401</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1611644738148</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5204263117330811401"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1611644738148"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-Rate-Jan21"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sell"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"472"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"lastTradedPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"472"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"averageFillPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"472"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"stopPrice"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.5"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"remainQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.5"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"orderMatchType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"matchId"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="mi">5204263117330811403</span><span class="p">,</span><span class="w">
-                </span><span class="mi">5204263117330811405</span><span class="p">,</span><span class="w">
-                </span><span class="mi">5204263117330811407</span><span class="w">
+                </span><span class="s2">"5204263117330811403"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"5204263117330811405"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"5204263117330811407"</span><span class="w">
             </span><span class="p">],</span><span class="w">
-            </span><span class="nl">"leg1Price"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"leg2Price"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-0.0028391"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"feeInstrumentId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"isTriggered"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"isTriggered"</span><span class="p">:</span><span class="w"> </span><span class="s2">"False"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1611645088765"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="err">...</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Returns all the open orders of the account connected to the API key initiating the request.</p>
+<p>Returns all orders of the account connected to the API key initiating the request.</p>
 
 <p><sub><strong>Request Parameters</strong></sub> </p>
 
@@ -5664,33 +5664,33 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </tr>
 <tr>
 <td>orderId</td>
-<td>Integer</td>
+<td>LONG</td>
 <td>NO</td>
 <td></td>
 </tr>
 <tr>
 <td>clientId</td>
-<td>Integer</td>
+<td>LONG</td>
 <td>NO</td>
 <td></td>
 </tr>
 <tr>
 <td>limit</td>
-<td>STRING</td>
+<td>LONG</td>
 <td>NO</td>
-<td>should equal to or less than <code>1000</code>, default is <code>1000</code></td>
+<td>max is <code>1000</code>, default is <code>1000</code></td>
 </tr>
 <tr>
 <td>startTime</td>
-<td>STRING</td>
+<td>LONG</td>
 <td>NO</td>
-<td>e.g. <code>2020-02-01 20:00:00</code>, default is 24 hours ago from time now</td>
+<td>e.g. <code>1579450778000</code>, default is 24 hours ago from time now</td>
 </tr>
 <tr>
 <td>endTime</td>
-<td>STRING</td>
+<td>LONG</td>
 <td>NO</td>
-<td>e.g. <code>2020-02-02 20:00:00</code>, default is time now</td>
+<td>e.g. <code>1613978625000</code>, default is time now</td>
 </tr>
 </tbody></table>
 
@@ -5720,13 +5720,23 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </tr>
 <tr>
 <td>orderId</td>
-<td>INTEGER</td>
+<td>STRING</td>
 <td>Order ID which generated by the server</td>
+</tr>
+<tr>
+<td>clientOrderId</td>
+<td>STRING</td>
+<td>Client order ID which given by the user</td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Market code</td>
 </tr>
 <tr>
 <td>side</td>
 <td>STRING</td>
-<td>Side of the order</td>
+<td>Side of the order, <code>BUY</code> or <code>SELL</code></td>
 </tr>
 <tr>
 <td>orderType</td>
@@ -5781,7 +5791,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <tr>
 <td>matchId</td>
 <td>ARRAY</td>
-<td>Exchange match ID</td>
+<td>Exchange match ID, elements in the array are STRINGs</td>
 </tr>
 <tr>
 <td>leg1Price</td>
@@ -5810,8 +5820,8 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </tr>
 <tr>
 <td>isTriggered</td>
-<td>BOOLEAN</td>
-<td></td>
+<td>STRING</td>
+<td><code>True</code> or <code>False</code></td>
 </tr>
 <tr>
 <td>timestamp(in data)</td>
@@ -7984,16 +7994,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mf">2.1</span><span class="err">/funding-rates/</span><span class="p">{</span><span class="err">marketCode</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<blockquote>
-<p><strong>Request body</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"startTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">1579450778000</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"endTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">1613978625000</span><span class="w">
-</span><span class="p">}</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/funding-rates/</span><span class="p">{</span><span class="err">marketCode</span><span class="p">}</span><span class="err">?startTime=</span><span class="p">{</span><span class="err">startTime</span><span class="p">}</span><span class="err">&amp;endTime=</span><span class="p">{</span><span class="err">endTime</span><span class="p">}</span><span class="err">&amp;limit=</span><span class="p">{</span><span class="err">limit</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <table><thead>
 <tr>
@@ -8038,9 +8039,9 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
     </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="nl">"fundingRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00008"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-REPO-LIN"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"marketPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33937.2848"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"index"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.78222423"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"markPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33937.2848"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-REPO-LIN"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1606461774458"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="err">...</span><span class="w">
@@ -8065,17 +8066,17 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td></td>
 </tr>
 <tr>
-<td>marketCode</td>
-<td>STRING</td>
-<td></td>
-</tr>
-<tr>
-<td>marketPrice</td>
-<td>STRING</td>
-<td></td>
-</tr>
-<tr>
 <td>index</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>markPrice</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>marketCode</td>
 <td>STRING</td>
 <td></td>
 </tr>
