@@ -4,10 +4,10 @@
 
 * Updated REST API [GET /v2.1/orders](#rest-api-methods-private-get-v2-1-orders)
     * Request params:
+        * Moved request parameters from body to URL
         * Changed default & max of `limit` from `1000` to `100`
         * Changed default of `startTime` from `24 hours ago` to `0`
     * Response fields:
-        * Moved request parameters from body to URL
         * Data list in response are ordered by created time in descending
         * Added new field `lastTradedPrice`
         * Added new field `avgFillPrice`
