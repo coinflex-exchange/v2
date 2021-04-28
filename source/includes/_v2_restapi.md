@@ -882,67 +882,76 @@ data | LIST of dictionaries |
 \>timeInForce | STRING | Time in force |
 
 
-### GET `/v2.1/orders`(PENDING)
+### GET `/v2.1/orders`
 
 > **Request**
 
 ```json
-GET /v2.1/orders
-
-{
-  "marketCode": "BTC-USD-SWAP-LIN",
-  "orderId": 123456789,
-  "clientOrderId": 987654321,
-  "limit": 3,
-  "startTime": 1579450778000,
-  "endTime": 1613978625000
-}
+GET /v2.1/orders?marketCode={marketCode}&orderId={orderId}&clientOrderId={clientOrderId}&limit={limit}&startTime={startTime}&endTime={endTime}
 ```
 
 > **Response**
 
 ```json
 {
-    "accountId": "4499257",
     "event": "orders",
-    "timestamp": "1611645666834",
+    "timestamp": "1619167719563",
+    "accountId": "1076",
     "data": [
         {
+            "status": "OrderClosed",
+            "orderId": "304408197314577142",
+            "clientOrderId": "1",
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "LIMIT",
+            "price": "10006.0",
+            "quantity": "0.001",
+            "remainQuantity": "0.001",
+            "timeInForce": "GTC",
+            "orderClosedTimestamp": "1619131050779"
+        },
+        {
             "status": "OrderOpened",
-            "orderId": "304330302278421284",
-            "clientOrderId": "1611727170448",
+            "orderId": "304408197314577143",
+            "clientOrderId": "2",
             "marketCode": "BTC-USD-SWAP-LIN",
             "side": "SELL",
             "orderType": "LIMIT",
-            "price": "33108",
-            "quantity": "1",
-            "remainQuantity": "1",
-            "timeInForce": "MAKER_ONLY",
-            "timestamp": "1611727170650"
+            "price": "60006.0",
+            "quantity": "0.001",
+            "remainQuantity": "0.001",
+            "timeInForce": "GTC",
+            "orderOpenedTimestamp": "1619131049574"
         },
         {
             "status": "OrderMatched",
-            "orderId": "5204263117330811401",
-            "clientOrderId": "1611644738148",
-            "marketCode": "BTC-Rate-Jan21",
-            "side": "SELL",
-            "orderType": "LIMIT",
-            "price": "472",
-            "lastTradedPrice": "472",
-            "averageFillPrice": "472",
-            "quantity": "3",
-            "matchQuantity": "0.5",
-            "remainQuantity": "2.5",
-            "orderMatchType": "MAKER",
-            "matchId": [
-                "5204263117330811403",
-                "5204263117330811405",
-                "5204263117330811407"
+            "orderId": "448528458527567629",
+            "clientOrderId": "1618870087524",
+            "marketCode": "FLEX-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "MARKET",
+            "price": "0.194",
+            "lastTradedPrice": "0.170",
+            "avgFillPrice": "0.170",
+            "quantity": "12.1",
+            "filledQuantity": "12.1",
+            "remainQuantity": "0",
+            "matchIds": [
+                {
+                    "448528458527567630": {
+                        "matchQuantity": "12.1",
+                        "matchPrice": "0.170",
+                        "timestamp": "1618870088471",
+                        "orderMatchType": "TAKER"
+                    }
+                }
             ],
-            "fees": "-0.0028391",
-            "timeInForce": "GTC",
-            "isTriggered": "False",
-            "timestamp": "1611645088765"
+            "fees": {
+                "FLEX": "-0.00440786"
+            },
+            "timeInForce": "IOC",
+            "isTriggered": "false"
         },
         ...
     ]
@@ -951,21 +960,18 @@ GET /v2.1/orders
 
 Returns all orders of the account connected to the API key initiating the request.
 
-<sub>**Request Parameters**</sub> 
-
-Parameters | Type | Required | Description |
+Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 marketCode | STRING | NO | |
 orderId | LONG | NO | |
 clientId | LONG | NO | |
-limit | LONG | NO | max is `1000`, default is `1000` |
-startTime | LONG | NO | e.g. `1579450778000`, default is 24 hours ago from time now |
-endTime | LONG | NO | e.g. `1613978625000`, default is time now |
+limit | LONG | NO | max `100`, default `100` |
+startTime | LONG | NO | e.g. `1579450778000`, default `0` |
+endTime | LONG | NO | e.g. `1613978625000`, default time now |
 
-<sub>**Response Parameters**</sub> 
 
-Parameter | Type | Description |
-------------------- | ---- | ----------- |
+Response Fields | Type | Description |
+--------------- | ---- | ----------- |
 accountId | STRING | Account ID |
 timestamp | STRING | Timestamp of this response |
 status | STRING | Status of the order |
@@ -976,21 +982,22 @@ side | STRING | Side of the order, `BUY` or `SELL` |
 orderType | STRING | Type of the order |
 price | STRING | Price submitted |
 lastTradedPrice | STRING | Price when order was last traded |
-averageFillPrice | STRING | Price when order was last traded |
+avgFillPrice | STRING | Average of filled price |
 stopPrice | STRING | Stop price for the stop order |
 limitPrice | STRING | Limit price for the stop limit order |
 quantity | STRING | Quantity submitted |
-matchQuantity | STRING | Match quantity |
 remainQuantity | STRING | Remainning quantity |
+filledQuantity | STRING | Filled quantity |
+matchIds | LIST of dictionaries | Exchange matched IDs and information about matching orders |
+matchQuantity | STRING | Matched quantity |
+matchPrice | STRING | Matched price |
 orderMatchType | STRING | `MAKER` or `TAKER` |
-matchId | ARRAY | Exchange match ID, elements in the array are STRINGs |
+timestamp in matchIds | STRING | Time matched at|
 leg1Price | STRING | |
 leg2Price | STRING | |
-fees | STRING | Amount of fees paid from this match ID |
-feeInstrumentId | STRING | Instrument ID of fees paid from this match ID |
+fees | LIST of dictionaries | Fees with instrument ID |
 timeInForce | STRING | Time in force |
 isTriggered | STRING | `True` or `False` |
-timestamp(in data) | STRING | |
 
 
 ###DELETE `/v2/cancel/orders`
@@ -1635,9 +1642,9 @@ Place orders.
 
 Request Parameters | Type | Required | Description | 
 ------------------ | ---- | -------- | ----------- |
-recvWindow | LONG | YES | |
-responseType | STRING | YES | |
+recvWindow | LONG | NO | |
 timestamp | STRING | NO | |
+responseType | STRING | YES | `FULL` or `ACK` |
 orders | LIST | YES | |
 clientOrderId | STRING | YES | |
 marketCode | STRING | YES | |
@@ -1759,7 +1766,7 @@ Modify orders.
 
 Request Parameters | Type | Required | Description | 
 ------------------ | ---- | -------- | ----------- |
-recvWindow | LONG | YES | |
+recvWindow | LONG | NO | |
 timestamp | STRING | NO | |
 responseType | STRING | YES | `FULL` or `ACK` |
 orders | LIST | YES | |
@@ -1861,9 +1868,9 @@ Cancel orders.
 
 Request Parameters | Type | Required | Description | 
 ------------------ | ---- | -------- | ----------- |
-recvWindow | LONG | YES | |
-responseType | STRING | YES | |
+recvWindow | LONG | NO | |
 timestamp | LONG | NO | |
+responseType | STRING | YES | `FULL` or `ACK` |
 orders | LIST | YES | |
 marketCode | STRING | YES | |
 orderId | STRING | Either one of orderId or clientOrderId is required | |

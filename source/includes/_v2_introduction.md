@@ -1,5 +1,27 @@
 # Change Log
 
+**2021-04-28**
+
+* Updated REST API [GET /v2.1/orders](#rest-api-methods-private-get-v2-1-orders)
+    * Request params:
+        * Changed default & max of `limit` from `1000` to `100`
+        * Changed default of `startTime` from `24 hours ago` to `0`
+    * Response fields:
+        * Moved request parameters from body to URL
+        * Data list in response are ordered by created time in descending
+        * Added new field `lastTradedPrice`
+        * Added new field `avgFillPrice`
+        * Added new field `filledQuantity`
+        * Added new field `avgLeg1Price`
+        * Added new field `avgLeg2Price`
+        * Added new field `orderOpenedTimestamp`
+        * Added new field `orderModifiedTimestamp`
+        * Added new field `orderClosedTimestamp`
+        * Changed field `matchId` to `matchIds` with more changes, please refer to the response example
+        * Changed field `fees`, please refer to the response example
+        * Changed field `isTriggered` from `True/False` to `"true"/"false"`
+        * Removed field `timestamp` in data list
+
 **2021-04-21**
 
 * Updated REST API [GET /v2/funding-rates/{marketCode}](#rest-api-methods-public-get-v2-funding-rates-marketcode)
