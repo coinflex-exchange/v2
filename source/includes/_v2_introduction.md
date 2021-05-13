@@ -1,5 +1,14 @@
 # Change Log
 
+**2021-05-12**
+
+* Updated REST API [GET /v2/positions](#rest-api-methods-private-get-v2-positions) & [GET /v2/positions/{instrumentId}](#rest-api-methods-private-get-v2-positions-instrumentid)
+    * Response fields:
+        * Field `lastUpdated` changed from LONG type to STRING type
+* Updated REST API [GET/v2/all/markets](#rest-api-methods-public-get-v2-all-markets)
+    * Response fields:
+        * Field `name` changed with new naming rule, e.g. from `BAND/USD Spot` to `BAND/USD`
+
 **2021-04-28**
 
 * Updated REST API [GET /v2.1/orders](#rest-api-methods-private-get-v2-1-orders)

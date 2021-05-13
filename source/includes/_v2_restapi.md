@@ -1916,24 +1916,26 @@ GET/v2/all/markets`
 ```json
 {
     "event": "markets",
-    "timestamp": "1593617005438",
+    "timestamp": "1620810144786",
     "data": [
         {
+            "marketId": "2001000000000",
             "marketCode": "BTC-USD",
-            "name": "BTC/USD Spot",
+            "name": "BTC/USD",
             "referencePair": "BTC/USD",
             "base": "BTC",
             "counter": "USD",
             "type": "SPOT",
             "tickSize": "0.1",
             "qtyIncrement": "0.001",
-            "listingDate": "-2208988800000",
-            "endDate": null,
-            "marginCurrency": null,
+            "listingDate": 2208988800000,
+            "endDate": 0,
+            "marginCurrency": "USD",
             "contractValCurrency": "BTC",
             "upperPriceBound": "11000.00",
             "lowerPriceBound": "9000.00",
             "marketPrice": "10000.00"
+            "marketPriceLastUpdated": "1620810131131"
         },
         ...
     ]
@@ -1944,6 +1946,7 @@ Get a list of all available markets on CoinFlex.
 Response Parameters |Type | Description| 
 -------------------------- | -----|--------- |
 timestamp | STRING    | Timestamp of this response|
+marketId | STRING | |
 marketCode| STRING    | Market Code                  |
 name      | STRING    | Name of the contract                  |
 referencePair| STRING | Reference pair                  |
@@ -1959,6 +1962,7 @@ contractValCurrency| STRING| Contract valuation currency|
 upperPriceBound| STRING| Upper price bound                 |
 lowerPriceBound| STRING| Lower price bound                 |
 marketPrice    | STRING| Market price                 |
+marketPriceLastUpdated | LONG | The time that market price last updated at |
 
 
 ###GET `/v2/all/assets`
