@@ -488,6 +488,18 @@
                           <li>
                             <a href="#rest-api-methods-private-delete-v2-orders-cancel" class="toc-h3 toc-link" data-title="DELETE <code>/v2/orders/cancel</code>">DELETE <code>/v2/orders/cancel</code></a>
                           </li>
+                          <li>
+                            <a href="#rest-api-methods-private-post-v2-mint" class="toc-h3 toc-link" data-title="POST <code>/v2/mint</code>">POST <code>/v2/mint</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-get-v2-mint-asset" class="toc-h3 toc-link" data-title="GET /v2/mint/{asset}">GET /v2/mint/{asset}</a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-post-v2-redeem" class="toc-h3 toc-link" data-title="POST <code>/v2/redeem</code>">POST <code>/v2/redeem</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-get-v2-redeem-asset" class="toc-h3 toc-link" data-title="GET /v2/redeem/{asset}">GET /v2/redeem/{asset}</a>
+                          </li>
                       </ul>
                   </li>
                   <li>
@@ -520,6 +532,9 @@
                           <li>
                             <a href="#rest-api-methods-public-get-v2-depth-marketcode-level" class="toc-h3 toc-link" data-title="GET <code>/v2/depth/{marketCode}/{level}</code>">GET <code>/v2/depth/{marketCode}/{level}</code></a>
                           </li>
+                          <li>
+                            <a href="#rest-api-methods-public-get-v2-ping" class="toc-h3 toc-link" data-title="GET <code>/v2/ping</code>">GET <code>/v2/ping</code></a>
+                          </li>
                       </ul>
                   </li>
               </ul>
@@ -534,6 +549,16 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-05-13</strong></p>
+
+<ul>
+<li>Added new REST API <a href="#rest-api-methods-public-get-v2-ping">GET /V2/ping</a> to check API service status</li>
+<li>Added new REST API <a href="#rest-api-methods-private-post-v2-mint">POST /v2/mint</a> to mint</li>
+<li>Added new REST API <a href="#rest-api-methods-private-get-v2-mint-asset">GET /v2/mint/{asset}</a> to get mint history</li>
+<li>Added new REST API <a href="#rest-api-methods-private-post-v2-redeem">POST /v2/redeem</a> to redeem</li>
+<li>Added new REST API <a href="#rest-api-methods-private-get-v2-redeem-asset">GET /v2/redeem/{asset}</a> to get redeem history</li>
+</ul>
+
 <p><strong>2021-05-12</strong></p>
 
 <ul>
@@ -7371,6 +7396,367 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td><code>true</code> or <code>false</code></td>
 </tr>
 </tbody></table>
+<h3 id='rest-api-methods-private-post-v2-mint'>POST <code>/v2/mint</code></h3>
+<p>Mint.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">POST</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/mint</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
+
+    </span><span class="nl">"asset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flexUSD"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="w">
+
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"mint"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1620964317199"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"1532"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:{</span><span class="w">
+        </span><span class="nl">"asset"</span><span class="p">:</span><span class="s2">"flexUSD"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"quantity"</span><span class="p">:</span><span class="s2">"10"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>asset</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Asset name, available assets: <code>flexUSD</code>, <code>flexBTC</code>, <code>flexETH</code>, <code>flexFLEX</code></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING/DECIMAL</td>
+<td>YES</td>
+<td>Quantity of the asset</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
+</tr>
+<tr>
+<td>asset</td>
+<td>STRING</td>
+<td>Asset name, available assets: <code>flexUSD</code>, <code>flexBTC</code>, <code>flexETH</code>, <code>flexFLEX</code></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING</td>
+<td>Quantity of the asset</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-private-get-v2-mint-asset'>GET /v2/mint/{asset}</h3>
+<p>Get mint history ordered in descending.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/mint/</span><span class="p">{</span><span class="err">asset</span><span class="p">}</span><span class="err">?limit=</span><span class="p">{</span><span class="err">limit</span><span class="p">}</span><span class="err">&amp;startTime=</span><span class="p">{</span><span class="err">startTime</span><span class="p">}</span><span class="err">&amp;endTime=</span><span class="p">{</span><span class="err">endTime</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"mintHistory"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1620964764692"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"1570"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"asset"</span><span class="p">:</span><span class="s2">"flexETH"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="s2">"0.100000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"mintedAt"</span><span class="p">:</span><span class="s2">"1619779905495"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"asset"</span><span class="p">:</span><span class="s2">"flexETH"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="s2">"97.800000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"mintedAt"</span><span class="p">:</span><span class="s2">"1619779812468"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"asset"</span><span class="p">:</span><span class="s2">"flexETH"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="s2">"0.100000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"mintedAt"</span><span class="p">:</span><span class="s2">"1619779696705"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>asset</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Asset name, available assets: <code>flexUSD</code>, <code>flexBTC</code>, <code>flexETH</code>, <code>flexFLEX</code></td>
+</tr>
+<tr>
+<td>limit</td>
+<td>STRING</td>
+<td>NO</td>
+<td>max <code>100</code>, default <code>100</code></td>
+</tr>
+<tr>
+<td>startTime</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Millisecond timestamp, e.g. <code>1620977300</code>, default <code>0</code></td>
+</tr>
+<tr>
+<td>endTime</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Millisecond timestamp, e.g <code>1620977300</code>, default time now</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
+</tr>
+<tr>
+<td>asset</td>
+<td>STRING</td>
+<td>Asset name, available assets: <code>flexUSD</code>, <code>flexBTC</code>, <code>flexETH</code>, <code>flexFLEX</code></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING</td>
+<td>Quantity of the asset</td>
+</tr>
+<tr>
+<td>mintedAt</td>
+<td>STRING</td>
+<td>Minted time in millisecond timestamp</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-private-post-v2-redeem'>POST <code>/v2/redeem</code></h3>
+<p>Redeem.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">POST</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/redeem</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
+
+    </span><span class="nl">"asset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flexUSD"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Normal"</span><span class="w">
+
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"redeem"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1620964351508"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"1532"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:{</span><span class="w">
+        </span><span class="nl">"asset"</span><span class="p">:</span><span class="s2">"flexUSD"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"quantity"</span><span class="p">:</span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"redeemAt"</span><span class="p">:</span><span class="s2">"1620964800000"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"NORMAL"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>asset</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Asset name, available assets: <code>flexUSD</code>, <code>flexBTC</code>, <code>flexETH</code>, <code>flexFLEX</code></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING/DECIMAL</td>
+<td>YES</td>
+<td>Quantity of the asset</td>
+</tr>
+<tr>
+<td>type</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Redeem type, available types: <code>Normal</code>, <code>Instant</code></td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
+</tr>
+<tr>
+<td>asset</td>
+<td>STRING</td>
+<td>Asset name, available assets: <code>flexUSD</code>, <code>flexBTC</code>, <code>flexETH</code>, <code>flexFLEX</code></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING</td>
+<td>Quantity of the asset</td>
+</tr>
+<tr>
+<td>redeemAt</td>
+<td>STRING</td>
+<td>Redeemed time</td>
+</tr>
+<tr>
+<td>type</td>
+<td>STRING</td>
+<td>YES</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-private-get-v2-redeem-asset'>GET /v2/redeem/{asset}</h3>
+<p>Get redemption history ordered in descending.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/redeem/</span><span class="p">{</span><span class="err">asset</span><span class="p">}</span><span class="err">?limit=</span><span class="p">{</span><span class="err">limit</span><span class="p">}</span><span class="err">&amp;startTime=</span><span class="p">{</span><span class="err">startTime</span><span class="p">}</span><span class="err">&amp;endTime=</span><span class="p">{</span><span class="err">endTime</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="s2">"redemptionHistory"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"1620964856842"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"1570"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"asset"</span><span class="p">:</span><span class="s2">"ETH"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="s2">"0.001000000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"requestedAt"</span><span class="p">:</span><span class="s2">"1619788358578"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"redeemedAt"</span><span class="p">:</span><span class="s2">"1619788860219"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"asset"</span><span class="p">:</span><span class="s2">"ETH"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="s2">"0.001000000"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"requestedAt"</span><span class="p">:</span><span class="s2">"1619788328760"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"redeemedAt"</span><span class="p">:</span><span class="s2">"1619788328963"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>asset</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Asset name, available assets: <code>flexUSD</code>, <code>flexBTC</code>, <code>flexETH</code>, <code>flexFLEX</code></td>
+</tr>
+<tr>
+<td>limit</td>
+<td>STRING</td>
+<td>NO</td>
+<td>max <code>100</code>, default <code>100</code></td>
+</tr>
+<tr>
+<td>startTime</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Millisecond timestamp, e.g. <code>1620977300</code>, default <code>0</code></td>
+</tr>
+<tr>
+<td>endTime</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Millisecond timestamp, e.g <code>1620977300</code>, default time now</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
+</tr>
+<tr>
+<td>asset</td>
+<td>STRING</td>
+<td>Asset name, available assets: <code>flexUSD</code>, <code>flexBTC</code>, <code>flexETH</code>, <code>flexFLEX</code></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING</td>
+<td>Quantity of the asset</td>
+</tr>
+<tr>
+<td>requestedAt</td>
+<td>STRING</td>
+<td>when the redeem request was made</td>
+</tr>
+<tr>
+<td>redeemedAt</td>
+<td>STRING</td>
+<td>when the redemption was actually processed</td>
+</tr>
+</tbody></table>
 <h2 id='rest-api-methods-public'>Methods - Public</h2><h3 id='rest-api-methods-public-get-v2-all-markets'>GET <code>/v2/all/markets</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
@@ -8291,6 +8677,34 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>timestamp</td>
 <td>STRING</td>
 <td></td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-public-get-v2-ping'>GET <code>/v2/ping</code></h3>
+<p>Get API service status.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/ping</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Response Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>sucess</td>
+<td>STRING</td>
+<td><code>&quot;true&quot;</code> states the API service does OK, <code>&quot;false&quot;</code> states the API service does not work</td>
 </tr>
 </tbody></table>
 
