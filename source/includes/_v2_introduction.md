@@ -2,7 +2,7 @@
 
 **2021-05-13**
 
-* Added new REST API [GET /V2/ping](#rest-api-methods-public-get-v2-ping) to check API service status
+* Added new REST API [GET /v2/ping](#rest-api-methods-public-get-v2-ping) to check API service status
 * Added new REST API [POST /v2/mint](#rest-api-methods-private-post-v2-mint) to mint
 * Added new REST API [GET /v2/mint/{asset}](#rest-api-methods-private-get-v2-mint-asset) to get mint history
 * Added new REST API [POST /v2/redeem](#rest-api-methods-private-post-v2-redeem) to redeem
