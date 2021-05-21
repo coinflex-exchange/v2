@@ -706,7 +706,7 @@ data | DICTIONARY object | Yes |
 \>orderId|INTEGER|Yes|Unique order ID from the exchange|
 
 
-### Cancel Batch Order
+### Cancel Batch Orders
 
 > **Request format**
 
