@@ -743,18 +743,18 @@ event | STRING | `trades`
 timestamp | INTEGER | Millisecond timestamp
 accountId | STRING    | Account ID
 data | LIST of dictionaries |
-\>matchId   | STRING    | Match ID          |
-\>matchTimestamp   | STRING    | Order Matched timestamp          |
-\>marketCode   | STRING    | Market code          |
-\>matchQuantity   | STRING    | Match quantity          |
-\>matchPrice   | STRING    | Match price          |
-\>total   | STRING    | Total price          |
-\>side   | STRING    |  Side of the match         |
-\>orderMatchType   | STRING    | `TAKER` or `MAKER` |
-\>fees   | STRING    |  Fees    |
-\>feeInstrumentId   | STRING    |   Instrument ID of the fees        |
-\>orderId   | STRING    |	Unique order ID from the exchange          |
-\>clientOrderID   | STRING    | Client assigned ID to help manage and identify orders  |
+matchId   | STRING    | Match ID          |
+matchTimestamp   | STRING    | Order Matched timestamp          |
+marketCode   | STRING    | Market code          |
+matchQuantity   | STRING    | Match quantity          |
+matchPrice   | STRING    | Match price          |
+total   | STRING    | Total price          |
+side   | STRING    |  Side of the match         |
+orderMatchType   | STRING    | `TAKER` or `MAKER` |
+fees   | STRING    |  Fees    |
+feeInstrumentId   | STRING    |   Instrument ID of the fees        |
+orderId   | STRING    |	Unique order ID from the exchange          |
+clientOrderID   | STRING    | Client assigned ID to help manage and identify orders  |
 
 ###GET  `/v2/orders`
 
@@ -866,20 +866,20 @@ event | STRING | `orders`
 timestamp | STRING | Millisecond timestamp
 accountId | STRING | Account ID
 data | LIST of dictionaries |
-\>orderId | STRING | Unique order ID from the exchange |
-\>marketCode| STRING | Market code |
-\>clientOrderId| STRING | Client assigned ID to help manage and identify orders |
-\>side | STRING | `BUY` or `SELL` |
-\>orderType | STRING | `LIMIT` or `STOP` |
-\>quantity  | STRING | Quantity submitted |
-\>remainingQuantity|STRING | Remainning quantity |
-\>price | STRING | Price submitted |
-\>stopPrice | STRING | Stop price for the stop order |
-\>limitPrice| STRING | Limit price for the stop limit order |
-\>orderCreated| INTEGER | Timestamp when order was created |
-\>lastModified| INTEGER | Timestamp when order was last mordified |
-\>lastTradeTimestamp| INTEGER | Timestamp when order was last traded |
-\>timeInForce | STRING | Time in force |
+orderId | STRING | Unique order ID from the exchange |
+marketCode| STRING | Market code |
+clientOrderId| STRING | Client assigned ID to help manage and identify orders |
+side | STRING | `BUY` or `SELL` |
+orderType | STRING | `LIMIT` or `STOP` |
+quantity  | STRING | Quantity submitted |
+remainingQuantity|STRING | Remainning quantity |
+price | STRING | Price submitted |
+stopPrice | STRING | Stop price for the stop order |
+limitPrice| STRING | Limit price for the stop limit order |
+orderCreated| INTEGER | Timestamp when order was created |
+lastModified| INTEGER | Timestamp when order was last mordified |
+lastTradeTimestamp| INTEGER | Timestamp when order was last traded |
+timeInForce | STRING | Time in force |
 
 
 ### GET `/v2.1/orders`
@@ -1297,17 +1297,17 @@ Parameters |Type | Description|
 event | STRING | `deliverOrders`
 timestamp | STRING | Millisecond timestamp of the repsonse
 data | LIST of dictionaries |
-\>timestamp | STRING | Millisecond timestamp of the delivery action
-\>instrumentId | STRING | Perpetual swap market code
-\>status | STRING | Request status
-\>quantity | Null Type| null
-\>deliverPrice | STRING|  Mark price at delivery
-\>transferAsset | STRING | Asset being sent
-\>transferQty | STRING | Quantity being sent
-\>instrumentIdDeliver | STRING |Asset being received: long position = coin, short position = USD
-\>deliverQty | STRING |  Quantity of the received asset
-\>deliverOrderId | STRING | Order id
-\>clientOrderId | Null Type|  null
+timestamp | STRING | Millisecond timestamp of the delivery action
+instrumentId | STRING | Perpetual swap market code
+status | STRING | Request status
+quantity | Null Type| null
+deliverPrice | STRING|  Mark price at delivery
+transferAsset | STRING | Asset being sent
+transferQty | STRING | Quantity being sent
+instrumentIdDeliver | STRING |Asset being received: long position = coin, short position = USD
+deliverQty | STRING |  Quantity of the received asset
+deliverOrderId | STRING | Order id
+clientOrderId | Null Type|  null
 
 
 ###POST `/v2.1/delivery/orders`
@@ -2621,3 +2621,395 @@ Response Fields | Type | Description |
 ----------------| ---- | ----------- |
 sucess | STRING | `"true"` states the API service does OK, `"false"` states the API service does not work |
 
+
+### GET `/v2/flex-protocol/balances/{flexProtocol}`
+
+Get flexAsset balances.
+
+> **Request**
+
+```json
+GET /v2/flex-protocol/balances/{flexProtocol}
+```
+
+> **SUCCESSFUL RESPONSE**
+
+```json
+{
+    "event": "flexBalances",
+    "timestamp": "1621582973071",
+    "tradeType": "LINEAR",
+    "flexProtocol": "flexUSD",
+    "data": [
+        {
+            "instrumentId": "BTC",
+            "total": "168.515000000",
+            "available": "0.000000000",
+            "reserved": "168.515",
+            "quantityLastUpdated": "1621582933075"
+        },
+        {
+            "instrumentId": "DOT",
+            "total": "1923.80",
+            "available": "0.00",
+            "reserved": "1923.8",
+            "quantityLastUpdated": "1621569724731"
+        },
+        {
+            "instrumentId": "REVV",
+            "total": "336.0",
+            "available": "0.0",
+            "reserved": "336.0",
+            "quantityLastUpdated": "1621569725061"
+        },
+        ...
+    ]
+}
+```
+
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+tradeType | STRING | Trade type |
+flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+instrumentId | STRING |Coin symbol, e.g. 'BTC' |
+total| STRING | Total balance |
+available | STRING | Available balance |
+reserved | STRING|Reserved balance (unavailable) due to working spot orders |
+quantityLastUpdated | STRING|Millisecond timestamp of when balance was last updated |
+
+
+### GET `/v2/flex-protocol/positions/{flexProtocol}`
+
+Get flexAsset positions.
+
+> **Request**
+
+```json
+GET /v2/flex-protocol/positions/{flexProtocol}
+```
+
+> **SUCCESSFUL RESPONSE**
+
+```json
+{
+    "event": "flexPositions",
+    "timestamp": "1621590427436",
+    "flexProtocol": "flexUSD",
+    "data": [
+        {
+            "instrumentId": "BTC-USD-SWAP-LIN",
+            "quantity": "-169.048",
+            "lastUpdated": "1621590364988",
+            "contractValCurrency": "BTC",
+            "entryPrice": "40766.3490",
+            "positionPnl": "-23506.2934480"
+        },
+        {
+            "instrumentId": "ETH-USD-SWAP-LIN",
+            "quantity": "-1279.83",
+            "lastUpdated": "1621587180441",
+            "contractValCurrency": "ETH",
+            "entryPrice": "2798.5100",
+            "positionPnl": "53420.104200"
+        },
+        {
+            "instrumentId": "LTC-USD-SWAP-LIN",
+            "quantity": "-299.49",
+            "lastUpdated": "1621585374591",
+            "contractValCurrency": "LTC",
+            "entryPrice": "207.9500",
+            "positionPnl": "503.143200"
+        },
+        ...
+    ]
+}
+```
+
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+instrumentId | STRING | Contract symbol, e.g. `FLEX-USD-SWAP-LIN` |
+quantity | STRING | Quantity of position, e.g. `0.94` |
+lastUpdated | STRING | Timestamp when position was last updated |
+contractValCurrency | STRING | Contract valuation currency |
+entryPrice | STRING | Average entry price |
+positionPnl | STRING | Postion profit and lost |
+
+
+### GET `/v2/flex-protocol/orders/{flexProtocol}`
+
+Get flexAsset orders.
+
+> **Request**
+
+```json
+GET /v2/flex-protocol/orders/{flexProtocol}
+```
+
+> **SUCCESSFUL RESPONSE**
+
+```json
+{
+    "event": "flexOrders",
+    "timestamp": "1621590953053",
+    "data": [
+        {
+            "orderId": "1000085820424",
+            "marketCode": "COMP-USD-REPO-LIN",
+            "clientOrderId": "20",
+            "side": "BUY",
+            "orderType": "LIMIT",
+            "quantity": "0.26",
+            "remainingQuantity": "0.26",
+            "price": "-0.0002",
+            "stopPrice": null,
+            "limitPrice": "-0.0002",
+            "orderCreated": "1621590951780",
+            "lastModified": "1621590951903",
+            "lastTradeTimestamp": "1621590951828",
+            "timeInForce": "GTC"
+        },
+        {
+            "orderId": "1000085820409",
+            "marketCode": "COMP-USD-REPO-LIN",
+            "clientOrderId": "5",
+            "side": "BUY",
+            "orderType": "LIMIT",
+            "quantity": "0.21",
+            "remainingQuantity": "0.21",
+            "price": "-0.00005",
+            "stopPrice": null,
+            "limitPrice": "-0.00005",
+            "orderCreated": "1621590951510",
+            "lastModified": "1621590951608",
+            "lastTradeTimestamp": "1621590951543",
+            "timeInForce": "GTC"
+        },
+        {
+            "orderId": "1000085820408",
+            "marketCode": "COMP-USD-REPO-LIN",
+            "clientOrderId": "4",
+            "side": "BUY",
+            "orderType": "LIMIT",
+            "quantity": "5.2",
+            "remainingQuantity": "5.2",
+            "price": "-0.00004",
+            "stopPrice": null,
+            "limitPrice": "-0.00004",
+            "orderCreated": "1621590951381",
+            "lastModified": "1621590951394",
+            "lastTradeTimestamp": "1621590951392",
+            "timeInForce": "GTC"
+        },
+        ...
+    ]
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+orderId | STRING | Unique order ID from the exchange |
+marketCode| STRING | Market code |
+clientOrderId| STRING | Client assigned ID to help manage and identify orders |
+side | STRING | `BUY` or `SELL` |
+orderType | STRING | `LIMIT` or `STOP` |
+quantity  | STRING | Quantity submitted |
+remainingQuantity|STRING | Remainning quantity |
+price | STRING | Price submitted |
+stopPrice | STRING | Stop price for the stop order |
+limitPrice| STRING | Limit price for the stop limit order |
+orderCreated| INTEGER | Timestamp when order was created |
+lastModified| INTEGER | Timestamp when order was last mordified |
+lastTradeTimestamp| INTEGER | Timestamp when order was last traded |
+timeInForce | STRING | Time in force |
+
+
+### GET `/v2/flex-protocol/trades/{flexProtocol}/{marketCode}`
+
+Get flexAsset trades.
+
+> **Request**
+
+```json
+GET /v2/flex-protocol/trades/{flexProtocol}/{marketCode}?limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+> **SUCCESSFUL RESPONSE**
+
+```json
+{
+    "event": "flexTrades",
+    "timestamp": "1621591479201",
+    "flexProtocol": "flexBTC",
+    "data": [
+        {
+            "matchQuantity": "0.4",
+            "total": "4.000000000",
+            "fees": "0.788",
+            "side": "BUY",
+            "orderMatchType": "MAKER",
+            "matchTimestamp": "1621483974496",
+            "feeInstrumentId": "USD",
+            "orderId": "1000009522024",
+            "clientOrderId": "1621483945643",
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "matchPrice": "39400",
+            "matchId": "2001011000000"
+        },
+        {
+            "matchQuantity": "0.4",
+            "total": "4.400000000",
+            "fees": "0.788",
+            "side": "BUY",
+            "orderMatchType": "MAKER",
+            "matchTimestamp": "1621483973636",
+            "feeInstrumentId": "USD",
+            "orderId": "1000009522024",
+            "clientOrderId": "1621483945643",
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "matchPrice": "39400",
+            "matchId": "2001011000000"
+        },
+        {
+            "matchQuantity": "0.4",
+            "total": "4.800000000",
+            "fees": "0.788",
+            "side": "BUY",
+            "orderMatchType": "MAKER",
+            "matchTimestamp": "1621483973476",
+            "feeInstrumentId": "USD",
+            "orderId": "1000009522024",
+            "clientOrderId": "1621483945643",
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "matchPrice": "39400",
+            "matchId": "2001011000000"
+        },
+        ...
+    ]
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+marketCode | STRING | YES | |
+limit | LONG | NO | max `100`, default `100`, max `500` |
+startTime | LONG | NO | e.g. `1579450778000`, default `0` |
+endTime | LONG | NO | e.g. `1613978625000`, default time now |
+
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+matchId | STRING | Match ID |
+matchTimestamp | STRING | Order Matched timestamp |
+marketCode | STRING | Market code |
+matchQuantity | STRING | Match quantity |
+matchPrice | STRING | Match price |
+total | STRING | Total price |
+side | STRING | Side of the match |
+orderMatchType | STRING | `TAKER` or `MAKER` |
+fees | STRING | Fees |
+feeInstrumentId | STRING | Instrument ID of the fees |
+orderId | STRING | Unique order ID from the exchange |
+clientOrderID | STRING | Client assigned ID to help manage and identify orders |
+
+
+### GET `/v2/flex-protocol/delivery/orders/{flexProtocol}`
+
+Get flexAsset delivery orders.
+
+> **Request**
+
+```json
+GET /v2/flex-protocol/delivery/orders/{flexProtocol}?limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+> **SUCCESSFUL RESPONSE**
+
+```json
+{
+    "event": "flexDeliveryOrders",
+    "timestamp": "1621592173494",
+    "flexProtocol": "flexBTC",
+    "data": [
+        {
+            "timestamp": "1621411380000",
+            "instrumentId": "BTC-USD-SWAP-LIN",
+            "status": "DELIVERED",
+            "quantity": null,
+            "deliverPrice": "40225.4",
+            "transferAsset": "BTC",
+            "transferQty": "0.001",
+            "instrumentIdDeliver": "USD",
+            "deliverQty": "40.2254",
+            "deliverOrderId": "659754125496582148",
+            "clientOrderId": null
+        },
+        {
+            "timestamp": "1621411378000",
+            "instrumentId": "BTC-USD-SWAP-LIN",
+            "status": "DELIVERED",
+            "quantity": null,
+            "deliverPrice": "40217.8",
+            "transferAsset": "BTC",
+            "transferQty": "0.001",
+            "instrumentIdDeliver": "USD",
+            "deliverQty": "40.2178",
+            "deliverOrderId": "659754119608827908",
+            "clientOrderId": null
+        },
+        {
+            "timestamp": "1621411376000",
+            "instrumentId": "BTC-USD-SWAP-LIN",
+            "status": "DELIVERED",
+            "quantity": null,
+            "deliverPrice": "40226.5",
+            "transferAsset": "BTC",
+            "transferQty": "0.001",
+            "instrumentIdDeliver": "USD",
+            "deliverQty": "40.2265",
+            "deliverOrderId": "659754113236107267",
+            "clientOrderId": null
+        },
+        ...
+    ]
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+limit | LONG | NO | max `100`, default `100`, max `500` |
+startTime | LONG | NO | e.g. `1579450778000`, default `0` |
+endTime | LONG | NO | e.g. `1613978625000`, default time now |
+
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+instrumentId | STRING | Perpetual swap market code |
+status | STRING | Request status |
+quantity | Null Type | null |
+deliverPrice | STRING |  Mark price at delivery |
+transferAsset | STRING | Asset being sent |
+transferQty | STRING | Quantity being sent |
+instrumentIdDeliver | STRING | Asset being received: long position is `coin`, short position is `USD` |
+deliverQty | STRING | Quantity of the received asset |
+deliverOrderId | STRING | Order id |
+clientOrderId | Null Type| null |

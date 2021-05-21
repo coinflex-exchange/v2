@@ -1,5 +1,13 @@
 # Change Log
 
+**2021-05-21**
+
+* Added new REST API [GET /v2/flex-protocol/balances/{flexProtocol}](#rest-api-methods-public-get-v2-flex-protocol-balances-flexprotocol) to get flexAsset balances
+* Added new REST API [GET /v2/flex-protocol/positions/{flexProtocol}](#rest-api-methods-public-get-v2-flex-protocol-positions-flexprotocol) to get get flexAsset positions
+* Added new REST API [GET /v2/flex-protocol/orders/{flexProtocol}](#rest-api-methods-public-get-v2-flex-protocol-orders-flexprotocol) to get flexAsset orders
+* Added new REST API [GET /v2/flex-protocol/trades/{flexProtocol}/{marketCode}](#rest-api-methods-public-get-v2-flex-protocol-trades-flexprotocol-marketcode) to get flexAsset trades
+* Added new REST API [GET /v2/flex-protocol/delivery/orders/{flexProtocol}](#rest-api-methods-public-get-v2-flex-protocol-delivery-orders-flexprotocol) to get flexAsset delivery orders
+
 **2021-05-13**
 
 * Added new REST API [GET /v2/ping](#rest-api-methods-public-get-v2-ping) to check API service status
