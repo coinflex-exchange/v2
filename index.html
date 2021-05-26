@@ -564,6 +564,17 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-05-24</strong></p>
+
+<ul>
+<li>Updated websocket API <a href="#websocket-api-subscriptions-public-ticker">Ticker</a>
+
+<ul>
+<li>If you subcribe &quot;ticker:all&quot;, you would get one whole message containing all markets but not individual message for each market any more</li>
+<li>With lower channel update frequency 500 ms instead of 100 ms</li>
+</ul></li>
+</ul>
+
 <p><strong>2021-05-21</strong></p>
 
 <ul>
@@ -3695,30 +3706,71 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <p><strong>Channel update format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ticker"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
-              </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX-USD"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.999"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"markPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.001"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"lastMarkPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.991"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"open24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.98"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"volume24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"120045"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"currencyVolume24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"790337"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"high24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.121"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"low24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.6"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"openInterest"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"lastQty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234435634547"</span><span class="w">
-          </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
+    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ticker"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"open24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.80500000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"high24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.39600000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"low24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.53300000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"volume24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"currencyVolume24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"openInterest"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1INCH-USD"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1622020931049"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lastQty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"markPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.304"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lastMarkPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.304"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"open24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.80600000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"high24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.39600000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"low24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.53300000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"volume24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"currencyVolume24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"openInterest"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1INCH-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1622020931046"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lastQty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"markPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.304"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lastMarkPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.304"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="err">OR</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"table"</span><span class="p">:</span><span class="s2">"ticker"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"open24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.20500000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"high24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.20500000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"low24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.20500000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"volume24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"currencyVolume24h"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"openInterest"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX-USD"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1622025075015"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lastQty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"markPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.205"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lastMarkPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.205"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Channel Update Frequency:</strong> 100ms</p>
+<p><strong>Channel Update Frequency:</strong> 500 ms</p>
 
 <p>The ticker channel pushes live price and volume information about the contract.</p>
 
 <p>The websocket will reply with the shown success response format for <strong>each</strong> ticker channel which has been successfully subscribed to.</p>
 
 <p>The data array in the message from this ticker channel will contain a single JSON corresponding to one ticker subscription.</p>
+
+<p>If you subcribe &quot;ticker:all&quot;, you would get one big message containing all markets.</p>
 
 <p><sub><strong>Request Parameters</strong></sub> </p>
 
