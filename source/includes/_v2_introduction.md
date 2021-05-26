@@ -1,5 +1,11 @@
 # Change Log
 
+**2021-05-24**
+
+* Updated websocket API [Ticker](#websocket-api-subscriptions-public-ticker)
+    * If you subcribe "ticker:all", you would get one whole message containing all markets but not individual message for each market any more
+    * With lower channel update frequency 500 ms instead of 100 ms
+
 **2021-05-21**
 
 * Added new REST API [GET /v2/flex-protocol/balances/{flexProtocol}](#rest-api-methods-public-get-v2-flex-protocol-balances-flexprotocol) to get flexAsset balances

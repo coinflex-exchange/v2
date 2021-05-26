@@ -1827,31 +1827,72 @@ OR
 
 ```json
 {
-  "table": "ticker",
-  "data": [ {
-              "marketCode": "FLEX-USD",
-              "last": "5.999",
-              "markPrice": "6.001",
-              "lastMarkPrice": "5.991",
-              "open24h": "5.98",
-              "volume24h": "120045",
-              "currencyVolume24h": "790337",
-              "high24h": "6.121",
-              "low24h": "5.6",
-              "openInterest": "0",
-              "lastQty": "1",
-              "timestamp": "1234435634547"
-          } ]
+    "table": "ticker",
+    "data": [
+        {
+            "last": "0",
+            "open24h": "2.80500000",
+            "high24h": "3.39600000",
+            "low24h": "2.53300000",
+            "volume24h": "0",
+            "currencyVolume24h": "0",
+            "openInterest": "0",
+            "marketCode": "1INCH-USD",
+            "timestamp": "1622020931049",
+            "lastQty": "0",
+            "markPrice": "3.304",
+            "lastMarkPrice": "3.304"
+        },
+        {
+            "last": "0",
+            "open24h": "2.80600000",
+            "high24h": "3.39600000",
+            "low24h": "2.53300000",
+            "volume24h": "0",
+            "currencyVolume24h": "0",
+            "openInterest": "0",
+            "marketCode": "1INCH-USD-SWAP-LIN",
+            "timestamp": "1622020931046",
+            "lastQty": "0",
+            "markPrice": "3.304",
+            "lastMarkPrice": "3.304"
+        },
+        ...
+    ]
+}
+
+OR
+
+{
+    "table":"ticker",
+    "data": [
+        {
+            "last": "0",
+            "open24h": "0.20500000",
+            "high24h": "0.20500000",
+            "low24h": "0.20500000",
+            "volume24h": "0",
+            "currencyVolume24h": "0",
+            "openInterest": "0",
+            "marketCode": "FLEX-USD",
+            "timestamp": "1622025075015",
+            "lastQty": "0",
+            "markPrice": "0.205",
+            "lastMarkPrice": "0.205"
+        }
+    ]
 }
 ```
 
-**Channel Update Frequency:** 100ms
+**Channel Update Frequency:** 500 ms
 
 The ticker channel pushes live price and volume information about the contract.
 
 The websocket will reply with the shown success response format for **each** ticker channel which has been successfully subscribed to.
 
 The data array in the message from this ticker channel will contain a single JSON corresponding to one ticker subscription.
+
+If you subcribe "ticker:all", you would get one big message containing all markets.
 
 <sub>**Request Parameters**</sub> 
 
