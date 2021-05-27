@@ -1892,7 +1892,7 @@ The websocket will reply with the shown success response format for **each** tic
 
 The data array in the message from this ticker channel will contain a single JSON corresponding to one ticker subscription.
 
-If you subcribe "ticker:all", you would get one big message containing all markets.
+If you subcribe "ticker:all", you would get one whole message containing all markets.
 
 <sub>**Request Parameters**</sub> 
 
