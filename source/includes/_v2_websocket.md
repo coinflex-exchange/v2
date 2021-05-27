@@ -1860,28 +1860,6 @@ OR
         ...
     ]
 }
-
-OR
-
-{
-    "table":"ticker",
-    "data": [
-        {
-            "last": "0",
-            "open24h": "0.20500000",
-            "high24h": "0.20500000",
-            "low24h": "0.20500000",
-            "volume24h": "0",
-            "currencyVolume24h": "0",
-            "openInterest": "0",
-            "marketCode": "FLEX-USD",
-            "timestamp": "1622025075015",
-            "lastQty": "0",
-            "markPrice": "0.205",
-            "lastMarkPrice": "0.205"
-        }
-    ]
-}
 ```
 
 **Channel Update Frequency:** 500 ms
