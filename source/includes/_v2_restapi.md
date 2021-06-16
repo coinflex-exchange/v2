@@ -2359,8 +2359,9 @@ fundingRate| STRING | e.g. 0.000060000 |
 > **Request**
 
 ```json
-GET/v2.1/deliver-auction
-GET/v2.1/deliver-auction/<instrumentId>
+GET /v2/deliver-auction
+
+GET /v2.1/deliver-auction/<instrumentId>
 ```
 
 > **RESPONSE**
