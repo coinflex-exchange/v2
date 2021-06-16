@@ -964,7 +964,7 @@ Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 marketCode | STRING | NO | |
 orderId | LONG | NO | |
-clientId | LONG | NO | |
+clientOrderId | LONG | NO | |
 limit | LONG | NO | max `100`, default `100` |
 startTime | LONG | NO | e.g. `1579450778000`, default `0` |
 endTime | LONG | NO | e.g. `1613978625000`, default time now |
