@@ -2041,7 +2041,7 @@ accountId | STRING | Account ID |
 asset | STRING | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
 quantity | STRING | Quantity of the asset |
 redeemAt | STRING | Redeemed time |
-type | STRING | YES | Redeem type, available types: `Normal`, `Instant` |
+type | STRING | Redeem type, available types: `Normal`, `Instant` |
 
 
 ### GET /v2/redeem/{asset}
