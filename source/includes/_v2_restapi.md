@@ -2620,7 +2620,7 @@ GET /v2/ping
 
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
-sucess | STRING | `"true"` states the API service does OK, `"false"` states the API service does not work |
+sucess | STRING | `"true"` indicates that the API service is OK otherwise it will be failed |
 
 
 ### GET `/v2/flex-protocol/balances/{flexProtocol}`
