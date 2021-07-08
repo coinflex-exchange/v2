@@ -1,5 +1,10 @@
 # Change Log
 
+**2021-07-08**
+
+* Updated REST API [GET /v2/funding-rates/{marketCode}](#rest-api-methods-public-get-v2-funding-rates-marketcode)
+    * Response data are sorted by time in descending order
+
 **2021-05-24**
 
 * Updated websocket API [Ticker](#websocket-api-subscriptions-public-ticker)

@@ -1944,7 +1944,7 @@ quantity | STRING | Quantity of the asset |
 
 ### GET /v2/mint/{asset}
 
-Get mint history ordered in descending.
+Get mint history by asset and sorted by time in descending order.
 
 > **Request**
 
@@ -2046,7 +2046,7 @@ type | STRING | Redeem type, available types: `Normal`, `Instant` |
 
 ### GET /v2/redeem/{asset}
 
-Get redemption history ordered in descending.
+Get redemption history by asset and sorted by time in descending order.
 
 > **Request**
 
@@ -2456,7 +2456,7 @@ currencyVolumn24h | STRING | 24 hour rolling trading volume in base currency |
 
 ### GET `/v2/funding-rates/{marketCode}`
 
-Get funding rates by marketCode.
+Get funding rates by marketCode and sorted by time in descending order.
 
 > **Request**
 
