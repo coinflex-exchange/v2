@@ -564,6 +564,16 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-07-08</strong></p>
+
+<ul>
+<li>Updated REST API <a href="#rest-api-methods-public-get-v2-funding-rates-marketcode">GET /v2/funding-rates/{marketCode}</a>
+
+<ul>
+<li>Response data are sorted by time in descending order</li>
+</ul></li>
+</ul>
+
 <p><strong>2021-05-24</strong></p>
 
 <ul>
@@ -7525,7 +7535,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </tr>
 </tbody></table>
 <h3 id='rest-api-methods-private-get-v2-mint-asset'>GET /v2/mint/{asset}</h3>
-<p>Get mint history ordered in descending.</p>
+<p>Get mint history by asset and sorted by time in descending order.</p>
 
 <blockquote>
 <p><strong>Request</strong></p>
@@ -7714,7 +7724,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </tr>
 </tbody></table>
 <h3 id='rest-api-methods-private-get-v2-redeem-asset'>GET /v2/redeem/{asset}</h3>
-<p>Get redemption history ordered in descending.</p>
+<p>Get redemption history by asset and sorted by time in descending order.</p>
 
 <blockquote>
 <p><strong>Request</strong></p>
@@ -8509,7 +8519,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </tr>
 </tbody></table>
 <h3 id='rest-api-methods-public-get-v2-funding-rates-marketcode'>GET <code>/v2/funding-rates/{marketCode}</code></h3>
-<p>Get funding rates by marketCode.</p>
+<p>Get funding rates by marketCode and sorted by time in descending order.</p>
 
 <blockquote>
 <p><strong>Request</strong></p>
@@ -8760,7 +8770,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <tr>
 <td>sucess</td>
 <td>STRING</td>
-<td><code>&quot;true&quot;</code> states the API service does OK, <code>&quot;false&quot;</code> states the API service does not work</td>
+<td><code>&quot;true&quot;</code> indicates that the API service is OK otherwise it will be failed</td>
 </tr>
 </tbody></table>
 <h3 id='rest-api-methods-public-get-v2-flex-protocol-balances-flexprotocol'>GET <code>/v2/flex-protocol/balances/{flexProtocol}</code></h3>
