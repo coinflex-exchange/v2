@@ -1,5 +1,14 @@
 # Change Log
 
+**2021-07-28**
+
+* Added new REST API [POST /v2/borrow](#rest-api-methods-private-post-v2-borrow) to borrow
+* Added new REST API [POST /v2/repay](#rest-api-methods-private-post-v2-repay) to repay
+* Added new REST API [GET v2/borrow/{asset}](#rest-api-methods-private-get-v2-borrow-asset) to get borrow history
+* Added new REST API [GET v2/repay/{asset}](#rest-api-methods-private-get-v2-borrow-asset) to get repay history
+* Added new REST API [GET v2/borrowingSummary](#rest-api-methods-private-get-v2-borrowingsummary) to get borrowing summary
+* Added new REST API [POST /v2/borrow/close](#rest-api-methods-private-post-v2-borrow-close) to close borrow
+
 **2021-07-08**
 
 * Updated REST API [GET /v2/funding-rates/{marketCode}](#rest-api-methods-public-get-v2-funding-rates-marketcode)
