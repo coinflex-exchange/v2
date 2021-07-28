@@ -500,6 +500,24 @@
                           <li>
                             <a href="#rest-api-methods-private-get-v2-redeem-asset" class="toc-h3 toc-link" data-title="GET /v2/redeem/{asset}">GET /v2/redeem/{asset}</a>
                           </li>
+                          <li>
+                            <a href="#rest-api-methods-private-post-v2-borrow" class="toc-h3 toc-link" data-title="POST <code>/v2/borrow</code>">POST <code>/v2/borrow</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-post-v2-repay" class="toc-h3 toc-link" data-title="POST <code>/v2/repay</code>">POST <code>/v2/repay</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-get-v2-borrow-asset" class="toc-h3 toc-link" data-title="GET <code>v2/borrow/{asset}</code>">GET <code>v2/borrow/{asset}</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-get-v2-repay-asset" class="toc-h3 toc-link" data-title="GET <code>v2/repay/{asset}</code>">GET <code>v2/repay/{asset}</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-get-v2-borrowingsummary" class="toc-h3 toc-link" data-title="GET <code>v2/borrowingSummary</code>">GET <code>v2/borrowingSummary</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-post-v2-borrow-close" class="toc-h3 toc-link" data-title="POST <code>/v2/borrow/close</code>">POST <code>/v2/borrow/close</code></a>
+                          </li>
                       </ul>
                   </li>
                   <li>
@@ -564,6 +582,17 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-07-28</strong></p>
+
+<ul>
+<li>Added new REST API <a href="#rest-api-methods-private-post-v2-borrow">POST /v2/borrow</a> to borrow</li>
+<li>Added new REST API <a href="#rest-api-methods-private-post-v2-repay">POST /v2/repay</a> to repay</li>
+<li>Added new REST API <a href="#rest-api-methods-private-get-v2-borrow-asset">GET v2/borrow/{asset}</a> to get borrow history</li>
+<li>Added new REST API <a href="#rest-api-methods-private-get-v2-borrow-asset">GET v2/repay/{asset}</a> to get repay history</li>
+<li>Added new REST API <a href="#rest-api-methods-private-get-v2-borrowingsummary">GET v2/borrowingSummary</a> to get borrowing summary</li>
+<li>Added new REST API <a href="#rest-api-methods-private-post-v2-borrow-close">POST /v2/borrow/close</a> to close borrow</li>
+</ul>
+
 <p><strong>2021-07-08</strong></p>
 
 <ul>
@@ -5892,7 +5921,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <tr>
 <td>orderType</td>
 <td>STRING</td>
-<td>Type of the order</td>
+<td>Type of the order, <code>LIMIT</code> or <code>STOP</code></td>
 </tr>
 <tr>
 <td>price</td>
@@ -5982,7 +6011,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <tr>
 <td>isTriggered</td>
 <td>STRING</td>
-<td><code>True</code> or <code>False</code></td>
+<td><code>true</code>(for stop order) or <code>false</code></td>
 </tr>
 </tbody></table>
 <h3 id='rest-api-methods-private-delete-v2-cancel-orders'>DELETE <code>/v2/cancel/orders</code></h3>
@@ -7216,11 +7245,6 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>Status of the order</td>
 </tr>
 <tr>
-<td>status</td>
-<td>STRING</td>
-<td>Status of the order</td>
-</tr>
-<tr>
 <td>marketCode</td>
 <td>STRING</td>
 <td></td>
@@ -7820,6 +7844,683 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>redeemedAt</td>
 <td>STRING</td>
 <td>when the redemption was actually processed</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-private-post-v2-borrow'>POST <code>/v2/borrow</code></h3>
+<p>Borrow.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">POST</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/borrow</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"borrowAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"collateralAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"collateralAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.01"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"borrow"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1626433827430"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3123"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"borrowAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"borrowedAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"296.21588287"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"collateralAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"collateralizedAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.01"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"nonCollateralizedAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"rateType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLOATING_RATE"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPLETED"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"borrowedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1626433827616"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>borrowAsset</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Borrow asset, can only be <code>USD</code> for now</td>
+</tr>
+<tr>
+<td>collateralAsset</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Collateral asset</td>
+</tr>
+<tr>
+<td>collateralAmount</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Collateral amount of the collateral asset</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
+</tr>
+<tr>
+<td>borrowAsset</td>
+<td>STRING</td>
+<td>Borrow asset, can only be <code>USD</code> for now</td>
+</tr>
+<tr>
+<td>borrowedAmount</td>
+<td>STRING</td>
+<td>Borrowed amount of the borrow asset</td>
+</tr>
+<tr>
+<td>collateralAsset</td>
+<td>STRING</td>
+<td>Collateral asset</td>
+</tr>
+<tr>
+<td>collateralizedAmount</td>
+<td>STRING</td>
+<td>Collateralized amount of the collateral asset</td>
+</tr>
+<tr>
+<td>nonCollateralizedAmount</td>
+<td>STRING</td>
+<td><code>nonCollateralizedAmount</code> = <code>collateralAmount</code> - <code>collateralizedAmount</code></td>
+</tr>
+<tr>
+<td>rateType</td>
+<td>STRING</td>
+<td><code>FLOATING_RATE</code> or <code>FIXED_RATE</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td>STRING</td>
+<td><code>COMPLETED</code> or <code>PARTIAL</code> or <code>CANCELLED</code></td>
+</tr>
+<tr>
+<td>borrowedAt</td>
+<td>STRING</td>
+<td>The time of borrowed at</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-private-post-v2-repay'>POST <code>/v2/repay</code></h3>
+<p>Repay.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">POST</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/repay</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"repayAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"regainAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"regainAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.001"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"repay"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1626433876060"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3123"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"repayAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"repaidAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"31.33109616"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"regainAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"regainedAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.001"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"nonRegainedAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPLETED"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"repaidAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1626433876398"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>repayAsset</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Repay asset, can only be <code>USD</code> for now</td>
+</tr>
+<tr>
+<td>regainAsset</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Regain asset</td>
+</tr>
+<tr>
+<td>regainAmount</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Regain amount of the regain asset</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
+</tr>
+<tr>
+<td>repayAsset</td>
+<td>STRING</td>
+<td>Repay asset, can only be <code>USD</code> for now</td>
+</tr>
+<tr>
+<td>repaidAmount</td>
+<td>STRING</td>
+<td>Repaid amount of the repay asset</td>
+</tr>
+<tr>
+<td>regainAsset</td>
+<td>STRING</td>
+<td>Regain asset</td>
+</tr>
+<tr>
+<td>regainedAmount</td>
+<td>STRING</td>
+<td>Already regained amount of the regain asset</td>
+</tr>
+<tr>
+<td>nonRegainedAmount</td>
+<td>STRING</td>
+<td><code>nonRegainedAmount</code> = <code>regainAmount</code> - <code>regainedAmount</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td>STRING</td>
+<td><code>COMPLETED</code> or <code>PARTIAL</code> or <code>CANCELLED</code></td>
+</tr>
+<tr>
+<td>repaidAt</td>
+<td>STRING</td>
+<td>The time of repaid at</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-private-get-v2-borrow-asset'>GET <code>v2/borrow/{asset}</code></h3>
+<p>Get borrow history by asset and sorted by time in descending order.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">v</span><span class="mi">2</span><span class="err">/borrow/</span><span class="p">{</span><span class="err">asset</span><span class="p">}</span><span class="err">?limit=</span><span class="p">{</span><span class="err">limit</span><span class="p">}</span><span class="err">&amp;startTime=</span><span class="p">{</span><span class="err">startTime</span><span class="p">}</span><span class="err">&amp;endTime=</span><span class="p">{</span><span class="err">endTime</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"borrowHistory"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1626433904976"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3123"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"borrowAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"borrowedAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"296.2158828"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"collateralAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"collateralizedAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.01000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"nonCollateralizedAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"rateType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLOATING_RATE"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPLETED"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"borrowedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1626433827613"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"borrowAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"borrowedAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"collateralAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"collateralizedAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"nonCollateralizedAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"rateType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLOATING_RATE"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CANCELED"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"borrowedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1626432797124"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+</span><span class="err">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>asset</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Collateral asset name</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>STRING</td>
+<td>NO</td>
+<td>max <code>100</code>, default <code>100</code></td>
+</tr>
+<tr>
+<td>startTime</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Millisecond timestamp, e.g. <code>1620977300</code>, default <code>0</code></td>
+</tr>
+<tr>
+<td>endTime</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Millisecond timestamp, e.g <code>1620977300</code>, default time now</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
+</tr>
+<tr>
+<td>borrowAsset</td>
+<td>STRING</td>
+<td>Borrow asset, can only be <code>USD</code> for now</td>
+</tr>
+<tr>
+<td>borrowedAmount</td>
+<td>STRING</td>
+<td>Borrowed amount of the borrow asset</td>
+</tr>
+<tr>
+<td>collateralAsset</td>
+<td>STRING</td>
+<td>Collateral asset</td>
+</tr>
+<tr>
+<td>collateralizedAmount</td>
+<td>STRING</td>
+<td>Collateralized amount of the collateral asset</td>
+</tr>
+<tr>
+<td>nonCollateralizedAmount</td>
+<td>STRING</td>
+<td><code>nonCollateralizedAmount</code> = <code>collateralAmount</code> - <code>collateralizedAmount</code></td>
+</tr>
+<tr>
+<td>rateType</td>
+<td>STRING</td>
+<td><code>FLOATING_RATE</code> or <code>FIXED_RATE</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td>STRING</td>
+<td><code>COMPLETED</code> or <code>PARTIAL</code> or <code>CANCELLED</code></td>
+</tr>
+<tr>
+<td>borrowedAt</td>
+<td>STRING</td>
+<td>The time of borrowed at</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-private-get-v2-repay-asset'>GET <code>v2/repay/{asset}</code></h3>
+<p>Get repay history by asset and sorted by time in descending order.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">v</span><span class="mi">2</span><span class="err">/repay/</span><span class="p">{</span><span class="err">asset</span><span class="p">}</span><span class="err">?limit=</span><span class="p">{</span><span class="err">limit</span><span class="p">}</span><span class="err">&amp;startTime=</span><span class="p">{</span><span class="err">startTime</span><span class="p">}</span><span class="err">&amp;endTime=</span><span class="p">{</span><span class="err">endTime</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"repayHistory"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1626433953585"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3123"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"repayAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"repaidAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"regainAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"regainedAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"nonRegainedAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.001"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CANCELLED"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"repaidAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1626747403329"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"repayAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"repaidAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"31863.01677"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"regainAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"regainedAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"nonRegainedAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPLETED"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"repaidAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1626676776330"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>asset</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Regain asset name</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>STRING</td>
+<td>NO</td>
+<td>max <code>100</code>, default <code>100</code></td>
+</tr>
+<tr>
+<td>startTime</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Millisecond timestamp, e.g. <code>1620977300</code>, default <code>0</code></td>
+</tr>
+<tr>
+<td>endTime</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Millisecond timestamp, e.g <code>1620977300</code>, default time now</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
+</tr>
+<tr>
+<td>repayAsset</td>
+<td>STRING</td>
+<td>Repay asset, can only be <code>USD</code> for now</td>
+</tr>
+<tr>
+<td>repaidAmount</td>
+<td>STRING</td>
+<td>Repaid amount of the repay asset</td>
+</tr>
+<tr>
+<td>regainAsset</td>
+<td>STRING</td>
+<td>Regain asset</td>
+</tr>
+<tr>
+<td>regainedAmount</td>
+<td>STRING</td>
+<td>Already regained amount of the regain asset</td>
+</tr>
+<tr>
+<td>nonRegainedAmount</td>
+<td>STRING</td>
+<td><code>nonRegainedAmount</code> = <code>regainAmount</code> - <code>regainedAmount</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td>STRING</td>
+<td><code>COMPLETED</code> or <code>PARTIAL</code> or <code>CANCELLED</code></td>
+</tr>
+<tr>
+<td>borrowedAt</td>
+<td>STRING</td>
+<td>The time of borrowed at</td>
+</tr>
+<tr>
+<td>repaidAt</td>
+<td>STRING</td>
+<td>The time of repaid at</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-private-get-v2-borrowingsummary'>GET <code>v2/borrowingSummary</code></h3>
+<p>Get borrowing summary.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">v</span><span class="mi">2</span><span class="err">/borrowingSummary</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"borrowingSummary"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1626433981644"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3123"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"borrowAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"borrowedAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"109031.8252978"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"collateralAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"collateralizedAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.65800000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"rateType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLOATING_RATE"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"To be repaid"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Response Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
+</tr>
+<tr>
+<td>borrowAsset</td>
+<td>STRING</td>
+<td>Borrow asset, can only be <code>USD</code> for now</td>
+</tr>
+<tr>
+<td>borrowedAmount</td>
+<td>STRING</td>
+<td>Total borrowed amount of the borrow asset</td>
+</tr>
+<tr>
+<td>collateralAsset</td>
+<td>STRING</td>
+<td>Collateral asset</td>
+</tr>
+<tr>
+<td>collateralizedAmount</td>
+<td>STRING</td>
+<td>Total collateralized amount of the collateral asset</td>
+</tr>
+<tr>
+<td>rateType</td>
+<td>STRING</td>
+<td><code>FLOATING_RATE</code> or <code>FIXED_RATE</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td>STRING</td>
+<td><code>To be repaid</code></td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-private-post-v2-borrow-close'>POST <code>/v2/borrow/close</code></h3>
+<p>Close borrow.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">POST</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/borrow/close</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"29633.5"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"closeBorrow"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1626434069478"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3123"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1626434069461"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1626434069478"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000018496331"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"29633.5"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CANCELED_BY_FOK"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FOK"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderClosed"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"isTriggered"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Borrow asset, can only be <code>USD</code> for now</td>
+</tr>
+<tr>
+<td>price</td>
+<td>STRING</td>
+<td>NO</td>
+<td>The price to close the borrow, default is the market price</td>
+</tr>
+<tr>
+<td>collateralAmount</td>
+<td>STRING</td>
+<td>NO</td>
+<td>The quantity to close the borrow, default is full position</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
+</tr>
+<tr>
+<td>clientOrderId</td>
+<td>STRING</td>
+<td>Client order ID which given by the user</td>
+</tr>
+<tr>
+<td>orderId</td>
+<td>STRING</td>
+<td>Order ID which generated by the server</td>
+</tr>
+<tr>
+<td>price</td>
+<td>STRING</td>
+<td>Price submitted</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING</td>
+<td>Quantity submitted</td>
+</tr>
+<tr>
+<td>side</td>
+<td>STRING</td>
+<td>Side of the order, <code>BUY</code> or <code>SELL</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td>STRING</td>
+<td>Status of the order</td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Market code</td>
+</tr>
+<tr>
+<td>timeInForce</td>
+<td>STRING</td>
+<td>Time in force</td>
+</tr>
+<tr>
+<td>notice</td>
+<td>STRING</td>
+<td><code>OrderClosed</code> or <code>OrderMatched</code> or <code>OrderOpend</code></td>
+</tr>
+<tr>
+<td>orderType</td>
+<td>STRING</td>
+<td>Type of the order, <code>LIMIT</code> or <code>STOP</code></td>
+</tr>
+<tr>
+<td>isTriggered</td>
+<td>STRING</td>
+<td><code>true</code>(for stop order) or <code>false</code></td>
 </tr>
 </tbody></table>
 <h2 id='rest-api-methods-public'>Methods - Public</h2><h3 id='rest-api-methods-public-get-v2-all-markets'>GET <code>/v2/all/markets</code></h3>
