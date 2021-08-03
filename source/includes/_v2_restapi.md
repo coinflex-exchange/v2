@@ -2239,6 +2239,7 @@ GET v2/borrow/{asset}?limit={limit}&startTime={startTime}&endTime={endTime}
             "borrowedAt": "1626432797124"
         },
         ...
+    ]
 }
 ```
 
@@ -2279,7 +2280,7 @@ GET v2/repay/{asset}?limit={limit}&startTime={startTime}&endTime={endTime}
     "timestamp": "1626433953585",
     "accountId": "3123",
     "data": [
-    {
+        {
             "repayAsset": "USD",
             "repaidAmount": "0",
             "regainAsset": "BTC",
@@ -2297,6 +2298,7 @@ GET v2/repay/{asset}?limit={limit}&startTime={startTime}&endTime={endTime}
             "status": "COMPLETED",
             "repaidAt": "1626676776330"
         },
+        ...
     ]
 }
 ```
@@ -2422,6 +2424,63 @@ timeInForce | STRING | Time in force |
 notice | STRING | `OrderClosed` or `OrderMatched` or `OrderOpend` |
 orderType | STRING | Type of the order, `LIMIT` or `STOP` |
 isTriggered | STRING | `true`(for stop order) or `false` |
+
+
+### GET `/v2/funding-payments`
+
+Get funding payments by marketCode and sorted by time in descending order.
+
+> **Request**
+
+```json
+GET v2/funding-payments?marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+marketCode | STRING | YES | e.g. `BTC-USD-REPO-LIN` |
+limit | LONG | NO | default is `50`, max is `50` |
+startTime | LONG | NO | millisecond timestamp, e.g. `1579450778000`, default is `0` |
+endTime | LONG | NO | millisecond timestamp, e.g. `1613978625000`, default is time now |
+
+> **SUCCESSFUL RESPONSE**
+
+```json
+{
+    "event": "fundingPayments",
+    "timestamp": "1627626010074",
+    "accountId": "276007",
+    "data": [
+        {
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "payment": "-122.17530872",
+            "rate": "-0.00005",
+            "position": "-61.093",
+            "markPrice": "39996.5",
+            "timestamp": "1627617632190"
+        },
+        {
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "payment": "98.71895684",
+            "rate": "0.00005",
+            "position": "-61.093",
+            "markPrice": "32317.6",
+            "timestamp": "1627041622046"
+        },
+        ...
+    ]
+}
+```
+
+Response Fields | Type | Description |
+------------------- | ---- | ----------- |
+timestamp | STRING | Timestamp of this response |
+marketCode | STRING | Market code |
+payment | STRING | Funding payment |
+rate | STRING | Funding rate |
+position | STRING | Position |
+markPrice | STRING | Mark price |
+timestamp(in the data list) | STRING | Updated time |
 
 
 ##Methods - Public

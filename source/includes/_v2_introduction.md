@@ -1,5 +1,10 @@
 # Change Log
 
+
+**2021-07-30**
+
+* Added new REST API [GET v2/funding-payments](#rest-api-methods-private-get-v2-funding-payments) to get funding payments
+
 **2021-07-28**
 
 * Added new REST API [POST /v2/borrow](#rest-api-methods-private-post-v2-borrow) to borrow
