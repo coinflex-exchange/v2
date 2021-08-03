@@ -1,7 +1,7 @@
 # Change Log
 
 
-**2021-07-30**
+**2021-08-03**
 
 * Added new REST API [GET v2/funding-payments](#rest-api-methods-private-get-v2-funding-payments) to get funding payments
 
