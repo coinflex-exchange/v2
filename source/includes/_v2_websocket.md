@@ -306,10 +306,72 @@ To maintain an active WebSocket connection it is imperative to either be subscri
           }
 }
 ```
+```python
+import websockets
+import asyncio
+import time
+import hmac
+import base64
+import hashlib
+import json
 
+api_key = ''
+api_secret = ''
+ts = str(int(time.time() * 1000))
+sig_payload = (ts+'GET/auth/self/verify').encode('utf-8')
+signature = base64.b64encode(hmac.new(api_secret.encode('utf-8'), sig_payload, hashlib.sha256).digest()).decode('utf-8')
+
+auth = \
+{
+  "op": "login",
+  "tag": 1,
+  "data": {
+           "apiKey": api_key,
+           "timestamp": ts,
+           "signature": signature
+          }
+}
+place_order = \
+{
+  "op": "placeorder",
+  "tag": 123,
+  "data": {
+            "clientOrderId": 1,
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "LIMIT",
+            "quantity": 1.5,
+            "timeInForce": "GTC",
+            "price": 9431.48
+          }
+}
+
+url= 'wss://v2stgapi.coinflex.com/v2/websocket'
+async def subscribe():
+    async with websockets.connect(url) as ws:
+        while ws.open:
+            if not ws.open:
+                print("websocket disconnected")
+                ws = await websockets.connect(url)
+            response = await ws.recv()
+            data = json.loads(response)
+            if 'nonce' in data:
+                    #print('Websocket connected')
+                    await ws.send(json.dumps(auth))
+            elif 'event' in data and data['event'] == 'login':
+                if data['success'] == True:
+                    #print("Auth done")
+                    await ws.send(json.dumps(place_order))
+                    response2= await ws.recv()
+                    #print('Order submitted')
+                    print(response2)
+
+asyncio.get_event_loop().run_until_complete(subscribe())
+```
 > **Success response format**
 
 ```json
+
 {
   "event": "placeorder",
   "submitted": True,
@@ -385,7 +447,67 @@ data | DICTIONARY object | Yes |
           }
 }
 ```
+```python
+import websockets
+import asyncio
+import time
+import hmac
+import base64
+import hashlib
+import json
 
+api_key = '' 
+api_secret = ''
+ts = str(int(time.time() * 1000))
+sig_payload = (ts+'GET/auth/self/verify').encode('utf-8')
+signature = base64.b64encode(hmac.new(api_secret.encode('utf-8'), sig_payload, hashlib.sha256).digest()).decode('utf-8')
+
+auth = \
+{
+  "op": "login",
+  "tag": 1,
+  "data": {
+           "apiKey": api_key,
+           "timestamp": ts,
+           "signature": signature
+          }
+}
+place_order = \
+{
+  "op": "placeorder",
+  "tag": 123,
+  "data": {
+            "clientOrderId": 1,
+            "marketCode": "ETH-USD-SWAP-LIN",
+            "side": "SELL",
+            "orderType": "MARKET",
+            "quantity": 5
+          }
+}
+
+
+url= 'wss://v2stgapi.coinflex.com/v2/websocket' 
+async def subscribe():
+    async with websockets.connect(url) as ws:
+        while ws.open:
+            if not ws.open:
+                print("websocket disconnected")
+                ws = await websockets.connect(url)
+            response = await ws.recv()
+            data = json.loads(response)
+            if 'nonce' in data:
+                    #print('Websocket connected')
+                    await ws.send(json.dumps(auth))
+            elif 'event' in data and data['event'] == 'login':
+                if data['success'] == True:
+                    #print("Auth done")
+                    await ws.send(json.dumps(place_order))
+                    response2= await ws.recv()
+                    #print('Order submitted')
+                    print(resp2)
+
+asyncio.get_event_loop().run_until_complete(subscribe())
+```
 > **Success response format**
 
 ```json
@@ -454,7 +576,69 @@ data | DICTIONARY object | Yes |
          }
 }
 ```
+```python
+import websockets
+import asyncio
+import time
+import hmac
+import base64
+import hashlib
+import json
 
+api_key = ''
+api_secret = ''
+ts = str(int(time.time() * 1000))
+sig_payload = (ts+'GET/auth/self/verify').encode('utf-8')
+signature = base64.b64encode(hmac.new(api_secret.encode('utf-8'), sig_payload, hashlib.sha256).digest()).decode('utf-8')
+
+auth = \
+{
+  "op": "login",
+  "tag": 1,
+  "data": {
+           "apiKey": api_key,
+           "timestamp": ts,
+           "signature": signature
+          }
+}
+place_order = \
+{
+  "op": "placeorder",
+  "tag": 123,
+  "data": {
+            "clientOrderId": 1,
+            "marketCode": "ETH-USD-SWAP-LIN",
+            "side": "BUY",
+            "orderType": "STOP",
+            "quantity": 10,
+            "timeInForce": "MAKER_ONLY_REPRICE",
+            "stopPrice": 100,
+            "limitPrice": 120
+         }
+}
+
+url= 'wss://v2stgapi.coinflex.com/v2/websocket'
+async def subscribe():
+    async with websockets.connect(url) as ws:
+        while ws.open:
+            if not ws.open:
+                print("websocket disconnected")
+                ws = await websockets.connect(url)
+            response = await ws.recv()
+            data = json.loads(response)
+            if 'nonce' in data:
+                    #print('Websocket connected')
+                    await ws.send(json.dumps(auth))
+            elif 'event' in data and data['event'] == 'login':
+                if data['success'] == True:
+                    #print("Auth done")
+                    await ws.send(json.dumps(place_order))
+                    response2= await ws.recv()
+                    #print('Order submitted')
+                    print(response2)
+
+asyncio.get_event_loop().run_until_complete(subscribe())
+```
 > **Success response format**
 
 ```json
