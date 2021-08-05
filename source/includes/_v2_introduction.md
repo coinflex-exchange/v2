@@ -1,4 +1,11 @@
 # Change Log
+**2021-08-05**
+
+*Updated websocket API [/Order-Commands]((#websocket-api-order-commands))
+ * Request params:
+        * Limit order
+        * Market order
+        * Stop-Limit order
 
 
 **2021-08-03**
