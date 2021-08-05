@@ -2,10 +2,10 @@
 **2021-08-05**
 
 *Updated websocket API [/Order-Commands]((#websocket-api-order-commands))
-    * Request format:
-        * Limit order
-        * Market order
-        * Stop-Limit order
+* Request format:
+      * Limit order
+      * Market order
+      * Stop-Limit order
 
 **2021-07-30**
 
