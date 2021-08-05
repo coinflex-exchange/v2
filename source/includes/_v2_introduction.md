@@ -1,7 +1,8 @@
 # Change Log
+
 **2021-08-05**
 
-*Updated websocket API [Order-Commands](#websocket-api-order-commands)
+* Updated websocket API [Order-Commands](#websocket-api-order-commands)
     * Added Python example of request for limit order
     * Added Python example of request for market order
     * Added Python example of request for stop-limit order
