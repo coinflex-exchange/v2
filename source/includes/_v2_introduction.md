@@ -1,5 +1,13 @@
 # Change Log
 
+**2021-08-09**
+
+* Added Python example of request for websocket API [Place Batch Orders](?python#websocket-api-order-commands-place-batch-orders)
+* Added Python example of request for websocket API [Cancel Order](?python#websocket-api-order-commands-cancel-order)
+* Added Python example of request for websocket API [Cancel Batch Orders](?python#websocket-api-order-commands-cancel-batch-orders)
+* Added Python example of request for websocket API [Modify Order](?python#websocket-api-order-commands-modify-order)
+* Added Python example of request for websocket API [Modify Batch Orders](?python#websocket-api-order-commands-modify-batch-orders)
+
 **2021-08-05**
 
 * Added Python example of request for websocket API [Limit Order](?python#websocket-api-order-commands-limit-order)
