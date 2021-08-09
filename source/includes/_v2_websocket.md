@@ -349,7 +349,7 @@ place_order = \
 url= 'wss://v2stgapi.coinflex.com/v2/websocket'
 async def subscribe():
     async with websockets.connect(url) as ws:
-        while ws.open:
+        while True:
             if not ws.open:
                 print("websocket disconnected")
                 ws = await websockets.connect(url)
@@ -620,7 +620,7 @@ place_order = \
 url= 'wss://v2stgapi.coinflex.com/v2/websocket'
 async def subscribe():
     async with websockets.connect(url) as ws:
-        while ws.open:
+        while True:
             if not ws.open:
                 print("websocket disconnected")
                 ws = await websockets.connect(url)
@@ -730,7 +730,75 @@ data | DICTIONARY object | Yes |
                 }]
 }
 ```
+```python
+import websockets
+import asyncio
+import time
+import hmac
+import base64
+import hashlib
+import json
 
+api_key = ''
+api_secret = ''
+ts = str(int(time.time() * 1000))
+sig_payload = (ts+'GET/auth/self/verify').encode('utf-8')
+signature = base64.b64encode(hmac.new(api_secret.encode('utf-8'), sig_payload, hashlib.sha256).digest()).decode('utf-8')
+
+auth = \
+{
+  "op": "login",
+  "tag": 1,
+  "data": {
+           "apiKey": api_key,
+           "timestamp": ts,
+           "signature": signature
+          }
+}
+place_batch_order = \
+{
+ "op": "placeorders",
+  "tag": 123,
+  "dataArray": [{
+                  "clientOrderId": 1,
+                  "marketCode": "ETH-USD-SWAP-LIN",
+                  "side": "BUY",
+                  "orderType": "LIMIT",
+                  "quantity": 10,
+                  "timeInForce": "MAKER_ONLY",
+                  "price": 100
+                }, 
+                {
+                  "clientOrderId": 2,
+                  "marketCode": "BTC-USD",
+                  "side": "SELL",
+                  "orderType": "MARKET",
+                  "quantity": 0.2
+         }
+}
+
+url= 'wss://v2stgapi.coinflex.com/v2/websocket'
+async def subscribe():
+    async with websockets.connect(url) as ws:
+        while True:
+            if not ws.open:
+                print("websocket disconnected")
+                ws = await websockets.connect(url)
+            response = await ws.recv()
+            data = json.loads(response)
+            if 'nonce' in data:
+                    #print('Websocket connected')
+                    await ws.send(json.dumps(auth))
+            elif 'event' in data and data['event'] == 'login':
+                if data['success'] == True:
+                    #print("Auth done")
+                    await ws.send(json.dumps(place_batch_order))
+                    response2= await ws.recv()
+                    #print('Order submitted')
+                    print(response2)
+
+asyncio.get_event_loop().run_until_complete(subscribe())
+```
 > **Success response format**
 
 ```json
@@ -841,6 +909,63 @@ dataArray | LIST of dictionaries | Yes | A list of orders with each order in JSO
           }
 }
 ```
+```python
+import websockets
+import asyncio
+import time
+import hmac
+import base64
+import hashlib
+import json
+
+api_key = ''
+api_secret = ''
+ts = str(int(time.time() * 1000))
+sig_payload = (ts+'GET/auth/self/verify').encode('utf-8')
+signature = base64.b64encode(hmac.new(api_secret.encode('utf-8'), sig_payload, hashlib.sha256).digest()).decode('utf-8')
+
+auth = \
+{
+  "op": "login",
+  "tag": 1,
+  "data": {
+           "apiKey": api_key,
+           "timestamp": ts,
+           "signature": signature
+          }
+}
+cancel_order = \
+{
+  "op": "cancelorder",
+  "tag": 456,
+  "data": {
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "orderId": 12
+          }
+}
+
+url= 'wss://v2stgapi.coinflex.com/v2/websocket'
+async def subscribe():
+    async with websockets.connect(url) as ws:
+        while True:
+            if not ws.open:
+                print("websocket disconnected")
+                ws = await websockets.connect(url)
+            response = await ws.recv()
+            data = json.loads(response)
+            if 'nonce' in data:
+                    #print('Websocket connected')
+                    await ws.send(json.dumps(auth))
+            elif 'event' in data and data['event'] == 'login':
+                if data['success'] == True:
+                    #print("Auth done")
+                    await ws.send(json.dumps(cancel_order))
+                    response2= await ws.recv()
+                    #print('Order submitted')
+                    print(response2)
+
+asyncio.get_event_loop().run_until_complete(subscribe())
+```
 
 > **Success response format**
 
@@ -907,6 +1032,67 @@ data | DICTIONARY object | Yes |
                   "orderId": 34
                 }]
 }
+```
+```python
+import websockets
+import asyncio
+import time
+import hmac
+import base64
+import hashlib
+import json
+
+api_key = ''
+api_secret = ''
+ts = str(int(time.time() * 1000))
+sig_payload = (ts+'GET/auth/self/verify').encode('utf-8')
+signature = base64.b64encode(hmac.new(api_secret.encode('utf-8'), sig_payload, hashlib.sha256).digest()).decode('utf-8')
+
+auth = \
+{
+  "op": "login",
+  "tag": 1,
+  "data": {
+           "apiKey": api_key,
+           "timestamp": ts,
+           "signature": signature
+          }
+}
+cancel_batch_order = \
+{
+  "op": "cancelorders",
+  "tag": 456,
+  "dataArray": [{
+                  "marketCode": "BTC-USD-SWAP-LIN",
+                  "orderId": 12
+                },
+                {
+                  "marketCode": "BCH-USD",
+                  "orderId": 34
+                }]
+}
+
+url= 'wss://v2stgapi.coinflex.com/v2/websocket'
+async def subscribe():
+    async with websockets.connect(url) as ws:
+        while True:
+            if not ws.open:
+                print("websocket disconnected")
+                ws = await websockets.connect(url)
+            response = await ws.recv()
+            data = json.loads(response)
+            if 'nonce' in data:
+                    #print('Websocket connected')
+                    await ws.send(json.dumps(auth))
+            elif 'event' in data and data['event'] == 'login':
+                if data['success'] == True:
+                    #print("Auth done")
+                    await ws.send(json.dumps(cancel_batch_order))
+                    response2= await ws.recv()
+                    #print('Order submitted')
+                    print(response2)
+
+asyncio.get_event_loop().run_until_complete(subscribe())
 ```
 
 > **Success response format**
@@ -999,6 +1185,66 @@ dataArray | LIST of dictionaries | A list of orders with each order in JSON form
           }
 }
 ```
+```python
+import websockets
+import asyncio
+import time
+import hmac
+import base64
+import hashlib
+import json
+
+api_key = ''
+api_secret = ''
+ts = str(int(time.time() * 1000))
+sig_payload = (ts+'GET/auth/self/verify').encode('utf-8')
+signature = base64.b64encode(hmac.new(api_secret.encode('utf-8'), sig_payload, hashlib.sha256).digest()).decode('utf-8')
+
+auth = \
+{
+  "op": "login",
+  "tag": 1,
+  "data": {
+           "apiKey": api_key,
+           "timestamp": ts,
+           "signature": signature
+          }
+}
+modify_order = \
+{
+  "op": "modifyorder",
+  "tag": 1,
+  "data": {
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "orderId": 888,
+            "side": "BUY",
+            "price": 9800,
+            "quantity": 2
+          }
+}
+
+url= 'wss://v2stgapi.coinflex.com/v2/websocket'
+async def subscribe():
+    async with websockets.connect(url) as ws:
+        while True:
+            if not ws.open:
+                print("websocket disconnected")
+                ws = await websockets.connect(url)
+            response = await ws.recv()
+            data = json.loads(response)
+            if 'nonce' in data:
+                    #print('Websocket connected')
+                    await ws.send(json.dumps(auth))
+            elif 'event' in data and data['event'] == 'login':
+                if data['success'] == True:
+                    #print("Auth done")
+                    await ws.send(json.dumps(modify_order))
+                    response2= await ws.recv()
+                    #print('Order submitted')
+                    print(response2)
+
+asyncio.get_event_loop().run_until_complete(subscribe())
+```
 
 > **Success response format**
 
@@ -1090,6 +1336,72 @@ data | DICTIONARY object | Yes |
                 }]
 }
 ```
+```python
+import websockets
+import asyncio
+import time
+import hmac
+import base64
+import hashlib
+import json
+
+api_key = ''
+api_secret = ''
+ts = str(int(time.time() * 1000))
+sig_payload = (ts+'GET/auth/self/verify').encode('utf-8')
+signature = base64.b64encode(hmac.new(api_secret.encode('utf-8'), sig_payload, hashlib.sha256).digest()).decode('utf-8')
+
+auth = \
+{
+  "op": "login",
+  "tag": 1,
+  "data": {
+           "apiKey": api_key,
+           "timestamp": ts,
+           "signature": signature
+          }
+}
+modify_batch_order = \
+{
+  "op": "modifyorders",
+  "tag": 123,
+  "dataArray": [{
+                  "marketCode": "ETH-USD-SWAP-LIN",
+                  "side": "BUY",
+                  "orderID": 304304315061932310,
+                  "price": 101,
+                }, 
+                {
+                  "marketCode": "BTC-USD",
+                  "orderID": 304304315061864646,
+                  "price": 10001,
+                  "quantity": 0.21
+                }]
+}
+
+url= 'wss://v2stgapi.coinflex.com/v2/websocket'
+async def subscribe():
+    async with websockets.connect(url) as ws:
+        while True:
+            if not ws.open:
+                print("websocket disconnected")
+                ws = await websockets.connect(url)
+            response = await ws.recv()
+            data = json.loads(response)
+            if 'nonce' in data:
+                    #print('Websocket connected')
+                    await ws.send(json.dumps(auth))
+            elif 'event' in data and data['event'] == 'login':
+                if data['success'] == True:
+                    #print("Auth done")
+                    await ws.send(json.dumps(modify_batch_order))
+                    response2= await ws.recv()
+                    #print('Order submitted')
+                    print(response2)
+
+asyncio.get_event_loop().run_until_complete(subscribe())
+```
+
 
 > **Success response format**
 
