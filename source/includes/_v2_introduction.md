@@ -7,7 +7,7 @@
 * Added Python example of request for websocket API [Cancel Batch Orders](?python#websocket-api-order-commands-cancel-batch-orders)
 * Added Python example of request for websocket API [Modify Order](?python#websocket-api-order-commands-modify-order)
 * Added Python example of request for websocket API [Modify Batch Orders](?python#websocket-api-order-commands-modify-batch-orders)
-* Added link to CoinFLEX's historical data from third party API [Introduction](?python#introduction)
+* Added link to CoinFLEX's [Historical Data](?python#historical-data) from third party API
 
 **2021-08-05**
 
