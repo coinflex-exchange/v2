@@ -7,6 +7,7 @@
 * Added Python example of request for websocket API [Cancel Batch Orders](?python#websocket-api-order-commands-cancel-batch-orders)
 * Added Python example of request for websocket API [Modify Order](?python#websocket-api-order-commands-modify-order)
 * Added Python example of request for websocket API [Modify Batch Orders](?python#websocket-api-order-commands-modify-batch-orders)
+* Added link to CoinFLEX's historical data from third party API [Introduction](?python#introduction)
 
 **2021-08-05**
 
@@ -198,6 +199,10 @@ By default, API Keys are read-only and can only read basic account information, 
 If you wish to execute orders with your API Key, clients must select the `Can Trade` permission upon API key creation.
 
 API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.
+
+# Historical Data
+
+CoinFLEX's historical L2 order book data (depth data), can be found at https://docs.tardis.dev/historical-data-details/coinflex (third party API), which includes historical market data details - instruments, data coverage and data collection specifics for all of our instruments since 2020-07-14.
 
 # Rate Limit
 
