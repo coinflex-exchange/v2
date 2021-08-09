@@ -321,6 +321,9 @@
             <a href="#api-key-management" class="toc-h1 toc-link" data-title="API Key Management">API Key Management</a>
           </li>
           <li>
+            <a href="#historical-data" class="toc-h1 toc-link" data-title="Historical Data">Historical Data</a>
+          </li>
+          <li>
             <a href="#rate-limit" class="toc-h1 toc-link" data-title="Rate Limit">Rate Limit</a>
           </li>
           <li>
@@ -585,6 +588,17 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-08-09</strong></p>
+
+<ul>
+<li>Added Python example of request for websocket API <a href="?python#websocket-api-order-commands-place-batch-orders">Place Batch Orders</a></li>
+<li>Added Python example of request for websocket API <a href="?python#websocket-api-order-commands-cancel-order">Cancel Order</a></li>
+<li>Added Python example of request for websocket API <a href="?python#websocket-api-order-commands-cancel-batch-orders">Cancel Batch Orders</a></li>
+<li>Added Python example of request for websocket API <a href="?python#websocket-api-order-commands-modify-order">Modify Order</a></li>
+<li>Added Python example of request for websocket API <a href="?python#websocket-api-order-commands-modify-batch-orders">Modify Batch Orders</a></li>
+<li>Added link to CoinFLEX&#39;s <a href="?python#historical-data">Historical Data</a> from third party API</li>
+</ul>
+
 <p><strong>2021-08-05</strong></p>
 
 <ul>
@@ -857,6 +871,8 @@
 <p>If you wish to execute orders with your API Key, clients must select the <code>Can Trade</code> permission upon API key creation.</p>
 
 <p>API keys are also only bound to a single sub-account, defined upon creation. This means that an API key will only ever interact and return account information for a single sub-account.</p>
+<h1 id='historical-data'>Historical Data</h1>
+<p>CoinFLEX&#39;s historical L2 order book data (depth data), can be found at https://docs.tardis.dev/historical-data-details/coinflex (third party API), which includes historical market data details - instruments, data coverage and data collection specifics for all of our instruments since 2020-07-14.</p>
 <h1 id='rate-limit'>Rate Limit</h1>
 <p>CoinFLEX&#39;s APIs allows our clients to access and control their accounts or view our market data using custom-written software. To protect the performance of the system, we impose certain limits:</p>
 
@@ -1255,7 +1271,7 @@
 <span class="n">url</span><span class="o">=</span> <span class="s">'wss://v2stgapi.coinflex.com/v2/websocket'</span>
 <span class="k">async</span> <span class="k">def</span> <span class="nf">subscribe</span><span class="p">():</span>
     <span class="k">async</span> <span class="k">with</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">ws</span><span class="p">:</span>
-        <span class="k">while</span> <span class="n">ws</span><span class="p">.</span><span class="nb">open</span><span class="p">:</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">ws</span><span class="p">.</span><span class="nb">open</span><span class="p">:</span>
                 <span class="k">print</span><span class="p">(</span><span class="s">"websocket disconnected"</span><span class="p">)</span>
                 <span class="n">ws</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
@@ -1616,7 +1632,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <span class="n">url</span><span class="o">=</span> <span class="s">'wss://v2stgapi.coinflex.com/v2/websocket'</span>
 <span class="k">async</span> <span class="k">def</span> <span class="nf">subscribe</span><span class="p">():</span>
     <span class="k">async</span> <span class="k">with</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">ws</span><span class="p">:</span>
-        <span class="k">while</span> <span class="n">ws</span><span class="p">.</span><span class="nb">open</span><span class="p">:</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">ws</span><span class="p">.</span><span class="nb">open</span><span class="p">:</span>
                 <span class="k">print</span><span class="p">(</span><span class="s">"websocket disconnected"</span><span class="p">)</span>
                 <span class="n">ws</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
@@ -1781,7 +1797,74 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
                   </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2</span><span class="w">
                 </span><span class="p">}]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">websockets</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">hmac</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">api_key</span> <span class="o">=</span> <span class="s">''</span>
+<span class="n">api_secret</span> <span class="o">=</span> <span class="s">''</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span>
+<span class="n">sig_payload</span> <span class="o">=</span> <span class="p">(</span><span class="n">ts</span><span class="o">+</span><span class="s">'GET/auth/self/verify'</span><span class="p">).</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+<span class="n">signature</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">sig_payload</span><span class="p">,</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+
+<span class="n">auth</span> <span class="o">=</span> \
+<span class="p">{</span>
+  <span class="s">"op"</span><span class="p">:</span> <span class="s">"login"</span><span class="p">,</span>
+  <span class="s">"tag"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
+           <span class="s">"apiKey"</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+           <span class="s">"timestamp"</span><span class="p">:</span> <span class="n">ts</span><span class="p">,</span>
+           <span class="s">"signature"</span><span class="p">:</span> <span class="n">signature</span>
+          <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">place_batch_order</span> <span class="o">=</span> \
+<span class="p">{</span>
+ <span class="s">"op"</span><span class="p">:</span> <span class="s">"placeorders"</span><span class="p">,</span>
+  <span class="s">"tag"</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="s">"dataArray"</span><span class="p">:</span> <span class="p">[{</span>
+                  <span class="s">"clientOrderId"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                  <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"ETH-USD-SWAP-LIN"</span><span class="p">,</span>
+                  <span class="s">"side"</span><span class="p">:</span> <span class="s">"BUY"</span><span class="p">,</span>
+                  <span class="s">"orderType"</span><span class="p">:</span> <span class="s">"LIMIT"</span><span class="p">,</span>
+                  <span class="s">"quantity"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+                  <span class="s">"timeInForce"</span><span class="p">:</span> <span class="s">"MAKER_ONLY"</span><span class="p">,</span>
+                  <span class="s">"price"</span><span class="p">:</span> <span class="mi">100</span>
+                <span class="p">},</span> 
+                <span class="p">{</span>
+                  <span class="s">"clientOrderId"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                  <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"BTC-USD"</span><span class="p">,</span>
+                  <span class="s">"side"</span><span class="p">:</span> <span class="s">"SELL"</span><span class="p">,</span>
+                  <span class="s">"orderType"</span><span class="p">:</span> <span class="s">"MARKET"</span><span class="p">,</span>
+                  <span class="s">"quantity"</span><span class="p">:</span> <span class="mf">0.2</span>
+         <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">url</span><span class="o">=</span> <span class="s">'wss://v2stgapi.coinflex.com/v2/websocket'</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">subscribe</span><span class="p">():</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">ws</span><span class="p">:</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ws</span><span class="p">.</span><span class="nb">open</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">"websocket disconnected"</span><span class="p">)</span>
+                <span class="n">ws</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s">'nonce'</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="c1">#print('Websocket connected')
+</span>                    <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">auth</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="s">'event'</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">data</span><span class="p">[</span><span class="s">'event'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'login'</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s">'success'</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+                    <span class="c1">#print("Auth done")
+</span>                    <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">place_batch_order</span><span class="p">))</span>
+                    <span class="n">response2</span><span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
+                    <span class="c1">#print('Order submitted')
+</span>                    <span class="k">print</span><span class="p">(</span><span class="n">response2</span><span class="p">)</span>
+
+<span class="n">asyncio</span><span class="p">.</span><span class="n">get_event_loop</span><span class="p">().</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">subscribe</span><span class="p">())</span>
+</code></pre></div>
 <blockquote>
 <p><strong>Success response format</strong></p>
 </blockquote>
@@ -1910,7 +1993,62 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
             </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">websockets</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">hmac</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">api_key</span> <span class="o">=</span> <span class="s">''</span>
+<span class="n">api_secret</span> <span class="o">=</span> <span class="s">''</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span>
+<span class="n">sig_payload</span> <span class="o">=</span> <span class="p">(</span><span class="n">ts</span><span class="o">+</span><span class="s">'GET/auth/self/verify'</span><span class="p">).</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+<span class="n">signature</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">sig_payload</span><span class="p">,</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+
+<span class="n">auth</span> <span class="o">=</span> \
+<span class="p">{</span>
+  <span class="s">"op"</span><span class="p">:</span> <span class="s">"login"</span><span class="p">,</span>
+  <span class="s">"tag"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
+           <span class="s">"apiKey"</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+           <span class="s">"timestamp"</span><span class="p">:</span> <span class="n">ts</span><span class="p">,</span>
+           <span class="s">"signature"</span><span class="p">:</span> <span class="n">signature</span>
+          <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">cancel_order</span> <span class="o">=</span> \
+<span class="p">{</span>
+  <span class="s">"op"</span><span class="p">:</span> <span class="s">"cancelorder"</span><span class="p">,</span>
+  <span class="s">"tag"</span><span class="p">:</span> <span class="mi">456</span><span class="p">,</span>
+  <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"BTC-USD-SWAP-LIN"</span><span class="p">,</span>
+            <span class="s">"orderId"</span><span class="p">:</span> <span class="mi">12</span>
+          <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">url</span><span class="o">=</span> <span class="s">'wss://v2stgapi.coinflex.com/v2/websocket'</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">subscribe</span><span class="p">():</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">ws</span><span class="p">:</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ws</span><span class="p">.</span><span class="nb">open</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">"websocket disconnected"</span><span class="p">)</span>
+                <span class="n">ws</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s">'nonce'</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="c1">#print('Websocket connected')
+</span>                    <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">auth</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="s">'event'</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">data</span><span class="p">[</span><span class="s">'event'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'login'</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s">'success'</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+                    <span class="c1">#print("Auth done")
+</span>                    <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">cancel_order</span><span class="p">))</span>
+                    <span class="n">response2</span><span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
+                    <span class="c1">#print('Order submitted')
+</span>                    <span class="k">print</span><span class="p">(</span><span class="n">response2</span><span class="p">)</span>
+
+<span class="n">asyncio</span><span class="p">.</span><span class="n">get_event_loop</span><span class="p">().</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">subscribe</span><span class="p">())</span>
+</code></pre></div>
 <blockquote>
 <p><strong>Success response format</strong></p>
 </blockquote>
@@ -2003,7 +2141,66 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
                   </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">34</span><span class="w">
                 </span><span class="p">}]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">websockets</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">hmac</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">api_key</span> <span class="o">=</span> <span class="s">''</span>
+<span class="n">api_secret</span> <span class="o">=</span> <span class="s">''</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span>
+<span class="n">sig_payload</span> <span class="o">=</span> <span class="p">(</span><span class="n">ts</span><span class="o">+</span><span class="s">'GET/auth/self/verify'</span><span class="p">).</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+<span class="n">signature</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">sig_payload</span><span class="p">,</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+
+<span class="n">auth</span> <span class="o">=</span> \
+<span class="p">{</span>
+  <span class="s">"op"</span><span class="p">:</span> <span class="s">"login"</span><span class="p">,</span>
+  <span class="s">"tag"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
+           <span class="s">"apiKey"</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+           <span class="s">"timestamp"</span><span class="p">:</span> <span class="n">ts</span><span class="p">,</span>
+           <span class="s">"signature"</span><span class="p">:</span> <span class="n">signature</span>
+          <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">cancel_batch_order</span> <span class="o">=</span> \
+<span class="p">{</span>
+  <span class="s">"op"</span><span class="p">:</span> <span class="s">"cancelorders"</span><span class="p">,</span>
+  <span class="s">"tag"</span><span class="p">:</span> <span class="mi">456</span><span class="p">,</span>
+  <span class="s">"dataArray"</span><span class="p">:</span> <span class="p">[{</span>
+                  <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"BTC-USD-SWAP-LIN"</span><span class="p">,</span>
+                  <span class="s">"orderId"</span><span class="p">:</span> <span class="mi">12</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                  <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"BCH-USD"</span><span class="p">,</span>
+                  <span class="s">"orderId"</span><span class="p">:</span> <span class="mi">34</span>
+                <span class="p">}]</span>
+<span class="p">}</span>
+
+<span class="n">url</span><span class="o">=</span> <span class="s">'wss://v2stgapi.coinflex.com/v2/websocket'</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">subscribe</span><span class="p">():</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">ws</span><span class="p">:</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ws</span><span class="p">.</span><span class="nb">open</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">"websocket disconnected"</span><span class="p">)</span>
+                <span class="n">ws</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s">'nonce'</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="c1">#print('Websocket connected')
+</span>                    <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">auth</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="s">'event'</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">data</span><span class="p">[</span><span class="s">'event'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'login'</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s">'success'</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+                    <span class="c1">#print("Auth done")
+</span>                    <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">cancel_batch_order</span><span class="p">))</span>
+                    <span class="n">response2</span><span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
+                    <span class="c1">#print('Order submitted')
+</span>                    <span class="k">print</span><span class="p">(</span><span class="n">response2</span><span class="p">)</span>
+
+<span class="n">asyncio</span><span class="p">.</span><span class="n">get_event_loop</span><span class="p">().</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">subscribe</span><span class="p">())</span>
+</code></pre></div>
 <blockquote>
 <p><strong>Success response format</strong></p>
 </blockquote>
@@ -2110,7 +2307,65 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">websockets</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">hmac</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">api_key</span> <span class="o">=</span> <span class="s">''</span>
+<span class="n">api_secret</span> <span class="o">=</span> <span class="s">''</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span>
+<span class="n">sig_payload</span> <span class="o">=</span> <span class="p">(</span><span class="n">ts</span><span class="o">+</span><span class="s">'GET/auth/self/verify'</span><span class="p">).</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+<span class="n">signature</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">sig_payload</span><span class="p">,</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+
+<span class="n">auth</span> <span class="o">=</span> \
+<span class="p">{</span>
+  <span class="s">"op"</span><span class="p">:</span> <span class="s">"login"</span><span class="p">,</span>
+  <span class="s">"tag"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
+           <span class="s">"apiKey"</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+           <span class="s">"timestamp"</span><span class="p">:</span> <span class="n">ts</span><span class="p">,</span>
+           <span class="s">"signature"</span><span class="p">:</span> <span class="n">signature</span>
+          <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">modify_order</span> <span class="o">=</span> \
+<span class="p">{</span>
+  <span class="s">"op"</span><span class="p">:</span> <span class="s">"modifyorder"</span><span class="p">,</span>
+  <span class="s">"tag"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"BTC-USD-SWAP-LIN"</span><span class="p">,</span>
+            <span class="s">"orderId"</span><span class="p">:</span> <span class="mi">888</span><span class="p">,</span>
+            <span class="s">"side"</span><span class="p">:</span> <span class="s">"BUY"</span><span class="p">,</span>
+            <span class="s">"price"</span><span class="p">:</span> <span class="mi">9800</span><span class="p">,</span>
+            <span class="s">"quantity"</span><span class="p">:</span> <span class="mi">2</span>
+          <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">url</span><span class="o">=</span> <span class="s">'wss://v2stgapi.coinflex.com/v2/websocket'</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">subscribe</span><span class="p">():</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">ws</span><span class="p">:</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ws</span><span class="p">.</span><span class="nb">open</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">"websocket disconnected"</span><span class="p">)</span>
+                <span class="n">ws</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s">'nonce'</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="c1">#print('Websocket connected')
+</span>                    <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">auth</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="s">'event'</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">data</span><span class="p">[</span><span class="s">'event'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'login'</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s">'success'</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+                    <span class="c1">#print("Auth done")
+</span>                    <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">modify_order</span><span class="p">))</span>
+                    <span class="n">response2</span><span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
+                    <span class="c1">#print('Order submitted')
+</span>                    <span class="k">print</span><span class="p">(</span><span class="n">response2</span><span class="p">)</span>
+
+<span class="n">asyncio</span><span class="p">.</span><span class="n">get_event_loop</span><span class="p">().</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">subscribe</span><span class="p">())</span>
+</code></pre></div>
 <blockquote>
 <p><strong>Success response format</strong></p>
 </blockquote>
@@ -2244,7 +2499,70 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
                   </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.21</span><span class="w">
                 </span><span class="p">}]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">websockets</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">hmac</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">api_key</span> <span class="o">=</span> <span class="s">''</span>
+<span class="n">api_secret</span> <span class="o">=</span> <span class="s">''</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span>
+<span class="n">sig_payload</span> <span class="o">=</span> <span class="p">(</span><span class="n">ts</span><span class="o">+</span><span class="s">'GET/auth/self/verify'</span><span class="p">).</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+<span class="n">signature</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">sig_payload</span><span class="p">,</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+
+<span class="n">auth</span> <span class="o">=</span> \
+<span class="p">{</span>
+  <span class="s">"op"</span><span class="p">:</span> <span class="s">"login"</span><span class="p">,</span>
+  <span class="s">"tag"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
+           <span class="s">"apiKey"</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+           <span class="s">"timestamp"</span><span class="p">:</span> <span class="n">ts</span><span class="p">,</span>
+           <span class="s">"signature"</span><span class="p">:</span> <span class="n">signature</span>
+          <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">modify_batch_order</span> <span class="o">=</span> \
+<span class="p">{</span>
+  <span class="s">"op"</span><span class="p">:</span> <span class="s">"modifyorders"</span><span class="p">,</span>
+  <span class="s">"tag"</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="s">"dataArray"</span><span class="p">:</span> <span class="p">[{</span>
+                  <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"ETH-USD-SWAP-LIN"</span><span class="p">,</span>
+                  <span class="s">"side"</span><span class="p">:</span> <span class="s">"BUY"</span><span class="p">,</span>
+                  <span class="s">"orderID"</span><span class="p">:</span> <span class="mi">304304315061932310</span><span class="p">,</span>
+                  <span class="s">"price"</span><span class="p">:</span> <span class="mi">101</span><span class="p">,</span>
+                <span class="p">},</span> 
+                <span class="p">{</span>
+                  <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"BTC-USD"</span><span class="p">,</span>
+                  <span class="s">"orderID"</span><span class="p">:</span> <span class="mi">304304315061864646</span><span class="p">,</span>
+                  <span class="s">"price"</span><span class="p">:</span> <span class="mi">10001</span><span class="p">,</span>
+                  <span class="s">"quantity"</span><span class="p">:</span> <span class="mf">0.21</span>
+                <span class="p">}]</span>
+<span class="p">}</span>
+
+<span class="n">url</span><span class="o">=</span> <span class="s">'wss://v2stgapi.coinflex.com/v2/websocket'</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">subscribe</span><span class="p">():</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">ws</span><span class="p">:</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ws</span><span class="p">.</span><span class="nb">open</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">"websocket disconnected"</span><span class="p">)</span>
+                <span class="n">ws</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s">'nonce'</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="c1">#print('Websocket connected')
+</span>                    <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">auth</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="s">'event'</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">data</span><span class="p">[</span><span class="s">'event'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'login'</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s">'success'</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+                    <span class="c1">#print("Auth done")
+</span>                    <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">modify_batch_order</span><span class="p">))</span>
+                    <span class="n">response2</span><span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
+                    <span class="c1">#print('Order submitted')
+</span>                    <span class="k">print</span><span class="p">(</span><span class="n">response2</span><span class="p">)</span>
+
+<span class="n">asyncio</span><span class="p">.</span><span class="n">get_event_loop</span><span class="p">().</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">subscribe</span><span class="p">())</span>
+</code></pre></div>
 <blockquote>
 <p><strong>Success response format</strong></p>
 </blockquote>
