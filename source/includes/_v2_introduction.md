@@ -1,5 +1,11 @@
 # Change Log
 
+**2021-08-11**
+
+* Added new REST API [POST /v2/AMM/create](#rest-api-methods-private-post-v2-amm-create) to create AMM
+* Added new REST API [POST /v2/AMM/redeem](#rest-api-methods-private-post-v2-amm-redeem) to redeem AMM
+* Added new REST API [GET v2/AMM](#rest-api-methods-private-get-v2-amm) to get AMM
+
 **2021-08-09**
 
 * Added Python example of request for websocket API [Place Batch Orders](?python#websocket-api-order-commands-place-batch-orders)
