@@ -524,6 +524,15 @@
                           <li>
                             <a href="#rest-api-methods-private-get-v2-funding-payments" class="toc-h3 toc-link" data-title="GET <code>/v2/funding-payments</code>">GET <code>/v2/funding-payments</code></a>
                           </li>
+                          <li>
+                            <a href="#rest-api-methods-private-post-v2-amm-create" class="toc-h3 toc-link" data-title="POST <code>/v2/AMM/create</code>">POST <code>/v2/AMM/create</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-post-v2-amm-redeem" class="toc-h3 toc-link" data-title="POST <code>/v2/AMM/redeem</code>">POST <code>/v2/AMM/redeem</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-methods-private-get-v2-amm" class="toc-h3 toc-link" data-title="GET <code>/v2/AMM</code>">GET <code>/v2/AMM</code></a>
+                          </li>
                       </ul>
                   </li>
                   <li>
@@ -588,6 +597,14 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-08-11</strong></p>
+
+<ul>
+<li>Added new REST API <a href="#rest-api-methods-private-post-v2-amm-create">POST /v2/AMM/create</a> to create AMM</li>
+<li>Added new REST API <a href="#rest-api-methods-private-post-v2-amm-redeem">POST /v2/AMM/redeem</a> to redeem AMM</li>
+<li>Added new REST API <a href="#rest-api-methods-private-get-v2-amm">GET v2/AMM</a> to get AMM</li>
+</ul>
+
 <p><strong>2021-08-09</strong></p>
 
 <ul>
@@ -9152,6 +9169,389 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>timestamp(in the data list)</td>
 <td>STRING</td>
 <td>Updated time</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-private-post-v2-amm-create'>POST <code>/v2/AMM/create</code></h3>
+<p>Create AMM.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">POST</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/AMM/create</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NEUTRAL"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"collateralAsset"</span><span class="p">:</span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"assetQuantity"</span><span class="p">:</span><span class="s2">"0.1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"collateralCounterAsset"</span><span class="p">:</span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"counterAssetQuantity"</span><span class="p">:</span><span class="s2">"4000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"minPriceBound"</span><span class="p">:</span><span class="s2">"28000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"maxPriceBound"</span><span class="p">:</span><span class="s2">"52000"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"createAMM"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1628491099751"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3101"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"hashToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CF-BTC-AMM-mz7WAOZc"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NEUTRAL"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"collateralAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"assetQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"collateralCounterAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"counterAssetQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4000"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"minPriceBound"</span><span class="p">:</span><span class="w"> </span><span class="s2">"28000"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"maxPriceBound"</span><span class="p">:</span><span class="w"> </span><span class="s2">"52000"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>leverage</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Maximum leverage, with USDT the range of leverage is 1 to 40X otherwise is 1 to 10X</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Value can be <code>BUY</code> or <code>SELL</code> or <code>NEUTRAL</code></td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Market code e.g. <code>BCH-USD-SWAP-LIN</code></td>
+</tr>
+<tr>
+<td>collateralAsset</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Required unless unleveraged and direction is <code>BUY</code></td>
+</tr>
+<tr>
+<td>assetQuantity</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Required unless unleveraged and direction is <code>BUY</code>. Minimum is $200 notional</td>
+</tr>
+<tr>
+<td>collateralCounterAsset</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Required if unleveraged and direction is <code>NEUTRAL</code> or <code>BUY</code></td>
+</tr>
+<tr>
+<td>counterAssetQuantity</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Required if unleveraged and direction is <code>NEUTRAL</code> or <code>BUY</code>. Minimum is $200 notional</td>
+</tr>
+<tr>
+<td>minPriceBound</td>
+<td>STRING</td>
+<td>YES</td>
+<td>When unleveraged and direction is <code>NEUTRAL</code>, minPriceBound and maxPriceBound should be stuck to the formula <code>mid = counterAssetQuantity/collateralAssetQuantity</code> <code>maxPriceBound - mid = mid - minPriceBound</code></td>
+</tr>
+<tr>
+<td>maxPriceBound</td>
+<td>STRING</td>
+<td>YES</td>
+<td>When unleveraged and direction is <code>NEUTRAL</code>, minPriceBound and maxPriceBound should be stuck to the formula <code>mid = counterAssetQuantity/collateralAssetQuantity</code> <code>maxPriceBound - mid = mid - minPriceBound</code></td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>hashToken</td>
+<td>STRING</td>
+<td>Identity of the AMM</td>
+</tr>
+<tr>
+<td>leverage</td>
+<td>STRING</td>
+<td>Leverage of the AMM</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>STRING</td>
+<td>Value can be <code>BUY</code> or <code>SELL</code> or <code>NEUTRAL</code></td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Market code e.g. <code>BCH-USD-SWAP-LIN</code></td>
+</tr>
+<tr>
+<td>collateralAsset</td>
+<td>STRING</td>
+<td>Collateral asset</td>
+</tr>
+<tr>
+<td>assetQuantity</td>
+<td>STRING</td>
+<td>Quantity of the collateral asset</td>
+</tr>
+<tr>
+<td>collateralCounterAsset</td>
+<td>STRING</td>
+<td>Collateral counter asset</td>
+</tr>
+<tr>
+<td>counterAssetQuantity</td>
+<td>STRING</td>
+<td>Quantity of the collateral counter asset</td>
+</tr>
+<tr>
+<td>minPriceBound</td>
+<td>STRING</td>
+<td>Minimum price of the range</td>
+</tr>
+<tr>
+<td>maxPriceBound</td>
+<td>STRING</td>
+<td>Maximum price of the range</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-private-post-v2-amm-redeem'>POST <code>/v2/AMM/redeem</code></h3>
+<p>Redeem AMM.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">POST</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/AMM/redeem</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"hashToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CF-BTC-AMM-WJRzxzb"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"redeemType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DELIVER"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redeemAMM"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1628502282362"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3101"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"hashToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CF-BTC-AMM-mz7WAOZc"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"redeemType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DELIVER"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>hashToken</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Identity of the AMM</td>
+</tr>
+<tr>
+<td>redeemType</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Value can be <code>DELIVER</code> or <code>MANUAL</code></td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>hashToken</td>
+<td>STRING</td>
+<td>Identity of the AMM</td>
+</tr>
+<tr>
+<td>redeemType</td>
+<td>STRING</td>
+<td>YES</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-methods-private-get-v2-amm'>GET <code>/v2/AMM</code></h3>
+<p>Get AMMs.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">v</span><span class="mi">2</span><span class="err">/AMM?hashToken=CF-BTC-AMM-RoBwokR&amp;marketCode=BTC-USD-SWAP-LIN</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>SUCCESSFUL RESPONSE</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"infoAMM"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1628508877030"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3101"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"hashToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CF-BTC-AMM-RoBwokR"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NEUTRAL"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EXECUTING"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"collateralAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"assetQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.4"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"collateralCounterAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"counterAssetQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"minPriceBound"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8750"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"maxPriceBound"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16250"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"assetBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"counterAssetBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"19894.5719512"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"position"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-0.433"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"37758.38"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"usdEarned"</span><span class="p">:</span><span class="w"> </span><span class="s2">"95"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"flexReward"</span><span class="p">:</span><span class="w"> </span><span class="s2">"675"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"apr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"86.64"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1628066890178"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1628476562875"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>hashToken</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Multiple hashTokens can be separated by a comma</td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Market code e.g. <code>BTC-USD-SWAP-LIN</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Value can be <code>ENDED</code> or <code>EXECUTING</code> or <code>PENDING</code></td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>hashToken</td>
+<td>STRING</td>
+<td>Identity of the AMM</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>STRING</td>
+<td>Value can be <code>BUY</code> or <code>SELL</code> or <code>NEUTRAL</code></td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Market code e.g. <code>BTC-USD-SWAP-LIN</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td>STRING</td>
+<td>Value can be <code>ENDED</code> or <code>EXECUTING</code> or <code>PENDING</code></td>
+</tr>
+<tr>
+<td>collateralAsset</td>
+<td>STRING</td>
+<td>Collateral asset</td>
+</tr>
+<tr>
+<td>assetQuantity</td>
+<td>STRING</td>
+<td>Quantity of the collateral asset</td>
+</tr>
+<tr>
+<td>collateralCounterAsset</td>
+<td>STRING</td>
+<td>Collateral counter asset</td>
+</tr>
+<tr>
+<td>counterAssetQuantity</td>
+<td>STRING</td>
+<td>Quantity of the collateral counter asset</td>
+</tr>
+<tr>
+<td>minPriceBound</td>
+<td>STRING</td>
+<td>Minimum price of the range</td>
+</tr>
+<tr>
+<td>maxPriceBound</td>
+<td>STRING</td>
+<td>Maximum price of the range</td>
+</tr>
+<tr>
+<td>position</td>
+<td>STRING</td>
+<td>Current position</td>
+</tr>
+<tr>
+<td>usdEarned</td>
+<td>STRING</td>
+<td>USD already earned</td>
+</tr>
+<tr>
+<td>flexReward</td>
+<td>STRING</td>
+<td>Amount of FLEX reward</td>
+</tr>
+<tr>
+<td>apr</td>
+<td>STRING</td>
+<td>APR(annual percentage rate)</td>
+</tr>
+<tr>
+<td>createdAt</td>
+<td>STRING</td>
+<td>The time that AMM was created at</td>
+</tr>
+<tr>
+<td>updatedAt</td>
+<td>STRING</td>
+<td>The time that AMM was updated at</td>
 </tr>
 </tbody></table>
 <h2 id='rest-api-methods-public'>Methods - Public</h2><h3 id='rest-api-methods-public-get-v2-all-markets'>GET <code>/v2/all/markets</code></h3>
