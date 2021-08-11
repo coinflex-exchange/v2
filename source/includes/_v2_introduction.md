@@ -2,6 +2,9 @@
 
 **2021-08-11**
 
+* Added new REST API [POST /v2/AMM/create](?json#rest-api-methods-private-post-v2-amm-create) to create AMM
+* Added new REST API [POST /v2/AMM/redeem](?json#rest-api-methods-private-post-v2-amm-redeem) to redeem AMM
+* Added new REST API [GET v2/AMM](?json#rest-api-methods-private-get-v2-amm) to get AMM
 * Added Python example of request for websocket API [Market](?python#websocket-api-subscriptions-public-market)
 * Added Python example of request for websocket API [Liquidation RFQ](?python#websocket-api-subscriptions-public-liquidation-rfq)
 * Added Python example of request for websocket API [Candles](?python#websocket-api-subscriptions-public-candles)
@@ -11,7 +14,6 @@
 * Added Python example of request for websocket API [Order Channel](?python#websocket-api-subscriptions-private-order-channel)
 * Added Python example of request for websocket API [Position Channel](?python#websocket-api-subscriptions-private-position-channel)
 * Added Python example of request for websocket API [Balance Channel](?python#websocket-api-subscriptions-private-balance-channel)
-
 
 **2021-08-09**
 
@@ -30,56 +32,56 @@
 
 **2021-08-03**
 
-* Added new REST API [GET v2/funding-payments](#rest-api-methods-private-get-v2-funding-payments) to get funding payments
+* Added new REST API [GET v2/funding-payments](?json#rest-api-methods-private-get-v2-funding-payments) to get funding payments
 
 **2021-07-28**
 
-* Added new REST API [POST /v2/borrow](#rest-api-methods-private-post-v2-borrow) to borrow
-* Added new REST API [POST /v2/repay](#rest-api-methods-private-post-v2-repay) to repay
-* Added new REST API [GET v2/borrow/{asset}](#rest-api-methods-private-get-v2-borrow-asset) to get borrow history
-* Added new REST API [GET v2/repay/{asset}](#rest-api-methods-private-get-v2-borrow-asset) to get repay history
-* Added new REST API [GET v2/borrowingSummary](#rest-api-methods-private-get-v2-borrowingsummary) to get borrowing summary
-* Added new REST API [POST /v2/borrow/close](#rest-api-methods-private-post-v2-borrow-close) to close borrow
+* Added new REST API [POST /v2/borrow](?json#rest-api-methods-private-post-v2-borrow) to borrow
+* Added new REST API [POST /v2/repay](?json#rest-api-methods-private-post-v2-repay) to repay
+* Added new REST API [GET v2/borrow/{asset}](?json#rest-api-methods-private-get-v2-borrow-asset) to get borrow history
+* Added new REST API [GET v2/repay/{asset}](?json#rest-api-methods-private-get-v2-borrow-asset) to get repay history
+* Added new REST API [GET v2/borrowingSummary](?json#rest-api-methods-private-get-v2-borrowingsummary) to get borrowing summary
+* Added new REST API [POST /v2/borrow/close](?json#rest-api-methods-private-post-v2-borrow-close) to close borrow
 
 **2021-07-08**
 
-* Updated REST API [GET /v2/funding-rates/{marketCode}](#rest-api-methods-public-get-v2-funding-rates-marketcode)
+* Updated REST API [GET /v2/funding-rates/{marketCode}](?json#rest-api-methods-public-get-v2-funding-rates-marketcode)
     * Response data are sorted by time in descending order
 
 **2021-05-24**
 
-* Updated websocket API [Ticker](#websocket-api-subscriptions-public-ticker)
+* Updated websocket API [Ticker](?json#websocket-api-subscriptions-public-ticker)
     * If you subcribe "ticker:all", you would get one whole message containing all markets but not individual message for each market any more
     * With lower channel update frequency 500 ms instead of 100 ms
 
 **2021-05-21**
 
-* Added new REST API [GET /v2/flex-protocol/balances/{flexProtocol}](#rest-api-methods-public-get-v2-flex-protocol-balances-flexprotocol) to get flexAsset balances
-* Added new REST API [GET /v2/flex-protocol/positions/{flexProtocol}](#rest-api-methods-public-get-v2-flex-protocol-positions-flexprotocol) to get get flexAsset positions
-* Added new REST API [GET /v2/flex-protocol/orders/{flexProtocol}](#rest-api-methods-public-get-v2-flex-protocol-orders-flexprotocol) to get flexAsset orders
-* Added new REST API [GET /v2/flex-protocol/trades/{flexProtocol}/{marketCode}](#rest-api-methods-public-get-v2-flex-protocol-trades-flexprotocol-marketcode) to get flexAsset trades
-* Added new REST API [GET /v2/flex-protocol/delivery/orders/{flexProtocol}](#rest-api-methods-public-get-v2-flex-protocol-delivery-orders-flexprotocol) to get flexAsset delivery orders
+* Added new REST API [GET /v2/flex-protocol/balances/{flexProtocol}](?json#rest-api-methods-public-get-v2-flex-protocol-balances-flexprotocol) to get flexAsset balances
+* Added new REST API [GET /v2/flex-protocol/positions/{flexProtocol}](?json#rest-api-methods-public-get-v2-flex-protocol-positions-flexprotocol) to get get flexAsset positions
+* Added new REST API [GET /v2/flex-protocol/orders/{flexProtocol}](?json#rest-api-methods-public-get-v2-flex-protocol-orders-flexprotocol) to get flexAsset orders
+* Added new REST API [GET /v2/flex-protocol/trades/{flexProtocol}/{marketCode}](?json#rest-api-methods-public-get-v2-flex-protocol-trades-flexprotocol-marketcode) to get flexAsset trades
+* Added new REST API [GET /v2/flex-protocol/delivery/orders/{flexProtocol}](?json#rest-api-methods-public-get-v2-flex-protocol-delivery-orders-flexprotocol) to get flexAsset delivery orders
 
 **2021-05-13**
 
-* Added new REST API [GET /v2/ping](#rest-api-methods-public-get-v2-ping) to check API service status
-* Added new REST API [POST /v2/mint](#rest-api-methods-private-post-v2-mint) to mint
-* Added new REST API [GET /v2/mint/{asset}](#rest-api-methods-private-get-v2-mint-asset) to get mint history
-* Added new REST API [POST /v2/redeem](#rest-api-methods-private-post-v2-redeem) to redeem
-* Added new REST API [GET /v2/redeem/{asset}](#rest-api-methods-private-get-v2-redeem-asset) to get redeem history
+* Added new REST API [GET /v2/ping](?json#rest-api-methods-public-get-v2-ping) to check API service status
+* Added new REST API [POST /v2/mint](?json#rest-api-methods-private-post-v2-mint) to mint
+* Added new REST API [GET /v2/mint/{asset}](?json#rest-api-methods-private-get-v2-mint-asset) to get mint history
+* Added new REST API [POST /v2/redeem](?json#rest-api-methods-private-post-v2-redeem) to redeem
+* Added new REST API [GET /v2/redeem/{asset}](?json#rest-api-methods-private-get-v2-redeem-asset) to get redeem history
 
 **2021-05-12**
 
-* Updated REST API [GET /v2/positions](#rest-api-methods-private-get-v2-positions) & [GET /v2/positions/{instrumentId}](#rest-api-methods-private-get-v2-positions-instrumentid)
+* Updated REST API [GET /v2/positions](?json#rest-api-methods-private-get-v2-positions) & [GET /v2/positions/{instrumentId}](?json#rest-api-methods-private-get-v2-positions-instrumentid)
     * Response fields:
         * Field `lastUpdated` get changed from LONG type to STRING type
-* Updated REST API [GET/v2/all/markets](#rest-api-methods-public-get-v2-all-markets)
+* Updated REST API [GET/v2/all/markets](?json#rest-api-methods-public-get-v2-all-markets)
     * Response fields:
         * Field `name` get changed with new naming rule, e.g. from `BAND/USD Spot` to `BAND/USD`
 
 **2021-04-28**
 
-* Updated REST API [GET /v2.1/orders](#rest-api-methods-private-get-v2-1-orders)
+* Updated REST API [GET /v2.1/orders](?json#rest-api-methods-private-get-v2-1-orders)
     * Request params:
         * Moved request parameters from body to URL
         * Changed default & max of `limit` from `1000` to `100`
@@ -101,57 +103,57 @@
 
 **2021-04-21**
 
-* Updated REST API [GET /v2/funding-rates/{marketCode}](#rest-api-methods-public-get-v2-funding-rates-marketcode)
+* Updated REST API [GET /v2/funding-rates/{marketCode}](?json#rest-api-methods-public-get-v2-funding-rates-marketcode)
     * Move request parameters from body to URL
     * Change response field `marketPrice` to `markPrice`
 
 **2021-04-19**
 
-* Added new response fields `positionPnl` and `estLiquidationPrice` to websocket API [Position Channel](#websocket-api-subscriptions-private-position-channel)
-* Added new response field `estLiquidationPrice` to REST APIs [GET /v2/positions](#rest-api-methods-private-get-v2-positions) and [GET /v2/positions/{instrumentId}](#rest-api-methods-private-get-v2-positions-instrumentid)
+* Added new response fields `positionPnl` and `estLiquidationPrice` to websocket API [Position Channel](?json#websocket-api-subscriptions-private-position-channel)
+* Added new response field `estLiquidationPrice` to REST APIs [GET /v2/positions](?json#rest-api-methods-private-get-v2-positions) and [GET /v2/positions/{instrumentId}](?json#rest-api-methods-private-get-v2-positions-instrumentid)
 
 **2021-03-31**
 
-* Updated REST API [GET /v2/candles/{marketCode}](#rest-api-methods-public-get-v2-candles-marketcode) to get historical candles of active and expired markets, big change on request parameters and response fields, so please take it as new
+* Updated REST API [GET /v2/candles/{marketCode}](?json#rest-api-methods-public-get-v2-candles-marketcode) to get historical candles of active and expired markets, big change on request parameters and response fields, so please take it as new
 
 **2021-03-18**
 
-* Added [OrderClosed Failure Message](#websocket-api-subscriptions-private-order-channel-orderclosed-failure) to the websocket API documentation
-* Added [OrderModified Failure Message](#websocket-api-subscriptions-private-order-channel-ordermodified-failure) to the websocket API documentation
+* Added [OrderClosed Failure Message](?json#websocket-api-subscriptions-private-order-channel-orderclosed-failure) to the websocket API documentation
+* Added [OrderModified Failure Message](?json#websocket-api-subscriptions-private-order-channel-ordermodified-failure) to the websocket API documentation
 
 **2021-03-10**
 
-* Added new REST API [POST /v2/orders/place](#rest-api-methods-private-post-v2-orders-place) to place orders
-* Added new REST API [POST /v2/orders/modify](#rest-api-methods-private-post-v2-orders-modify) to modify orders
-* Added new REST API [DELETE /v2/orders/cancel](#rest-api-methods-private-delete-v2-orders-cancel) to cancel orders
-* Added new REST API [GET /v2/depth/{marketCode}/{level}](#rest-api-methods-public-get-v2-depth-marketcode-level) to get order book depth by marketCode and level
+* Added new REST API [POST /v2/orders/place](?json#rest-api-methods-private-post-v2-orders-place) to place orders
+* Added new REST API [POST /v2/orders/modify](?json#rest-api-methods-private-post-v2-orders-modify) to modify orders
+* Added new REST API [DELETE /v2/orders/cancel](?json#rest-api-methods-private-delete-v2-orders-cancel) to cancel orders
+* Added new REST API [GET /v2/depth/{marketCode}/{level}](?json#rest-api-methods-public-get-v2-depth-marketcode-level) to get order book depth by marketCode and level
 
 
 **2021-02-26**
 
-* Updated REST API [GET /v2/funding-rates/{marketCode}](#rest-api-methods-public-get-v2-funding-rates-marketcode)
+* Updated REST API [GET /v2/funding-rates/{marketCode}](?json#rest-api-methods-public-get-v2-funding-rates-marketcode)
     * does not require signature anymore, it's public
     * changed type of `limit` `startTime` `endTime` from STRING to LONG
     * changed `startTime` `endTime` from datetime (e.g. `2020-12-08 20:00:00`) to millisecond timestamp(e.g. `1579450778000`)
 
 **2021-02-20**
 
-* Added new websocket API [Liquidation RFQ](#websocket-api-subscriptions-public-liquidation-rfq), a subsription channel publishing upcoming liquidations
-* Added new websocket API [Market](#websocket-api-subscriptions-public-market), a subsription channel publishing market information for each order book
+* Added new websocket API [Liquidation RFQ](?json#websocket-api-subscriptions-public-liquidation-rfq), a subsription channel publishing upcoming liquidations
+* Added new websocket API [Market](?json#websocket-api-subscriptions-public-market), a subsription channel publishing market information for each order book
 
 **2021-02-05**
 
-* Added new REST API [GET /v2.1/orders](#rest-api-methods-private-get-v2-1-orders) to get all orders of current user
-* Added new REST API [GET /v2/candles](#rest-api-methods-public-get-v2-candles) to get candlestick data for the current candle
-* Added new REST API [GET /v2/funding-rates/{marketCode}](#rest-api-methods-public-get-v2-funding-rates-marketcode) to get funding rates by marketCode
-* Updated REST API [GET /v2/orders](#rest-api-methods-private-get-v2-orders)
+* Added new REST API [GET /v2.1/orders](?json#rest-api-methods-private-get-v2-1-orders) to get all orders of current user
+* Added new REST API [GET /v2/candles](?json#rest-api-methods-public-get-v2-candles) to get candlestick data for the current candle
+* Added new REST API [GET /v2/funding-rates/{marketCode}](?json#rest-api-methods-public-get-v2-funding-rates-marketcode) to get funding rates by marketCode
+* Updated REST API [GET /v2/orders](?json#rest-api-methods-private-get-v2-orders)
     * type of timestamp changed from INTEGER to STRING
     * changed field name from `remainQuantity` to `remainingQuantity`
     * type of `orderCreated` and `lastModified` and `lastTradeTimestamp` changed from STRING TO INTEGER
 
 **2021-01-26**
 
-* Correction to REST API for [GET /v2/accountinfo](#rest-api-methods-private-get-v2-accountinfo), [GET /v2/balances](#rest-api-methods-private-get-v2-balances) and [GET /v2/positions](#rest-api-methods-private-get-v2-positions)
+* Correction to REST API for [GET /v2/accountinfo](?json#rest-api-methods-private-get-v2-accountinfo), [GET /v2/balances](?json#rest-api-methods-private-get-v2-balances) and [GET /v2/positions](?json#rest-api-methods-private-get-v2-positions)
 
 **2021-01-18**
 
@@ -159,9 +161,9 @@
 
 **2020-12-14**
 
-* Added new websocket API [Place Batch Orders](#websocket-api-order-commands-place-batch-orders)
-* Added new websocket API [Cancel Batch Orders](#websocket-api-order-commands-cancel-batch-orders)
-* Added new websocket API [Modify Batch Orders](#websocket-api-order-commands-modify-batch-orders)
+* Added new websocket API [Place Batch Orders](?json#websocket-api-order-commands-place-batch-orders)
+* Added new websocket API [Cancel Batch Orders](?json#websocket-api-order-commands-cancel-batch-orders)
+* Added new websocket API [Modify Batch Orders](?json#websocket-api-order-commands-modify-batch-orders)
 
 **2020-12-10**
 
@@ -215,7 +217,7 @@ API keys are also only bound to a single sub-account, defined upon creation. Thi
 
 # Historical Data
 
-CoinFLEX's historical L2 order book data (depth data), can be found at 'https://docs.tardis.dev/historical-data-details/coinflex' (third party API), which includes historical market data details - instruments, data coverage and data collection specifics for all of our instruments since 2020-07-14.
+CoinFLEX's historical L2 order book data (depth data), can be found at https://docs.tardis.dev/historical-data-details/coinflex (third party API), which includes historical market data details - instruments, data coverage and data collection specifics for all of our instruments since 2020-07-14.
 
 # Rate Limit
 
