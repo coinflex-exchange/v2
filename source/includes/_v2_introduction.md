@@ -217,7 +217,7 @@ API keys are also only bound to a single sub-account, defined upon creation. Thi
 
 # Historical Data
 
-CoinFLEX's historical L2 order book data (depth data), can be found at https://docs.tardis.dev/historical-data-details/coinflex (third party API), which includes historical market data details - instruments, data coverage and data collection specifics for all of our instruments since 2020-07-14.
+CoinFLEX's historical L2 order book data (depth data), can be found at [https://docs.tardis.dev/historical-data-details/coinflex] (https://docs.tardis.dev/historical-data-details/coinflex) (third party API), which includes historical market data details - instruments, data coverage and data collection specifics for all of our instruments since 2020-07-14.
 
 # Rate Limit
 
