@@ -953,6 +953,38 @@ GET /v2.1/orders?marketCode={marketCode}&orderId={orderId}&clientOrderId={client
             "timeInForce": "IOC",
             "isTriggered": "false"
         },
+        {
+            "status": "OrderPartiallyMatched",
+            "orderId": "1000028616860",
+            "clientOrderId": "1619090944648",
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "side": "SELL",
+            "orderType": "MARKET",
+            "price": "42970.5",
+            "lastTradedPrice": "43026.0",
+            "avgFillPrice": "43026.0",
+            "quantity": "0.112",
+            "filledQuantity": "0.002",
+            "remainQuantity": "0.11",
+            "matchIds": [
+                {
+                    "304515168532122149": {
+                        "matchQuantity": "0.001",
+                        "matchPrice": "43026.0",
+                        "timestamp": "1628824216325",
+                        "orderMatchType": "TAKER"
+                    }
+                },
+                {
+                    "304515168532122150": {
+                        "matchQuantity": "0.001",
+                        "matchPrice": "43026.0",
+                        "timestamp": "1628824216326",
+                        "orderMatchType": "TAKER"
+                    }
+                }
+            ]
+        }
         ...
     ]
 }
@@ -998,6 +1030,9 @@ leg2Price | STRING | |
 fees | LIST of dictionaries | Fees with instrument ID |
 timeInForce | STRING | Time in force |
 isTriggered | STRING | `true`(for stop order) or `false` |
+orderOpenedTimestamp | STRING | Order opened at |
+orderModifiedTimestamp | STRING | Order modified at |
+orderClosedTimestamp | STRING | Order closed at |
 
 
 ###DELETE `/v2/cancel/orders`
