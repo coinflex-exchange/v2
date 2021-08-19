@@ -3434,9 +3434,9 @@ remainingQuantity|STRING | Remainning quantity |
 price | STRING | Price submitted |
 stopPrice | STRING | Stop price for the stop order |
 limitPrice| STRING | Limit price for the stop limit order |
-orderCreated| INTEGER | Timestamp when order was created |
-lastModified| INTEGER | Timestamp when order was last mordified |
-lastTradeTimestamp| INTEGER | Timestamp when order was last traded |
+orderCreated| STRING | Timestamp when order was created |
+lastModified| STRING | Timestamp when order was last mordified |
+lastTradeTimestamp| STRING | Timestamp when order was last traded |
 timeInForce | STRING | Time in force |
 
 
