@@ -1,10 +1,10 @@
 # Change Log
 
-**2021-08-18**
+> **2021-08-18**
 
-* Updated REST API [GET /v2.1/orders](?json#rest-api-methods-private-get-v2-1-orders)
-  * Added new order status `OrderPartiallyMatched` which will be returned when the order has been partially filled
-  * Return orders with distinct order id and latest order status
+> * Updated REST API [GET /v2.1/orders](?json#rest-api-methods-private-get-v2-1-orders)
+>   * Added new order status `OrderPartiallyMatched` which will be returned when the order has been partially filled
+>   * Return orders with distinct order id and latest order status
 
 **2021-08-11**
 
