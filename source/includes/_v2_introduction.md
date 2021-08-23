@@ -1,5 +1,13 @@
 # Change Log
 
+<!--
+**2021-08-18**
+
+* Updated REST API [GET /v2.1/orders](?json#rest-api-methods-private-get-v2-1-orders)
+  * Added new order status `OrderPartiallyMatched` which will be returned when the order has been partially filled
+  * Return orders with distinct order id and latest order status
+-->
+
 **2021-08-11**
 
 * Added new REST API [POST /v2/AMM/create](?json#rest-api-methods-private-post-v2-amm-create) to create AMM
@@ -228,5 +236,5 @@ Type                           |                             Limit|
 Rest API                       |                   100 per second |
 Rest API                       |                  2500 per 5 mins |
 Rest POST v2.1/delivery/orders |                 2 per 10 seconds |
-Websocket API (Auth)           |                   200 per second | 
-Websocket API (No Auth)        |                     1 per second | 
+Websocket API (Auth)           |                   50 per second  |
+Websocket API (No Auth)        |                     1 per second |
