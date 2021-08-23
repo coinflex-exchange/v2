@@ -597,6 +597,14 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<!--
+**2021-08-18**
+
+* Updated REST API [GET /v2.1/orders](?json#rest-api-methods-private-get-v2-1-orders)
+  * Added new order status `OrderPartiallyMatched` which will be returned when the order has been partially filled
+  * Return orders with distinct order id and latest order status
+-->
+
 <p><strong>2021-08-11</strong></p>
 
 <ul>
@@ -922,7 +930,7 @@
 </tr>
 <tr>
 <td>Websocket API (Auth)</td>
-<td>200 per second</td>
+<td>50 per second</td>
 </tr>
 <tr>
 <td>Websocket API (No Auth)</td>
