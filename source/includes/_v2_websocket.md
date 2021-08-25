@@ -95,7 +95,7 @@ Websocket commands can be sent in either of the following two formats:
 `args`: the value(s) will be the instrument ID(s) or asset ID(s), for example:
 
 * order:BTC-USD-SWAP-LIN
-* futures/depth:ETH-USD-REPO-LIN
+* depth:ETH-USD-REPO-LIN
 * position:all
 
 **All other commands**
@@ -112,6 +112,10 @@ Websocket commands can be sent in either of the following two formats:
 `data`: JSON string of the request object containing the required parameters
 
 Further information regarding the error codes and corresponding error messages from a failed subscription or order command request can be found in a later section of this documentation [Error Codes](#websocket-api-error-codes).
+
+**WebSocket adapter**
+
+[coinflex-ws](https://pypi.org/project/coinflex-ws/) is a websocket wrapper to easily connect to CoinFLEX's websockets.
 
 
 ## Authentication
@@ -2293,7 +2297,7 @@ Multiple subscriptions to different channels both public and private can be made
 {
   "op": "subscribe",
   "tag": 103,
-  "args": ["futures/depth:BTC-USD-SWAP-LIN"]
+  "args": ["depth:BTC-USD-SWAP-LIN"]
 }
 ```
 ```python
@@ -2305,7 +2309,7 @@ orderbook_depth = \
 {
   "op": "subscribe",
   "tag": 103,
-  "args": ["futures/depth:BTC-USD-SWAP-LIN"]
+  "args": ["depth:BTC-USD-SWAP-LIN"]
 }
 
 url= 'wss://v2stgapi.coinflex.com/v2/websocket'
@@ -2332,7 +2336,7 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 ```json
 {
   "event": "subscribe", 
-  "channel": "futures/depth:BTC-USD-SWAP-LIN", 
+  "channel": "depth:BTC-USD-SWAP-LIN",
   "success": True, 
   "tag": "103", 
   "timestamp": "1607985371601"
@@ -2343,7 +2347,7 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 
 ```json
 {
-  "table": "futures/depth",
+  "table": "depth",
   "data": [ {
       "instrumentId": "BTC-USD-SWAP-LIN",
       "seqNum": 1608898592006137237,
@@ -2367,27 +2371,27 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 
 **Channel Update Frequency:** 50ms
 
-This orderbook depth channel sends a snapshot of the entire orderbook every 50ms.  
+This orderbook depth channel sends a snapshot of the entire orderbook every 50ms.
 
 <sub>**Request Parameters**</sub> 
 
 Parameters |Type| Required| Description |
 --------|-----|---|-----------|
-op | STRING| Yes | `subscribe`
-tag | INTEGER or STRING | No | If given it will be echoed in the reply
-args | LIST | Yes | list of individual markets `futures/depth:<marketCode>`
+op | STRING| Yes | `subscribe` |
+tag | INTEGER or STRING | No | If given it will be echoed in the reply |
+args | LIST | Yes | List of individual markets `<depth>:<marketCode>` e.g: `[depthL10:BTC-USD-SWAP-LIN]`, the `depth` can be `depthL5` `depthL10` `depthL25` `depth`(includes all) |
 
 <sub>**Channel Update Fields**</sub>
 
 Fields | Type | Description|
 -------------------------- | -----| -------------|
-table | STRING | `futures/depth`
+table | STRING | `depth` |
 data | LIST of dictionary |
-\>instrumentId | STRING |Instrument ID |
-\>seqNum | INTEGER | Sequence number of the order book snapshot
-\>timestamp| STRING | Millisecond timestamp |
-\>asks| LIST of floats | Sell side depth; <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol>
-\>bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol>
+instrumentId | STRING |Instrument ID |
+seqNum | INTEGER | Sequence number of the order book snapshot |
+timestamp| STRING | Millisecond timestamp |
+asks| LIST of floats | Sell side depth; <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol> |
+bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol> |
 
 
 ### Trade
@@ -2467,7 +2471,7 @@ This trade channel sends public trade information whenever an order is matched o
 
 Parameters |Type| Required| Description |
 --------|-----|---|-----------|
-op | STRING| Yes | `subscribe`
+op | STRING| Yes | `subscribe` |
 tag | INTEGER or STRING | No | If given it will be echoed in the reply
 args | LIST | Yes | list of individual markets `trade:<marketCode>`
 
