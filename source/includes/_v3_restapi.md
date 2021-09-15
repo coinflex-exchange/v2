@@ -95,6 +95,395 @@ The signature must then be included in the header of the REST API call like so:
 
 `header = {'Content-Type': 'application/json', 'AccessKey': API-KEY, 'Timestamp': TIME-STAMP, 'Signature': SIGNATURE, 'Nonce': NONCE}`
 
+##Order Commands - Private
+
+### POST /v3/orders/place
+
+> **Request**
+
+```json
+POST /v2/orders/place
+
+{
+“recvWindow”: 1234           
+“timestamp”: 235536            
+“responseType”: “FULL” or “ACK”    
+“orders”: [
+{        
+“clientOrderId”: “345srete”       
+“marketCode”:     “BTC-USD”       
+“side”: “BUY” or “SELL”        
+“quantity”: “0.002”           
+“timeInForce”:    “IOC”           
+“orderType”: LIMIT/MARKET/STOP  
+“price”: “1.345”            
+“stopPrice”: “2.567”            
+“limitPrice”: “4.567”           
+        },
+        { ………. } 
+]
+}
+
+
+```
+
+> **Success response format**
+
+```json
+{
+    "event": "placeOrders",
+    "success": true,
+    "data": [
+        {
+            "code": "710002",
+            "message": "FAILED sanity bound check as price (50007.0) <  lower bound (54767.0)",
+    "submitted": false,
+            "clientOrderId": "1612249737724",
+            "marketCode": "BTC-USD-SWAP-LIN",
+“side': 'SELL',
+    "price": "50007.0",
+            "quantity": "0.001",
+            "orderType": "LIMIT",
+            "timeInForce": "GTC", 
+            "createdAt": "1615430915596",
+        "source": 0
+        },
+        {
+        'notice': 'OrderOpened',           // Can also be OrderMatched →use OM structure
+        'accountId': '1076', 
+        'orderId': '1000028795158', 
+        ‘submitted’: true, 
+        'clientOrderId': '1', 
+        'marketCode': 'BTC-USD-SWAP-LIN', 
+        'status': 'OPEN', 
+        'side': 'BUY', 
+        'price': '9600.0', 
+        ‘stopPrice’: null,
+        'isTriggered': null,
+        'quantity': '0.01', 
+                ‘remainQuantity’: ‘0.01’,
+    'matchId': null,
+    'matchPrice': null, 
+    'matchQuantity': null, 
+                ‘feeInstrumentId’: null,
+        ‘fees’: null,
+        'orderType': 'LIMIT', 
+        'timeInForce': 'MAKER_ONLY', 
+        'createdAt': '1629192975532',        // change timestamp to createdAt
+                ‘modifiedAt’: null,            // use this when modifying
+        ‘matchedAt’: null,            // populate matchedAt when matching
+        },
+    ]
+}
+```
+
+> **Failure response format**
+
+```json
+{
+“event”: “placeOrders”,
+“success”: false,
+“code”: “40002”,
+“message”: “Invalid key”
+}
+```
+
+Place orders.
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+recvWindow | LONG | NO | |
+timestamp | STRING | YES | |
+responseType | STRING | YES | `FULL` or `ACK`  if FULL return data array 
+orders | LIST | YES | |
+clientOrderId | STRING | NO| |
+marketCode | STRING | YES | |
+side | STRING | YES | |
+quantity | STRING or FLOAT | YES | |
+timeInForce | STRING | NO | Default `GTC` |
+orderType | STRING | YES | Default 'limit' |
+price | STRING or FLOAT | NO |Do not include for MARKET |
+stopPrice | STRING | YES | |
+limitPrice | STRING | YES | |
+
+Response Parameters | Type | Description | 
+--------------------| ---- | ----------- |
+accountId | STRING | |
+event | STRING | |
+timestamp | STRING | |
+data | LIST | |
+success | STRING | Whether an order has been successfully placed |
+timestamp | STRING | |
+code | STRING | Error code |
+message | STRING | Error message |
+clientOrderId | STRING | |
+orderId | STRING | |
+price | STRING | |
+quantity | STRING | |
+side | STRING | `SELL` or `BUY` |
+marketCode | STRING | |
+timeInForce | STRING | |
+orderType | STRING | |
+
+
+### POST /v3/orders/modify
+> **Request**
+
+```json
+POST /v2/orders/modify
+
+{
+“recvWindow”: 1234            
+“timestamp”: 235536           
+“responseType”: “FULL” or “ACK”   
+    "orders": [
+        {
+            "clientOrderId": "1614330009059",       
+            "orderId": "304369975621712260",       
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "side": "BUY",                  
+            "quantity": "0.007",                
+            "price": "40001.0"               
+    “stopPrice: “930.01”,             
+    “limitPrice: “903.12”               
+        },
+        {
+            "clientOrderId": "161224973777800",
+"orderId": "203369975621712261",
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "side": "SELL",
+            "quantity": "0.002",
+            "price": "40003.0”
+        },
+        {
+            "clientOrderId": "161224973777900",
+    "orderId": "588369975621712255",
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "side": "SELL",
+            "quantity": "0.003",
+            "price": "40004.0"
+        }
+    ]
+}
+
+```
+
+> **Success response format**
+
+```json
+{
+    "event": "modifyOrders",
+    “success”: true,
+    "data": [
+        {
+            "code": "710002",
+            "message": "FAILED sanity bound check as price (50007.0) <  lower bound (54767.0)",
+            “orderId”: “123253532”,
+            "clientOrderId": "1612249737724",
+            "marketCode": "BTC-USD-SWAP-LIN",
+ “side': 'SELL',
+     "price": "50007.0",
+            "quantity": "0.001",
+            "orderType": "LIMIT",
+            "timeInForce": "GTC", 
+            "modifiedAt": "1615430915596",
+        "source": 0
+        },
+        {
+           'notice': 'OrderModified',          
+        'accountId': '1076', 
+        'orderId': '1000028795158', 
+        ‘submitted’: true,
+        'clientOrderId': '1', 
+        'marketCode': 'BTC-USD-SWAP-LIN', 
+        'status': 'OPEN', 
+        'side': 'BUY', 
+        'price': '9600.0', 
+        ‘stopPrice’: null,
+        'isTriggered': null,
+        'quantity': '0.01', 
+                ‘remainQuantity’: ‘0.01’,
+    'matchId': null,
+    'matchPrice': null, 
+    'matchQuantity': null, 
+                ‘feeInstrumentId’: null,
+        ‘fees’: null,
+        'orderType': 'LIMIT', 
+        'timeInForce': 'MAKER_ONLY', 
+        'createdAt': null,       
+                ‘modifiedAt’: “162321312311”,            
+        ‘matchedAt’: null,            
+        }
+
+    ]
+}
+
+```
+
+> **Failure response format**
+
+```json
+{
+“event”: “modifyOrders”,
+“success”: false,
+“code”: “40002”,
+“message”: “Invalid key”
+}
+
+```
+
+Modify orders.
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+recvWindow | LONG | NO | |
+timestamp | STRING | NO | |
+responseType | STRING | YES | `FULL` or `ACK` |
+orders | LIST | YES | |
+clientOrderId | STRING | NO | |
+orderId | STRING | YES | |
+marketCode | STRING | YES | |
+side | STRING | NO | |
+quantity | STRING | NO | |
+price | STRING | NO | |
+stopPrice | STRING | NO | |
+limitPrice | STRING | NO | |
+
+Response Parameters | Type | Description | 
+--------------------| ---- | ----------- |
+accountId | STRING | |
+event | STRING | |
+timestamp | STRING | |
+data | LIST | |
+success | STRING | |
+timestamp | STRING | |
+code | STRING | Error code |
+message | STRING | Error message |
+clientOrderId | STRING | |
+orderId | STRING | |
+price | STRING | |
+quantity | STRING | |
+side | STRING | `SELL` or `BUY` |
+status | STRING | Status of the order |
+marketCode | STRING | |
+timeInForce | STRING | |
+notice | STRING | `OrderClosed` or `OrderMatched` or `OrderOpend` |
+orderType | STRING | |
+isTriggered | STRING | `true` or `false` |
+
+
+### DELETE /v3/orders/cancel
+
+> **Request**
+
+```json
+
+{
+    "recvWindow": 500,        
+“timestamp”: 235536,         
+    "responseType": “FULL” or “ACK”   
+"orders": [
+        {
+            "marketCode": "BTC-USD-SWAP-LIN",  
+            "orderId": "304384250571714215",    
+            "clientOrderId": "1615453494726”    
+        },
+        {
+            "marketCode": "BTC-USD-SWAP-LIN",
+"orderId": "204285250571714316",
+            "clientOrderId": "1612249737724”
+        }
+    ]
+}
+
+```
+
+> **Success response format**
+
+```json
+{
+    "event": "cancelOrders",
+    “success”: true,
+    "data": [
+{
+'notice': 'OrderClosed', 
+          'accountId': '12005486', 
+'orderId': '1000018305713',
+‘submitted’: true,
+'clientOrderId': '1', 
+'marketCode': 'BTC-USD-SWAP-LIN', 
+'status': 'CANCELED_BY_USER', 
+'side': 'BUY', 
+'price': '4870.0', 
+‘stopPrice’: null,
+'isTriggered': null
+'quantity': '0.001', 
+'remainQuantity': '0.001',
+    'orderType': 'LIMIT',  
+'timeInForce': 'GTC', 
+'closedAt': '1629712561919', 
+        },
+        {
+            "code": "40035",
+            "message": "Open order not found with id",
+    "submitted": false,
+"orderId": "204285250571714316",
+            "clientOrderId": "1612249737724",
+            "marketCode": "BTC-USD-SWAP-LIN",
+    "closedAt": "1615454881433",
+        }
+    ]
+}
+
+```
+
+> **Failure response format**
+
+```json
+{
+“event”: “cancelOrders”,
+“success”: false,
+“code”: “40002”,
+“message”: “Invalid key”
+}
+```
+
+
+Cancel orders.
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+recvWindow | LONG | NO | |
+timestamp | LONG | YES | |
+responseType | STRING | YES | `FULL` or `ACK` If FULL return data array|
+orders | LIST | YES | |
+marketCode | STRING | YES | |
+orderId | STRING or LONG | NO | |
+clientOrderId | STRING | NO | |
+
+Response Parameters | Type | Description | 
+--------------------| ---- | ----------- |
+accountId | STRING | |
+event | STRING | |
+timestamp | STRING | |
+data | LIST | |
+success | STRING | |
+timestamp | STRING | |
+code | STRING | Error code |
+message | STRING | Error message |
+clientOrderId | STRING | |
+orderId | STRING | |
+price | STRING | |
+quantity | STRING | |
+side | STRING | `SELL` or `BUY` |
+status | STRING | Status of the order |
+marketCode | STRING | |
+timeInForce | STRING | |
+notice | STRING | `OrderClosed` or `OrderMatched` or `OrderOpend` |
+orderType | STRING | |
+isTriggered | STRING | `true` or `false` |
+
+
 ##Methods - Private
 
 All private REST API methods require authentication using the approach explained above. 
