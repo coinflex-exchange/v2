@@ -484,6 +484,116 @@ orderType | STRING | |
 isTriggered | STRING | `true` or `false` |
 
 
+### DELETE /v3/orders/cancel-all    
+
+> **Request**
+
+```json
+
+{
+    "recvWindow": 500,        
+“timestamp”: 235536,         
+    "responseType": “FULL” or “ACK”   
+"orders": [
+        {
+            "marketCode": "BTC-USD-SWAP-LIN",  
+        },
+        {
+            "marketCode": "BTC-USD-SWAP-LIN",
+"orderId": "204285250571714316",
+            "clientOrderId": "1612249737724”
+        }
+    ]
+}
+
+```
+
+> **Success response format**
+
+```json
+{
+    "event": "cancelOrders",
+    “success”: true,
+    "data": [
+{
+'notice': 'OrderClosed', 
+          'accountId': '12005486', 
+'orderId': '1000018305713',
+‘submitted’: true,
+'clientOrderId': '1', 
+'marketCode': 'BTC-USD-SWAP-LIN', 
+'status': 'CANCELED_BY_USER', 
+'side': 'BUY', 
+'price': '4870.0', 
+‘stopPrice’: null,
+'isTriggered': null
+'quantity': '0.001', 
+'remainQuantity': '0.001',
+    'orderType': 'LIMIT',  
+'timeInForce': 'GTC', 
+'closedAt': '1629712561919', 
+        },
+        {
+            "code": "40035",
+            "message": "Open order not found with id",
+    "submitted": false,
+"orderId": "204285250571714316",
+            "clientOrderId": "1612249737724",
+            "marketCode": "BTC-USD-SWAP-LIN",
+    "closedAt": "1615454881433",
+        }
+    ]
+}
+
+```
+
+> **Failure response format**
+
+```json
+{
+“event”: “cancelOrders”,
+“success”: false,
+“code”: “40002”,
+“message”: “Invalid key”
+}
+```
+
+
+Cancel orders.
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+recvWindow | LONG | NO | |
+timestamp | LONG | YES | |
+responseType | STRING | YES | `FULL` or `ACK` If FULL return data array|
+orders | LIST | YES | |
+marketCode | STRING | YES | |
+orderId | STRING or LONG | NO | |
+clientOrderId | STRING | NO | |
+
+Response Parameters | Type | Description | 
+--------------------| ---- | ----------- |
+accountId | STRING | |
+event | STRING | |
+timestamp | STRING | |
+data | LIST | |
+success | STRING | |
+timestamp | STRING | |
+code | STRING | Error code |
+message | STRING | Error message |
+clientOrderId | STRING | |
+orderId | STRING | |
+price | STRING | |
+quantity | STRING | |
+side | STRING | `SELL` or `BUY` |
+status | STRING | Status of the order |
+marketCode | STRING | |
+timeInForce | STRING | |
+notice | STRING | `OrderClosed` or `OrderMatched` or `OrderOpend` |
+orderType | STRING | |
+isTriggered | STRING | `true` or `false` |
+
+
 ##Methods - Private
 
 All private REST API methods require authentication using the approach explained above. 
