@@ -597,6 +597,16 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-09-17</strong></p>
+
+<ul>
+<li>Updated REST API <a href="?json#rest-api-methods-public-get-v2-depth-marketcode-level">GET /v2/depth/{marketCode}/{level}</a>
+
+<ul>
+<li>Removed last two elements in depth</li>
+</ul></li>
+</ul>
+
 <p><strong>2021-08-23</strong></p>
 
 <ul>
@@ -613,7 +623,7 @@
 <ul>
 <li>Added new REST API <a href="?json#rest-api-methods-private-post-v2-amm-create">POST /v2/AMM/create</a> to create AMM</li>
 <li>Added new REST API <a href="?json#rest-api-methods-private-post-v2-amm-redeem">POST /v2/AMM/redeem</a> to redeem AMM</li>
-<li>Added new REST API <a href="?json#rest-api-methods-private-get-v2-amm">GET v2/AMM</a> to get AMM</li>
+<li>Added new REST API <a href="?json#rest-api-methods-private-get-v2-amm">GET /v2/AMM</a> to get AMM</li>
 <li>Added Python example of request for websocket API <a href="?python#websocket-api-subscriptions-public-market">Market</a></li>
 <li>Added Python example of request for websocket API <a href="?python#websocket-api-subscriptions-public-liquidation-rfq">Liquidation RFQ</a></li>
 <li>Added Python example of request for websocket API <a href="?python#websocket-api-subscriptions-public-candles">Candles</a></li>
@@ -647,7 +657,7 @@
 <p><strong>2021-08-03</strong></p>
 
 <ul>
-<li>Added new REST API <a href="?json#rest-api-methods-private-get-v2-funding-payments">GET v2/funding-payments</a> to get funding payments</li>
+<li>Added new REST API <a href="?json#rest-api-methods-private-get-v2-funding-payments">GET /v2/funding-payments</a> to get funding payments</li>
 </ul>
 
 <p><strong>2021-07-28</strong></p>
@@ -655,9 +665,9 @@
 <ul>
 <li>Added new REST API <a href="?json#rest-api-methods-private-post-v2-borrow">POST /v2/borrow</a> to borrow</li>
 <li>Added new REST API <a href="?json#rest-api-methods-private-post-v2-repay">POST /v2/repay</a> to repay</li>
-<li>Added new REST API <a href="?json#rest-api-methods-private-get-v2-borrow-asset">GET v2/borrow/{asset}</a> to get borrow history</li>
-<li>Added new REST API <a href="?json#rest-api-methods-private-get-v2-borrow-asset">GET v2/repay/{asset}</a> to get repay history</li>
-<li>Added new REST API <a href="?json#rest-api-methods-private-get-v2-borrowingsummary">GET v2/borrowingSummary</a> to get borrowing summary</li>
+<li>Added new REST API <a href="?json#rest-api-methods-private-get-v2-borrow-asset">GET /v2/borrow/{asset}</a> to get borrow history</li>
+<li>Added new REST API <a href="?json#rest-api-methods-private-get-v2-borrow-asset">GET /v2/repay/{asset}</a> to get repay history</li>
+<li>Added new REST API <a href="?json#rest-api-methods-private-get-v2-borrowingsummary">GET /v2/borrowingSummary</a> to get borrowing summary</li>
 <li>Added new REST API <a href="?json#rest-api-methods-private-post-v2-borrow-close">POST /v2/borrow/close</a> to close borrow</li>
 </ul>
 
@@ -2162,19 +2172,19 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cancelorders"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">456</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"dataArray"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
-                  </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-                  </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="w">
-                </span><span class="p">},</span><span class="w">
-                </span><span class="p">{</span><span class="w">
-                  </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BCH-USD"</span><span class="p">,</span><span class="w">
-                  </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">34</span><span class="w">
-                </span><span class="p">}]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">websockets</span>
+<div class="highlight"><pre class="highlight plaintext"><code>{
+  "op": "cancelorders",
+  "tag": 456,
+  "dataArray": [{
+                  "marketCode": "BTC-USD-SWAP-LIN",
+                  "orderId": 12
+                },
+                {
+                  "marketCode": "BCH-USD",
+                  "orderId": 34
+                }]
+}
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">websockets</span>
 <span class="kn">import</span> <span class="nn">asyncio</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">hmac</span>
@@ -4426,32 +4436,32 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td></td>
 </tr>
 <tr>
-<td>&gt;tradeId</td>
+<td>tradeId</td>
 <td>STRING</td>
 <td>Transaction Id</td>
 </tr>
 <tr>
-<td>&gt;price</td>
+<td>price</td>
 <td>STRING</td>
 <td>Matched price</td>
 </tr>
 <tr>
-<td>&gt;quantity</td>
+<td>quantity</td>
 <td>STRING</td>
 <td>Matched quantity</td>
 </tr>
 <tr>
-<td>&gt;side</td>
+<td>side</td>
 <td>STRING</td>
 <td>Matched side</td>
 </tr>
 <tr>
-<td>&gt;timestamp</td>
+<td>timestamp</td>
 <td>STRING</td>
 <td>Matched timestamp</td>
 </tr>
 <tr>
-<td>&gt;marketCode</td>
+<td>marketCode</td>
 <td>STRING</td>
 <td>Market code</td>
 </tr>
@@ -4609,57 +4619,57 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td></td>
 </tr>
 <tr>
-<td>&gt;marketCode</td>
+<td>marketCode</td>
 <td>STRING</td>
 <td>Market code</td>
 </tr>
 <tr>
-<td>&gt;last</td>
+<td>last</td>
 <td>STRING</td>
 <td>Last traded price</td>
 </tr>
 <tr>
-<td>&gt;markPrice</td>
+<td>markPrice</td>
 <td>STRING</td>
 <td>Mark price</td>
 </tr>
 <tr>
-<td>&gt;open24h</td>
+<td>open24h</td>
 <td>STRING</td>
 <td>24 hour rolling opening price</td>
 </tr>
 <tr>
-<td>&gt;volume24h</td>
+<td>volume24h</td>
 <td>STRING</td>
 <td>24 hour rolling trading volume in counter currency</td>
 </tr>
 <tr>
-<td>&gt;currencyVolume24h</td>
+<td>currencyVolume24h</td>
 <td>STRING</td>
 <td>24 hour rolling trading volume in base currency</td>
 </tr>
 <tr>
-<td>&gt;high24h</td>
+<td>high24h</td>
 <td>STRING</td>
 <td>24 hour highest price</td>
 </tr>
 <tr>
-<td>&gt;low24h</td>
+<td>low24h</td>
 <td>STRING</td>
 <td>24 hour lowest price</td>
 </tr>
 <tr>
-<td>&gt;openInterest</td>
+<td>openInterest</td>
 <td>STRING</td>
 <td>Open interest</td>
 </tr>
 <tr>
-<td>&gt;lastQty</td>
+<td>lastQty</td>
 <td>STRING</td>
 <td>Last traded price amount</td>
 </tr>
 <tr>
-<td>&gt;timestamp</td>
+<td>timestamp</td>
 <td>STRING</td>
 <td>Millisecond timestamp</td>
 </tr>
@@ -4786,12 +4796,12 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td></td>
 </tr>
 <tr>
-<td>&gt;marketCode</td>
+<td>marketCode</td>
 <td>STRING</td>
 <td>Market code</td>
 </tr>
 <tr>
-<td>&gt;candle</td>
+<td>candle</td>
 <td>LIST of strings</td>
 <td><ol><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ol></td>
 </tr>
@@ -4849,15 +4859,24 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"liquidationRFQ"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
-              </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.103"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="w">
               </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1613774607889"</span><span class="w">
           </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Channel Update Frequency</strong>: real-time, whenever there is planned liquidation of a clients position </p>
+<p><strong>Channel Update Frequency</strong>: real-time, whenever there is planned liquidation event</p>
 
-<p>The liqudation RFQ (request for quotes) channel publishes a message 500ms before a liquidation event is due to occur.  The message will contain the market code and liquidation quantity and is designed to give users an opportunity to make a 2 way market for the upcoming liqudation event.</p>
+<p>of a clients position OR an auto-borrow OR an auto loan repayment</p>
+
+<p>The liqudation RFQ (request for quotes) channel publishes a message 50ms before a liquidation event is due to occur.  A liqudation event can be classed as one of the following:-</p>
+
+<ul>
+<li>liquidation of a clients traded position (perps, futures or index)</li>
+<li>an auto-borrow (in a repo orderbook) of USD because a clients account has negative USD balances greater than the allowable threshold</li>
+<li>an auto-repayment (in a repo orderbook) of a previous auto-borrow because a clients account now has sufficient USD balances to repay the loan</li>
+</ul>
+
+<p>The message will contain the market code and is designed to give users an opportunity to make a 2 way market for the upcoming liqudation event.</p>
 
 <p><sub><strong>Request Parameters</strong></sub> </p>
 
@@ -4912,11 +4931,6 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>&gt;marketCode</td>
 <td>STRING</td>
 <td>Market code of liquidation</td>
-</tr>
-<tr>
-<td>&gt;quantity</td>
-<td>STRING</td>
-<td>Liqudation quantity</td>
 </tr>
 <tr>
 <td>&gt;timestamp</td>
@@ -10729,65 +10743,45 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
             </span><span class="nl">"asks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
                 </span><span class="p">[</span><span class="w">
                     </span><span class="mi">54792</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mf">0.001</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="w">
+                    </span><span class="mf">0.001</span><span class="w">
                 </span><span class="p">],</span><span class="w"> 
                 </span><span class="p">[</span><span class="w">
                     </span><span class="mf">54802.5</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mf">0.366</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="w">
+                    </span><span class="mf">0.366</span><span class="w">
                 </span><span class="p">],</span><span class="w"> 
                 </span><span class="p">[</span><span class="w">
                     </span><span class="mi">54803</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mf">0.75</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="w">
+                    </span><span class="mf">0.75</span><span class="w">
                 </span><span class="p">],</span><span class="w"> 
                 </span><span class="p">[</span><span class="w">
                     </span><span class="mi">54806</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mf">1.5</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="w">
+                    </span><span class="mf">1.5</span><span class="w">
                 </span><span class="p">],</span><span class="w"> 
                 </span><span class="p">[</span><span class="w">
                     </span><span class="mf">54830.5</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mf">0.687</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="w">
+                    </span><span class="mf">0.687</span><span class="w">
                 </span><span class="p">]</span><span class="w">
             </span><span class="p">],</span><span class="w"> 
             </span><span class="nl">"bids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
                 </span><span class="p">[</span><span class="w">
                     </span><span class="mf">54786.5</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="w">
+                    </span><span class="mf">0.1</span><span class="w">
                 </span><span class="p">],</span><span class="w"> 
                 </span><span class="p">[</span><span class="w">
                     </span><span class="mf">54754.5</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mf">0.375</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="w">
+                    </span><span class="mf">0.375</span><span class="w">
                 </span><span class="p">],</span><span class="w"> 
                 </span><span class="p">[</span><span class="w">
                     </span><span class="mi">54752</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mf">0.394</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="w">
+                    </span><span class="mf">0.394</span><span class="w">
                 </span><span class="p">],</span><span class="w"> 
                 </span><span class="p">[</span><span class="w">
                     </span><span class="mf">54749.5</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mf">0.001</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="w">
+                    </span><span class="mf">0.001</span><span class="w">
                 </span><span class="p">],</span><span class="w"> 
                 </span><span class="p">[</span><span class="w">
                     </span><span class="mf">54745.5</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mf">0.339</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
-                    </span><span class="mi">0</span><span class="w">
+                    </span><span class="mf">0.339</span><span class="w">
                 </span><span class="p">]</span><span class="w">
             </span><span class="p">],</span><span class="w"> 
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
@@ -10821,12 +10815,12 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <tr>
 <td>asks</td>
 <td>LIST of floats</td>
-<td>Sell side depth: <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol></td>
+<td>Sell side depth: <ol><li>price</li><li>quantity</li></ol></td>
 </tr>
 <tr>
 <td>bids</td>
 <td>LIST of floats</td>
-<td>Buy side depth: <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol></td>
+<td>Buy side depth: <ol><li>price</li><li>quantity</li></ol></td>
 </tr>
 <tr>
 <td>marketCode</td>
