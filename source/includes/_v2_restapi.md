@@ -3121,65 +3121,45 @@ GET /v2/depth/BTC-USD-SWAP-LIN/5
             "asks": [
                 [
                     54792, 
-                    0.001, 
-                    0, 
-                    0
+                    0.001
                 ], 
                 [
                     54802.5, 
-                    0.366, 
-                    0, 
-                    0
+                    0.366
                 ], 
                 [
                     54803, 
-                    0.75, 
-                    0, 
-                    0
+                    0.75
                 ], 
                 [
                     54806, 
-                    1.5, 
-                    0, 
-                    0
+                    1.5
                 ], 
                 [
                     54830.5, 
-                    0.687, 
-                    0, 
-                    0
+                    0.687
                 ]
             ], 
             "bids": [
                 [
                     54786.5, 
-                    0.1, 
-                    0, 
-                    0
+                    0.1
                 ], 
                 [
                     54754.5, 
-                    0.375, 
-                    0, 
-                    0
+                    0.375
                 ], 
                 [
                     54752, 
-                    0.394, 
-                    0, 
-                    0
+                    0.394
                 ], 
                 [
                     54749.5, 
-                    0.001, 
-                    0, 
-                    0
+                    0.001
                 ], 
                 [
                     54745.5, 
-                    0.339, 
-                    0, 
-                    0
+                    0.339
                 ]
             ], 
             "marketCode": "BTC-USD-SWAP-LIN", 
@@ -3194,8 +3174,8 @@ Response Fields | Type | Description |
 event | STRING | |
 timestamp | STRING | |
 data | LIST | |
-asks | LIST of floats | Sell side depth: <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol> |
-bids | LIST of floats | Buy side depth: <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol> |
+asks | LIST of floats | Sell side depth: <ol><li>price</li><li>quantity</li></ol> |
+bids | LIST of floats | Buy side depth: <ol><li>price</li><li>quantity</li></ol> |
 marketCode | STRING | |
 timestamp | STRING | |
 

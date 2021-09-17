@@ -2481,12 +2481,12 @@ Fields |Type | Description|
 -------------------------- | -----|--------- |
 table | STRING | `trade`
 data | LIST of dictionary |
-\>tradeId   | STRING    | Transaction Id|
-\>price | STRING    | Matched price|
-\>quantity|STRING   | Matched quantity|
-\>side    |STRING   | Matched side|
-\>timestamp| STRING | Matched timestamp|
-\>marketCode| STRING | Market code |
+tradeId   | STRING    | Transaction Id|
+price | STRING    | Matched price|
+quantity|STRING   | Matched quantity|
+side    |STRING   | Matched side|
+timestamp| STRING | Matched timestamp|
+marketCode| STRING | Market code |
 
 
 ### Ticker
@@ -2612,17 +2612,17 @@ Fields |Type | Description|
 -------------------------- | -----|--------- |
 table | STRING | `ticker`
 data | LIST of dictionary |
-\>marketCode    | STRING   | Market code |
-\>last          | STRING   | Last traded price|
-\>markPrice     | STRING   | Mark price|
-\>open24h       | STRING   | 24 hour rolling opening price|
-\>volume24h     | STRING   | 24 hour rolling trading volume in counter currency |
-\>currencyVolume24h     | STRING   | 24 hour rolling trading volume in base currency|
-\>high24h     | STRING   | 24 hour highest price|
-\>low24h     | STRING   | 24 hour lowest price|
-\>openInterest     | STRING   | Open interest|
-\>lastQty     | STRING   | Last traded price amount|
-\>timestamp   | STRING   | Millisecond timestamp|
+marketCode    | STRING   | Market code |
+last          | STRING   | Last traded price|
+markPrice     | STRING   | Mark price|
+open24h       | STRING   | 24 hour rolling opening price|
+volume24h     | STRING   | 24 hour rolling trading volume in counter currency |
+currencyVolume24h     | STRING   | 24 hour rolling trading volume in base currency|
+high24h     | STRING   | 24 hour highest price|
+low24h     | STRING   | 24 hour lowest price|
+openInterest     | STRING   | Open interest|
+lastQty     | STRING   | Last traded price amount|
+timestamp   | STRING   | Millisecond timestamp|
 
 
 ### Candles
@@ -2717,8 +2717,8 @@ Fields |Type | Description|
 -------------------------- | -----|--------- |
 table | STRING | `candles<granularity>`
 data | LIST of dictionary |
-\>marketCode | STRING   | Market code |
-\>candle | LIST of strings  | <ol><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ol>
+marketCode | STRING   | Market code |
+candle | LIST of strings  | <ol><li>timestamp</li><li>open</li><li>high</li><li>low</li><li>close</li><li>volume in counter currency</li><li>volume in base currency</li></ol>
 
 
 ### Liquidation RFQ

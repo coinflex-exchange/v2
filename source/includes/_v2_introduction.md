@@ -1,5 +1,10 @@
 # Change Log
 
+**2021-09-17**
+
+* Updated REST API [GET /v2/depth/{marketCode}/{level}](?json#rest-api-methods-public-get-v2-depth-marketcode-level)
+    * Removed last two elements in depth
+
 **2021-08-23**
 
 * Updated REST API [GET /v2.1/orders](?json#rest-api-methods-private-get-v2-1-orders)
@@ -10,7 +15,7 @@
 
 * Added new REST API [POST /v2/AMM/create](?json#rest-api-methods-private-post-v2-amm-create) to create AMM
 * Added new REST API [POST /v2/AMM/redeem](?json#rest-api-methods-private-post-v2-amm-redeem) to redeem AMM
-* Added new REST API [GET v2/AMM](?json#rest-api-methods-private-get-v2-amm) to get AMM
+* Added new REST API [GET /v2/AMM](?json#rest-api-methods-private-get-v2-amm) to get AMM
 * Added Python example of request for websocket API [Market](?python#websocket-api-subscriptions-public-market)
 * Added Python example of request for websocket API [Liquidation RFQ](?python#websocket-api-subscriptions-public-liquidation-rfq)
 * Added Python example of request for websocket API [Candles](?python#websocket-api-subscriptions-public-candles)
@@ -38,15 +43,15 @@
 
 **2021-08-03**
 
-* Added new REST API [GET v2/funding-payments](?json#rest-api-methods-private-get-v2-funding-payments) to get funding payments
+* Added new REST API [GET /v2/funding-payments](?json#rest-api-methods-private-get-v2-funding-payments) to get funding payments
 
 **2021-07-28**
 
 * Added new REST API [POST /v2/borrow](?json#rest-api-methods-private-post-v2-borrow) to borrow
 * Added new REST API [POST /v2/repay](?json#rest-api-methods-private-post-v2-repay) to repay
-* Added new REST API [GET v2/borrow/{asset}](?json#rest-api-methods-private-get-v2-borrow-asset) to get borrow history
-* Added new REST API [GET v2/repay/{asset}](?json#rest-api-methods-private-get-v2-borrow-asset) to get repay history
-* Added new REST API [GET v2/borrowingSummary](?json#rest-api-methods-private-get-v2-borrowingsummary) to get borrowing summary
+* Added new REST API [GET /v2/borrow/{asset}](?json#rest-api-methods-private-get-v2-borrow-asset) to get borrow history
+* Added new REST API [GET /v2/repay/{asset}](?json#rest-api-methods-private-get-v2-borrow-asset) to get repay history
+* Added new REST API [GET /v2/borrowingSummary](?json#rest-api-methods-private-get-v2-borrowingsummary) to get borrowing summary
 * Added new REST API [POST /v2/borrow/close](?json#rest-api-methods-private-post-v2-borrow-close) to close borrow
 
 **2021-07-08**
