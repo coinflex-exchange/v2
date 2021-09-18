@@ -1015,7 +1015,7 @@ data | DICTIONARY object | Yes |
 
 > **Request format**
 
-```jsonF
+```json
 {
   "op": "cancelorders",
   "tag": 456,
