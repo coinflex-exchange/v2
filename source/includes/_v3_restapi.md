@@ -877,11 +877,6 @@ available |STRING| Available balance|
 reserved|STRING|Reserved balance (unavailable) due to working spot orders|
 quantityLastUpdated|STRING|Millisecond timestamp of when balance was last updated|
 
-##Methods - Private
-
-All private REST API methods require authentication using the approach explained above. 
-
-
 #### GET /v3/positions
 
 > **Request**
@@ -898,8 +893,8 @@ import hashlib
 import datetime
 from urllib.parse import urlencode
 
-rest_url = 'https://v2stgapi.coinflex.com'
-rest_path = 'v2stgapi.coinflex.com'
+rest_url = 'https://v3stgapi.coinflex.com'
+rest_path = 'v3stgapi.coinflex.com'
 
 api_key = <API-KEY>
 api_secret = <API-SECRET>
@@ -908,9 +903,9 @@ ts = datetime.datetime.utcnow().isoformat()
 nonce = 123
 
 # REST API method
-method = '/v2/positions'
+method = '/v3/positions'
 
-# Not required for /v2/positions
+# Not required for /v3/positions
 body = urlencode({})
 
 if body:
@@ -956,7 +951,6 @@ print(resp.json())
     ]
 }
 ```
-
 > **Failure response format**
 
 {
@@ -964,7 +958,6 @@ print(resp.json())
 “code”: “40002”,
 “message”: “Invalid authentication”
 }
-```
 
 ```python
 {
@@ -1001,7 +994,7 @@ entryPrice | STRING | Average entry price |
 positionPnl | STRING | Postion profit and lost |
 estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative(<0) |
 
-#### GET /v3/trades
+#### GET /v3/positions
 
 > **Request**
 
@@ -1035,7 +1028,7 @@ nonce = 123
 # REST API method, for example FLEX-USD spot trades
 method = '/v3/trades/FLEX-USD'
 
-# Optional for /v3/trades/{marketCode}
+# Optional for /v2/trades/{marketCode}
 body = urlencode({'limit': 10, 'startTime': 1611850042397, 'endTime': 1611850059021})
 
 if body:
@@ -1079,141 +1072,66 @@ print(resp.json())
 }
 
 ```
-
 > **Failure response format**
 
 {
 “success”: false,
 “code”: “40002”,
-“message”: “Invalid key”
+“message”: “Invalid authentication”
 }
-```
 
 ```python
 {
-  "event": "positions",
-  "timestamp": 1593627415000,
-  "accountId":"<Your Account ID>",
+  "event": "trades", 
+  "timestamp": 1595635101845, 
+  "accountId": "<Your Account ID>", 
   "data": [ {
-              "instrumentId": "BTC-USD-SWAP-LIN",
-              "quantity": "0.542000000",
-              "lastUpdated": "1617099855966",
-              "contractValCurrency": "BTC",
-              "entryPrice": "56934.8258",
-              "positionPnl": "1212.0065",
-              "estLiquidationPrice": "52454.3592"
+              "matchId": "160067484555913077", 
+              "matchTimestamp": "1595514663626", 
+              "marketCode": "FLEX-USD", 
+              "matchQuantity": "0.1", 
+              "matchPrice": "0.065", 
+              "total": "0.0065", 
+              "orderMatchType": "TAKER", 
+              "fees": "0.0096", 
+              "feeInstrumentId": "FLEX", 
+              "orderId": "160067484555913076", 
+              "side": "SELL", 
+              "clientOrderId": "123"
             },
             ...
           ]
 }
 ```
 
-Returns all the positions of the account connected to the API key initiating the request. 
+Returns the most recent trades of the account connected to the API key initiating the request.
 
-Response Fields | Type | Description |
---------------- | ---- | ----------- |
-event | STRING | `positions` |
-timestamp | INTEGER | Millisecond timestamp |
-accountId | STRING | Account ID |
-data | LIST of dictionaries | |
-instrumentId | STRING | Contract symbol, e.g. 'BTC-USD-SWAP-LIN' |
-quantity | STRING | Quantity of position, e.g. '0.94' |
-lastUpdated | STRING| Timestamp when position was last updated |
-contractValCurrency | STRING | Contract valuation currency |
-entryPrice | STRING | Average entry price |
-positionPnl | STRING | Postion profit and lost |
-estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative(<0) |
+<sub>**Request Parameters**</sub> 
 
-###  GET /v3/orders/history
+Parameters | Type | Required |Description| 
+-------------------------- | -----|--------- | -------------|
+marketCode| STRING | YES |  | 
+limit| LONG | NO | Default `500`, max `1000` | 
+startTime| LONG | NO | Millisecond timestamp | 
+endTime| LONG | NO | Millisecond timestamp | 
 
-> **Request**
+<sub>**Response Parameters**</sub> 
 
-```json
-GET /v3/orders/history?marketCode={marketCode}&orderId={orderId}&clientOrderId={clientOrderId}&limit={limit}&startTime={startTime}&endTime={endTime}
-```
-
-> **Sucessful Response**
-
-```json
-{
-    "event": "orderHistory",
-    "success": true,
-    "data": [
-        {
-          "orderId": "304408197314577142",          // each orderId has only 1 response
-"clientOrderId": "1",                // clientOrderId can have many resp
-"marketCode": "BTC-USD-SWAP-LIN",
-“status": CLOSED | OPEN | PARTIALLY_FILLED | FILLED
-"side": "BUY",
-"price": "10006.0",
-“stopPrice”: null,
-“isTriggered”: null,
-"quantity": "0.001",
-"remainQuantity": "0.001",
-"matchedQuantity": "0.000",
-“avgFillPrice”: null,
-“fees”: {‘USD’: "0", ‘FLEX’: “0”}
-"orderType": "LIMIT",
-"timeInForce": "GTC",
-"createdAt": "1619121040779"
-            'lastModifiedAt': null,
-“lastMatchedAt”: null,
-"closedAt": "1619131050779",
-        },
-        ...
-    ]
-}
-```
-
-> **Sucessful Response**
-{
-“event”: “orders”,
-“success”: false,
-“code”: “40002”,
-“message”: “Invalid key”
-}
-```
-
-Returns all orders of the account connected to the API key initiating the request.
-
-Request Parameters | Type | Required | Description |
------------------- | ---- | -------- | ----------- |
-marketCode | STRING | NO | |
-orderId | LONG | NO | |
-clientOrderId | LONG | NO | |
-limit | LONG | NO | max `100`, default `100` |
-startTime | LONG | NO | e.g. `1579450778000`, default `0` |
-endTime | LONG | NO | e.g. `1613978625000`, default time now |
-
-
-Response Fields | Type | Description |
---------------- | ---- | ----------- |
-accountId | STRING | Account ID |
-timestamp | STRING | Timestamp of this response |
-status | STRING | Status of the order |
-orderId | STRING | Order ID which generated by the server |
-clientOrderId | STRING | Client order ID which given by the user |
-marketCode | STRING | Market code |
-side | STRING | Side of the order, `BUY` or `SELL` |
-orderType | STRING | Type of the order, `LIMIT` or `STOP` |
-price | STRING | Price submitted |
-lastTradedPrice | STRING | Price when order was last traded |
-avgFillPrice | STRING | Average of filled price |
-stopPrice | STRING | Stop price for the stop order |
-limitPrice | STRING | Limit price for the stop limit order |
-quantity | STRING | Quantity submitted |
-remainQuantity | STRING | Remainning quantity |
-filledQuantity | STRING | Filled quantity |
-matchIds | LIST of dictionaries | Exchange matched IDs and information about matching orders |
-matchQuantity | STRING | Matched quantity |
-matchPrice | STRING | Matched price |
-orderMatchType | STRING | `MAKER` or `TAKER` |
-timestamp in matchIds | STRING | Time matched at|
-leg1Price | STRING | |
-leg2Price | STRING | |
-fees | LIST of dictionaries | Fees with instrument ID |
-timeInForce | STRING | Time in force |
-isTriggered | STRING | `true`(for stop order) or `false` |
-orderOpenedTimestamp | STRING | Order opened at |
-orderModifiedTimestamp | STRING | Order modified at |
-orderClosedTimestamp | STRING | Order closed at |
+Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+event | STRING | `trades`
+timestamp | INTEGER | Millisecond timestamp
+accountId | STRING    | Account ID
+data | LIST of dictionaries |
+matchId   | STRING    | Match ID          |
+matchTimestamp   | STRING    | Order Matched timestamp          |
+marketCode   | STRING    | Market code          |
+matchQuantity   | STRING    | Match quantity          |
+matchPrice   | STRING    | Match price          |
+total   | STRING    | Total price          |
+side   | STRING    |  Side of the match         |
+orderMatchType   | STRING    | `TAKER` or `MAKER` |
+fees   | STRING    |  Fees    |
+feeInstrumentId   | STRING    |   Instrument ID of the fees        |
+orderId   | STRING    |	Unique order ID from the exchange          |
+clientOrderID   | STRING    | Client assigned ID to help manage and identify orders  |
