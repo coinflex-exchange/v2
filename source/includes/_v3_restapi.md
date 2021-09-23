@@ -2571,3 +2571,144 @@ asset | STRING | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, 
 quantity | STRING | Quantity of the asset |
 requestedAt | STRING | when the redeem request was made |
 redeemedAt | STRING | when the redemption was actually processed |
+
+##AMM - Private
+
+## Create AMM - POST /v3/AMM/create
+
+> **Request**
+
+```json
+POST /v3/AMM/create
+{
+Leveraged buy/sell or neutral
+    “leverage”: string or int from 1 to 10        # required
+    “direction”: “BUY” | “SELL”,            # required
+    “marketCode”: “BCH-USD-SWAP-LIN”,    # required
+    “collateralAsset”: “BCH”,            # required
+    “collateralQuantity”: "50",            # required, minimum $200 notional
+    “minPriceBound”: "200",            # required 
+    “maxPriceBound”: "800"            # required
+    
+ Unleveraged buy/sell
+ 
+ “direction”: “BUY” | “SELL”,            # required
+    “marketCode”: “BCH-USD-SWAP-LIN”,        # required
+    “collateralAsset”: “BCH” | "USD",        # required
+    “collateralQuantity”: "250",            # required, minimum $200 notional
+    “minPriceBound”: "200",            # required 
+    “maxPriceBound”: "800"                # required
+
+Unleveraged neutral
+{
+    “direction”: “NEUTRAL",            # required
+    “marketCode”: “BCH-USD-SWAP-LIN”,        # required
+    “baseQuantity”: "3"                # required
+    “counterQuantity”: "500",            # required, minimum $200 notional
+    “minPriceBound”: "200",            # required 
+    “maxPriceBound”: "800"                # required
+}
+
+```
+
+> **Succesful response Format**
+
+```json
+
+Leveraged buy/sell or neutral
+{
+    
+    “success”: true,
+    "data":
+        {
+        “hashToken”: “CF-BCH-AMM-ABCDE3iy“,
+        “leverage”: "5",
+        “direction”: “BUY” | “SELL”,
+        “marketCode”: “BCH-USD-SWAP-LIN”,
+        “collateralAsset”: “BCH”,    
+        “collateralQuantity”: "50",                
+        “minPriceBound”: "200",
+        “maxPriceBound”: "800"
+
+ Unleveraged buy/sell
+ 
+ “success”: true,
+    "data":
+        {
+        “hashToken”: “CF-BCH-AMM-ABCDE3iy“,
+        “direction”: “BUY” | "SELL",
+        “marketCode”: “BCH-USD-SWAP-LIN”,
+        “collateralAsset”: “BCH”,    
+        “collateralQuantity”: "50",                
+        “minPriceBound”: "200",
+        “maxPriceBound”: "800"
+
+Unleveraged neutral
+{
+    “success”: true,
+    "data":
+        {
+        “hashToken”: “CF-BCH-AMM-ABCDE3iy“,
+        “direction”: “NEUTRAL",
+        “marketCode”: “BCH-USD-SWAP-LIN”,
+        "baseQuantity": "3",    
+        “counterQuantity”: "500",                
+        “minPriceBound”: "200",
+        “maxPriceBound”: "800"
+}
+}
+```
+> **Failure response Format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+Leverage | STRING | YES | String or int from 1 to 10|
+Direction | STRING | YES |BUY/SELL|
+Marketcode | STRING | YES | E.G "BCH" |
+CollateralAsset | STRING | YES | E.G "BCH" |
+CollateralQuantity | STRING | YES | E.G "50" minimum notional $200 |
+minPriceBound | STRING | YES | "200"|
+maxPriceBound | STRING | YES | "800"|
+
+## Redeem AMM - POST /v3/AMM/redeem
+
+> **Request**
+
+```json
+POST /v3/AMM/redeem
+{
+“hashToken”: “CF-BCH-AMM-ABCDE3iy“,            # STRING, required 
+“type”:  “deliver” or manual or twap1hr or twap24hr”        # STRING, required
+}
+
+#TWAP1HR and TWAP24H not yet available in prod, but it will be in the future.
+```
+
+> **Succesful response Format**
+
+```json
+
+{
+    “success”: true,
+    "data":
+    {
+“hashToken”: “CF-BCH-AMM-ABCDE3iy“,            # STRING, required 
+“type”:  “deliver or manual or twap1hr or twap24hr”        # STRING, required
+}
+}
+
+```
+> **Failure response Format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+
+
