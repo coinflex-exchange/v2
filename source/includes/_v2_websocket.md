@@ -2786,9 +2786,7 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 }
 ```
 
-**Channel Update Frequency**: real-time, whenever there is planned liquidation event
-
- of a clients position OR an auto-borrow OR an auto loan repayment
+**Channel Update Frequency**: real-time, whenever there is planned liquidation event of a clients position OR an auto-borrow OR an auto-borrow repayment
  
 The liqudation RFQ (request for quotes) channel publishes a message 50ms before a liquidation event is due to occur.  A liqudation event can be classed as one of the following:-
 
