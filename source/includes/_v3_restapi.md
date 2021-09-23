@@ -2889,10 +2889,12 @@ Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 hashToken | List of STRING | YES | filter|
 
-##Get AMM orders - GET /v3/AMM
+## Get AMM positions - GET /v3/AMM
+
+> **Request**
 
 ```json
-NEW - GET /v3/AMM/positions?hashToken=[1,2,3,4 ……. ]&marketCode={marketCode}
+GET /v3/AMM/positions?hashToken=[1,2,3,4 ……. ]&marketCode={marketCode}
 ```
 
 > **Succesful response Format**
@@ -2921,20 +2923,18 @@ NEW - GET /v3/AMM/positions?hashToken=[1,2,3,4 ……. ]&marketCode={marketCode}
         ...
     ]
 }
-...
-
+```
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 hashToken | List of STRING | YES | filter|
-marketCode | STRING | NO | 
 
-Get AMM balances - GET /v3/AMM
+## Get AMM balances - GET /v3/AMM
 
 > **Request**
 
 ```json
-NEW - GET /v3/AMM/balances?hashToken=[1,2,3,4 ……. ]&asset={asset}
+GET /v3/AMM/balances?hashToken=[1,2,3,4 ……. ]&asset={asset}
 ```
 
 > **Succesful response Format**
@@ -2966,11 +2966,51 @@ NEW - GET /v3/AMM/balances?hashToken=[1,2,3,4 ……. ]&asset={asset}
         ...
     ]
 }
-
-...
-
+```
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-hashToken | List of STRING | YES | list filter limit 10 AMM|
-marketCode | STRING | NO | 
+hashToken | List of STRING | YES | filter|
+
+## Get AMM trades - GET /v3/AMM
+
+> **Request**
+
+```json
+GET /v3/AMM/trades?hashToken=1 ……. &marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+> **Succesful response Format**
+
+```json
+{
+"success": true,
+“data": [ {        
+            "orderId": "160067484555913076",
+              "clientOrderId": "123",
+              "matchId": "160067484555913077",
+              "marketCode": "FLEX-USD",
+        "side": "SELL",
+              "matchedQuantity": "0.1",
+              "matchPrice": "0.065",
+              "total": "0.0065",    
+            “leg1Price”: “0.001”,         // REPO & SPR
+            “leg2Price”: “0.001”,        // REPO & SPR
+              "orderMatchType": "TAKER",
+    “feeAsset”: "FLEX”,
+           "fee”: "0.0096",
+            "lastMatchedAt": "1595514663626"
+            },
+            …
+]
+}
+
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+hashToken | STRING | YES | filter|
+marketCode | STRING | NO |
+limit |INT/STRING | NO | default 500 max 1000|
+startTime | INT/STRING  | NO | default 24 hours ago|
+endTime | INT/STRING  | NO | default current epoch time|
