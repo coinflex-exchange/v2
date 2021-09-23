@@ -1967,7 +1967,7 @@ GET /v3/funding?marketCode={marketCode}&limit={limit}&startTime={startTime}&endT
 
 Returns the entire delivery history for the account connected to the API key initiating the request.
 
-<sub>**Response Parameters**</sub> 
+<sub>**Request Parameters**</sub> 
 
 Parameters |Type | Description| 
 -------------------------- | -----|--------- |
@@ -1985,3 +1985,326 @@ instrumentIdDeliver | STRING |Asset being received: long position = coin, short 
 deliverQty | STRING |  Quantity of the received asset
 deliverOrderId | STRING | Order id
 clientOrderId | Null Type|  null
+
+###POST /v3/withdrawal
+> **Request**
+
+```json
+ POST /v3/withdrawal
+```
+
+> **Success response format**
+
+```json
+{
+    “success”: true,
+    "data":
+        {
+             “asset”: “flexUSD”,
+    “network”:”SLP”,
+    “address”:”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
+    “memo”:”642694646”,
+    “quantity”: “1000.0”,
+    “externalFee”:true,
+“fee”:”0”,
+    “status”:”pending”,
+“requestedAt”:“1617940800000”
+        }
+}
+```
+
+> **Failure response format**
+
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+
+<sub>**Request Parameters**</sub> 
+
+Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+asset | STRING | `flexUDS`
+network | STRING | 'SLP'
+Address | STRING |'simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7'
+memo | STRing | Only for chains that have 2 part addresses
+quantity | Null Type| null
+externalFee | BOLEAN |Required, if externalFee is true, fee will be deducted from account balance, if it's false, fee will be deducted from the withdrawal amount
+2faType | STRING |  Authy_SECRET or GOOGLE or YUBIKEY
+code | STRING | 2FA if required by the account
+
+### GET /v3/withdrawal
+> **Request**
+
+```json
+ GET /v3/withdrawal?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+> **Success response format**
+
+```json
+{
+    “success”: true,
+    "data":
+        [{
+             “asset”: “flexUSD”,
+    “network”:”SLP”,
+    “address”:”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
+    “Memo”:”642694646”,            // only for chains that have 2 part addresses
+    “quantity”: “1000.0”,
+“fee”:”0”,
+“id”:”651573911056351237”
+“status”:”completed”,
+“txId”:”38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d”,
+    “requestedAt”: “1617940800000”,
+    “completedAt”: “16003243243242”
+        }, …………………. ]
+}
+
+```
+
+> **Failure response format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+
+
+
+
+<sub>**Response Parameters**</sub> 
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+Asset | STRING | NO | | default all assets most recent first
+Limit | LONG | NO | Max 200, Default 50 |
+startTime | LONG | NO | e.g. 1579450778000, default 24 hours ago|
+endTime | LONG | NO | | e.g. 1613978625000, default time now
+
+### GET /v3/deposit-address
+> **Request**
+
+```json
+ GET /v3/deposit-address?asset={asset}&network={network}
+```
+
+> **Success response format**
+
+```json
+{
+    “success”: true,
+    "data":
+        {
+    “address”:”bitcoincash:qpsvxmpv2eqzc2cm7hf826m0afzfru6wdg4atgdxtt”,
+    “legacyAddress”:”19pdycXvr7GJChTwuq5WFqrrTrMBYLYUyg”,
+    “memo”:”642694646”
+        }
+}
+
+```
+
+> **Failure response format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+
+<sub>**Requests Parameters**</sub> 
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+Asset | STRING | YES | 
+Network | STRING | YES 
+
+
+### GET /v3/deposit-history
+> **Request**
+
+```json
+ GET /v3/deposit-history?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+> **Success response format**
+
+```json
+{
+    “success”: true,
+    "data":
+        [    {
+             “asset”: “flexUSD”,
+    “network”:”SLP”,
+    “address”:”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
+    “Memo”:”642694646”,            // only for chains that have 2 part addresses
+    “quantity”: “1000.0”,
+“id”:”651573911056351237”
+“status”:”completed”,
+“txId”:”38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d”,
+    “creditedAt”: “1617940800000”
+            }, ………. ]
+}
+
+```
+
+> **Failure response format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+
+<sub>**Request Parameters**</sub> 
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+Asset | STRING | NO | | default all assets most recent first
+Limit | LONG | NO | Max 200, Default 50 |
+startTime | LONG | NO | e.g. 1579450778000, default 24 hours ago|
+endTime | LONG | NO | | e.g. 1613978625000, default time now
+
+
+###  GET /v3/withdrawal-addresses
+> **Request**
+
+```json
+ GET /v3/withdrawal-addresses
+```
+
+> **Success response format**
+
+```json
+{
+    “success”: true,
+    "data":
+        [    {
+             “asset”: “flexUSD”,
+    “network”: ”SLP”,
+    “address”: ”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
+    “memo”: ”642694646”,
+“label”: ”Mum”
+“whitelisted”: true
+        }, ………. ]
+}
+
+```
+
+> **Failure response format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+###  GET /v3/withdrawal-fee
+> **Request**
+
+```json
+ GET /v3/withdrawal-fee?asset=flexUSD&network=SLP&address=simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7&memo=642694646&quantity=1000&externalFee=true
+```
+
+> **Success response format**
+
+```json
+{
+    “success”: true,
+    "data":
+        {
+             “asset”: “flexUSD”,
+    “network”:”SLP”,
+    “address”:”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
+    “memo”:”642694646”,
+    “quantity”: “1000.0”,
+    “externalFee”:true,
+“estimatedFee”:”0”
+        }
+}
+
+```
+
+> **Failure response format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+
+
+<sub>**Request Parameters**</sub> 
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+Asset | STRING | YES | | default all assets, mos recent first|
+Network | STRING | YES | Network to withdraw on|
+Address | STRING | YES | Address to withdraw to|
+Memo | STRING | NO | Required only for 2 part addresses|
+Quantity | STRING | YES | Quantity to withdraw|
+externalFee | BOOL | YES | If True then the fee will be in addition to the quantity provided|
+
+###  POST /v3/transfer
+> **Request**
+
+```json
+POST /v3/transfer
+```
+
+> **Success response format**
+
+```json
+{
+    “asset”: “flexUSD”, 
+“quantity”: 1000,
+“fromAccount”:”36”,
+“toAccount”:”9”
+}
+
+```
+
+> **Failure response format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+##Flex Assets - Private
+
+###  POST /v3/flexasset/mint 
+> **Request**
+
+```json
+POST /v3/flexasset/mint
+
+{
+    “asset”: “flexUSD”,         # STRING Required
+“quantity”: 1000        # FLOAT or STRING Required
+}
+```
+
+> **Success response format**
+
+```json
+{
+    “success”: true,
+    "data":
+        {
+             “asset”: “flexUSD”,
+    “quantity”: “1000.0”
+        }
+}
+
+```
+
+> **Failure response format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
