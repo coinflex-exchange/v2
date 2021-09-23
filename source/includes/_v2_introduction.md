@@ -1,5 +1,11 @@
 # Change Log
 
+**2021-09-23**
+
+* Updated REST API [GET /v2.1/orders](?json#rest-api-methods-private-get-v2-1-orders)
+    * Changed startTime default from 0 to 24 hours ago
+    * The range between startTime and endTime should be less than or equal to 7 days(`endTime - startTime <= 7days`)
+
 **2021-09-17**
 
 * Updated REST API [GET /v2/depth/{marketCode}/{level}](?json#rest-api-methods-public-get-v2-depth-marketcode-level)
