@@ -3004,7 +3004,6 @@ GET /v3/AMM/trades?hashToken=1 ……. &marketCode={marketCode}&limit={limit}&st
             …
 ]
 }
-
 ```
 
 Request Parameters | Type | Required | Description |
@@ -3014,3 +3013,476 @@ marketCode | STRING | NO |
 limit |INT/STRING | NO | default 500 max 1000|
 startTime | INT/STRING  | NO | default 24 hours ago|
 endTime | INT/STRING  | NO | default current epoch time|
+
+##Market Data - Public
+
+### Markets - GET /v3/markets
+
+> **Request**
+
+```json
+GET /v3/markets`
+```
+
+> **Succesful response Format**
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "marketCode": "BTC-USD",
+            "name": "BTC/USD Spot",
+            "referencePair": "BTC/USD",
+            "base": "BTC",
+            "counter": "USD",
+            "type": "SPOT",
+            "tickSize": "0.1",
+            "qtyIncrement": "0.001",
+            "listedAt": "2208988800000",
+    “settlementAt”: “16343242424223”, // null when no settlement
+            "upperPriceBound": "11000.00",
+            "lowerPriceBound": "9000.00",
+            "markPrice": "10000.00",
+    “lastUpdatedAt”: “1620810131131”
+        },
+        …...
+    ]
+}
+
+```
+> **Failure response Format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+```
+Get a list of all available markets on CoinFlex.
+
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+timestamp | STRING    | Timestamp of this response|
+marketId | STRING | |
+marketCode| STRING    | Market Code                  |
+name      | STRING    | Name of the contract                  |
+referencePair| STRING | Reference pair                  |
+base      | STRING    | Base asset                  |
+counter   | STRING    | Counter asset                  |
+type      | STRING    | Type of the contract                  |
+tickSize  | STRING    | Tick size of the contract                  |
+qtyIncrement| STRING  |Minimum increamet quantity|
+listingDate| STRING   | Listing date of the contract                  |
+endDate    |STRING    | Ending date of the contract                  |
+marginCurrency|STRING | Margining currency                  |
+contractValCurrency| STRING| Contract valuation currency|
+upperPriceBound| STRING| Upper price bound                 |
+lowerPriceBound| STRING| Lower price bound                 |
+marketPrice    | STRING| Market price                 |
+marketPriceLastUpdated | LONG | The time that market price last updated at |
+
+### Assets - GET /v3/assets
+
+> **Request**
+
+```json
+GET /v3/assets
+```
+
+> **Succesful response Format**
+
+```json
+{
+    “success”: true,
+    "data": [
+        {
+            "name": "BTC",
+    “canDeposit”: true,
+            "canWithdraw": true,
+            "isCollateral": true,
+            "loanToValue": "0.9",
+    “minDeposit”: “0.0001”,
+    “minWithdrawal”: “0.0001”,
+            “network”: [“erc20”, “trc20”, “bep20”],
+},
+    ]
+}
+
+
+```
+> **Failure response Format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+
+```
+Get a list of all available markets on CoinFlex.
+
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+timestamp | STRING    | Timestamp of this response|
+marketId | STRING | |
+marketCode| STRING    | Market Code                  |
+name      | STRING    | Name of the contract                  |
+referencePair| STRING | Reference pair                  |
+base      | STRING    | Base asset                  |
+counter   | STRING    | Counter asset                  |
+type      | STRING    | Type of the contract                  |
+tickSize  | STRING    | Tick size of the contract                  |
+qtyIncrement| STRING  |Minimum increamet quantity|
+listingDate| STRING   | Listing date of the contract                  |
+endDate    |STRING    | Ending date of the contract                  |
+marginCurrency|STRING | Margining currency                  |
+contractValCurrency| STRING| Contract valuation currency|
+upperPriceBound| STRING| Upper price bound                 |
+lowerPriceBound| STRING| Lower price bound                 |
+marketPrice    | STRING| Market price                 |
+marketPriceLastUpdated | LONG | The time that market price last updated at |
+
+### Tickers - GET /v3/ticker
+
+> **Request**
+
+```json
+GET /v3/ticker?marketCode={marketCode}
+```
+
+> **Succesful response Format**
+
+```json
+{
+"success": true,
+"data" :
+[{
+"marketCode": "BTC-USD-SWAP-LIN",
+"markPrice": "11012.80409769",  
+"open24h": "49.375",
+"high24h": "49.488",
+"low24h": "41.649",
+"volume24h": "11295421",
+"currencyVolume24h": "1025.7", 
+"openInterest": "1726003",
+"lastTradedPrice": "43.259",
+"lastTradedQuantity": "1”,
+“lastUpdatedAt”: “1621321313131”
+},
+]
+}
+```
+
+> **Failure response Format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+
+
+```
+Get a list of all available markets on CoinFlex.
+
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+timestamp | STRING    | Timestamp of this response|
+marketId | STRING | |
+marketCode| STRING    | Market Code                  |
+name      | STRING    | Name of the contract                  |
+referencePair| STRING | Reference pair                  |
+base      | STRING    | Base asset                  |
+counter   | STRING    | Counter asset                  |
+type      | STRING    | Type of the contract                  |
+tickSize  | STRING    | Tick size of the contract                  |
+qtyIncrement| STRING  |Minimum increamet quantity|
+listingDate| STRING   | Listing date of the contract                  |
+endDate    |STRING    | Ending date of the contract                  |
+marginCurrency|STRING | Margining currency                  |
+contractValCurrency| STRING| Contract valuation currency|
+upperPriceBound| STRING| Upper price bound                 |
+lowerPriceBound| STRING| Lower price bound                 |
+marketPrice    | STRING| Market price                 |
+marketPriceLastUpdated | LONG | The time that market price last updated at |
+
+### Upcoming delivery auction - GET /v3/auction?marketCode={marketCode}
+
+> **Request**
+
+```json
+GET /v3/auction?marketCode={marketCode}
+marketCode={marketCode}
+```
+> **Sucess response Format**
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "auctionTime": "1596620805000",
+            "netDelivered": "-5.100000000",
+            "estFundingRate": "0.0001"
+        },
+      ...
+    ]
+}
+
+```
+> **Failure response Format**
+ {
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+```
+
+Requires authentication. Get entire delivery history.
+
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+timestamp | STRING | UNIX Timestamp of the response|
+instrumentId | STRING |  Market code
+auctionTime | STRING | UNIX timestamp of the next auction
+netDeliver | STRING | Delivery imbalance (negative = more shorts than longs and vice versa)
+estFundingRate | STRING | Estimated funding rate a positive rate means longs pay shorts
+
+### Historical funding rates - GET /v3/funding-rates
+
+Get funding rates by marketCode and sorted by time in descending order.
+
+> **Request**
+
+```json
+GET /v3/funding-rates?marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
+
+marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+> **SUCCESSFUL RESPONSE**
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+         "marketCode": "BTC-USD-SWAP-LIN" //all marketCode should be x-USD-SWAP-LIN,
+            "fundingRate": "0.00008",
+            "markPrice": "33937.2848",
+            "index": "2.78222423",
+    "netDelivered": "-5.100000000",
+            "createdAt/lastUpdatedAt": "1606461774458" // created time or updated time
+},
+...
+    ]
+}
+```
+> **FAILURE RESPONSE RESPONSE**
+```json
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+marketCode | STRING | YES | e.g. BTC-USD-REPO-LIN , available values: BTC-USD-REPO-LIN, ETH-USD-REPO-LIN |
+limit | LONG | NO | default is `50` |
+startTime | LONG | NO | millisecond timestamp, e.g. `1579450778000`, default is 7 days ago from time now |
+endTime | LONG | NO | millisecond timestamp, e.g. `1613978625000`, default is time now |
+
+Response Fields | Type | Description |
+------------------- | ---- | ----------- |
+timestamp | STRING | Timestamp of this response |
+fundingRate | STRING | |
+index | STRING | |
+markPrice | STRING | |
+marketCode | STRING | |
+timestamp(in the data list) | STRING | |
+
+###Exchange trades - GET /v3/exchange-trades
+
+> **Request**
+
+```json
+GET /v3/exchange-trades?marketCode={marketCode}&limit={limit}
+&startTime={startTime}&endTime={endTime}
+
+```
+
+> **Success response format**
+
+
+```json
+{
+"success": true, 
+"data": [
+{
+"marketCode": "BTC-USD-SWAP-LIN",
+"matchPrice": "9600.000000000", 
+"matchQuantity": "0.100000000", 
+"side": "BUY",
+"lastMatchedAt": "1595585860254"
+},
+]
+}
+
+```
+> **Failure response format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+```
+
+Get most recent trades.
+
+Request Parameters | Type | Required |Description| 
+-------------------------- | -----|--------- | -------------|
+marketCode| STRING | YES |  | 
+limit| LONG | NO | Default 100, max 300 | 
+startTime| LONG | NO |  | 
+endTime| LONG | NO |  | 
+
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+timestamp | STRING    | Timestamp of this response|
+marketCode | STRING    | |
+matchID | STRING    | |
+matchQuantity | STRING    | |
+matchPrice | STRING    | |
+side | STRING    | |
+matchTimestamp | STRING    | |
+
+### Candles - GET /v3/candles
+
+Get historical candles of active and expired markets.
+
+> **Request**
+
+```json
+GET /v3/candles?marketCode={marketCode}&timeframe={timeframe}&limit={limit}
+&startTime={startTime}&endTime={endTime}
+
+marketCode={marketCode}&timeframe={timeframe}&limit={limit}&startTime={startTime}&endTime={endTime}
+
+
+> **Failure response format**
+
+```json
+{
+    "success": true,
+    "timeframe": "60s",
+    "data": [
+        {
+            "open": "51706.50000000",
+            "high": "51758.50000000",
+            "low": "51705.50000000",
+            "close": "51754.00000000",
+            "volume24h": "0",
+            "currencyVolume24h": "0",
+"openedAt": "1616713140000”
+        },
+        {
+            
+            "open": "51755.50000000",
+            "high": "51833.00000000",
+            "low": "51748.00000000",
+            "close": "51815.00000000",
+            "volume24h": "0",
+            "currencyVolume24h": "0",
+"openedAt": "1616713200000”
+        },
+        ...
+    ]
+}
+```
+> **Failure response format**
+ {
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+marketCode | STRING | YES | When marketCode is expired market like `BTC-USD-201225-LIN`, the startTime and the endTime should be explicitly set in `2020` |
+timeframe | STRING | NO | e.g. `60s`, `300s`, `900s`, `1800s`, `3600s`, `7200s`, `14400s`, `86400s`, default `3600s ` |
+limit | LONG | NO | max `5000 `, default `500`|
+startTime | LONG | NO | Millisecond timestamp, e.g. `1579450778000`, default is `limit` times `timeframe` ago, if the limit is `300` and the timeframe is `3600s` then the default startTime is `time now - 300x3600s`, if the limit is not present and the timeframe is `3600s` then the default startTime is `time now - 500x3600s` |
+endTime | LONG | NO | Millisecond timestamp, e.g `1579450778000`, default time now |
+```
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+timestamp(outer) | STRING | |
+timeframe | STRING | Selected timeframe |
+timestamp(inner) | STRING | Beginning of the candle |
+open | STRING | |
+high | STRING | |
+low | STRING | |
+close | STRING | |
+volume24h | STRING | 24 hour rolling trading volume in counter currency |
+currencyVolumn24h | STRING | 24 hour rolling trading volume in base currency |
+
+### Orderbook depth - GET /v3/depth
+
+Get order book by marketCode and level.
+
+> **Request**
+
+```json
+GET /v3/depth?marketCode={marketCode}&level={level}
+marketCode={marketCode}&level={level}
+```
+
+> **SUCCESSFUL RESPONSE**
+
+```json
+{
+    "success": true,
+    “level”: “5”,
+    "data": {
+        "marketCode": "BTC-USD-SWAP-LIN",
+            "lastUpdatedAt": "1615457834388”
+            "asks": [     [54792, 0.001],
+                    [54802.5, 0.366],
+                    [54803, 0.75],
+                    [54806, 1.5],
+                    [54830.5, 0.687]        
+],
+            "bids": [    [54786.5, 0.1],
+                    [54754.5, 0.1],
+                    [54752, 0.1],
+                    [54749.5, 0.1],
+                    [54745.5, 0.1]        
+]
+}
+}
+```
+> **SUCCESSFUL RESPONSE**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+```
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+event | STRING | |
+timestamp | STRING | |
+data | LIST | |
+asks | LIST of floats | Sell side depth: <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol> |
+bids | LIST of floats | Buy side depth: <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol> |
+marketCode | STRING | |
+timestamp | STRING | |
+
