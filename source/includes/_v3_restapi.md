@@ -2,11 +2,11 @@
 
 **TEST** site
 
-* `https://v2stgapi.coinflex.com`
+* `https://v3stgapi.coinflex.com`
 
 **LIVE** site
 
-* `https://v2api.coinflex.com/v3`
+* `https://v3api.coinflex.com/v3`
 
 For clients who do not wish to take advantage of CoinFLEX's native WebSocket API, CoinFLEX offers a RESTful API that implements much of the same functionality.
 
@@ -2275,7 +2275,10 @@ POST /v3/transfer
 
 ##Flex Assets - Private
 
-###  POST /v3/flexasset/mint 
+### POST /v3/flexasset/mint
+
+Mint.
+
 > **Request**
 
 ```json
@@ -2285,9 +2288,10 @@ POST /v3/flexasset/mint
     “asset”: “flexUSD”,         # STRING Required
 “quantity”: 1000        # FLOAT or STRING Required
 }
+
 ```
 
-> **Success response format**
+> **SUCCESSFUL RESPONSE**
 
 ```json
 {
@@ -2300,7 +2304,6 @@ POST /v3/flexasset/mint
 }
 
 ```
-
 > **Failure response format**
 {
 “success”: false,
@@ -2308,3 +2311,263 @@ POST /v3/flexasset/mint
 “message”: “Internal server error”
 }
 
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+asset | STRING | YES | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+quantity | STRING/DECIMAL | YES | Quantity of the asset |
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+accountId | STRING | Account ID |
+asset | STRING | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+quantity | STRING | Quantity of the asset |
+
+### POST /v3/flexasset/redeem
+
+Redeem.
+
+> **Request**
+
+```json
+POST /v3/flexasset/redeem
+
+{
+ "asset": "flexUSD",        # STRING Required
+ "quantity": 1000,        # FLOAT or STRING Required
+ "type": "normal" | “immediate”        # STRING Required
+}
+
+```
+
+> **SUCCESSFUL RESPONSE**
+
+```json
+{
+    “success”: true,
+    "data":
+        {
+             “asset”: “flexUSD”,
+    “quantity”: “1000.0”,
+            “type”: “normal”,
+    “redemptionAt”: “1617940800000”
+        }
+}
+
+```
+> **Failure response format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+asset | STRING | YES | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+quantity | STRING/DECIMAL | YES | Quantity of the asset |
+type | STRING | YES | Redeem type, available types: `Normal`, `Instant` |
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+accountId | STRING | Account ID |
+asset | STRING | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+quantity | STRING | Quantity of the asset |
+redeemAt | STRING | Redeemed time |
+type | STRING | Redeem type, available types: `Normal`, `Instant` |
+
+### GET /v3/flexasset/mint
+
+Get mint history by asset and sorted by time in descending order.
+
+> **Request**
+
+```json
+GET /v3/flexasset/mint?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+
+```
+
+> **Successful response format**
+
+```json
+{
+“success”: true,
+"data": [  {
+             “asset”: “flexUSD”,
+    “quantity”: “1000.0”,
+    “mintedAt”: “16003243243242”
+             }, ………… ]
+}
+```
+> **Failure response format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+asset | STRING | NO | Default most recent funding first|
+limit | LONG | NO | max `100`, default `100`|
+startTime | STRING | NO | Millisecond timestamp, e.g. `1620977300`, default 24hours ago |
+endTime | STRING | NO | Millisecond timestamp, e.g `1620977300`, default time now |
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+accountId | STRING | Account ID |
+asset | STRING | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+quantity | STRING | Quantity of the asset |
+mintedAt | STRING | Minted time in millisecond timestamp |
+
+## GET /v3/flexasset/redeem
+
+Get redemption history by asset and sorted by time in descending order.
+
+> **Request**
+
+```json
+GET /v3/flexasset/redeem?asset={asset}&type={type}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+> **Succesful response Format**
+
+```json
+{
+    “success”: true,
+    "data":
+        [{
+             “asset”: “flexUSD”,
+    “quantity”: “1000.0”,
+            “type”: “normal”,           // normal or immediate
+    “requestedAt”: “16003243243242”,
+    “redeemedAt”: “1643542342222”
+        },]
+}
+```
+> **Failure response Format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+asset | STRING | NO | Default most recent funding first |
+limit | STRING | NO | max `100`, default `100`|
+startTime | STRING | NO | Millisecond timestamp, e.g. `1620977300`, default `0` |
+endTime | STRING | NO | Millisecond timestamp, e.g `1620977300`, default time now |
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+accountId | STRING | Account ID |
+asset | STRING | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+quantity | STRING | Quantity of the asset |
+requestedAt | STRING | when the redeem request was made |
+redeemedAt | STRING | when the redemption was actually processed |
+
+## GET /v3/flexasset/earned
+
+> **Request**
+
+```json
+GET  /v3/flexasset/earned?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+
+```
+
+> **Succesful response Format**
+
+```json
+{
+    “success”: true,
+    "data":
+        [{
+             “asset”: “flexUSD”,
+    “snapshotQuantity”: “100000.0”,
+    “apr”: “0.0001”,
+    “rate”: “0.0001”,  // 8 decimals
+    “amount”: “31.324344”, // 8 decimals
+    “paidAt”: “16003243243242”,
+        },]
+}
+
+```
+> **Failure response Format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+asset | STRING | NO | Default most recent funding first |
+limit | STRING | NO | max `500`, default `100`|
+startTime | STRING | NO | Millisecond timestamp, e.g. `1620977300`, default `0` |
+endTime | STRING | NO | Millisecond timestamp, e.g `1620977300`, default time now |
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+accountId | STRING | Account ID |
+asset | STRING | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+quantity | STRING | Quantity of the asset |
+requestedAt | STRING | when the redeem request was made |
+redeemedAt | STRING | when the redemption was actually processed |
+
+## GET /v3/notetoken/earned
+
+> **Request**
+
+```json
+GET  /v3/notetoken/earned?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+> **Succesful response Format**
+
+```json
+{
+    “success”: true,
+    "data":
+        [{
+             “asset”: “noteNibbio”,
+    “snapshotQuantity”: “100000.0”,
+    “apr”: “0.0001”,
+    “rate”: “0.0001”,
+    “amount”: “31.324344” 
+    “createdAt/lastUpdatedAt”: “16003243243242”, // created time or updated time
+        },]
+}
+
+```
+> **Failure response Format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+
+
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+asset | STRING | NO | Default most recent funding first |
+limit | STRING | NO | max `500`, default `100`|
+startTime | STRING | NO | Millisecond timestamp, e.g. `1620977300`, default `0` |
+endTime | STRING | NO | Millisecond timestamp, e.g `1620977300`, default time now |
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+accountId | STRING | Account ID |
+asset | STRING | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+quantity | STRING | Quantity of the asset |
+requestedAt | STRING | when the redeem request was made |
+redeemedAt | STRING | when the redemption was actually processed |
