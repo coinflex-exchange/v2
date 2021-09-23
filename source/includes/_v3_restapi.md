@@ -2695,11 +2695,143 @@ POST /v3/AMM/redeem
 
 {
     “success”: true,
-    "data":
-    {
-“hashToken”: “CF-BCH-AMM-ABCDE3iy“,            # STRING, required 
-“type”:  “deliver or manual or twap1hr or twap24hr”        # STRING, required
+    "data": [
+     {
+    “hashToken”: “CF-BCH-AMM-ABCDE3iy“,
+    “leverage”: null, or string (0 to 10)    
+    “direction”: “BUY” or “SELL” or “NEUTRAL”,
+    “marketCode”: “BCH-USD-SWAP-LIN”,
+    “initialCollateral”: {“BCH”: “123”, “USD”: 0}    
+    “minPriceBound”: "200",
+    “maxPriceBound”: "800",
+    “status”: “ENDED” or “EXECUTING”,
+             "positions": [
+                        {
+                    "marketCode": "BTC-USD-SWAP-LIN",
+                    “baseAsset”: “BTC”,
+                    “counterAsset”: “USD”,
+                    "position": "0.94",
+                    "entryPrice": "7800.00", 
+                    “markPrice”: “33000.00”, 
+                    "positionPnl": "200.3",
+                    “estLiquidationPrice”: “12000.05”,
+                    “lastUpdatedAt": "1592486212218"
+                        },
+                        ...
+                    ]
+   "balances": [
+                {
+                    "asset": "BTC",
+                    "total": "4468.823",              
+                    "available": "4468.823",        
+                    "reserved": "0",
+                    "lastUpdatedAt": "1593627415234”
+                },
+                {
+                    "asset": "FLEX",
+                    "total": "1585.890",              
+                    "available": "325.890",         
+                    "reserved": "1260",
+                    "lastUpdatedAt": "1593627415123"
+                },
+    “usdReward”: "200",
+    “flexReward”: "200",
+    “interestPaid”: “123”, // sum of all funding payments in tx_account_transfer
+    “apr”: "0.1",
+   “collateral”: “1231231”,           // notional USD
+                           “notionalPositionSize”: “5000.00”, //sum(position_qty * markPrice) position表里的quantity 乘以 markPrice，然后累加
+                           "portfolioVarMargin": "500",
+                           "riskRatio": "20.0000",                
+                             ‘maintenanceMargin’: ‘1231’,            // maintenance margin, maintenanceMargin = portfolioVarMargin / 2
+                            "marginRatio": "12.3179",             // like the GUI
+                           “liquidating”: false,         // flag to check if the account is being liquidated
+                            ‘feeTier’: ‘6’,                // account fee tier (VIP level)
+    "createdAt": "1623042343252",
+    "lastUpdatedAt": "1623142532134",
+      }
+…….
 }
+
+
+
+```
+> **Failure response Format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+...
+
+
+## Get AMM information - GET /v3/AMM
+
+> **Request**
+
+```json
+GET /v3/AMM?hashToken=[1,2,3,4 ……. ]
+```
+
+> **Succesful response Format**
+
+```json
+{
+    “success”: true,
+    "data": [
+     {
+    “hashToken”: “CF-BCH-AMM-ABCDE3iy“,
+    “leverage”: null, or string (0 to 10)    
+    “direction”: “BUY” or “SELL” or “NEUTRAL”,
+    “marketCode”: “BCH-USD-SWAP-LIN”,
+    “initialCollateral”: {“BCH”: “123”, “USD”: 0}    
+    “minPriceBound”: "200",
+    “maxPriceBound”: "800",
+    “status”: “ENDED” or “EXECUTING”,
+             "positions": [
+                        {
+                    "marketCode": "BTC-USD-SWAP-LIN",
+                    “baseAsset”: “BTC”,
+                    “counterAsset”: “USD”,
+                    "position": "0.94",
+                    "entryPrice": "7800.00", 
+                    “markPrice”: “33000.00”, 
+                    "positionPnl": "200.3",
+                    “estLiquidationPrice”: “12000.05”,
+                    “lastUpdatedAt": "1592486212218"
+                        },
+                        ...
+                    ]
+   "balances": [
+                {
+                    "asset": "BTC",
+                    "total": "4468.823",              
+                    "available": "4468.823",        
+                    "reserved": "0",
+                    "lastUpdatedAt": "1593627415234”
+                },
+                {
+                    "asset": "FLEX",
+                    "total": "1585.890",              
+                    "available": "325.890",         
+                    "reserved": "1260",
+                    "lastUpdatedAt": "1593627415123"
+                },
+    “usdReward”: "200",
+    “flexReward”: "200",
+    “interestPaid”: “123”, // sum of all funding payments in tx_account_transfer
+    “apr”: "0.1",
+   “collateral”: “1231231”,           // notional USD
+                           “notionalPositionSize”: “5000.00”, //sum(position_qty * markPrice) position表里的quantity 乘以 markPrice，然后累加
+                           "portfolioVarMargin": "500",
+                           "riskRatio": "20.0000",                
+                             ‘maintenanceMargin’: ‘1231’,            // maintenance margin, maintenanceMargin = portfolioVarMargin / 2
+                            "marginRatio": "12.3179",             // like the GUI
+                           “liquidating”: false,         // flag to check if the account is being liquidated
+                            ‘feeTier’: ‘6’,                // account fee tier (VIP level)
+    "createdAt": "1623042343252",
+    "lastUpdatedAt": "1623142532134",
+      }
+…….
 }
 
 ```
@@ -2709,6 +2841,136 @@ POST /v3/AMM/redeem
 “code”: “41002”,
 “message”: “Internal server error”
 }
+...
 
 
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+hashToken | List of STRING | YES | list filter, limit 10 AMM|
 
+## Get AMM orders - GET /v3/AMM
+
+> **Request**
+
+```json
+GET /v3/AMM/orders?hashToken={hashToken}
+```
+
+> **Succesful response Format**
+
+```json
+{ 
+“success”: true,
+"data": [
+{ 
+'orderId': '304354590153349202', 
+'clientOrderId': '1', 
+'marketCode': 'BTC-USD-SWAP-LIN', 
+'status': PARTIALLY_FILLED | OPEN
+'side': 'BUY', 
+'price': '1.0',
+'stopPrice': ‘0.9’,
+‘isTriggered’: true,
+'quantity': '0.001',
+'remainQuantity': '0.001',
+‘matchedQuantity’: ‘0’,
+“avgFillPrice”: ‘1’,
+“fees”: {‘USD’: "0", ‘FLEX’: “0”}
+'orderType': 'LIMIT', 
+'timeInForce': 'GTC'
+'createdAt': “1613089383656”, 
+'lastModifiedAt': “1613089383656”,
+‘lastMatchedAt’: “1613089383656”
+}]
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+hashToken | List of STRING | YES | filter|
+
+##Get AMM orders - GET /v3/AMM
+
+```json
+NEW - GET /v3/AMM/positions?hashToken=[1,2,3,4 ……. ]&marketCode={marketCode}
+```
+
+> **Succesful response Format**
+
+```json
+{
+    ”success”: true,
+    "data":  [
+        {
+“hashToken”: “CF-BCH-AMM-ABCDE3iy“,
+            "positions": [
+                {
+                    "marketCode": "BTC-USD-SWAP-LIN",
+                    “baseAsset”: “BTC”,
+                    “counterAsset”: “USD”,
+                    "position": "0.94",
+                    "entryPrice": "7800.00", 
+                    “markPrice”: “33000.00”, 
+                    "positionPnl": "200.3",
+                    “estLiquidationPrice”: “12000.05”,
+                    “lastUpdatedAt": "1592486212218"
+                },
+                ...
+            ]
+        },
+        ...
+    ]
+}
+...
+
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+hashToken | List of STRING | YES | filter|
+marketCode | STRING | NO | 
+
+Get AMM balances - GET /v3/AMM
+
+> **Request**
+
+```json
+NEW - GET /v3/AMM/balances?hashToken=[1,2,3,4 ……. ]&asset={asset}
+```
+
+> **Succesful response Format**
+
+```json
+{
+    “success”: true,
+    "data": [
+        {
+“hashToken”: “CF-BCH-AMM-ABCDE3iy“,
+            "balances": [
+                {
+                    "asset": "BTC",
+                    "total": "4468.823",              
+                    "available": "4468.823",        
+                    "reserved": "0",
+                    "lastUpdatedAt": "1593627415234”
+                },
+                {
+                    "asset": "FLEX",
+                    "total": "1585.890",              
+                    "available": "325.890",         
+                    "reserved": "1260",
+                    "lastUpdatedAt": "1593627415123"
+                },
+                ...
+            ]
+        },
+        ...
+    ]
+}
+
+...
+
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+hashToken | List of STRING | YES | list filter limit 10 AMM|
+marketCode | STRING | NO | 
