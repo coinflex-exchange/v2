@@ -1135,3 +1135,853 @@ fees   | STRING    |  Fees    |
 feeInstrumentId   | STRING    |   Instrument ID of the fees        |
 orderId   | STRING    |	Unique order ID from the exchange          |
 clientOrderID   | STRING    | Client assigned ID to help manage and identify orders  |
+
+###GET /v3/trades
+
+> **Request**
+
+```json
+GET /v3/trades?marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
+
+{
+  "limit": {limit},
+  "startTime": {startTime},
+  "endTime": {endTime}
+}
+```
+
+```python
+import requests
+import hmac
+import base64
+import hashlib
+import datetime
+from urllib.parse import urlencode
+
+rest_url = 'https://v3stgapi.coinflex.com'
+rest_path = 'v3stgapi.coinflex.com'
+
+api_key = <API-KEY>
+api_secret = <API-SECRET>
+
+ts = datetime.datetime.utcnow().isoformat()
+nonce = 123
+
+# REST API method, for example FLEX-USD spot trades
+method = '/v3/trades/FLEX-USD'
+
+# Optional for /v3/trades/{marketCode}
+body = urlencode({'limit': 10, 'startTime': 1611850042397, 'endTime': 1611850059021})
+
+if body:
+    path = method + '?' + body
+else:
+    path = method
+
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, body)
+sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+
+header = {'Content-Type': 'application/json', 'AccessKey': api_key,
+          'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
+
+resp = requests.get(rest_url + path, headers=header)
+print(resp.json())
+```
+
+> **Success response format**
+
+```json
+{
+  "event": "trades", 
+  "timestamp": 1595635101845, 
+  "accountId": "<Your Account ID>", 
+  "data": [ {
+              "matchId": "160067484555913077", 
+              "matchTimestamp": "1595514663626", 
+              "marketCode": "FLEX-USD", 
+              "matchQuantity": "0.1", 
+              "matchPrice": "0.065", 
+              "total": "0.0065", 
+              "orderMatchType": "TAKER", 
+              "fees": "0.0096", 
+              "feeInstrumentId": "FLEX", 
+              "orderId": "160067484555913076", 
+              "side": "SELL", 
+              "clientOrderId": "123"
+            },
+            ...
+          ]
+}
+```
+
+> **Failure response format**
+{
+“success”: false,
+“code”: “40002”,
+“message”: “Invalid key”
+}
+
+
+```python
+{
+  "event": "trades", 
+  "timestamp": 1595635101845, 
+  "accountId": "<Your Account ID>", 
+  "data": [ {
+              "matchId": "160067484555913077", 
+              "matchTimestamp": "1595514663626", 
+              "marketCode": "FLEX-USD", 
+              "matchQuantity": "0.1", 
+              "matchPrice": "0.065", 
+              "total": "0.0065", 
+              "orderMatchType": "TAKER", 
+              "fees": "0.0096", 
+              "feeInstrumentId": "FLEX", 
+              "orderId": "160067484555913076", 
+              "side": "SELL", 
+              "clientOrderId": "123"
+            },
+            ...
+          ]
+}
+```
+
+Returns the most recent trades of the account connected to the API key initiating the request.
+
+<sub>**Request Parameters**</sub> 
+
+Parameters | Type | Required |Description| 
+-------------------------- | -----|--------- | -------------|
+marketCode| STRING | YES |  | 
+limit| LONG | NO | Default `500`, max `1000` | 
+startTime| LONG | NO | Millisecond timestamp | 
+endTime| LONG | NO | Millisecond timestamp | 
+
+<sub>**Response Parameters**</sub> 
+
+Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+event | STRING | `trades`
+timestamp | INTEGER | Millisecond timestamp
+accountId | STRING    | Account ID
+data | LIST of dictionaries |
+matchId   | STRING    | Match ID          |
+matchTimestamp   | STRING    | Order Matched timestamp          |
+marketCode   | STRING    | Market code          |
+matchQuantity   | STRING    | Match quantity          |
+matchPrice   | STRING    | Match price          |
+total   | STRING    | Total price          |
+side   | STRING    |  Side of the match         |
+orderMatchType   | STRING    | `TAKER` or `MAKER` |
+fees   | STRING    |  Fees    |
+feeInstrumentId   | STRING    |   Instrument ID of the fees        |
+orderId   | STRING    |	Unique order ID from the exchange          |
+clientOrderID   | STRING    | Client assigned ID to help manage and identify orders  |
+
+### GET /v3/orders/history
+
+> **Request**
+
+```json
+GET /v3/orders/history?marketCode={marketCode}&orderId={orderId}&clientOrderId={clientOrderId}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+> **Success response format**
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+          "orderId": "304408197314577142",          // each orderId has only 1 response
+"clientOrderId": "1",                // clientOrderId can have many resp
+"marketCode": "BTC-USD-SWAP-LIN",
+“status": CLOSED | OPEN | PARTIALLY_FILLED | FILLED
+"side": "BUY",
+"price": "10006.0",
+“stopPrice”: null,
+“isTriggered”: false,
+"quantity": "0.001",
+"remainQuantity": "0.001",
+"matchedQuantity": "0.000",
+“avgFillPrice”: null,
+“fees”: {‘USD’: "0", ‘FLEX’: “0”}
+"orderType": "LIMIT",
+"timeInForce": "GTC",
+"createdAt": "1619121040779"
+            'lastModifiedAt': null,
+“lastMatchedAt”: null,
+"closedAt": "1619131050779",
+        },
+        ...
+    ]
+}
+```
+
+> **Failure response format**
+{
+“success”: false,
+“code”: “40002”,
+“message”: “Invalid key”
+}
+
+
+Returns all orders of the account connected to the API key initiating the request.
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+marketCode | STRING | NO | |
+orderId | LONG | NO | |
+clientOrderId | LONG | NO | |
+limit | LONG | NO | max `100`, default `100` |
+startTime | LONG | NO | e.g. `1579450778000`, default `0` |
+endTime | LONG | NO | e.g. `1613978625000`, default time now |
+
+
+Response Fields | Type | Description |
+--------------- | ---- | ----------- |
+accountId | STRING | Account ID |
+timestamp | STRING | Timestamp of this response |
+status | STRING | Status of the order |
+orderId | STRING | Order ID which generated by the server |
+clientOrderId | STRING | Client order ID which given by the user |
+marketCode | STRING | Market code |
+side | STRING | Side of the order, `BUY` or `SELL` |
+orderType | STRING | Type of the order, `LIMIT` or `STOP` |
+price | STRING | Price submitted |
+lastTradedPrice | STRING | Price when order was last traded |
+avgFillPrice | STRING | Average of filled price |
+stopPrice | STRING | Stop price for the stop order |
+limitPrice | STRING | Limit price for the stop limit order |
+quantity | STRING | Quantity submitted |
+remainQuantity | STRING | Remainning quantity |
+filledQuantity | STRING | Filled quantity |
+matchIds | LIST of dictionaries | Exchange matched IDs and information about matching orders |
+matchQuantity | STRING | Matched quantity |
+matchPrice | STRING | Matched price |
+orderMatchType | STRING | `MAKER` or `TAKER` |
+timestamp in matchIds | STRING | Time matched at|
+leg1Price | STRING | |
+leg2Price | STRING | |
+fees | LIST of dictionaries | Fees with instrument ID |
+timeInForce | STRING | Time in force |
+isTriggered | STRING | `true`(for stop order) or `false` |
+orderOpenedTimestamp | STRING | Order opened at |
+orderModifiedTimestamp | STRING | Order modified at |
+orderClosedTimestamp | STRING | Order closed at |
+
+
+###GET /v3/orders/working
+
+> **Request**
+
+```json
+GET /v3/orders/history?marketCode={marketCode}&orderId={orderId}&clientOrderId={clientOrderId}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+```python
+import requests
+import hmac
+import base64
+import hashlib
+import datetime
+from urllib.parse import urlencode
+
+rest_url = 'https://v3stgapi.coinflex.com'
+rest_path = 'v3stgapi.coinflex.com'
+
+api_key = <API-KEY>
+api_secret = <API-SECRET>
+
+ts = datetime.datetime.utcnow().isoformat()
+nonce = 123
+
+# REST API method
+method = '/v3/orders'
+
+# Not required for /v3/orders
+body = urlencode({})
+
+if body:
+    path = method + '?' + body
+else:
+    path = method
+
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, body)
+sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+
+header = {'Content-Type': 'application/json', 'AccessKey': api_key,
+          'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
+
+resp = requests.get(rest_url + path, headers=header)
+print(resp.json())
+```
+
+> **Success response format**
+
+```json
+ 
+“success”: true,
+"data": [ 
+{ 
+'orderId': '304354590153349202', 
+'clientOrderId': '1', 
+'marketCode': 'BTC-USD-SWAP-LIN', 
+'status': PARTIALLY_FILLED | OPEN
+'side': 'BUY', 
+'price': '1.0',
+'stopPrice': ‘0.9’,
+‘isTriggered’: true,
+'quantity': '0.001',
+'remainQuantity': '0.001',
+‘matchedQuantity’: ‘0’,
+“avgFillPrice”: ‘1’,
+“fees”: {‘USD’: "0", ‘FLEX’: “0”}
+'orderType': 'LIMIT', 
+'timeInForce': 'GTC'
+'createdAt': “1613089383656”, 
+'lastModifiedAt': null,
+‘lastMatchedAt’: null,
+}, 
+}
+```
+
+> **Failure response format**
+{
+“success”: false,
+“code”: “40002”,
+“message”: “Invalid key”
+}
+
+
+```python
+{
+  "event": "orders",
+  "timestamp": "1593617005438",
+  "accountId": "<Your Account ID>",
+  "data": [ {
+              "orderId": "160039151345856176",
+              "marketCode": "BTC-USD-SWAP-LIN",
+              "clientOrderId": null|"<clientOrderId>",              
+              "side": "BUY",
+              "orderType": "LIMIT"|"STOP",
+              "quantity": "1.00",
+              "remainingQuantity": "1.00",
+              "price": "1.00"|null,               #for limit order, null for stop order
+              "stopPrice": "<stopPrice>"|null,    #for stop order, null for limit order 
+              "limitPrice": "<limitPrice>"|null,  #for stop order, null for limit order 
+              "orderCreated": 1593617008698,
+              "lastModified": 1593617008698,
+              "lastTradeTimestamp": 1593617008698,
+              "timeInForce": "GTC"
+            },
+            ...
+          ]
+}
+```
+
+Returns all the open orders of the account connected to the API key initiating the request.
+
+<sub>**Response Parameters**</sub> 
+
+Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+event | STRING | `orders`
+timestamp | STRING | Millisecond timestamp
+accountId | STRING | Account ID
+data | LIST of dictionaries |
+orderId | STRING | Unique order ID from the exchange |
+marketCode| STRING | Market code |
+clientOrderId| STRING | Client assigned ID to help manage and identify orders |
+side | STRING | `BUY` or `SELL` |
+orderType | STRING | `LIMIT` or `STOP` |
+quantity  | STRING | Quantity submitted |
+remainingQuantity|STRING | Remainning quantity |
+price | STRING | Price submitted |
+stopPrice | STRING | Stop price for the stop order |
+limitPrice| STRING | Limit price for the stop limit order |
+orderCreated| INTEGER | Timestamp when order was created |
+lastModified| INTEGER | Timestamp when order was last mordified |
+lastTradeTimestamp| INTEGER | Timestamp when order was last traded |
+timeInForce | STRING | Time in force |
+
+###POST /v3/delivery
+
+> **Request**
+
+```json
+POST /v3/delivery
+
+{
+  "marketCode": {marketCode},    # Required
+  "qtyDeliver": {qtyDeliver}        # Required
+}
+
+```
+
+```python
+import requests
+import hmac
+import base64
+import hashlib
+import datetime
+from urllib.parse import urlencode
+
+rest_url = 'https://v2stgapi.coinflex.com'
+rest_path = 'v2stgapi.coinflex.com'
+
+api_key = <API-KEY>
+api_secret = <API-SECRET>
+
+ts = datetime.datetime.utcnow().isoformat()
+nonce = 123
+
+# REST API method
+method = '/v2.1/delivery/orders' 
+
+# Required for POST /v2.1/delivery/orders
+body = urlencode({"instrumentId": "BTC-USD-SWAP-LIN", "qtyDeliver": "1"})
+
+if body:
+    path = method + '?' + body
+else:
+    path = method
+
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'POST', rest_path, method, body)
+sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+
+header = {'Content-Type': 'application/json', 'AccessKey': api_key,
+          'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
+
+resp = requests.post(rest_url + path, headers=header)
+print(resp.json())
+```
+
+> **Success response format**
+
+```json
+{
+“success”: true,
+"data":  {
+               "deliveryId": "586985384617312258",
+               "marketCode": "BTC-USD-SWAP-LIN",
+               "status": "PENDING”,
+               "deliveryPrice": "10000.000",
+               "deliveryPosition": "1.000",
+               "deliveryType": "NEXT_CYCLE",
+               "deliveryAsset": "USD",
+                          "deliveryQuantity": "32000.000", // deliveryQuantity = quantity
+               "receiveAsset": "BTC",
+               "receiveQuantity": "1.000",
+     “deliveredQuantity”: “0.000” // deliveredQuantity = matchedQuantity
+     “receivedQuantity”: “0.000”                // how much of the receiveAsset was received
+               "remainingDeliveryPosition": "1.000",
+               "auctionTime": "1599204122693",
+               "createdAt": "1599204122693",
+               "lastUpdatedAt": "1599204122693",
+          }
+}
+
+```
+> **Failure response format**
+{
+“success”: false,
+“code”: “40002”,
+“message”: “Invalid key”
+}
+
+```python
+{
+  "event": "delivery",
+  "timestamp": "1599204123484",
+  "accountId": "164",
+  "data": [ {
+              "deliverOrderId": "586985384617312258",
+              "accountId": "164",
+              "clientOrderId": null,
+              "instrumentId": "BTC-USD-SWAP-LIN",
+              "deliverPrice": "10000.000000000",
+              "deliverPosition": "1.000",
+              "deliverType": "NEXT_CYCLE",
+              "instrumentIdDeliver": "BTC",
+              "deliverQty": "1.000",
+              "remainingQty": "1.000",
+              "remainingPosition": "1.000",
+              "transferAsset": "USD",
+              "transferQty": "1",
+              "auctionTime": "1599204122693",
+              "created": "1599204122693",
+              "lastUpdated": "1599204122693",
+              "status": "PENDING"
+          } ]
+}
+```
+
+Submits a request for physical delivery for a specified perpetual swap instrument and quantity.
+
+<sub>**Request Parameters**</sub> 
+
+Parameters | Type | Required |Description| 
+-------------------------- | -----|--------- | -------------|
+instrumentID| STRING | YES | Perpetual swap instrument intended for delivery | 
+qtyDeliver| STRING | YES | Quantity intended for delivery | 
+
+<sub>**Response Parameters**</sub> 
+
+Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+event | STRING | `delivery`
+timestamp | STRING | Millisecond timestamp of the repsonse
+accountId | STRING    | Account ID|
+data | LIST of dictionary |
+\>deliverOrderId | STRING | Order id
+\>accountId | STRING    | Account ID|
+\>clientOrderId | Null Type|  null
+\>instrumentId | STRING | Perpetual swap market code
+\>deliverPrice | STRING|  Mark price at delivery
+\>deliverPosition | STRING | Delivered position size
+\>deliverType | STRING| ‘NEXT_CYCLE’: Queueing for the upcoming auction
+\>instrumentIdDeliver | STRING |Asset being received: long position = coin, short position = USD
+\>deliverQty | STRING |  Quantity of the received asset
+\>remainingQty | STRING | Remaining quantity
+\>remainingPosition | STRING | Remaining position
+\>transferAsset | STRING | Asset being sent
+\>transferQty | STRING | Quantity being sent
+\>auctionTime | STRING | Millisecond timestamp of the next auction
+\>created | STRING | Millisecond timestamp
+\>lastUpdated | STRING | Millisecond timestamp 
+\>status | STRING | Delivery status
+
+###DELETE /v3/delivery
+> **Request**
+
+```json
+DELETE /v3/delivery
+{
+  "deliveryId": {deliveryId}        # LONG or STRING required
+}
+
+```
+
+```python
+import requests
+import hmac
+import base64
+import hashlib
+import datetime
+from urllib.parse import urlencode
+
+rest_url = 'https://v3stgapi.coinflex.com'
+rest_path = 'v3stgapi.coinflex.com'
+
+api_key = <API-KEY>
+api_secret = <API-SECRET>
+
+ts = datetime.datetime.utcnow().isoformat()
+nonce = 123
+
+# REST API method
+method = 'DELETE /v3/delivery'
+
+
+if body:
+    path = method + '?' + body
+else:
+    path = method
+
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'DELETE', rest_path, method, body)
+sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+
+header = {'Content-Type': 'application/json', 'AccessKey': api_key,
+          'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
+
+resp = requests.delete(rest_url + path, headers=header)
+print(resp.json())
+```
+
+> **Success response format**
+
+```json
+{
+“success”: true,
+“data”: [{
+               "deliveryId": "586985384617312258",
+               "marketCode": "BTC-USD-SWAP-LIN",
+               "status": "CANCELED”,
+               "deliveryPrice": "10000.000",
+               "deliveryPosition": "1.000",
+               "deliveryType": "NEXT_CYCLE",
+               "deliveryAsset": "USD",
+               "deliveryQuantity": "32000.000",
+               "receiveAsset": "BTC",
+               "receiveQuantity": "1.000",
+     “deliveredQuantity”: “0.000”
+     “receivedQuantity”: “0.000”                // how much of the receiveAsset was received
+               "remainingDeliveryPosition": "1.000",
+               "auctionTime": "1599204122693",
+               "createdAt": "1599204122693",
+     “closedAt”:  "1599204182693",
+               "lastUpdatedAt": "1599204122693",
+          }]
+}
+```
+
+```python
+{
+  "event": "delivery",
+  "timestamp": "1599204310297",
+  "accountId": "164",
+  "data": [
+            "Cancel of user order was successful"
+          ]
+}
+```
+> **Filure response format**
+
+```json
+{
+“success”: false,
+“code”: “40002”,
+“message”: “Invalid key”
+}
+```
+
+```python
+{
+  "event": "delivery",
+  "timestamp": "1599204310297",
+  "accountId": "164",
+  "data": [
+            "Cancel exception please try again"
+          ]
+}
+```
+###GET /v3/delivery
+> **Request**
+
+```json
+GET /v3/delivery?deliveryId={deliveryId}&marketCode={marketCode}&limit={limit} &startTime={startTime}&endTime={endTime}&status={status}
+```
+
+```python
+import requests
+import hmac
+import base64
+import hashlib
+import datetime
+from urllib.parse import urlencode
+
+rest_url = 'https://v3stgapi.coinflex.com'
+rest_path = 'v3stgapi.coinflex.com'
+
+api_key = <API-KEY>
+api_secret = <API-SECRET>
+
+ts = datetime.datetime.utcnow().isoformat()
+nonce = 123
+
+# REST API method
+method = '/v3/delivery?deliveryId={deliveryId}&marketCode={marketCode}&limit={limit} &startTime={startTime}&endTime={endTime}&status={status} 
+
+if body:
+    path = method + '?' + body
+else:
+    path = method
+
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, body)
+sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+
+header = {'Content-Type': 'application/json', 'AccessKey': api_key,
+          'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
+
+resp = requests.get(rest_url + path, headers=header)
+print(resp.json())
+```
+
+
+> **Success response format**
+
+```json
+{
+“success": true,
+"data": [ {
+               "deliveryId": "586985384617312258",
+               "marketCode": "BTC-USD-SWAP-LIN",
+               "status": "CANCELED”,
+               "deliveryPrice": "10000.000",
+               "deliveryPosition": "1.000",
+               "deliveryType": "NEXT_CYCLE",
+               "deliveryAsset": "USD",
+               "deliveryQuantity": "32000.000",
+               "receiveAsset": "BTC",
+               "receiveQuantity": "1.000",
+     “deliveredQuantity”: “0.000”
+     “receivedQuantity”: “0.000”                // how much of the receiveAsset was received
+               "remainingDeliveryPosition": "1.000",
+               "auctionTime": "1599204122693",
+               "createdAt": "1599204122693",
+     “closedAt”:  "1599204182693",
+               "lastUpdatedAt": "1599204122693",
+          }
+
+            }, { ……… },
+          ]
+}
+
+```
+
+> **Failure response format**
+
+{
+“success”: false,
+“code”: “40002”,
+“message”: “Invalid key”
+}
+
+
+```python
+{
+  "event": "deliverOrders",
+  "timestamp": "1596685339910",
+  "data": [ {
+              "timestamp": "1595781719394",
+              "instrumentId": "BTC-USD-SWAP-LIN",
+              "status": "DELIVERED",
+              "quantity": null,
+              "deliverPrice": "9938.480000000",
+              "transferAsset": "USD",
+              "transferQty": "993.848000000",
+              "instrumentIdDeliver": "BTC",
+              "deliverQty": "0.100000000",
+              "deliverOrderId": "575770851486007299",
+              "clientOrderId": null
+            },
+            {
+              "timestamp": "1595786511155",
+              "instrumentId": "BTC-USD-SWAP-LIN",
+              "status": "CANCELLED",
+              "quantity": null,
+              "deliverPrice": "9911.470000000",
+              "transferAsset": "USD",
+              "transferQty": "0.000000000",
+              "instrumentIdDeliver": "BTC",
+              "deliverQty": "0.000000000",
+              "deliverOrderId": "575786553086246913",
+              "clientOrderId": null
+            },
+          ]
+}
+```
+
+Returns the entire delivery history for the account connected to the API key initiating the request.
+
+<sub>**Response Parameters**</sub> 
+
+Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+event | STRING | `deliverOrders`
+timestamp | STRING | Millisecond timestamp of the repsonse
+data | LIST of dictionaries |
+timestamp | STRING | Millisecond timestamp of the delivery action
+instrumentId | STRING | Perpetual swap market code
+status | STRING | Request status
+quantity | Null Type| null
+deliverPrice | STRING|  Mark price at delivery
+transferAsset | STRING | Asset being sent
+transferQty | STRING | Quantity being sent
+instrumentIdDeliver | STRING |Asset being received: long position = coin, short position = USD
+deliverQty | STRING |  Quantity of the received asset
+deliverOrderId | STRING | Order id
+clientOrderId | Null Type|  null
+
+###GET /v3/funding
+> **Request**
+
+```json
+GET /v3/funding?marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+> **Success response format**
+
+```json
+{
+        "event": "fundingPayments,
+“success”: true,
+        "data": [
+                    {
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "payment": "12.12321"    // negative = user credit, positive = user debit
+            "fundingRate": "0.000005",
+            "position": "1.123"
+            "markPrice": "32000.21"
+            "createdAt/updatedAt": "162163213213"
+                    },...
+            ]
+}
+
+```
+
+> **Failure response format**
+
+{
+“event”: “fundingPayments”,
+“success”: false,
+“code”: “40002”,
+“message”: “Invalid key”
+}
+
+
+```python
+{
+  "event": "deliverOrders",
+  "timestamp": "1596685339910",
+  "data": [ {
+              "timestamp": "1595781719394",
+              "instrumentId": "BTC-USD-SWAP-LIN",
+              "status": "DELIVERED",
+              "quantity": null,
+              "deliverPrice": "9938.480000000",
+              "transferAsset": "USD",
+              "transferQty": "993.848000000",
+              "instrumentIdDeliver": "BTC",
+              "deliverQty": "0.100000000",
+              "deliverOrderId": "575770851486007299",
+              "clientOrderId": null
+            },
+            {
+              "timestamp": "1595786511155",
+              "instrumentId": "BTC-USD-SWAP-LIN",
+              "status": "CANCELLED",
+              "quantity": null,
+              "deliverPrice": "9911.470000000",
+              "transferAsset": "USD",
+              "transferQty": "0.000000000",
+              "instrumentIdDeliver": "BTC",
+              "deliverQty": "0.000000000",
+              "deliverOrderId": "575786553086246913",
+              "clientOrderId": null
+            },
+          ]
+}
+```
+
+Returns the entire delivery history for the account connected to the API key initiating the request.
+
+<sub>**Response Parameters**</sub> 
+
+Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+event | STRING | `deliverOrders`
+timestamp | STRING | Millisecond timestamp of the repsonse
+data | LIST of dictionaries |
+timestamp | STRING | Millisecond timestamp of the delivery action
+instrumentId | STRING | Perpetual swap market code
+status | STRING | Request status
+quantity | Null Type| null
+deliverPrice | STRING|  Mark price at delivery
+transferAsset | STRING | Asset being sent
+transferQty | STRING | Quantity being sent
+instrumentIdDeliver | STRING |Asset being received: long position = coin, short position = USD
+deliverQty | STRING |  Quantity of the received asset
+deliverOrderId | STRING | Order id
+clientOrderId | Null Type|  null
