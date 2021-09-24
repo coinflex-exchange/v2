@@ -597,6 +597,17 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-09-23</strong></p>
+
+<ul>
+<li>Updated REST API <a href="?json#rest-api-methods-private-get-v2-1-orders">GET /v2.1/orders</a>
+
+<ul>
+<li>Changed startTime default from 0 to 24 hours ago</li>
+<li>The range between startTime and endTime should be less than or equal to 7 days(<code>endTime - startTime &lt;= 7days</code>)</li>
+</ul></li>
+</ul>
+
 <p><strong>2021-09-17</strong></p>
 
 <ul>
@@ -6758,13 +6769,13 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>startTime</td>
 <td>LONG</td>
 <td>NO</td>
-<td>e.g. <code>1579450778000</code>, default <code>0</code></td>
+<td>e.g. <code>1579450778000</code>, default 24 hours ago, the range between startTime and endTime should be less than or equal to 7 days(<code>endTime - startTime &lt;= 7days</code>)</td>
 </tr>
 <tr>
 <td>endTime</td>
 <td>LONG</td>
 <td>NO</td>
-<td>e.g. <code>1613978625000</code>, default time now</td>
+<td>e.g. <code>1613978625000</code>, default time now, the range between startTime and endTime should be less than or equal to 7 days(<code>endTime - startTime &lt;= 7days</code>)</td>
 </tr>
 </tbody></table>
 
