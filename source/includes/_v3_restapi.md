@@ -2474,7 +2474,7 @@ quantity | STRING | Quantity of the asset |
 requestedAt | STRING | when the redeem request was made |
 redeemedAt | STRING | when the redemption was actually processed |
 
-## flexAsset earn history - GET /v3/flexasset/earned
+### flexAsset earn history - GET /v3/flexasset/earned
 
 > **Request**
 
@@ -2524,7 +2524,7 @@ quantity | STRING | Quantity of the asset |
 requestedAt | STRING | when the redeem request was made |
 redeemedAt | STRING | when the redemption was actually processed |
 
-## noteToken earn history - GET /v3/notetoken/earned
+### noteToken earn history - GET /v3/notetoken/earned
 
 > **Request**
 
@@ -2576,7 +2576,7 @@ redeemedAt | STRING | when the redemption was actually processed |
 
 ##AMM - Private
 
-## Create AMM - POST /v3/AMM/create
+### Create AMM - POST /v3/AMM/create
 
 > **Request**
 
@@ -2677,7 +2677,7 @@ CollateralQuantity | STRING | YES | E.G "50" minimum notional $200 |
 minPriceBound | STRING | YES | "200"|
 maxPriceBound | STRING | YES | "800"|
 
-## Redeem AMM - POST /v3/AMM/redeem
+### Redeem AMM - POST /v3/AMM/redeem
 
 > **Request**
 
@@ -2766,7 +2766,7 @@ POST /v3/AMM/redeem
 ...
 
 
-## Get AMM information - GET /v3/AMM
+### Get AMM information - GET /v3/AMM
 
 > **Request**
 
@@ -2850,7 +2850,7 @@ Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 hashToken | List of STRING | YES | list filter, limit 10 AMM|
 
-## Get AMM orders - GET /v3/AMM
+### Get AMM orders - GET /v3/AMM
 
 > **Request**
 
@@ -2891,7 +2891,7 @@ Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 hashToken | List of STRING | YES | filter|
 
-## Get AMM positions - GET /v3/AMM
+### Get AMM positions - GET /v3/AMM
 
 > **Request**
 
@@ -2931,7 +2931,7 @@ Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 hashToken | List of STRING | YES | filter|
 
-## Get AMM balances - GET /v3/AMM
+### Get AMM balances - GET /v3/AMM
 
 > **Request**
 
@@ -2974,7 +2974,7 @@ Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 hashToken | List of STRING | YES | filter|
 
-## Get AMM trades - GET /v3/AMM
+### Get AMM trades - GET /v3/AMM
 
 > **Request**
 
