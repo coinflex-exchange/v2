@@ -3685,7 +3685,7 @@ GET /v3/flexasset/trades?asset={asset}&marketCode={marketCode}&limit={limit} &st
 asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
 ```
 
-> **SUCCESSFUL RESPONSE**
+> **Sucess response format**
 
 ```json
 {
@@ -3707,7 +3707,7 @@ asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTim
 }]
 }
 ```
-> **SUCCESSFUL RESPONSE**
+> **Failure response format**
 {
 “success”: false,
 “code”: “40002”,
@@ -3739,3 +3739,274 @@ fees | STRING | Fees |
 feeInstrumentId | STRING | Instrument ID of the fees |
 orderId | STRING | Unique order ID from the exchange |
 clientOrderID | STRING | Client assigned ID to help manage and identify orders |
+
+### flexAsset delivery orders - GET /v3/flexasset/delivery
+
+> **Request**
+
+```json
+GET /v3/flexasset/delivery?asset={asset}&marketCode={marketCode}&limit={limit} &startTime={startTime}&endTime={endTime}&status={status}
+asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}&status={status}
+```
+
+> **Sucess response format**
+
+```json
+{
+{
+    "success": true,
+    “asset”: “flexUSD”,
+    "data": [
+        {
+"marketCode": "BTC-USD-SWAP-LIN",
+              "deliveryId": "575770851486007299",
+              "status": "PENDING",
+              "price": "9938.480000000",
+              "deliverAsset": "USD",
+              "deliverQty": "993.848000000",
+              "receiveAsset": "BTC",
+              "receiveQty": "0.100000000",
+              "createdAt": "1595781719394",
+    “lastMatchedAt”: "1595781719394", // null if no match yet (status == “PENDING”)
+    “
+            },
+            { ………………...}
+        },
+      ...
+    ]
+}
+```
+> **Failure response format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+marketCode | STRING | YES | |
+limit | LONG | NO | max `100`, default `100`, max `500` |
+startTime | LONG | NO | e.g. `1579450778000`, default `0` |
+endTime | LONG | NO | e.g. `1613978625000`, default time now |
+
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+matchId | STRING | Match ID |
+matchTimestamp | STRING | Order Matched timestamp |
+marketCode | STRING | Market code |
+matchQuantity | STRING | Match quantity |
+matchPrice | STRING | Match price |
+total | STRING | Total price |
+side | STRING | Side of the match |
+orderMatchType | STRING | `TAKER` or `MAKER` |
+fees | STRING | Fees |
+feeInstrumentId | STRING | Instrument ID of the fees |
+orderId | STRING | Unique order ID from the exchange |
+clientOrderID | STRING | Client assigned ID to help manage and identify orders |
+
+
+### flexAsset yields - GET /v3/flexasset/yields
+
+> **Request**
+
+```json
+ GET /v3/flexasset/yields?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+> **Sucess response format**
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "asset": "flexUSD",
+            "apr": "0.0001",
+            "interestRate": "0.0001",
+    “amount”: “1231”
+            "paidAt": "16003243243242"
+        },
+        {
+            "asset": "flexBTC",
+            "apr": "0.0001",
+            "interestRate": "0.0001",
+    “amount”: “1231”
+            "paidAt": "16003243243242"
+        },
+        ...
+    ]
+}
+
+
+```
+> **Failure response format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+marketCode | STRING | YES | |
+limit | LONG | NO | max `100`, default `100`, max `500` |
+startTime | LONG | NO | e.g. `1579450778000`, default `0` |
+endTime | LONG | NO | e.g. `1613978625000`, default time now |
+
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+matchId | STRING | Match ID |
+matchTimestamp | STRING | Order Matched timestamp |
+marketCode | STRING | Market code |
+matchQuantity | STRING | Match quantity |
+matchPrice | STRING | Match price |
+total | STRING | Total price |
+side | STRING | Side of the match |
+orderMatchType | STRING | `TAKER` or `MAKER` |
+fees | STRING | Fees |
+feeInstrumentId | STRING | Instrument ID of the fees |
+orderId | STRING | Unique order ID from the exchange |
+clientOrderID | STRING | Client assigned ID to help manage and identify orders |
+
+### noteToken yields - GET /v3/notetoken/yields
+
+> **Request**
+
+```json
+GET /v3/notetoken/yields?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+> **Sucess response format**
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "asset": "nibbioUSD",
+            "apr": "0.0001",
+            "interestRate": "0.0001",
+    “amount”: “1231”
+            "paidAt": "16003243243242"
+        },
+        {
+            "asset": "grapfruitUSD",
+            "apr": "0.0001",
+            "interestRate": "0.0001",
+    “amount”: “1231”
+            "paidAt": "16003243243242"
+        },
+        ...
+    ]
+}
+
+```
+> **Failure response format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+marketCode | STRING | YES | |
+limit | LONG | NO | max `100`, default `100`, max `500` |
+startTime | LONG | NO | e.g. `1579450778000`, default `0` |
+endTime | LONG | NO | e.g. `1613978625000`, default time now |
+
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+matchId | STRING | Match ID |
+matchTimestamp | STRING | Order Matched timestamp |
+marketCode | STRING | Market code |
+matchQuantity | STRING | Match quantity |
+matchPrice | STRING | Match price |
+total | STRING | Total price |
+side | STRING | Side of the match |
+orderMatchType | STRING | `TAKER` or `MAKER` |
+fees | STRING | Fees |
+feeInstrumentId | STRING | Instrument ID of the fees |
+orderId | STRING | Unique order ID from the exchange |
+clientOrderID | STRING | Client assigned ID to help manage and identify orders |
+
+### Leverage tiers - GET /v3/leverage-tiers?marketCode={marketCode}
+
+> **Request**
+
+```json
+GET /v3/leverage-tiers?marketCode={marketCode}
+
+marketCode={marketCode}
+```
+
+> **Sucess response format**
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+           "asset": "BTC",
+           "tiers": [[100, 5], [50, 20], [20, 100], [10, 350], … ] //[leverage, position] 
+        },
+        {
+           "asset": "ETH",
+           "tiers": [[100, 5], [50, 200], [20, 500], …]
+        },
+        ...
+    ]
+}
+
+```
+> **Failure response format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+marketCode | STRING | YES | |
+limit | LONG | NO | max `100`, default `100`, max `500` |
+startTime | LONG | NO | e.g. `1579450778000`, default `0` |
+endTime | LONG | NO | e.g. `1613978625000`, default time now |
+
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+matchId | STRING | Match ID |
+matchTimestamp | STRING | Order Matched timestamp |
+marketCode | STRING | Market code |
+matchQuantity | STRING | Match quantity |
+matchPrice | STRING | Match price |
+total | STRING | Total price |
+side | STRING | Side of the match |
+orderMatchType | STRING | `TAKER` or `MAKER` |
+fees | STRING | Fees |
+feeInstrumentId | STRING | Instrument ID of the fees |
+orderId | STRING | Unique order ID from the exchange |
+clientOrderID | STRING | Client assigned ID to help manage and identify orders |
+
