@@ -596,7 +596,7 @@ isTriggered | STRING | `true` or `false` |
 
 ##Account Wallet - Private
 
-#### GET /v3/accountinfo
+### GET /v3/accountinfo
 
 
 > **Request**
@@ -751,7 +751,7 @@ data | LIST of dictionary |
 \>riskRatio | STRING | collateralBalance / portfolioVarMargin, Orders are rejected/cancelled if the risk ratio drops below 1 and liquidation occurs if the risk ratio drops below 0.5
 \>timestamp | STRING | Millisecond timestamp
 
-#### GET /v3/balances
+### Balances - GET /v3/balances    
 
 > **Request**
 
@@ -877,7 +877,7 @@ available |STRING| Available balance|
 reserved|STRING|Reserved balance (unavailable) due to working spot orders|
 quantityLastUpdated|STRING|Millisecond timestamp of when balance was last updated|
 
-#### GET /v3/positions
+### Positions - GET /v3/positions    
 
 > **Request**
 
@@ -994,7 +994,7 @@ entryPrice | STRING | Average entry price |
 positionPnl | STRING | Postion profit and lost |
 estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative(<0) |
 
-#### GET /v3/positions
+### Trade History -  GET /v3/trades
 
 > **Request**
 
@@ -1136,7 +1136,7 @@ feeInstrumentId   | STRING    |   Instrument ID of the fees        |
 orderId   | STRING    |	Unique order ID from the exchange          |
 clientOrderID   | STRING    | Client assigned ID to help manage and identify orders  |
 
-###GET /v3/trades
+###Trade History -  GET /v3/trades
 
 > **Request**
 
@@ -1278,7 +1278,7 @@ feeInstrumentId   | STRING    |   Instrument ID of the fees        |
 orderId   | STRING    |	Unique order ID from the exchange          |
 clientOrderID   | STRING    | Client assigned ID to help manage and identify orders  |
 
-### GET /v3/orders/history
+### Order History  - GET /v3/orders/history
 
 > **Request**
 
@@ -1371,7 +1371,7 @@ orderModifiedTimestamp | STRING | Order modified at |
 orderClosedTimestamp | STRING | Order closed at |
 
 
-###GET /v3/orders/working
+###Order History  - GET /v3/orders/history
 
 > **Request**
 
@@ -1756,7 +1756,8 @@ print(resp.json())
           ]
 }
 ```
-###GET /v3/delivery
+
+###Delivery orders - GET /v3/delivery
 > **Request**
 
 ```json
@@ -1894,7 +1895,7 @@ deliverQty | STRING |  Quantity of the received asset
 deliverOrderId | STRING | Order id
 clientOrderId | Null Type|  null
 
-###GET /v3/funding
+###Funding Payments - GET /v3/funding
 > **Request**
 
 ```json
@@ -1986,7 +1987,7 @@ deliverQty | STRING |  Quantity of the received asset
 deliverOrderId | STRING | Order id
 clientOrderId | Null Type|  null
 
-###POST /v3/withdrawal
+###Withdrawal request - POST /v3/withdrawal
 > **Request**
 
 ```json
@@ -2035,7 +2036,7 @@ externalFee | BOLEAN |Required, if externalFee is true, fee will be deducted fro
 2faType | STRING |  Authy_SECRET or GOOGLE or YUBIKEY
 code | STRING | 2FA if required by the account
 
-### GET /v3/withdrawal
+### Withdrawal history - GET /v3/withdrawal
 > **Request**
 
 ```json
@@ -2085,7 +2086,8 @@ Limit | LONG | NO | Max 200, Default 50 |
 startTime | LONG | NO | e.g. 1579450778000, default 24 hours ago|
 endTime | LONG | NO | | e.g. 1613978625000, default time now
 
-### GET /v3/deposit-address
+### Deposit address - GET /v3/deposit-address
+
 > **Request**
 
 ```json
@@ -2123,7 +2125,7 @@ Asset | STRING | YES |
 Network | STRING | YES 
 
 
-### GET /v3/deposit-history
+### Deposit history - GET /v3/deposit-history
 > **Request**
 
 ```json
@@ -2169,7 +2171,7 @@ startTime | LONG | NO | e.g. 1579450778000, default 24 hours ago|
 endTime | LONG | NO | | e.g. 1613978625000, default time now
 
 
-###  GET /v3/withdrawal-addresses
+###  List withdrawal addresses - GET /v3/withdrawal-addresses
 > **Request**
 
 ```json
@@ -2201,7 +2203,7 @@ endTime | LONG | NO | | e.g. 1613978625000, default time now
 “message”: “Internal server error”
 }
 
-###  GET /v3/withdrawal-fee
+###  Withdrawal fee estimate - GET /v3/withdrawal-fee
 > **Request**
 
 ```json
@@ -2247,7 +2249,7 @@ Memo | STRING | NO | Required only for 2 part addresses|
 Quantity | STRING | YES | Quantity to withdraw|
 externalFee | BOOL | YES | If True then the fee will be in addition to the quantity provided|
 
-###  POST /v3/transfer
+###  Sub-account balance transfer - POST /v3/transfer
 > **Request**
 
 ```json
@@ -2275,7 +2277,7 @@ POST /v3/transfer
 
 ##Flex Assets - Private
 
-### POST /v3/flexasset/mint
+### flexAsset mint - POST /v3/flexasset/mint 
 
 Mint.
 
@@ -2323,7 +2325,7 @@ accountId | STRING | Account ID |
 asset | STRING | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
 quantity | STRING | Quantity of the asset |
 
-### POST /v3/flexasset/redeem
+### flexAsset redeem - POST /v3/flexasset/redeem
 
 Redeem.
 
@@ -2378,7 +2380,7 @@ quantity | STRING | Quantity of the asset |
 redeemAt | STRING | Redeemed time |
 type | STRING | Redeem type, available types: `Normal`, `Instant` |
 
-### GET /v3/flexasset/mint
+### flexAsset mint history - GET /v3/flexasset/mint
 
 Get mint history by asset and sorted by time in descending order.
 
@@ -2424,7 +2426,7 @@ asset | STRING | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, 
 quantity | STRING | Quantity of the asset |
 mintedAt | STRING | Minted time in millisecond timestamp |
 
-## GET /v3/flexasset/redeem
+### flexAsset redeem history - GET /v3/flexasset/redeem
 
 Get redemption history by asset and sorted by time in descending order.
 
@@ -2472,7 +2474,7 @@ quantity | STRING | Quantity of the asset |
 requestedAt | STRING | when the redeem request was made |
 redeemedAt | STRING | when the redemption was actually processed |
 
-## GET /v3/flexasset/earned
+## flexAsset earn history - GET /v3/flexasset/earned
 
 > **Request**
 
@@ -2522,7 +2524,7 @@ quantity | STRING | Quantity of the asset |
 requestedAt | STRING | when the redeem request was made |
 redeemedAt | STRING | when the redemption was actually processed |
 
-## GET /v3/notetoken/earned
+## noteToken earn history - GET /v3/notetoken/earned
 
 > **Request**
 
@@ -3443,7 +3445,7 @@ GET /v3/depth?marketCode={marketCode}&level={level}
 marketCode={marketCode}&level={level}
 ```
 
-> **SUCCESSFUL RESPONSE**
+> **Sucess response format**
 
 ```json
 {
@@ -3467,7 +3469,7 @@ marketCode={marketCode}&level={level}
 }
 }
 ```
-> **SUCCESSFUL RESPONSE**
+> **Failure response format**
 {
 “success”: false,
 “code”: “41002”,
@@ -3486,3 +3488,254 @@ bids | LIST of floats | Buy side depth: <ol><li>price</li><li>quantity</li><li>0
 marketCode | STRING | |
 timestamp | STRING | |
 
+## flexAssets - Public
+
+### flexAsset balances - GET /v3/flexasset/balances/{asset}
+
+Get flexAsset balances.
+
+> **Request**
+
+```json
+GET /v3/flexasset/balances/{asset}
+```
+
+> **Sucess response format**
+
+```json
+{
+'success’: true,
+'asset': ‘flexUSD’,
+'data':  [{
+'instrumentId': 'BAND', 
+'total': '0.00000000', 
+'available': '0.00000000', 
+'reserved': '0.00000000', 
+'lastUpdatedAt': '1602918327182'
+}, 
+{
+'instrumentId': 'BNB', 
+'total': '0.00000000', 
+'available': '0.00000000', 
+'reserved': '0.00000000', 
+'lastUpdatedAt': '1602647599866'
+}]
+}
+```
+
+> **Failure response format**
+{
+“success”: false,
+“code”: “40002”,
+“message”: “Invalid key”
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+tradeType | STRING | Trade type |
+flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+instrumentId | STRING |Coin symbol, e.g. 'BTC' |
+total| STRING | Total balance |
+available | STRING | Available balance |
+reserved | STRING|Reserved balance (unavailable) due to working spot orders |
+quantityLastUpdated | STRING|Millisecond timestamp of when balance was last updated |
+
+### flexAsset positions - GET /v3/flexasset/positions
+
+Get flexAsset positions.
+
+> **Request**
+
+```json
+GET /v3/flexasset/positions?asset={asset}
+asset={asset}
+```
+> **Sucessful response format**
+
+```json
+{
+'success': true,
+'data': [{
+"marketCode": "BTC-USD-SWAP-LIN",
+    “baseAsset”: “BTC”,
+    “counterAsset”: “USD”,
+"quantity": "-0.94",
+              "entryPrice": "7800.00", 
+“markPrice”: “33000.00”, 
+              "positionPnl": "200.3",
+“estLiquidationPrice”: “12000.05”,
+“lastUpdatedAt": "1592486212218"      
+},
+{
+"marketCode": "ETH-USD-SWAP-LIN",
+    “baseAsset”: “ETH”,
+    “counterAsset”: “USD”,
+"quantity": "0.94",
+              "entryPrice": "7800.00", 
+“markPrice”: “33000.00”, 
+              "positionPnl": "200.3",
+“estLiquidationPrice”: “12000.05”,
+“lastUpdatedAt": "1592486212218"      
+},.....]
+
+}
+```
+> **Failure response format**
+{
+“success”: false,
+“code”: “40002”,
+“message”: “Invalid key”
+}
+```
+
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+instrumentId | STRING | Contract symbol, e.g. `FLEX-USD-SWAP-LIN` |
+quantity | STRING | Quantity of position, e.g. `0.94` |
+lastUpdated | STRING | Timestamp when position was last updated |
+contractValCurrency | STRING | Contract valuation currency |
+entryPrice | STRING | Average entry price |
+positionPnl | STRING | Postion profit and lost |
+
+### flexAsset open orders - GET /v3/flexasset/orders
+
+Get flexAsset orders.
+
+> **Request**
+
+```json
+GET /v3/flexasset/orders?asset={asset}
+asset={asset}
+```
+
+> **Sucessful response format**
+
+```json
+{
+‘success’: true,
+'asset': ‘flexUSD’,
+'data': [{
+'orderId': '304354590153349202', 
+'clientOrderId': '1', 
+'marketCode': 'BTC-USD-SWAP-LIN', 
+'side': 'BUY', 
+'orderType': 'LIMIT', 
+'quantity': '0.001', 
+'remainQuantity': '0.001',
+‘matchedQuantity’: ‘0’,
+'price': '1.0',
+'stopPrice': Null, 
+'createdAt': “1613089383656”, 
+'lastModifiedAt': “1613089383656”,
+‘lastMatchedAt’: “1613089383656”,
+'timeInForce': 'GTC'
+}]
+}
+```
+> **Failure response format**
+{
+“success”: false,
+“code”: “40002”,
+“message”: “Invalid key”
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+orderId | STRING | Unique order ID from the exchange |
+marketCode| STRING | Market code |
+clientOrderId| STRING | Client assigned ID to help manage and identify orders |
+side | STRING | `BUY` or `SELL` |
+orderType | STRING | `LIMIT` or `STOP` |
+quantity  | STRING | Quantity submitted |
+remainingQuantity|STRING | Remainning quantity |
+price | STRING | Price submitted |
+stopPrice | STRING | Stop price for the stop order |
+limitPrice| STRING | Limit price for the stop limit order |
+orderCreated| INTEGER | Timestamp when order was created |
+lastModified| INTEGER | Timestamp when order was last mordified |
+lastTradeTimestamp| INTEGER | Timestamp when order was last traded |
+timeInForce | STRING | Time in force |
+
+### flexAsset trades - GET v3/flexasset/trades
+
+Get flexAsset trades.
+
+> **Request**
+
+```json
+GET /v3/flexasset/trades?asset={asset}&marketCode={marketCode}&limit={limit} &startTime={startTime}&endTime={endTime}
+
+asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+> **SUCCESSFUL RESPONSE**
+
+```json
+{
+‘success: true,
+'asset': ‘flexUSD’,
+'data':[{
+        "orderId": "160067484555913076",
+              "clientOrderId": "123",
+              "matchId": "160067484555913077",
+              "marketCode": "FLEX-USD",
+        "side": "SELL",
+              "matchQuantity": "0.1",
+              "matchPrice": "0.065",
+              "total": "0.0065",
+              "orderMatchType": "TAKER",
+    “feeAsset”: "FLEX”,
+           "fee”: "0.0096",
+    "lastMatchedAt": "1595514663626"
+}]
+}
+```
+> **SUCCESSFUL RESPONSE**
+{
+“success”: false,
+“code”: “40002”,
+“message”: “Invalid key”
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+marketCode | STRING | YES | |
+limit | LONG | NO | max `100`, default `100`, max `500` |
+startTime | LONG | NO | e.g. `1579450778000`, default `0` |
+endTime | LONG | NO | e.g. `1613978625000`, default time now |
+
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+matchId | STRING | Match ID |
+matchTimestamp | STRING | Order Matched timestamp |
+marketCode | STRING | Market code |
+matchQuantity | STRING | Match quantity |
+matchPrice | STRING | Match price |
+total | STRING | Total price |
+side | STRING | Side of the match |
+orderMatchType | STRING | `TAKER` or `MAKER` |
+fees | STRING | Fees |
+feeInstrumentId | STRING | Instrument ID of the fees |
+orderId | STRING | Unique order ID from the exchange |
+clientOrderID | STRING | Client assigned ID to help manage and identify orders |
