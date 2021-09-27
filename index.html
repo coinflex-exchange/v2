@@ -2034,7 +2034,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>dataArray</td>
 <td>LIST of dictionaries</td>
 <td>Yes</td>
-<td>A list of orders with each order in JSON format, the same format/parameters as the request for placing a single order.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be placed in a batch, assuming that each order JSON has 200 characters.</td>
+<td>A list of orders with each order in JSON format, the same format/parameters as the request for placing a single order. The max number of orders is still limited by the message length validation so by default up to 20 orders can be placed in a batch, assuming that each order JSON has 200 characters.</td>
 </tr>
 </tbody></table>
 <h3 id='websocket-api-order-commands-cancel-order'>Cancel Order</h3>
@@ -7740,6 +7740,10 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Place orders.</p>
+
+<aside class="notice">
+You can place up to 8 orders at a time by default in REST API
+</aside>
 
 <table><thead>
 <tr>
