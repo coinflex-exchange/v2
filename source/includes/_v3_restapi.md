@@ -696,31 +696,11 @@ print(resp.json())
 
 > **Failure response format**
 
+```json
 {
 “success”: false,
 “code”: “40001”,
 “message”: “Account not found”
-}
-
-
-```
-
-```python
-{
-  "event": "accountinfo",
-  "timestamp": 1611665626191
-  "accountId": "<Your Account ID>",
-  "data": [ {
-              "accountId": "<Your Account ID>",
-              "tradeType": "LINEAR",
-              "marginCurrency": "USD",
-              "totalBalance": "10000",
-              "availableBalance": "10000",
-              "collateralBalance": "10000",
-              "portfolioVarMargin": "500",
-              "riskRatio": "20.0000",
-              "timestamp": "1611665624601"
-          } ]
 }
 ```
 
@@ -821,35 +801,11 @@ print(resp.json())
 }
 ```
 > **Failure response format**
-
+```json
 {
 “success”: false,
 “code”: “40001”,
 “message”: “Account not found”
-}
-
-```python
-{
-  "event": "balances",
-  "timestamp": 1611665626191,
-  "accountId": "<Your Account ID>",
-  "tradeType": "LINEAR",
-  "data": [ {   
-              "instrumentId": "BTC",
-              "total": "4468.823",              
-              "available": "4468.823",        
-              "reserved": "0",
-              "quantityLastUpdated": "1593627415234"
-            },
-            ...
-            {
-              "instrumentId": "FLEX",
-              "total": "1585.890",              
-              "available": "325.890",         
-              "reserved": "1260",
-              "quantityLastUpdated": "1593627415123"
-            }
-          ]
 }
 ```
 
@@ -946,11 +902,13 @@ print(resp.json())
 ```
 > **Failure response format**
 
+```json
 {
 “success”: false,
 “code”: “40002”,
 “message”: “Invalid authentication”
 }
+```
 
 ```python
 {
@@ -1066,12 +1024,13 @@ print(resp.json())
 
 ```
 > **Failure response format**
-
+```json
 {
 “success”: false,
 “code”: “40002”,
 “message”: “Invalid authentication”
 }
+```
 
 ```python
 {
@@ -1170,12 +1129,13 @@ GET /v3/orders/history?marketCode={marketCode}&orderId={orderId}&clientOrderId={
 ```
 
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “40002”,
 “message”: “Invalid key”
 }
-
+```
 
 Returns all orders of the account connected to the API key initiating the request.
 
@@ -1300,11 +1260,13 @@ print(resp.json())
 
 ```
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “40002”,
 “message”: “Invalid key”
 }
+```
 
 ```python
 {
@@ -1548,13 +1510,13 @@ print(resp.json())
 ```
 
 > **Failure response format**
-
+```json
 {
 “success”: false,
 “code”: “40002”,
 “message”: “Invalid key”
 }
-
+```
 
 ```python
 {
@@ -1639,14 +1601,14 @@ GET /v3/funding?marketCode={marketCode}&limit={limit}&startTime={startTime}&endT
 ```
 
 > **Failure response format**
-
+```json
 {
 “event”: “fundingPayments”,
 “success”: false,
 “code”: “40002”,
 “message”: “Invalid key”
 }
-
+```
 
 ```python
 {
@@ -1731,13 +1693,13 @@ clientOrderId | Null Type|  null
 ```
 
 > **Failure response format**
-
+```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
-
+```
 
 <sub>**Request Parameters**</sub> 
 
@@ -1783,12 +1745,13 @@ code | STRING | 2FA if required by the account
 ```
 
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
-
+```
 
 
 
@@ -1870,12 +1833,13 @@ Network | STRING | YES
 ```
 
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
-
+```
 
 <sub>**Request Parameters**</sub> 
 
@@ -1913,11 +1877,13 @@ endTime | LONG | NO | | e.g. 1613978625000, default time now
 ```
 
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
+```
 
 ###  Withdrawal fee estimate - GET /v3/withdrawal-fee
 > **Request**
@@ -1946,12 +1912,13 @@ endTime | LONG | NO | | e.g. 1613978625000, default time now
 ```
 
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
-
+```
 
 
 <sub>**Request Parameters**</sub> 
@@ -1985,11 +1952,13 @@ POST /v3/transfer
 ```
 
 > **Failure response format**
+```
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
+```
 
 ##Flex Assets - Private
 
@@ -2023,12 +1992,13 @@ POST /v3/flexasset/mint
 
 ```
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
-
+```
 
 Request Parameters | Type | Required | Description | 
 ------------------ | ---- | -------- | ----------- |
@@ -2055,7 +2025,6 @@ POST /v3/flexasset/redeem
  "quantity": 1000,        # FLOAT or STRING Required
  "type": "normal" | “immediate”        # STRING Required
 }
-
 ```
 
 > **SUCCESSFUL RESPONSE**
@@ -2074,12 +2043,13 @@ POST /v3/flexasset/redeem
 
 ```
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
-
+```
 
 
 Request Parameters | Type | Required | Description | 
@@ -2120,12 +2090,13 @@ GET /v3/flexasset/mint?asset={asset}&limit={limit}&startTime={startTime}&endTime
 }
 ```
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
-
+```
 
 
 Request Parameters | Type | Required | Description | 
@@ -2168,12 +2139,13 @@ GET /v3/flexasset/redeem?asset={asset}&type={type}&limit={limit}&startTime={star
 }
 ```
 > **Failure response Format**
+```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
-
+```
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
@@ -2217,12 +2189,13 @@ GET  /v3/flexasset/earned?asset={asset}&limit={limit}&startTime={startTime}&endT
 
 ```
 > **Failure response Format**
+```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
-
+```
 
 
 Request Parameters | Type | Required | Description |
@@ -2266,12 +2239,13 @@ GET  /v3/notetoken/earned?asset={asset}&limit={limit}&startTime={startTime}&endT
 
 ```
 > **Failure response Format**
+```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
-
+```
 
 
 
@@ -2377,11 +2351,13 @@ Unleveraged neutral
 }
 ```
 > **Failure response Format**
+```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
+```
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
@@ -2474,6 +2450,7 @@ POST /v3/AMM/redeem
 
 ```
 > **Failure response Format**
+```json
 {
 “success”: false,
 “code”: “41002”,
@@ -2554,6 +2531,7 @@ GET /v3/AMM?hashToken=[1,2,3,4 ……. ]
 
 ```
 > **Failure response Format**
+```json
 {
 “success”: false,
 “code”: “41002”,
@@ -2770,12 +2748,13 @@ GET /v3/markets`
 
 ```
 > **Failure response Format**
+ 
+```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
-
 ```
 Get a list of all available markets on CoinFlex.
 
@@ -2830,13 +2809,12 @@ GET /v3/assets
 
 ```
 > **Failure response Format**
+```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
-
-
 ```
 Get a list of all available markets on CoinFlex.
 
@@ -2893,15 +2871,14 @@ GET /v3/ticker?marketCode={marketCode}
 ```
 
 > **Failure response Format**
+```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
-
-
-
 ```
+
 Get a list of all available markets on CoinFlex.
 
 Response Parameters |Type | Description| 
@@ -2951,6 +2928,7 @@ marketCode={marketCode}
 
 ```
 > **Failure response Format**
+```json
  {
 “success”: false,
 “code”: “41002”,
@@ -2980,7 +2958,7 @@ GET /v3/funding-rates?marketCode={marketCode}&limit={limit}&startTime={startTime
 marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
 ```
 
-> **SUCCESSFUL RESPONSE**
+> **Success response format**
 
 ```json
 {
@@ -2998,7 +2976,8 @@ marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
     ]
 }
 ```
-> **FAILURE RESPONSE RESPONSE**
+
+> **Failure response format**
 ```json
 {
 “success”: false,
@@ -3052,6 +3031,7 @@ GET /v3/exchange-trades?marketCode={marketCode}&limit={limit}
 
 ```
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “41002”,
@@ -3123,6 +3103,7 @@ marketCode={marketCode}&timeframe={timeframe}&limit={limit}&startTime={startTime
 }
 ```
 > **Failure response format**
+```json
  {
 “success”: false,
 “code”: “41002”,
@@ -3186,12 +3167,12 @@ marketCode={marketCode}&level={level}
 }
 ```
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
-
 ```
 
 Response Fields | Type | Description |
@@ -3240,6 +3221,7 @@ GET /v3/flexasset/balances/{asset}
 ```
 
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “40002”,
@@ -3302,6 +3284,7 @@ asset={asset}
 }
 ```
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “40002”,
@@ -3360,6 +3343,7 @@ asset={asset}
 }
 ```
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “40002”,
@@ -3424,6 +3408,7 @@ asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTim
 }
 ```
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “40002”,
@@ -3493,6 +3478,7 @@ asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTim
 }
 ```
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “41002”,
@@ -3562,6 +3548,7 @@ clientOrderID | STRING | Client assigned ID to help manage and identify orders |
 
 ```
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “41002”,
@@ -3629,6 +3616,7 @@ asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
 
 ```
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “41002”,
@@ -3692,13 +3680,12 @@ marketCode={marketCode}
 
 ```
 > **Failure response format**
+```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
-
-
 ```
 
 Request Parameters | Type | Required | Description |
