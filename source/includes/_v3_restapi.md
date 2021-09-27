@@ -97,7 +97,7 @@ The signature must then be included in the header of the REST API call like so:
 
 ##Order Commands - Private
 
-### POST /v3/orders/place
+### Place order - POST /v3/orders/place
 
 > **Request**
 
@@ -226,7 +226,7 @@ timeInForce | STRING | |
 orderType | STRING | |
 
 
-### POST /v3/orders/modify
+### Modify order - POST /v3/orders/modify
 > **Request**
 
 ```json
@@ -372,13 +372,15 @@ orderType | STRING | |
 isTriggered | STRING | `true` or `false` |
 
 
-### DELETE /v3/orders/cancel
+### Cancel order by ID - DELETE /v3/orders/cancel
 
 > **Request**
 
 ```json
 
+DELETE /v3/orders/cancel
 {
+
     "recvWindow": 500,        
 “timestamp”: 235536,         
     "responseType": “FULL” or “ACK”   
@@ -484,26 +486,14 @@ orderType | STRING | |
 isTriggered | STRING | `true` or `false` |
 
 
-### DELETE /v3/orders/cancel-all    
+### Cancel ALL orders - DELETE /v3/orders/cancel-all 
 
 > **Request**
 
 ```json
-
+DELETE /v3/orders/cancel-all
 {
-    "recvWindow": 500,        
-“timestamp”: 235536,         
-    "responseType": “FULL” or “ACK”   
-"orders": [
-        {
-            "marketCode": "BTC-USD-SWAP-LIN",  
-        },
-        {
-            "marketCode": "BTC-USD-SWAP-LIN",
-"orderId": "204285250571714316",
-            "clientOrderId": "1612249737724”
-        }
-    ]
+“marketCode”: “FLEX-USD”        # STRING optional, if this is sent cancel ALL orders for the market code. If this is NULL or not sent then cancel ALL orders for the account. 
 }
 
 ```
@@ -1136,148 +1126,6 @@ feeInstrumentId   | STRING    |   Instrument ID of the fees        |
 orderId   | STRING    |	Unique order ID from the exchange          |
 clientOrderID   | STRING    | Client assigned ID to help manage and identify orders  |
 
-###Trade History -  GET /v3/trades
-
-> **Request**
-
-```json
-GET /v3/trades?marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
-
-{
-  "limit": {limit},
-  "startTime": {startTime},
-  "endTime": {endTime}
-}
-```
-
-```python
-import requests
-import hmac
-import base64
-import hashlib
-import datetime
-from urllib.parse import urlencode
-
-rest_url = 'https://v3stgapi.coinflex.com'
-rest_path = 'v3stgapi.coinflex.com'
-
-api_key = <API-KEY>
-api_secret = <API-SECRET>
-
-ts = datetime.datetime.utcnow().isoformat()
-nonce = 123
-
-# REST API method, for example FLEX-USD spot trades
-method = '/v3/trades/FLEX-USD'
-
-# Optional for /v3/trades/{marketCode}
-body = urlencode({'limit': 10, 'startTime': 1611850042397, 'endTime': 1611850059021})
-
-if body:
-    path = method + '?' + body
-else:
-    path = method
-
-msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, body)
-sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
-
-header = {'Content-Type': 'application/json', 'AccessKey': api_key,
-          'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
-
-resp = requests.get(rest_url + path, headers=header)
-print(resp.json())
-```
-
-> **Success response format**
-
-```json
-{
-  "event": "trades", 
-  "timestamp": 1595635101845, 
-  "accountId": "<Your Account ID>", 
-  "data": [ {
-              "matchId": "160067484555913077", 
-              "matchTimestamp": "1595514663626", 
-              "marketCode": "FLEX-USD", 
-              "matchQuantity": "0.1", 
-              "matchPrice": "0.065", 
-              "total": "0.0065", 
-              "orderMatchType": "TAKER", 
-              "fees": "0.0096", 
-              "feeInstrumentId": "FLEX", 
-              "orderId": "160067484555913076", 
-              "side": "SELL", 
-              "clientOrderId": "123"
-            },
-            ...
-          ]
-}
-```
-
-> **Failure response format**
-{
-“success”: false,
-“code”: “40002”,
-“message”: “Invalid key”
-}
-
-
-```python
-{
-  "event": "trades", 
-  "timestamp": 1595635101845, 
-  "accountId": "<Your Account ID>", 
-  "data": [ {
-              "matchId": "160067484555913077", 
-              "matchTimestamp": "1595514663626", 
-              "marketCode": "FLEX-USD", 
-              "matchQuantity": "0.1", 
-              "matchPrice": "0.065", 
-              "total": "0.0065", 
-              "orderMatchType": "TAKER", 
-              "fees": "0.0096", 
-              "feeInstrumentId": "FLEX", 
-              "orderId": "160067484555913076", 
-              "side": "SELL", 
-              "clientOrderId": "123"
-            },
-            ...
-          ]
-}
-```
-
-Returns the most recent trades of the account connected to the API key initiating the request.
-
-<sub>**Request Parameters**</sub> 
-
-Parameters | Type | Required |Description| 
--------------------------- | -----|--------- | -------------|
-marketCode| STRING | YES |  | 
-limit| LONG | NO | Default `500`, max `1000` | 
-startTime| LONG | NO | Millisecond timestamp | 
-endTime| LONG | NO | Millisecond timestamp | 
-
-<sub>**Response Parameters**</sub> 
-
-Parameters |Type | Description| 
--------------------------- | -----|--------- |
-event | STRING | `trades`
-timestamp | INTEGER | Millisecond timestamp
-accountId | STRING    | Account ID
-data | LIST of dictionaries |
-matchId   | STRING    | Match ID          |
-matchTimestamp   | STRING    | Order Matched timestamp          |
-marketCode   | STRING    | Market code          |
-matchQuantity   | STRING    | Match quantity          |
-matchPrice   | STRING    | Match price          |
-total   | STRING    | Total price          |
-side   | STRING    |  Side of the match         |
-orderMatchType   | STRING    | `TAKER` or `MAKER` |
-fees   | STRING    |  Fees    |
-feeInstrumentId   | STRING    |   Instrument ID of the fees        |
-orderId   | STRING    |	Unique order ID from the exchange          |
-clientOrderID   | STRING    | Client assigned ID to help manage and identify orders  |
-
 ### Order History  - GET /v3/orders/history
 
 > **Request**
@@ -1369,141 +1217,6 @@ isTriggered | STRING | `true`(for stop order) or `false` |
 orderOpenedTimestamp | STRING | Order opened at |
 orderModifiedTimestamp | STRING | Order modified at |
 orderClosedTimestamp | STRING | Order closed at |
-
-
-###Order History  - GET /v3/orders/history
-
-> **Request**
-
-```json
-GET /v3/orders/history?marketCode={marketCode}&orderId={orderId}&clientOrderId={clientOrderId}&limit={limit}&startTime={startTime}&endTime={endTime}
-```
-
-```python
-import requests
-import hmac
-import base64
-import hashlib
-import datetime
-from urllib.parse import urlencode
-
-rest_url = 'https://v3stgapi.coinflex.com'
-rest_path = 'v3stgapi.coinflex.com'
-
-api_key = <API-KEY>
-api_secret = <API-SECRET>
-
-ts = datetime.datetime.utcnow().isoformat()
-nonce = 123
-
-# REST API method
-method = '/v3/orders'
-
-# Not required for /v3/orders
-body = urlencode({})
-
-if body:
-    path = method + '?' + body
-else:
-    path = method
-
-msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, body)
-sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
-
-header = {'Content-Type': 'application/json', 'AccessKey': api_key,
-          'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
-
-resp = requests.get(rest_url + path, headers=header)
-print(resp.json())
-```
-
-> **Success response format**
-
-```json
- 
-“success”: true,
-"data": [ 
-{ 
-'orderId': '304354590153349202', 
-'clientOrderId': '1', 
-'marketCode': 'BTC-USD-SWAP-LIN', 
-'status': PARTIALLY_FILLED | OPEN
-'side': 'BUY', 
-'price': '1.0',
-'stopPrice': ‘0.9’,
-‘isTriggered’: true,
-'quantity': '0.001',
-'remainQuantity': '0.001',
-‘matchedQuantity’: ‘0’,
-“avgFillPrice”: ‘1’,
-“fees”: {‘USD’: "0", ‘FLEX’: “0”}
-'orderType': 'LIMIT', 
-'timeInForce': 'GTC'
-'createdAt': “1613089383656”, 
-'lastModifiedAt': null,
-‘lastMatchedAt’: null,
-}, 
-}
-```
-
-> **Failure response format**
-{
-“success”: false,
-“code”: “40002”,
-“message”: “Invalid key”
-}
-
-
-```python
-{
-  "event": "orders",
-  "timestamp": "1593617005438",
-  "accountId": "<Your Account ID>",
-  "data": [ {
-              "orderId": "160039151345856176",
-              "marketCode": "BTC-USD-SWAP-LIN",
-              "clientOrderId": null|"<clientOrderId>",              
-              "side": "BUY",
-              "orderType": "LIMIT"|"STOP",
-              "quantity": "1.00",
-              "remainingQuantity": "1.00",
-              "price": "1.00"|null,               #for limit order, null for stop order
-              "stopPrice": "<stopPrice>"|null,    #for stop order, null for limit order 
-              "limitPrice": "<limitPrice>"|null,  #for stop order, null for limit order 
-              "orderCreated": 1593617008698,
-              "lastModified": 1593617008698,
-              "lastTradeTimestamp": 1593617008698,
-              "timeInForce": "GTC"
-            },
-            ...
-          ]
-}
-```
-
-Returns all the open orders of the account connected to the API key initiating the request.
-
-<sub>**Response Parameters**</sub> 
-
-Parameters |Type | Description| 
--------------------------- | -----|--------- |
-event | STRING | `orders`
-timestamp | STRING | Millisecond timestamp
-accountId | STRING | Account ID
-data | LIST of dictionaries |
-orderId | STRING | Unique order ID from the exchange |
-marketCode| STRING | Market code |
-clientOrderId| STRING | Client assigned ID to help manage and identify orders |
-side | STRING | `BUY` or `SELL` |
-orderType | STRING | `LIMIT` or `STOP` |
-quantity  | STRING | Quantity submitted |
-remainingQuantity|STRING | Remainning quantity |
-price | STRING | Price submitted |
-stopPrice | STRING | Stop price for the stop order |
-limitPrice| STRING | Limit price for the stop limit order |
-orderCreated| INTEGER | Timestamp when order was created |
-lastModified| INTEGER | Timestamp when order was last mordified |
-lastTradeTimestamp| INTEGER | Timestamp when order was last traded |
-timeInForce | STRING | Time in force |
 
 ###Delivery - POST /v3/delivery
 
