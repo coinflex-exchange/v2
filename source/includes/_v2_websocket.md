@@ -890,7 +890,7 @@ Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `placeorders`
 tag | INTEGER or STRING | No | If given it will be echoed in the reply
-dataArray | LIST of dictionaries | Yes | A list of orders with each order in JSON format, the same format/parameters as the request for placing a single order.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be placed in a batch, assuming that each order JSON has 200 characters.
+dataArray | LIST of dictionaries | Yes | A list of orders with each order in JSON format, the same format/parameters as the request for placing a single order. The max number of orders is still limited by the message length validation so by default up to 20 orders can be placed in a batch, assuming that each order JSON has 200 characters. |
 
 
 ### Cancel Order

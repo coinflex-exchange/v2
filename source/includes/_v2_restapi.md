@@ -1675,6 +1675,10 @@ POST /v2/orders/place
 
 Place orders.
 
+<aside class="notice">
+You can place up to 8 orders at a time by default in REST API
+</aside>
+
 Request Parameters | Type | Required | Description | 
 ------------------ | ---- | -------- | ----------- |
 recvWindow | LONG | NO | |
