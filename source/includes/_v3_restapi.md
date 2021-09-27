@@ -102,7 +102,7 @@ The signature must then be included in the header of the REST API call like so:
 > **Request**
 
 ```json
-POST /v2/orders/place
+POST /v3/orders/place
 
 {
 “recvWindow”: 1234           
@@ -230,7 +230,7 @@ orderType | STRING | |
 > **Request**
 
 ```json
-POST /v2/orders/modify
+POST /v3/orders/modify
 
 {
 “recvWindow”: 1234            
@@ -379,6 +379,7 @@ isTriggered | STRING | `true` or `false` |
 ```json
 
 DELETE /v3/orders/cancel
+
 {
 
     "recvWindow": 500,        
@@ -491,7 +492,9 @@ isTriggered | STRING | `true` or `false` |
 > **Request**
 
 ```json
+
 DELETE /v3/orders/cancel-all
+
 {
 “marketCode”: “FLEX-USD”        # STRING optional, if this is sent cancel ALL orders for the market code. If this is NULL or not sent then cancel ALL orders for the account. 
 }
