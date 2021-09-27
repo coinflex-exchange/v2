@@ -1676,7 +1676,7 @@ POST /v2/orders/place
 Place orders.
 
 <aside class="notice">
-You can place up to 8 orders at a time by default in REST API
+You can place up to 8 orders at a time in REST API
 </aside>
 
 Request Parameters | Type | Required | Description | 
@@ -1803,6 +1803,10 @@ POST /v2/orders/modify
 
 Modify orders.
 
+<aside class="notice">
+You can modify up to 8 orders at a time in REST API
+</aside>
+
 Request Parameters | Type | Required | Description | 
 ------------------ | ---- | -------- | ----------- |
 recvWindow | LONG | NO | |
@@ -1903,6 +1907,10 @@ DELETE /v2/orders/cancel
 ```
 
 Cancel orders.
+
+<aside class="notice">
+You can cancel up to 8 orders at a time in REST API
+</aside>
 
 Request Parameters | Type | Required | Description | 
 ------------------ | ---- | -------- | ----------- |
