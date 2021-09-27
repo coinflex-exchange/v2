@@ -596,7 +596,7 @@ isTriggered | STRING | `true` or `false` |
 
 ##Account Wallet - Private
 
-### GET /v3/accountinfo
+### Account - GET /v3/account
 
 
 > **Request**
@@ -1505,7 +1505,7 @@ lastModified| INTEGER | Timestamp when order was last mordified |
 lastTradeTimestamp| INTEGER | Timestamp when order was last traded |
 timeInForce | STRING | Time in force |
 
-###POST /v3/delivery
+###Delivery - POST /v3/delivery
 
 > **Request**
 
@@ -1652,7 +1652,7 @@ data | LIST of dictionary |
 \>lastUpdated | STRING | Millisecond timestamp 
 \>status | STRING | Delivery status
 
-###DELETE /v3/delivery
+###Cancel delivery - DELETE /v3/delivery
 > **Request**
 
 ```json
