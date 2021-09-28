@@ -3612,14 +3612,15 @@ asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
 }
 
 ```
+
 > **Failure response format**
+
 ```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
-
 ```
 
 Request Parameters | Type | Required | Description |
