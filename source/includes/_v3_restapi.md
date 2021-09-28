@@ -105,23 +105,21 @@ The signature must then be included in the header of the REST API call like so:
 POST /v3/orders/place
 
 {
-“recvWindow”: 1234           
-“timestamp”: 235536            
-“responseType”: “FULL” or “ACK”    
-“orders”: [
+  “recvWindow”: 1234           
+  “timestamp”: 235536            
+  “responseType”: “FULL” or “ACK”    
+  “orders”: 
 {        
-“clientOrderId”: “345srete”       
-“marketCode”:     “BTC-USD”       
-“side”: “BUY” or “SELL”        
-“quantity”: “0.002”           
-“timeInForce”:    “IOC”           
-“orderType”: LIMIT/MARKET/STOP  
-“price”: “1.345”            
-“stopPrice”: “2.567”            
-“limitPrice”: “4.567”           
+  “clientOrderId”: “345srete”       
+  “marketCode”:     “BTC-USD”       
+  “side”: “BUY” or “SELL”        
+  “quantity”: “0.002”           
+  “timeInForce”:    “IOC”           
+  “orderType”: LIMIT/MARKET/STOP  
+  “price”: “1.345”            
+  “stopPrice”: “2.567”            
+  “limitPrice”: “4.567”           
         },
-        { ………. } 
-]
 }
 
 
@@ -133,14 +131,14 @@ POST /v3/orders/place
 {
     "event": "placeOrders",
     "success": true,
-    "data": [
+    "data": {
         {
             "code": "710002",
             "message": "FAILED sanity bound check as price (50007.0) <  lower bound (54767.0)",
     "submitted": false,
             "clientOrderId": "1612249737724",
             "marketCode": "BTC-USD-SWAP-LIN",
-“side': 'SELL',
+    “side': 'SELL',
     "price": "50007.0",
             "quantity": "0.001",
             "orderType": "LIMIT",
@@ -149,31 +147,31 @@ POST /v3/orders/place
         "source": 0
         },
         {
-        'notice': 'OrderOpened',           // Can also be OrderMatched →use OM structure
-        'accountId': '1076', 
-        'orderId': '1000028795158', 
-        ‘submitted’: true, 
-        'clientOrderId': '1', 
-        'marketCode': 'BTC-USD-SWAP-LIN', 
-        'status': 'OPEN', 
-        'side': 'BUY', 
-        'price': '9600.0', 
-        ‘stopPrice’: null,
-        'isTriggered': null,
-        'quantity': '0.01', 
+            'notice': 'OrderOpened',           // Can also be OrderMatched →use OM structure
+            'accountId': '1076', 
+            'orderId': '1000028795158', 
+            ‘submitted’: true, 
+            'clientOrderId': '1', 
+            'marketCode': 'BTC-USD-SWAP-LIN', 
+            'status': 'OPEN', 
+            'side': 'BUY', 
+            'price': '9600.0', 
+            ‘stopPrice’: null,
+            'isTriggered': null,
+            'quantity': '0.01', 
                 ‘remainQuantity’: ‘0.01’,
     'matchId': null,
     'matchPrice': null, 
     'matchQuantity': null, 
                 ‘feeInstrumentId’: null,
-        ‘fees’: null,
-        'orderType': 'LIMIT', 
-        'timeInForce': 'MAKER_ONLY', 
-        'createdAt': '1629192975532',        // change timestamp to createdAt
+            ‘fees’: null,
+            'orderType': 'LIMIT', 
+            'timeInForce': 'MAKER_ONLY', 
+            'createdAt': '1629192975532',        // change timestamp to createdAt
                 ‘modifiedAt’: null,            // use this when modifying
-        ‘matchedAt’: null,            // populate matchedAt when matching
+            ‘matchedAt’: null,            // populate matchedAt when matching
         },
-    ]
+    }
 }
 ```
 
@@ -181,10 +179,10 @@ POST /v3/orders/place
 
 ```json
 {
-“event”: “placeOrders”,
-“success”: false,
-“code”: “40002”,
-“message”: “Invalid key”
+    “event”: “placeOrders”,
+    “success”: false,
+    “code”: “40002”,
+    “message”: “Invalid key”
 }
 ```
 
