@@ -1665,7 +1665,94 @@ deliverQty | STRING |  Quantity of the received asset
 deliverOrderId | STRING | Order id
 clientOrderId | Null Type|  null
 
-###Withdrawal request - POST /v3/withdrawal
+### Deposits & Withdrawals
+
+#### Deposit address - GET /v3/deposit-address
+
+> **Request**
+
+```json
+ GET /v3/deposit-address?asset={asset}&network={network}
+```
+
+> **Success response format**
+
+```json
+{
+    “success”: true,
+    "data":
+        {
+    “address”:”bitcoincash:qpsvxmpv2eqzc2cm7hf826m0afzfru6wdg4atgdxtt”,
+    “legacyAddress”:”19pdycXvr7GJChTwuq5WFqrrTrMBYLYUyg”,
+    “memo”:”642694646”
+        }
+}
+
+```
+
+> **Failure response format**
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+
+
+<sub>**Requests Parameters**</sub> 
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+Asset | STRING | YES | 
+Network | STRING | YES 
+
+
+#### Deposit history - GET /v3/deposit-history
+> **Request**
+
+```json
+ GET /v3/deposit-history?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+> **Success response format**
+
+```json
+{
+    “success”: true,
+    "data":
+        [    {
+             “asset”: “flexUSD”,
+    “network”:”SLP”,
+    “address”:”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
+    “Memo”:”642694646”,            // only for chains that have 2 part addresses
+    “quantity”: “1000.0”,
+“id”:”651573911056351237”
+“status”:”completed”,
+“txId”:”38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d”,
+    “creditedAt”: “1617940800000”
+            }, ………. ]
+}
+
+```
+
+> **Failure response format**
+```json
+{
+“success”: false,
+“code”: “41002”,
+“message”: “Internal server error”
+}
+```
+
+<sub>**Request Parameters**</sub> 
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+Asset | STRING | NO | | default all assets most recent first
+Limit | LONG | NO | Max 200, Default 50 |
+startTime | LONG | NO | e.g. 1579450778000, default 24 hours ago|
+endTime | LONG | NO | | e.g. 1613978625000, default time now
+
+####Withdrawal request - POST /v3/withdrawal
 > **Request**
 
 ```json
@@ -1714,7 +1801,7 @@ externalFee | BOLEAN |Required, if externalFee is true, fee will be deducted fro
 2faType | STRING |  Authy_SECRET or GOOGLE or YUBIKEY
 code | STRING | 2FA if required by the account
 
-### Withdrawal history - GET /v3/withdrawal
+#### Withdrawal history - GET /v3/withdrawal
 > **Request**
 
 ```json
@@ -1743,7 +1830,6 @@ code | STRING | 2FA if required by the account
 }
 
 ```
-
 > **Failure response format**
 ```json
 {
@@ -1752,9 +1838,6 @@ code | STRING | 2FA if required by the account
 “message”: “Internal server error”
 }
 ```
-
-
-
 
 <sub>**Response Parameters**</sub> 
 
@@ -1765,93 +1848,7 @@ Limit | LONG | NO | Max 200, Default 50 |
 startTime | LONG | NO | e.g. 1579450778000, default 24 hours ago|
 endTime | LONG | NO | | e.g. 1613978625000, default time now
 
-### Deposit address - GET /v3/deposit-address
-
-> **Request**
-
-```json
- GET /v3/deposit-address?asset={asset}&network={network}
-```
-
-> **Success response format**
-
-```json
-{
-    “success”: true,
-    "data":
-        {
-    “address”:”bitcoincash:qpsvxmpv2eqzc2cm7hf826m0afzfru6wdg4atgdxtt”,
-    “legacyAddress”:”19pdycXvr7GJChTwuq5WFqrrTrMBYLYUyg”,
-    “memo”:”642694646”
-        }
-}
-
-```
-
-> **Failure response format**
-{
-“success”: false,
-“code”: “41002”,
-“message”: “Internal server error”
-}
-
-
-<sub>**Requests Parameters**</sub> 
-
-Request Parameters | Type | Required | Description | 
------------------- | ---- | -------- | ----------- |
-Asset | STRING | YES | 
-Network | STRING | YES 
-
-
-### Deposit history - GET /v3/deposit-history
-> **Request**
-
-```json
- GET /v3/deposit-history?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
-```
-
-> **Success response format**
-
-```json
-{
-    “success”: true,
-    "data":
-        [    {
-             “asset”: “flexUSD”,
-    “network”:”SLP”,
-    “address”:”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
-    “Memo”:”642694646”,            // only for chains that have 2 part addresses
-    “quantity”: “1000.0”,
-“id”:”651573911056351237”
-“status”:”completed”,
-“txId”:”38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d”,
-    “creditedAt”: “1617940800000”
-            }, ………. ]
-}
-
-```
-
-> **Failure response format**
-```json
-{
-“success”: false,
-“code”: “41002”,
-“message”: “Internal server error”
-}
-```
-
-<sub>**Request Parameters**</sub> 
-
-Request Parameters | Type | Required | Description | 
------------------- | ---- | -------- | ----------- |
-Asset | STRING | NO | | default all assets most recent first
-Limit | LONG | NO | Max 200, Default 50 |
-startTime | LONG | NO | e.g. 1579450778000, default 24 hours ago|
-endTime | LONG | NO | | e.g. 1613978625000, default time now
-
-
-###  List withdrawal addresses - GET /v3/withdrawal-addresses
+####  List withdrawal addresses - GET /v3/withdrawal-addresses
 > **Request**
 
 ```json
@@ -1885,7 +1882,7 @@ endTime | LONG | NO | | e.g. 1613978625000, default time now
 }
 ```
 
-###  Withdrawal fee estimate - GET /v3/withdrawal-fee
+####  Withdrawal fee estimate - GET /v3/withdrawal-fee
 > **Request**
 
 ```json
@@ -1932,7 +1929,7 @@ Memo | STRING | NO | Required only for 2 part addresses|
 Quantity | STRING | YES | Quantity to withdraw|
 externalFee | BOOL | YES | If True then the fee will be in addition to the quantity provided|
 
-###  Sub-account balance transfer - POST /v3/transfer
+####  Sub-account balance transfer - POST /v3/transfer
 > **Request**
 
 ```json
