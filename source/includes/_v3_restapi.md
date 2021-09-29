@@ -12,6 +12,8 @@ For clients who do not wish to take advantage of CoinFLEX's native WebSocket API
 
 ##Authentication 
 
+test writing
+
 > **Request**
 
 ```json
