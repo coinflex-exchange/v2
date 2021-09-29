@@ -12,8 +12,6 @@ For clients who do not wish to take advantage of CoinFLEX's native WebSocket API
 
 ##Authentication 
 
-test writing
-
 > **Request**
 
 ```json
@@ -61,6 +59,8 @@ header = {'Content-Type': 'application/json', 'AccessKey': api_key,
 resp = requests.get(rest_url + path, headers=header)
 print(resp.json())
 ```
+
+test writing
 
 Public market data methods do not require authentication, however private methods require a *Signature* to be sent in the header of the request.  These private REST methods  use HMAC SHA256 signatures. 
 
