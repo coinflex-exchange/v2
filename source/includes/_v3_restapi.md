@@ -2489,7 +2489,8 @@ POST /v3/AMM/redeem
                     "lastUpdatedAt": "1623142532134",
                  },
                  ...
-                 ]   
+                        ]
+            ]   
 …….
 }
 
