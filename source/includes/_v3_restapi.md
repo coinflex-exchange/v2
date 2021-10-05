@@ -2735,6 +2735,16 @@ GET /v3/AMM/balances?hashToken=[1,2,3,4 ……. ]&asset={asset}
 }
 ```
 
+> **Failure response format**
+
+```json
+{
+  "success": False,
+  "code": "41002",
+  "message": "Internal server error"
+}
+```
+
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 hashToken | List of STRING | YES | filter|
@@ -2770,6 +2780,16 @@ GET /v3/AMM/trades?hashToken=1 ……. &marketCode={marketCode}&limit={limit}&st
             },
             …
 ]
+}
+```
+
+> **Failure response format**
+
+```json
+{
+  "success": False,
+  "code": "41002",
+  "message": "Internal server error"
 }
 ```
 
@@ -2953,8 +2973,6 @@ GET /v3/ticker?marketCode={marketCode}
   "code": "41002",
   "message": "Internal server error"
 }
-```
-
 ```
 
 Get a list of all available markets on CoinFlex.
@@ -3205,7 +3223,7 @@ timeframe | STRING | NO | e.g. `60s`, `300s`, `900s`, `1800s`, `3600s`, `7200s`,
 limit | LONG | NO | max `5000 `, default `500`|
 startTime | LONG | NO | Millisecond timestamp, e.g. `1579450778000`, default is `limit` times `timeframe` ago, if the limit is `300` and the timeframe is `3600s` then the default startTime is `time now - 300x3600s`, if the limit is not present and the timeframe is `3600s` then the default startTime is `time now - 500x3600s` |
 endTime | LONG | NO | Millisecond timestamp, e.g `1579450778000`, default time now |
-```
+
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
 timestamp(outer) | STRING | |
@@ -3291,22 +3309,21 @@ GET /v3/flexasset/balances/{asset}
 
 ```json
 {
-'success’: true,
-'asset': ‘flexUSD’,
-'data':  [{
-'instrumentId': 'BAND', 
-'total': '0.00000000', 
-'available': '0.00000000', 
-'reserved': '0.00000000', 
-'lastUpdatedAt': '1602918327182'
+"success": true,
+"asset": "flexUSD",
+"data":  [{
+        "instrumentId": "BAND", 
+        "total": "0.00000000", 
+        "available": "0.00000000", 
+        "reserved": "0.00000000", 
+        "lastUpdatedAt": "1602918327182"
 }, 
 {
-'instrumentId': 'BNB', 
-'total': '0.00000000', 
-'available': '0.00000000', 
-'reserved': '0.00000000', 
-'lastUpdatedAt': '1602647599866'
-}]
+        "instrumentId": "BNB",
+        "total': "0.00000000",
+        "available': "0.00000000",
+        "reserved': "0.00000000", 
+        "lastUpdatedAt': "1602647599866"
 }
 ```
 
@@ -3351,28 +3368,26 @@ asset={asset}
 {
 'success': true,
 'data': [{
-"marketCode": "BTC-USD-SWAP-LIN",
-    “baseAsset”: “BTC”,
-    “counterAsset”: “USD”,
-"quantity": "-0.94",
-              "entryPrice": "7800.00", 
-“markPrice”: “33000.00”, 
-              "positionPnl": "200.3",
-“estLiquidationPrice”: “12000.05”,
-“lastUpdatedAt": "1592486212218"      
+        "marketCode": "BTC-USD-SWAP-LIN",
+        "baseAsset": "BTC",
+        "counterAsset": "USD",
+        "quantity": "-0.94",
+        "entryPrice": "7800.00", 
+        "markPrice": “33000.00”, 
+        "positionPnl": "200.3",
+        "estLiquidationPrice": "12000.05",
+        "lastUpdatedAt": "1592486212218"      
 },
 {
-"marketCode": "ETH-USD-SWAP-LIN",
-    “baseAsset”: “ETH”,
-    “counterAsset”: “USD”,
-"quantity": "0.94",
-              "entryPrice": "7800.00", 
-“markPrice”: “33000.00”, 
-              "positionPnl": "200.3",
-“estLiquidationPrice”: “12000.05”,
-“lastUpdatedAt": "1592486212218"      
-},.....]
-
+        "marketCode": "ETH-USD-SWAP-LIN",
+        "baseAsset": "ETH",
+        "counterAsset": "USD",
+        "quantity": "0.94",
+        "entryPrice": "7800.00", 
+        "markPrice": "33000.00", 
+        "positionPnl": "200.3",
+        "estLiquidationPrice": "12000.05",
+        "lastUpdatedAt": "1592486212218"      
 }
 ```
 
@@ -3416,25 +3431,24 @@ asset={asset}
 
 ```json
 {
-‘success’: true,
-'asset': ‘flexUSD’,
-'data': [{
-'orderId': '304354590153349202', 
-'clientOrderId': '1', 
-'marketCode': 'BTC-USD-SWAP-LIN', 
-'side': 'BUY', 
-'orderType': 'LIMIT', 
-'quantity': '0.001', 
-'remainQuantity': '0.001',
-‘matchedQuantity’: ‘0’,
-'price': '1.0',
-'stopPrice': Null, 
-'createdAt': “1613089383656”, 
-'lastModifiedAt': “1613089383656”,
-‘lastMatchedAt’: “1613089383656”,
-'timeInForce': 'GTC'
-}]
-}
+   "success": true,
+   "asset": "flexUSD",
+   "data":[{
+        "orderId": "304354590153349202",
+        "clientOrderId": "1",
+        "marketCode": "BTC-USD-SWAP-LIN",
+        "side": "BUY",
+        "orderType": "LIMIT",
+        "quantity": "0.001",
+        "remainQuantity": "0.001",
+        "matchedQuantity": "0",
+        "price": "1.0”,
+        "stopPrice": "Null",
+        "createdAt": "1613089383656"
+        "lastModifiedAt": "1613089383656"
+        "lastMatchedAt": "1613089383656"
+        "timeInForce": "GTC"
+            }      
 ```
 
 > **Failure response format**
@@ -3486,9 +3500,9 @@ asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTim
 
 ```json
 {
-‘success: true,
-'asset': ‘flexUSD’,
-'data':[{
+   "success": true,
+   "asset": "flexUSD",
+   "data":[{
         "orderId": "160067484555913076",
               "clientOrderId": "123",
               "matchId": "160067484555913077",
@@ -3498,8 +3512,8 @@ asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTim
               "matchPrice": "0.065",
               "total": "0.0065",
               "orderMatchType": "TAKER",
-    “feeAsset”: "FLEX”,
-           "fee”: "0.0096",
+    "feeAsset": "FLEX”,
+           "fee": "0.0096",
     "lastMatchedAt": "1595514663626"
 }]
 ```
@@ -3552,9 +3566,8 @@ asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTim
 
 ```json
 {
-{
     "success": true,
-    “asset”: “flexUSD”,
+    "asset": "flexUSD",
     "data": [
         {
 "marketCode": "BTC-USD-SWAP-LIN",
@@ -3566,12 +3579,7 @@ asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTim
               "receiveAsset": "BTC",
               "receiveQty": "0.100000000",
               "createdAt": "1595781719394",
-    “lastMatchedAt”: "1595781719394", // null if no match yet (status == “PENDING”)
-    “
-            },
-            { ………………...}
-        },
-      ...
+    "lastMatchedAt": "1595781719394", // null if no match yet (status == “PENDING”)
     ]
 }
 ```
@@ -3630,14 +3638,14 @@ clientOrderID | STRING | Client assigned ID to help manage and identify orders |
             "asset": "flexUSD",
             "apr": "0.0001",
             "interestRate": "0.0001",
-    “amount”: “1231”
+    "amount": "1231"
             "paidAt": "16003243243242"
         },
         {
             "asset": "flexBTC",
             "apr": "0.0001",
             "interestRate": "0.0001",
-    “amount”: “1231”
+    "amount": "1231"
             "paidAt": "16003243243242"
         },
         ...
@@ -3700,14 +3708,14 @@ asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
             "asset": "nibbioUSD",
             "apr": "0.0001",
             "interestRate": "0.0001",
-    “amount”: “1231”
+    "amount": “1231”
             "paidAt": "16003243243242"
         },
         {
             "asset": "grapfruitUSD",
             "apr": "0.0001",
             "interestRate": "0.0001",
-    “amount”: “1231”
+    "amount": “1231”
             "paidAt": "16003243243242"
         },
         ...
@@ -3774,7 +3782,6 @@ marketCode={marketCode}
            "asset": "ETH",
            "tiers": [[100, 5], [50, 200], [20, 500], …]
         },
-        ...
     ]
 }
 ```
