@@ -2520,15 +2520,15 @@ GET /v3/AMM?hashToken=[1,2,3,4 ……. ]
 {
     “success”: true,
     "data": [
-     {
-            "hashToken”: “CF-BCH-AMM-ABCDE3iy“,
+            {
+            "hashToken": “CF-BCH-AMM-ABCDE3iy“,
             "leverage": null, or string (0 to 10)    
             "direction": “BUY” or “SELL” or “NEUTRAL”,
             "marketCode": “BCH-USD-SWAP-LIN”,
             "initialCollateral": {“BCH”: “123”, “USD”: 0}    
             "minPriceBound": "200",
             "maxPriceBound": "800",
-            "status”: "ENDED" or "EXECUTING",
+            "status": "ENDED" or "EXECUTING",
             "positions": [
                         {
                     "marketCode": "BTC-USD-SWAP-LIN",
