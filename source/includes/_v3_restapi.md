@@ -2521,11 +2521,11 @@ GET /v3/AMM?hashToken=[1,2,3,4 ……. ]
     “success”: true,
     "data": [
             {
-            "hashToken": “CF-BCH-AMM-ABCDE3iy“,
+            "hashToken": "CF-BCH-AMM-ABCDE3iy",
             "leverage": null, or string (0 to 10)    
-            "direction": “BUY” or “SELL” or “NEUTRAL”,
-            "marketCode": “BCH-USD-SWAP-LIN”,
-            "initialCollateral": {“BCH”: “123”, “USD”: 0}    
+            "direction": "BUY" or "SELL" or "NEUTRAL",
+            "marketCode": "BCH-USD-SWAP-LIN",
+            "initialCollateral": {"BCH": "123", "USD": 0}    
             "minPriceBound": "200",
             "maxPriceBound": "800",
             "status": "ENDED" or "EXECUTING",
@@ -2550,18 +2550,18 @@ GET /v3/AMM?hashToken=[1,2,3,4 ……. ]
                     "available": "4468.823",        
                     "reserved": "0",
                     "lastUpdatedAt": "1593627415234”
-                }
-                {
+                    }
+                    {
                     "asset": "FLEX",
                     "total": "1585.890",              
                     "available": "325.890",         
                     "reserved": "1260",
                     "lastUpdatedAt": "1593627415123"
-                }
-                    "usdReward”: "200",
-                    "flexReward”: "200",
+                    }
+                    "usdReward": "200",
+                    "flexReward": "200",
                     "interestPaid": "123", //sum of all funding payments in tx_account_transfer
-                    "apr”: "0.1",
+                    "apr": "0.1",
                     "collateral": "1231231",           
                     "notionalPositionSize": "5000.00", 
                     "portfolioVarMargin": "500",
