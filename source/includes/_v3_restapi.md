@@ -2465,14 +2465,14 @@ POST /v3/AMM/redeem
                     "available": "4468.823",        
                     "reserved": "0",
                     "lastUpdatedAt": "1593627415234”
-                },
+                }
                 {
                     "asset": "FLEX",
                     "total": "1585.890",              
                     "available": "325.890",         
                     "reserved": "1260",
                     "lastUpdatedAt": "1593627415123"
-                },
+                }
                     "usdReward": "200",
                     "flexReward": "200",
                     "interestPaid": “123”, // sum of all funding payments in tx_account_transfer
