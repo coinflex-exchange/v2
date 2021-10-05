@@ -2436,25 +2436,25 @@ POST /v3/AMM/redeem
     “success”: true,
     "data": [
      {
-            “hashToken”: “CF-BCH-AMM-ABCDE3iy“,
-            “leverage”: null, or string (0 to 10)    
-            “direction”: “BUY” or “SELL” or “NEUTRAL”,
-            “marketCode”: “BCH-USD-SWAP-LIN”,
-            “initialCollateral”: {“BCH”: “123”, “USD”: 0}    
-            “minPriceBound”: "200",
-            “maxPriceBound”: "800",
-            “status”: “ENDED” or “EXECUTING”,
+            "hashToken": “CF-BCH-AMM-ABCDE3iy“,
+            "leverage": null, or string (0 to 10)    
+            "direction": “BUY” or “SELL” or “NEUTRAL”,
+            "marketCode": “BCH-USD-SWAP-LIN”,
+            "initialCollateral": {“BCH”: “123”, “USD”: 0}    
+            "minPriceBound": "200",
+            "maxPriceBound": "800",
+            "status": “ENDED” or “EXECUTING”,
             "positions": [
                         {
                     "marketCode": "BTC-USD-SWAP-LIN",
-                    “baseAsset”: “BTC”,
-                    “counterAsset”: “USD”,
+                    "baseAsset": “BTC”,
+                    "counterAsset": “USD”,
                     "position": "0.94",
                     "entryPrice": "7800.00", 
-                    “markPrice”: “33000.00”, 
+                    "markPrice": “33000.00”, 
                     "positionPnl": "200.3",
-                    “estLiquidationPrice”: “12000.05”,
-                    “lastUpdatedAt": "1592486212218"
+                    "estLiquidationPrice": “12000.05”,
+                    "lastUpdatedAt": "1592486212218"
                         },
                         ...
                     ]
@@ -2473,18 +2473,18 @@ POST /v3/AMM/redeem
                     "reserved": "1260",
                     "lastUpdatedAt": "1593627415123"
                 },
-                    "usdReward”: "200",
-                    "flexReward”: "200",
-                    "interestPaid”: “123”, // sum of all funding payments in tx_account_transfer
-                    "apr”: "0.1",
-                    "collateral”: “1231231”,           
-                    "notionalPositionSize”: “5000.00”, 
+                    "usdReward": "200",
+                    "flexReward": "200",
+                    "interestPaid": “123”, // sum of all funding payments in tx_account_transfer
+                    "apr": "0.1",
+                    "collateral": "1231231",           
+                    "notionalPositionSize": "5000.00", 
                     "portfolioVarMargin": "500",
                     "riskRatio": "20.0000",                
-                    "maintenanceMargin’: ‘1231’,       
+                    "maintenanceMargin": ‘1231’,       
                     "marginRatio": "12.3179",          
-                    "liquidating”: false,         // flag to check if the account is being liquidated
-                    "feeTier’: ‘6’,                // account fee tier (VIP level)
+                    "liquidating": false,         // flag to check if the account is being liquidated
+                    "feeTier": ‘6’,                // account fee tier (VIP level)
                     "createdAt": "1623042343252",
                     "lastUpdatedAt": "1623142532134",
       }
