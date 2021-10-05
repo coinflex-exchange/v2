@@ -2487,7 +2487,9 @@ POST /v3/AMM/redeem
                     "feeTier": ‘6’,                // account fee tier (VIP level)
                     "createdAt": "1623042343252",
                     "lastUpdatedAt": "1623142532134",
-      }
+                 },
+                 ...
+                 ]   
 …….
 }
 
