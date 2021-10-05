@@ -2549,7 +2549,7 @@ GET /v3/AMM?hashToken=[1,2,3,4 ……. ]
                     "total": "4468.823",              
                     "available": "4468.823",        
                     "reserved": "0",
-                    "lastUpdatedAt": "1593627415234”
+                    "lastUpdatedAt": "1593627415234”,
                     "asset": "FLEX",
                     "total": "1585.890",              
                     "available": "325.890",         
