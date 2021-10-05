@@ -2317,12 +2317,13 @@ redeemedAt | STRING | when the redemption was actually processed |
 POST /v3/AMM/create
 
     Leveraged buy/sell or neutral
+    
 {
 
         "leverage": string or int from 1 to 10        # required
-        "direction": “BUY” | “SELL”,                  # required
-        "marketCode": “BCH-USD-SWAP-LIN”,             # required
-        "collateralAsset": “BCH”,                     # required
+        "direction": "BUY" | "SELL",                  # required
+        "marketCode": "BCH-USD-SWAP-LIN",             # required
+        "collateralAsset": "BCH",                     # required
         "collateralQuantity": "50",                   # required, minimum $200 notional
         "minPriceBound": "200",                       # required 
         "maxPriceBound": "800"                        # required
@@ -2332,17 +2333,18 @@ POST /v3/AMM/create
     
  {
  
-        "direction": “BUY” | “SELL”,        # required
-        "marketCode": “BCH-USD-SWAP-LIN”,   # required
-        "collateralAsset": “BCH” | "USD",   # required
+        "direction": "BUY" | "SELL",        # required
+        "marketCode": "BCH-USD-SWAP-LIN",   # required
+        "collateralAsset": "BCH" | "USD",   # required
         "collateralQuantity": "250",        # required, minimum $200 notional
         "minPriceBound": "200",             # required 
         "maxPriceBound": "800"              # required
  }  
     Unleveraged neutral
+    
 {
-        "direction": “NEUTRAL",            # required
-        "marketCode": “BCH-USD-SWAP-LIN",  # required
+        "direction": "NEUTRAL",            # required
+        "marketCode": "BCH-USD-SWAP-LIN",  # required
         "baseQuantity": "3"                # required
         "counterQuantity": "500",          # required, minimum $200 notional
         "minPriceBound": "200",            # required 
@@ -2356,19 +2358,21 @@ POST /v3/AMM/create
 ```json
 
 Leveraged buy/sell or neutral
+
 {
     
     "success": true,
     "data":
         {
-        "hashToken": “CF-BCH-AMM-ABCDE3iy“,
-        “leverage”: "5",
-        “direction”: “BUY” | “SELL”,
-        “marketCode”: “BCH-USD-SWAP-LIN”,
-        “collateralAsset”: “BCH”,    
-        “collateralQuantity”: "50",                
-        “minPriceBound”: "200",
-        “maxPriceBound”: "800"
+        "hashToken": "CF-BCH-AMM-ABCDE3iy",
+        "leverage": "5",
+        "direction": "BUY" | "SELL",
+        "marketCode": "BCH-USD-SWAP-LIN",
+        "collateralAsset": "BCH",    
+        "collateralQuantity": "50",                
+        "minPriceBound": "200",
+        "maxPriceBound": "800"
+        }
 }
 
 Unleveraged buy/sell
@@ -2377,13 +2381,14 @@ Unleveraged buy/sell
     “success": true,
     "data":
         {
-        “hashToken”: “CF-BCH-AMM-ABCDE3iy“,
-        “direction”: “BUY” | "SELL",
-        “marketCode”: “BCH-USD-SWAP-LIN”,
-        “collateralAsset”: “BCH”,    
-        “collateralQuantity”: "50",                
-        “minPriceBound”: "200",
-        “maxPriceBound”: "800"
+        "hashToken": "CF-BCH-AMM-ABCDE3iy",
+        "direction": "BUY" | "SELL",
+        "marketCode": "BCH-USD-SWAP-LIN",
+        "collateralAsset": "BCH",    
+        "collateralQuantity": "50",                
+        "minPriceBound": "200",
+        "maxPriceBound": "800"
+        }
 }
 
 Unleveraged neutral
@@ -2391,14 +2396,14 @@ Unleveraged neutral
     “success": true,
     “data":
         {
-        “hashToken”: “CF-BCH-AMM-ABCDE3iy“,
-        “direction”: “NEUTRAL",
-        “marketCode”: “BCH-USD-SWAP-LIN”,
-        "baseQuantity": "3",    
-        “counterQuantity”: "500",                
-        “minPriceBound”: "200",
-        “maxPriceBound”: "800"
-}
+        "hashToken": "CF-BCH-AMM-ABCDE3iy",
+        "direction": "NEUTRAL",
+        "marketCode": "BCH-USD-SWAP-LIN",
+        "collateralAsset": "BCH",    
+        "collateralQuantity": "50",                
+        "minPriceBound": "200",
+        "maxPriceBound": "800"
+        }
 }
 ```
 
