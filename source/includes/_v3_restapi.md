@@ -3690,11 +3690,12 @@ marketCode={marketCode}
 
 ```json
 {
-  “success”: False,
-  “code”: “41002”,
-  “message”: “Internal server error”
+  "success": False,
+  "code": "41002",
+  "message": "Internal server error"
 }
 ```
+
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
