@@ -2543,21 +2543,21 @@ GET /v3/AMM?hashToken=[1,2,3,4 ……. ]
                         },
                         ...
                     ]
-               "balances": [
+            "balances": [
                 {
                     "asset": "BTC",
                     "total": "4468.823",              
                     "available": "4468.823",        
                     "reserved": "0",
                     "lastUpdatedAt": "1593627415234”
-                },
+                }
                 {
                     "asset": "FLEX",
                     "total": "1585.890",              
                     "available": "325.890",         
                     "reserved": "1260",
                     "lastUpdatedAt": "1593627415123"
-                },
+                }
                     "usdReward”: "200",
                     "flexReward”: "200",
                     "interestPaid": "123", //sum of all funding payments in tx_account_transfer
@@ -2758,7 +2758,7 @@ GET /v3/AMM/trades?hashToken=1 ……. &marketCode={marketCode}&limit={limit}&st
 ```json
 {    
     "success": true,
-    “data": [ {        
+    "data": [ {        
             "orderId": "160067484555913076",
             "clientOrderId": "123",
             "matchId": "160067484555913077",
