@@ -2554,7 +2554,7 @@ GET /v3/AMM?hashToken=[1,2,3,4 ……. ]
                     "total": "1585.890",              
                     "available": "325.890",         
                     "reserved": "1260",
-                    "lastUpdatedAt": "1593627415123"
+                    "lastUpdatedAt": "1593627415123",
                     "usdReward": "200",
                     "flexReward": "200",
                     "interestPaid": "123", //sum of all funding payments in tx_account_transfer
