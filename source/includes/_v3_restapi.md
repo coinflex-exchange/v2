@@ -3281,13 +3281,14 @@ asset={asset}
 },.....]
 
 }
-```
+
 > **Failure response format**
+
 ```json
 {
 “success”: false,
-“code”: “40002”,
-“message”: “Invalid key”
+“code”: “41002”,
+“message”: “Internal server error”
 }
 ```
 
@@ -3341,12 +3342,14 @@ asset={asset}
 }]
 }
 ```
+
 > **Failure response format**
+
 ```json
 {
 “success”: false,
-“code”: “40002”,
-“message”: “Invalid key”
+“code”: “41002”,
+“message”: “Internal server error”
 }
 ```
 
@@ -3404,14 +3407,14 @@ asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTim
            "fee”: "0.0096",
     "lastMatchedAt": "1595514663626"
 }]
-}
-```
+
 > **Failure response format**
+
 ```json
 {
 “success”: false,
-“code”: “40002”,
-“message”: “Invalid key”
+“code”: “41002”,
+“message”: “Internal server error”
 }
 ```
 
@@ -3475,15 +3478,15 @@ asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTim
       ...
     ]
 }
-```
+
 > **Failure response format**
+
 ```json
 {
 “success”: false,
 “code”: “41002”,
 “message”: “Internal server error”
 }
-
 ```
 
 Request Parameters | Type | Required | Description |
@@ -3546,7 +3549,9 @@ clientOrderID | STRING | Client assigned ID to help manage and identify orders |
 
 
 ```
+
 > **Failure response format**
+
 ```json
 {
 “success”: false,
