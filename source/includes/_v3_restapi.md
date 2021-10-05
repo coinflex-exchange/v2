@@ -2544,7 +2544,7 @@ GET /v3/AMM?hashToken=[1,2,3,4 ……. ]
                         ...
                     ]
             "balances": [
-                {
+                        {
                     "asset": "BTC",
                     "total": "4468.823",              
                     "available": "4468.823",        
@@ -2568,7 +2568,7 @@ GET /v3/AMM?hashToken=[1,2,3,4 ……. ]
                     "liquidating": "false",         // flag to check if the account is being liquidated
                     "feeTier": "6",                // account fee tier (VIP level)
                     "createdAt": "1623042343252",
-                    "lastUpdatedAt": "1623142532134",
+                    "lastUpdatedAt": "1623142532134"
                         },
                         ...
                     ] 
