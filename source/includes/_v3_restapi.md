@@ -3220,11 +3220,12 @@ GET /v3/flexasset/balances/{asset}
 ```
 
 > **Failure response format**
+
 ```json
 {
 “success”: false,
-“code”: “40002”,
-“message”: “Invalid key”
+“code”: “41002”,
+“message”: “Internal server error”
 }
 ```
 
@@ -3281,6 +3282,7 @@ asset={asset}
 },.....]
 
 }
+```
 
 > **Failure response format**
 
@@ -3688,9 +3690,9 @@ marketCode={marketCode}
 
 ```json
 {
-“success”: false,
-“code”: “41002”,
-“message”: “Internal server error”
+  “success”: False,
+  “code”: “41002”,
+  “message”: “Internal server error”
 }
 ```
 
