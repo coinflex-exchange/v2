@@ -2378,7 +2378,8 @@ Leveraged buy/sell or neutral
 Unleveraged buy/sell
 
 {
-    “success": true,
+    
+    "success": true,
     "data":
         {
         "hashToken": "CF-BCH-AMM-ABCDE3iy",
@@ -2393,8 +2394,9 @@ Unleveraged buy/sell
 
 Unleveraged neutral
 {
-    “success": true,
-    “data":
+    
+    "success": true,
+    "data":
         {
         "hashToken": "CF-BCH-AMM-ABCDE3iy",
         "direction": "NEUTRAL",
