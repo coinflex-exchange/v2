@@ -2315,33 +2315,38 @@ redeemedAt | STRING | when the redemption was actually processed |
 
 ```json
 POST /v3/AMM/create
-{
-    "Leveraged buy/sell or neutral
-        "leverage”: string or int from 1 to 10        # required
-        "direction”: “BUY” | “SELL”,            # required
-        "marketCode”: “BCH-USD-SWAP-LIN”,    # required
-        "collateralAsset”: “BCH”,            # required
-        "collateralQuantity”: "50",            # required, minimum $200 notional
-        "minPriceBound”: "200",            # required 
-        "maxPriceBound”: "800"            # required
-    
-    "Unleveraged buy/sell
- 
-        "direction”: “BUY” | “SELL”,            # required
-        "marketCode”: “BCH-USD-SWAP-LIN”,        # required
-        "collateralAsset”: “BCH” | "USD",        # required
-        "collateralQuantity”: "250",            # required, minimum $200 notional
-        "minPriceBound”: "200",            # required 
-        "maxPriceBound”: "800"                # required
 
-    "Unleveraged neutral
+    Leveraged buy/sell or neutral
 {
-        "direction”: “NEUTRAL",            # required
-        "marketCode”: “BCH-USD-SWAP-LIN”,        # required
-        "baseQuantity”: "3"                # required
-        "counterQuantity”: "500",            # required, minimum $200 notional
-        "minPriceBound”: "200",            # required 
-        "maxPriceBound”: "800"                # required
+
+        "leverage": string or int from 1 to 10        # required
+        "direction": “BUY” | “SELL”,                  # required
+        "marketCode": “BCH-USD-SWAP-LIN”,             # required
+        "collateralAsset": “BCH”,                     # required
+        "collateralQuantity": "50",                   # required, minimum $200 notional
+        "minPriceBound": "200",                       # required 
+        "maxPriceBound": "800"                        # required
+ }  
+ 
+    Unleveraged buy/sell
+    
+ {
+ 
+        "direction": “BUY” | “SELL”,        # required
+        "marketCode": “BCH-USD-SWAP-LIN”,   # required
+        "collateralAsset": “BCH” | "USD",   # required
+        "collateralQuantity": "250",        # required, minimum $200 notional
+        "minPriceBound": "200",             # required 
+        "maxPriceBound": "800"              # required
+ }  
+    Unleveraged neutral
+{
+        "direction": “NEUTRAL",            # required
+        "marketCode": “BCH-USD-SWAP-LIN",  # required
+        "baseQuantity": "3"                # required
+        "counterQuantity": "500",          # required, minimum $200 notional
+        "minPriceBound": "200",            # required 
+        "maxPriceBound": "800"             # required
 }
 
 ```
@@ -2364,10 +2369,12 @@ Leveraged buy/sell or neutral
         “collateralQuantity”: "50",                
         “minPriceBound”: "200",
         “maxPriceBound”: "800"
+}
 
- Unleveraged buy/sell
- 
- “success”: true,
+Unleveraged buy/sell
+
+{
+    “success": true,
     "data":
         {
         “hashToken”: “CF-BCH-AMM-ABCDE3iy“,
@@ -2377,11 +2384,12 @@ Leveraged buy/sell or neutral
         “collateralQuantity”: "50",                
         “minPriceBound”: "200",
         “maxPriceBound”: "800"
+}
 
 Unleveraged neutral
 {
-    “success”: true,
-    "data":
+    “success": true,
+    “data":
         {
         “hashToken”: “CF-BCH-AMM-ABCDE3iy“,
         “direction”: “NEUTRAL",
