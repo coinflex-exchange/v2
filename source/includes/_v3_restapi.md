@@ -3677,9 +3677,10 @@ marketCode={marketCode}
         ...
     ]
 }
-
 ```
+
 > **Failure response format**
+
 ```json
 {
 “success”: false,
