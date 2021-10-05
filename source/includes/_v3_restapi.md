@@ -3366,8 +3366,8 @@ asset={asset}
 
 ```json
 {
-'success': true,
-'data': [{
+"success": true,
+"data": [{
         "marketCode": "BTC-USD-SWAP-LIN",
         "baseAsset": "BTC",
         "counterAsset": "USD",
@@ -3444,10 +3444,10 @@ asset={asset}
         "matchedQuantity": "0",
         "price": "1.0”,
         "stopPrice": "Null",
-        "createdAt": "1613089383656"
-        "lastModifiedAt": "1613089383656"
-        "lastMatchedAt": "1613089383656"
-        "timeInForce": "GTC"
+        "createdAt": "1613089383656",
+        "lastModifiedAt": "1613089383656",
+        "lastMatchedAt": "1613089383656",
+        "timeInForce": "GTC",
             }      
 ```
 
@@ -3503,17 +3503,17 @@ asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTim
    "success": true,
    "asset": "flexUSD",
    "data":[{
-        "orderId": "160067484555913076",
+              "orderId": "160067484555913076",
               "clientOrderId": "123",
               "matchId": "160067484555913077",
               "marketCode": "FLEX-USD",
-        "side": "SELL",
+              "side": "SELL",
               "matchQuantity": "0.1",
               "matchPrice": "0.065",
               "total": "0.0065",
               "orderMatchType": "TAKER",
-    "feeAsset": "FLEX”,
-           "fee": "0.0096",
+              "feeAsset": "FLEX”,
+              "fee": "0.0096",
     "lastMatchedAt": "1595514663626"
 }]
 ```
@@ -3568,9 +3568,9 @@ asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTim
 {
     "success": true,
     "asset": "flexUSD",
-    "data": [
+    "data": 
         {
-"marketCode": "BTC-USD-SWAP-LIN",
+              "marketCode": "BTC-USD-SWAP-LIN",
               "deliveryId": "575770851486007299",
               "status": "PENDING",
               "price": "9938.480000000",
@@ -3579,9 +3579,8 @@ asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTim
               "receiveAsset": "BTC",
               "receiveQty": "0.100000000",
               "createdAt": "1595781719394",
-    "lastMatchedAt": "1595781719394", // null if no match yet (status == “PENDING”)
-    ]
-}
+              "lastMatchedAt": "1595781719394", // null if no match yet (status == “PENDING”)
+    }
 ```
 
 > **Failure response format**
@@ -3638,14 +3637,14 @@ clientOrderID | STRING | Client assigned ID to help manage and identify orders |
             "asset": "flexUSD",
             "apr": "0.0001",
             "interestRate": "0.0001",
-    "amount": "1231"
+            "amount": "1231"
             "paidAt": "16003243243242"
         },
         {
             "asset": "flexBTC",
             "apr": "0.0001",
             "interestRate": "0.0001",
-    "amount": "1231"
+            "amount": "1231"
             "paidAt": "16003243243242"
         },
         ...
@@ -3703,23 +3702,21 @@ asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
 ```json
 {
     "success": true,
-    "data": [
+    "data":
         {
             "asset": "nibbioUSD",
             "apr": "0.0001",
             "interestRate": "0.0001",
-    "amount": “1231”
+            "amount": “1231”
             "paidAt": "16003243243242"
         },
         {
             "asset": "grapfruitUSD",
             "apr": "0.0001",
             "interestRate": "0.0001",
-    "amount": “1231”
+            "amount": “1231”
             "paidAt": "16003243243242"
         },
-        ...
-    ]
 }
 ```
 
