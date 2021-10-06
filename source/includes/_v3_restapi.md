@@ -104,7 +104,8 @@ The signature must then be included in the header of the REST API call like so:
 > **Request**
 
 ```json
-POST /v3/orders/place
+
+    POST /v3/orders/place
 
 {
   “recvWindow”: 1234           
