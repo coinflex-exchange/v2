@@ -674,21 +674,20 @@ print(resp.json())
                     "positionPnl": "200.3",
                     "estLiquidationPrice": "12000.05",
                     "lastUpdatedAt": "1592486212218"              
-                },
-                ...
-            ],
+               },
+                {
                     "collateral”: “1231231”,
-                    "notionalPositionSize”: “5000.00”, //sum(position_qty * markPrice) position表里的quantity 乘以 markPrice，然后累加
+                    "notionalPositionSize”: “5000.00”, 
                     "portfolioVarMargin": "500",
                     "riskRatio": "20.0000",                
-                    "maintenanceMargin’: ‘1231’,            // maintenance margin, maintenanceMargin = portfolioVarMargin / 2
-                    "marginRatio": "12.3179",             // like the GUI
-                    "liquidating”: false,         // flag to check if the account is being liquidated
-                    "feeTier’: ‘6’,                // account fee tier (VIP level)
+                    "maintenanceMargin’: ‘1231’,            
+                    "marginRatio": "12.3179",             
+                    "liquidating”: false,         
+                    "feeTier’: ‘6’, 
                     "createdAt": "1611665624601"
         },
-        ...
-    ]
+                ...
+            ],
 }
 ```
 
