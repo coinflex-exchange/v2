@@ -105,23 +105,23 @@ The signature must then be included in the header of the REST API call like so:
 
 ```json
 
-    POST /v3/orders/place
+POST /v3/orders/place
 
 {
-  “recvWindow”: 1234           
-  “timestamp”: 235536            
-  “responseType”: “FULL” or “ACK”    
-  “orders”: 
+            "recvWindow": 1234           
+            "timestamp": 235536            
+            "responseType": "FULL" or "ACK"    
+            "orders": 
 {        
-  “clientOrderId”: “345srete”       
-  “marketCode”:     “BTC-USD”       
-  “side”: “BUY” or “SELL”        
-  “quantity”: “0.002”           
-  “timeInForce”:    “IOC”           
-  “orderType”: LIMIT/MARKET/STOP  
-  “price”: “1.345”            
-  “stopPrice”: “2.567”            
-  “limitPrice”: “4.567”           
+            "clientOrderId": "345srete"       
+            "marketCode":     "BTC-USD"       
+            "side": "BUY" or "SELL"        
+            "quantity": “0.002”           
+            "timeInForce":    "IOC"           
+            "orderType": LIMIT/MARKET/STOP  
+            "price": "1.345"            
+            "stopPrice": "2.567"            
+            "limitPrice": "4.567"           
         },
 }
 
@@ -496,7 +496,7 @@ isTriggered | STRING | `true` or `false` |
 DELETE /v3/orders/cancel-all
 
 {
-“marketCode”: “FLEX-USD”        # STRING optional, if this is sent cancel ALL orders for the market code. If this is NULL or not sent then cancel ALL orders for the account. 
+    "marketCode”: “FLEX-USD”        
 }
 
 ```
@@ -594,6 +594,7 @@ isTriggered | STRING | `true` or `false` |
 > **Request**
 
 ```json
+
 GET /v3/account?subAcc=1,2,3,4
 
 ```
@@ -832,7 +833,9 @@ quantityLastUpdated|STRING|Millisecond timestamp of when balance was last update
 > **Request**
 
 ```json
+
 GET v3/positions?subAcc=1,2,3,4 …….&marketCode={marketCode}
+
 ```
 
 ```python
@@ -953,12 +956,15 @@ estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is ne
 > **Request**
 
 ```json
+
 GET /v3/trades?marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
 
 {
+
   "limit": {limit},
   "startTime": {startTime},
   "endTime": {endTime}
+  
 }
 ```
 
@@ -1099,7 +1105,9 @@ clientOrderID   | STRING    | Client assigned ID to help manage and identify ord
 > **Request**
 
 ```json
+
 GET /v3/orders/history?marketCode={marketCode}&orderId={orderId}&clientOrderId={clientOrderId}&limit={limit}&startTime={startTime}&endTime={endTime}
+
 ```
 
 > **Success response format**
@@ -1194,6 +1202,7 @@ orderClosedTimestamp | STRING | Order closed at |
 > **Request**
 
 ```json
+
 POST /v3/delivery
 
 {
@@ -1345,9 +1354,11 @@ data | LIST of dictionary |
 > **Request**
 
 ```json
+
 DELETE /v3/delivery
+
 {
-  "deliveryId": {deliveryId}        # LONG or STRING required
+    "deliveryId": {deliveryId}        # LONG or STRING required
 }
 
 ```
@@ -1591,7 +1602,9 @@ clientOrderId | Null Type|  null
 > **Request**
 
 ```json
+
 GET /v3/funding?marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
+
 ```
 
 > **Success response format**
@@ -1686,7 +1699,9 @@ clientOrderId | Null Type|  null
 > **Request**
 
 ```json
+
  GET /v3/deposit-address?asset={asset}&network={network}
+ 
 ```
 
 > **Success response format**
@@ -1726,7 +1741,9 @@ Network | STRING | YES
 > **Request**
 
 ```json
+
  GET /v3/deposit-history?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+ 
 ```
 
 > **Success response format**
@@ -1776,7 +1793,9 @@ endTime | LONG | NO | | e.g. 1613978625000, default time now
 > **Request**
 
 ```json
+
  POST /v3/withdrawal
+ 
 ```
 
 > **Success response format**
@@ -1827,7 +1846,9 @@ code | STRING | 2FA if required by the account
 > **Request**
 
 ```json
+
  GET /v3/withdrawal?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+ 
 ```
 
 > **Success response format**
@@ -1876,7 +1897,9 @@ endTime | LONG | NO | | e.g. 1613978625000, default time now
 > **Request**
 
 ```json
+
  GET /v3/withdrawal-addresses
+ 
 ```
 
 > **Success response format**
@@ -1912,7 +1935,18 @@ endTime | LONG | NO | | e.g. 1613978625000, default time now
 > **Request**
 
 ```json
- GET /v3/withdrawal-fee?asset=flexUSD&network=SLP&address=simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7&memo=642694646&quantity=1000&externalFee=true
+
+GET /v3/withdrawal-fee?asset=flexUSD&network=SLP&address=simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7&memo=642694646&quantity=1000&externalFee=true
+
+{
+    "asset": "flexUSD",
+    "network": SLP, 
+    "address": "simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7", 
+    "memo": "642694646", 
+    "quantity": 1000.0, 
+    "externalFee": "true"
+    }
+
 ```
 
 > **Success response format**
@@ -1959,7 +1993,9 @@ externalFee | BOOL | YES | If True then the fee will be in addition to the quant
 > **Request**
 
 ```json
+
 POST /v3/transfer
+
 ```
 
 > **Success response format**
@@ -1998,8 +2034,10 @@ Mint.
 POST /v3/flexasset/mint
 
 {
-    “asset”: “flexUSD”,         # STRING Required
-“quantity”: 1000        # FLOAT or STRING Required
+
+    "asset”: “flexUSD”,         # STRING Required
+    "quantity”: 1000        # FLOAT or STRING Required
+    
 }
 
 ```
@@ -2048,12 +2086,13 @@ Redeem.
 > **Request**
 
 ```json
+
 POST /v3/flexasset/redeem
 
 {
- "asset": "flexUSD",        # STRING Required
- "quantity": 1000,        # FLOAT or STRING Required
- "type": "normal" | “immediate”        # STRING Required
+    "asset": "flexUSD",        
+    "quantity": 1000,        
+    "type": "normal"
 }
 ```
 
@@ -2106,7 +2145,15 @@ Get mint history by asset and sorted by time in descending order.
 > **Request**
 
 ```json
+
 GET /v3/flexasset/mint?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+
+{
+    "asset": "flexUSD"
+    "limit": 100
+    "startTime": 1579450778000
+    "endTime": 1613978625000
+}
 
 ```
 
@@ -2156,7 +2203,16 @@ Get redemption history by asset and sorted by time in descending order.
 > **Request**
 
 ```json
+
 GET /v3/flexasset/redeem?asset={asset}&type={type}&limit={limit}&startTime={startTime}&endTime={endTime}
+
+{
+    "asset": "flexUSD"
+    "limit": 100
+    "startTime": 1579450778000
+    "endTime": 1613978625000
+}
+
 ```
 
 > **Succesful response Format**
@@ -2206,7 +2262,16 @@ redeemedAt | STRING | when the redemption was actually processed |
 > **Request**
 
 ```json
+
 GET  /v3/flexasset/earned?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+
+
+{
+    "asset": "flexUSD"
+    "limit": 100
+    "startTime": 1579450778000
+    "endTime": 1613978625000
+}
 
 ```
 
@@ -2258,7 +2323,17 @@ redeemedAt | STRING | when the redemption was actually processed |
 > **Request**
 
 ```json
+
 GET  /v3/notetoken/earned?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+
+{
+    "asset": "noteNibbio"
+    "limit": 100
+    "startTime": 1579450778000
+    "endTime": 1613978625000
+}
+
+
 ```
 
 > **Succesful response Format**
@@ -2314,41 +2389,43 @@ redeemedAt | STRING | when the redemption was actually processed |
 > **Request**
 
 ```json
+
 POST /v3/AMM/create
 
-    Leveraged buy/sell or neutral
+Leveraged buy/sell or neutral
     
 {
 
-        "leverage": string or int from 1 to 10        # required
-        "direction": "BUY" | "SELL",                  # required
-        "marketCode": "BCH-USD-SWAP-LIN",             # required
-        "collateralAsset": "BCH",                     # required
-        "collateralQuantity": "50",                   # required, minimum $200 notional
-        "minPriceBound": "200",                       # required 
-        "maxPriceBound": "800"                        # required
+    "leverage": string or int from 1 to 10        
+    "direction": "BUY" | "SELL",                  
+    "marketCode": "BCH-USD-SWAP-LIN",             
+    "collateralAsset": "BCH",                     
+    "collateralQuantity": "200",                   
+    "minPriceBound": "200",                       
+    "maxPriceBound": "800"                        
  }  
  
-    Unleveraged buy/sell
+Unleveraged buy/sell
     
  {
  
-        "direction": "BUY" | "SELL",        # required
-        "marketCode": "BCH-USD-SWAP-LIN",   # required
-        "collateralAsset": "BCH" | "USD",   # required
-        "collateralQuantity": "250",        # required, minimum $200 notional
-        "minPriceBound": "200",             # required 
-        "maxPriceBound": "800"              # required
+    "direction": "BUY" | "SELL",        
+    "marketCode": "BCH-USD-SWAP-LIN",   
+    "collateralAsset": "BCH" | "USD",   
+    "collateralQuantity": "250",        
+    "minPriceBound": "200",             
+    "maxPriceBound": "800"              
  }  
-    Unleveraged neutral
+ 
+Unleveraged neutral
     
 {
-        "direction": "NEUTRAL",            # required
-        "marketCode": "BCH-USD-SWAP-LIN",  # required
-        "baseQuantity": "3"                # required
-        "counterQuantity": "500",          # required, minimum $200 notional
-        "minPriceBound": "200",            # required 
-        "maxPriceBound": "800"             # required
+    "direction": "NEUTRAL",            
+    "marketCode": "BCH-USD-SWAP-LIN",  
+    "baseQuantity": "3"                
+    "counterQuantity": "500",          
+    "minPriceBound": "200",            
+    "maxPriceBound": "800"             
 }
 
 ```
@@ -2413,9 +2490,9 @@ Unleveraged neutral
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -2434,13 +2511,13 @@ maxPriceBound | STRING | YES | "800"|
 > **Request**
 
 ```json
-POST /v3/AMM/redeem
-{
-“hashToken”: “CF-BCH-AMM-ABCDE3iy“,            # STRING, required 
-“type”:  “deliver” or manual or twap1hr or twap24hr”        # STRING, required
-}
 
-#TWAP1HR and TWAP24H not yet available in prod, but it will be in the future.
+POST /v3/AMM/redeem
+
+{
+    "hashToken”: “CF-BCH-AMM-ABCDE3iy“
+    "type”:"deliver"  
+}
 ```
 
 > **Succesful response Format**
@@ -2517,9 +2594,9 @@ POST /v3/AMM/redeem
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -2529,7 +2606,9 @@ POST /v3/AMM/redeem
 > **Request**
 
 ```json
+
 GET /v3/AMM?hashToken=[1,2,3,4 ……. ]
+
 ```
 
 > **Succesful response Format**
@@ -2599,9 +2678,9 @@ GET /v3/AMM?hashToken=[1,2,3,4 ……. ]
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -2615,7 +2694,14 @@ hashToken | List of STRING | YES | list filter, limit 10 AMM|
 > **Request**
 
 ```json
+
 GET /v3/AMM/orders?hashToken={hashToken}
+
+{
+
+    "hashToken"= "“CF-BCH-AMM-ABCDE3iy"
+} 
+
 ```
 
 > **Succesful response Format**
@@ -2651,9 +2737,9 @@ GET /v3/AMM/orders?hashToken={hashToken}
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -2667,7 +2753,14 @@ hashToken | List of STRING | YES | filter|
 > **Request**
 
 ```json
+
 GET /v3/AMM/positions?hashToken=[1,2,3,4 ……. ]&marketCode={marketCode}
+
+{
+
+    "marketcode"= "BTC-USD-SWAP-LIN"
+} 
+
 ```
 
 > **Succesful response Format**
@@ -2701,9 +2794,9 @@ GET /v3/AMM/positions?hashToken=[1,2,3,4 ……. ]&marketCode={marketCode}
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -2717,7 +2810,14 @@ hashToken | List of STRING | YES | filter|
 > **Request**
 
 ```json
+
 GET /v3/AMM/balances?hashToken=[1,2,3,4 ……. ]&asset={asset}
+
+{
+
+    "asset"= "BTC"
+}  
+
 ```
 
 > **Succesful response Format**
@@ -2753,9 +2853,9 @@ GET /v3/AMM/balances?hashToken=[1,2,3,4 ……. ]&asset={asset}
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -2768,7 +2868,16 @@ hashToken | List of STRING | YES | filter|
 > **Request**
 
 ```json
+
 GET /v3/AMM/trades?hashToken=1 ……. &marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
+
+{
+    "marketCode"= "BTC-USD-SWAP-LIN"
+    "limit"= 500
+    "startTime"= 1579450778000
+    "endTime"= 1613978625000
+ }  
+
 ```
 
 > **Succesful response Format**
@@ -2821,7 +2930,9 @@ endTime | INT/STRING  | NO | default current epoch time|
 > **Request**
 
 ```json
+
 GET /v3/markets`
+
 ```
 
 > **Succesful response Format**
@@ -2854,9 +2965,9 @@ GET /v3/markets`
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -2888,7 +2999,9 @@ marketPriceLastUpdated | LONG | The time that market price last updated at |
 > **Request**
 
 ```json
+
 GET /v3/assets
+
 ```
 
 > **Succesful response Format**
@@ -2915,9 +3028,9 @@ GET /v3/assets
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -2949,7 +3062,13 @@ marketPriceLastUpdated | LONG | The time that market price last updated at |
 > **Request**
 
 ```json
+
 GET /v3/ticker?marketCode={marketCode}
+
+{
+    "marketCode"="BTC-USD-SWAP-LIN"
+ }  
+
 ```
 
 > **Succesful response Format**
@@ -3013,8 +3132,13 @@ marketPriceLastUpdated | LONG | The time that market price last updated at |
 > **Request**
 
 ```json
+
 GET /v3/auction?marketCode={marketCode}
-marketCode={marketCode}
+   
+{
+    "marketCode"="BTC-USD-SWAP-LIN"
+ }    
+  
 ```
 > **Sucess response Format**
 
@@ -3036,9 +3160,9 @@ marketCode={marketCode}
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -3060,9 +3184,16 @@ Get funding rates by marketCode and sorted by time in descending order.
 > **Request**
 
 ```json
+
 GET /v3/funding-rates?marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
 
-marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
+{
+    "marketCode"="BTC-USD-SWAP-LIN"
+    "limit"={limit}&
+    "startTime"={startTime}&
+    "endTime"={endTime}
+ }   
+
 ```
 
 > **Success response format**
@@ -3087,9 +3218,9 @@ marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -3143,9 +3274,9 @@ GET /v3/exchange-trades?marketCode={marketCode}&limit={limit}
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -3217,9 +3348,9 @@ marketCode={marketCode}&timeframe={timeframe}&limit={limit}&startTime={startTime
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -3252,6 +3383,7 @@ Get order book by marketCode and level.
 
 ```json
 GET /v3/depth?marketCode={marketCode}&level={level}
+
 marketCode={marketCode}&level={level}
 ```
 
@@ -3286,9 +3418,9 @@ marketCode={marketCode}&level={level}
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -3312,7 +3444,9 @@ Get flexAsset balances.
 > **Request**
 
 ```json
+
 GET /v3/flexasset/balances/{asset}
+
 ```
 
 > **Sucess response format**
