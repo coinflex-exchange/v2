@@ -4,7 +4,7 @@
 
 * `https://v3stgapi.coinflex.com`
 
-**LIVE** site
+**LIVE** site            
 
 * `https://v3api.coinflex.com/v3`
 
@@ -32,8 +32,8 @@ import hashlib
 import datetime
 from urllib.parse import urlencode
 
-rest_url = 'https://v2stgapi.coinflex.com'
-rest_path = 'v2stgapi.coinflex.com'
+rest_url = 'https://v3stgapi.coinflex.com'
+rest_path = 'v3stgapi.coinflex.com'
 
 api_key = <API-KEY>
 api_secret = <API-SECRET>
@@ -75,8 +75,8 @@ Component | Required | Example | Description|
 Timestamp | Yes | 2020-04-30T15:20:30 | YYYY-MM-DDThh:mm:ss
 Nonce | Yes | 123 | User generated
 Verb | Yes| 'GET' | Uppercase
-Path | Yes | 'v2stgapi.coinflex.com' |
-Method | Yes | '/v2/positions | Available REST methods: <li>`V2/positions`</li><li>`V2/orders`</li><li>`V2/balances`</li>
+Path | Yes | 'v3stgapi.coinflex.com' |
+Method | Yes | '/v3/positions | Available REST methods: <li>`V3/positions`</li><li>`V3/orders`</li><li>`V3/balances`</li>
 Body | No | instrumentID=BTC-USD-SWAP-LIN | Optional and dependent on the REST method being called
 
 The constructed message string should look like:-
@@ -84,8 +84,8 @@ The constructed message string should look like:-
   `2020-04-30T15:20:30\n
   123\n
   GET\n
-  v2stgapi.coinflex.com\n
-  /v2/positions\n
+  v3stgapi.coinflex.com\n
+  /v3/positions\n
   instrumentID=BTC-USD-SWAP-LIN`
 
 Note the newline characters after each component in the message string. 
@@ -137,41 +137,41 @@ POST /v3/orders/place
         {
             "code": "710002",
             "message": "FAILED sanity bound check as price (50007.0) <  lower bound (54767.0)",
-    "submitted": false,
+            "submitted": false,
             "clientOrderId": "1612249737724",
             "marketCode": "BTC-USD-SWAP-LIN",
-    “side': 'SELL',
-    "price": "50007.0",
+            "side': 'SELL',
+            "price": "50007.0",
             "quantity": "0.001",
             "orderType": "LIMIT",
             "timeInForce": "GTC", 
             "createdAt": "1615430915596",
-        "source": 0
+            "source": 0
         },
         {
-            'notice': 'OrderOpened',           // Can also be OrderMatched →use OM structure
-            'accountId': '1076', 
-            'orderId': '1000028795158', 
-            ‘submitted’: true, 
-            'clientOrderId': '1', 
-            'marketCode': 'BTC-USD-SWAP-LIN', 
-            'status': 'OPEN', 
-            'side': 'BUY', 
-            'price': '9600.0', 
-            ‘stopPrice’: null,
-            'isTriggered': null,
-            'quantity': '0.01', 
-                ‘remainQuantity’: ‘0.01’,
-    'matchId': null,
-    'matchPrice': null, 
-    'matchQuantity': null, 
-                ‘feeInstrumentId’: null,
-            ‘fees’: null,
-            'orderType': 'LIMIT', 
-            'timeInForce': 'MAKER_ONLY', 
-            'createdAt': '1629192975532',        // change timestamp to createdAt
-                ‘modifiedAt’: null,            // use this when modifying
-            ‘matchedAt’: null,            // populate matchedAt when matching
+            "notice': 'OrderOpened',           // Can also be OrderMatched →use OM structure
+            "accountId': '1076', 
+            "orderId': '1000028795158', 
+            "submitted’: true, 
+            "clientOrderId': '1', 
+            "marketCode': 'BTC-USD-SWAP-LIN', 
+            "status': 'OPEN', 
+            "side': 'BUY', 
+            "price': '9600.0', 
+            "stopPrice’: null,
+            "'isTriggered': null,
+            "quantity': '0.01', 
+            "remainQuantity’: ‘0.01’,
+            "matchId': null,
+            "matchPrice': null, 
+            "matchQuantity': null, 
+            "feeInstrumentId’: null,
+            "fees’: null,
+            "orderType': 'LIMIT', 
+            "timeInForce': 'MAKER_ONLY', 
+            "createdAt': '1629192975532',        // change timestamp to createdAt
+            "modifiedAt’: null,            // use this when modifying
+            "matchedAt’: null,            // populate matchedAt when matching
         },
     }
 }
@@ -244,12 +244,12 @@ POST /v3/orders/modify
             "side": "BUY",                  
             "quantity": "0.007",                
             "price": "40001.0"               
-    “stopPrice: “930.01”,             
-    “limitPrice: “903.12”               
+            "stopPrice: “930.01”,             
+            "limitPrice: “903.12”               
         },
         {
             "clientOrderId": "161224973777800",
-"orderId": "203369975621712261",
+            "orderId": "203369975621712261",
             "marketCode": "BTC-USD-SWAP-LIN",
             "side": "SELL",
             "quantity": "0.002",
@@ -257,7 +257,7 @@ POST /v3/orders/modify
         },
         {
             "clientOrderId": "161224973777900",
-    "orderId": "588369975621712255",
+            "orderId": "588369975621712255",
             "marketCode": "BTC-USD-SWAP-LIN",
             "side": "SELL",
             "quantity": "0.003",
@@ -281,38 +281,38 @@ POST /v3/orders/modify
             “orderId”: “123253532”,
             "clientOrderId": "1612249737724",
             "marketCode": "BTC-USD-SWAP-LIN",
- “side': 'SELL',
-     "price": "50007.0",
+            "side': 'SELL',
+            "price": "50007.0",
             "quantity": "0.001",
             "orderType": "LIMIT",
             "timeInForce": "GTC", 
             "modifiedAt": "1615430915596",
-        "source": 0
+            "source": 0
         },
         {
-           'notice': 'OrderModified',          
-        'accountId': '1076', 
-        'orderId': '1000028795158', 
-        ‘submitted’: true,
-        'clientOrderId': '1', 
-        'marketCode': 'BTC-USD-SWAP-LIN', 
-        'status': 'OPEN', 
-        'side': 'BUY', 
-        'price': '9600.0', 
-        ‘stopPrice’: null,
-        'isTriggered': null,
-        'quantity': '0.01', 
-                ‘remainQuantity’: ‘0.01’,
-    'matchId': null,
-    'matchPrice': null, 
-    'matchQuantity': null, 
-                ‘feeInstrumentId’: null,
-        ‘fees’: null,
-        'orderType': 'LIMIT', 
-        'timeInForce': 'MAKER_ONLY', 
-        'createdAt': null,       
-                ‘modifiedAt’: “162321312311”,            
-        ‘matchedAt’: null,            
+            "notice": "OrderModified",          
+            "accountId": "1076", 
+            "orderId": '1000028795158', 
+            "submitted": true,
+            "clientOrderId": '1', 
+            "marketCode": "BTC-USD-SWAP-LIN", 
+            "status": "OPEN", 
+            "side": "BUY", 
+            "price": "9600.0", 
+            "stopPrice": null,
+            "isTriggered": null,
+            "quantity": "0.01", 
+            "remainQuantity": "0.01",
+            "matchId": null,
+            "matchPrice": null, 
+            "matchQuantity": null, 
+            "feeInstrumentId": null,
+            "fees": null,
+            "orderType": "LIMIT", 
+            "timeInForce": "MAKER_ONLY", 
+            "createdAt": null,       
+            "modifiedAt": “162321312311”,            
+            "matchedAt": null,            
         }
 
     ]
@@ -382,9 +382,9 @@ DELETE /v3/orders/cancel
 {
 
     "recvWindow": 500,        
-“timestamp”: 235536,         
+    "timestamp”: 235536,         
     "responseType": “FULL” or “ACK”   
-"orders": [
+    "orders": [
         {
             "marketCode": "BTC-USD-SWAP-LIN",  
             "orderId": "304384250571714215",    
@@ -392,7 +392,7 @@ DELETE /v3/orders/cancel
         },
         {
             "marketCode": "BTC-USD-SWAP-LIN",
-"orderId": "204285250571714316",
+            "orderId": "204285250571714316",
             "clientOrderId": "1612249737724”
         }
     ]
@@ -405,34 +405,34 @@ DELETE /v3/orders/cancel
 ```json
 {
     "event": "cancelOrders",
-    “success”: true,
+    "success”: true,
     "data": [
 {
-'notice': 'OrderClosed', 
-          'accountId': '12005486', 
-'orderId': '1000018305713',
-‘submitted’: true,
-'clientOrderId': '1', 
-'marketCode': 'BTC-USD-SWAP-LIN', 
-'status': 'CANCELED_BY_USER', 
-'side': 'BUY', 
-'price': '4870.0', 
-‘stopPrice’: null,
-'isTriggered': null
-'quantity': '0.001', 
-'remainQuantity': '0.001',
-    'orderType': 'LIMIT',  
-'timeInForce': 'GTC', 
-'closedAt': '1629712561919', 
+            "notice": "OrderClosed", 
+            "accountId": "12005486", 
+            "orderId": "1000018305713",
+            "submitted": true,
+            "clientOrderId": "1", 
+            "marketCode": "BTC-USD-SWAP-LIN", 
+            "status": "CANCELED_BY_USER", 
+            "side": "BUY", 
+            "price": "4870.0", 
+            "stopPrice": null,
+            "isTriggered": null
+            "quantity": "0.001", 
+            "remainQuantity": "0.001",
+            "orderType": "LIMIT",  
+            "timeInForce": "GTC", 
+            "closedAt": "1629712561919", 
         },
         {
             "code": "40035",
             "message": "Open order not found with id",
-    "submitted": false,
-"orderId": "204285250571714316",
+            "submitted": false,
+            "orderId": "204285250571714316",
             "clientOrderId": "1612249737724",
             "marketCode": "BTC-USD-SWAP-LIN",
-    "closedAt": "1615454881433",
+            "closedAt": "1615454881433",
         }
     ]
 }
@@ -505,34 +505,34 @@ DELETE /v3/orders/cancel-all
 ```json
 {
     "event": "cancelOrders",
-    “success”: true,
+    "success": true,
     "data": [
 {
-'notice': 'OrderClosed', 
-          'accountId': '12005486', 
-'orderId': '1000018305713',
-‘submitted’: true,
-'clientOrderId': '1', 
-'marketCode': 'BTC-USD-SWAP-LIN', 
-'status': 'CANCELED_BY_USER', 
-'side': 'BUY', 
-'price': '4870.0', 
-‘stopPrice’: null,
-'isTriggered': null
-'quantity': '0.001', 
-'remainQuantity': '0.001',
-    'orderType': 'LIMIT',  
-'timeInForce': 'GTC', 
-'closedAt': '1629712561919', 
+            "notice': 'OrderClosed', 
+            "accountId': '12005486', 
+            "orderId': '1000018305713',
+            "submitted’: true,
+            "clientOrderId': '1', 
+            "marketCode': 'BTC-USD-SWAP-LIN', 
+            "status': 'CANCELED_BY_USER', 
+            "side': 'BUY', 
+            "price': '4870.0', 
+            "stopPrice’: null,
+            "isTriggered': null
+            "quantity': '0.001', 
+            "remainQuantity': '0.001',
+            "orderType': 'LIMIT',  
+            "timeInForce': 'GTC', 
+            "closedAt': '1629712561919', 
         },
         {
             "code": "40035",
             "message": "Open order not found with id",
-    "submitted": false,
-"orderId": "204285250571714316",
+            "submitted": false,
+            "orderId": "204285250571714316",
             "clientOrderId": "1612249737724",
             "marketCode": "BTC-USD-SWAP-LIN",
-    "closedAt": "1615454881433",
+            "closedAt": "1615454881433",
         }
     ]
 }
@@ -639,14 +639,14 @@ print(resp.json())
 
 ```json
 {
-    “success”: true,
+    "success”: true,
     "data”:  [
         {
             "accountId": "21213",
-            “accountName”: “main”,
+            "accountName": "main",
             "accountType": "LINEAR",
             "marginCurrency": "USD",
-            “balances”:  [ 
+            "balances":  [ 
                 {
                     "asset": "BTC",
                     "total": "4468.823", 
@@ -663,29 +663,29 @@ print(resp.json())
                 },
                 ...
             ],
-            “positions”:  [ 
+            "positions":  [ 
                 {
                     "marketCode": "BTC-USD-SWAP-LIN",
-                    “baseAsset”: “BTC”,
-                    “counterAsset”: “USD”,
+                    "baseAsset”: "BTC",
+                    "counterAsset": "USD",
                     "position": "0.94",
                     "entryPrice": "7800.00", 
-                    “markPrice”: “33000.00”, 
+                    "markPrice": "33000.00", 
                     "positionPnl": "200.3",
-                    “estLiquidationPrice”: “12000.05”,
-                    “lastUpdatedAt": "1592486212218"              
+                    "estLiquidationPrice": "12000.05",
+                    "lastUpdatedAt": "1592486212218"              
                 },
                 ...
             ],
-            “collateral”: “1231231”,
-            “notionalPositionSize”: “5000.00”, //sum(position_qty * markPrice) position表里的quantity 乘以 markPrice，然后累加
-            "portfolioVarMargin": "500",
-            "riskRatio": "20.0000",                
-            ‘maintenanceMargin’: ‘1231’,            // maintenance margin, maintenanceMargin = portfolioVarMargin / 2
-            "marginRatio": "12.3179",             // like the GUI
-            “liquidating”: false,         // flag to check if the account is being liquidated
-            ‘feeTier’: ‘6’,                // account fee tier (VIP level)
-            "createdAt": "1611665624601"
+                    "collateral”: “1231231”,
+                    "notionalPositionSize”: “5000.00”, //sum(position_qty * markPrice) position表里的quantity 乘以 markPrice，然后累加
+                    "portfolioVarMargin": "500",
+                    "riskRatio": "20.0000",                
+                    "maintenanceMargin’: ‘1231’,            // maintenance margin, maintenanceMargin = portfolioVarMargin / 2
+                    "marginRatio": "12.3179",             // like the GUI
+                    "liquidating”: false,         // flag to check if the account is being liquidated
+                    "feeTier’: ‘6’,                // account fee tier (VIP level)
+                    "createdAt": "1611665624601"
         },
         ...
     ]
@@ -749,9 +749,9 @@ ts = datetime.datetime.utcnow().isoformat()
 nonce = 123
 
 # REST API method
-method = '/v2/balances'
+method = '/v3/balances'
 
-# Not required for /v2/balances
+# Not required for /v3/balances
 body = urlencode({})
 
 if body:
@@ -773,11 +773,11 @@ print(resp.json())
 
 ```json
 {
-    “success”: true,
+    "success”: true,
     "data": [
         {
-            "accountId": "21213",
-            "balances": [
+             "accountId": "21213",
+             "balances": [
                 {
                     "asset": "BTC",
                     "total": "4468.823",              
@@ -878,21 +878,21 @@ print(resp.json())
 
 ```json
 {
-    ”success”: true,
+    "success": true,
     "data":  [
         {
-            "accountId": "21213",
-            "positions": [
+             "accountId": "21213",
+             "positions": [
                 {
                     "marketCode": "BTC-USD-SWAP-LIN",
-                    “baseAsset”: “BTC”,
-                    “counterAsset”: “USD”,
+                    "baseAsset": "BTC",
+                    "counterAsset": "USD",
                     "position": "0.94",
                     "entryPrice": "7800.00", 
-                    “markPrice”: “33000.00”, 
+                    "markPrice": "33000.00", 
                     "positionPnl": "200.3",
-                    “estLiquidationPrice”: “12000.05”,
-                    “lastUpdatedAt": "1592486212218"
+                    "estLiquidationPrice": "12000.05",
+                    "lastUpdatedAt": "1592486212218"
                 },
                 ...
             ]
@@ -982,7 +982,7 @@ nonce = 123
 # REST API method, for example FLEX-USD spot trades
 method = '/v3/trades/FLEX-USD'
 
-# Optional for /v2/trades/{marketCode}
+# Optional for /v3/trades/{marketCode}
 body = urlencode({'limit': 10, 'startTime': 1611850042397, 'endTime': 1611850059021})
 
 if body:
@@ -1004,22 +1004,22 @@ print(resp.json())
 
 ```json
 {
-"success": true,
-“data": [ {        
-            "orderId": "160067484555913076",
-              "clientOrderId": "123",
-              "matchId": "160067484555913077",
-              "marketCode": "FLEX-USD",
-        "side": "SELL",
-              "matchedQuantity": "0.1",
-              "matchPrice": "0.065",
-              "total": "0.0065",    
-            “leg1Price”: null,         // REPO & SPR
-            “leg2Price”: null,        // REPO & SPR
-              "orderMatchType": "TAKER",
-    “feeAsset”: "FLEX”,
-           "fee”: "0.0096",
-            "lastMatchedAt": "1595514663626"
+    "success": true,
+    "data": [ {        
+             "orderId": "160067484555913076",
+             "clientOrderId": "123",
+             "matchId": "160067484555913077",
+             "marketCode": "FLEX-USD",
+             "side": "SELL",
+             "matchedQuantity": "0.1",
+             "matchPrice": "0.065",
+             "total": "0.0065",    
+             "leg1Price": null,         // REPO & SPR
+             "leg2Price": null,        // REPO & SPR
+             "orderMatchType": "TAKER",
+             "feeAsset": "FLEX",
+             "fee": "0.0096",
+             "lastMatchedAt": "1595514663626"
             },
             …
 ]
@@ -1109,25 +1109,25 @@ GET /v3/orders/history?marketCode={marketCode}&orderId={orderId}&clientOrderId={
     "success": true,
     "data": [
         {
-          "orderId": "304408197314577142",          // each orderId has only 1 response
-"clientOrderId": "1",                // clientOrderId can have many resp
-"marketCode": "BTC-USD-SWAP-LIN",
-“status": CLOSED | OPEN | PARTIALLY_FILLED | FILLED
-"side": "BUY",
-"price": "10006.0",
-“stopPrice”: null,
-“isTriggered”: false,
-"quantity": "0.001",
-"remainQuantity": "0.001",
-"matchedQuantity": "0.000",
-“avgFillPrice”: null,
-“fees”: {‘USD’: "0", ‘FLEX’: “0”}
-"orderType": "LIMIT",
-"timeInForce": "GTC",
-"createdAt": "1619121040779"
-            'lastModifiedAt': null,
-“lastMatchedAt”: null,
-"closedAt": "1619131050779",
+             "orderId": "304408197314577142",          // each orderId has only 1 response
+             "clientOrderId": "1",                // clientOrderId can have many resp
+             "marketCode": "BTC-USD-SWAP-LIN",
+             "status": CLOSED | OPEN | PARTIALLY_FILLED | FILLED
+             "side": "BUY",
+             "price": "10006.0",
+             "stopPrice”: null,
+             "isTriggered”: false,
+             "quantity": "0.001",
+             "remainQuantity": "0.001",
+             "matchedQuantity": "0.000",
+             "avgFillPrice”: null,
+             "fees”: {‘USD’: "0", ‘FLEX’: “0”}
+             "orderType": "LIMIT",
+             "timeInForce": "GTC",
+             "createdAt": "1619121040779"
+             "lastModifiedAt': null,
+             "lastMatchedAt”: null,
+             "closedAt": "1619131050779",
         },
         ...
     ]
@@ -1211,8 +1211,8 @@ import hashlib
 import datetime
 from urllib.parse import urlencode
 
-rest_url = 'https://v2stgapi.coinflex.com'
-rest_path = 'v2stgapi.coinflex.com'
+rest_url = 'https://v3stgapi.coinflex.com'
+rest_path = 'v3stgapi.coinflex.com'
 
 api_key = <API-KEY>
 api_secret = <API-SECRET>
@@ -1221,9 +1221,9 @@ ts = datetime.datetime.utcnow().isoformat()
 nonce = 123
 
 # REST API method
-method = '/v2.1/delivery/orders' 
+method = '/v3/delivery/orders' 
 
-# Required for POST /v2.1/delivery/orders
+# Required for POST /v3.1/delivery/orders
 body = urlencode({"instrumentId": "BTC-USD-SWAP-LIN", "qtyDeliver": "1"})
 
 if body:
@@ -1245,24 +1245,24 @@ print(resp.json())
 
 ```json
 {
-“success”: true,
-"data":  {
-               "deliveryId": "586985384617312258",
-               "marketCode": "BTC-USD-SWAP-LIN",
-               "status": "PENDING”,
-               "deliveryPrice": "10000.000",
-               "deliveryPosition": "1.000",
-               "deliveryType": "NEXT_CYCLE",
-               "deliveryAsset": "USD",
-                          "deliveryQuantity": "32000.000", // deliveryQuantity = quantity
-               "receiveAsset": "BTC",
-               "receiveQuantity": "1.000",
-     “deliveredQuantity”: “0.000” // deliveredQuantity = matchedQuantity
-     “receivedQuantity”: “0.000”                // how much of the receiveAsset was received
-               "remainingDeliveryPosition": "1.000",
-               "auctionTime": "1599204122693",
-               "createdAt": "1599204122693",
-               "lastUpdatedAt": "1599204122693",
+    "success": true,
+    "data":  {
+             "deliveryId": "586985384617312258",
+             "marketCode": "BTC-USD-SWAP-LIN",
+             "status": "PENDING”,
+             "deliveryPrice": "10000.000",
+             "deliveryPosition": "1.000",
+             "deliveryType": "NEXT_CYCLE",
+             "deliveryAsset": "USD",
+             "deliveryQuantity": "32000.000", // deliveryQuantity = quantity
+             "receiveAsset": "BTC",
+             "receiveQuantity": "1.000",
+             "deliveredQuantity”: “0.000” // deliveredQuantity = matchedQuantity
+             "receivedQuantity”: “0.000”                // how much of the receiveAsset was received
+             "remainingDeliveryPosition": "1.000",
+             "auctionTime": "1599204122693",
+             "createdAt": "1599204122693",
+             "lastUpdatedAt": "1599204122693",
           }
 }
 
@@ -1392,25 +1392,25 @@ print(resp.json())
 
 ```json
 {
-“success”: true,
-“data”: [{
-               "deliveryId": "586985384617312258",
-               "marketCode": "BTC-USD-SWAP-LIN",
-               "status": "CANCELED”,
-               "deliveryPrice": "10000.000",
-               "deliveryPosition": "1.000",
-               "deliveryType": "NEXT_CYCLE",
-               "deliveryAsset": "USD",
-               "deliveryQuantity": "32000.000",
-               "receiveAsset": "BTC",
-               "receiveQuantity": "1.000",
-     “deliveredQuantity”: “0.000”
-     “receivedQuantity”: “0.000”                // how much of the receiveAsset was received
-               "remainingDeliveryPosition": "1.000",
-               "auctionTime": "1599204122693",
-               "createdAt": "1599204122693",
-     “closedAt”:  "1599204182693",
-               "lastUpdatedAt": "1599204122693",
+    "success": true,
+    "data": [{
+             "deliveryId": "586985384617312258",
+             "marketCode": "BTC-USD-SWAP-LIN",
+             "status": "CANCELED”,
+             "deliveryPrice": "10000.000",
+             "deliveryPosition": "1.000",
+             "deliveryType": "NEXT_CYCLE",
+             "deliveryAsset": "USD",
+             "deliveryQuantity": "32000.000",
+             "receiveAsset": "BTC",
+             "receiveQuantity": "1.000",
+             "deliveredQuantity”: “0.000”
+             "receivedQuantity”: “0.000”                // how much of the receiveAsset was received
+             "remainingDeliveryPosition": "1.000",
+             "auctionTime": "1599204122693",
+             "createdAt": "1599204122693",
+             "closedAt”:  "1599204182693",
+             "lastUpdatedAt": "1599204122693",
           }]
 }
 ```
@@ -1495,25 +1495,25 @@ print(resp.json())
 
 ```json
 {
-“success": true,
-"data": [ {
-               "deliveryId": "586985384617312258",
-               "marketCode": "BTC-USD-SWAP-LIN",
-               "status": "CANCELED”,
-               "deliveryPrice": "10000.000",
-               "deliveryPosition": "1.000",
-               "deliveryType": "NEXT_CYCLE",
-               "deliveryAsset": "USD",
-               "deliveryQuantity": "32000.000",
-               "receiveAsset": "BTC",
-               "receiveQuantity": "1.000",
-     “deliveredQuantity”: “0.000”
-     “receivedQuantity”: “0.000”                // how much of the receiveAsset was received
-               "remainingDeliveryPosition": "1.000",
-               "auctionTime": "1599204122693",
-               "createdAt": "1599204122693",
-     “closedAt”:  "1599204182693",
-               "lastUpdatedAt": "1599204122693",
+    "success": true,
+    "data": [ {
+             "deliveryId": "586985384617312258",
+             "marketCode": "BTC-USD-SWAP-LIN",
+             "status": "CANCELED",
+             "deliveryPrice": "10000.000",
+             "deliveryPosition": "1.000",
+             "deliveryType": "NEXT_CYCLE",
+             "deliveryAsset": "USD",
+             "deliveryQuantity": "32000.000",
+             "receiveAsset": "BTC",
+             "receiveQuantity": "1.000",
+             "deliveredQuantity": "0.000"
+             "receivedQuantity": "0.000"                // how much of the receiveAsset was received
+             "remainingDeliveryPosition": "1.000",
+             "auctionTime": "1599204122693",
+             "createdAt": "1599204122693",
+             "closedAt":  "1599204182693",
+             "lastUpdatedAt": "1599204122693",
           }
 
             }, { ……… },
@@ -1598,16 +1598,16 @@ GET /v3/funding?marketCode={marketCode}&limit={limit}&startTime={startTime}&endT
 
 ```json
 {
-        "event": "fundingPayments,
-“success”: true,
-        "data": [
+    "event": "fundingPayments,
+    "success”: true,
+    "data": [
                     {
-            "marketCode": "BTC-USD-SWAP-LIN",
-            "payment": "12.12321"    // negative = user credit, positive = user debit
-            "fundingRate": "0.000005",
-            "position": "1.123"
-            "markPrice": "32000.21"
-            "createdAt/updatedAt": "162163213213"
+             "marketCode": "BTC-USD-SWAP-LIN",
+             "payment": "12.12321"    // negative = user credit, positive = user debit
+             "fundingRate": "0.000005",
+             "position": "1.123"
+             "markPrice": "32000.21"
+             "createdAt/updatedAt": "162163213213"
                     },...
             ]
 }
@@ -1693,12 +1693,12 @@ clientOrderId | Null Type|  null
 
 ```json
 {
-    “success”: true,
+    "success": true,
     "data":
         {
-    “address”:”bitcoincash:qpsvxmpv2eqzc2cm7hf826m0afzfru6wdg4atgdxtt”,
-    “legacyAddress”:”19pdycXvr7GJChTwuq5WFqrrTrMBYLYUyg”,
-    “memo”:”642694646”
+             "address":"bitcoincash:qpsvxmpv3eqzc2cm7hf826m0afzfru6wdg4atgdxtt",
+             "legacyAddress":"19pdycXvr7GJChTwuq5WFqrrTrMBYLYUyg",
+             "memo":"642694646"
         }
 }
 ```
@@ -1733,18 +1733,18 @@ Network | STRING | YES
 
 ```json
 {
-    “success”: true,
+    "success”: true,
     "data":
         [    {
-             “asset”: “flexUSD”,
-    “network”:”SLP”,
-    “address”:”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
-    “Memo”:”642694646”,            // only for chains that have 2 part addresses
-    “quantity”: “1000.0”,
-“id”:”651573911056351237”
-“status”:”completed”,
-“txId”:”38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d”,
-    “creditedAt”: “1617940800000”
+             "asset”: “flexUSD”,
+             "network”:”SLP”,
+             "address”:”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
+             "Memo”:”642694646”,            // only for chains that have 2 part addresses
+             "quantity”: “1000.0”,
+             "id”:”651573911056351237”
+             "status”:”completed”,
+             "txId”:”38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d”,
+             "creditedAt”: “1617940800000”
             }, ………. ]
 }
 
@@ -1783,18 +1783,18 @@ endTime | LONG | NO | | e.g. 1613978625000, default time now
 
 ```json
 {
-    “success”: true,
+    "success": true,
     "data":
         {
-             “asset”: “flexUSD”,
-             "network”:”SLP”,
-             "address”:”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
-    “memo”:”642694646”,
-    “quantity”: “1000.0”,
-    “externalFee”:true,
-“fee”:”0”,
-    “status”:”pending”,
-“requestedAt”:“1617940800000”
+             "asset": "flexUSD",
+             "network":"SLP",
+             "address":"simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
+             "memo":"642694646",
+             "quantity": "1000.0",
+             "externalFee":true,
+             "fee":"0",
+             "status":"pending",
+             "requestedAt":"1617940800000"
         }
 }
 ```
@@ -1883,15 +1883,15 @@ endTime | LONG | NO | | e.g. 1613978625000, default time now
 
 ```json
 {
-    “success”: true,
+    "success”: true,
     "data":
         [    {
-             “asset”: “flexUSD”,
-    “network”: ”SLP”,
-    “address”: ”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
-    “memo”: ”642694646”,
-“label”: ”Mum”
-“whitelisted”: true
+             "asset”: “flexUSD”,
+             "network”: ”SLP”,
+             "address”: ”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
+             "memo”: ”642694646”,
+             "label”: ”Mum”
+             "whitelisted": true
         }, ………. ]
 }
 
@@ -1955,6 +1955,7 @@ Quantity | STRING | YES | Quantity to withdraw|
 externalFee | BOOL | YES | If True then the fee will be in addition to the quantity provided|
 
 ####  Sub-account balance transfer - POST /v3/transfer
+
 > **Request**
 
 ```json
