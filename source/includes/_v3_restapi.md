@@ -1787,8 +1787,8 @@ endTime | LONG | NO | | e.g. 1613978625000, default time now
     "data":
         {
              “asset”: “flexUSD”,
-    “network”:”SLP”,
-    “address”:”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
+             "network”:”SLP”,
+             "address”:”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
     “memo”:”642694646”,
     “quantity”: “1000.0”,
     “externalFee”:true,
@@ -1834,20 +1834,20 @@ code | STRING | 2FA if required by the account
 
 ```json
 {
-    “success”: true,
+    "success": true,
     "data":
         [{
-             “asset”: “flexUSD”,
-    “network”:”SLP”,
-    “address”:”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
-    “Memo”:”642694646”,            // only for chains that have 2 part addresses
-    “quantity”: “1000.0”,
-“fee”:”0”,
-“id”:”651573911056351237”
-“status”:”completed”,
-“txId”:”38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d”,
-    “requestedAt”: “1617940800000”,
-    “completedAt”: “16003243243242”
+             "asset”: “flexUSD”,
+             "network”:”SLP”,
+             "address”:”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
+             "Memo”:”642694646”,            // only for chains that have 2 part addresses
+             "quantity”: “1000.0”,
+             "fee”:”0”,
+             "id”:”651573911056351237”
+             "status”:”completed”,
+             "txId”:”38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d”,
+             "requestedAt”: “1617940800000”,
+             "completedAt”: “16003243243242”
         }, …………………. ]
 }
 ```
@@ -1919,16 +1919,16 @@ endTime | LONG | NO | | e.g. 1613978625000, default time now
 
 ```json
 {
-    “success”: true,
+    "success": true,
     "data":
         {
-             “asset”: “flexUSD”,
-    “network”:”SLP”,
-    “address”:”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
-    “memo”:”642694646”,
-    “quantity”: “1000.0”,
-    “externalFee”:true,
-“estimatedFee”:”0”
+             "asset": "flexUSD",
+             "network":"SLP",
+             "address":"simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
+             "memo":"642694646",
+             "quantity": "1000.0",
+             "externalFee":true,
+             "estimatedFee":"0"
         }
 }
 ```
@@ -1968,10 +1968,10 @@ POST /v3/transfer
 
 ```json
 {
-    “asset”: “flexUSD”, 
-“quantity”: 1000,
-“fromAccount”:”36”,
-“toAccount”:”9”
+             "asset": "flexUSD", 
+             "quantity": 1000,
+             "fromAccount":"36",
+             "atoAccount":"9"
 }
 
 ```
@@ -2010,11 +2010,11 @@ POST /v3/flexasset/mint
 
 ```json
 {
-    “success”: true,
+    "success”: true,
     "data":
         {
-             “asset”: “flexUSD”,
-    “quantity”: “1000.0”
+             "asset": “flexUSD”,
+             "quantity": “1000.0”
         }
 }
 ```
@@ -2061,13 +2061,13 @@ POST /v3/flexasset/redeem
 
 ```json
 {
-    “success”: true,
+    "success": true,
     "data":
         {
-             “asset”: “flexUSD”,
-    “quantity”: “1000.0”,
-            “type”: “normal”,
-    “redemptionAt”: “1617940800000”
+             "asset": "flexUSD",
+             "quantity": "1000.0",
+             "type": "normal",
+             "redemptionAt": "1617940800000"
         }
 }
 
@@ -2114,12 +2114,12 @@ GET /v3/flexasset/mint?asset={asset}&limit={limit}&startTime={startTime}&endTime
 
 ```json
 {
-“success”: true,
-"data": [  {
-             “asset”: “flexUSD”,
-    “quantity”: “1000.0”,
-    “mintedAt”: “16003243243242”
-             }, ………… ]
+    "success": true,
+    "data": [  {
+             "asset”: “flexUSD”,
+             "quantity”: “1000.0”,
+             "mintedAt”: “16003243243242”
+             },]
 }
 ```
 
@@ -2163,14 +2163,14 @@ GET /v3/flexasset/redeem?asset={asset}&type={type}&limit={limit}&startTime={star
 
 ```json
 {
-    “success”: true,
+    "success": true,
     "data":
         [{
-             “asset”: “flexUSD”,
-    “quantity”: “1000.0”,
-            “type”: “normal”,           // normal or immediate
-    “requestedAt”: “16003243243242”,
-    “redeemedAt”: “1643542342222”
+             "asset": "flexUSD",
+             "quantity": "1000.0",
+             "type": "normal",           // normal or immediate
+             "requestedAt": "16003243243242",
+             "redeemedAt": "1643542342222"
         },]
 }
 ```
@@ -2214,15 +2214,15 @@ GET  /v3/flexasset/earned?asset={asset}&limit={limit}&startTime={startTime}&endT
 
 ```json
 {
-    “success”: true,
+    "success": true,
     "data":
         [{
-             “asset”: “flexUSD”,
-    “snapshotQuantity”: “100000.0”,
-    “apr”: “0.0001”,
-    “rate”: “0.0001”,  // 8 decimals
-    “amount”: “31.324344”, // 8 decimals
-    “paidAt”: “16003243243242”,
+             "asset": "flexUSD",
+             "snapshotQuantity": "100000.0",
+             "apr": "0.0001",
+             "rate": “0.0001",  // 8 decimals
+             "amount": "31.324344", // 8 decimals
+             "paidAt": "16003243243242",
         },]
 }
 ```
@@ -2269,11 +2269,11 @@ GET  /v3/notetoken/earned?asset={asset}&limit={limit}&startTime={startTime}&endT
     "data":
         [{
              "asset": "noteNibbio",
-    "snapshotQuantity": "100000.0",
-    "apr": "0.0001",
-    "rate": "0.0001",
-    "amount": "31.324344" 
-    "createdAt/lastUpdatedAt": "16003243243242", // created time or updated time
+             "snapshotQuantity": "100000.0",
+             "apr": "0.0001",
+             "rate": "0.0001",
+             "amount": "31.324344" 
+             "createdAt/lastUpdatedAt": "16003243243242", 
         },]
 }
 
