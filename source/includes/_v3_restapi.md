@@ -3319,9 +3319,9 @@ GET /v3/flexasset/balances/{asset}
 
 ```json
 {
-"success": true,
-"asset": "flexUSD",
-"data":  [{
+    "success": true,
+    "asset": "flexUSD",
+    "data":  [{
         "instrumentId": "BAND", 
         "total": "0.00000000", 
         "available": "0.00000000", 
@@ -3376,8 +3376,8 @@ asset={asset}
 
 ```json
 {
-"success": true,
-"data": [{
+    "success": true,
+    "data": [{
         "marketCode": "BTC-USD-SWAP-LIN",
         "baseAsset": "BTC",
         "counterAsset": "USD",
@@ -3441,9 +3441,9 @@ asset={asset}
 
 ```json
 {
-   "success": true,
-   "asset": "flexUSD",
-   "data":[
+    "success": true,
+    "asset": "flexUSD",
+    "data":[
       {
         "orderId": "304354590153349202",
         "clientOrderId": "1",
@@ -3511,9 +3511,9 @@ asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTim
 
 ```json
 {
-   "success": true,
-   "asset": "flexUSD",
-   "data":[
+    "success": true,
+    "asset": "flexUSD",
+    "data":[
         {
               "orderId": "160067484555913076",
               "clientOrderId": "123",
