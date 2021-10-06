@@ -2265,15 +2265,15 @@ GET  /v3/notetoken/earned?asset={asset}&limit={limit}&startTime={startTime}&endT
 
 ```json
 {
-    “success”: true,
+    "success": true,
     "data":
         [{
-             “asset”: “noteNibbio”,
-    “snapshotQuantity”: “100000.0”,
-    “apr”: “0.0001”,
-    “rate”: “0.0001”,
-    “amount”: “31.324344” 
-    “createdAt/lastUpdatedAt”: “16003243243242”, // created time or updated time
+             "asset": "noteNibbio",
+    "snapshotQuantity": "100000.0",
+    "apr": "0.0001",
+    "rate": "0.0001",
+    "amount": "31.324344" 
+    "createdAt/lastUpdatedAt": "16003243243242", // created time or updated time
         },]
 }
 
