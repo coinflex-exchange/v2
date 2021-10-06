@@ -1943,9 +1943,6 @@ endTime | LONG | NO | | e.g. 1613978625000, default time now
 }
 ```
 
-```
-
-
 <sub>**Request Parameters**</sub> 
 
 Request Parameters | Type | Required | Description | 
@@ -2008,13 +2005,15 @@ POST /v3/flexasset/mint
 
 > **SUCCESSFUL RESPONSE**
 
+
+
 ```json
 {
-    "success”: true,
+    "success": true,
     "data":
         {
-             "asset": “flexUSD”,
-             "quantity": “1000.0”
+             "asset": "flexUSD",
+             "quantity": "1000.0",
         }
 }
 ```
