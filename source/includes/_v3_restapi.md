@@ -960,11 +960,7 @@ estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is ne
 GET /v3/trades?marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
 
 {
-
-  "limit": {limit},
-  "startTime": {startTime},
-  "endTime": {endTime}
-  
+  "limit": 100,
 }
 ```
 
@@ -1206,8 +1202,8 @@ orderClosedTimestamp | STRING | Order closed at |
 POST /v3/delivery
 
 {
-  "marketCode": {marketCode},    # Required
-  "qtyDeliver": {qtyDeliver}        # Required
+  "marketCode": "BTC-USD-SWAP-LIN"
+  "qtyDeliver": 1
 }
 
 ```
@@ -1351,6 +1347,7 @@ data | LIST of dictionary |
 \>status | STRING | Delivery status
 
 ###Cancel delivery - DELETE /v3/delivery
+
 > **Request**
 
 ```json
@@ -1358,7 +1355,7 @@ data | LIST of dictionary |
 DELETE /v3/delivery
 
 {
-    "deliveryId": {deliveryId}        # LONG or STRING required
+    "deliveryId": 586985384617312258
 }
 
 ```
@@ -1458,6 +1455,12 @@ print(resp.json())
           ]
 }
 ```
+
+Parameters | Type | Required |Description| 
+-------------------------- | -----|--------- | -------------|
+deliveryID| STRING | YES | Instrument ID intended for delivery to be cancelled | 
+
+
 
 ###Delivery orders - GET /v3/delivery
 > **Request**
