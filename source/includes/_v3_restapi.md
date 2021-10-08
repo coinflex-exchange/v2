@@ -1685,6 +1685,14 @@ GET /v3/funding?marketCode={marketCode}&limit={limit}&startTime={startTime}&endT
 
 Returns the entire delivery history for the account connected to the API key initiating the request.
 
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+marketCode | STRING | NO | default most recent delivery first|
+limit | LONG | NO | max `1000`, default `500` |
+startTime | LONG | NO | e.g. `1579450778000`, default `24H ago` |
+endTime | LONG | NO | e.g. `1613978625000`, default time now |
+
+
 <sub>**Request Parameters**</sub> 
 
 Parameters |Type | Description| 
@@ -1713,6 +1721,11 @@ clientOrderId | Null Type|  null
 ```json
 
  GET /v3/deposit-address?asset={asset}&network={network}
+ 
+ {
+    "asset": "BCH"
+    "network": "SEP20"
+}
  
 ```
 
@@ -1848,7 +1861,7 @@ Parameters |Type | Description|
 asset | STRING | `flexUDS`
 network | STRING | 'SLP'
 Address | STRING |'simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7'
-memo | STRing | Only for chains that have 2 part addresses
+memo | String | Only for chains that have 2 part addresses
 quantity | Null Type| null
 externalFee | BOLEAN |Required, if externalFee is true, fee will be deducted from account balance, if it's false, fee will be deducted from the withdrawal amount
 2faType | STRING |  Authy_SECRET or GOOGLE or YUBIKEY
@@ -1988,9 +2001,6 @@ GET /v3/withdrawal-fee?asset=flexUSD&network=SLP&address=simpleledger:qzlg6uvcee
   "message": "Internal server error"
 }
 ```
-
-<sub>**Request Parameters**</sub> 
-
 Request Parameters | Type | Required | Description | 
 ------------------ | ---- | -------- | ----------- |
 Asset | STRING | YES | | default all assets, mos recent first|
