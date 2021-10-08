@@ -1955,6 +1955,8 @@ endTime | LONG | NO | | e.g. 1613978625000, default time now
 }
 ```
 
+Provides a list of all available withdrawable addresses along with their respected labels, network and whitelisted status
+
 
 ####  Withdrawal fee estimate - GET /v3/withdrawal-fee
 > **Request**
@@ -3953,9 +3955,9 @@ marketCode={marketCode}
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
