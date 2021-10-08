@@ -1202,8 +1202,8 @@ orderClosedTimestamp | STRING | Order closed at |
 POST /v3/delivery
 
 {
-  "marketCode": "BTC-USD-SWAP-LIN"
-  "qtyDeliver": 1
+    "marketCode": "BTC-USD-SWAP-LIN"
+    "qtyDeliver": 1
 }
 
 ```
@@ -1581,6 +1581,15 @@ print(resp.json())
 ```
 
 Returns the entire delivery history for the account connected to the API key initiating the request.
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+deliveryID | STRING/LONG | NO | Return only the info for the specific id|
+marketCode | STRING | NO | default most recent delivery first|
+limit | LONG | NO | max `500`, default `100` |
+startTime | LONG | NO | e.g. `1579450778000`, default `24H ago` |
+endTime | LONG | NO | e.g. `1613978625000`, default time now |
+status | STRING | NO | e.g. CANCELED”, “DELIVERED”, “PENDING”, ROLLED_DELIVERY”|
 
 <sub>**Response Parameters**</sub> 
 
