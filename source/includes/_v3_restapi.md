@@ -3281,7 +3281,6 @@ timestamp(in the data list) | STRING | |
 ```json
 GET /v3/exchange-trades?marketCode={marketCode}&limit={limit}
 &startTime={startTime}&endTime={endTime}
-
 ```
 
 > **Success response format**
@@ -3318,20 +3317,18 @@ Get most recent trades.
 
 Request Parameters | Type | Required |Description| 
 -------------------------- | -----|--------- | -------------|
-marketCode| STRING | YES |  | 
+marketCode| STRING | NO | default most recent trades first| 
 limit| LONG | NO | Default 100, max 300 | 
-startTime| LONG | NO |  | 
-endTime| LONG | NO |  | 
+startTime| LONG | NO | e.g. 1579450778000, default 24 hours ago | 
+endTime| LONG | NO | e.g. 1579450778000, default time now | 
 
 Response Parameters |Type | Description| 
 -------------------------- | -----|--------- |
-timestamp | STRING    | Timestamp of this response|
 marketCode | STRING    | |
-matchID | STRING    | |
-matchQuantity | STRING    | |
-matchPrice | STRING    | |
+matchprice | LONG    | |
+matchQuantity | LONG    | |
 side | STRING    | |
-matchTimestamp | STRING    | |
+LASTmATCHEDaT | LONG    | |
 
 ### Candles - GET /v3/candles
 
@@ -3343,7 +3340,7 @@ Get historical candles of active and expired markets.
 GET /v3/candles?marketCode={marketCode}&timeframe={timeframe}&limit={limit}
 &startTime={startTime}&endTime={endTime}
 
-marketCode={marketCode}&timeframe={timeframe}&limit={limit}&startTime={startTime}&endTime={endTime}
+    "marketcode":"BTC-USD-201225-LIN"
 
 ```
 
@@ -3390,23 +3387,20 @@ marketCode={marketCode}&timeframe={timeframe}&limit={limit}&startTime={startTime
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-marketCode | STRING | YES | When marketCode is expired market like `BTC-USD-201225-LIN`, the startTime and the endTime should be explicitly set in `2020` |
+marketCode | STRING | YES | default most recent trades first
 timeframe | STRING | NO | e.g. `60s`, `300s`, `900s`, `1800s`, `3600s`, `7200s`, `14400s`, `86400s`, default `3600s ` |
-limit | LONG | NO | max `5000 `, default `500`|
-startTime | LONG | NO | Millisecond timestamp, e.g. `1579450778000`, default is `limit` times `timeframe` ago, if the limit is `300` and the timeframe is `3600s` then the default startTime is `time now - 300x3600s`, if the limit is not present and the timeframe is `3600s` then the default startTime is `time now - 500x3600s` |
-endTime | LONG | NO | Millisecond timestamp, e.g `1579450778000`, default time now |
+limit | LONG | NO | max `1000 `, default `100`|
+startTime | LONG | NO | Millisecond timestamp, e.g. `1579450778000`, default is 24 hours ago
+endTime | LONG | NO | Millisecond timestamp, e.g. `1579450778000`, default is now
 
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
-timestamp(outer) | STRING | |
-timeframe | STRING | Selected timeframe |
-timestamp(inner) | STRING | Beginning of the candle |
 open | STRING | |
 high | STRING | |
 low | STRING | |
 close | STRING | |
 volume24h | STRING | 24 hour rolling trading volume in counter currency |
-currencyVolumn24h | STRING | 24 hour rolling trading volume in base currency |
+openedAt| STRING | |
 
 ### Orderbook depth - GET /v3/depth
 
@@ -3417,7 +3411,7 @@ Get order book by marketCode and level.
 ```json
 GET /v3/depth?marketCode={marketCode}&level={level}
 
-marketCode={marketCode}&level={level}
+    "marketCode"="BTC-USD-SWAP-LIN"
 ```
 
 > **Sucess response format**
@@ -3455,18 +3449,21 @@ marketCode={marketCode}&level={level}
     "code": "41002",
     "message": "Internal server error"
 }
-```
+
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+marketCode | STRING | YES | 
+level | LONG | NO | DEFAULT 5, MAX 25 |
 
 
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
-event | STRING | |
-timestamp | STRING | |
-data | LIST | |
-asks | LIST of floats | Sell side depth: <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol> |
-bids | LIST of floats | Buy side depth: <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol> |
-marketCode | STRING | |
-timestamp | STRING | |
+marketCode | STRING |
+lastUpdatedAt | LONG | 
+asks | LIST | 
+bids | LIST | 
+
 
 ## flexAssets - Public
 
@@ -3516,18 +3513,17 @@ GET /v3/flexasset/balances/{asset}
 
 
 Request Parameters | Type | Required | Description |
------------------- | ---- | -------- | ----------- |
-flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+----------------| ---- | ----------- |
+instrumentId | STRING | Trade type |
+available | STRING | Available balance |
+
 
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
-tradeType | STRING | Trade type |
-flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-instrumentId | STRING |Coin symbol, e.g. 'BTC' |
-total| STRING | Total balance |
-available | STRING | Available balance |
-reserved | STRING|Reserved balance (unavailable) due to working spot orders |
-quantityLastUpdated | STRING|Millisecond timestamp of when balance was last updated |
+marketCode | STRING | Trade type |
+lastUpdatedAt | STRING | Available balance |
+asks| STRING | Total balance |
+bids| STRING | Total balance |
 
 ### flexAsset positions - GET /v3/flexasset/positions
 
@@ -3581,17 +3577,19 @@ asset={asset}
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+asset | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
 
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
-flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-instrumentId | STRING | Contract symbol, e.g. `FLEX-USD-SWAP-LIN` |
-quantity | STRING | Quantity of position, e.g. `0.94` |
-lastUpdated | STRING | Timestamp when position was last updated |
-contractValCurrency | STRING | Contract valuation currency |
+marketCode | STRING | |
+baseAsset | STRING |  |
+counterAsset | STRING | 
+quantity | STRING |  |
 entryPrice | STRING | Average entry price |
+marketPrice | STRING | |
 positionPnl | STRING | Postion profit and lost |
+estLiquidationPrice | STRING | estimated Liquidation Price |
+lastUpdatedAt | STRING |  |
 
 ### flexAsset open orders - GET /v3/flexasset/orders
 
@@ -3646,7 +3644,7 @@ GET /v3/flexasset/orders?asset={asset}
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-asset | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+asset | STRING | YES |  |
 
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
@@ -3716,7 +3714,6 @@ GET /v3/flexasset/trades?asset={asset}&marketCode={marketCode}&limit={limit} &st
 }
 ```
 
-
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 asset | STRING | YES | |
@@ -3729,11 +3726,19 @@ endTime | LONG | NO | e.g. `1613978625000`, default time now |
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
 asset | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-network | STRING ||
-address | STRING ||
-memo | LONG | Market code |
-label | STRING | Match quantity |
-whitelisted | BOLEAN ||
+data | list | |
+orderId | STRING | Unique order ID from the exchange |
+clientOrderId| STRING | Client assigned ID to help manage and identify orders |
+marketCode| STRING | Market code |
+side | STRING | `BUY` or `SELL` |
+matchedQuantity|STRING | Filled quantity |
+matchPrice | STRING | Price submitted |
+total | STRING |  |
+orderMatchType| STRING | |
+feeAsset| STRING | |
+fee| STRING |  |
+lastMatchedAt | STRING | |
+
 
 ### flexAsset delivery orders - GET /v3/flexasset/delivery
 
@@ -3741,7 +3746,11 @@ whitelisted | BOLEAN ||
 
 ```json
 GET /v3/flexasset/delivery?asset={asset}&marketCode={marketCode}&limit={limit} &startTime={startTime}&endTime={endTime}&status={status}
-asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}&status={status}
+
+{
+
+    "asset"="flexUSD"
+}
 ```
 
 > **Sucess response format**
@@ -3778,28 +3787,27 @@ asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTim
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-marketCode | STRING | YES | |
-limit | LONG | NO | max `100`, default `100`, max `500` |
-startTime | LONG | NO | e.g. `1579450778000`, default `0` |
+asset | STRING | YES | |
+marketCode | STRING | NO | default most recent trades first|
+limit | LONG | NO | max `500`, default `100`|
+startTime | LONG | NO | e.g. `1579450778000`, default 24 hours ago |
 endTime | LONG | NO | e.g. `1613978625000`, default time now |
+status | STRING | NO |“CANCELED”, “DELIVERED”, “PENDING”, ROLLED_DELIVERY”|
 
 
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
-flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-matchId | STRING | Match ID |
-matchTimestamp | STRING | Order Matched timestamp |
 marketCode | STRING | Market code |
-matchQuantity | STRING | Match quantity |
-matchPrice | STRING | Match price |
-total | STRING | Total price |
-side | STRING | Side of the match |
-orderMatchType | STRING | `TAKER` or `MAKER` |
-fees | STRING | Fees |
-feeInstrumentId | STRING | Instrument ID of the fees |
-orderId | STRING | Unique order ID from the exchange |
-clientOrderID | STRING | Client assigned ID to help manage and identify orders |
+deliveryId | STRING | |
+status | STRING | |
+price | STRING | |
+deliverAsset | STRING |  |
+deliverQty | STRING |  |
+receiveAsset | STRING |  |
+receiveQty | STRING |  |
+createdAt | STRING |  |
+lastMatchedAt | STRING |  null if no match yet (status == “PENDING”) |
+
 
 
 ### flexAsset yields - GET /v3/flexasset/yields
@@ -3846,28 +3854,19 @@ clientOrderID | STRING | Client assigned ID to help manage and identify orders |
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-marketCode | STRING | YES | |
-limit | LONG | NO | max `100`, default `100`, max `500` |
-startTime | LONG | NO | e.g. `1579450778000`, default `0` |
+asset | STRING | YES | |
+limit | LONG | NO | max `500`, default `100`|
+startTime | LONG | NO | e.g. `1579450778000`, default 24 hours ago |
 endTime | LONG | NO | e.g. `1613978625000`, default time now |
 
 
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
-flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-matchId | STRING | Match ID |
-matchTimestamp | STRING | Order Matched timestamp |
-marketCode | STRING | Market code |
-matchQuantity | STRING | Match quantity |
-matchPrice | STRING | Match price |
-total | STRING | Total price |
-side | STRING | Side of the match |
-orderMatchType | STRING | `TAKER` or `MAKER` |
-fees | STRING | Fees |
-feeInstrumentId | STRING | Instrument ID of the fees |
-orderId | STRING | Unique order ID from the exchange |
-clientOrderID | STRING | Client assigned ID to help manage and identify orders |
+asset | STRING | |
+apr | STRING | |
+interestRate | STRING | |
+amout | STRING |  |
+paidAt | STRING |  |
 
 ### noteToken yields - GET /v3/notetoken/yields
 
@@ -3875,7 +3874,7 @@ clientOrderID | STRING | Client assigned ID to help manage and identify orders |
 
 ```json
 GET /v3/notetoken/yields?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
-asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+
 ```
 
 > **Sucess response format**
@@ -3914,19 +3913,13 @@ asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-asset | STRING | NO | default all noteTokens, most recent first|
-limit | LONG | NO | max `500`, default `100`|
-startTime | LONG | NO | e.g. `1579450778000`, default 24 hours ago |
-endTime | LONG | NO | e.g. `1613978625000`, default time now |
+asset | STRING | NO | default tiers for all markets returned    |
 
 
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
 asset | STRING | |
-apr | STRING |  |
-interestRate | STRING | |
-amount | STRING |  |
-paidAt | STRING | time when paid |
+tiers | DICTIONARY |  |
 
 ### Leverage tiers - GET /v3/leverage-tiers?marketCode={marketCode}
 
