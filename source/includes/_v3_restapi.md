@@ -2539,7 +2539,7 @@ maxPriceBound | STRING | YES | "800"|
 POST /v3/AMM/redeem
 
 {
-    "hashToken”: “CF-BCH-AMM-ABCDE3iy“
+    "hashToken": "CF-BCH-AMM-ABCDE3iy"
     "type”:"deliver"  
 }
 ```
@@ -2549,7 +2549,7 @@ POST /v3/AMM/redeem
 ```json
 
 {
-    “success”: true,
+    "success": true,
     "data": [
      {
             "hashToken": “CF-BCH-AMM-ABCDE3iy“,
@@ -2623,6 +2623,11 @@ POST /v3/AMM/redeem
     "message": "Internal server error"
 }
 ```
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+hashToken | List of STRING | YES | list filter, limit 10 AMM|
+type | STRING | YES | “deliver” or manual or twap1hr or twap24hr|
+
 
 
 ### Get AMM information - GET /v3/AMM
@@ -2633,13 +2638,17 @@ POST /v3/AMM/redeem
 
 GET /v3/AMM?hashToken=[1,2,3,4 ……. ]
 
+{
+    "hashtoken":"CF-BCH-AMM-ABCDE3iy"
+}
+
 ```
 
 > **Succesful response Format**
 
 ```json
 {
-    “success”: true,
+    "success": true,
     "data": [
             {
             "hashToken": "CF-BCH-AMM-ABCDE3iy",
