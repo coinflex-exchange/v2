@@ -3499,9 +3499,9 @@ GET /v3/flexasset/balances/{asset}
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -3563,9 +3563,9 @@ asset={asset}
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -3592,7 +3592,11 @@ Get flexAsset orders.
 
 ```json
 GET /v3/flexasset/orders?asset={asset}
-asset={asset}
+{
+
+    "asseT"=flexUSD
+    
+}
 ```
 
 > **Sucessful response format**
@@ -3624,33 +3628,32 @@ asset={asset}
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+asset | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
 
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
-flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
 orderId | STRING | Unique order ID from the exchange |
-marketCode| STRING | Market code |
 clientOrderId| STRING | Client assigned ID to help manage and identify orders |
+marketCode| STRING | Market code |
 side | STRING | `BUY` or `SELL` |
 orderType | STRING | `LIMIT` or `STOP` |
 quantity  | STRING | Quantity submitted |
 remainingQuantity|STRING | Remainning quantity |
+matchedQuantity|STRING | Filled quantity |
 price | STRING | Price submitted |
 stopPrice | STRING | Stop price for the stop order |
-limitPrice| STRING | Limit price for the stop limit order |
-orderCreated| INTEGER | Timestamp when order was created |
-lastModified| INTEGER | Timestamp when order was last mordified |
-lastTradeTimestamp| INTEGER | Timestamp when order was last traded |
+createdAt| INTEGER | Timestamp when order was created |
+lastModifiedAt| INTEGER | Timestamp when order was last mordified |
+lastMatchedAt| INTEGER | Timestamp when order was last traded |
 timeInForce | STRING | Time in force |
 
 ### flexAsset trades - GET v3/flexasset/trades
@@ -3662,7 +3665,12 @@ Get flexAsset trades.
 ```json
 GET /v3/flexasset/trades?asset={asset}&marketCode={marketCode}&limit={limit} &startTime={startTime}&endTime={endTime}
 
-asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
+{
+
+    "asset"="flexUSD"
+
+}
+
 ```
 
 > **Sucess response format**
@@ -3690,38 +3698,33 @@ asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTim
 
 > **Failure response format**
 
+
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
+
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-marketCode | STRING | YES | |
-limit | LONG | NO | max `100`, default `100`, max `500` |
-startTime | LONG | NO | e.g. `1579450778000`, default `0` |
+asset | STRING | YES | |
+marketCode | STRING | NO | default most recent trades first|
+limit | LONG | NO | max `500`, default `100`|
+startTime | LONG | NO | e.g. `1579450778000`, default 24 hours ago |
 endTime | LONG | NO | e.g. `1613978625000`, default time now |
 
 
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
-flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-matchId | STRING | Match ID |
-matchTimestamp | STRING | Order Matched timestamp |
-marketCode | STRING | Market code |
-matchQuantity | STRING | Match quantity |
-matchPrice | STRING | Match price |
-total | STRING | Total price |
-side | STRING | Side of the match |
-orderMatchType | STRING | `TAKER` or `MAKER` |
-fees | STRING | Fees |
-feeInstrumentId | STRING | Instrument ID of the fees |
-orderId | STRING | Unique order ID from the exchange |
-clientOrderID | STRING | Client assigned ID to help manage and identify orders |
+asset | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+network | STRING ||
+address | STRING ||
+memo | LONG | Market code |
+label | STRING | Match quantity |
+whitelisted | BOLEAN ||
 
 ### flexAsset delivery orders - GET /v3/flexasset/delivery
 
@@ -3755,11 +3758,12 @@ asset={asset}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTim
 
 > **Failure response format**
 
+
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -3825,9 +3829,9 @@ clientOrderID | STRING | Client assigned ID to help manage and identify orders |
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -3890,38 +3894,30 @@ asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
 
 > **Failure response format**
 
+
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-marketCode | STRING | YES | |
-limit | LONG | NO | max `100`, default `100`, max `500` |
-startTime | LONG | NO | e.g. `1579450778000`, default `0` |
+asset | STRING | NO | default all noteTokens, most recent first|
+limit | LONG | NO | max `500`, default `100`|
+startTime | LONG | NO | e.g. `1579450778000`, default 24 hours ago |
 endTime | LONG | NO | e.g. `1613978625000`, default time now |
 
 
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
-flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-matchId | STRING | Match ID |
-matchTimestamp | STRING | Order Matched timestamp |
-marketCode | STRING | Market code |
-matchQuantity | STRING | Match quantity |
-matchPrice | STRING | Match price |
-total | STRING | Total price |
-side | STRING | Side of the match |
-orderMatchType | STRING | `TAKER` or `MAKER` |
-fees | STRING | Fees |
-feeInstrumentId | STRING | Instrument ID of the fees |
-orderId | STRING | Unique order ID from the exchange |
-clientOrderID | STRING | Client assigned ID to help manage and identify orders |
+asset | STRING | |
+apr | STRING |  |
+interestRate | STRING | |
+amount | STRING |  |
+paidAt | STRING | time when paid |
 
 ### Leverage tiers - GET /v3/leverage-tiers?marketCode={marketCode}
 
@@ -3930,7 +3926,12 @@ clientOrderID | STRING | Client assigned ID to help manage and identify orders |
 ```json
 GET /v3/leverage-tiers?marketCode={marketCode}
 
-marketCode={marketCode}
+{
+
+    "flexProtocol"= flexUSD
+    "marketcode"= 
+
+}
 ```
 
 > **Sucess response format**
@@ -3964,26 +3965,11 @@ marketCode={marketCode}
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-marketCode | STRING | YES | |
-limit | LONG | NO | max `100`, default `100`, max `500` |
-startTime | LONG | NO | e.g. `1579450778000`, default `0` |
-endTime | LONG | NO | e.g. `1613978625000`, default time now |
+marketCode | STRING | NO |default tiers for all markets returned|
 
 
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
-flexProtocol | STRING | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-matchId | STRING | Match ID |
-matchTimestamp | STRING | Order Matched timestamp |
-marketCode | STRING | Market code |
-matchQuantity | STRING | Match quantity |
-matchPrice | STRING | Match price |
-total | STRING | Total price |
-side | STRING | Side of the match |
-orderMatchType | STRING | `TAKER` or `MAKER` |
-fees | STRING | Fees |
-feeInstrumentId | STRING | Instrument ID of the fees |
-orderId | STRING | Unique order ID from the exchange |
-clientOrderID | STRING | Client assigned ID to help manage and identify orders |
+ASSET | STRING | |
+TIERS | LONG | Leverage & position |
 
