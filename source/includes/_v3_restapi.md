@@ -108,18 +108,15 @@ The signature must then be included in the header of the REST API call like so:
 POST /v3/orders/place
 
 {
-            "recvWindow": 1234           
-            "timestamp": 235536            
-            "responseType": "FULL" or "ACK"    
-            "orders": 
-{        
-            "clientOrderId": "345srete"       
+       
+    "timestamp": 235536            
+    "responseType": "FULL" or "ACK"    
+    "orders": 
+        {        
             "marketCode":     "BTC-USD"       
             "side": "BUY" or "SELL"        
             "quantity": “0.002”           
-            "timeInForce":    "IOC"           
             "orderType": LIMIT/MARKET/STOP  
-            "price": "1.345"            
             "stopPrice": "2.567"            
             "limitPrice": "4.567"           
         },
