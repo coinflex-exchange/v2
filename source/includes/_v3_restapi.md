@@ -3449,6 +3449,8 @@ GET /v3/depth?marketCode={marketCode}&level={level}
     "code": "41002",
     "message": "Internal server error"
 }
+```
+
 
 
 Request Parameters | Type | Required | Description |
