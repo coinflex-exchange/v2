@@ -3167,10 +3167,6 @@ marketPriceLastUpdated | LONG | The time that market price last updated at |
 ```json
 
 GET /v3/auction?marketCode={marketCode}
-   
-{
-    "marketCode"="BTC-USD-SWAP-LIN"
- }    
   
 ```
 > **Sucess response Format**
@@ -3199,8 +3195,9 @@ GET /v3/auction?marketCode={marketCode}
 }
 ```
 
-
-Requires authentication. Get entire delivery history.
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+marketCode | STRING | NO | e.g. BTC-USD-REPO-LIN , available values: BTC-USD-REPO-LIN, ETH-USD-REPO-LIN |
 
 Response Parameters |Type | Description| 
 -------------------------- | -----|--------- |
@@ -3222,9 +3219,7 @@ GET /v3/funding-rates?marketCode={marketCode}&limit={limit}&startTime={startTime
 
 {
     "marketCode"="BTC-USD-SWAP-LIN"
-    "limit"={limit}&
-    "startTime"={startTime}&
-    "endTime"={endTime}
+
  }   
 
 ```
@@ -3930,7 +3925,6 @@ tiers | DICTIONARY |  |
 GET /v3/leverage-tiers?marketCode={marketCode}
 
 {
-
     "flexProtocol"= flexUSD
     "marketcode"= 
 
