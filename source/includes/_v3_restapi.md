@@ -108,18 +108,17 @@ The signature must then be included in the header of the REST API call like so:
 POST /v3/orders/place
 
 {
-       
-    "timestamp": 235536            
+    "timestamp": 235536		  
     "responseType": "FULL" or "ACK"    
     "orders": 
         {        
             "marketCode":     "BTC-USD"       
             "side": "BUY" or "SELL"        
-            "quantity": “0.002”           
+            "quantity": "0.002" 
             "orderType": LIMIT/MARKET/STOP  
             "stopPrice": "2.567"            
-            "limitPrice": "4.567"           
-        },
+            "limitPrice": "4.567"  
+                    },
 }
 
 
@@ -231,37 +230,15 @@ orderType | STRING | |
 POST /v3/orders/modify
 
 {
-“recvWindow”: 1234            
-“timestamp”: 235536           
-“responseType”: “FULL” or “ACK”   
+    "recvWindow": 1234            
+    "timestamp": 235536           
+    "responseType": "FULL" or "ACK"   
     "orders": [
         {
-            "clientOrderId": "1614330009059",       
-            "orderId": "304369975621712260",       
-            "marketCode": "BTC-USD-SWAP-LIN",
-            "side": "BUY",                  
-            "quantity": "0.007",                
-            "price": "40001.0"               
-            "stopPrice: “930.01”,             
-            "limitPrice: “903.12”               
-        },
-        {
             "clientOrderId": "161224973777800",
-            "orderId": "203369975621712261",
             "marketCode": "BTC-USD-SWAP-LIN",
-            "side": "SELL",
-            "quantity": "0.002",
-            "price": "40003.0”
+
         },
-        {
-            "clientOrderId": "161224973777900",
-            "orderId": "588369975621712255",
-            "marketCode": "BTC-USD-SWAP-LIN",
-            "side": "SELL",
-            "quantity": "0.003",
-            "price": "40004.0"
-        }
-    ]
 }
 
 ```
@@ -271,12 +248,12 @@ POST /v3/orders/modify
 ```json
 {
     "event": "modifyOrders",
-    “success”: true,
+    "success": true,
     "data": [
         {
             "code": "710002",
             "message": "FAILED sanity bound check as price (50007.0) <  lower bound (54767.0)",
-            “orderId”: “123253532”,
+            "orderId": “123253532”,
             "clientOrderId": "1612249737724",
             "marketCode": "BTC-USD-SWAP-LIN",
             "side': 'SELL',
@@ -378,24 +355,13 @@ isTriggered | STRING | `true` or `false` |
 DELETE /v3/orders/cancel
 
 {
-
-    "recvWindow": 500,        
-    "timestamp”: 235536,         
-    "responseType": “FULL” or “ACK”   
+    "timestamp": 235536           
+    "responseType": "FULL" or "ACK"   
     "orders": [
         {
-            "marketCode": "BTC-USD-SWAP-LIN",  
-            "orderId": "304384250571714215",    
-            "clientOrderId": "1615453494726”    
-        },
-        {
             "marketCode": "BTC-USD-SWAP-LIN",
-            "orderId": "204285250571714316",
-            "clientOrderId": "1612249737724”
-        }
-    ]
+        },
 }
-
 ```
 
 > **Success response format**
