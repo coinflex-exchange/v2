@@ -3515,10 +3515,9 @@ GET /v3/flexasset/balances/{asset}
 
 
 Request Parameters | Type | Required | Description |
-----------------| ---- | ----------- |
+------------------ | ---- | -------- | ----------- |
 instrumentId | STRING | Trade type |
 available | STRING | Available balance |
-
 
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
