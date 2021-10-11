@@ -182,9 +182,9 @@ POST /v3/orders/place
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -325,9 +325,9 @@ POST /v3/orders/modify
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -444,9 +444,9 @@ DELETE /v3/orders/cancel
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -543,9 +543,9 @@ DELETE /v3/orders/cancel-all
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -697,9 +697,9 @@ print(resp.json())
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -805,9 +805,9 @@ print(resp.json())
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -909,9 +909,9 @@ print(resp.json())
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -1033,9 +1033,9 @@ print(resp.json())
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -1142,9 +1142,9 @@ GET /v3/orders/history?marketCode={marketCode}&orderId={orderId}&clientOrderId={
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -1277,9 +1277,9 @@ print(resp.json())
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -1425,10 +1425,10 @@ print(resp.json())
 
 ```python
 {
-  "event": "delivery",
-  "timestamp": "1599204310297",
-  "accountId": "164",
-  "data": [
+    "event": "delivery",
+    "timestamp": "1599204310297",
+    "accountId": "164",
+    "data": [
             "Cancel of user order was successful"
           ]
 }
@@ -1438,19 +1438,19 @@ print(resp.json())
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
 
 ```python
 {
-  "event": "delivery",
-  "timestamp": "1599204310297",
-  "accountId": "164",
-  "data": [
+    "event": "delivery",
+    "timestamp": "1599204310297",
+    "accountId": "164",
+    "data": [
             "Cancel exception please try again"
           ]
 }
@@ -1539,9 +1539,9 @@ print(resp.json())
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -1642,9 +1642,9 @@ GET /v3/funding?marketCode={marketCode}&limit={limit}&startTime={startTime}&endT
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -1747,9 +1747,9 @@ clientOrderId | Null Type|  null
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -1796,9 +1796,9 @@ Network | STRING | YES
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -1847,9 +1847,9 @@ endTime | LONG | NO | | e.g. 1613978625000, default time now
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -1902,9 +1902,9 @@ code | STRING | 2FA if required by the account
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -1949,9 +1949,9 @@ endTime | LONG | NO | | e.g. 1613978625000, default time now
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -2026,10 +2026,10 @@ POST /v3/transfer
 
 ```json
 {
-             "asset": "flexUSD", 
-             "quantity": 1000,
-             "fromAccount":"36",
-             "atoAccount":"9"
+    "asset": "flexUSD", 
+    "quantity": 1000,
+    "fromAccount":"36",
+    "atoAccount":"9"
 }
 
 ```
@@ -2038,9 +2038,9 @@ POST /v3/transfer
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -2085,9 +2085,9 @@ POST /v3/flexasset/mint
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
