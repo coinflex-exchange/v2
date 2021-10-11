@@ -2140,9 +2140,9 @@ POST /v3/flexasset/redeem
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -2198,9 +2198,9 @@ GET /v3/flexasset/mint?asset={asset}&limit={limit}&startTime={startTime}&endTime
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -2259,9 +2259,9 @@ GET /v3/flexasset/redeem?asset={asset}&type={type}&limit={limit}&startTime={star
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -2320,9 +2320,9 @@ GET  /v3/flexasset/earned?asset={asset}&limit={limit}&startTime={startTime}&endT
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -2382,9 +2382,9 @@ GET  /v3/notetoken/earned?asset={asset}&limit={limit}&startTime={startTime}&endT
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -2942,9 +2942,9 @@ GET /v3/AMM/trades?hashToken=1 ……. &marketCode={marketCode}&limit={limit}&st
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
@@ -3131,9 +3131,9 @@ GET /v3/ticker?marketCode={marketCode}
 
 ```json
 {
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
+    "success": False,
+    "code": "41002",
+    "message": "Internal server error"
 }
 ```
 
