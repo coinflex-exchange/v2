@@ -2059,8 +2059,8 @@ POST /v3/flexasset/mint
 
 {
 
-    "asset”: “flexUSD”,         # STRING Required
-    "quantity”: 1000        # FLOAT or STRING Required
+    "asset”: “flexUSD”,    
+    "quantity”: 1000      
     
 }
 
