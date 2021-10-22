@@ -1457,8 +1457,8 @@ Submits a request for physical delivery for a specified perpetual swap instrumen
 
 Parameters | Type | Required |Description| 
 -------------------------- | -----|--------- | -------------|
-instrumentID| STRING | YES | Perpetual swap instrument intended for delivery | 
-qtyDeliver| STRING | YES | Quantity intended for delivery | 
+instrumentId| STRING | YES | Perpetual swap instrument intended for delivery |
+qtyDeliver| STRING | YES | Quantity intended for delivery |
 
 <sub>**Response Parameters**</sub> 
 
