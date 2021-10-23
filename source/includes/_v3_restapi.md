@@ -253,7 +253,7 @@ POST /v3/orders/modify
         {
             "code": "710002",
             "message": "FAILED sanity bound check as price (50007.0) <  lower bound (54767.0)",
-            "orderId": “123253532”,
+            "orderId": "123253532",
             "clientOrderId": "1612249737724",
             "marketCode": "BTC-USD-SWAP-LIN",
             "side': 'SELL',
@@ -286,7 +286,7 @@ POST /v3/orders/modify
             "orderType": "LIMIT", 
             "timeInForce": "MAKER_ONLY", 
             "createdAt": null,       
-            "modifiedAt": “162321312311”,            
+            "modifiedAt": "162321312311",            
             "matchedAt": null,            
         }
 
@@ -369,7 +369,7 @@ DELETE /v3/orders/cancel
 ```json
 {
     "event": "cancelOrders",
-    "success”: true,
+    "success": true,
     "data": [
 {
             "notice": "OrderClosed", 
@@ -459,7 +459,7 @@ isTriggered | STRING | `true` or `false` |
 DELETE /v3/orders/cancel-all
 
 {
-    "marketCode”: “FLEX-USD”        
+    "marketCode": "FLEX-USD"        
 }
 
 ```
@@ -604,8 +604,8 @@ print(resp.json())
 
 ```json
 {
-    "success”: true,
-    "data”:  [
+    "success": true,
+    "data":  [
         {
             "accountId": "21213",
             "accountName": "main",
@@ -631,7 +631,7 @@ print(resp.json())
             "positions":  [ 
                 {
                     "marketCode": "BTC-USD-SWAP-LIN",
-                    "baseAsset”: "BTC",
+                    "baseAsset": "BTC",
                     "counterAsset": "USD",
                     "position": "0.94",
                     "entryPrice": "7800.00", 
@@ -641,13 +641,13 @@ print(resp.json())
                     "lastUpdatedAt": "1592486212218"              
                },
                 {
-                    "collateral”: “1231231”,
-                    "notionalPositionSize”: “5000.00”, 
+                    "collateral": "1231231",
+                    "notionalPositionSize": "5000.00", 
                     "portfolioVarMargin": "500",
                     "riskRatio": "20.0000",                
                     "maintenanceMargin’: ‘1231’,            
                     "marginRatio": "12.3179",             
-                    "liquidating”: false,         
+                    "liquidating": false,         
                     "feeTier’: ‘6’, 
                     "createdAt": "1611665624601"
         },
@@ -737,7 +737,7 @@ print(resp.json())
 
 ```json
 {
-    "success”: true,
+    "success": true,
     "data": [
         {
              "accountId": "21213",
@@ -747,7 +747,7 @@ print(resp.json())
                     "total": "4468.823",              
                     "available": "4468.823",        
                     "reserved": "0",
-                    "lastUpdatedAt": "1593627415234”
+                    "lastUpdatedAt": "1593627415234"
                 },
                 {
                     "asset": "FLEX",
@@ -1082,18 +1082,18 @@ GET /v3/orders/history?marketCode={marketCode}&orderId={orderId}&clientOrderId={
              "status": CLOSED | OPEN | PARTIALLY_FILLED | FILLED
              "side": "BUY",
              "price": "10006.0",
-             "stopPrice”: null,
-             "isTriggered”: false,
+             "stopPrice": null,
+             "isTriggered": false,
              "quantity": "0.001",
              "remainQuantity": "0.001",
              "matchedQuantity": "0.000",
-             "avgFillPrice”: null,
-             "fees”: {‘USD’: "0", ‘FLEX’: “0”}
+             "avgFillPrice": null,
+             "fees": {‘USD’: "0", ‘FLEX’: "0"}
              "orderType": "LIMIT",
              "timeInForce": "GTC",
              "createdAt": "1619121040779"
              "lastModifiedAt': null,
-             "lastMatchedAt”: null,
+             "lastMatchedAt": null,
              "closedAt": "1619131050779",
         },
         ...
@@ -1217,7 +1217,7 @@ print(resp.json())
     "data":  {
              "deliveryId": "586985384617312258",
              "marketCode": "BTC-USD-SWAP-LIN",
-             "status": "PENDING”,
+             "status": "PENDING",
              "deliveryPrice": "10000.000",
              "deliveryPosition": "1.000",
              "deliveryType": "NEXT_CYCLE",
@@ -1225,8 +1225,8 @@ print(resp.json())
              "deliveryQuantity": "32000.000", // deliveryQuantity = quantity
              "receiveAsset": "BTC",
              "receiveQuantity": "1.000",
-             "deliveredQuantity”: “0.000” // deliveredQuantity = matchedQuantity
-             "receivedQuantity”: “0.000”                // how much of the receiveAsset was received
+             "deliveredQuantity": "0.000" // deliveredQuantity = matchedQuantity
+             "receivedQuantity": "0.000"                // how much of the receiveAsset was received
              "remainingDeliveryPosition": "1.000",
              "auctionTime": "1599204122693",
              "createdAt": "1599204122693",
@@ -1367,7 +1367,7 @@ print(resp.json())
     "data": [{
              "deliveryId": "586985384617312258",
              "marketCode": "BTC-USD-SWAP-LIN",
-             "status": "CANCELED”,
+             "status": "CANCELED",
              "deliveryPrice": "10000.000",
              "deliveryPosition": "1.000",
              "deliveryType": "NEXT_CYCLE",
@@ -1375,12 +1375,12 @@ print(resp.json())
              "deliveryQuantity": "32000.000",
              "receiveAsset": "BTC",
              "receiveQuantity": "1.000",
-             "deliveredQuantity”: “0.000”
-             "receivedQuantity”: “0.000”                // how much of the receiveAsset was received
+             "deliveredQuantity": "0.000"
+             "receivedQuantity": "0.000"                // how much of the receiveAsset was received
              "remainingDeliveryPosition": "1.000",
              "auctionTime": "1599204122693",
              "createdAt": "1599204122693",
-             "closedAt”:  "1599204182693",
+             "closedAt":  "1599204182693",
              "lastUpdatedAt": "1599204122693",
           }]
 }
@@ -1552,7 +1552,7 @@ marketCode | STRING | NO | default most recent delivery first|
 limit | LONG | NO | max `500`, default `100` |
 startTime | LONG | NO | e.g. `1579450778000`, default `24H ago` |
 endTime | LONG | NO | e.g. `1613978625000`, default time now |
-status | STRING | NO | e.g. CANCELED”, “DELIVERED”, “PENDING”, ROLLED_DELIVERY”|
+status | STRING | NO | e.g. CANCELED", "DELIVERED", "PENDING", ROLLED_DELIVERY"|
 
 <sub>**Response Parameters**</sub> 
 
@@ -1587,7 +1587,7 @@ GET /v3/funding?marketCode={marketCode}&limit={limit}&startTime={startTime}&endT
 ```json
 {
     "event": "fundingPayments,
-    "success”: true,
+    "success": true,
     "data": [
                     {
              "marketCode": "BTC-USD-SWAP-LIN",
@@ -1681,14 +1681,46 @@ clientOrderId | Null Type|  null
 
 > **Request**
 
-```json
+```url
 
- GET /v3/deposit-address?asset={asset}&network={network}
+GET /v3/deposit-address?asset={asset}&network={network}
  
- {
-    "asset": "BCH"
-    "network": "SEP20"
+```
+
+> **Success response format**
+
+```json
+{
+  "success": true,
+  "data": {
+    "address":"0xD25bCD2DBb6114d3BB29CE946a6356B49911358e"
+  }
 }
+```
+
+<sub>**Request Parameters**</sub> 
+
+Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+asset | STRING | YES | 
+network | STRING | YES |
+
+
+<sub>**Response Parameters**</sub> 
+
+Parameters | Type | Value | Description | 
+------------------ | ---- | -------- | ----------- |
+address | STRING | 0xD25bCD2DBb6114d3BB29CE946a6356B49911358e | Deposit address
+legacyAddress | STRING | | Legacy deposit address if applicable |
+memo | STRING | | Memo if applicable
+
+
+#### Deposit history - GET /v3/deposit-history
+> **Request**
+
+```url
+
+GET /v3/deposit-history?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
  
 ```
 
@@ -1698,79 +1730,27 @@ clientOrderId | Null Type|  null
 {
     "success": true,
     "data":
-        {
-             "address":"bitcoincash:qpsvxmpv3eqzc2cm7hf826m0afzfru6wdg4atgdxtt",
-             "legacyAddress":"19pdycXvr7GJChTwuq5WFqrrTrMBYLYUyg",
-             "memo":"642694646"
-        }
-}
-```
-
-> **Failure response format**
-
-```json
-{
-    "success": False,
-    "code": "41002",
-    "message": "Internal server error"
-}
-```
-
-
-<sub>**Requests Parameters**</sub> 
-
-Request Parameters | Type | Required | Description | 
------------------- | ---- | -------- | ----------- |
-Asset | STRING | YES | 
-Network | STRING | YES 
-
-
-#### Deposit history - GET /v3/deposit-history
-> **Request**
-
-```json
-
- GET /v3/deposit-history?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
- 
-```
-
-> **Success response format**
-
-```json
-{
-    "success”: true,
-    "data":
         [    {
-             "asset”: “flexUSD”,
-             "network”:”SLP”,
-             "address”:”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
-             "Memo”:”642694646”,            // only for chains that have 2 part addresses
-             "quantity”: “1000.0”,
-             "id”:”651573911056351237”
-             "status”:”completed”,
-             "txId”:”38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d”,
-             "creditedAt”: “1617940800000”
-            }, ………. ]
+             "asset": "flexUSD",
+             "network":"SLP",
+             "address":"simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
+             "Memo":"642694646",
+             "quantity": "1000.0",
+             "id":"651573911056351237",
+             "status":"completed",
+             "txId":"38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d",
+             "creditedAt": "1617940800000"
+            }, ... ]
 }
 
-```
-
-> **Failure response format**
-
-```json
-{
-    "success": False,
-    "code": "41002",
-    "message": "Internal server error"
-}
 ```
 
 
 <sub>**Request Parameters**</sub> 
 
-Request Parameters | Type | Required | Description | 
+Parameters | Type | Required | Description | 
 ------------------ | ---- | -------- | ----------- |
-Asset | STRING | NO | | default all assets most recent first
+Asset | STRING | NO | | default all assets
 Limit | LONG | NO | Max 200, Default 50 |
 startTime | LONG | NO | e.g. 1579450778000, default 24 hours ago|
 endTime | LONG | NO | | e.g. 1613978625000, default time now
@@ -1780,9 +1760,9 @@ endTime | LONG | NO | | e.g. 1613978625000, default time now
 
 > **Request**
 
-```json
+```body
 
- POST /v3/withdrawal
+POST /v3/withdrawal
  
 ```
 
@@ -1806,16 +1786,6 @@ endTime | LONG | NO | | e.g. 1613978625000, default time now
 }
 ```
 
-> **Failure response format**
-
-```json
-{
-    "success": False,
-    "code": "41002",
-    "message": "Internal server error"
-}
-```
-
 
 <sub>**Request Parameters**</sub> 
 
@@ -1833,10 +1803,10 @@ code | STRING | 2FA if required by the account
 #### Withdrawal history - GET /v3/withdrawal
 > **Request**
 
-```json
+```url
 
- GET /v3/withdrawal?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
- 
+GET /v3/withdrawal?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+
 ```
 
 > **Success response format**
@@ -1846,31 +1816,20 @@ code | STRING | 2FA if required by the account
     "success": true,
     "data":
         [{
-             "asset”: “flexUSD”,
-             "network”:”SLP”,
-             "address”:”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
-             "Memo”:”642694646”,            // only for chains that have 2 part addresses
-             "quantity”: “1000.0”,
-             "fee”:”0”,
-             "id”:”651573911056351237”
-             "status”:”completed”,
-             "txId”:”38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d”,
-             "requestedAt”: “1617940800000”,
-             "completedAt”: “16003243243242”
-        }, …………………. ]
+             "asset": "flexUSD",
+             "network":"SLP",
+             "address":"simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
+             "memo":"642694646",
+             "quantity": "1000.0",
+             "fee":"0",
+             "id":"651573911056351237",
+             "status":"completed",
+             "txId":"38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d",
+             "requestedAt": "1617940800000",
+             "completedAt": "16003243243242"
+        }, ... ]
 }
 ```
-
-> **Failure response format**
-
-```json
-{
-    "success": False,
-    "code": "41002",
-    "message": "Internal server error"
-}
-```
-
 
 <sub>**Response Parameters**</sub> 
 
@@ -1881,61 +1840,63 @@ Limit | LONG | NO | Max 200, Default 50 |
 startTime | LONG | NO | e.g. 1579450778000, default 24 hours ago|
 endTime | LONG | NO | | e.g. 1613978625000, default time now
 
+
 ####  List withdrawal addresses - GET /v3/withdrawal-addresses
 > **Request**
 
-```json
+```url
 
- GET /v3/withdrawal-addresses
- 
+GET /v3/withdrawal-addresses?asset={asset}
+
 ```
 
 > **Success response format**
 
 ```json
 {
-    "success”: true,
-    "data":
-        [    {
-             "asset”: “flexUSD”,
-             "network”: ”SLP”,
-             "address”: ”simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7”,
-             "memo”: ”642694646”,
-             "label”: ”Mum”
-             "whitelisted": true
-        }, ………. ]
-}
-
-```
-
-> **Failure response format**
-
-```json
-{
-    "success": False,
-    "code": "41002",
-    "message": "Internal server error"
+  "success": true,
+  "data": [
+    {
+      "asset": "FLEX",
+      "network": "SEP20",
+      "address": "0x047a13c759D9c3254B4548Fc7e784fBeB1B930F24",
+      "label": "sbch farming",
+      "whitelisted": true
+    },...
+  ]
 }
 ```
 
-Provides a list of all available withdrawable addresses along with their respected labels, network and whitelisted status
+Provides a list of all saved withdrawal addresses along with their respected labels, network, and whitelist status
+
+<sub>**Request Parameters**</sub> 
+
+Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+asset | STRING | NO |  default all assets|
+
+
+
+<sub>**Response Parameters**</sub> 
+
+Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+asset | STRING | 
+network | STRING | 'SLP'
+Address | STRING |'simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7'
+memo | String | Only for chains that have 2 part addresses
+quantity | Null Type| null
+externalFee | BOLEAN |Required, if externalFee is true, fee will be deducted from account balance, if it's false, fee will be deducted from the withdrawal amount
+2faType | STRING |  Authy_SECRET or GOOGLE or YUBIKEY
+code | STRING | 2FA if required by the account
 
 
 ####  Withdrawal fee estimate - GET /v3/withdrawal-fee
 > **Request**
 
-```json
+```url
 
-GET /v3/withdrawal-fee?asset=flexUSD&network=SLP&address=simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7&memo=642694646&quantity=1000&externalFee=true
-
-{
-    "asset": "flexUSD",
-    "network": SLP, 
-    "address": "simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7", 
-    "memo": "642694646", 
-    "quantity": 1000.0, 
-    "externalFee": "true"
-    }
+GET /v3/withdrawal-fee?asset={asset}&network={network}&address={address}&memo={memo}&quantity={quantity}&externalFee={externalFee}
 
 ```
 
@@ -1943,45 +1904,75 @@ GET /v3/withdrawal-fee?asset=flexUSD&network=SLP&address=simpleledger:qzlg6uvcee
 
 ```json
 {
-    "success": true,
-    "data":
-        {
-             "asset": "flexUSD",
-             "network":"SLP",
-             "address":"simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
-             "memo":"642694646",
-             "quantity": "1000.0",
-             "externalFee":true,
-             "estimatedFee":"0"
-        }
+  "success": true,
+  "data": {
+    "asset": "flexUSD",
+    "network":"SLP",
+    "address":"simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
+    "quantity": "1000.0",
+    "externalFee":true,
+    "estimatedFee":"0"
+  }
 }
 ```
 
-> **Failure response format**
-
-```json
-{
-  "success": False,
-  "code": "41002",
-  "message": "Internal server error"
-}
-```
 Request Parameters | Type | Required | Description | 
 ------------------ | ---- | -------- | ----------- |
-Asset | STRING | YES | | default all assets, mos recent first|
-Network | STRING | YES | Network to withdraw on|
-Address | STRING | YES | Address to withdraw to|
-Memo | STRING | NO | Required only for 2 part addresses|
-Quantity | STRING | YES | Quantity to withdraw|
-externalFee | BOOL | YES | If True then the fee will be in addition to the quantity provided|
+asset | STRING | YES | Asset to withdraw|
+network | STRING | YES | Network to withdraw on|
+address | STRING | YES | Address to withdraw to|
+memo | STRING | NO | Required only for 2 part addresses|
+quantity | STRING | YES | Quantity to withdraw|
+externalFee | BOOL | NO | Default true. If false, then the fee is subtracted from the given quantity|
+
 
 ####  Sub-account balance transfer - POST /v3/transfer
 
 > **Request**
 
-```json
-
+```body
 POST /v3/transfer
+
+{
+  "asset": "flexUSD",
+  "quantity": 1000,
+  "fromAccount": 14320,
+  "toAccount": 15343
+}
+```
+
+> **Success response format**
+
+```json
+{
+  "success": true,
+  "data": {
+    "asset": "flexUSD", 
+    "quantity": "1000",
+    "fromAccount": "14320",
+    "toAccount": "15343"
+  }
+}
+```
+
+Transferring funds between accounts is restricted to API keys linked to the main account
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+asset | STRING | YES | Asset to transfer|
+quantity | STRING | YES | Quantity to transfer|
+fromAccount | STRING | YES | Account to transfer from|
+toAccount | STRING | YES | Account to transfer to|
+
+
+
+####  Sub-account balance transfer - GET /v3/transfer
+
+> **Request**
+
+```url
+
+GET /v3/transfer?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
 
 ```
 
@@ -1989,23 +1980,31 @@ POST /v3/transfer
 
 ```json
 {
-    "asset": "flexUSD", 
-    "quantity": 1000,
-    "fromAccount":"36",
-    "atoAccount":"9"
-}
-
-```
-
-> **Failure response format**
-
-```json
-{
-    "success": False,
-    "code": "41002",
-    "message": "Internal server error"
+  "success": true,
+  "data": [
+    {
+      "asset": "flexUSD", 
+      "quantity": "1000",
+      "fromAccount": "14320",
+      "toAccount": "15343",
+      "id": "703557273590071299",
+      "status": "COMPLETED",
+      "transferredAt": "1634779040611"
+    },...
+  ]
 }
 ```
+
+API keys linked to the main account can get all account transfers, 
+while API keys linked to a sub-account can only see transfers where the account is either the "fromAccount" or "toAccount"
+
+Request Parameters | Type | Required | Description | 
+------------------ | ---- | -------- | ----------- |
+asset | STRING | NO | default all assets |
+limit | LONG | NO | Max 200, default 50 |
+startTime | LONG | NO | Millisecond timestamp, default 24 hours ago. startTime and endTime must be within 7 days of each other|
+endTime | LONG | NO | Millisecond timestamp, default time now. startTime and endTime must be within 7 days of each other|
+
 
 
 
@@ -2017,13 +2016,13 @@ Mint.
 
 > **Request**
 
-```json
+```body
 POST /v3/flexasset/mint
 
 {
 
-    "asset”: “flexUSD”,    
-    "quantity”: 1000      
+    "asset": "flexUSD",    
+    "quantity": 1000      
     
 }
 
@@ -2150,9 +2149,9 @@ GET /v3/flexasset/mint?asset={asset}&limit={limit}&startTime={startTime}&endTime
 {
     "success": true,
     "data": [  {
-             "asset”: “flexUSD”,
-             "quantity”: “1000.0”,
-             "mintedAt”: “16003243243242”
+             "asset": "flexUSD",
+             "quantity": "1000.0",
+             "mintedAt": "16003243243242"
              },]
 }
 ```
@@ -2272,7 +2271,7 @@ GET  /v3/flexasset/earned?asset={asset}&limit={limit}&startTime={startTime}&endT
              "asset": "flexUSD",
              "snapshotQuantity": "100000.0",
              "apr": "0.0001",
-             "rate": “0.0001",  // 8 decimals
+             "rate": "0.0001",  // 8 decimals
              "amount": "31.324344", // 8 decimals
              "paidAt": "16003243243242",
         },]
@@ -2503,7 +2502,7 @@ POST /v3/AMM/redeem
 
 {
     "hashToken": "CF-BCH-AMM-ABCDE3iy"
-    "type”:"deliver"  
+    "type":"deliver"  
 }
 ```
 
@@ -2515,24 +2514,24 @@ POST /v3/AMM/redeem
     "success": true,
     "data": [
      {
-            "hashToken": “CF-BCH-AMM-ABCDE3iy“,
+            "hashToken": "CF-BCH-AMM-ABCDE3iy",
             "leverage": null, or string (0 to 10)    
-            "direction": “BUY” or “SELL” or “NEUTRAL”,
-            "marketCode": “BCH-USD-SWAP-LIN”,
-            "initialCollateral": {“BCH”: “123”, “USD”: 0}    
+            "direction": "BUY" or "SELL" or "NEUTRAL",
+            "marketCode": "BCH-USD-SWAP-LIN",
+            "initialCollateral": {"BCH": "123", "USD": 0}    
             "minPriceBound": "200",
             "maxPriceBound": "800",
-            "status": “ENDED” or “EXECUTING”,
+            "status": "ENDED" or "EXECUTING",
             "positions": [
                         {
                     "marketCode": "BTC-USD-SWAP-LIN",
-                    "baseAsset": “BTC”,
-                    "counterAsset": “USD”,
+                    "baseAsset": "BTC",
+                    "counterAsset": "USD",
                     "position": "0.94",
                     "entryPrice": "7800.00", 
-                    "markPrice": “33000.00”, 
+                    "markPrice": "33000.00", 
                     "positionPnl": "200.3",
-                    "estLiquidationPrice": “12000.05”,
+                    "estLiquidationPrice": "12000.05",
                     "lastUpdatedAt": "1592486212218"
                         },
                         ...
@@ -2543,7 +2542,7 @@ POST /v3/AMM/redeem
                     "total": "4468.823",              
                     "available": "4468.823",        
                     "reserved": "0",
-                    "lastUpdatedAt": "1593627415234”
+                    "lastUpdatedAt": "1593627415234"
                 }
                 {
                     "asset": "FLEX",
@@ -2554,7 +2553,7 @@ POST /v3/AMM/redeem
                 }
                     "usdReward": "200",
                     "flexReward": "200",
-                    "interestPaid": “123”, // sum of all funding payments in tx_account_transfer
+                    "interestPaid": "123", // sum of all funding payments in tx_account_transfer
                     "apr": "0.1",
                     "collateral": "1231231",           
                     "notionalPositionSize": "5000.00", 
@@ -2589,7 +2588,7 @@ POST /v3/AMM/redeem
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 hashToken | List of STRING | YES | list filter, limit 10 AMM|
-type | STRING | YES | “deliver” or manual or twap1hr or twap24hr|
+type | STRING | YES | "deliver" or manual or twap1hr or twap24hr|
 
 
 
@@ -2642,7 +2641,7 @@ GET /v3/AMM?hashToken=[1,2,3,4 ……. ]
                     "total": "4468.823",              
                     "available": "4468.823",        
                     "reserved": "0",
-                    "lastUpdatedAt": "1593627415234”,
+                    "lastUpdatedAt": "1593627415234",
                     "asset": "FLEX",
                     "total": "1585.890",              
                     "available": "325.890",         
@@ -2695,7 +2694,7 @@ GET /v3/AMM/orders?hashToken={hashToken}
 
 {
 
-    "hashToken"= "“CF-BCH-AMM-ABCDE3iy"
+    "hashToken"= ""CF-BCH-AMM-ABCDE3iy"
 } 
 
 ```
@@ -2719,7 +2718,7 @@ GET /v3/AMM/orders?hashToken={hashToken}
                     "remainQuantity": "0.001",
                     "matchedQuantity": "0",
                     "avgFillPrice": "1",
-                    "fees": {"USD": "0", "FLEX": “0”}
+                    "fees": {"USD": "0", "FLEX": "0"}
                     "orderType": "LIMIT", 
                     "timeInForce": "GTC"
                     "createdAt": "1613089383656", 
@@ -2830,7 +2829,7 @@ GET /v3/AMM/balances?hashToken=[1,2,3,4 ……. ]&asset={asset}
                     "total": "4468.823",              
                     "available": "4468.823",        
                     "reserved": "0",
-                    "lastUpdatedAt": "1593627415234”
+                    "lastUpdatedAt": "1593627415234"
                 },
                 {
                     "asset": "FLEX",
@@ -2890,11 +2889,11 @@ GET /v3/AMM/trades?hashToken=1 ……. &marketCode={marketCode}&limit={limit}&st
             "matchedQuantity": "0.1",
             "matchPrice": "0.065",
             "total": "0.0065",    
-            "leg1Price”: “0.001”,         // REPO & SPR
-            "leg2Price”: “0.001”,        // REPO & SPR
+            "leg1Price": "0.001",         // REPO & SPR
+            "leg2Price": "0.001",        // REPO & SPR
             "orderMatchType": "TAKER",
-            "feeAsset”: "FLEX”,
-            "fee”: "0.0096",
+            "feeAsset": "FLEX",
+            "fee": "0.0096",
             "lastMatchedAt": "1595514663626"
             },
          ]
@@ -2951,7 +2950,7 @@ GET /v3/markets`
             "upperPriceBound": "11000.00",
             "lowerPriceBound": "9000.00",
             "markPrice": "10000.00",
-            "lastUpdatedAt": "1620810131131”
+            "lastUpdatedAt": "1620810131131"
         }
             ]
 }
@@ -3317,7 +3316,7 @@ GET /v3/candles?marketCode={marketCode}&timeframe={timeframe}&limit={limit}
             "close": "51754.00000000",
             "volume24h": "0",
             "currencyVolume24h": "0",
-            "openedAt": "1616713140000”
+            "openedAt": "1616713140000"
         },
         {
             "open": "51755.50000000",
@@ -3326,7 +3325,7 @@ GET /v3/candles?marketCode={marketCode}&timeframe={timeframe}&limit={limit}
             "close": "51815.00000000",
             "volume24h": "0",
             "currencyVolume24h": "0",
-            "openedAt": "1616713200000”
+            "openedAt": "1616713200000"
         },
     ]
 }
@@ -3380,7 +3379,7 @@ GET /v3/depth?marketCode={marketCode}&level={level}
     "level": "5",
     "data": {
         "marketCode": "BTC-USD-SWAP-LIN",
-        "lastUpdatedAt": "1615457834388”
+        "lastUpdatedAt": "1615457834388"
         "asks": [
            [54792, 0.001],
            [54802.5, 0.366],
@@ -3505,7 +3504,7 @@ asset={asset}
         "counterAsset": "USD",
         "quantity": "-0.94",
         "entryPrice": "7800.00", 
-        "markPrice": “33000.00”, 
+        "markPrice": "33000.00", 
         "positionPnl": "200.3",
         "estLiquidationPrice": "12000.05",
         "lastUpdatedAt": "1592486212218"      
@@ -3581,7 +3580,7 @@ GET /v3/flexasset/orders?asset={asset}
         "quantity": "0.001",
         "remainQuantity": "0.001",
         "matchedQuantity": "0",
-        "price": "1.0”,
+        "price": "1.0",
         "stopPrice": "Null",
         "createdAt": "1613089383656",
         "lastModifiedAt": "1613089383656",
@@ -3656,7 +3655,7 @@ GET /v3/flexasset/trades?asset={asset}&marketCode={marketCode}&limit={limit} &st
               "matchPrice": "0.065",
               "total": "0.0065",
               "orderMatchType": "TAKER",
-              "feeAsset": "FLEX”,
+              "feeAsset": "FLEX",
               "fee": "0.0096",
               "lastMatchedAt": "1595514663626",
         }
@@ -3729,7 +3728,7 @@ GET /v3/flexasset/delivery?asset={asset}&marketCode={marketCode}&limit={limit} &
               "receiveAsset": "BTC",
               "receiveQty": "0.100000000",
               "createdAt": "1595781719394",
-              "lastMatchedAt": "1595781719394", // null if no match yet (status == “PENDING”)
+              "lastMatchedAt": "1595781719394", // null if no match yet (status == "PENDING")
         }
 ```
 
@@ -3751,7 +3750,7 @@ marketCode | STRING | NO | default most recent trades first|
 limit | LONG | NO | max `500`, default `100`|
 startTime | LONG | NO | e.g. `1579450778000`, default 24 hours ago |
 endTime | LONG | NO | e.g. `1613978625000`, default time now |
-status | STRING | NO |“CANCELED”, “DELIVERED”, “PENDING”, ROLLED_DELIVERY”|
+status | STRING | NO |"CANCELED", "DELIVERED", "PENDING", ROLLED_DELIVERY"|
 
 
 Response Fields | Type | Description |
@@ -3765,7 +3764,7 @@ deliverQty | STRING |  |
 receiveAsset | STRING |  |
 receiveQty | STRING |  |
 createdAt | STRING |  |
-lastMatchedAt | STRING |  null if no match yet (status == “PENDING”) |
+lastMatchedAt | STRING |  null if no match yet (status == "PENDING") |
 
 
 
@@ -3846,14 +3845,14 @@ GET /v3/notetoken/yields?asset={asset}&limit={limit}&startTime={startTime}&endTi
             "asset": "nibbioUSD",
             "apr": "0.0001",
             "interestRate": "0.0001",
-            "amount": “1231”
+            "amount": "1231"
             "paidAt": "16003243243242"
         },
         {
             "asset": "grapfruitUSD",
             "apr": "0.0001",
             "interestRate": "0.0001",
-            "amount": “1231”
+            "amount": "1231"
             "paidAt": "16003243243242"
         },
 }
