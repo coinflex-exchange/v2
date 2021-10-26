@@ -1988,7 +1988,7 @@ asset | STRING | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, 
 quantity | STRING | Quantity of the asset |
 
 
-### GET /v2/mint/{asset}
+### GET `/v2/mint/{asset}`
 
 Get mint history by asset and sorted by time in descending order.
 
@@ -2090,7 +2090,7 @@ redeemAt | STRING | Redeemed time |
 type | STRING | Redeem type, available types: `Normal`, `Instant` |
 
 
-### GET /v2/redeem/{asset}
+### GET `/v2/redeem/{asset}`
 
 Get redemption history by asset and sorted by time in descending order.
 

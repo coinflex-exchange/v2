@@ -10,17 +10,17 @@
 
 For clients who do not wish to take advantage of CoinFLEX's native WebSocket API, CoinFLEX offers a RESTful API that implements much of the same functionality.
 
-##Authentication 
+## Authentication
 
 > **Request**
 
-```header
+```json
 {
-  "Content-Type": "application/json",
-  "AccessKey": "<string>",
-  "Timestamp": "<string>", 
-  "Signature": "<string>", 
-  "Nonce": "<string>"
+    "Content-Type": "application/json",
+    "AccessKey": "<string>",
+    "Timestamp": "<string>",
+    "Signature": "<string>",
+    "Nonce": "<string>"
 }
 ```
 
@@ -99,26 +99,27 @@ The signature must then be included in the header of the REST API call like so:
 
 `header = {'Content-Type': 'application/json', 'AccessKey': API-KEY, 'Timestamp': TIME-STAMP, 'Signature': SIGNATURE, 'Nonce': NONCE}`
 
-### Deposits & Withdrawals
+## Deposits & Withdrawals
 
-#### Deposit addresses - GET /v3/deposit-addresses
+
+### GET `/v3/deposit-addresses`
+
+Deposit addresses
 
 > **Request**
 
-```url
-
+```
 GET /v3/deposit-addresses?asset={asset}&network={network}
- 
 ```
 
 > **Successful response format**
 
 ```json
 {
-  "success": true,
-  "data": {
-    "address":"0xD25bCD2DBb6114d3BB29CE946a6356B49911358e"
-  }
+    "success": true,
+    "data": {
+        "address":"0xD25bCD2DBb6114d3BB29CE946a6356B49911358e"
+    }
 }
 ```
 
@@ -129,7 +130,6 @@ Parameter | Type | Required | Description |
 asset | STRING | YES | 
 network | STRING | YES |
 
-
 <sub>**Response**</sub> 
 
 Field | Type | Value | Description | 
@@ -138,32 +138,33 @@ address | STRING | 0xD25bCD2DBb6114d3BB29CE946a6356B49911358e | Deposit address
 memo | STRING | | Memo (tag) if applicable
 
 
-#### Deposit history - GET /v3/deposit
+### GET `/v3/deposit`
+
+Deposit history
+
 > **Request**
 
-```url
-
+```
 GET /v3/deposit?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
- 
 ```
 
 > **Successful response format**
 
 ```json
 {
-  "success": true,
-  "data": [
-    {
-      "asset": "flexUSD",
-      "network": "SLP",
-      "address": "simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
-      "quantity": "1000.0",
-      "id": "651573911056351237",
-      "status": "COMPLETED",
-      "txId": "38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d",
-      "creditedAt": "1617940800000"
-    }
-  ]
+    "success": true,
+    "data": [
+        {
+            "asset": "flexUSD",
+            "network": "SLP",
+            "address": "simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
+            "quantity": "1000.0",
+            "id": "651573911056351237",
+            "status": "COMPLETED",
+            "txId": "38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d",
+            "creditedAt": "1617940800000"
+        }
+    ]
 }
 ```
 
@@ -175,7 +176,6 @@ asset | STRING | NO |  Default all assets |
 limit | LONG | NO | Max 200, Default 50 |
 startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other|
 endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other|
-
 
 <sub>**Response**</sub> 
 
@@ -192,29 +192,31 @@ txId | STRING | 38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d
 creditedAt | STRING | 1617940800000 | Millisecond timestamp
 
 
-#### Withdrawal addresses - GET /v3/withdrawal-addresses
+### GET `/v3/withdrawal-addresses`
+
+Withdrawal addresses
+
 > **Request**
 
-```url
-
+```
 GET /v3/withdrawal-addresses?asset={asset}?network={network}
-
 ```
 
 > **Successful response format**
 
 ```json
 {
-  "success": true,
-  "data": [
-    {
-      "asset": "FLEX",
-      "network": "ERC20",
-      "address": "0x047a13c759D9c3254B4548Fc7e784fBeB1B273g39",
-      "label": "farming",
-      "whitelisted": true
-    }
-  ]
+    "success": true,
+    "data": [
+        {
+            "asset": "FLEX",
+            "network": "ERC20",
+            "address": "0x047a13c759D9c3254B4548Fc7e784fBeB1B273g39",
+            "label": "farming",
+            "whitelisted": true
+        },
+        ...
+    ]
 }
 ```
 
@@ -226,7 +228,6 @@ Parameters | Type | Required | Description |
 -------------- | ---- | -------- | ----------- |
 asset | STRING | NO |  Default all assets |
 network | STRING | NO | Default all networks |
-
 
 <sub>**Response**</sub>
 
@@ -240,34 +241,36 @@ label | STRING | farming | Withdrawal address label
 whitelisted |BOOL | true 
 
 
-#### Withdrawal history - GET /v3/withdrawal
+### GET `/v3/withdrawal`
+
+Withdrawal history
+
 > **Request**
 
-```url
-
+```
 GET /v3/withdrawal?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
-
 ```
 
 > **Successful response format**
 
 ```json
 {
-  "success": true,
-  "data": [
-    {
-      "asset": "flexUSD",
-      "network": "SLP",
-      "address": "simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
-      "quantity": "1000.0",
-      "fee": "0.000000000",
-      "id": "651573911056351237",
-      "status": "COMPLETED",
-      "txId": "38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d",
-      "requestedAt": "1617940800000",
-      "completedAt": "16003243243242"
-    }
-  ]
+    "success": true,
+    "data": [
+        {
+            "asset": "flexUSD",
+            "network": "SLP",
+            "address": "simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
+            "quantity": "1000.0",
+            "fee": "0.000000000",
+            "id": "651573911056351237",
+            "status": "COMPLETED",
+            "txId": "38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d",
+            "requestedAt": "1617940800000",
+            "completedAt": "16003243243242"
+        },
+        ...
+    ]
 }
 ```
 
@@ -297,22 +300,24 @@ requestedAt | STRING | 1617940800000 | Millisecond timestamp
 completedAt | STRING | 1617941600000 | Millisecond timestamp
 
 
-#### Withdrawal request - POST /v3/withdrawal
+### POST `/v3/withdrawal`
+
+Withdrawal request
 
 > **Request**
 
-```body
+```
 POST /v3/withdrawal
-
+```
+```json
 {
-  "asset": "flexUSD"
-  "network": "SLP"
-  "address": "simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7"
-  "memo": null
-  "quantity": 100
-  "externalFee": true
-  "2faType": "GOOGLE"
-  "code": 743249
+    "asset": "flexUSD",
+    "network": "SLP",
+    "address": "simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
+    "quantity": "100",
+    "externalFee": true,
+    "2faType": "GOOGLE",
+    "code": "743249"
 }
 ```
 
@@ -320,17 +325,17 @@ POST /v3/withdrawal
 
 ```json
 {
-  "success": true,
-  "data": {
-    "asset": "flexUSD",
-    "network": "SLP",
-    "address": "simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
-    "quantity": "1000.0",
-    "externalFee": true,
-    "fee": "0",
-    "status": "PENDING",
-    "requestedAt": "1617940800000"
-  }
+    "success": true,
+    "data": {
+        "asset": "flexUSD",
+        "network": "SLP",
+        "address": "simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
+        "quantity": "1000.0",
+        "externalFee": true,
+        "fee": "0",
+        "status": "PENDING",
+        "requestedAt": "1617940800000"
+    }
 }
 ```
 
@@ -347,7 +352,6 @@ externalFee | BOOL |NO | Default false. If false, then the fee is taken from the
 2faType | STRING | NO | GOOGLE, or AUTHY_SECRET, or YUBIKEY
 code | STRING | NO | 2fa code if required by the account
 
-
 <sub>**Response**</sub> 
 
 Field |Type | Value | Description| 
@@ -363,30 +367,32 @@ status | STRING | PENDING |
 requestedAt | STRING | 1617940800000 | Millisecond timestamp
 
 
-#### Withdrawal fee estimate - GET /v3/withdrawal-fee
+### GET `/v3/withdrawal-fee`
+
+Withdrawal fee estimate
+
 > **Request**
 
-```url
-
+```
 GET /v3/withdrawal-fee?asset={asset}&network={network}&address={address}&memo={memo}&quantity={quantity}&externalFee={externalFee}
-
 ```
 
 > **Successful response format**
 
 ```json
 {
-  "success": true,
-  "data": {
-    "asset": "flexUSD",
-    "network": "SLP",
-    "address": "simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
-    "quantity": "1000.0",
-    "externalFee": true,
-    "estimatedFee": "0"
-  }
+    "success": true,
+    "data": {
+        "asset": "flexUSD",
+        "network": "SLP",
+        "address": "simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
+        "quantity": "1000.0",
+        "externalFee": true,
+        "estimatedFee": "0"
+    }
 }
 ```
+
 <sub>**Request Parameters**</sub> 
 
 Parameter | Type | Required | Description | 
@@ -397,7 +403,6 @@ address | STRING | YES | |
 memo | STRING | NO | Required only for 2 part addresses (tag or memo)|
 quantity | STRING | YES | |
 externalFee | BOOL | NO | Default false. If false, then the fee is taken from the quantity|
-
 
 <sub>**Response**</sub> 
 
@@ -412,18 +417,25 @@ externalFee | BOOL | true | If false, then the fee is taken from the quantity|
 estimatedFee | STRING | 0 | 
 
 
-#### Sub-account balance transfer - POST /v3/transfer
+### POST `/v3/transfer`
+
+Sub-account balance transfer
+
+<aside class="notice">
+Transferring funds between sub-accounts is restricted to API keys linked to the main account.
+</aside>
 
 > **Request**
 
-```body
+```
 POST /v3/transfer
-
+```
+```json
 {
   "asset": "flexUSD",
-  "quantity": 1000,
-  "fromAccount": 14320,
-  "toAccount": 15343
+  "quantity": "1000",
+  "fromAccount": "14320",
+  "toAccount": "15343"
 }
 ```
 
@@ -442,8 +454,6 @@ POST /v3/transfer
 }
 ```
 
-Transferring funds between sub-accounts is restricted to API keys linked to the main account.
-
 <sub>**Request Parameters**</sub> 
 
 Parameter | Type | Required | Description | 
@@ -452,7 +462,6 @@ asset | STRING | YES | |
 quantity | STRING | YES | |
 fromAccount | STRING | YES | |
 toAccount | STRING | YES | |
-
 
 <sub>**Response**</sub> 
 
@@ -465,37 +474,41 @@ toAccount | STRING | 15343 | |
 transferredAt | STRING | 1635038730480 | Millisecond timestamp
 
 
-#### Sub-account balance transfer - GET /v3/transfer
+
+### GET `/v3/transfer`
+
+Sub-account balance transfer history
 
 > **Request**
 
 ```url
-
 GET /v3/transfer?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
-
 ```
 
 > **Successful response format**
 
 ```json
 {
-  "success": true,
-  "data": [
-    {
-      "asset": "flexUSD", 
-      "quantity": "1000",
-      "fromAccount": "14320",
-      "toAccount": "15343",
-      "id": "703557273590071299",
-      "status": "COMPLETED",
-      "transferredAt": "1634779040611"
-    }
-  ]
+    "success": true,
+    "data": [
+        {
+            "asset": "flexUSD", 
+            "quantity": "1000",
+            "fromAccount": "14320",
+            "toAccount": "15343",
+            "id": "703557273590071299",
+            "status": "COMPLETED",
+            "transferredAt": "1634779040611"
+        },
+        ...
+    ]
 }
 ```
 
+<aside class="notice">
 API keys linked to the main account can get all account transfers, 
 while API keys linked to a sub-account can only see transfers where the sub-account is either the "fromAccount" or "toAccount".
+</aside>
 
 <sub>**Request Parameters**</sub> 
 
@@ -505,7 +518,6 @@ asset | STRING | NO | Default all assets |
 limit | LONG | NO | Max 200, default 50 |
 startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other|
 endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other|
-
 
 <sub>**Response**</sub> 
 
