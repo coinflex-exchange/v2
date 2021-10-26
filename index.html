@@ -495,13 +495,13 @@
                             <a href="#rest-api-methods-private-post-v2-mint" class="toc-h3 toc-link" data-title="POST <code>/v2/mint</code>">POST <code>/v2/mint</code></a>
                           </li>
                           <li>
-                            <a href="#rest-api-methods-private-get-v2-mint-asset" class="toc-h3 toc-link" data-title="GET /v2/mint/{asset}">GET /v2/mint/{asset}</a>
+                            <a href="#rest-api-methods-private-get-v2-mint-asset" class="toc-h3 toc-link" data-title="GET <code>/v2/mint/{asset}</code>">GET <code>/v2/mint/{asset}</code></a>
                           </li>
                           <li>
                             <a href="#rest-api-methods-private-post-v2-redeem" class="toc-h3 toc-link" data-title="POST <code>/v2/redeem</code>">POST <code>/v2/redeem</code></a>
                           </li>
                           <li>
-                            <a href="#rest-api-methods-private-get-v2-redeem-asset" class="toc-h3 toc-link" data-title="GET /v2/redeem/{asset}">GET /v2/redeem/{asset}</a>
+                            <a href="#rest-api-methods-private-get-v2-redeem-asset" class="toc-h3 toc-link" data-title="GET <code>/v2/redeem/{asset}</code>">GET <code>/v2/redeem/{asset}</code></a>
                           </li>
                           <li>
                             <a href="#rest-api-methods-private-post-v2-borrow" class="toc-h3 toc-link" data-title="POST <code>/v2/borrow</code>">POST <code>/v2/borrow</code></a>
@@ -597,6 +597,17 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-10-26</strong></p>
+
+<ul>
+<li>Updated REST API <a href="?json#rest-api-methods-private-get-v2-funding-payments">GET /v2/funding-payments</a>
+
+<ul>
+<li>Changed startTime default from 0 to 500 hours ago</li>
+<li>Changed limit default &amp; max from 50 to 500</li>
+</ul></li>
+</ul>
+
 <p><strong>2021-09-23</strong></p>
 
 <ul>
@@ -7439,7 +7450,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </tr>
 </thead><tbody>
 <tr>
-<td>instrumentID</td>
+<td>instrumentId</td>
 <td>STRING</td>
 <td>YES</td>
 <td>Perpetual swap instrument intended for delivery</td>
@@ -8488,7 +8499,7 @@ You can cancel up to 8 orders at a time in REST API
 <td>Quantity of the asset</td>
 </tr>
 </tbody></table>
-<h3 id='rest-api-methods-private-get-v2-mint-asset'>GET /v2/mint/{asset}</h3>
+<h3 id='rest-api-methods-private-get-v2-mint-asset'>GET <code>/v2/mint/{asset}</code></h3>
 <p>Get mint history by asset and sorted by time in descending order.</p>
 
 <blockquote>
@@ -8677,7 +8688,7 @@ You can cancel up to 8 orders at a time in REST API
 <td>Redeem type, available types: <code>Normal</code>, <code>Instant</code></td>
 </tr>
 </tbody></table>
-<h3 id='rest-api-methods-private-get-v2-redeem-asset'>GET /v2/redeem/{asset}</h3>
+<h3 id='rest-api-methods-private-get-v2-redeem-asset'>GET <code>/v2/redeem/{asset}</code></h3>
 <p>Get redemption history by asset and sorted by time in descending order.</p>
 
 <blockquote>
@@ -9481,13 +9492,13 @@ You can cancel up to 8 orders at a time in REST API
 <td>limit</td>
 <td>LONG</td>
 <td>NO</td>
-<td>default is <code>50</code>, max is <code>50</code></td>
+<td>default is <code>500</code>, max is <code>500</code></td>
 </tr>
 <tr>
 <td>startTime</td>
 <td>LONG</td>
 <td>NO</td>
-<td>millisecond timestamp, e.g. <code>1579450778000</code>, default is <code>0</code></td>
+<td>millisecond timestamp, e.g. <code>1579450778000</code>, default is <code>500 hours ago</code></td>
 </tr>
 <tr>
 <td>endTime</td>
