@@ -2486,8 +2486,8 @@ GET v2/funding-payments?marketCode={marketCode}&limit={limit}&startTime={startTi
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 marketCode | STRING | YES | e.g. `BTC-USD-REPO-LIN` |
-limit | LONG | NO | default is `50`, max is `50` |
-startTime | LONG | NO | millisecond timestamp, e.g. `1579450778000`, default is `0` |
+limit | LONG | NO | default is `500`, max is `500` |
+startTime | LONG | NO | millisecond timestamp, e.g. `1579450778000`, default is `500 hours ago` |
 endTime | LONG | NO | millisecond timestamp, e.g. `1613978625000`, default is time now |
 
 > **SUCCESSFUL RESPONSE**

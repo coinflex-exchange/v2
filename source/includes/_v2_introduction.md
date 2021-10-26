@@ -1,5 +1,11 @@
 # Change Log
 
+**2021-10-26**
+
+* Updated REST API [GET /v2/funding-payments](?json#rest-api-methods-private-get-v2-funding-payments)
+    * Changed startTime default from 0 to 500 hours ago
+    * Changed limit default & max from 50 to 500
+
 **2021-09-23**
 
 * Updated REST API [GET /v2.1/orders](?json#rest-api-methods-private-get-v2-1-orders)
