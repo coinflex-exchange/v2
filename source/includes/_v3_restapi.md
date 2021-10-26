@@ -338,6 +338,7 @@ POST /v3/withdrawal
     }
 }
 ```
+Withdrawals may only be initiated by API keys that are linked to the main account and have withdrawals enabled. If the wrong 2fa code is provided the endpoint will block for 10 seconds.
 
 <sub>**Request Parameters**</sub> 
 
