@@ -5,7 +5,7 @@
 * Updated REST API [GET /v2/funding-payments](?json#rest-api-methods-private-get-v2-funding-payments)
     * Changed parameter startTime default from 0 to 500 hours ago
     * Changed parameter limit default & max from 50 to 500
-* Updated REST API [GET /v2/delivery/public/funding](?json##rest-api-methods-public-get-v2-delivery-public-funding)
+* Updated REST API [GET /v2/delivery/public/funding](?json#rest-api-methods-public-get-v2-delivery-public-funding)
     * Added parameter limit with default 100 and max 500
 
 **2021-09-23**
