@@ -603,8 +603,13 @@
 <li>Updated REST API <a href="?json#rest-api-methods-private-get-v2-funding-payments">GET /v2/funding-payments</a>
 
 <ul>
-<li>Changed startTime default from 0 to 500 hours ago</li>
-<li>Changed limit default &amp; max from 50 to 500</li>
+<li>Changed parameter startTime default from 0 to 500 hours ago</li>
+<li>Changed parameter limit default &amp; max from 50 to 500</li>
+</ul></li>
+<li>Updated REST API <a href="?json##rest-api-methods-public-get-v2-delivery-public-funding">GET /v2/delivery/public/funding</a>
+
+<ul>
+<li>Added parameter limit with default 100 and max 500</li>
 </ul></li>
 </ul>
 
@@ -7493,87 +7498,87 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td></td>
 </tr>
 <tr>
-<td>&gt;deliverOrderId</td>
+<td>deliverOrderId</td>
 <td>STRING</td>
 <td>Order id</td>
 </tr>
 <tr>
-<td>&gt;accountId</td>
+<td>accountId</td>
 <td>STRING</td>
 <td>Account ID</td>
 </tr>
 <tr>
-<td>&gt;clientOrderId</td>
+<td>clientOrderId</td>
 <td>Null Type</td>
 <td>null</td>
 </tr>
 <tr>
-<td>&gt;instrumentId</td>
+<td>instrumentId</td>
 <td>STRING</td>
 <td>Perpetual swap market code</td>
 </tr>
 <tr>
-<td>&gt;deliverPrice</td>
+<td>deliverPrice</td>
 <td>STRING</td>
 <td>Mark price at delivery</td>
 </tr>
 <tr>
-<td>&gt;deliverPosition</td>
+<td>deliverPosition</td>
 <td>STRING</td>
 <td>Delivered position size</td>
 </tr>
 <tr>
-<td>&gt;deliverType</td>
+<td>deliverType</td>
 <td>STRING</td>
 <td>‘NEXT_CYCLE’: Queueing for the upcoming auction</td>
 </tr>
 <tr>
-<td>&gt;instrumentIdDeliver</td>
+<td>instrumentIdDeliver</td>
 <td>STRING</td>
 <td>Asset being received: long position = coin, short position = USD</td>
 </tr>
 <tr>
-<td>&gt;deliverQty</td>
+<td>deliverQty</td>
 <td>STRING</td>
 <td>Quantity of the received asset</td>
 </tr>
 <tr>
-<td>&gt;remainingQty</td>
+<td>remainingQty</td>
 <td>STRING</td>
 <td>Remaining quantity</td>
 </tr>
 <tr>
-<td>&gt;remainingPosition</td>
+<td>remainingPosition</td>
 <td>STRING</td>
 <td>Remaining position</td>
 </tr>
 <tr>
-<td>&gt;transferAsset</td>
+<td>transferAsset</td>
 <td>STRING</td>
 <td>Asset being sent</td>
 </tr>
 <tr>
-<td>&gt;transferQty</td>
+<td>transferQty</td>
 <td>STRING</td>
 <td>Quantity being sent</td>
 </tr>
 <tr>
-<td>&gt;auctionTime</td>
+<td>auctionTime</td>
 <td>STRING</td>
 <td>Millisecond timestamp of the next auction</td>
 </tr>
 <tr>
-<td>&gt;created</td>
+<td>created</td>
 <td>STRING</td>
 <td>Millisecond timestamp</td>
 </tr>
 <tr>
-<td>&gt;lastUpdated</td>
+<td>lastUpdated</td>
 <td>STRING</td>
 <td>Millisecond timestamp</td>
 </tr>
 <tr>
-<td>&gt;status</td>
+<td>status</td>
 <td>STRING</td>
 <td>Delivery status</td>
 </tr>
@@ -10399,7 +10404,7 @@ You can cancel up to 8 orders at a time in REST API
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/delivery/public/funding</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">GET</span><span class="w"> </span><span class="err">/v</span><span class="mi">2</span><span class="err">/delivery/public/funding?limit=</span><span class="mi">20</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p><strong>RESPONSE</strong></p>
@@ -10441,6 +10446,11 @@ You can cancel up to 8 orders at a time in REST API
 <td>startTime</td>
 <td>STRING</td>
 <td>e.g. 2020-12-08 20:00:00</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>STRING</td>
+<td>default <code>100</code>, max <code>500</code></td>
 </tr>
 </tbody></table>
 
