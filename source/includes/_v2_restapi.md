@@ -1468,23 +1468,23 @@ event | STRING | `delivery`
 timestamp | STRING | Millisecond timestamp of the repsonse
 accountId | STRING    | Account ID|
 data | LIST of dictionary |
-\>deliverOrderId | STRING | Order id
-\>accountId | STRING    | Account ID|
-\>clientOrderId | Null Type|  null
-\>instrumentId | STRING | Perpetual swap market code
-\>deliverPrice | STRING|  Mark price at delivery
-\>deliverPosition | STRING | Delivered position size
-\>deliverType | STRING| ‘NEXT_CYCLE’: Queueing for the upcoming auction
-\>instrumentIdDeliver | STRING |Asset being received: long position = coin, short position = USD
-\>deliverQty | STRING |  Quantity of the received asset
-\>remainingQty | STRING | Remaining quantity
-\>remainingPosition | STRING | Remaining position
-\>transferAsset | STRING | Asset being sent
-\>transferQty | STRING | Quantity being sent
-\>auctionTime | STRING | Millisecond timestamp of the next auction
-\>created | STRING | Millisecond timestamp
-\>lastUpdated | STRING | Millisecond timestamp 
-\>status | STRING | Delivery status
+deliverOrderId | STRING | Order id
+accountId | STRING    | Account ID|
+clientOrderId | Null Type|  null
+instrumentId | STRING | Perpetual swap market code
+deliverPrice | STRING|  Mark price at delivery
+deliverPosition | STRING | Delivered position size
+deliverType | STRING| ‘NEXT_CYCLE’: Queueing for the upcoming auction
+instrumentIdDeliver | STRING |Asset being received: long position = coin, short position = USD
+deliverQty | STRING |  Quantity of the received asset
+remainingQty | STRING | Remaining quantity
+remainingPosition | STRING | Remaining position
+transferAsset | STRING | Asset being sent
+transferQty | STRING | Quantity being sent
+auctionTime | STRING | Millisecond timestamp of the next auction
+created | STRING | Millisecond timestamp
+lastUpdated | STRING | Millisecond timestamp 
+status | STRING | Delivery status
 
 ###DELETE `/v2.1/delivery/orders/{deliveryOrderId}`
 > **Request**
@@ -2932,7 +2932,7 @@ lastQty| STRING | Last traded quantity
 > **Request**
 
 ```json
-GET /v2/delivery/public/funding
+GET /v2/delivery/public/funding?limit=20
 ```
 
 > **RESPONSE**
@@ -2959,6 +2959,7 @@ Request Parameters | Type | Description|
 column | STRING | limit size of results, e.g. 3 |
 instrumentId | STRING | e.g. UNI-USD-SWAP-LIN |
 startTime | STRING | e.g. 2020-12-08 20:00:00 |
+limit | STRING | default `100`, max `500` |
 
 Response Parameters | Type | Description| 
 -------------------------- | -----|--------- |
