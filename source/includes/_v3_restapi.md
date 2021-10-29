@@ -14,19 +14,25 @@ For clients who do not wish to take advantage of CoinFLEX's native WebSocket API
 
 Code | Description |
 ---- | ----------- |
-10001 | networking general failure |
-20001 | invalid param |
-30001 | param missing |
-40001 | alert from server |
+10001 | general networking failure |
+20001 | invalid parameter |
+30001 | missing parameter |
+40001 | alert from the server |
 50001 | unknown server error |
 
-## Rate Limits For API Requests
+## Rate Limits
 
-* `s` is second
-* Request limit `1/s` & `2/10s`
-  * You can send the requests by `1/s` and `2/10s`, that's only 1 request is permitted in per second and only 2 requests are permitted in the counting 10 seconds.
-* Request limit `1/10s` with incorrect 2FA
-  * With incorrect 2FA, the endpoint will be blocked for 10 seconds.
+* Each IP is limited to:
+  * 100 requests per second
+  * 20 POST v3/orders per second
+  * 2500 requests over 5 minutes
+
+Certain endpoints have extra IP restrictions:
+* `s` denotes a second
+* Requests limited to `1/s` & `2/10s`
+  * Only 1 request is permitted per second and only 2 requests are permitted within 10 seconds.
+* Request limit `1/10s`
+  * The endpoint will block for 10 seconds after an incorrect 2FA code is provided
 
 Affected APIs:
 
