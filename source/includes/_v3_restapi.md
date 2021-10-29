@@ -30,7 +30,7 @@ Each IP is limited to:
 Certain endpoints have extra IP restrictions:
 * `s` denotes a second
 * Requests limited to `1/s` & `2/10s`
-  * Only 1 request is permitted per second and only 2 requests are permitted within 10 seconds.
+  * Only 1 request is permitted per second and only 2 requests are permitted within 10 seconds
 * Request limit `1/10s`
   * The endpoint will block for 10 seconds after an incorrect 2FA code is provided
 
