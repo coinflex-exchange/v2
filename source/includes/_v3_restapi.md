@@ -10,6 +10,29 @@
 
 For clients who do not wish to take advantage of CoinFLEX's native WebSocket API, CoinFLEX offers a RESTful API that implements much of the same functionality.
 
+## Error Codes
+
+Code | Description |
+---- | ----------- |
+10001 | networking general failure |
+20001 | invalid param |
+30001 | param missing |
+40001 | alert from server |
+50001 | unknown server error |
+
+## Rate Limits For API Requests
+
+* `s` is second
+* Request limit `1/s` & `2/10s`
+  * You can send the requests by `1/s` and `2/10s`, that's only 1 request is permitted in per second and only 2 requests are permitted in the counting 10 seconds.
+* Request limit `1/10s` with incorrect 2FA
+  * With incorrect 2FA, the endpoint will be blocked for 10 seconds.
+
+Affected APIs:
+
+* [POST /v3/withdrawal](?json#rest-api-v3-deposits-amp-withdrawals-post-v3-withdrawal)
+* [POST /v3/transfer](?json#rest-api-v3-deposits-amp-withdrawals-post-v3-transfer)
+
 ## Authentication
 
 > **Request**

@@ -14,6 +14,7 @@ includes:
   - v2_introduction
   - v2_websocket
   - v2_restapi
+  - v3_restapi
 
 search: true
 
