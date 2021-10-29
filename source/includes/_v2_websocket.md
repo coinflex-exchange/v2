@@ -2788,13 +2788,13 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 
 **Channel Update Frequency**: real-time, whenever there is planned liquidation event of a clients position OR an auto-borrow OR an auto-borrow repayment
  
-The liqudation RFQ (request for quotes) channel publishes a message 50ms before a liquidation event is due to occur.  A liqudation event can be classed as one of the following:-
+The liquidation RFQ (request for quotes) channel publishes a message 50ms before a liquidation event is due to occur.  A liquidation event can be classed as one of the following:-
 
 * liquidation of a clients traded position (perps, futures or index)
 * an auto-borrow (in a repo orderbook) of USD because a clients account has negative USD balances greater than the allowable threshold
 * an auto-repayment (in a repo orderbook) of a previous auto-borrow because a clients account now has sufficient USD balances to repay the loan
 
-The message will contain the market code and is designed to give users an opportunity to make a 2 way market for the upcoming liqudation event.
+The message will contain the market code and is designed to give users an opportunity to make a 2 way market for the upcoming liquidation event.
 
 <sub>**Request Parameters**</sub> 
 
