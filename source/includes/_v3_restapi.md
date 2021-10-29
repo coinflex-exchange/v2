@@ -22,10 +22,10 @@ Code | Description |
 
 ## Rate Limits
 
-* Each IP is limited to:
-  * 100 requests per second
-  * 20 POST v3/orders per second
-  * 2500 requests over 5 minutes
+Each IP is limited to:
+* 100 requests per second
+* 20 POST v3/orders requests per second
+* 2500 requests over 5 minutes
 
 Certain endpoints have extra IP restrictions:
 * `s` denotes a second
