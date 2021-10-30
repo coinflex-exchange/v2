@@ -243,8 +243,7 @@ GET /v3/withdrawal-addresses?asset={asset}?network={network}
             "address": "0x047a13c759D9c3254B4548Fc7e784fBeB1B273g39",
             "label": "farming",
             "whitelisted": true
-        },
-        ...
+        }
     ]
 }
 ```
@@ -253,7 +252,7 @@ Provides a list of all saved withdrawal addresses along with their respected lab
 
 <sub>**Request Parameters**</sub> 
 
-Parameters | Type | Required | Description | 
+Parameter | Type | Required | Description | 
 -------------- | ---- | -------- | ----------- |
 asset | STRING | NO |  Default all assets |
 network | STRING | NO | Default all networks |
@@ -297,8 +296,7 @@ GET /v3/withdrawal?asset={asset}&limit={limit}&startTime={startTime}&endTime={en
             "txId": "38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d",
             "requestedAt": "1617940800000",
             "completedAt": "16003243243242"
-        },
-        ...
+        }
     ]
 }
 ```
@@ -462,10 +460,10 @@ POST /v3/transfer
 ```
 ```json
 {
-  "asset": "flexUSD",
-  "quantity": "1000",
-  "fromAccount": "14320",
-  "toAccount": "15343"
+    "asset": "flexUSD",
+    "quantity": "1000",
+    "fromAccount": "14320",
+    "toAccount": "15343"
 }
 ```
 
@@ -473,14 +471,14 @@ POST /v3/transfer
 
 ```json
 {
-  "success": true,
-  "data": {
-    "asset": "flexUSD", 
-    "quantity": "1000",
-    "fromAccount": "14320",
-    "toAccount": "15343",
-    "transferredAt": "1635038730480"
-  }
+    "success": true,
+    "data": {
+        "asset": "flexUSD", 
+        "quantity": "1000",
+        "fromAccount": "14320",
+        "toAccount": "15343",
+        "transferredAt": "1635038730480"
+    }
 }
 ```
 
@@ -529,8 +527,7 @@ GET /v3/transfer?asset={asset}&limit={limit}&startTime={startTime}&endTime={endT
             "id": "703557273590071299",
             "status": "COMPLETED",
             "transferredAt": "1634779040611"
-        },
-        ...
+        }
     ]
 }
 ```
