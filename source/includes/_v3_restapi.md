@@ -23,11 +23,13 @@ Code | Description |
 ## Rate Limits
 
 Each IP is limited to:
+
 * 100 requests per second
 * 20 POST v3/orders requests per second
 * 2500 requests over 5 minutes
 
 Certain endpoints have extra IP restrictions:
+
 * `s` denotes a second
 * Requests limited to `1/s` & `2/10s`
   * Only 1 request is permitted per second and only 2 requests are permitted within 10 seconds
@@ -152,19 +154,15 @@ GET /v3/deposit-addresses?asset={asset}&network={network}
 }
 ```
 
-<sub>**Request Parameters**</sub> 
-
-Parameter | Type | Required | Description | 
------------------- | ---- | -------- | ----------- |
-asset | STRING | YES | 
+Request Parameter | Type | Required | Description | 
+----------------- | ---- | -------- | ----------- |
+asset | STRING | YES |
 network | STRING | YES |
 
-<sub>**Response**</sub> 
-
-Field | Type | Value | Description | 
------------------- | ---- | -------- | ----------- |
-address | STRING | 0xD25bCD2DBb6114d3BB29CE946a6356B49911358e | Deposit address
-memo | STRING | | Memo (tag) if applicable
+Response Field | Type | Description | 
+-------------- | ---- | ----------- |
+address | STRING | Deposit address |
+memo | STRING | Memo (tag) if applicable |
 
 
 ### GET `/v3/deposit`
@@ -197,28 +195,24 @@ GET /v3/deposit?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTi
 }
 ```
 
-<sub>**Request Parameters**</sub> 
-
-Parameter | Type | Required | Description | 
------------------- | ---- | -------- | ----------- |
-asset | STRING | NO |  Default all assets |
+Request Parameter | Type | Required | Description | 
+----------------- | ---- | -------- | ----------- |
+asset | STRING | NO | Default all assets |
 limit | LONG | NO | Max 200, Default 50 |
-startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other|
-endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other|
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
-<sub>**Response**</sub> 
-
-Field | Type | Value | Description | 
------------------- | ---- | -------- | ----------- |
-asset | STRING | flexUSD | 
-network | STRING | SLP |
-address | STRING | 0xD25bCD2DBb6114d3BB29CE946a6356B49911358e | Deposit address
-memo | STRING | | Memo (tag) if applicable
-quantity | STRING | 1000.0 | 
-id | STRING | 651573911056351237 | |
-status | STRING | COMPLETED |
-txId | STRING | 38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d
-creditedAt | STRING | 1617940800000 | Millisecond timestamp
+Response Field | Type | Description | 
+-------------- | ---- | ----------- |
+asset | STRING | | 
+network | STRING | |
+address | STRING | Deposit address |
+memo | STRING | Memo (tag) if applicable |
+quantity | STRING | |
+id | STRING | |
+status | STRING | |
+txId | STRING | |
+creditedAt | STRING | Millisecond timestamp |
 
 
 ### GET `/v3/withdrawal-addresses`
@@ -250,23 +244,19 @@ GET /v3/withdrawal-addresses?asset={asset}?network={network}
 
 Provides a list of all saved withdrawal addresses along with their respected labels, network, and whitelist status
 
-<sub>**Request Parameters**</sub> 
-
-Parameter | Type | Required | Description | 
--------------- | ---- | -------- | ----------- |
+Request Parameter | Type | Required | Description | 
+----------------- | ---- | -------- | ----------- |
 asset | STRING | NO |  Default all assets |
 network | STRING | NO | Default all networks |
 
-<sub>**Response**</sub>
-
-Field | Type | Value | Description| 
------ | ---- | ----  | ---------- |
-asset | STRING | FLEX
-network | STRING | ERC20
-address | STRING | 0x047a13c759D9c3254B4548Fc7e784fBeB1B273g39
-memo | STRING | | Memo (tag) if applicable
-label | STRING | farming | Withdrawal address label
-whitelisted |BOOL | true 
+Response Field | Type | Description | 
+-------------- | ---- | ----------- |
+asset | STRING | |
+network | STRING | |
+address | STRING | |
+memo | STRING | Memo (tag) if applicable |
+label | STRING | Withdrawal address label |
+whitelisted | BOOL | |
 
 
 ### GET `/v3/withdrawal`
@@ -301,30 +291,26 @@ GET /v3/withdrawal?asset={asset}&limit={limit}&startTime={startTime}&endTime={en
 }
 ```
 
-<sub>**Request Parameters**</sub> 
-
-Parameter | Type | Required | Description | 
---------- | ---- | -------- | ----------- |
+Request Parameter | Type | Required | Description | 
+----------------- | ---- | -------- | ----------- |
 asset | STRING | NO |  Default all assets |
 limit | INT | NO | Max 200, Default 50 |
 startTime | INT | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other|
 endTime | INT | NO |  Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
-<sub>**Response**</sub> 
-
-Field | Type | Value | Description | 
---------- | ---- | -------- | ----------- |
-asset | STRING | flexUSD |  |
-network | STRING | SLP |  |
-address | STRING | simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7 | |
-memo | STRING | | Memo (tag) if applicable|
-quantity | STRING | 1000.0 |   |
-fee | STRING | 0 |
-id | STRING | 651573911056351237 | |
-status | STRING | COMPLETED | COMPLETED, PROCESSING, PENDING, ON HOLD, CANCELED, or FAILED| 
-txId | STRING | 38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d |
-requestedAt | STRING | 1617940800000 | Millisecond timestamp
-completedAt | STRING | 1617941600000 | Millisecond timestamp
+Response Field | Type | Description | 
+-------------- | ---- | ----------- |
+asset | STRING | |
+network | STRING | |
+address | STRING | |
+memo | STRING | Memo (tag) if applicable |
+quantity | STRING | |
+fee | STRING | |
+id | STRING | |
+status | STRING | | COMPLETED, PROCESSING, PENDING, ON HOLD, CANCELED, or FAILED| 
+txId | STRING | |
+requestedAt | STRING | Millisecond timestamp |
+completedAt | STRING | Millisecond timestamp |
 
 
 ### POST `/v3/withdrawal`
@@ -367,32 +353,28 @@ POST /v3/withdrawal
 ```
 Withdrawals may only be initiated by API keys that are linked to the main account and have withdrawals enabled. If the wrong 2fa code is provided the endpoint will block for 10 seconds.
 
-<sub>**Request Parameters**</sub> 
-
-Parameter |Type |Required| Description| 
--------------------------- | -----|---|--------- |
+Request Parameter | Type | Required | Description | 
+----------------- | ---- |--------- | ----------- |
 asset | STRING | YES |
 network | STRING | YES |
 address | STRING | YES |
-memo | STRING | NO |Memo is required for chains that support memo tags
+memo | STRING | NO |Memo is required for chains that support memo tags |
 quantity | STRING | YES |
-externalFee | BOOL |NO | Default false. If false, then the fee is taken from the quantity
-2faType | STRING | NO | GOOGLE, or AUTHY_SECRET, or YUBIKEY
-code | STRING | NO | 2fa code if required by the account
+externalFee | BOOL |NO | Default false. If false, then the fee is taken from the quantity |
+2faType | STRING | NO | GOOGLE, or AUTHY_SECRET, or YUBIKEY |
+code | STRING | NO | 2fa code if required by the account |
 
-<sub>**Response**</sub> 
-
-Field |Type | Value | Description| 
------- | -----|------ |----|
-asset | STRING | flexUSD |
-network | STRING | SLP |
-address | STRING | simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7 |
-memo | STRING |  | Memo (tag) if applicable
-quantity | STRING | 1000.0 |
-externalFee | BOOL | true | Default false. If false, then the fee is taken from the quantity
-fee | STRING | 0 |
-status | STRING | PENDING |
-requestedAt | STRING | 1617940800000 | Millisecond timestamp
+Response Field | Type | Description | 
+-------------- | ---- | ----------- |
+asset | STRING | |
+network | STRING | |
+address | STRING | |
+memo | STRING | | 
+quantity | STRING | |
+externalFee | BOOL | Default false. If false, then the fee is taken from the quantity |
+fee | STRING | |
+status | STRING | |
+requestedAt | STRING | Millisecond timestamp |
 
 
 ### GET `/v3/withdrawal-fee`
@@ -421,10 +403,8 @@ GET /v3/withdrawal-fee?asset={asset}&network={network}&address={address}&memo={m
 }
 ```
 
-<sub>**Request Parameters**</sub> 
-
-Parameter | Type | Required | Description | 
------------------- | ---- | -------- | --------- |
+Request Parameter | Type | Required | Description | 
+----------------- | ---- | -------- | ----------- |
 asset | STRING | YES | |
 network | STRING | YES | |
 address | STRING | YES | |
@@ -432,17 +412,15 @@ memo | STRING | NO | Required only for 2 part addresses (tag or memo)|
 quantity | STRING | YES | |
 externalFee | BOOL | NO | Default false. If false, then the fee is taken from the quantity|
 
-<sub>**Response**</sub> 
-
-Field | Type | Value | Description | 
------------------- | ---- | -------- | ----------- |
-asset | STRING | flexUSD | |
-network | STRING | SLP | |
-address | STRING | simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7 | |
-memo | STRING |  | Memo (tag) if applicable|
-quantity | STRING | 1000 | |
-externalFee | BOOL | true | If false, then the fee is taken from the quantity|
-estimatedFee | STRING | 0 | 
+Response Field | Type | Description | 
+---------------| ---- | ----------- |
+asset | STRING | |
+network | STRING | |
+address | STRING | |
+memo | STRING | Memo (tag) if applicable|
+quantity | STRING | |
+externalFee | BOOL | If false, then the fee is taken from the quantity|
+estimatedFee | STRING | |
 
 
 ### POST `/v3/transfer`
@@ -482,25 +460,20 @@ POST /v3/transfer
 }
 ```
 
-<sub>**Request Parameters**</sub> 
-
-Parameter | Type | Required | Description | 
------------------- | ---- | -------- | ----------- |
+Request Parameter | Type | Required | Description | 
+----------------- | ---- | -------- | ----------- |
 asset | STRING | YES | |
 quantity | STRING | YES | |
 fromAccount | STRING | YES | |
 toAccount | STRING | YES | |
 
-<sub>**Response**</sub> 
-
-Field | Type | Value | Description | 
------------------- | ---- | -------- | ----------- |
-asset | STRING | flexUSD | |
-quantity | STRING | 1000 | |
-fromAccount | STRING | 14320 | |
-toAccount | STRING | 15343 | |
-transferredAt | STRING | 1635038730480 | Millisecond timestamp
-
+Response Field | Type | Description | 
+-------------- | ---- | ----------- |
+asset | STRING | |
+quantity | STRING | |
+fromAccount | STRING | |
+toAccount | STRING | |
+transferredAt | STRING | Millisecond timestamp |
 
 
 ### GET `/v3/transfer`
@@ -537,23 +510,19 @@ API keys linked to the main account can get all account transfers,
 while API keys linked to a sub-account can only see transfers where the sub-account is either the "fromAccount" or "toAccount".
 </aside>
 
-<sub>**Request Parameters**</sub> 
-
-Parameters | Type | Required | Description | 
+Request Parameters | Type | Required | Description | 
 ------------------ | ---- | -------- | ----------- |
 asset | STRING | NO | Default all assets |
 limit | LONG | NO | Max 200, default 50 |
-startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other|
-endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other|
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
-<sub>**Response**</sub> 
-
-Field | Type | Value | Description | 
------------------- | ---- | -------- | ----------- |
-asset | STRING | flexUSD | |
-quantity | STRING | 1000 | |
-fromAccount | STRING | 14320 | |
-toAccount | STRING | 15343 | |
-id | STRING | 703557273590071299 ||
-status | STRING | COMPLETED ||
-transferredAt | STRING | 1635038730480 | Millisecond timestamp
+Response Field | Type | Description | 
+-------------- | ---- | ----------- |
+asset | STRING | |
+quantity | STRING | |
+fromAccount | STRING | |
+toAccount | STRING | |
+id | STRING | |
+status | STRING | |
+transferredAt | STRING | Millisecond timestamp |
