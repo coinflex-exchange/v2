@@ -130,7 +130,7 @@ The signature must then be included in the header of the REST API call like so:
 
 `header = {'Content-Type': 'application/json', 'AccessKey': API-KEY, 'Timestamp': TIME-STAMP, 'Signature': SIGNATURE, 'Nonce': NONCE}`
 
-## Deposits & Withdrawals
+## Deposits & Withdrawals - Private
 
 
 ### GET `/v3/deposit-addresses`
@@ -526,3 +526,372 @@ toAccount | STRING | |
 id | STRING | |
 status | STRING | |
 transferredAt | STRING | Millisecond timestamp |
+
+## Flex Assets - Private
+
+
+### POST `/v3/flexasset/mint`
+
+Mint
+
+> **Request**
+
+```
+POST /v3/flexasset/mint
+```
+```json
+{
+    "asset": "flexUSD",
+    "quantity": "100",
+}
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": {
+        "asset": "flexUSD",
+        "quantity": "1000.0",
+    }
+}
+```
+
+Request Parameter | Type | Required | Description | 
+----------------- | ---- | -------- | ----------- |
+asset | STRING | YES | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+quantity | STRING/DECIMAL | YES | Quantity of the asset |
+
+Response Field | Type | Description | 
+-------------- | ---- | ----------- |
+asset | STRING | Deposit  |
+quantity | STRING | 
+
+
+### POST `/v3/flexasset/redeem`
+
+Redeem
+
+> **Request**
+
+```
+POST /v3/flexasset/redeem
+```
+```json
+{
+    "asset": "flexUSD",
+    "quantity": "100",
+    "type": "normal",
+}
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": {
+        "asset": "flexUSD",
+        "quantity": "1000.0",
+        "type": "normal",
+        "redemptionAt": "1617940800000",
+    }
+}
+```
+
+Request Parameter | Type | Required | Description | 
+----------------- | ---- | -------- | ----------- |
+asset | STRING | YES | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+quantity | STRING/DECIMAL | YES | Quantity of the asset |
+
+Response Field | Type | Description | 
+-------------- | ---- | ----------- |
+asset | STRING | Deposit  |
+quantity | STRING | 
+type | STRING | 
+redemptionAt | STRING | 
+
+### GET `/v3/flexasset/mint`
+
+Get mint history by asset and sorted by time in descending order.
+
+> **Request**
+
+```
+GET /v3/flexasset/mint
+```
+```json
+{
+    "asset": "flexUSD",
+    "limit": "100",
+    "startTime": 1579450778000,
+    "endTime": 1579450778000,
+}
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": {
+        "asset": "flexUSD",
+        "quantity": "1000.0",
+        "mintedAt": "normal",
+        "redemptionAt": "16003243243242",
+    }
+}
+```
+
+Request Parameter | Type | Required | Description | 
+----------------- | ---- | -------- | ----------- |
+asset | STRING | YES | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+limit | STRING | YES | Quantity of the asset |
+startTime | STRING | YES | Quantity of the asset |
+endTime | STRING | YES | Quantity of the asset |
+
+Response Field | Type | Description | 
+-------------- | ---- | ----------- |
+asset | STRING | Deposit  |
+quantity | STRING | 
+mintedAt | STRING | 
+redemptionAt | STRING | 
+
+### GET `/v3/flexasset/redeem`
+
+Get redemption history by asset and sorted by time in descending order.
+
+> **Request**
+
+```
+GET /v3/flexasset/redeem
+```
+```json
+{
+    "asset": "flexUSD",
+    "limit": "100",
+    "startTime": 1579450778000,
+    "endTime": 1579450778000,
+}
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": {
+        "asset": "flexUSD",
+        "quantity": "1000.0",
+        "mintedAt": "normal",
+        "requestedAt": "16003243243242",
+        "redemptionAt": "16003243243242",
+    }
+}
+```
+
+Request Parameter | Type | Required | Description | 
+----------------- | ---- | -------- | ----------- |
+asset | STRING | YES | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+limit | STRING | YES | Quantity of the asset |
+startTime | STRING | YES | Quantity of the asset |
+endTime | STRING | YES | Quantity of the asset |
+
+Response Field | Type | Description | 
+-------------- | ---- | ----------- |
+asset | STRING | Deposit  |
+quantity | STRING | 
+mintedAt | STRING | 
+requestedAt | STRING |
+redemptionAt | STRING | 
+
+### GET `/v3/flexasset/earned`
+
+> **Request**
+
+```
+GET /v3/flexasset/earned
+```
+```json
+{
+    "asset": "flexUSD",
+    "limit": "100",
+    "startTime": 1579450778000,
+    "endTime": 1579450778000,
+}
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": {
+        "asset": "flexUSD",
+        "snapshotQuantity": "10000.0",
+        "apr": "0.0001",
+        "rate": "0.0001",
+        "amount": "31.314344",
+        "paidAt": "16003243243242",
+    }
+}
+```
+
+Request Parameter | Type | Required | Description | 
+----------------- | ---- | -------- | ----------- |
+asset | STRING | YES | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+limit | STRING | YES | Quantity of the asset |
+startTime | STRING | YES | Quantity of the asset |
+endTime | STRING | YES | Quantity of the asset |
+
+Response Field | Type | Description | 
+-------------- | ---- | ----------- |
+asset | STRING | Deposit  |
+snapshotQuantity | STRING | 
+apr | STRING | 
+rate | STRING |
+amount | STRING | 
+paidAt | STRING |
+
+## Market Data - Public
+
+### GET `/v3/markets`
+
+Get a list of all available markets on CoinFlex.
+
+> **Request**
+
+```
+GET /v3/flexasset/earned
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": {
+        "marketCode": "BTC-USD",
+        "name": "BTC/USD Spot",
+        "referencePair": "BTC/USD",
+        "base": "BTC",
+        "counter": "USD",
+        "type": "SPOT",
+        "tickSize": "0.1",
+        "qtyIncrement": "0.001",
+        "listedAt": "2208988800000",
+        "settlementAt": "16343242424223", // null when no settlement
+        "upperPriceBound": "11000.00",
+        "lowerPriceBound": "9000.00",
+        "markPrice": "10000.00",
+        "lastUpdatedAt": "1620810131131”,
+    }
+}
+```
+
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+marketCode| STRING    | Market Code|
+name      | STRING    | Name of the contract|
+referencePair| STRING | Reference pair|
+base      | STRING    | Base asset|
+counter   | STRING    | Counter asset|
+type      | STRING    | Type of the contract|
+tickSize  | STRING    | Tick size of the contract|
+qtyIncrement| STRING  |Minimum increamet quantity|
+listedAt| STRING   | Listing date of the contract|
+settlementAt| STRING   | Timestamp of settlement|
+timestamp | STRING    | Timestamp of this response|
+upperPriceBound| STRING| Upper price bound|
+lowerPriceBound| STRING| Lower price bound|
+marketPrice    | STRING| Market price|
+LastUpdated | LONG | The time that market price last updated at |
+
+### GET `/v3/assets`
+
+Get a list of all assets available on CoinFLEX. These include coins and bookable contracts.
+
+> **Request**
+
+```
+GET /v3/flexasset/earned
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": {
+        "name": "BTC",
+        "canDeposit": true,
+        "canWithdraw": true,
+        "isCollateral": true,
+        "loanToValue": "0.9",
+        "minDeposit": "0.0001",
+        "minWithdrawal": "0.001",
+        "network": ["erc20", "trc20", "bep20"],
+            }
+}
+```
+
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+name      | STRING    | Name of the contract|
+canDeposit| STRING | |
+canWithdraw| STRING    | |
+isCollateral| STRING    ||
+loanToValue| STRING    | Loan to value of the asset|
+minDeposit| STRING    | Minimum deposit amount|
+minWithdrawal| STRING  |Minimum withdrawal amount|
+network| List   | Types of network Asset is available on|
+
+### GET `/v3/ticker`
+
+Get a list of all available markets on CoinFlex
+
+> **Request**
+
+Get a list of all of the tickers
+
+```
+GET /v3/ticker
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": {
+        "name": "BTC",
+        "marketCode": "BTC-USD-SWAP-LIN",
+        "markPrice": "11012.80409769",  
+        "open24h": "49.375",
+        "high24h": "49.488",
+        "low24h": "41.649",
+        "volume24h": "11295421",
+        "currencyVolume24h": "1025.7", 
+        "openInterest": "1726003",
+        "lastTradedPrice": "43.259",
+        "lastTradedQuantity": "1",
+        "lastUpdatedAt": "1621321313131"
+            }
+}
+```
+
+Response Parameters |Type | Description| 
+-------------------------- | -----|--------- |
+name      | STRING    | Name of the contract|
+marketCode| STRING | |
+markPrice| STRING| |
+open24h| STRING||
+high24h| STRING| Highest price in last 24h|
+low24h| STRING| Lowest price in last 24h|
+volume24h| STRING|Total Volume in last 24h|
+currencyVolume24h| List|Currency Volume last 24h|
+openInterest| STRING|Amount of Open Interest|
+lastTradedPrice| STRING||
+lastTradedQuantity| STRING||
+lastUpdatedAt| STRING||
