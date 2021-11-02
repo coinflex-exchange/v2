@@ -14,6 +14,7 @@ For clients who do not wish to take advantage of CoinFLEX's native WebSocket API
 
 Code | Description |
 ---- | ----------- |
+429 | Rate limit reached |
 10001 | general networking failure |
 20001 | invalid parameter |
 30001 | missing parameter |
