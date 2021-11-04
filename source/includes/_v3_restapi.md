@@ -15,11 +15,11 @@ For clients who do not wish to take advantage of CoinFLEX's native WebSocket API
 Code | Description |
 ---- | ----------- |
 429 | Rate limit reached |
-10001 | general networking failure |
-20001 | invalid parameter |
-30001 | missing parameter |
-40001 | alert from the server |
-50001 | unknown server error |
+10001 | General networking failure |
+20001 | Invalid parameter |
+30001 | Missing parameter |
+40001 | Alert from the server |
+50001 | Unknown server error |
 
 ## Rate Limits
 

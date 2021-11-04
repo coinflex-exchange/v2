@@ -261,10 +261,11 @@ CoinFLEX's historical L2 order book data (depth data), can be found at [https://
 
 CoinFLEX's APIs allows our clients to access and control their accounts or view our market data using custom-written software. To protect the performance of the system, we impose certain limits:
 
-Type                           |                             Limit|
--------------------------------|----------------------------------|
-Rest API                       |                   100 per second |
-Rest API                       |                  2500 per 5 mins |
-Rest POST v2.1/delivery/orders |                 2 per 10 seconds |
-Websocket API (Auth)           |                   50 per second  |
-Websocket API (No Auth)        |                     1 per second |
+Type                              |                            Limit |
+--------------------------------- | -------------------------------- |
+Rest API                          |                   100 per second |
+Rest API                          |                  2500 per 5 mins |
+Rest POST v2.1/delivery/orders    |                 2 per 10 seconds |
+Initialising Websocket Connection |                   200 per minute |
+Websocket API (Auth)              |                    50 per second |
+Websocket API (No Auth)           |                     1 per second |
