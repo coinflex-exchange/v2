@@ -39,8 +39,10 @@ Certain endpoints have extra IP restrictions:
 
 Affected APIs:
 
-* [POST /v3/withdrawal](?json#rest-api-v3-deposits-amp-withdrawals-post-v3-withdrawal)
-* [POST /v3/transfer](?json#rest-api-v3-deposits-amp-withdrawals-post-v3-transfer)
+* [POST /v3/withdrawal](?rest-api-v3-deposits-and-withdrawals-post-v3-withdrawal)
+* [POST /v3/transfer](?rest-api-v3-deposits-and-withdrawals-post-v3-transfer)
+* [POST /v3/flexasset/mint](?rest-api-v3-flex-assets-post-v3-flexasset-mint)
+* [POST /v3/flexasset/redeem](?rest-api-v3-flex-assets-post-v3-flexasset-redeem)
 
 ## Authentication
 
@@ -330,7 +332,7 @@ POST /v3/withdrawal
     "address": "simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
     "quantity": "100",
     "externalFee": true,
-    "2faType": "GOOGLE",
+    "tfaType": "GOOGLE",
     "code": "743249"
 }
 ```
@@ -361,8 +363,8 @@ network | STRING | YES |
 address | STRING | YES |
 memo | STRING | NO |Memo is required for chains that support memo tags |
 quantity | STRING | YES |
-externalFee | BOOL |NO | Default false. If false, then the fee is taken from the quantity |
-2faType | STRING | NO | GOOGLE, or AUTHY_SECRET, or YUBIKEY |
+externalFee | BOOL |YES | Default false. If false, then the fee is taken from the quantity |
+tfaType | STRING | NO | GOOGLE, or AUTHY_SECRET, or YUBIKEY |
 code | STRING | NO | 2fa code if required by the account |
 
 Response Field | Type | Description | 
@@ -528,8 +530,9 @@ id | STRING | |
 status | STRING | |
 transferredAt | STRING | Millisecond timestamp |
 
-## Flex Assets - Private
 
+
+## Flex Assets - Private
 
 ### POST `/v3/flexasset/mint`
 
@@ -543,7 +546,7 @@ POST /v3/flexasset/mint
 ```json
 {
     "asset": "flexUSD",
-    "quantity": "100",
+    "quantity": "100"
 }
 ```
 
@@ -554,10 +557,14 @@ POST /v3/flexasset/mint
     "success": true,
     "data": {
         "asset": "flexUSD",
-        "quantity": "1000.0",
+        "quantity": "100"
     }
 }
 ```
+<aside class="notice">
+Minting is restricted starting 1 minute before an interest payment until 1 minute after the interest payment.
+Interest payments occur at 04:00, 12:00, and 20:00 UTC.
+</aside>
 
 Request Parameter | Type | Required | Description |
 ----------------- | ---- | -------- | ----------- |
@@ -566,7 +573,7 @@ quantity | STRING | YES | Quantity of the asset |
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
-asset | STRING | Deposit |
+asset | STRING |  |
 quantity | STRING | |
 
 
@@ -594,24 +601,32 @@ POST /v3/flexasset/redeem
     "success": true,
     "data": {
         "asset": "flexUSD",
-        "quantity": "1000.0",
+        "quantity": "100",
         "type": "NORMAL",
         "redemptionAt": "1617940800000"
     }
 }
 ```
 
+<aside class="notice">
+Minting is restricted starting 1 minute before an interest payment until 1 minute after the interest payment.
+Interest payments occur at 04:00, 12:00, and 20:00 UTC.
+</aside> // TODO EDIT THIS
+
 Request Parameter | Type | Required | Description | 
 ----------------- | ---- | -------- | ----------- |
 asset | STRING | YES | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
 quantity | STRING | YES | Quantity of the asset |
+type | STRING | YES | `NORMAL` queues a redemption until the following interest payment and incurs no fee. `INSTANT` instantly redeems into the underlying asset and charges a fee equal to the sum of the two prior interest payments
+
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
-asset | STRING | Deposit |
+asset | STRING |  |
 quantity | STRING | |
-type | STRING | Available types: `NORMAL`, `IMMEDIATE` |
-redemptionAt | STRING | |
+type | STRING | Available types: `NORMAL`, `INSTANT` |
+redemptionAt | STRING | Millisecond timestamp indicating when redemption will take place|
+
 
 ### GET `/v3/flexasset/mint`
 
@@ -640,16 +655,17 @@ GET /v3/flexasset/mint?asset={asset}&limit={limit}&startTime={startTime}&endTime
 
 Request Parameter | Type | Required | Description | 
 ----------------- | ---- | -------- | ----------- |
-asset | STRING | YES | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-limit | STRING | YES | Quantity of the asset |
-startTime | STRING | YES | Quantity of the asset |
-endTime | STRING | YES | Quantity of the asset |
+asset | STRING | NO | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+limit | STRING | NO | Default 50, max 100 |
+startTime | STRING | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | STRING | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
 Response Field | Type | Description | 
 -------------- | ---- | ----------- |
-asset | STRING | Assset name |
+asset | STRING | |
 quantity | STRING | |
 mintedAt | STRING | |
+
 
 ### GET `/v3/flexasset/redeem`
 
@@ -671,7 +687,7 @@ GET /v3/flexasset/redeem?asset={asset}&limit={limit}&startTime={startTime}&endTi
           "asset": "flexUSD",
           "quantity": "1000.0",
           "requestedAt": "16003243243242",
-          "redemptionAt": "16003243243242"
+          "redeemedAt": "16003243243242"
         }
     ]
 }
@@ -679,17 +695,19 @@ GET /v3/flexasset/redeem?asset={asset}&limit={limit}&startTime={startTime}&endTi
 
 Request Parameter | Type | Required | Description | 
 ----------------- | ---- | -------- | ----------- |
-asset | STRING | YES | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-limit | STRING | YES | |
-startTime | STRING | YES | |
-endTime | STRING | YES | |
+asset | STRING | NO | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+limit | STRING | NO | Default 50, max 100 |
+startTime | STRING | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other. Here startTime and endTime refer to the "requestedAt" timestamp |
+endTime | STRING | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other. Here startTime and endTime refer to the "requestedAt" timestamp |
+
 
 Response Field | Type | Description | 
 -------------- | ---- | ----------- |
-asset | STRING | Asset name |
+asset | STRING | |
 quantity | STRING | |
-requestedAt | STRING | |
-redemptionAt | STRING | |
+requestedAt | STRING | Millisecond timestamp indicating when redemption was requested|
+redeemedAt | STRING | Millisecond timestamp indicating when the flexAssets were redeemed |
+
 
 ### GET `/v3/flexasset/earned`
 
@@ -707,10 +725,10 @@ GET /v3/flexasset/earned?asset={asset}&limit={limit}&startTime={startTime}&endTi
     "data": [
         {
             "asset": "flexUSD",
-            "snapshotQuantity": "8",
-            "apr": "0.01",
-            "rate": "0.00000025",
-            "amount": "0.000002",
+            "snapshotQuantity": "10000",
+            "apr": "25",
+            "rate": "0.000228311",
+            "amount": "2.28310502",
             "paidAt": "1635822660847"
         }
     ]
@@ -719,19 +737,22 @@ GET /v3/flexasset/earned?asset={asset}&limit={limit}&startTime={startTime}&endTi
 
 Request Parameter | Type | Required | Description | 
 ----------------- | ---- | -------- | ----------- |
-asset | STRING | YES | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-limit | STRING | YES | |
-startTime | STRING | YES | |
-endTime | STRING | YES | |
+asset | STRING | NO | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+limit | STRING | NO | Default 50, max 100 |
+startTime | STRING | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | STRING | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
+
 
 Response Field | Type | Description | 
 -------------- | ---- | ----------- |
 asset | STRING | Asset name |
 snapshotQuantity | STRING |
-apr | STRING | |
-rate | STRING | |
+apr | STRING | Annualized APR (%) = rate * 3 * 365 * 100 |
+rate | STRING | Period interest rate |
 amount | STRING | |
 paidAt | STRING | |
+
+
 
 ## Market Data - Public
 
@@ -761,7 +782,6 @@ GET /v3/markets?marketCode={marketCode}
             "tickSize": "0.1",
             "minSize": "0.001",
             "listedAt": "1593345600000",
-            "settlementAt": "16363242424223",
             "upperPriceBound": "65950.5",
             "lowerPriceBound": "60877.3",
             "markPrice": "63413.9",
@@ -786,16 +806,15 @@ type | STRING | Type of the contract |
 tickSize | STRING | Tick size of the contract |
 minSize | STRING | Minimum increament quantity |
 listedAt | STRING | Listing date of the contract |
-settlementAt | STRING | Timestamp of settlement |
-timestamp | STRING | Timestamp of this response |
-upperPriceBound | STRING | Upper price bound |
-lowerPriceBound | STRING | Lower price bound |
-marketPrice | STRING | Market price |
-LastUpdated | LONG | The time that market price last updated at |
+settlementAt | STRING | Timestamp of settlement if applicable i.e. Quarterlies and Spreads |
+upperPriceBound | STRING | Sanity bound |
+lowerPriceBound | STRING | Sanity bound |
+markPrice | STRING | Mark price |
+lastUpdatedAt | STRING | |
 
 ### GET `/v3/assets`
 
-Get a list of assets on CoinFLEX, include coins and bookable contracts.
+Get a list of assets supported on CoinFLEX
 
 > **Request**
 
@@ -834,13 +853,13 @@ asset | STRING | NO | Name of the asset |
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
 name | STRING | Name of the asset |
-canDeposit | STRING | |
-canWithdraw | STRING | |
-isCollateral | STRING | |
+canDeposit | BOOL | |
+canWithdraw | BOOL | |
+isCollateral | BOOL | |
 loanToValue | STRING | Loan to value of the asset |
 minDeposit | STRING | Minimum deposit amount |
 minWithdrawal | STRING | Minimum withdrawal amount |
-network | List | Types of network asset is available on |
+network | LIST | Available networks for deposits and withdrawals |
 
 ### GET `/v3/tickers`
 
@@ -859,7 +878,6 @@ GET /v3/tickers?marketCode={marketCode}
     "success": true,
     "data": [
         {
-            "name": "BTC",
             "marketCode": "BTC-USD-SWAP-LIN",
             "markPrice": "11012.80409769",  
             "open24h": "49.375",
@@ -882,14 +900,13 @@ marketCode | STRING | NO | Default all markets |
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
-name | STRING | Name of the contract |
 marketCode | STRING | |
 markPrice | STRING | |
 open24h | STRING | |
-high24h | STRING | Highest price in last 24h |
-low24h | STRING | Lowest price in last 24h |
-volume24h | STRING | Total Volume in last 24h |
-currencyVolume24h | List| Currency Volume last 24h |
+high24h | STRING | Highest price in the last 24h |
+low24h | STRING | Lowest price in the last 24h |
+volume24h | STRING | Total Volume in the last 24h |
+currencyVolume24h | STRING | Volume in the last 24h denominated in coins |
 openInterest | STRING | Amount of Open Interest |
 lastTradedPrice | STRING | |
 lastTradedQuantity | STRING | |
