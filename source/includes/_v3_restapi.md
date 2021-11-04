@@ -35,14 +35,14 @@ Certain endpoints have extra IP restrictions:
 * Requests limited to `1/s` & `2/10s`
   * Only 1 request is permitted per second and only 2 requests are permitted within 10 seconds
 * Request limit `1/10s`
-  * The endpoint will block for 10 seconds after an incorrect 2FA code is provided
+  * The endpoint will block for 10 seconds after an incorrect 2FA code is provided (if the endpoint requires a 2FA code)
 
 Affected APIs:
 
-* [POST /v3/withdrawal](?rest-api-v3-deposits-and-withdrawals-post-v3-withdrawal)
-* [POST /v3/transfer](?rest-api-v3-deposits-and-withdrawals-post-v3-transfer)
-* [POST /v3/flexasset/mint](?rest-api-v3-flex-assets-post-v3-flexasset-mint)
-* [POST /v3/flexasset/redeem](?rest-api-v3-flex-assets-post-v3-flexasset-redeem)
+* [POST /v3/withdrawal](?json#rest-api-v3-deposits-and-withdrawals-post-v3-withdrawal)
+* [POST /v3/transfer](?json#rest-api-v3-deposits-and-withdrawals-post-v3-transfer)
+* [POST /v3/flexasset/mint](?json#rest-api-v3-flex-assets-post-v3-flexasset-mint)
+* [POST /v3/flexasset/redeem](?json#rest-api-v3-flex-assets-post-v3-flexasset-redeem)
 
 ## Authentication
 
@@ -609,9 +609,9 @@ POST /v3/flexasset/redeem
 ```
 
 <aside class="notice">
-Minting is restricted starting 1 minute before an interest payment until 1 minute after the interest payment.
+Redemptions of any type are restricted starting 1 minute before an interest payment until 1 minute after the interest payment.
 Interest payments occur at 04:00, 12:00, and 20:00 UTC.
-</aside> // TODO EDIT THIS
+</aside>
 
 Request Parameter | Type | Required | Description | 
 ----------------- | ---- | -------- | ----------- |
