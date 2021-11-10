@@ -424,13 +424,13 @@ Parameter | Type | Required | Description |
 op | STRING | Yes | `placeorder`
 tag | INTEGER or STRING | No | If given it will be echoed in the reply
 data | DICTIONARY object | Yes |
-\>clientOrderId | INTEGER | No | Client assigned ID to help manage and identify orders |
-\>marketCode | STRING | Yes | Market code e.g. `BTC-USD-SWAP-LIN` |
-\>orderType | STRING | Yes |  `LIMIT` |
-\>price | FLOAT |  No | Price |
-\>quantity |  FLOAT | Yes | Quantity (denominated by contractValCurrency) |
-\>side | STRING | Yes | `BUY` or `SELL` |
-\>timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul>
+clientOrderId | INTEGER | No | Client assigned ID to help manage and identify orders |
+marketCode | STRING | Yes | Market code e.g. `BTC-USD-SWAP-LIN` |
+orderType | STRING | Yes |  `LIMIT` |
+price | FLOAT |  No | Price |
+quantity |  FLOAT | Yes | Quantity (denominated by contractValCurrency) |
+side | STRING | Yes | `BUY` or `SELL` |
+timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul>
 
 
 ### Market Order
@@ -540,7 +540,7 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 }
 ```
 
-Requires an authenticated websocket connection.  
+Requires an authenticated websocket connection.
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
 
 <sub>**Request Parameters**</sub> 
@@ -550,11 +550,11 @@ Parameter | Type | Required | Description |
 op | STRING | Yes | `placeorder`
 tag | INTEGER or STRING | No | If given it will be echoed in the reply
 data | DICTIONARY object | Yes |
-\>clientOrderId | INTEGER | No | Client assigned ID to help manage and identify orders |
-\>marketCode | STRING | Yes | Market code e.g. `BTC-USD-SWAP-LIN` |
-\>orderType | STRING | Yes |  `MARKET` |
-\>quantity |  FLOAT | Yes | Quantity (denominated by contractValCurrency) |
-\>side | STRING | Yes | `BUY` or `SELL` |
+clientOrderId | INTEGER | No | Client assigned ID to help manage and identify orders |
+marketCode | STRING | Yes | Market code e.g. `BTC-USD-SWAP-LIN` |
+orderType | STRING | Yes |  `MARKET` |
+quantity |  FLOAT | Yes | Quantity (denominated by contractValCurrency) |
+side | STRING | Yes | `BUY` or `SELL` |
 
 
 ### Stop Limit Order
@@ -693,14 +693,14 @@ Parameters | Type | Required |Description|
 op | STRING | Yes | `placeorder`
 tag | INTEGER or STRING | No | If given it will be echoed in the reply
 data | DICTIONARY object | Yes |
-\>clientOrderId | INTEGER | No | Client assigned ID to help manage and identify orders |
-\>marketCode| STRING| Yes| Market code e.g. `ETH-USD-SWAP-LIN`|
-\>orderType|STRING| Yes|  `STOP` for stop-limit orders (stop-market orders not supported)|
-\>quantity|FLOAT|Yes|Quantity (denominated by contractValCurrency)|
-\>side|STRING| Yes| `BUY ` or `SELL`|
-\>limitPrice| FLOAT |Yes | Limit price for the stop-limit order. <p><p>For **BUY** the limit price must be greater or equal to the stop price.<p><p>For **SELL** the limit price must be less or equal to the stop price.|
-\>stopPrice| FLOAT |Yes|Stop price for the stop-limit order.<p><p>Triggered by the best bid price for the **SELL** stop-limit order.<p><p>Triggered by the best ask price for the **BUY** stop-limit order. |
-\>timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul>
+clientOrderId | INTEGER | No | Client assigned ID to help manage and identify orders |
+marketCode| STRING| Yes| Market code e.g. `ETH-USD-SWAP-LIN`|
+orderType|STRING| Yes|  `STOP` for stop-limit orders (stop-market orders not supported)|
+quantity|FLOAT|Yes|Quantity (denominated by contractValCurrency)|
+side|STRING| Yes| `BUY ` or `SELL`|
+limitPrice| FLOAT |Yes | Limit price for the stop-limit order. <p><p>For **BUY** the limit price must be greater or equal to the stop price.<p><p>For **SELL** the limit price must be less or equal to the stop price.|
+stopPrice| FLOAT |Yes|Stop price for the stop-limit order.<p><p>Triggered by the best bid price for the **SELL** stop-limit order.<p><p>Triggered by the best ask price for the **BUY** stop-limit order. |
+timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul>
 
 
 
@@ -873,7 +873,7 @@ AND
 }
 ```
 
-Requires an authenticated websocket connection.  
+Requires an authenticated websocket connection.
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
 
 All existing single order placement methods are supported:-
@@ -995,7 +995,7 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 }
 ```
 
-Requires an authenticated websocket connection.  
+Requires an authenticated websocket connection.
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderClosed etc......).
 
 This command can also be actioned via the trading GUI using the **Cancel** button next to an open order in the **Open Orders** blotter for both Spot and Derivative markets.
@@ -1007,8 +1007,8 @@ Parameters | Type | Required | Description
 op | STRING | Yes | `cancelorder`
 tag | INTEGER or STRING | No | If given it will be echoed in the reply
 data | DICTIONARY object | Yes |
-\>marketCode|STRING|Yes|Market code e.g. `BTC-USD-SWAP-LIN`|
-\>orderId|INTEGER|Yes|Unique order ID from the exchange|
+marketCode|STRING|Yes|Market code e.g. `BTC-USD-SWAP-LIN`|
+orderId|INTEGER|Yes|Unique order ID from the exchange|
 
 
 ### Cancel Batch Orders
@@ -1150,7 +1150,7 @@ AND
 }
 ```
 
-Requires an authenticated websocket connection.  
+Requires an authenticated websocket connection.
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderClosed etc......).
 
 <sub>**Request Parameters**</sub> 
@@ -1276,7 +1276,7 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 }
 ```
 
-Requires an authenticated websocket connection.  
+Requires an authenticated websocket connection.
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderModified etc......).
 
 Currently only LIMIT orders are supported by the modify order command.
@@ -1298,11 +1298,11 @@ Parameters | Type | Required | Description|
 op | STRING | Yes | `modifyorder`
 tag | INTEGER or STRING | No | If given it will be echoed in the reply
 data | DICTIONARY object | Yes |
-\>marketCode|STRING|Yes| Market code e.g. `BTC-USD-SWAP-LIN`|
-\>orderId|INTEGER|Yes|Unique order ID from the exchange|
-\>side| STRING|No| `BUY` or `SELL`|
-\>price|FLOAT|No|Price for limit orders|
-\>quantity|FLOAT|No|  Quantity (denominated by `contractValCurrency`)|
+marketCode|STRING|Yes| Market code e.g. `BTC-USD-SWAP-LIN`|
+orderId|INTEGER|Yes|Unique order ID from the exchange|
+side| STRING|No| `BUY` or `SELL`|
+price|FLOAT|No|Price for limit orders|
+quantity|FLOAT|No|  Quantity (denominated by `contractValCurrency`)|
 
 
 ### Modify Batch Orders
@@ -1619,11 +1619,11 @@ accountId | STRING|  Account identifier
 timestamp|STRING | Current millisecond timestamp
 tradeType|STRING | `LINEAR`
 data | LIST of dictionaries |
-\>total | STRING | Total spot asset balance
-\>reserved | STRING | Reserved asset balance for working spot and repo orders
-\>instrumentId | STRING |  Base asset ID e.g. `BTC`
-\>available | STRING| Remaining available asset balance (total - reserved)
-\>quantityLastUpdated|STRING | Millisecond timestamp
+total | STRING | Total spot asset balance
+reserved | STRING | Reserved asset balance for working spot and repo orders
+instrumentId | STRING |  Base asset ID e.g. `BTC`
+available | STRING| Remaining available asset balance (total - reserved)
+quantityLastUpdated|STRING | Millisecond timestamp
 
 ### Position Channel
 
@@ -1922,21 +1922,21 @@ Fields |Type| Description |
 --------|-----|---|
 table | STRING | `order`
 data | LIST of dictionary |
-\>notice | STRING| `OrderOpened`
-\>accountId | STRING| Account identifier
-\>clientOrderId |  STRING | Client assigned ID to help manage and identify orders
-\>orderId | STRING | Unique order ID from the exchange
-\>price |STRING | Limit price submitted (only applicable for LIMIT order types)
-\>quantity | STRING| Quantity submitted
-\>side|STRING|`BUY` or `SELL`
-\>status|STRING|  Order status
-\>marketCode | STRING |  Market code e.g. `FLEX-USD`
-\>timeInForce|STRING| Client submitted time in force, `GTC` by default
-\>timestamp|STRING |Current millisecond timestamp
-\>orderType| STRING | `LIMIT` or `STOP`
-\>stopPrice|STRING|Stop price submitted (only applicable for STOP order types)
-\>limitPrice|STRING|Limit price submitted (only applicable for STOP order types)
-\>isTriggered|STRING|`False` or `True` 
+notice | STRING| `OrderOpened`
+accountId | STRING| Account identifier
+clientOrderId |  STRING | Client assigned ID to help manage and identify orders
+orderId | STRING | Unique order ID from the exchange
+price |STRING | Limit price submitted (only applicable for LIMIT order types)
+quantity | STRING| Quantity submitted
+side|STRING|`BUY` or `SELL`
+status|STRING|  Order status
+marketCode | STRING |  Market code e.g. `FLEX-USD`
+timeInForce|STRING| Client submitted time in force, `GTC` by default
+timestamp|STRING |Current millisecond timestamp
+orderType| STRING | `LIMIT` or `STOP`
+stopPrice|STRING|Stop price submitted (only applicable for STOP order types)
+limitPrice|STRING|Limit price submitted (only applicable for STOP order types)
+isTriggered|STRING|`False` or `True` 
 
 
 #### OrderClosed
@@ -2005,22 +2005,22 @@ Fields | Type | Description
 -------------------------- | -----|--------- |
 table | STRING | `order`
 data | LIST of dictionary |
-\>notice | STRING | `OrderClosed`
-\>accountId | STRING  |  Account identifier
-\>clientOrderId|STRING |  Client assigned ID to help manage and identify orders
-\>orderId | STRING  |  Unique order ID from the exchange
-\>price|STRING |Limit price of closed order (only applicable for LIMIT order types)
-\>quantity|STRING |Original order quantity of closed order
-\>side|STRING |`BUY` or `SELL`
-\>status|STRING | <ul><li>`CANCELED_BY_USER`</li><li>`CANCELED_BY_MAKER_ONLY`</li><li>`CANCELED_BY_FOK`</li><li>`CANCELED_ALL_BY_IOC`</li><li>`CANCELED_PARTIAL_BY_IOC`</li><li>`CANCELED_BY_AMEND`</li></ul>
-\>marketCode|STRING |  Market code e.g. `BTC-USD-SWAP-LIN`
-\>timeInForce|STRING |Time in force of closed order
-\>timestamp|STRING |Current millisecond timestamp
-\>remainQuantity|STRING |Remaining order quantity of closed order
-\>stopPrice|STRING|Stop price of closed stop order (only applicable for STOP order types)
-\>limitPrice|STRING|Limit price of closed stop order (only applicable for STOP order types)
-\>ordertype|STRING  | `LIMIT` or `STOP`
-\>isTriggered|STRING|`False` or `True` 
+notice | STRING | `OrderClosed`
+accountId | STRING  |  Account identifier
+clientOrderId|STRING |  Client assigned ID to help manage and identify orders
+orderId | STRING  |  Unique order ID from the exchange
+price|STRING |Limit price of closed order (only applicable for LIMIT order types)
+quantity|STRING |Original order quantity of closed order
+side|STRING |`BUY` or `SELL`
+status|STRING | <ul><li>`CANCELED_BY_USER`</li><li>`CANCELED_BY_MAKER_ONLY`</li><li>`CANCELED_BY_FOK`</li><li>`CANCELED_ALL_BY_IOC`</li><li>`CANCELED_PARTIAL_BY_IOC`</li><li>`CANCELED_BY_AMEND`</li></ul>
+marketCode|STRING |  Market code e.g. `BTC-USD-SWAP-LIN`
+timeInForce|STRING |Time in force of closed order
+timestamp|STRING |Current millisecond timestamp
+remainQuantity|STRING |Remaining order quantity of closed order
+stopPrice|STRING|Stop price of closed stop order (only applicable for STOP order types)
+limitPrice|STRING|Limit price of closed stop order (only applicable for STOP order types)
+ordertype|STRING  | `LIMIT` or `STOP`
+isTriggered|STRING|`False` or `True` 
 
 
 #### OrderClosed Failure
@@ -2073,25 +2073,25 @@ message | STRING |
 code | STRING | 
 timestamp | STRING |
 data | LIST of dictionary |
-\>clientOrderId|STRING|  Client assigned ID to help manage and identify orders
-\>orderId | STRING|   Unique order ID from the exchange
-\>displayQuantity | DECIMAL
-\>lastMatchPrice | DECIMAL
-\>lastMatchQuantity | DECIMAL
-\>lastMatchedOrderId | DECIMAL
-\>lastMatchedOrderId2 | DECIMAL
-\>matchedId | DECIMAL
-\>matchedType | STRING
-\>remainQuantity | DECIMAL
-\>side|STRING
-\>status | STRING
-\>timeCondition | STRING 
-\>marketCode | STRING 
-\>timestampEpochMs | LONG
-\>orderType | STRING
-\>price | DECIMAL
-\>quantity | DECIMAL
-\>isTriggered | BOOL
+clientOrderId|STRING|  Client assigned ID to help manage and identify orders
+orderId | STRING|   Unique order ID from the exchange
+displayQuantity | DECIMAL
+lastMatchPrice | DECIMAL
+lastMatchQuantity | DECIMAL
+lastMatchedOrderId | DECIMAL
+lastMatchedOrderId2 | DECIMAL
+matchedId | DECIMAL
+matchedType | STRING
+remainQuantity | DECIMAL
+side|STRING
+status | STRING
+timeCondition | STRING 
+marketCode | STRING 
+timestampEpochMs | LONG
+orderType | STRING
+price | DECIMAL
+quantity | DECIMAL
+isTriggered | BOOL
 
 
 #### OrderModified
@@ -2131,21 +2131,21 @@ Fields |Type| Description |
 --------|-----|---|
 table | STRING | `order`
 data | LIST of dictionary |
-\>notice | STRING | `OrderModified`
-\>accountId | STRING | Account identifier
-\>clientOrderId |  STRING | Client assigned ID to help manage and identify orders
-\>orderId | STRING | Unique order ID from the exchange
-\>price |STRING | Limit price of modified order (only applicable for LIMIT order types)
-\>quantity | STRING| Quantity of modified order
-\>side|STRING|`BUY` or `SELL`
-\>status|STRING|  Order status
-\>marketCode | STRING |  Market code e.g. `BTC-USD-SWAP-LIN`
-\>timeInForce|STRING| Client submitted time in force, `GTC` by default
-\>timestamp|STRING |Current millisecond timestamp
-\>orderType| STRING | `LIMIT` or `STOP`
-\>stopPrice|STRING|Stop price of modified order (only applicable for STOP order types)
-\>limitPrice|STRING|Limit price of modified order (only applicable for STOP order types)
-\>isTriggered|STRING|`False` or `True` 
+notice | STRING | `OrderModified`
+accountId | STRING | Account identifier
+clientOrderId |  STRING | Client assigned ID to help manage and identify orders
+orderId | STRING | Unique order ID from the exchange
+price |STRING | Limit price of modified order (only applicable for LIMIT order types)
+quantity | STRING| Quantity of modified order
+side|STRING|`BUY` or `SELL`
+status|STRING|  Order status
+marketCode | STRING |  Market code e.g. `BTC-USD-SWAP-LIN`
+timeInForce|STRING| Client submitted time in force, `GTC` by default
+timestamp|STRING |Current millisecond timestamp
+orderType| STRING | `LIMIT` or `STOP`
+stopPrice|STRING|Stop price of modified order (only applicable for STOP order types)
+limitPrice|STRING|Limit price of modified order (only applicable for STOP order types)
+isTriggered|STRING|`False` or `True` 
 
 
 #### OrderModified Failure
@@ -2195,25 +2195,25 @@ message | STRING |
 code | STRING | 
 timestamp | STRING |
 data | LIST of dictionary |
-\>clientOrderId|STRING|  Client assigned ID to help manage and identify orders
-\>orderId | STRING|   Unique order ID from the exchange
-\>displayQuantity | DECIMAL
-\>lastMatchPrice | DECIMAL
-\>lastMatchQuantity | DECIMAL
-\>lastMatchedOrderId | DECIMAL
-\>lastMatchedOrderId2 | DECIMAL
-\>matchedId | DECIMAL
-\>matchedType | STRING
-\>remainQuantity | DECIMAL
-\>side|STRING
-\>status | STRING
-\>timeCondition | STRING 
-\>marketCode | STRING 
-\>timestampEpochMs | LONG
-\>orderType | STRING
-\>price | DECIMAL
-\>quantity | DECIMAL
-\>isTriggered | BOOL
+clientOrderId|STRING|  Client assigned ID to help manage and identify orders
+orderId | STRING|   Unique order ID from the exchange
+displayQuantity | DECIMAL
+lastMatchPrice | DECIMAL
+lastMatchQuantity | DECIMAL
+lastMatchedOrderId | DECIMAL
+lastMatchedOrderId2 | DECIMAL
+matchedId | DECIMAL
+matchedType | STRING
+remainQuantity | DECIMAL
+side|STRING
+status | STRING
+timeCondition | STRING 
+marketCode | STRING 
+timestampEpochMs | LONG
+orderType | STRING
+price | DECIMAL
+quantity | DECIMAL
+isTriggered | BOOL
 
 
 #### OrderMatched
@@ -2257,28 +2257,28 @@ Fields | Type | Required
 -------------------------- | -----|--------- |
 table | STRING | `order`
 data | LIST of dictionary |
-\>notice | STRING | `OrderMatched`
-\>accountId | STRING | Account identifier
-\>clientOrderId|STRING|  Client assigned ID to help manage and identify orders
-\>orderId | STRING|   Unique order ID from the exchange
-\>price|STRING| Limit price submitted (only applicable for LIMIT order types)
-\>stopPrice|STRING| Stop price submitted (only applicable for STOP order types)
-\>limitPrice|STRING| Limit price submitted (only applicable for STOP order types)
-\>quantity|STRING|Order quantity submitted
-\>side|STRING|`BUY` or `SELL`
-\>status|STRING|`FILLED` or `PARTIAL_FILL`
-\>marketCode|STRING| Market code i.e. `BTC-USD-SWAP-LIN`
-\>timeInForce|STRING|Client submitted time in force (only applicable for LIMIT and STOP order types)
-\>timestamp|STRING|Millisecond timestamp of order match
-\>matchID|STRING|Exchange match ID
-\>matchPrice|STRING|Match price of order from this match ID
-\>matchQuantity|STRING|Match quantity of order from this match ID
-\>orderMatchType|STRING|`MAKER` or `TAKER`
-\>remainQuantity|STRING|Remaining order quantity
-\>orderType|STRING|<ul><li>`LIMIT`</li><li>`MARKET`</li><li>`STOP`</li></ul>
-\>fees|STRING|Amount of fees paid from this match ID 
-\>feeInstrumentId|STRING|Instrument ID of fees paid from this match ID 
-\>isTriggered|STRING|`False` (or `True` for STOP order types)
+notice | STRING | `OrderMatched`
+accountId | STRING | Account identifier
+clientOrderId|STRING|  Client assigned ID to help manage and identify orders
+orderId | STRING|   Unique order ID from the exchange
+price|STRING| Limit price submitted (only applicable for LIMIT order types)
+stopPrice|STRING| Stop price submitted (only applicable for STOP order types)
+limitPrice|STRING| Limit price submitted (only applicable for STOP order types)
+quantity|STRING|Order quantity submitted
+side|STRING|`BUY` or `SELL`
+status|STRING|`FILLED` or `PARTIAL_FILL`
+marketCode|STRING| Market code i.e. `BTC-USD-SWAP-LIN`
+timeInForce|STRING|Client submitted time in force (only applicable for LIMIT and STOP order types)
+timestamp|STRING|Millisecond timestamp of order match
+matchID|STRING|Exchange match ID
+matchPrice|STRING|Match price of order from this match ID
+matchQuantity|STRING|Match quantity of order from this match ID
+orderMatchType|STRING|`MAKER` or `TAKER`
+remainQuantity|STRING|Remaining order quantity
+orderType|STRING|<ul><li>`LIMIT`</li><li>`MARKET`</li><li>`STOP`</li></ul>
+fees|STRING|Amount of fees paid from this match ID 
+feeInstrumentId|STRING|Instrument ID of fees paid from this match ID 
+isTriggered|STRING|`False` (or `True` for STOP order types)
 
 
 ## Subscriptions - Public
@@ -2810,8 +2810,8 @@ Fields |Type | Description|
 -------------------------- | -----|--------- |
 table | STRING | `liquidationRFQ`
 data | LIST of dictionary |
-\>marketCode | STRING   | Market code of liquidation |
-\>timestamp | STRING  |  Millisecond timestamp | 
+marketCode | STRING   | Market code of liquidation |
+timestamp | STRING  |  Millisecond timestamp | 
 
 
 ### Market
@@ -2924,22 +2924,22 @@ Fields |Type | Description|
 -------------------------- | -----|--------- |
 table | STRING | `market`
 data | LIST of dictionaries |
-\>marketPrice | STRING   | Mark price|
-\>listingDate | STRING   | Millisecond timestamp |
-\>qtyIncrement | STRING   | Quantity increment |
-\>upperPriceBound | STRING   | Upper sanity price bound|
-\>lowerPriceBound     | STRING   | Lower sanity price bound |
-\>counter     | STRING   | 
-\>type     | STRING   | 
-\>marketId     | STRING   | 
-\>referencePair     | STRING   | 
-\>tickSize     | STRING   | Tick size |
-\>marketPriceLastUpdated     | STRING | Millisecond timestamp|
-\>contractValCurrency     | STRING   | 
-\>name   | STRING   | 
-\>marketCode   | STRING  | 
-\>marginCurrency   | STRING |
-\>base     | STRING   | 
+marketPrice | STRING   | Mark price|
+listingDate | STRING   | Millisecond timestamp |
+qtyIncrement | STRING   | Quantity increment |
+upperPriceBound | STRING   | Upper sanity price bound|
+lowerPriceBound     | STRING   | Lower sanity price bound |
+counter     | STRING   | 
+type     | STRING   | 
+marketId     | STRING   | 
+referencePair     | STRING   | 
+tickSize     | STRING   | Tick size |
+marketPriceLastUpdated     | STRING | Millisecond timestamp|
+contractValCurrency     | STRING   | 
+name   | STRING   | 
+marketCode   | STRING  | 
+marginCurrency   | STRING |
+base     | STRING   | 
 
 ## Other Responses
 
