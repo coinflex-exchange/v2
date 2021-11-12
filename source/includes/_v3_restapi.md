@@ -201,7 +201,7 @@ GET /v3/deposit?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTi
 Request Parameter | Type | Required | Description | 
 ----------------- | ---- | -------- | ----------- |
 asset | STRING | NO | Default all assets |
-limit | LONG | NO | Max 200, Default 50 |
+limit | LONG | NO | Default 50, max 200 |
 startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
 endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
@@ -297,9 +297,9 @@ GET /v3/withdrawal?asset={asset}&limit={limit}&startTime={startTime}&endTime={en
 Request Parameter | Type | Required | Description | 
 ----------------- | ---- | -------- | ----------- |
 asset | STRING | NO |  Default all assets |
-limit | INT | NO | Max 200, Default 50 |
-startTime | INT | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other|
-endTime | INT | NO |  Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
+limit | LONG | NO | Default 50, max 200 |
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other|
+endTime | LONG | NO |  Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
 Response Field | Type | Description | 
 -------------- | ---- | ----------- |
@@ -516,7 +516,7 @@ while API keys linked to a sub-account can only see transfers where the sub-acco
 Request Parameters | Type | Required | Description | 
 ------------------ | ---- | -------- | ----------- |
 asset | STRING | NO | Default all assets |
-limit | LONG | NO | Max 200, default 50 |
+limit | LONG | NO | Default 50, max 200 |
 startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
 endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
@@ -656,11 +656,11 @@ GET /v3/flexasset/mint?asset={asset}&limit={limit}&startTime={startTime}&endTime
 Request Parameter | Type | Required | Description | 
 ----------------- | ---- | -------- | ----------- |
 asset | STRING | NO | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-limit | STRING | NO | Default 50, max 100 |
-startTime | STRING | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
-endTime | STRING | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
+limit | LONG | NO | Default 50, max 100 |
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
-Response Field | Type | Description | 
+Response Field | Type | Description |
 -------------- | ---- | ----------- |
 asset | STRING | |
 quantity | STRING | |
@@ -696,9 +696,9 @@ GET /v3/flexasset/redeem?asset={asset}&limit={limit}&startTime={startTime}&endTi
 Request Parameter | Type | Required | Description | 
 ----------------- | ---- | -------- | ----------- |
 asset | STRING | NO | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-limit | STRING | NO | Default 50, max 100 |
-startTime | STRING | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other. Here startTime and endTime refer to the "requestedAt" timestamp |
-endTime | STRING | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other. Here startTime and endTime refer to the "requestedAt" timestamp |
+limit | LONG | NO | Default 50, max 100 |
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other. Here startTime and endTime refer to the "requestedAt" timestamp |
+endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other. Here startTime and endTime refer to the "requestedAt" timestamp |
 
 
 Response Field | Type | Description | 
@@ -727,7 +727,7 @@ GET /v3/flexasset/earned?asset={asset}&limit={limit}&startTime={startTime}&endTi
             "asset": "flexUSD",
             "snapshotQuantity": "10000",
             "apr": "25",
-            "rate": "0.000228311",
+            "rate": "0.00022831",
             "amount": "2.28310502",
             "paidAt": "1635822660847"
         }
@@ -738,9 +738,9 @@ GET /v3/flexasset/earned?asset={asset}&limit={limit}&startTime={startTime}&endTi
 Request Parameter | Type | Required | Description | 
 ----------------- | ---- | -------- | ----------- |
 asset | STRING | NO | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-limit | STRING | NO | Default 50, max 100 |
-startTime | STRING | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
-endTime | STRING | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
+limit | LONG | NO | Default 50, max 100 |
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
 
 Response Field | Type | Description | 
@@ -860,54 +860,3 @@ loanToValue | STRING | Loan to value of the asset |
 minDeposit | STRING | Minimum deposit amount |
 minWithdrawal | STRING | Minimum withdrawal amount |
 network | LIST | Available networks for deposits and withdrawals |
-
-### GET `/v3/tickers`
-
-Get a list of the tickers on CoinFlex.
-
-> **Request**
-
-```
-GET /v3/tickers?marketCode={marketCode}
-```
-
-> **Successful response format**
-
-```json
-{
-    "success": true,
-    "data": [
-        {
-            "marketCode": "BTC-USD-SWAP-LIN",
-            "markPrice": "11012.80409769",  
-            "open24h": "49.375",
-            "high24h": "49.488",
-            "low24h": "41.649",
-            "volume24h": "11295421",
-            "currencyVolume24h": "1025.7", 
-            "openInterest": "1726003",
-            "lastTradedPrice": "43.259",
-            "lastTradedQuantity": "1",
-            "lastUpdatedAt": "1621321313131"
-        }
-    ]
-}
-```
-
-Request Parameter | Type | Required | Description | 
------------------ | ---- | -------- | ----------- |
-marketCode | STRING | NO | Default all markets |
-
-Response Field | Type | Description |
--------------- | ---- | ----------- |
-marketCode | STRING | |
-markPrice | STRING | |
-open24h | STRING | |
-high24h | STRING | Highest price in the last 24h |
-low24h | STRING | Lowest price in the last 24h |
-volume24h | STRING | Total Volume in the last 24h |
-currencyVolume24h | STRING | Volume in the last 24h denominated in coins |
-openInterest | STRING | Amount of Open Interest |
-lastTradedPrice | STRING | |
-lastTradedQuantity | STRING | |
-lastUpdatedAt | STRING | |
