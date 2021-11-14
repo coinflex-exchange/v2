@@ -64,7 +64,7 @@ import hmac
 import base64
 import hashlib
 import datetime
-from urllib.parse import urlencode
+import json
 
 
 # rest_url = 'https://v2api.coinflex.com'
@@ -81,7 +81,7 @@ nonce = 123
 method = "API-METHOD"
 
 # Optional and can be omitted depending on the REST method being called 
-body = urlencode({'key1': 'value1', 'key2': 'value2'})
+body = json.dumps({'key1': 'value1', 'key2': 'value2'})
 
 if body:
     path = method + '?' + body
@@ -95,6 +95,8 @@ header = {'Content-Type': 'application/json', 'AccessKey': api_key,
           'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
 
 resp = requests.get(rest_url + path, headers=header)
+# When calling an endpoint that uses body
+# resp = requests.post(rest_url + method, data=body, headers=header)
 print(resp.json())
 ```
 
@@ -298,8 +300,8 @@ Request Parameter | Type | Required | Description |
 ----------------- | ---- | -------- | ----------- |
 asset | STRING | NO |  Default all assets |
 limit | LONG | NO | Default 50, max 200 |
-startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other|
-endTime | LONG | NO |  Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other. This filter applies to "requestedAt"|
+endTime | LONG | NO |  Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other. This filter applies to "requestedAt" |
 
 Response Field | Type | Description | 
 -------------- | ---- | ----------- |
@@ -310,7 +312,7 @@ memo | STRING | Memo (tag) if applicable |
 quantity | STRING | |
 fee | STRING | |
 id | STRING | |
-status | STRING | | COMPLETED, PROCESSING, PENDING, ON HOLD, CANCELED, or FAILED| 
+status | STRING | COMPLETED, PROCESSING, PENDING, ON HOLD, CANCELED, or FAILED| 
 txId | STRING | |
 requestedAt | STRING | Millisecond timestamp |
 completedAt | STRING | Millisecond timestamp |
@@ -363,7 +365,7 @@ network | STRING | YES |
 address | STRING | YES |
 memo | STRING | NO |Memo is required for chains that support memo tags |
 quantity | STRING | YES |
-externalFee | BOOL |YES | Default false. If false, then the fee is taken from the quantity |
+externalFee | BOOL |YES | If false, then the fee is taken from the quantity |
 tfaType | STRING | NO | GOOGLE, or AUTHY_SECRET, or YUBIKEY |
 code | STRING | NO | 2fa code if required by the account |
 
@@ -374,7 +376,7 @@ network | STRING | |
 address | STRING | |
 memo | STRING | | 
 quantity | STRING | |
-externalFee | BOOL | Default false. If false, then the fee is taken from the quantity |
+externalFee | BOOL | If false, then the fee is taken from the quantity |
 fee | STRING | |
 status | STRING | |
 requestedAt | STRING | Millisecond timestamp |
@@ -568,8 +570,8 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 
 Request Parameter | Type | Required | Description |
 ----------------- | ---- | -------- | ----------- |
-asset | STRING | YES | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-quantity | STRING | YES | Quantity of the asset |
+asset | STRING | YES | Asset name, available assets e.g. `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+quantity | STRING | YES | Quantity to mint |
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
@@ -615,8 +617,8 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 
 Request Parameter | Type | Required | Description | 
 ----------------- | ---- | -------- | ----------- |
-asset | STRING | YES | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-quantity | STRING | YES | Quantity of the asset |
+asset | STRING | YES | Asset name, available assets e.g. `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+quantity | STRING | YES | Quantity to redeem |
 type | STRING | YES | `NORMAL` queues a redemption until the following interest payment and incurs no fee. `INSTANT` instantly redeems into the underlying asset and charges a fee equal to the sum of the two prior interest payments
 
 
@@ -656,7 +658,7 @@ GET /v3/flexasset/mint?asset={asset}&limit={limit}&startTime={startTime}&endTime
 Request Parameter | Type | Required | Description | 
 ----------------- | ---- | -------- | ----------- |
 asset | STRING | NO | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-limit | LONG | NO | Default 50, max 100 |
+limit | LONG | NO | Default 50, max 200 |
 startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
 endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
@@ -696,7 +698,7 @@ GET /v3/flexasset/redeem?asset={asset}&limit={limit}&startTime={startTime}&endTi
 Request Parameter | Type | Required | Description | 
 ----------------- | ---- | -------- | ----------- |
 asset | STRING | NO | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-limit | LONG | NO | Default 50, max 100 |
+limit | LONG | NO | Default 50, max 200 |
 startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other. Here startTime and endTime refer to the "requestedAt" timestamp |
 endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other. Here startTime and endTime refer to the "requestedAt" timestamp |
 
@@ -738,7 +740,7 @@ GET /v3/flexasset/earned?asset={asset}&limit={limit}&startTime={startTime}&endTi
 Request Parameter | Type | Required | Description | 
 ----------------- | ---- | -------- | ----------- |
 asset | STRING | NO | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-limit | LONG | NO | Default 50, max 100 |
+limit | LONG | NO | Default 50, max 200 |
 startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
 endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
@@ -804,7 +806,7 @@ base | STRING | Base asset |
 counter | STRING | Counter asset |
 type | STRING | Type of the contract |
 tickSize | STRING | Tick size of the contract |
-minSize | STRING | Minimum increament quantity |
+minSize | STRING | Minimum quantity |
 listedAt | STRING | Listing date of the contract |
 settlementAt | STRING | Timestamp of settlement if applicable i.e. Quarterlies and Spreads |
 upperPriceBound | STRING | Sanity bound |
