@@ -1,5 +1,15 @@
 # Change Log
 
+**2021-11-22**
+
+* Added new REST API [POST /v3/flexasset/mint](?json#rest-api-v3-flex-assets-private-post-v3-flexasset-mint) to mint
+* Added new REST API [POST /v3/flexasset/redeem](?json#rest-api-v3-flex-assets-private-post-v3-flexasset-redeem) to redeem
+* Added new REST API [GET /v3/flexasset/mint](?json#rest-api-v3-flex-assets-private-get-v3-flexasset-mint) to get mint history
+* Added new REST API [GET /v3/flexasset/redeem](?json#rest-api-v3-flex-assets-private-get-v3-flexasset-redeem) to get redeem history
+* Added new REST API [GET /v3/flexasset/earned](?json#rest-api-v3-flex-assets-private-get-v3-flexasset-earned) to get earn history
+* Added new REST API [GET /v3/markets](?json#rest-api-v3-market-data-public-get-v3-markets) to get all markets
+* Added new REST API [GET /v3/assets](?json#rest-api-v3-market-data-public-get-v3-assets) to get all assets
+
 **2021-10-30**
 
 Here come the API V3!
