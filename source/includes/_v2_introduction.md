@@ -14,14 +14,14 @@
 
 Here come the API V3!
 
-* Added new REST API [GET /v3/deposit-addresses](?json#rest-api-v3-deposits-amp-withdrawals-get-v3-deposit-addresses) to get deposit addresses
-* Added new REST API [GET /v3/deposit](?json#rest-api-v3-deposits-amp-withdrawals-get-v3-deposit) to get deposit history
-* Added new REST API [GET /v3/withdrawal-addresses](?json#rest-api-v3-deposits-amp-withdrawals-get-v3-withdrawal-addresses) to get withdrawal addresses
-* Added new REST API [GET /v3/withdrawal](?json#rest-api-v3-deposits-amp-withdrawals-get-v3-withdrawal) to get withdrawal history
-* Added new REST API [POST /v3/withdrawal](?json#rest-api-v3-deposits-amp-withdrawals-post-v3-withdrawal) to withdraw
-* Added new REST API [GET /v3/withdrawal-fee](?json#rest-api-v3-deposits-amp-withdrawals-get-v3-withdrawal-fee) to get estimated withdrawal fee
-* Added new REST API [POST /v3/transfer](?json#rest-api-v3-deposits-amp-withdrawals-post-v3-transfer) to transfer
-* Added new REST API [GET /v3/transfer](?json#rest-api-v3-deposits-amp-withdrawals-get-v3-transfer) to get transfer history
+* Added new REST API [GET /v3/deposit-addresses](?json#rest-api-v3-deposits-amp-withdrawals-private-get-v3-deposit-addresses) to get deposit addresses
+* Added new REST API [GET /v3/deposit](?json#rest-api-v3-deposits-amp-withdrawals-private-get-v3-deposit) to get deposit history
+* Added new REST API [GET /v3/withdrawal-addresses](?json#rest-api-v3-deposits-amp-withdrawals-private-get-v3-withdrawal-addresses) to get withdrawal addresses
+* Added new REST API [GET /v3/withdrawal](?json#rest-api-v3-deposits-amp-withdrawals-private-get-v3-withdrawal) to get withdrawal history
+* Added new REST API [POST /v3/withdrawal](?json#rest-api-v3-deposits-amp-withdrawals-private-post-v3-withdrawal) to withdraw
+* Added new REST API [GET /v3/withdrawal-fee](?json#rest-api-v3-deposits-amp-withdrawals-private-get-v3-withdrawal-fee) to get estimated withdrawal fee
+* Added new REST API [POST /v3/transfer](?json#rest-api-v3-deposits-amp-withdrawals-private-post-v3-transfer) to transfer
+* Added new REST API [GET /v3/transfer](?json#rest-api-v3-deposits-amp-withdrawals-private-get-v3-transfer) to get transfer history
 
 **2021-10-26**
 
