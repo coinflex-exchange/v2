@@ -343,13 +343,13 @@
                     <a href="#websocket-api-order-commands" class="toc-h2 toc-link" data-title="Order Commands">Order Commands</a>
                       <ul class="toc-list-h3">
                           <li>
-                            <a href="#websocket-api-order-commands-limit-order" class="toc-h3 toc-link" data-title="Limit Order">Limit Order</a>
+                            <a href="#websocket-api-order-commands-place-limit-order" class="toc-h3 toc-link" data-title="Place Limit Order">Place Limit Order</a>
                           </li>
                           <li>
-                            <a href="#websocket-api-order-commands-market-order" class="toc-h3 toc-link" data-title="Market Order">Market Order</a>
+                            <a href="#websocket-api-order-commands-place-market-order" class="toc-h3 toc-link" data-title="Place Market Order">Place Market Order</a>
                           </li>
                           <li>
-                            <a href="#websocket-api-order-commands-stop-limit-order" class="toc-h3 toc-link" data-title="Stop Limit Order">Stop Limit Order</a>
+                            <a href="#websocket-api-order-commands-place-stop-limit-order" class="toc-h3 toc-link" data-title="Place Stop Limit Order">Place Stop Limit Order</a>
                           </li>
                           <li>
                             <a href="#websocket-api-order-commands-place-batch-orders" class="toc-h3 toc-link" data-title="Place Batch Orders">Place Batch Orders</a>
@@ -675,6 +675,41 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2021-11-30</strong></p>
+
+<ul>
+<li>Updated websocket API <a href="?json#websocket-api-order-commands-place-limit-order">Place Limit Order</a>
+
+<ul>
+<li>Added parameter <code>timestamp</code> and paramter <code>recvWindow</code></li>
+</ul></li>
+<li>Updated websocket API <a href="?json#websocket-api-order-commands-place-market-order">Place Market Order</a>
+
+<ul>
+<li>Added parameter <code>timestamp</code> and paramter <code>recvWindow</code></li>
+</ul></li>
+<li>Updated websocket API <a href="?json#websocket-api-order-commands-place-stop-limit-order">Place Stop Limit Order</a>
+
+<ul>
+<li>Added parameter <code>timestamp</code> and paramter <code>recvWindow</code></li>
+</ul></li>
+<li>Updated websocket API <a href="?json#websocket-api-order-commands-place-batch-orders">Place Batch Orders</a>
+
+<ul>
+<li>Added parameter <code>timestamp</code> and paramter <code>recvWindow</code></li>
+</ul></li>
+<li>Updated websocket API <a href="?json#websocket-api-order-commands-modify-order">Modify Order</a>
+
+<ul>
+<li>Added parameter <code>timestamp</code> and paramter <code>recvWindow</code></li>
+</ul></li>
+<li>Updated websocket API <a href="?json#websocket-api-order-commands-modify-batch-orders">Modify Batch Orders</a>
+
+<ul>
+<li>Added parameter <code>timestamp</code> and paramter <code>recvWindow</code></li>
+</ul></li>
+</ul>
+
 <p><strong>2021-11-22</strong></p>
 
 <ul>
@@ -1399,7 +1434,7 @@
 </tbody></table>
 <h2 id='websocket-api-session-keep-alive'>Session Keep Alive</h2>
 <p>To maintain an active WebSocket connection it is imperative to either be subscribed to a channel that pushes data at least once per minute (Depth or Balance) or send a ping to the server once per minute.</p>
-<h2 id='websocket-api-order-commands'>Order Commands</h2><h3 id='websocket-api-order-commands-limit-order'>Limit Order</h3>
+<h2 id='websocket-api-order-commands'>Order Commands</h2><h3 id='websocket-api-order-commands-place-limit-order'>Place Limit Order</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
@@ -1407,6 +1442,8 @@
   </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"placeorder"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1638237934061</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"recvWindow"</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">
             </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
@@ -1445,6 +1482,8 @@
   <span class="s">"op"</span><span class="p">:</span> <span class="s">"placeorder"</span><span class="p">,</span>
   <span class="s">"tag"</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
   <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">"timestamp"</span><span class="p">:</span> <span class="mi">1638237934061</span><span class="p">,</span>
+            <span class="s">"recvWindow"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
             <span class="s">"clientOrderId"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
             <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"BTC-USD-SWAP-LIN"</span><span class="p">,</span>
             <span class="s">"side"</span><span class="p">:</span> <span class="s">"BUY"</span><span class="p">,</span>
@@ -1492,7 +1531,8 @@
             </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.5"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9431.48"</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9431.48"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -1513,11 +1553,12 @@
             </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.5"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9431.48"</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9431.48"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Requires an authenticated websocket connection.<br>
+<p>Requires an authenticated websocket connection.
 Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).</p>
 
 <p><sub><strong>Request Parameters</strong></sub> </p>
@@ -1590,8 +1631,20 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>No</td>
 <td><ul><li><code>GTC</code> (Good-till-Cancel) - Default</li><li> <code>IOC</code> (Immediate or Cancel, i.e. Taker-only)</li><li> <code>FOK</code> (Fill or Kill, for full size)</li><li><code>MAKER_ONLY</code> (i.e. Post-only)</li><li> <code>MAKER_ONLY_REPRICE</code> (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul></td>
 </tr>
+<tr>
+<td>timestamp</td>
+<td>LONG</td>
+<td>NO</td>
+<td>In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected.</td>
+</tr>
+<tr>
+<td>recvWindow</td>
+<td>LONG</td>
+<td>NO</td>
+<td>In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected.</td>
+</tr>
 </tbody></table>
-<h3 id='websocket-api-order-commands-market-order'>Market Order</h3>
+<h3 id='websocket-api-order-commands-place-market-order'>Place Market Order</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
@@ -1599,6 +1652,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"placeorder"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1638237934061</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"recvWindow"</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">
             </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
@@ -1635,6 +1690,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   <span class="s">"op"</span><span class="p">:</span> <span class="s">"placeorder"</span><span class="p">,</span>
   <span class="s">"tag"</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
   <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">"timestamp"</span><span class="p">:</span> <span class="mi">1638237934061</span><span class="p">,</span>
+            <span class="s">"recvWindow"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
             <span class="s">"clientOrderId"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
             <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"ETH-USD-SWAP-LIN"</span><span class="p">,</span>
             <span class="s">"side"</span><span class="p">:</span> <span class="s">"SELL"</span><span class="p">,</span>
@@ -1677,7 +1734,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -1690,7 +1748,15 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorMessage&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;errorCode&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491503359"</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491503359"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+          </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Requires an authenticated websocket connection.
@@ -1754,8 +1820,20 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>Yes</td>
 <td><code>BUY</code> or <code>SELL</code></td>
 </tr>
+<tr>
+<td>timestamp</td>
+<td>LONG</td>
+<td>NO</td>
+<td>In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected.</td>
+</tr>
+<tr>
+<td>recvWindow</td>
+<td>LONG</td>
+<td>NO</td>
+<td>In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected.</td>
+</tr>
 </tbody></table>
-<h3 id='websocket-api-order-commands-stop-limit-order'>Stop Limit Order</h3>
+<h3 id='websocket-api-order-commands-place-stop-limit-order'>Place Stop Limit Order</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
@@ -1763,6 +1841,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"placeorder"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1638237934061</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"recvWindow"</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">
             </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
@@ -1802,6 +1882,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   <span class="s">"op"</span><span class="p">:</span> <span class="s">"placeorder"</span><span class="p">,</span>
   <span class="s">"tag"</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
   <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">"timestamp"</span><span class="p">:</span> <span class="mi">1638237934061</span><span class="p">,</span>
+            <span class="s">"recvWindow"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
             <span class="s">"clientOrderId"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
             <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"ETH-USD-SWAP-LIN"</span><span class="p">,</span>
             <span class="s">"side"</span><span class="p">:</span> <span class="s">"BUY"</span><span class="p">,</span>
@@ -1850,7 +1932,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER_ONLY_REPRICE"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"stopPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"120"</span><span class="w">
+            </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"120"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -1872,11 +1955,12 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER_ONLY_REPRICE"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"stopPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"120"</span><span class="w">
+            </span><span class="nl">"limitPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"120"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Requires an authenticated websocket connection.<br>
+<p>Requires an authenticated websocket connection.
 Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).</p>
 
 <p><sub><strong>Request Parameters</strong></sub> </p>
@@ -1955,6 +2039,18 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>No</td>
 <td><ul><li><code>GTC</code> (Good-till-Cancel) - Default</li><li> <code>IOC</code> (Immediate or Cancel, i.e. Taker-only)</li><li> <code>FOK</code> (Fill or Kill, for full size)</li><li><code>MAKER_ONLY</code> (i.e. Post-only)</li><li> <code>MAKER_ONLY_REPRICE</code> (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul></td>
 </tr>
+<tr>
+<td>timestamp</td>
+<td>LONG</td>
+<td>NO</td>
+<td>In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected.</td>
+</tr>
+<tr>
+<td>recvWindow</td>
+<td>LONG</td>
+<td>NO</td>
+<td>In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected.</td>
+</tr>
 </tbody></table>
 <h3 id='websocket-api-order-commands-place-batch-orders'>Place Batch Orders</h3>
 <blockquote>
@@ -1964,6 +2060,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"placeorders"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span><span class="w">
   </span><span class="nl">"dataArray"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+                  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1638237934061</span><span class="p">,</span><span class="w">
+                  </span><span class="nl">"recvWindow"</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">
                   </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
                   </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
                   </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
@@ -1973,6 +2071,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
                   </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="w">
                 </span><span class="p">},</span><span class="w"> 
                 </span><span class="p">{</span><span class="w">
+                  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1638237934061</span><span class="p">,</span><span class="w">
+                  </span><span class="nl">"recvWindow"</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">
                   </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
                   </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
                   </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
@@ -2009,6 +2109,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   <span class="s">"op"</span><span class="p">:</span> <span class="s">"placeorders"</span><span class="p">,</span>
   <span class="s">"tag"</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
   <span class="s">"dataArray"</span><span class="p">:</span> <span class="p">[{</span>
+                  <span class="s">"timestamp"</span><span class="p">:</span> <span class="mi">1638237934061</span><span class="p">,</span>
+                  <span class="s">"recvWindow"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
                   <span class="s">"clientOrderId"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
                   <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"ETH-USD-SWAP-LIN"</span><span class="p">,</span>
                   <span class="s">"side"</span><span class="p">:</span> <span class="s">"BUY"</span><span class="p">,</span>
@@ -2018,6 +2120,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
                   <span class="s">"price"</span><span class="p">:</span> <span class="mi">100</span>
                 <span class="p">},</span>
                 <span class="p">{</span>
+                  <span class="s">"timestamp"</span><span class="p">:</span> <span class="mi">1638237934061</span><span class="p">,</span>
+                  <span class="s">"recvWindow"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
                   <span class="s">"clientOrderId"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
                   <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"BTC-USD"</span><span class="p">,</span>
                   <span class="s">"side"</span><span class="p">:</span> <span class="s">"SELL"</span><span class="p">,</span>
@@ -2061,7 +2165,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
             </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER_ONLY"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
@@ -2077,7 +2182,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.2"</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.2"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -2098,7 +2204,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
             </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAKER_ONLY"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
@@ -2116,7 +2223,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MARKET"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.2"</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.2"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -2160,6 +2268,18 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>LIST of dictionaries</td>
 <td>Yes</td>
 <td>A list of orders with each order in JSON format, the same format/parameters as the request for placing a single order. The max number of orders is still limited by the message length validation so by default up to 20 orders can be placed in a batch, assuming that each order JSON has 200 characters.</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>LONG</td>
+<td>NO</td>
+<td>In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected.</td>
+</tr>
+<tr>
+<td>recvWindow</td>
+<td>LONG</td>
+<td>NO</td>
+<td>In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected.</td>
 </tr>
 </tbody></table>
 <h3 id='websocket-api-order-commands-cancel-order'>Cancel Order</h3>
@@ -2477,6 +2597,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"modifyorder"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1638237934061</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"recvWindow"</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">888</span><span class="p">,</span><span class="w">
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
@@ -2513,6 +2635,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   <span class="s">"op"</span><span class="p">:</span> <span class="s">"modifyorder"</span><span class="p">,</span>
   <span class="s">"tag"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
   <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">"timestamp"</span><span class="p">:</span> <span class="mi">1638237934061</span><span class="p">,</span>
+            <span class="s">"recvWindow"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
             <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"BTC-USD-SWAP-LIN"</span><span class="p">,</span>
             <span class="s">"orderId"</span><span class="p">:</span> <span class="mi">888</span><span class="p">,</span>
             <span class="s">"side"</span><span class="p">:</span> <span class="s">"BUY"</span><span class="p">,</span>
@@ -2652,6 +2776,18 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>No</td>
 <td>Quantity (denominated by <code>contractValCurrency</code>)</td>
 </tr>
+<tr>
+<td>timestamp</td>
+<td>LONG</td>
+<td>NO</td>
+<td>In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected.</td>
+</tr>
+<tr>
+<td>recvWindow</td>
+<td>LONG</td>
+<td>NO</td>
+<td>In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected.</td>
+</tr>
 </tbody></table>
 <h3 id='websocket-api-order-commands-modify-batch-orders'>Modify Batch Orders</h3>
 <blockquote>
@@ -2661,12 +2797,16 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"modifyorders"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span><span class="w">
   </span><span class="nl">"dataArray"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+                  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1638237934061</span><span class="p">,</span><span class="w">
+                  </span><span class="nl">"recvWindow"</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">
                   </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
                   </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
                   </span><span class="nl">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="mi">304304315061932310</span><span class="p">,</span><span class="w">
                   </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">101</span><span class="p">,</span><span class="w">
                 </span><span class="p">},</span><span class="w"> 
                 </span><span class="p">{</span><span class="w">
+                  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1638237934061</span><span class="p">,</span><span class="w">
+                  </span><span class="nl">"recvWindow"</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">
                   </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
                   </span><span class="nl">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="mi">304304315061864646</span><span class="p">,</span><span class="w">
                   </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10001</span><span class="p">,</span><span class="w">
@@ -2702,12 +2842,16 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   <span class="s">"op"</span><span class="p">:</span> <span class="s">"modifyorders"</span><span class="p">,</span>
   <span class="s">"tag"</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
   <span class="s">"dataArray"</span><span class="p">:</span> <span class="p">[{</span>
+                  <span class="s">"timestamp"</span><span class="p">:</span> <span class="mi">1638237934061</span><span class="p">,</span>
+                  <span class="s">"recvWindow"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
                   <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"ETH-USD-SWAP-LIN"</span><span class="p">,</span>
                   <span class="s">"side"</span><span class="p">:</span> <span class="s">"BUY"</span><span class="p">,</span>
                   <span class="s">"orderID"</span><span class="p">:</span> <span class="mi">304304315061932310</span><span class="p">,</span>
                   <span class="s">"price"</span><span class="p">:</span> <span class="mi">101</span><span class="p">,</span>
                 <span class="p">},</span> 
                 <span class="p">{</span>
+                  <span class="s">"timestamp"</span><span class="p">:</span> <span class="mi">1638237934061</span><span class="p">,</span>
+                  <span class="s">"recvWindow"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
                   <span class="s">"marketCode"</span><span class="p">:</span> <span class="s">"BTC-USD"</span><span class="p">,</span>
                   <span class="s">"orderID"</span><span class="p">:</span> <span class="mi">304304315061864646</span><span class="p">,</span>
                   <span class="s">"price"</span><span class="p">:</span> <span class="mi">10001</span><span class="p">,</span>
@@ -2783,7 +2927,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
             </span><span class="nl">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="mi">304304315061932310</span><span class="p">,</span><span class="w">
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">101</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="w">                 
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
@@ -2800,11 +2944,11 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
             </span><span class="nl">"orderID"</span><span class="p">:</span><span class="w"> </span><span class="mi">304304315061864646</span><span class="p">,</span><span class="w">
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.21</span><span class="p">,</span><span class="w">
             </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10001</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="w">  
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="w">
           </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Requires an authenticated websocket connection.<br>
+<p>Requires an authenticated websocket connection.
 Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).</p>
 
 <p>The websocket reply from the exchange will repond to each order in the batch separately, one order at a time, and has the same message format as the reponse for the single order modify method.</p>
@@ -2837,9 +2981,21 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>Yes</td>
 <td>A list of orders with each order in JSON format, the same format/parameters as the request for modifying a single order.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be modified in a batch, assuming that each order JSON has 200 characters.</td>
 </tr>
+<tr>
+<td>timestamp</td>
+<td>LONG</td>
+<td>NO</td>
+<td>In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected.</td>
+</tr>
+<tr>
+<td>recvWindow</td>
+<td>LONG</td>
+<td>NO</td>
+<td>In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected.</td>
+</tr>
 </tbody></table>
 <h2 id='websocket-api-subscriptions-private'>Subscriptions - Private</h2>
-<p>All subscriptions to private account channels requires an authenticated websocket connection.  </p>
+<p>All subscriptions to private account channels requires an authenticated websocket connection.</p>
 
 <p>Multiple subscriptions to different channels both public and private can be made within a single subscription command: </p>
 
