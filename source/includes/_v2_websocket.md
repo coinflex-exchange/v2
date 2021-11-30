@@ -291,7 +291,7 @@ To maintain an active WebSocket connection it is imperative to either be subscri
 
 ## Order Commands
 
-### Limit Order
+### Place Limit Order
 
 > **Request format**
 
@@ -300,6 +300,8 @@ To maintain an active WebSocket connection it is imperative to either be subscri
   "op": "placeorder",
   "tag": 123,
   "data": {
+            "timestamp": 1638237934061,
+            "recvWindow": 500,
             "clientOrderId": 1,
             "marketCode": "BTC-USD-SWAP-LIN",
             "side": "BUY",
@@ -340,6 +342,8 @@ place_order = \
   "op": "placeorder",
   "tag": 123,
   "data": {
+            "timestamp": 1638237934061,
+            "recvWindow": 500,
             "clientOrderId": 1,
             "marketCode": "BTC-USD-SWAP-LIN",
             "side": "BUY",
@@ -387,7 +391,8 @@ asyncio.get_event_loop().run_until_complete(subscribe())
             "orderType": "LIMIT",
             "quantity": "1.5",
             "timeInForce": "GTC",
-            "price": "9431.48"
+            "price": "9431.48",
+            "source": 0
           }
 }
 ```
@@ -409,12 +414,13 @@ asyncio.get_event_loop().run_until_complete(subscribe())
             "orderType": "LIMIT",
             "quantity": "1.5",
             "timeInForce": "GTC",
-            "price": "9431.48"
+            "price": "9431.48",
+            "source": 0
           }
 }
 ```
 
-Requires an authenticated websocket connection.  
+Requires an authenticated websocket connection.
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
 
 <sub>**Request Parameters**</sub> 
@@ -431,9 +437,11 @@ price | FLOAT |  No | Price |
 quantity |  FLOAT | Yes | Quantity (denominated by contractValCurrency) |
 side | STRING | Yes | `BUY` or `SELL` |
 timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul>
+timestamp | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
+recvWindow | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
 
 
-### Market Order
+### Place Market Order
 
 > **Request format**
 
@@ -442,6 +450,8 @@ timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `I
   "op": "placeorder",
   "tag": 123,
   "data": {
+            "timestamp": 1638237934061,
+            "recvWindow": 500,
             "clientOrderId": 1,
             "marketCode": "ETH-USD-SWAP-LIN",
             "side": "SELL",
@@ -480,6 +490,8 @@ place_order = \
   "op": "placeorder",
   "tag": 123,
   "data": {
+            "timestamp": 1638237934061,
+            "recvWindow": 500,
             "clientOrderId": 1,
             "marketCode": "ETH-USD-SWAP-LIN",
             "side": "SELL",
@@ -522,7 +534,8 @@ asyncio.get_event_loop().run_until_complete(subscribe())
             "marketCode": "ETH-USD-SWAP-LIN",
             "side": "SELL",
             "orderType": "MARKET",
-            "quantity": "5"
+            "quantity": "5",
+            "source": 0
           }
 }
 ```
@@ -536,7 +549,15 @@ asyncio.get_event_loop().run_until_complete(subscribe())
   "tag": "123",
   "message": "<errorMessage>",
   "code": "<errorCode>",
-  "timestamp": "1592491503359"
+  "timestamp": "1592491503359",
+  "data": {
+            "clientOrderId": "1",
+            "marketCode": "ETH-USD-SWAP-LIN",
+            "side": "SELL",
+            "orderType": "MARKET",
+            "quantity": "5",
+            "source": 0
+          }
 }
 ```
 
@@ -555,9 +576,11 @@ marketCode | STRING | Yes | Market code e.g. `BTC-USD-SWAP-LIN` |
 orderType | STRING | Yes |  `MARKET` |
 quantity |  FLOAT | Yes | Quantity (denominated by contractValCurrency) |
 side | STRING | Yes | `BUY` or `SELL` |
+timestamp | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
+recvWindow | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
 
 
-### Stop Limit Order
+### Place Stop Limit Order
 
 > **Request format**
 
@@ -566,6 +589,8 @@ side | STRING | Yes | `BUY` or `SELL` |
   "op": "placeorder",
   "tag": 123,
   "data": {
+            "timestamp": 1638237934061,
+            "recvWindow": 500,
             "clientOrderId": 1,
             "marketCode": "ETH-USD-SWAP-LIN",
             "side": "BUY",
@@ -607,6 +632,8 @@ place_order = \
   "op": "placeorder",
   "tag": 123,
   "data": {
+            "timestamp": 1638237934061,
+            "recvWindow": 500,
             "clientOrderId": 1,
             "marketCode": "ETH-USD-SWAP-LIN",
             "side": "BUY",
@@ -655,7 +682,8 @@ asyncio.get_event_loop().run_until_complete(subscribe())
             "quantity": "10",
             "timeInForce": "MAKER_ONLY_REPRICE",
             "stopPrice": "100",
-            "limitPrice": "120"
+            "limitPrice": "120",
+            "source": 0
           }
 }
 ```
@@ -678,12 +706,13 @@ asyncio.get_event_loop().run_until_complete(subscribe())
             "quantity": "10",
             "timeInForce": "MAKER_ONLY_REPRICE",
             "stopPrice": "100",
-            "limitPrice": "120"
+            "limitPrice": "120",
+            "source": 0
           }
 }
 ```
 
-Requires an authenticated websocket connection.  
+Requires an authenticated websocket connection.
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
 
 <sub>**Request Parameters**</sub> 
@@ -701,7 +730,8 @@ side|STRING| Yes| `BUY ` or `SELL`|
 limitPrice| FLOAT |Yes | Limit price for the stop-limit order. <p><p>For **BUY** the limit price must be greater or equal to the stop price.<p><p>For **SELL** the limit price must be less or equal to the stop price.|
 stopPrice| FLOAT |Yes|Stop price for the stop-limit order.<p><p>Triggered by the best bid price for the **SELL** stop-limit order.<p><p>Triggered by the best ask price for the **BUY** stop-limit order. |
 timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade)</li></ul>
-
+timestamp | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
+recvWindow | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
 
 
 ### Place Batch Orders
@@ -713,6 +743,8 @@ timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `I
   "op": "placeorders",
   "tag": 123,
   "dataArray": [{
+                  "timestamp": 1638237934061,
+                  "recvWindow": 500,
                   "clientOrderId": 1,
                   "marketCode": "ETH-USD-SWAP-LIN",
                   "side": "BUY",
@@ -722,6 +754,8 @@ timeInForce | ENUM | No | <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `I
                   "price": 100
                 }, 
                 {
+                  "timestamp": 1638237934061,
+                  "recvWindow": 500,
                   "clientOrderId": 2,
                   "marketCode": "BTC-USD",
                   "side": "SELL",
@@ -760,6 +794,8 @@ place_batch_order =\
   "op": "placeorders",
   "tag": 123,
   "dataArray": [{
+                  "timestamp": 1638237934061,
+                  "recvWindow": 500,
                   "clientOrderId": 1,
                   "marketCode": "ETH-USD-SWAP-LIN",
                   "side": "BUY",
@@ -769,6 +805,8 @@ place_batch_order =\
                   "price": 100
                 },
                 {
+                  "timestamp": 1638237934061,
+                  "recvWindow": 500,
                   "clientOrderId": 2,
                   "marketCode": "BTC-USD",
                   "side": "SELL",
@@ -812,7 +850,8 @@ asyncio.get_event_loop().run_until_complete(subscribe())
             "orderType": "LIMIT",
             "quantity": "10",
             "timeInForce": "MAKER_ONLY",
-            "price": "100"
+            "price": "100",
+            "source": 0
           }
 }
 
@@ -828,7 +867,8 @@ AND
             "marketCode": "BTC-USD",
             "side": "SELL",
             "orderType": "MARKET",
-            "quantity": "0.2"
+            "quantity": "0.2",
+            "source": 0
           }
 }
 ```
@@ -850,7 +890,8 @@ AND
             "orderType": "LIMIT",
             "quantity": "10",
             "timeInForce": "MAKER_ONLY",
-            "price": "100"
+            "price": "100",
+            "source": 0
           }
 }
 
@@ -868,7 +909,8 @@ AND
             "marketCode": "BTC-USD",
             "side": "SELL",
             "orderType": "MARKET",
-            "quantity": "0.2"
+            "quantity": "0.2",
+            "source": 0
           }
 }
 ```
@@ -891,6 +933,8 @@ Parameters | Type | Required |Description|
 op | STRING | Yes | `placeorders`
 tag | INTEGER or STRING | No | If given it will be echoed in the reply
 dataArray | LIST of dictionaries | Yes | A list of orders with each order in JSON format, the same format/parameters as the request for placing a single order. The max number of orders is still limited by the message length validation so by default up to 20 orders can be placed in a batch, assuming that each order JSON has 200 characters. |
+timestamp | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
+recvWindow | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
 
 
 ### Cancel Order
@@ -1171,6 +1215,8 @@ dataArray | LIST of dictionaries | A list of orders with each order in JSON form
   "op": "modifyorder",
   "tag": 1,
   "data": {
+            "timestamp": 1638237934061,
+            "recvWindow": 500,
             "marketCode": "BTC-USD-SWAP-LIN",
             "orderId": 888,
             "side": "BUY",
@@ -1209,6 +1255,8 @@ modify_order = \
   "op": "modifyorder",
   "tag": 1,
   "data": {
+            "timestamp": 1638237934061,
+            "recvWindow": 500,
             "marketCode": "BTC-USD-SWAP-LIN",
             "orderId": 888,
             "side": "BUY",
@@ -1303,6 +1351,8 @@ orderId|INTEGER|Yes|Unique order ID from the exchange|
 side| STRING|No| `BUY` or `SELL`|
 price|FLOAT|No|Price for limit orders|
 quantity|FLOAT|No|  Quantity (denominated by `contractValCurrency`)|
+timestamp | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
+recvWindow | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
 
 
 ### Modify Batch Orders
@@ -1314,12 +1364,16 @@ quantity|FLOAT|No|  Quantity (denominated by `contractValCurrency`)|
   "op": "modifyorders",
   "tag": 123,
   "dataArray": [{
+                  "timestamp": 1638237934061,
+                  "recvWindow": 500,
                   "marketCode": "ETH-USD-SWAP-LIN",
                   "side": "BUY",
                   "orderID": 304304315061932310,
                   "price": 101,
                 }, 
                 {
+                  "timestamp": 1638237934061,
+                  "recvWindow": 500,
                   "marketCode": "BTC-USD",
                   "orderID": 304304315061864646,
                   "price": 10001,
@@ -1357,12 +1411,16 @@ modify_batch_order = \
   "op": "modifyorders",
   "tag": 123,
   "dataArray": [{
+                  "timestamp": 1638237934061,
+                  "recvWindow": 500,
                   "marketCode": "ETH-USD-SWAP-LIN",
                   "side": "BUY",
                   "orderID": 304304315061932310,
                   "price": 101,
                 }, 
                 {
+                  "timestamp": 1638237934061,
+                  "recvWindow": 500,
                   "marketCode": "BTC-USD",
                   "orderID": 304304315061864646,
                   "price": 10001,
@@ -1441,7 +1499,7 @@ AND
             "orderID": 304304315061932310,
             "side": "BUY",
             "price": 101,
-            "marketCode": "ETH-USD-SWAP-LIN"                 
+            "marketCode": "ETH-USD-SWAP-LIN"
           }
 }
 
@@ -1458,12 +1516,12 @@ AND
             "orderID": 304304315061864646,
             "quantity": 0.21,
             "price": 10001,
-            "marketCode": "BTC-USD"  
+            "marketCode": "BTC-USD"
           }
 }
 ```
 
-Requires an authenticated websocket connection.  
+Requires an authenticated websocket connection.
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
 
 The websocket reply from the exchange will repond to each order in the batch separately, one order at a time, and has the same message format as the reponse for the single order modify method.
@@ -1475,11 +1533,13 @@ Parameters | Type | Required |Description|
 op | STRING | Yes | `modifyorders`
 tag | INTEGER or STRING | No | If given it will be echoed in the reply
 dataArray | LIST of dictionaries | Yes | A list of orders with each order in JSON format, the same format/parameters as the request for modifying a single order.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be modified in a batch, assuming that each order JSON has 200 characters.
+timestamp | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
+recvWindow | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
 
 
 ## Subscriptions - Private
 
-All subscriptions to private account channels requires an authenticated websocket connection.  
+All subscriptions to private account channels requires an authenticated websocket connection.
 
 Multiple subscriptions to different channels both public and private can be made within a single subscription command: 
 

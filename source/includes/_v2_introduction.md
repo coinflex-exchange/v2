@@ -1,5 +1,20 @@
 # Change Log
 
+**2021-11-30**
+
+* Updated websocket API [Place Limit Order](?json#websocket-api-order-commands-place-limit-order)
+    * Added parameter `timestamp` and paramter `recvWindow`
+* Updated websocket API [Place Market Order](?json#websocket-api-order-commands-place-market-order)
+    * Added parameter `timestamp` and paramter `recvWindow`
+* Updated websocket API [Place Stop Limit Order](?json#websocket-api-order-commands-place-stop-limit-order)
+    * Added parameter `timestamp` and paramter `recvWindow`
+* Updated websocket API [Place Batch Orders](?json#websocket-api-order-commands-place-batch-orders)
+    * Added parameter `timestamp` and paramter `recvWindow`
+* Updated websocket API [Modify Order](?json#websocket-api-order-commands-modify-order)
+    * Added parameter `timestamp` and paramter `recvWindow`
+* Updated websocket API [Modify Batch Orders](?json#websocket-api-order-commands-modify-batch-orders)
+    * Added parameter `timestamp` and paramter `recvWindow`
+
 **2021-11-22**
 
 * Added new REST API [POST /v3/flexasset/mint](?json#rest-api-v3-flex-assets-private-post-v3-flexasset-mint) to mint
