@@ -145,7 +145,7 @@ Deposit addresses
 > **Request**
 
 ```
-GET v3/account?subAcc=[1,2,3,4 ……….] 
+GET v3/account?subAcc=[1,2,3,4] 
 ```
 
 > **Successful response format**
@@ -1060,7 +1060,7 @@ hashToken | List of STRING | YES | list filter, limit 10 AMM|
 > **Request**
 
 ```
-GET /v3/AMM/positions?hashToken=[1,2,3,4 ……. ]&marketCode={marketCode}
+GET /v3/AMM/positions?hashToken=[1,2,3,4]&marketCode={marketCode}
 ```
 ```json
 {
@@ -1204,7 +1204,7 @@ hashToken | List of STRING | YES | filter|
 > **Request**
 
 ```
-GET /v3/AMM/balances?hashToken=[1,2,3,4 ……. ]&asset={asset}
+GET /v3/AMM/balances?hashToken=[1,2,3,4]&asset={asset}
 
 ```
 ```json
