@@ -911,7 +911,7 @@ POST /v3/AMM/redeem
 ```
 ```json
 {
-    "hashToken": "CF-BCH-AMM-ABCDE3iy"
+    "hashToken": "CF-BCH-AMM-ABCDE3iy",
     "type":"deliver"  
 }
 ```
@@ -1104,14 +1104,14 @@ hashToken | List of STRING | YES | filter|
 > **Request**
 
 ```
-GET /v3/AMM/trades?hashToken=1 ……&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
+GET /v3/AMM/trades?hashToken=1&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
 
 ```
 ```json
 {
-    "marketCode": "BTC-USD-SWAP-LIN"
+    "marketCode": "BTC-USD-SWAP-LIN",
     "limit": "500"
-    "startTime": "1579450778000"
+    "startTime": "1579450778000",
     "endTime": "1613978625000"
  }  
 ```
