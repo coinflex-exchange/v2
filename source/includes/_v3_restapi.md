@@ -153,7 +153,7 @@ GET v3/account?subAcc=[1,2,3,4 ……….]
 ```json
 {
     "event": "account",
-    "success": true
+    "success": true,
     "data": [
         {
             "accountId": "21213",
@@ -194,10 +194,6 @@ GET v3/account?subAcc=[1,2,3,4 ……….]
             "liquidating": false,
             "feeTier": "6",
             "createdAt": "1611665624601"
-
-            ]
-        }
-    ]
 }
 ```
 
