@@ -1002,7 +1002,7 @@ GET /v3/AMM?hashToken=[1,2,3,4 ……]
     "data": [
       
             "hashToken": "CF-BCH-AMM-ABCDE3iy",
-            "leverage": null, or string (0 to 10)    
+            "leverage": "null",   
             "direction": "BUY" or "SELL" or "NEUTRAL",
             "marketCode": "BCH-USD-SWAP-LIN",
             "initialCollateral": {"BCH": "123", "USD": 0}    
@@ -1026,7 +1026,7 @@ GET /v3/AMM?hashToken=[1,2,3,4 ……]
                     "total": "4468.823",              
                     "available": "4468.823",        
                     "reserved": "0",
-                    "lastUpdatedAt": "1593627415234”,
+                    "lastUpdatedAt": "1593627415223",
                     "asset": "FLEX",
                     "total": "1585.890",              
                     "available": "325.890",         
@@ -1064,7 +1064,7 @@ GET /v3/AMM/positions?hashToken=[1,2,3,4 ……. ]&marketCode={marketCode}
 ```
 ```json
 {
-    "marketcode"="BTC-USD-SWAP-LIN"
+    "marketCode": "BCH-USD-SWAP-LIN"
 } 
 ```
 `
@@ -1109,10 +1109,10 @@ GET /v3/AMM/trades?hashToken=1 ……&marketCode={marketCode}&limit={limit}&star
 ```
 ```json
 {
-    "marketCode"= "BTC-USD-SWAP-LIN"
-    "limit"= 500
-    "startTime"= 1579450778000
-    "endTime"= 1613978625000
+    "marketCode": "BTC-USD-SWAP-LIN"
+    "limit": "500"
+    "startTime": "1579450778000"
+    "endTime": "1613978625000"
  }  
 ```
 `
@@ -1161,7 +1161,7 @@ GET /v3/AMM/orders?hashToken={hashToken}
 ```
 ```json
 {
-    "hashToken"="CF-BCH-AMM-ABCDE3iy"
+    "hashToken": "CF-BCH-AMM-ABCDE3iy"
 } 
 ```
 
@@ -1209,7 +1209,7 @@ GET /v3/AMM/balances?hashToken=[1,2,3,4 ……. ]&asset={asset}
 ```
 ```json
 {
-    "asset"= "BTC"
+    "asset": "BTC"
 }  
 ```
 
