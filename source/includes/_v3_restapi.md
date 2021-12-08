@@ -1,6 +1,6 @@
 # REST API V3
 
-**TEST** site2
+**TEST** 2
 
 * `https://v2stgapi.coinflex.com`
 
