@@ -933,6 +933,7 @@ POST /v3/AMM/redeem
             "maxPriceBound": "800",
             "status": "ENDED",
             "positions":[
+               {
 
                     "marketCode": "BTC-USD-SWAP-LIN",
                     "baseAsset": "BTC",
@@ -943,9 +944,10 @@ POST /v3/AMM/redeem
                     "positionPnl": "200.3",
                     "estLiquidationPrice": "12000.05",
                     "lastUpdatedAt": "1592486212218"
-                    ]
+                    ],
+               }
             "balances": [
-
+              {
                     "asset": "BTC",
                     "total": "4468.823",              
                     "available": "4468.823",        
@@ -970,6 +972,8 @@ POST /v3/AMM/redeem
                     "feeTier": "6",               
                     "createdAt": "1623042343252",
                     "lastUpdatedAt": "1623142532134",
+              ]  
+              }
                     ]
 }
 ```
@@ -1000,7 +1004,7 @@ GET /v3/AMM?hashToken=[1,2,3,4 ……]
 {
     "success": true,
     "data": [
-      
+        {
             "hashToken": "CF-BCH-AMM-ABCDE3iy",
             "leverage": "null",   
             "direction": "BUY",
@@ -1009,8 +1013,8 @@ GET /v3/AMM?hashToken=[1,2,3,4 ……]
             "minPriceBound": "200",
             "maxPriceBound": "800",
             "status": "ENDED",
-            "positions": [
-
+            "positions":[
+        {
                     "marketCode": "BTC-USD-SWAP-LIN",
                     "baseAsset": "BTC",
                     "counterAsset": "USD",
@@ -1019,9 +1023,11 @@ GET /v3/AMM?hashToken=[1,2,3,4 ……]
                     "markPrice": "33000.00", 
                     "positionPnl": "200.3",
                     "estLiquidationPrice": "12000.05",
-                    "lastUpdatedAt": "1592486212218"
+                    "lastUpdatedAt": "1592486212218",
                     ]
+        }
             "balances": [
+             {
                     "asset": "BTC",
                     "total": "4468.823",              
                     "available": "4468.823",        
@@ -1045,10 +1051,28 @@ GET /v3/AMM?hashToken=[1,2,3,4 ……]
                     "liquidating": "false",
                     "feeTier": "6",        
                     "createdAt": "1623042343252",
-                    "lastUpdatedAt": "1623142532134"
+                    "lastUpdatedAt": "1623142532134",
                     ]
+        }
+        }
+    ]
 }
 ```
+{
+    "success": true,
+    "data": [
+        {
+            "asset": "flexUSD",
+            "network": "SLP",
+            "address": "simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
+            "quantity": "1000.0",
+            "id": "651573911056351237",
+            "status": "COMPLETED",
+            "txId": "38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d",
+            "creditedAt": "1617940800000"
+        }
+    ]
+}
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
@@ -1075,7 +1099,7 @@ GET /v3/AMM/positions?hashToken=[1,2,3,4]&marketCode={marketCode}
 {
     "success": true,
     "data":  [
-
+        {
             "hashToken": "CF-BCH-AMM-ABCDE3iy",
             "positions": [
 
@@ -1088,8 +1112,8 @@ GET /v3/AMM/positions?hashToken=[1,2,3,4]&marketCode={marketCode}
                     "positionPnl": "200.3",
                     "estLiquidationPrice": "12000.05",
                     "lastUpdatedAt": "1592486212218"
-                        ]
-              ]
+        }
+    ]
 }
 ```
 
@@ -1122,7 +1146,8 @@ GET /v3/AMM/trades?hashToken=1&marketCode={marketCode}&limit={limit}&startTime={
 ```json
 {    
     "success": true,
-    "data": [         
+    "data": [
+        {         
             "orderId": "160067484555913076",
             "clientOrderId": "123",
             "matchId": "160067484555913077",
@@ -1137,10 +1162,10 @@ GET /v3/AMM/trades?hashToken=1&marketCode={marketCode}&limit={limit}&startTime={
             "feeAsset": "FLEX",
             "fee": "0.0096",
             "lastMatchedAt": "1595514663626"
-            ]
+        }
+    ]
 }
 ```
-
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
@@ -1171,6 +1196,7 @@ GET /v3/AMM/orders?hashToken={hashToken}
 { 
     "success": true,
     "data": [
+        {
             "orderId": "304354590153349202", 
             "clientOrderId": "1", 
             "marketCode": "BTC-USD-SWAP-LIN", 
@@ -1189,10 +1215,10 @@ GET /v3/AMM/orders?hashToken={hashToken}
             "createdAt": "1613089383656", 
             "lastModifiedAt": "1613089383656",
             "lastMatchedAt": "1613089383656"
-]
+        }
+    ]
 }
 ```
-
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
@@ -1219,7 +1245,7 @@ GET /v3/AMM/balances?hashToken=[1,2,3,4]&asset={asset}
 {
     "success": true,
     "data": [
-
+        {
             "hashToken": "CF-BCH-AMM-ABCDE3iy",
             "balances": [
 
@@ -1234,10 +1260,9 @@ GET /v3/AMM/balances?hashToken=[1,2,3,4]&asset={asset}
             "available": "325.890",         
             "reserved": "1260",
             "lastUpdatedAt": "1593627415123"
+        }
     ]
-}
 ```
-
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
