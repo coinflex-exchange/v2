@@ -1474,7 +1474,7 @@ clientOrderId | Null Type|  null
 instrumentId | STRING | Perpetual swap market code
 deliverPrice | STRING|  Mark price at delivery
 deliverPosition | STRING | Delivered position size
-deliverType | STRING| ‘NEXT_CYCLE’: Queueing for the upcoming auction
+deliverType | STRING| "NEXT_CYCLE": Queueing for the upcoming auction
 instrumentIdDeliver | STRING |Asset being received: long position = coin, short position = USD
 deliverQty | STRING |  Quantity of the received asset
 remainingQty | STRING | Remaining quantity

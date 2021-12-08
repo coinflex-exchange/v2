@@ -1,6 +1,6 @@
 # REST API V3
 
-**TEST** site2
+**TEST** 
 
 * `https://v2stgapi.coinflex.com`
 
@@ -134,6 +134,80 @@ Finally, you must use the HMAC SHA256 operation to get the hash value using the 
 The signature must then be included in the header of the REST API call like so:
 
 `header = {'Content-Type': 'application/json', 'AccessKey': API-KEY, 'Timestamp': TIME-STAMP, 'Signature': SIGNATURE, 'Nonce': NONCE}`
+
+## Account & Wallet - Private
+
+
+### GET `GET v3/account `
+
+Deposit addresses
+
+> **Request**
+
+```
+GET v3/account?subAcc=[1,2,3,4 ……….] 
+```
+
+> **Successful response format**
+
+```json
+{
+    "event": "account",
+    "success": true
+    "data": [
+        {
+            "accountId": "21213",
+            "accountName": "main",
+            "accountType": "LINEAR",
+            "marginCurrency": "USD",
+            "balances": [
+              
+                "asset": "BTC",
+                "total": "4468.823",
+                "available": "4468.823",        
+                "reserved": "0",
+                "updatedAt": "1593627415234"
+            ],
+            "asset": "FLEX",
+            "total": "1585.890",
+            "available": "325.890",
+            "reserved": "1260",
+            "UpdatedAt": "1593627415123",
+            "positions": [
+              
+                "marketCode": "BTC-USD-SWAP-LIN",
+                "baseAsset": "BTC",
+                "counterAsset": "USD",
+                "position": "0.94",
+                "entryPrice": "7800.00", 
+                "markPrice": "33000.00", 
+                "positionPnl": "200.3",
+                "estLiquidationPrice": "12000.05",
+                "updatedAt": "1592486212218"
+            ],
+            "collateral": "1231231",
+            "notionalPositionSize": "5000.00",
+            "portfolioVarMargin": "500",
+            "riskRatio": "20.0000",                
+            "maintenanceMargin": "1231",
+            "marginRatio": "12.3179",
+            "liquidating": false,
+            "feeTier": "6",
+            "createdAt": "1611665624601"
+
+            ]
+        }
+    ]
+}
+```
+
+Request Parameter | Type          | Required | Description | 
+----------------- |---------------|----------| ----------- |
+subAcc | LIST OF LONGS | NO       |
+
+
+
+
 
 ## Deposits & Withdrawals - Private
 
@@ -754,6 +828,424 @@ rate | STRING | Period interest rate |
 amount | STRING | |
 paidAt | STRING | |
 
+
+## AMM - Private
+
+### POST `/v3/AMM/create`
+
+> **Request**
+
+```
+POST /v3/AMM/create #Leveraged buy/sell or neutral
+```
+```json
+{
+    "leverage": 1       
+    "direction": "BUY" | "SELL",                  
+    "marketCode": "BCH-USD-SWAP-LIN",             
+    "collateralAsset": "BCH",                     
+    "collateralQuantity": "200",                   
+    "minPriceBound": "200",                       
+    "maxPriceBound": "800"   
+}
+```
+```
+POST /v3/AMM/create #Unleveraged buy/sell
+```
+```json
+{
+    "direction": "BUY" | "SELL",        
+    "marketCode": "BCH-USD-SWAP-LIN",   
+    "collateralAsset": "BCH" | "USD",   
+    "collateralQuantity": "250",        
+    "minPriceBound": "200",             
+    "maxPriceBound": "800"     
+}
+```
+```
+POST /v3/AMM/create #Unleveraged neutral
+```
+```json
+{
+    "direction": "NEUTRAL",            
+    "marketCode": "BCH-USD-SWAP-LIN",  
+    "baseQuantity": "3"                
+    "counterQuantity": "500",          
+    "minPriceBound": "200",            
+    "maxPriceBound": "800"     
+}
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data":
+        {
+        "hashToken": "CF-BCH-AMM-ABCDE3iy",
+        "leverage": "5",
+        "direction": "BUY" | "SELL",
+        "marketCode": "BCH-USD-SWAP-LIN",
+        "collateralAsset": "BCH",    
+        "collateralQuantity": "50",                
+        "minPriceBound": "200",
+        "maxPriceBound": "800"
+        }
+    ]
+}
+```
+
+Request Parameter | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+Leverage | STRING | YES | String or int from 1 to 10|
+Direction | STRING | YES |BUY/SELL|
+Marketcode | STRING | YES | E.G "BCH" |
+CollateralAsset | STRING | YES | E.G "BCH" |
+CollateralQuantity | STRING | YES | E.G "50" minimum notional $200 |
+minPriceBound | STRING | YES | "200"|
+maxPriceBound | STRING | YES | "800"|
+
+### POST `/v3/AMM/redeem`
+
+> **Request**
+
+```
+POST /v3/AMM/redeem
+```
+```json
+{
+    "hashToken": "CF-BCH-AMM-ABCDE3iy"
+    "type":"deliver"  
+}
+```
+`
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": [
+     {
+            "hashToken": "CF-BCH-AMM-ABCDE3iy",
+            "leverage": null,  
+            "direction": "BUY" or "SELL" or "NEUTRAL",
+            "marketCode": "BCH-USD-SWAP-LIN",
+            "initialCollateral": {"BCH": "123", "USD": 0}    
+            "minPriceBound": "200",
+            "maxPriceBound": "800",
+            "status": "ENDED" or "EXECUTING",
+            "positions":[
+
+                    "marketCode": "BTC-USD-SWAP-LIN",
+                    "baseAsset": "BTC",
+                    "counterAsset": "USD",
+                    "position": "0.94",
+                    "entryPrice": "7800.00", 
+                    "markPrice": "33000.00", 
+                    "positionPnl": "200.3",
+                    "estLiquidationPrice": "12000.05",
+                    "lastUpdatedAt": "1592486212218"
+                    ]
+            "balances": [
+
+                    "asset": "BTC",
+                    "total": "4468.823",              
+                    "available": "4468.823",        
+                    "reserved": "0",
+                    "lastUpdatedAt": "1593627415234"
+                    "asset": "FLEX",
+                    "total": "1585.890",              
+                    "available": "325.890",         
+                    "reserved": "1260",
+                    "lastUpdatedAt": "1593627415123"
+                    "usdReward": "200",
+                    "flexReward": "200",
+                    "interestPaid": "123", 
+                    "apr": "0.1",
+                    "collateral": "1231231",           
+                    "notionalPositionSize": "5000.00", 
+                    "portfolioVarMargin": "500",
+                    "riskRatio": "20.0000",                
+                    "maintenanceMargin": "1231",       
+                    "marginRatio": "12.3179",          
+                    "liquidating": false,         
+                    "feeTier": "6",               
+                    "createdAt": "1623042343252",
+                    "lastUpdatedAt": "1623142532134",
+                    ]
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+hashToken | List of STRING | YES | list filter, limit 10 AMM|
+type | STRING | YES | "deliver” or manual or twap1hr or twap24hr|
+
+
+### GET `/v3/AMM/hashToken`
+
+> **Request**
+
+```
+GET /v3/AMM?hashToken=[1,2,3,4 ……]
+```
+```json
+{
+    "hashtoken":"CF-BCH-AMM-ABCDE3iy"
+}
+```
+`
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": [
+      
+            "hashToken": "CF-BCH-AMM-ABCDE3iy",
+            "leverage": null, or string (0 to 10)    
+            "direction": "BUY" or "SELL" or "NEUTRAL",
+            "marketCode": "BCH-USD-SWAP-LIN",
+            "initialCollateral": {"BCH": "123", "USD": 0}    
+            "minPriceBound": "200",
+            "maxPriceBound": "800",
+            "status": "ENDED" or "EXECUTING",
+            "positions": [
+
+                    "marketCode": "BTC-USD-SWAP-LIN",
+                    "baseAsset": "BTC",
+                    "counterAsset": "USD",
+                    "position": "0.94",
+                    "entryPrice": "7800.00", 
+                    "markPrice": "33000.00", 
+                    "positionPnl": "200.3",
+                    "estLiquidationPrice": "12000.05",
+                    "lastUpdatedAt": "1592486212218"
+                    ]
+            "balances": [
+                    "asset": "BTC",
+                    "total": "4468.823",              
+                    "available": "4468.823",        
+                    "reserved": "0",
+                    "lastUpdatedAt": "1593627415234”,
+                    "asset": "FLEX",
+                    "total": "1585.890",              
+                    "available": "325.890",         
+                    "reserved": "1260",
+                    "lastUpdatedAt": "1593627415123",
+                    "usdReward": "200",
+                    "flexReward": "200",
+                    "interestPaid": "123",
+                    "apr": "0.1",
+                    "collateral": "1231231",           
+                    "notionalPositionSize": "5000.00", 
+                    "portfolioVarMargin": "500",
+                    "riskRatio": "20.0000",                
+                    "maintenanceMargin": "1231",        
+                    "marginRatio": "12.3179",           
+                    "liquidating": "false",
+                    "feeTier": "6",        
+                    "createdAt": "1623042343252",
+                    "lastUpdatedAt": "1623142532134"
+                    ]
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+hashToken | List of STRING | YES | list filter, limit 10 AMM|
+
+
+### GET `/v3/AMM/positions`
+
+> **Request**
+
+```
+GET /v3/AMM/positions?hashToken=[1,2,3,4 ……. ]&marketCode={marketCode}
+```
+```json
+{
+    "marketcode"="BTC-USD-SWAP-LIN"
+} 
+```
+`
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data":  [
+
+            "hashToken": "CF-BCH-AMM-ABCDE3iy",
+            "positions": [
+
+                    "marketCode": "BTC-USD-SWAP-LIN",
+                    "baseAsset": "BTC",
+                    "counterAsset": "USD",
+                    "position": "0.94",
+                    "entryPrice": "7800.00", 
+                    "markPrice": "33000.00", 
+                    "positionPnl": "200.3",
+                    "estLiquidationPrice": "12000.05",
+                    "lastUpdatedAt": "1592486212218"
+                        ]
+              ]
+}
+```
+
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+hashToken | List of STRING | YES | filter|
+
+
+### GET `/v3/AMM/trades`
+
+> **Request**
+
+```
+GET /v3/AMM/trades?hashToken=1 ……&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
+
+```
+```json
+{
+    "marketCode"= "BTC-USD-SWAP-LIN"
+    "limit"= 500
+    "startTime"= 1579450778000
+    "endTime"= 1613978625000
+ }  
+```
+`
+
+> **Successful response format**
+
+```json
+{    
+    "success": true,
+    "data": [         
+            "orderId": "160067484555913076",
+            "clientOrderId": "123",
+            "matchId": "160067484555913077",
+            "marketCode": "FLEX-USD",
+            "side": "SELL",
+            "matchedQuantity": "0.1",
+            "matchPrice": "0.065",
+            "total": "0.0065",    
+            "leg1Price": "0.001",         
+            "leg2Price": "0.001",        
+            "orderMatchType": "TAKER",
+            "feeAsset": "FLEX",
+            "fee": "0.0096",
+            "lastMatchedAt": "1595514663626"
+            ]
+}
+```
+
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+hashToken | STRING | YES | filter|
+marketCode | STRING | NO |
+limit |INT/STRING | NO | default 500 max 1000|
+startTime | INT/STRING  | NO | default 24 hours ago|
+endTime | INT/STRING  | NO | default current epoch time|
+
+
+### GET `/v3/AMM/orders`
+
+> **Request**
+
+```
+GET /v3/AMM/orders?hashToken={hashToken}
+
+```
+```json
+{
+    "hashToken"="CF-BCH-AMM-ABCDE3iy"
+} 
+```
+
+> **Successful response format**
+
+```json
+{ 
+    "success": true,
+    "data": [
+            "orderId": "304354590153349202", 
+            "clientOrderId": "1", 
+            "marketCode": "BTC-USD-SWAP-LIN", 
+            "status": "PARTIALLY_FILLED | OPEN"
+            "side": "BUY", 
+            "price": "1.0",
+            "stopPrice": "0.9",
+            "isTriggered": "true",
+            "quantity": "0.001",
+            "remainQuantity": "0.001",
+            "matchedQuantity": "0",
+            "avgFillPrice": "1",
+            "fees": {"USD": "0", "FLEX": "0"}
+            "orderType": "LIMIT", 
+            "timeInForce": "GTC"
+            "createdAt": "1613089383656", 
+            "lastModifiedAt": "1613089383656",
+            "lastMatchedAt": "1613089383656"
+]
+}
+```
+
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+hashToken | List of STRING | YES | filter|
+
+
+### GET `/v3/AMM/balances`
+
+> **Request**
+
+```
+GET /v3/AMM/balances?hashToken=[1,2,3,4 ……. ]&asset={asset}
+
+```
+```json
+{
+    "asset"= "BTC"
+}  
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": [
+
+            "hashToken": "CF-BCH-AMM-ABCDE3iy",
+            "balances": [
+
+                "asset": "BTC",
+                "total": "4468.823",              
+                "available": "4468.823",        
+                "reserved": "0",
+                "lastUpdatedAt": "1593627415234"
+            ]
+            "asset": "FLEX",
+            "total": "1585.890",              
+            "available": "325.890",         
+            "reserved": "1260",
+            "lastUpdatedAt": "1593627415123"
+    ]
+}
+```
+
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+hashToken | List of STRING | YES | filter|
 
 
 ## Market Data - Public

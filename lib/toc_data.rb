@@ -9,7 +9,8 @@ def toc_data(page_content)
     headers.push({
       id: header.attribute('id').to_s,
       content: header.children,
-      title: header.children.to_s.gsub(/<[^>]*>/, ''),
+      title: header.children.to_s.gsub(
+      /<[^>]*>/, ''),
       level: header.name[1].to_i,
       children: []
     })
