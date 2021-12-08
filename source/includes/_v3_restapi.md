@@ -837,7 +837,7 @@ POST /v3/AMM/create #Leveraged buy/sell or neutral
 ```json
 {
     "leverage": 1       
-    "direction": "BUY" | "SELL",                  
+    "direction": "BUY",                  
     "marketCode": "BCH-USD-SWAP-LIN",             
     "collateralAsset": "BCH",                     
     "collateralQuantity": "200",                   
@@ -850,9 +850,9 @@ POST /v3/AMM/create #Unleveraged buy/sell
 ```
 ```json
 {
-    "direction": "BUY" | "SELL",        
+    "direction": "SELL",        
     "marketCode": "BCH-USD-SWAP-LIN",   
-    "collateralAsset": "BCH" | "USD",   
+    "collateralAsset": "USD",   
     "collateralQuantity": "250",        
     "minPriceBound": "200",             
     "maxPriceBound": "800"     
@@ -925,13 +925,13 @@ POST /v3/AMM/redeem
     "data": [
      {
             "hashToken": "CF-BCH-AMM-ABCDE3iy",
-            "leverage": null,  
-            "direction": "BUY" or "SELL" or "NEUTRAL",
+            "leverage": "null",  
+            "direction": "BUY",
             "marketCode": "BCH-USD-SWAP-LIN",
             "initialCollateral": {"BCH": "123", "USD": 0}    
             "minPriceBound": "200",
             "maxPriceBound": "800",
-            "status": "ENDED" or "EXECUTING",
+            "status": "ENDED",
             "positions":[
 
                     "marketCode": "BTC-USD-SWAP-LIN",
@@ -1003,12 +1003,12 @@ GET /v3/AMM?hashToken=[1,2,3,4 ……]
       
             "hashToken": "CF-BCH-AMM-ABCDE3iy",
             "leverage": "null",   
-            "direction": "BUY" or "SELL" or "NEUTRAL",
+            "direction": "BUY",
             "marketCode": "BCH-USD-SWAP-LIN",
             "initialCollateral": {"BCH": "123", "USD": 0}    
             "minPriceBound": "200",
             "maxPriceBound": "800",
-            "status": "ENDED" or "EXECUTING",
+            "status": "ENDED",
             "positions": [
 
                     "marketCode": "BTC-USD-SWAP-LIN",
