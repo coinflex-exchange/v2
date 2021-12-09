@@ -2532,7 +2532,7 @@ timestamp(in the data list) | STRING | Updated time |
 
 ### POST `/v2/AMM/create`
 
-Create AMM.
+Create AMM
 
 > **Request**
 
