@@ -140,12 +140,16 @@ The signature must then be included in the header of the REST API call like so:
 
 ### GET `GET v3/account `
 
-Deposit addresses
+Get account information
+
+<aside class="notice">
+If the user is calling this endpoint using an API-KEY from a master account then the parameter "subAcc" will allow the user to list which sub-accounts in addition to the default account will be returned. If an API-KEY from a sub-account is used then this parameter has no control.
+</aside>
 
 > **Request**
 
 ```
-GET v3/account?subAcc=[1,2,3,4] 
+GET v3/account?subAcc={subAcc},{subAcc}
 ```
 
 > **Successful response format**
@@ -161,52 +165,108 @@ GET v3/account?subAcc=[1,2,3,4]
             "accountType": "LINEAR",
             "marginCurrency": "USD",
             "balances": [
-              
-                "asset": "BTC",
-                "total": "4468.823",
-                "available": "4468.823",        
-                "reserved": "0",
-                "updatedAt": "1593627415234"
+                {
+                    "asset": "BTC",
+                    "total": "4468.823",
+                    "available": "4468.823",
+                    "reserved": "0",
+                    "updatedAt": "1593627415234"
+                },
+                {
+                    "asset": "FLEX",
+                    "total": "1585.890",
+                    "available": "325.890",
+                    "reserved": "1260",
+                    "updatedAt": "1593627415123"
+                }
             ],
-            "asset": "FLEX",
-            "total": "1585.890",
-            "available": "325.890",
-            "reserved": "1260",
-            "UpdatedAt": "1593627415123",
             "positions": [
-              
-                "marketCode": "BTC-USD-SWAP-LIN",
-                "baseAsset": "BTC",
-                "counterAsset": "USD",
-                "position": "0.94",
-                "entryPrice": "7800.00", 
-                "markPrice": "33000.00", 
-                "positionPnl": "200.3",
-                "estLiquidationPrice": "12000.05",
-                "updatedAt": "1592486212218"
+                {
+                    "marketCode": "BTC-USD-SWAP-LIN",
+                    "baseAsset": "BTC",
+                    "counterAsset": "USD",
+                    "position": "0.94",
+                    "entryPrice": "7800.00",
+                    "markPrice": "33000.00",
+                    "positionPnl": "200.3",
+                    "estLiquidationPrice": "12000.05",
+                    "updatedAt": "1592486212218"
+                }
+            ],
+            "loans": [
+                {
+                    "borrowedAsset": "USD",
+                    "borrowedAmount": "100000.0",
+                    "collateralAsset": "BTC",
+                    "marketCode": "BTC-USD-SWAP-LIN",
+                    "position": "1.6",
+                    "entryPrice": "50000.0",
+                    "markPrice": "62500.0",
+                    "estLiquidationPrice": "40000.0",
+                    "lastUpdatedAt": "1592486212218"
+                }
             ],
             "collateral": "1231231",
             "notionalPositionSize": "5000.00",
             "portfolioVarMargin": "500",
-            "riskRatio": "20.0000",                
+            "riskRatio": "20.0000",
             "maintenanceMargin": "1231",
             "marginRatio": "12.3179",
             "liquidating": false,
             "feeTier": "6",
             "createdAt": "1611665624601"
+        }
+    ]
 }
 ```
 
-Request Parameter | Type          | Required | Description | 
------------------ |---------------|----------| ----------- |
-subAcc | LIST OF LONGS | NO       |
+Request Parameter | Type | Required | Description |
+----------------- |----- | -------- | ----------- |
+subAcc | STRING | NO | Sub account, only the default account for the API-Key would be returned if no subcc present |
 
-
-
+Response Field | Type | Description |
+-------------- | ---- | ----------- |
+accountId | STRING | |
+accountName | STRING | |
+accountType | STRING | |
+marginCurrency | STRING | |
+balances | LIST of dictionaries | |
+asset | STRING | |
+total | STRING | |
+available | STRING | |
+reserved | STRING | |
+updatedAt | STRING | |
+positions | LIST of dictionaries | |
+marketCode | STRING | |
+baseAsset | STRING | |
+counterAsset | STRING | |
+position | STRING | |
+entryPrice | STRING | |
+markPrice | STRING | |
+positionPnl | STRING | |
+estLiquidationPrice | STRING | |
+loans | LIST of dictionaries | |
+borrowedAsset | STRING | |
+borrowedAmount | STRING | |
+collateralAsset | STRING | |
+marketCode | STRING | |
+position | STRING | |
+entryPrice | STRING | |
+markPrice | STRING | |
+estLiquidationPrice | STRING | |
+lastUpdatedAt | STRING | |
+collateral | STRING | |
+notionalPositionSize | STRING | |
+portfolioVarMargin | STRING | |
+riskRatio | STRING | |
+maintenanceMargin | STRING | |
+marginRatio | STRING | |
+liquidating | STRING | |
+feeTier | STRING | |
+createdAt | STRING | |
 
 
 ## Deposits & Withdrawals - Private
-
 
 ### GET `/v3/deposit-addresses`
 
@@ -1001,6 +1061,8 @@ maxPriceBound | STRING | |
 
 ### POST `/v3/AMM/redeem`
 
+Redeem AMM
+
 > **Request**
 
 ```
@@ -1036,12 +1098,15 @@ Response Field | Type | Description |
 hashToken | STRING | |
 type | STRING | Available values: `DELIVER` and `MANUAL` |
 
-### GET `/v3/AMM/hashToken`
+
+### GET `/v3/AMM`
+
+Get AMM information
 
 > **Request**
 
 ```
-GET /v3/AMM?hashToken=CF-BCH-AMM-ABCDE3iy
+GET /v3/AMM?hashToken={hashToken},{hashToken}
 ```
 
 > **Successful response format**
@@ -1055,8 +1120,7 @@ GET /v3/AMM?hashToken=CF-BCH-AMM-ABCDE3iy
         "direction": "BUY",
         "marketCode": "BCH-USD-SWAP-LIN",
         "initialCollateral": {
-            "BCH": "123",
-            "USD": 0
+            "BCH": "123"
         },
         "minPriceBound": "200",
         "maxPriceBound": "800",
@@ -1134,7 +1198,7 @@ GET /v3/AMM?hashToken=CF-BCH-AMM-ABCDE3iy
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-hashToken | STRING | YES | List filter, maximum 5 hashToken, e.g. `CF-BCH-AMM-ABCDE3iy,CF-BCH-AMM-ABCDE4iy`|
+hashToken | STRING | YES | List filter, multiple hashToken should be seprated with comma, maximum 5 hashToken supported, e.g. `CF-BCH-AMM-ABCDE3iy,CF-BCH-AMM-ABCDE4iy`|
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
@@ -1196,30 +1260,27 @@ liquidating | STRING | |
 feeTier | STRING | |
 createdAt | STRING | |
 
+
 ### GET `/v3/AMM/positions`
+
+Get AMM positions
 
 > **Request**
 
 ```
-GET /v3/AMM/positions?hashToken=[1,2,3,4]&marketCode={marketCode}
+GET /v3/AMM/positions?hashToken={hashToken},{hashToken}&marketCode={marketCode}
 ```
-```json
-{
-    "marketCode": "BCH-USD-SWAP-LIN"
-} 
-```
-`
 
 > **Successful response format**
 
 ```json
 {
     "success": true,
-    "data":  [
+    "data": [
         {
             "hashToken": "CF-BCH-AMM-ABCDE3iy",
             "positions": [
-
+                {
                     "marketCode": "BTC-USD-SWAP-LIN",
                     "baseAsset": "BTC",
                     "counterAsset": "USD",
@@ -1229,34 +1290,42 @@ GET /v3/AMM/positions?hashToken=[1,2,3,4]&marketCode={marketCode}
                     "positionPnl": "200.3",
                     "estLiquidationPrice": "12000.05",
                     "lastUpdatedAt": "1592486212218"
+                }
+            ]
         }
     ]
 }
 ```
 
-
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-hashToken | List of STRING | YES | filter|
+hashToken | STRING | YES | List filter, multiple hashToken should be seprated with comma, maximum 5 hashToken supported, e.g. `CF-BCH-AMM-ABCDE3iy,CF-BCH-AMM-ABCDE4iy` |
+marketCode | STRING | NO | |
+
+Response Field | Type | Description |
+-------------- | ---- | ----------- |
+hashToken | STRING | |
+positions | LIST of dictionaries | |
+marketCode | STRING | |
+baseAsset | STRING | |
+counterAsset | STRING | |
+position | STRING | |
+entryPrice | STRING | |
+markPrice | STRING | |
+positionPnl | STRING | |
+estLiquidationPrice | STRING | |
+lastUpdatedAt | STRING | |
 
 
 ### GET `/v3/AMM/trades`
 
+Get AMM trades
+
 > **Request**
 
 ```
-GET /v3/AMM/trades?hashToken=1&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
-
+GET /v3/AMM/trades?hashToken={hashToken},{hashToken}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
 ```
-```json
-{
-    "marketCode": "BTC-USD-SWAP-LIN",
-    "limit": "500"
-    "startTime": "1579450778000",
-    "endTime": "1613978625000"
- }  
-```
-`
 
 > **Successful response format**
 
@@ -1272,9 +1341,9 @@ GET /v3/AMM/trades?hashToken=1&marketCode={marketCode}&limit={limit}&startTime={
             "side": "SELL",
             "matchedQuantity": "0.1",
             "matchPrice": "0.065",
-            "total": "0.0065",    
-            "leg1Price": "0.001",         
-            "leg2Price": "0.001",        
+            "total": "0.0065",
+            "leg1Price": "0.001",
+            "leg2Price": "0.001",
             "orderMatchType": "TAKER",
             "feeAsset": "FLEX",
             "fee": "0.0096",
@@ -1286,25 +1355,37 @@ GET /v3/AMM/trades?hashToken=1&marketCode={marketCode}&limit={limit}&startTime={
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-hashToken | STRING | YES | filter|
-marketCode | STRING | NO |
-limit |INT/STRING | NO | default 500 max 1000|
-startTime | INT/STRING  | NO | default 24 hours ago|
-endTime | INT/STRING  | NO | default current epoch time|
+hashToken | STRING | YES | List filter, multiple hashToken should be seprated with comma, maximum 5 hashToken supported, e.g. `CF-BCH-AMM-ABCDE3iy,CF-BCH-AMM-ABCDE4iy` |
+marketCode | STRING | NO | |
+
+Response Field | Type | Description |
+-------------- | ---- | ----------- |
+hashToken | STRING | |
+orderId | STRING | |
+clientOrderId | STRING | |
+matchId | STRING | |
+marketCode | STRING | |
+side | STRING | |
+matchedQuantity | STRING | |
+matchPrice | STRING | |
+total | STRING | |
+leg1Price | STRING | |
+leg2Price | STRING | |
+orderMatchType | STRING | |
+feeAsset | STRING | |
+fee | STRING | |
+lastMatchedAt | STRING | |
 
 
 ### GET `/v3/AMM/orders`
+
+Get AMM orders
 
 > **Request**
 
 ```
 GET /v3/AMM/orders?hashToken={hashToken}
 
-```
-```json
-{
-    "hashToken": "CF-BCH-AMM-ABCDE3iy"
-} 
 ```
 
 > **Successful response format**
@@ -1314,10 +1395,10 @@ GET /v3/AMM/orders?hashToken={hashToken}
     "success": true,
     "data": [
         {
-            "orderId": "304354590153349202", 
-            "clientOrderId": "1", 
+            "orderId": "304354590153349202",
+            "clientOrderId": "1",
             "marketCode": "BTC-USD-SWAP-LIN", 
-            "status": "PARTIALLY_FILLED | OPEN"
+            "status": "OPEN",
             "side": "BUY", 
             "price": "1.0",
             "stopPrice": "0.9",
@@ -1325,10 +1406,8 @@ GET /v3/AMM/orders?hashToken={hashToken}
             "quantity": "0.001",
             "remainQuantity": "0.001",
             "matchedQuantity": "0",
-            "avgFillPrice": "1",
-            "fees": {"USD": "0", "FLEX": "0"}
             "orderType": "LIMIT", 
-            "timeInForce": "GTC"
+            "timeInForce": "GTC",
             "createdAt": "1613089383656", 
             "lastModifiedAt": "1613089383656",
             "lastMatchedAt": "1613089383656"
@@ -1339,21 +1418,36 @@ GET /v3/AMM/orders?hashToken={hashToken}
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-hashToken | List of STRING | YES | filter|
+hashToken | STRING | YES | maximum 1 hashToken supported, e.g. `CF-BCH-AMM-ABCDE3iy` |
+
+Response Field | Type | Description |
+-------------- | ---- | ----------- |
+orderId | STRING | |
+clientOrderId | STRING | |
+marketCode | STRING | |
+status | STRING | Available values: `PARTIALLY_FILLED` and `OPEN` |
+side | STRING | |
+price | STRING | |
+stopPrice | STRING | |
+isTriggered | STRING | |
+quantity | STRING | |
+remainQuantity | STRING | |
+matchedQuantity | STRING | |
+orderType | STRING | |
+timeInForce | STRING | |
+createdAt | STRING | |
+lastModifiedAt | STRING | |
+lastMatchedAt | STRING | |
 
 
 ### GET `/v3/AMM/balances`
 
+Get AMM balances
+
 > **Request**
 
 ```
-GET /v3/AMM/balances?hashToken=[1,2,3,4]&asset={asset}
-
-```
-```json
-{
-    "asset": "BTC"
-}  
+GET /v3/AMM/balances?hashToken={hashToken},{hashToken}&asset={asset}
 ```
 
 > **Successful response format**
@@ -1365,26 +1459,40 @@ GET /v3/AMM/balances?hashToken=[1,2,3,4]&asset={asset}
         {
             "hashToken": "CF-BCH-AMM-ABCDE3iy",
             "balances": [
-
-                "asset": "BTC",
-                "total": "4468.823",              
-                "available": "4468.823",        
-                "reserved": "0",
-                "lastUpdatedAt": "1593627415234"
+                {
+                    "asset": "BTC",
+                    "total": "4468.823",              
+                    "available": "4468.823",        
+                    "reserved": "0",
+                    "lastUpdatedAt": "1593627415234"
+                },
+                {
+                    "asset": "FLEX",
+                    "total": "1585.890",              
+                    "available": "325.890",         
+                    "reserved": "1260",
+                    "lastUpdatedAt": "1593627415123"
+                }
             ]
-            "asset": "FLEX",
-            "total": "1585.890",              
-            "available": "325.890",         
-            "reserved": "1260",
-            "lastUpdatedAt": "1593627415123"
         }
     ]
+}
 ```
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-hashToken | List of STRING | YES | filter|
+hashToken | STRING | YES | List filter, multiple hashToken should be seprated with comma, maximum 5 hashToken supported, e.g. `CF-BCH-AMM-ABCDE3iy,CF-BCH-AMM-ABCDE4iy` |
+asset | STRING | NO | |
 
+Response Field | Type | Description |
+-------------- | ---- | ----------- |
+hashToken | STRING | |
+balances | LIST of dictionaries | |
+asset | STRING | |
+total | STRING | |
+available | STRING | |
+reserved | STRING | |
+lastUpdatedAt | STRING | Timestamp of last updated at |
 
 ## Market Data - Public
 
