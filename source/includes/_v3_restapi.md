@@ -156,7 +156,6 @@ GET v3/account?subAcc={subAcc},{subAcc}
 
 ```json
 {
-    "event": "account",
     "success": true,
     "data": [
         {
@@ -226,44 +225,40 @@ subAcc | STRING | NO | Sub account, only the default account for the API-Key wou
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
-accountId | STRING | |
-accountName | STRING | |
-accountType | STRING | |
-marginCurrency | STRING | |
+accountId | STRING | Account ID |
+accountName | STRING | Account name |
+accountType | STRING | Account type |
+marginCurrency | STRING | Margin currency |
 balances | LIST of dictionaries | |
-asset | STRING | |
-total | STRING | |
-available | STRING | |
-reserved | STRING | |
-updatedAt | STRING | |
-positions | LIST of dictionaries | |
-marketCode | STRING | |
-baseAsset | STRING | |
-counterAsset | STRING | |
-position | STRING | |
-entryPrice | STRING | |
-markPrice | STRING | |
-positionPnl | STRING | |
-estLiquidationPrice | STRING | |
-loans | LIST of dictionaries | |
-borrowedAsset | STRING | |
-borrowedAmount | STRING | |
-collateralAsset | STRING | |
-marketCode | STRING | |
-position | STRING | |
-entryPrice | STRING | |
-markPrice | STRING | |
-estLiquidationPrice | STRING | |
-lastUpdatedAt | STRING | |
-collateral | STRING | |
-notionalPositionSize | STRING | |
-portfolioVarMargin | STRING | |
-riskRatio | STRING | |
-maintenanceMargin | STRING | |
-marginRatio | STRING | |
-liquidating | STRING | |
-feeTier | STRING | |
-createdAt | STRING | |
+asset | STRING | Asset name |
+total | STRING | Total balance|
+available | STRING | Available balance |
+reserved | STRING | Reserved balance |
+updatedAt | STRING | Timestamp of updated at |
+positions | LIST of dictionaries | Positions |
+marketCode | STRING | Market code |
+baseAsset | STRING | Base asset |
+counterAsset | STRING | Counter asset |
+position | STRING | Position size |
+entryPrice | STRING | Entry price |
+markPrice | STRING | Mark price |
+positionPnl | STRING | Position PNL |
+estLiquidationPrice | STRING | Estimated liquidation price |
+loans | LIST of dictionaries | Loans |
+borrowedAsset | STRING | Borrowed asset |
+borrowedAmount | STRING | Borrowed amount |
+collateralAsset | STRING | Collateral asset |
+marketCode | STRING | Market code |
+lastUpdatedAt | STRING | Timestamp of last updated at |
+collateral | STRING | Collateral |
+notionalPositionSize | STRING | Notional position size |
+portfolioVarMargin | STRING | Portfolio margin |
+riskRatio | STRING | collateralBalance / portfolioVarMargin, Orders are rejected/cancelled if the risk ratio drops below 1 and liquidation occurs if the risk ratio drops below 0.5 |
+maintenanceMargin | STRING | Maintenance margin |
+marginRatio | STRING | Margin ratio |
+liquidating | BOOLEAN | Available values: `true` and `false` |
+feeTier | STRING | Fee tier |
+createdAt | STRING | Timestamp of created at |
 
 
 ## Deposits & Withdrawals - Private
@@ -933,22 +928,22 @@ Request Parameter | Type | Required | Description |
 ----------------- | ---- | -------- | ----------- |
 leverage | STRING | YES | String from 1 to 10 |
 direction | STRING | YES | Availbale values: `BUY` and `SELL` |
-marketcode | STRING | YES | |
-collateralAsset | STRING | YES | |
-collateralQuantity | STRING | YES | Minimum notional $200 |
-minPriceBound | STRING | YES | |
-maxPriceBound | STRING | YES | |
+marketcode | STRING | YES | Market code |
+collateralAsset | STRING | YES | Collateral asset |
+collateralQuantity | STRING | YES | Collateral quantity, minimum notional $200 |
+minPriceBound | STRING | YES | Minimum price bound |
+maxPriceBound | STRING | YES | Maximum price bound |
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
-hashToken | STRING | |
-leverage | STRING | String from 1 to 10 |
-direction | STRING | Availbale values: `BUY` and `SELL` |
-marketcode | STRING | |
-collateralAsset | STRING | |
-collateralQuantity | STRING | Minimum notional $200 |
-minPriceBound | STRING | |
-maxPriceBound | STRING | |
+hashToken | STRING | Hash token |
+leverage | STRING | Leverage, string from 1 to 10 |
+direction | STRING | Direction, availbale values: `BUY` and `SELL` |
+marketcode | STRING | Market code |
+collateralAsset | STRING | Collateral asset |
+collateralQuantity | STRING | Collateral quantity, minimum notional $200 |
+minPriceBound | STRING | YES | Minimum price bound |
+maxPriceBound | STRING | YES | Maximum price bound |
 
 * Unleveraged buy or sell
 
@@ -987,20 +982,20 @@ direction | STRING | YES | Availbale values: `BUY` and `SELL` |
 marketcode | STRING | YES | |
 baseQuantity | STRING | YES when BUY | Quantity of the base asset |
 counterQuantity | STRING | YES when SELL | Quantity of the counter asset |
-minPriceBound | STRING | YES | |
-maxPriceBound | STRING | YES | |
+minPriceBound | STRING | YES | Minimum price bound |
+maxPriceBound | STRING | YES | Maximum price bound |
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
-hashToken | STRING | |
+hashToken | STRING | Hash token |
 direction | STRING | Availbale values: `BUY` and `SELL` |
-marketcode | STRING | |
-baseAsset | STRING | |
-counterAsset | STRING | |
-baseQuantity | STRING | |
-counterQuantity | STRING | |
-minPriceBound | STRING | |
-maxPriceBound | STRING | |
+marketcode | STRING | Market code |
+baseAsset | STRING | Base asset |
+counterAsset | STRING | Counter asset |
+baseQuantity | STRING | YES when BUY | Quantity of the base asset |
+counterQuantity | STRING | YES when SELL | Quantity of the counter asset |
+minPriceBound | STRING | YES | Minimum price bound |
+maxPriceBound | STRING | YES | Maximum price bound |
 
 
 * Unleveraged neutral
@@ -1040,23 +1035,23 @@ maxPriceBound | STRING | |
 Request Parameter | Type | Required | Description |
 ----------------- | ---- | -------- | ----------- |
 direction | STRING | YES | Availbale values: `NEUTRAL` |
-marketcode | STRING | YES | |
+marketcode | STRING | YES | Market code |
 baseQuantity | STRING | YES | Quantity of the base asset |
 counterQuantity | STRING | YES | Quantity of the counter asset |
-minPriceBound | STRING | YES | |
-maxPriceBound | STRING | YES | |
+minPriceBound | STRING | YES | Minimum price bound |
+maxPriceBound | STRING | YES | Maximum price bound |
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
-hashToken | STRING | |
+hashToken | STRING | Hash token |
 direction | STRING | Availbale values: `NEUTRAL` |
-marketcode | STRING | |
-baseAsset | STRING | |
-counterAsset | STRING | |
-baseQuantity | STRING | |
-counterQuantity | STRING | |
-minPriceBound | STRING | |
-maxPriceBound | STRING | |
+marketcode | STRING | Market code |
+baseAsset | STRING | Base asset |
+counterAsset | STRING | Counter asset |
+baseQuantity | STRING | YES when BUY | Quantity of the base asset |
+counterQuantity | STRING | YES when SELL | Quantity of the counter asset |
+minPriceBound | STRING | YES | Minimum price bound |
+maxPriceBound | STRING | YES | Maximum price bound |
 
 
 ### POST `/v3/AMM/redeem`
@@ -1090,12 +1085,12 @@ POST /v3/AMM/redeem
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-hashToken | STRING | YES | |
+hashToken | STRING | YES | Hash token |
 type | STRING | YES | Available values: `DELIVER` and `MANUAL` |
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
-hashToken | STRING | |
+hashToken | STRING | Hash token |
 type | STRING | Available values: `DELIVER` and `MANUAL` |
 
 
@@ -1202,64 +1197,46 @@ hashToken | STRING | YES | List filter, multiple hashToken should be seprated wi
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
-hashToken | STRING | |
-leverage | STRING | |
-direction | STRING | |
-marketCode | STRING | |
-initialCollateral | JSON | |
-minPriceBound | STRING | |
-maxPriceBound | STRING | |
-status | STRING | |
-positions | LIST of dictionaries | |
-baseAsset | STRING | |
-counterAsset | STRING | |
-position | STRING | |
-entryPrice | STRING | |
-markPrice | STRING | |
-positionPnl | STRING | |
-estLiquidationPrice | STRING | |
-lastUpdatedAt | STRING | |
-balances | LIST of dictionaries | |
-asset | STRING | |
-total | STRING | |
-available | STRING | |
-reserved | STRING | |
-lastUpdatedAt | STRING | |
-usdReward | STRING | |
-flexReward | STRING | |
-interestPaid | STRING | |
-apr | STRING | |
-collateral | STRING | |
-notionalPositionSize | STRING | |
-portfolioVarMargin | STRING | |
-riskRatio | STRING | |
-maintenanceMargin | STRING | |
-marginRatio | STRING | |
-liquidating | STRING | |
-feeTier | STRING | |
-createdAt | STRING | |
-lastUpdatedAt | STRING | |
-loans | LIST of dictionaries | |
-borrowedAsset | STRING | |
-borrowedAmount | STRING | |
-collateralAsset | STRING | |
-entryPrice | STRING | |
-markPrice | STRING | |
-estLiquidationPrice | STRING | |
-lastUpdatedAt | STRING | |
-usdReward | STRING | |
-flexReward | STRING | |
-interestPaid | STRING | |
-apr | STRING | |
-collateral | STRING | |
-portfolioVarMargin | STRING | |
-riskRatio | STRING | |
-maintenanceMargin | STRING | |
-marginRatio | STRING | |
-liquidating | STRING | |
-feeTier | STRING | |
-createdAt | STRING | |
-
+hashToken | STRING | Hash token |
+leverage | STRING | Leverage |
+direction | STRING | Direction |
+marketCode | STRING | Market code |
+initialCollateral | JSON | Initial collateral |
+minPriceBound | STRING | Minimum price bound |
+maxPriceBound | STRING | Maximum price bound |
+status | STRING | Status |
+positions | LIST of dictionaries | Positions |
+baseAsset | STRING | Base asset |
+counterAsset | STRING | Counter asset |
+position | STRING | Position |
+entryPrice | STRING | Entry price |
+markPrice | STRING | Mark price |
+positionPnl | STRING | Position PNL |
+estLiquidationPrice | STRING | Estimated liquidation price |
+lastUpdatedAt | STRING | Timestamp of last updated at |
+balances | LIST of dictionaries | Balances |
+asset | STRING | Asset |
+total | STRING | Total balance |
+available | STRING | Available balance |
+reserved | STRING | Reserved balance |
+usdReward | STRING | USD reward |
+flexReward | STRING | FLEX reward |
+interestPaid | STRING | Interest paid |
+apr | STRING | APR denotes annual percentage rate |
+collateral | STRING | Collateral |
+notionalPositionSize | STRING | Notional position size |
+portfolioVarMargin | STRING | Portfolio margin |
+riskRatio | STRING | collateralBalance / portfolioVarMargin, Orders are rejected/cancelled if the risk ratio drops below 1 and liquidation occurs if the risk ratio drops below 0.5 |
+maintenanceMargin | STRING | Maintenance margin |
+marginRatio | STRING | Margin ratio |
+liquidating | BOOLEAN | Available values: `true` and `false` |
+feeTier | STRING | Fee tier |
+createdAt | STRING | Timestamp of created at |
+lastUpdatedAt | STRING | Timestamp of last updated at |
+loans | LIST of dictionaries | Loans |
+borrowedAsset | STRING | Borrowed asset |
+borrowedAmount | STRING | Borrowed amount |
+collateralAsset | STRING | Collateral asset |
 
 ### GET `/v3/AMM/positions`
 
@@ -1300,21 +1277,21 @@ GET /v3/AMM/positions?hashToken={hashToken},{hashToken}&marketCode={marketCode}
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 hashToken | STRING | YES | List filter, multiple hashToken should be seprated with comma, maximum 5 hashToken supported, e.g. `CF-BCH-AMM-ABCDE3iy,CF-BCH-AMM-ABCDE4iy` |
-marketCode | STRING | NO | |
+marketCode | STRING | NO | Market code |
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
-hashToken | STRING | |
-positions | LIST of dictionaries | |
-marketCode | STRING | |
-baseAsset | STRING | |
-counterAsset | STRING | |
-position | STRING | |
-entryPrice | STRING | |
-markPrice | STRING | |
-positionPnl | STRING | |
-estLiquidationPrice | STRING | |
-lastUpdatedAt | STRING | |
+hashToken | STRING | Hash token |
+positions | LIST of dictionaries | Positions |
+marketCode | STRING | Market code |
+baseAsset | STRING | Base asset |
+counterAsset | STRING | Counter asset |
+position | STRING | Position size |
+entryPrice | STRING | Entry price |
+markPrice | STRING | Mark price |
+positionPnl | STRING | Position PNL |
+estLiquidationPrice | STRING | Estimated liquidation price |
+lastUpdatedAt | STRING | Timestamp of last updated at |
 
 
 ### GET `/v3/AMM/trades`
@@ -1356,25 +1333,25 @@ GET /v3/AMM/trades?hashToken={hashToken},{hashToken}&marketCode={marketCode}&lim
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 hashToken | STRING | YES | List filter, multiple hashToken should be seprated with comma, maximum 5 hashToken supported, e.g. `CF-BCH-AMM-ABCDE3iy,CF-BCH-AMM-ABCDE4iy` |
-marketCode | STRING | NO | |
+marketCode | STRING | NO | Market code |
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
-hashToken | STRING | |
-orderId | STRING | |
-clientOrderId | STRING | |
-matchId | STRING | |
-marketCode | STRING | |
-side | STRING | |
-matchedQuantity | STRING | |
-matchPrice | STRING | |
-total | STRING | |
+hashToken | STRING | Hash token |
+orderId | STRING | Order ID |
+clientOrderId | STRING | Client order ID |
+matchId | STRING | Match ID |
+marketCode | STRING | Market code |
+side | STRING | Available values: `BUY` and `SELL` |
+matchedQuantity | STRING | Matched quantity |
+matchPrice | STRING | Match price |
+total | STRING | Total price |
 leg1Price | STRING | |
 leg2Price | STRING | |
-orderMatchType | STRING | |
-feeAsset | STRING | |
-fee | STRING | |
-lastMatchedAt | STRING | |
+orderMatchType | STRING | Available values: `TAKER` and `MAKER` |
+feeAsset | STRING | Fee asset |
+fee | STRING | Fee |
+lastMatchedAt | STRING | Timestamp of last matched at |
 
 
 ### GET `/v3/AMM/orders`
@@ -1409,8 +1386,8 @@ GET /v3/AMM/orders?hashToken={hashToken}
             "orderType": "LIMIT", 
             "timeInForce": "GTC",
             "createdAt": "1613089383656", 
-            "lastModifiedAt": "1613089383656",
-            "lastMatchedAt": "1613089383656"
+            "lastModifiedAt": "1613089393622",
+            "lastMatchedAt": "1613099383613"
         }
     ]
 }
@@ -1422,22 +1399,22 @@ hashToken | STRING | YES | maximum 1 hashToken supported, e.g. `CF-BCH-AMM-ABCDE
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
-orderId | STRING | |
-clientOrderId | STRING | |
-marketCode | STRING | |
+orderId | STRING | Order ID |
+clientOrderId | STRING | Client order ID |
+marketCode | STRING | Market code |
 status | STRING | Available values: `PARTIALLY_FILLED` and `OPEN` |
-side | STRING | |
-price | STRING | |
-stopPrice | STRING | |
-isTriggered | STRING | |
-quantity | STRING | |
-remainQuantity | STRING | |
-matchedQuantity | STRING | |
-orderType | STRING | |
-timeInForce | STRING | |
-createdAt | STRING | |
-lastModifiedAt | STRING | |
-lastMatchedAt | STRING | |
+side | STRING | Available values: `BUY` and `SELL` |
+price | STRING | Limit price |
+stopPrice | STRING | Stop price for the stop-limit order |
+isTriggered | BOOLEAN | Available values: `true` and `false` |
+quantity | STRING | Quantity |
+remainQuantity | STRING | Remaining order quantity |
+matchedQuantity | STRING | Matched quantity |
+orderType | STRING | Available values: `LIMIT` or `STOP` |
+timeInForce | STRING | Time in force |
+createdAt | STRING | Timestamp of created at |
+lastModifiedAt | STRING | Timestamp of last modified at |
+lastMatchedAt | STRING | Timestamp of last matched at |
 
 
 ### GET `/v3/AMM/balances`
@@ -1486,12 +1463,12 @@ asset | STRING | NO | |
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
-hashToken | STRING | |
-balances | LIST of dictionaries | |
-asset | STRING | |
-total | STRING | |
-available | STRING | |
-reserved | STRING | |
+hashToken | STRING | Hash token |
+balances | LIST of dictionaries | Balances |
+asset | STRING | Asset |
+total | STRING | Total balance |
+available | STRING | Available balance |
+reserved | STRING | Reserved balance |
 lastUpdatedAt | STRING | Timestamp of last updated at |
 
 ## Market Data - Public
