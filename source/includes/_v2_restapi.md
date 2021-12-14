@@ -2600,7 +2600,7 @@ maxPriceBound | STRING | Maximum price of the range |
 
 ### POST `/v2/AMM/redeem`
 
-Redeem AMM.
+Redeem AMM
 
 > **Request**
 
@@ -3589,7 +3589,7 @@ GET /v2/flex-protocol/delivery/orders/{flexProtocol}?limit={limit}&startTime={st
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-limit | LONG | NO | max `100`, default `100`, max `500` |
+limit | LONG | NO | default `100`, max `500` |
 startTime | LONG | NO | e.g. `1579450778000`, default `0` |
 endTime | LONG | NO | e.g. `1613978625000`, default time now |
 
