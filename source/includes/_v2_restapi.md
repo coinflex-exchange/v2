@@ -628,12 +628,6 @@ estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is ne
 
 ```json
 GET /v2/trades/{marketCode}?limit={limit}&startTime={startTime}&endTime={endTime}
-
-{
-  "limit": {limit},
-  "startTime": {startTime},
-  "endTime": {endTime}
-}
 ```
 
 ```python
@@ -728,12 +722,12 @@ Returns the most recent trades of the account connected to the API key initiatin
 
 <sub>**Request Parameters**</sub> 
 
-Parameters | Type | Required |Description| 
--------------------------- | -----|--------- | -------------|
+Parameters | Type | Required | Description | 
+---------- | ---- | -------- | ----------- |
 marketCode| STRING | YES |  | 
 limit| LONG | NO | Default `500`, max `1000` | 
-startTime| LONG | NO | Millisecond timestamp | 
-endTime| LONG | NO | Millisecond timestamp | 
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
 <sub>**Response Parameters**</sub> 
 
@@ -1202,17 +1196,18 @@ Parameters |Type | Description|
 -------------------------- | -----|--------- |
 event | STRING | `orders`
 timestamp | INTEGER | Millisecond timestamp
-accountId | STRING    | Account ID
+accountId | STRING | Account ID
 data | Dictionary |
-\>marketCode   | STRING | Market code |
-\>msg   | STRING | Confirmation of action |
+marketCode | STRING | Market code |
+msg | STRING | Confirmation of action |
 
 
 ###GET `/v2.1/delivery/orders`
+
 > **Request**
 
 ```json
-GET /v2.1/delivery/orders
+GET /v2.1/delivery/orders?limit={limit}&startTime={startTime}&endTime={endTime}
 ```
 
 ```python
@@ -1325,10 +1320,18 @@ print(resp.json())
 
 Returns the entire delivery history for the account connected to the API key initiating the request.
 
+<sub>**Request Parameters**</sub> 
+
+Parameters | Type | Required | Description |
+---------- | ---- | -------- | ----------- |
+limit | LONG | NO | Default `200`, max `500` |
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
+
 <sub>**Response Parameters**</sub> 
 
-Parameters |Type | Description| 
--------------------------- | -----|--------- |
+Parameters | Type | Description |
+---------- | ---- | ----------- |
 event | STRING | `deliverOrders`
 timestamp | STRING | Millisecond timestamp of the repsonse
 data | LIST of dictionaries |
@@ -1342,7 +1345,7 @@ transferQty | STRING | Quantity being sent
 instrumentIdDeliver | STRING |Asset being received: long position = coin, short position = USD
 deliverQty | STRING |  Quantity of the received asset
 deliverOrderId | STRING | Order id
-clientOrderId | Null Type|  null
+clientOrderId | Null Type |  null
 
 
 ###POST `/v2.1/delivery/orders`
@@ -2030,8 +2033,8 @@ Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 asset | STRING | YES | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
 limit | STRING | NO | max `100`, default `100`|
-startTime | STRING | NO | Millisecond timestamp, e.g. `1620977300`, default `0` |
-endTime | STRING | NO | Millisecond timestamp, e.g `1620977300`, default time now |
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
@@ -2129,8 +2132,8 @@ Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 asset | STRING | YES | Asset name, available assets: `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
 limit | STRING | NO | max `100`, default `100`|
-startTime | STRING | NO | Millisecond timestamp, e.g. `1620977300`, default `0` |
-endTime | STRING | NO | Millisecond timestamp, e.g `1620977300`, default time now |
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
@@ -2294,8 +2297,9 @@ Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 asset | STRING | YES | Collateral asset name |
 limit | STRING | NO | max `100`, default `100`|
-startTime | STRING | NO | Millisecond timestamp, e.g. `1620977300`, default `0` |
-endTime | STRING | NO | Millisecond timestamp, e.g `1620977300`, default time now |
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
+
 
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
@@ -2354,8 +2358,8 @@ Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 asset | STRING | YES | Regain asset name |
 limit | STRING | NO | max `100`, default `100`|
-startTime | STRING | NO | Millisecond timestamp, e.g. `1620977300`, default `0` |
-endTime | STRING | NO | Millisecond timestamp, e.g `1620977300`, default time now |
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
 Response Fields | Type | Description |
 ----------------| ---- | ----------- |
@@ -2863,8 +2867,8 @@ Request Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
 marketCode| STRING | YES |  | 
 limit| LONG | NO | Default 100, max 300 | 
-startTime| LONG | NO |  | 
-endTime| LONG | NO |  | 
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
 Response Parameters |Type | Description| 
 -------------------------- | -----|--------- |
@@ -2932,7 +2936,7 @@ lastQty| STRING | Last traded quantity
 > **Request**
 
 ```json
-GET /v2/delivery/public/funding?limit=20
+GET /v2/delivery/public/funding?limit={limit}&startTime={startTime}&endTime{endTime}
 ```
 
 > **RESPONSE**
@@ -2958,8 +2962,9 @@ Request Parameters | Type | Description|
 -------------------------- | -----|--------- |
 column | STRING | limit size of results, e.g. 3 |
 instrumentId | STRING | e.g. UNI-USD-SWAP-LIN |
-startTime | STRING | e.g. 2020-12-08 20:00:00 |
 limit | STRING | default `100`, max `500` |
+startTime | LONG | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | LONG | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
 Response Parameters | Type | Description| 
 -------------------------- | -----|--------- |
@@ -3502,9 +3507,9 @@ Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
 marketCode | STRING | YES | |
-limit | LONG | NO | max `100`, default `100`, max `500` |
-startTime | LONG | NO | e.g. `1579450778000`, default `0` |
-endTime | LONG | NO | e.g. `1613978625000`, default time now |
+limit | LONG | NO | default `100`, max `500` |
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
 
 Response Fields | Type | Description |
@@ -3590,8 +3595,8 @@ Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 flexProtocol | STRING | YES | Available values `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
 limit | LONG | NO | default `100`, max `500` |
-startTime | LONG | NO | e.g. `1579450778000`, default `0` |
-endTime | LONG | NO | e.g. `1613978625000`, default time now |
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
 
 Response Fields | Type | Description |

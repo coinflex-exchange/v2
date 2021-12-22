@@ -1,5 +1,43 @@
 # Change Log
 
+**2021-12-21**
+
+* Updated REST API [GET /v2/trades/{marketCode}](?json#rest-api-methods-private-get-v2-trades-marketcode)
+    * Changed parameter `startTime` default to 24 hours ago
+    * Changed parameter `endTime` default to current time
+    * `startTime` and `endTime` must be within 7 days of each other
+* Updated REST API [GET /v2.1/delivery/orders](?json#rest-api-methods-private-get-v2-1-delivery-orders)
+    * Added parameter `limit` with default 200 max 500
+    * Added parameter `startTime` with default 24 hours ago
+    * Added parameter `endTime` with default current time
+    * `startTime` and `endTime` must be within 7 days of each other
+* Updated REST API [GET /v2/mint/{asset}](?json#rest-api-methods-private-get-v2-mint-asset)
+    * Changed parameter `startTime` default to 24 hours ago
+    * `startTime` and `endTime` must be within 7 days of each other
+* Updated REST API [GET /v2/redeem/{asset}](?json#rest-api-methods-private-get-v2-redeem-asset)
+    * Changed parameter `startTime` default to 24 hours ago
+    * `startTime` and `endTime` must be within 7 days of each other
+* Updated REST API [GET v2/borrow/{asset}](?json#rest-api-methods-private-get-v2-borrow-asset)
+    * Changed parameter `startTime` default to 24 hours ago
+    * `startTime` and `endTime` must be within 7 days of each other
+* Updated REST API [GET v2/repay/{asset}](?json#rest-api-methods-private-get-v2-repay-asset)
+    * Changed parameter `startTime` default to 24 hours ago
+    * `startTime` and `endTime` must be within 7 days of each other
+* Updated REST API [GET /v2/publictrades/{marketCode}](?json#rest-api-methods-public-get-v2-publictrades-marketcode)
+    * Changed parameter `startTime` default to 24 hours ago
+    * Changed parameter `endTime` default to current time
+    * `startTime` and `endTime` must be within 7 days of each other
+* Updated REST API [GET /v2/flex-protocol/trades/{flexProtocol}/{marketCode}](?json#rest-api-methods-public-get-v2-flex-protocol-trades-flexprotocol-marketcode)
+    * Changed parameter `startTime` default to 24 hours ago
+    * `startTime` and `endTime` must be within 7 days of each other
+* Updated REST API [GET /v2/flex-protocol/delivery/orders/{flexProtocol}](?json#rest-api-methods-public-get-v2-flex-protocol-delivery-orders-flexprotocol)
+    * Changed parameter `startTime` default to 24 hours ago
+    * `startTime` and `endTime` must be within 7 days of each other
+* Updated REST API [GET /v2/delivery/public/funding](?json#rest-api-methods-public-get-v2-delivery-public-funding)
+    * Changed parameter `startTime` default to 24 hours ago
+    * Added parameter `endTime` with default current time
+    * `startTime` and `endTime` must be within 7 days of each other
+
 **2021-11-30**
 
 * Updated websocket API [Place Limit Order](?json#websocket-api-order-commands-place-limit-order)
