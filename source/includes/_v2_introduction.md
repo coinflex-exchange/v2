@@ -1,5 +1,16 @@
 # Change Log
 
+**2021-12-23**
+
+* Added new REST API [GET /v3/account](?json#rest-api-v3-account-amp-wallet-private-get-v3-account) to get account information
+* Added new REST API [POST /v3/AMM/create](?json#rest-api-v3-amm-private-post-v3-amm-create) to create AMM
+* Added new REST API [POST /v3/AMM/redeem](?json#rest-api-v3-amm-private-post-v3-amm-redeem) to redeem AMM
+* Added new REST API [GET /v3/AMM](?json#rest-api-v3-amm-private-get-v3-amm) to get AMM information
+* Added new REST API [GET /v3/AMM/balances](?json#rest-api-v3-amm-private-get-v3-amm-balances) to get AMM balances
+* Added new REST API [GET /v3/AMM/positions](?json#rest-api-v3-amm-private-get-v3-amm-positions) to get AMM positions
+* Added new REST API [GET /v3/AMM/orders](?json#rest-api-v3-amm-private-get-v3-amm-orders) to get AMM orders
+* Added new REST API [GET /v3/AMM/trades](?json#rest-api-v3-amm-private-get-v3-amm-trades) to get AMM trades
+
 **2021-12-21**
 
 * Updated REST API [GET /v2/trades/{marketCode}](?json#rest-api-methods-private-get-v2-trades-marketcode)

@@ -140,7 +140,7 @@ The signature must then be included in the header of the REST API call like so:
 ## Account & Wallet - Private
 
 
-### GET `GET v3/account `
+### GET `/v3/account `
 
 Get account information
 
