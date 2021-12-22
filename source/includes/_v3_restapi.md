@@ -222,7 +222,7 @@ GET v3/account?subAcc="{subAcc},{subAcc}"
 
 Request Parameter | Type | Required | Description |
 ----------------- |----- | -------- | ----------- |
-subAcc | STRING | NO | Sub account (max 5). If no subAcc is given, then the response contains only the account linked to the API-Key |
+subAcc | STRING | NO | Sub account (max 10). If no subAcc is given, then the response contains only the account linked to the API-Key |
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
