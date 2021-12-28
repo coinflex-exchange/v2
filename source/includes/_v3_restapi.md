@@ -151,7 +151,7 @@ Calling this endpoint using an API-KEY linked to the main account with the param
 > **Request**
 
 ```
-GET v3/account?subAcc="{subAcc},{subAcc}"
+GET v3/account?subAcc={subAcc},{subAcc}
 ```
 
 > **Successful response format**
@@ -1063,7 +1063,7 @@ Get AMM information
 > **Request**
 
 ```
-GET /v3/AMM?hashToken="{hashToken},{hashToken}"
+GET /v3/AMM?hashToken={hashToken},{hashToken}
 ```
 
 > **Successful response format**
@@ -1187,7 +1187,7 @@ Get AMM balances
 > **Request**
 
 ```
-GET /v3/AMM/balances?hashToken="{hashToken},{hashToken}"&asset={asset}
+GET /v3/AMM/balances?hashToken={hashToken},{hashToken}&asset={asset}
 ```
 
 > **Successful response format**
@@ -1241,7 +1241,7 @@ Get AMM positions
 > **Request**
 
 ```
-GET /v3/AMM/positions?hashToken="{hashToken},{hashToken}"&marketCode={marketCode}
+GET /v3/AMM/positions?hashToken={hashToken},{hashToken}&marketCode={marketCode}
 ```
 
 > **Successful response format**
