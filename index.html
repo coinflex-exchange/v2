@@ -9896,7 +9896,7 @@ You can cancel up to 8 orders at a time in REST API
 <tr>
 <td>marketCode</td>
 <td>STRING</td>
-<td>YES</td>
+<td>NO</td>
 <td>e.g. <code>BTC-USD-REPO-LIN</code></td>
 </tr>
 <tr>
@@ -10855,13 +10855,13 @@ You can cancel up to 8 orders at a time in REST API
 </tr>
 <tr>
 <td>startTime</td>
-<td>LONG</td>
-<td>Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other</td>
+<td>STRING</td>
+<td>STRING. e.g. <code>2021-12-08 08:00:00</code>. Default 24 hours ago. startTime and endTime must be within 7 days of each other</td>
 </tr>
 <tr>
 <td>endTime</td>
-<td>LONG</td>
-<td>Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other</td>
+<td>STRING</td>
+<td>STRING. e.g. <code>2021-12-08 08:00:00</code>. Default time now. startTime and endTime must be within 7 days of each other</td>
 </tr>
 </tbody></table>
 
