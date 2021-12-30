@@ -2489,7 +2489,7 @@ GET v2/funding-payments?marketCode={marketCode}&limit={limit}&startTime={startTi
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-marketCode | STRING | YES | e.g. `BTC-USD-REPO-LIN` |
+marketCode | STRING | NO | e.g. `BTC-USD-REPO-LIN` |
 limit | LONG | NO | default is `500`, max is `500` |
 startTime | LONG | NO | millisecond timestamp, e.g. `1579450778000`, default is `500 hours ago` |
 endTime | LONG | NO | millisecond timestamp, e.g. `1613978625000`, default is time now |
@@ -2963,8 +2963,8 @@ Request Parameters | Type | Description|
 column | STRING | limit size of results, e.g. 3 |
 instrumentId | STRING | e.g. UNI-USD-SWAP-LIN |
 limit | STRING | default `100`, max `500` |
-startTime | LONG | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
-endTime | LONG | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
+startTime | STRING | STRING. e.g. `2021-12-08 08:00:00`. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | STRING | STRING. e.g. `2021-12-08 08:00:00`. Default time now. startTime and endTime must be within 7 days of each other |
 
 Response Parameters | Type | Description| 
 -------------------------- | -----|--------- |
