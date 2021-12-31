@@ -2973,7 +2973,7 @@ instrumentId | STRING | "BTC-USD-SWAP-LIN" |
 fundingRate| STRING | e.g. 0.000060000 |
 
 
-###GET `/v2.1/deliver-auction/{instrumentId}`
+### GET `/v2.1/deliver-auction/{instrumentId}`
 > **Request**
 
 ```json

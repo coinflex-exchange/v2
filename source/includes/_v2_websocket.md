@@ -423,6 +423,10 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 Requires an authenticated websocket connection.
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
 
+<aside class="notice">
+One account can only place up to 50 orders per second via websocket.
+</aside>
+
 <sub>**Request Parameters**</sub> 
 
 Parameter | Type | Required | Description |
@@ -563,6 +567,10 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 
 Requires an authenticated websocket connection.
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
+
+<aside class="notice">
+One account can only place up to 50 orders per second via websocket.
+</aside>
 
 <sub>**Request Parameters**</sub> 
 
@@ -714,6 +722,10 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 
 Requires an authenticated websocket connection.
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).
+
+<aside class="notice">
+One account can only place up to 50 orders per second via websocket.
+</aside>
 
 <sub>**Request Parameters**</sub> 
 
@@ -1326,6 +1338,10 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 
 Requires an authenticated websocket connection.
 Please also subscribe to the **User Order Channel** to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderModified etc......).
+
+<aside class="notice">
+One account can only place up to 50 orders per second via websocket.
+</aside>
 
 Currently only LIMIT orders are supported by the modify order command.
 
