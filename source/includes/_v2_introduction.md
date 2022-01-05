@@ -1,5 +1,13 @@
 # Change Log
 
+**2022-01-05**
+
+* One account can only place up to 50 orders per second via websocket. Affected websocket APIs:
+    * [Place Limit Order](?json#websocket-api-order-commands-place-limit-order)
+    * [Place Market Order](?json#websocket-api-order-commands-place-market-order)
+    * [Place Stop Limit Order](?json#websocket-api-order-commands-place-stop-limit-order)
+    * [Modify Order](?json#websocket-api-order-commands-modify-order)
+
 **2021-12-23**
 
 * Added new REST API [GET /v3/account](?json#rest-api-v3-account-amp-wallet-private-get-v3-account) to get account information
