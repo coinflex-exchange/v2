@@ -709,6 +709,19 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2022-01-05</strong></p>
+
+<ul>
+<li>One account can only place up to 50 orders per second via websocket. Affected websocket APIs:
+
+<ul>
+<li><a href="?json#websocket-api-order-commands-place-limit-order">Place Limit Order</a></li>
+<li><a href="?json#websocket-api-order-commands-place-market-order">Place Market Order</a></li>
+<li><a href="?json#websocket-api-order-commands-place-stop-limit-order">Place Stop Limit Order</a></li>
+<li><a href="?json#websocket-api-order-commands-modify-order">Modify Order</a></li>
+</ul></li>
+</ul>
+
 <p><strong>2021-12-23</strong></p>
 
 <ul>
@@ -1678,6 +1691,10 @@
 <p>Requires an authenticated websocket connection.
 Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).</p>
 
+<aside class="notice">
+One account can only place up to 50 orders per second via websocket.
+</aside>
+
 <p><sub><strong>Request Parameters</strong></sub> </p>
 
 <table><thead>
@@ -1879,6 +1896,10 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <p>Requires an authenticated websocket connection.
 Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).</p>
 
+<aside class="notice">
+One account can only place up to 50 orders per second via websocket.
+</aside>
+
 <p><sub><strong>Request Parameters</strong></sub> </p>
 
 <table><thead>
@@ -2079,6 +2100,10 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </span></code></pre></div>
 <p>Requires an authenticated websocket connection.
 Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderOpened, OrderMatched etc......).</p>
+
+<aside class="notice">
+One account can only place up to 50 orders per second via websocket.
+</aside>
 
 <p><sub><strong>Request Parameters</strong></sub> </p>
 
@@ -2820,6 +2845,10 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </span></code></pre></div>
 <p>Requires an authenticated websocket connection.
 Please also subscribe to the <strong>User Order Channel</strong> to receive push notifications for all message updates in relation to an account or sub-account (e.g. OrderModified etc......).</p>
+
+<aside class="notice">
+One account can only place up to 50 orders per second via websocket.
+</aside>
 
 <p>Currently only LIMIT orders are supported by the modify order command.</p>
 
