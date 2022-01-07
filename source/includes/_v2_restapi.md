@@ -1635,42 +1635,55 @@ POST /v2/orders/place
     "timestamp": "1615430915625", 
     "data": [
         {
-            "success": "false", 
-            "timestamp": "1615430915596", 
-            "code": "710002", 
-            "message": "FAILED sanity bound check as price (50007.0) <  lower bound (54767.0)", 
-            "clientOrderId": "1612249737724", 
-            "orderId": "0", 
-            "price": "50007.0", 
-            "quantity": "0.001", 
-            "side": "SELL", 
-            "marketCode": "BTC-USD-SWAP-LIN", 
-            "timeInForce": "GTC", 
+            "success": "false",
+            "timestamp": "1641538345068",
+            "code": "710006",
+            "message": "FAILED balance check as balance (0E-9) < value (0.001)",
+            "clientOrderId": "2619090944648",
+            "price": "52888.0",
+            "quantity": "0.001",
+            "side": "SELL",
+            "marketCode": "BTC-USD",
+            "timeInForce": "GTC",
             "orderType": "LIMIT"
-        }, 
+        },
         {
-            "success": "true", 
-            "timestamp": "1615430915602", 
-            "clientOrderId": "1612249737724", 
-            "orderId": "0", 
-            "price": "54900.0", 
-            "quantity": "0.002", 
-            "side": "BUY", 
-            "marketCode": "BTC-USD-SWAP-LIN", 
-            "timeInForce": "GTC", 
-            "orderType": "LIMIT"
-        }, 
+            "success": "true",
+            "timestamp": "1641536720611",
+            "clientOrderId": "3619090894340",
+            "orderId": "1000132664173",
+            "price": "23641.0",
+            "quantity": "0.7",
+            "side": "BUY",
+            "status": "OPEN",
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "timeInForce": "GTC",
+            "matchId": "0",
+            "notice": "OrderOpened",
+            "orderType": "LIMIT",
+            "isTriggered": "false"
+        },
         {
-            "success": "true", 
-            "timestamp": "1615430915625", 
-            "clientOrderId": "1612249737723", 
-            "orderId": "0", 
-            "price": "54901.0", 
-            "quantity": "0.003", 
-            "side": "SELL", 
-            "marketCode": "BTC-USD-SWAP-LIN", 
-            "timeInForce": "GTC", 
-            "orderType": "LIMIT"
+            "success": "true",
+            "timestamp": "1641538343028",
+            "clientOrderId": "3619090894340",
+            "orderId": "1000132688133",
+            "price": "43000.0",
+            "quantity": "0.1",
+            "side": "BUY",
+            "status": "PARTIAL_FILL",
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "timeInForce": "GTC",
+            "matchId": "304638880616112239",
+            "lastTradedPrice": "42731.5",
+            "matchQuantity": "0.001",
+            "orderMatchType": "TAKER",
+            "remainQuantity": "0.099",
+            "notice": "OrderMatched",
+            "orderType": "LIMIT",
+            "fees": "0.00170064",
+            "feeInstrumentId": "FLEX",
+            "isTriggered": "false"
         }
     ]
 }
@@ -1715,7 +1728,16 @@ quantity | STRING | |
 side | STRING | `SELL` or `BUY` |
 marketCode | STRING | |
 timeInForce | STRING | |
-orderType | STRING | |
+matchId | STRING | Exchange match ID |
+lastTradedPrice | STRING | Price when order was last traded |
+matchQuantity | STRING | Matched quantity |
+orderMatchType | STRING | `MAKER` or `TAKER` |
+remainQuantity | STRING | Remainning quantity |
+notice | STRING | `OrderClosed` or `OrderMatched` or `OrderOpend` |
+orderType | STRING | `MARKET` or `LIMIT` or `STOP` |
+fees | STRING | Amount of fees paid from this match ID |
+feeInstrumentId | STRING | Instrument ID of fees paid from this match ID |
+isTriggered | STRING | false (or true for STOP order types) |
 
 
 ### POST `/v2/orders/modify`
