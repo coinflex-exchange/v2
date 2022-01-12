@@ -835,6 +835,8 @@ redeemedAt | STRING | Millisecond timestamp indicating when the flexAssets were 
 
 ### GET `/v3/flexasset/earned`
 
+Get earned history by asset and sorted by time in descending order.
+
 > **Request**
 
 ```
