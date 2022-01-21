@@ -1338,7 +1338,7 @@ data | LIST of dictionaries |
 timestamp | STRING | Millisecond timestamp of the delivery action
 instrumentId | STRING | Perpetual swap market code
 status | STRING | Request status
-quantity | Null Type| null
+quantity | Null Type | Quantity
 deliverPrice | STRING|  Mark price at delivery
 transferAsset | STRING | Asset being sent
 transferQty | STRING | Quantity being sent

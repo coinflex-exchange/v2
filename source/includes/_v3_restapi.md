@@ -222,7 +222,7 @@ GET v3/account?subAcc={subAcc},{subAcc}
 
 Request Parameter | Type | Required | Description |
 ----------------- |----- | -------- | ----------- |
-subAcc | STRING | NO | Sub account. If no subAcc is given, then the response contains only the account linked to the API-Key. Multiple subAccs can be separated with a comma, maximum of 10 subAccs, e.g. `subone,subtwo` |
+subAcc | STRING | NO | Name of sub account. If no subAcc is given, then the response contains only the account linked to the API-Key. Multiple subAccs can be separated with a comma, maximum of 10 subAccs, e.g. `subone,subtwo` |
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
