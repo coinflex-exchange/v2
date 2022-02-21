@@ -3263,27 +3263,20 @@ GET /v2/flex-protocol/balances/{flexProtocol}
     "flexProtocol": "flexUSD",
     "data": [
         {
-            "instrumentId": "BTC",
-            "total": "168.515000000",
-            "available": "0.000000000",
-            "reserved": "168.515",
-            "quantityLastUpdated": "1621582933075"
+            "instrumentId":"BTC",
+            "total":"10.140668310000",
+            "available":"10.140668310000",
+            "reserved":"0",
+            "markPrice":"39203",
+            "quantityLastUpdated":"1645228442021"
         },
-        {
-            "instrumentId": "DOT",
-            "total": "1923.80",
-            "available": "0.00",
-            "reserved": "1923.8",
-            "quantityLastUpdated": "1621569724731"
-        },
-        {
-            "instrumentId": "REVV",
-            "total": "336.0",
-            "available": "0.0",
-            "reserved": "336.0",
-            "quantityLastUpdated": "1621569725061"
-        },
-        ...
+        {   "instrumentId":"USD",
+            "total":"56.3903310956678000",
+            "available":"56.3903310956678000",
+            "reserved":"0",
+            "markPrice":"1",
+            "quantityLastUpdated":"1629525660717"
+        }
     ]
 }
 ```
@@ -3301,7 +3294,8 @@ instrumentId | STRING |Coin symbol, e.g. 'BTC' |
 total| STRING | Total balance |
 available | STRING | Available balance |
 reserved | STRING|Reserved balance (unavailable) due to working spot orders |
-quantityLastUpdated | STRING|Millisecond timestamp of when balance was last updated |
+markPrice | STRING | Mark price |
+quantityLastUpdated | STRING | Millisecond timestamp of when balance was last updated |
 
 
 ### GET `/v2/flex-protocol/positions/{flexProtocol}`

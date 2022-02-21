@@ -1,5 +1,10 @@
 # Change Log
 
+**2022-02-21**
+
+* Updated REST API [GET /v2/flex-protocol/balances/{flexProtocol}](?json#rest-api-methods-public-get-v2-flex-protocol-balances-flexprotocol)
+    * Added new response field `markPrice`
+
 **2022-01-05**
 
 * One account can only place up to 50 orders per second via websocket. Affected websocket APIs:
