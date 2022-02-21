@@ -1021,7 +1021,7 @@ orderMatchType | STRING | `MAKER` or `TAKER` |
 timestamp in matchIds | STRING | Time matched at|
 leg1Price | STRING | |
 leg2Price | STRING | |
-fees | LIST of dictionaries | Fees with instrument ID |
+fees | LIST of dictionaries | Overall fees with instrument ID, if FLEX is no enough to pay the fee then USD will be paid |
 timeInForce | STRING | Time in force |
 isTriggered | STRING | `true`(for stop order) or `false` |
 orderOpenedTimestamp | STRING | Order opened at |
