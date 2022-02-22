@@ -1630,7 +1630,6 @@ GET /v3/funding-rates?marketCode={marketCode}&limit={limit}
             "marketCode": "BTC-USD-SWAP-LIN",
             "fundingRate": "0.0",
             "markPrice": "43596.80",
-            "index": "0.000",
             "netDelivered": "0",
             "createdAt": "1628362803134"
         },
@@ -1638,7 +1637,6 @@ GET /v3/funding-rates?marketCode={marketCode}&limit={limit}
             "marketCode": "BTC-USD-SWAP-LIN",
             "fundingRate": "0.0",
             "markPrice": "43455.10",
-            "index": "0.000",
             "netDelivered": "0",
             "createdAt": "1628359202941"
         }
@@ -1658,7 +1656,6 @@ Response Field | Type | Description |
 marketCode | STRING | Market code |
 fundingRate | STRING | Funding rate |
 markPrice | STRING | Mark price |
-index | STRING | Index |
 netDelivered | STRING | Delivery imbalance (negative = more shorts than longs and vice versa) |
 createdAt | STRING | Millisecond timestamp of last created time |
 
@@ -1682,15 +1679,6 @@ GET /v3/candles?marketCode={marketCode}&timeframe={timeframe}&limit={limit}
     "timeframe": "3600s", 
     "data": [
         {
-            "open": "35805.50000000", 
-            "high": "36141.50000000", 
-            "low": "35784.90000000", 
-            "close": "35886.60000000", 
-            "volume24h": "0", 
-            "currencyVolume24h": "0", 
-            "openedAt": "1642928400000"
-        }, 
-        {
             "open": "35888.80000000", 
             "high": "35925.30000000", 
             "low": "35717.00000000", 
@@ -1698,6 +1686,15 @@ GET /v3/candles?marketCode={marketCode}&timeframe={timeframe}&limit={limit}
             "volume24h": "0", 
             "currencyVolume24h": "0", 
             "openedAt": "1642932000000"
+        },
+        {
+            "open": "35805.50000000", 
+            "high": "36141.50000000", 
+            "low": "35784.90000000", 
+            "close": "35886.60000000", 
+            "volume24h": "0", 
+            "currencyVolume24h": "0", 
+            "openedAt": "1642928400000"
         }
     ]
 }
@@ -1810,7 +1807,7 @@ Get flexAsset balances.
 > **Request**
 
 ```
-GET /v3/flexasset/balances?asset={asset}
+GET /v3/flexasset/balances?flexasset={flexasset}
 ```
 
 > **Successful response format**
@@ -1818,10 +1815,10 @@ GET /v3/flexasset/balances?asset={asset}
 ```json
 {
     "success": true, 
-    "asset": "flexUSD", 
+    "flexasset": "flexUSD", 
     "data": [
         {
-            "instrumentId": "USD", 
+            "asset": "USD", 
             "total": "110.78000000", 
             "available": "110.78000000", 
             "reserved": "0", 
@@ -1833,46 +1830,14 @@ GET /v3/flexasset/balances?asset={asset}
 
 Request Parameter | Type | Required | Description |
 ----------------- | ---- | -------- | ----------- |
-asset | STRING | YES | Asset name, available assets e.g. `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+flexasset | STRING | YES | FlexAsset name, available assets e.g. `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
-instrumentId | STRING | Coin symbol, e.g. 'BTC' |
+asset | STRING | Asset name, e.g. 'BTC' |
 total | STRING | Total balance |
 available | STRING | Available balance |
 reserved | STRING | Reserved balance (unavailable) due to working spot orders |
-lastUpdatedAt | STRING | Millisecond timestamp of when balance was last updated |
-
-
-### GET `/v3/noteUSD/balances`
-
-Get noteUSD balances.
-
-> **Request**
-
-```
-GET /v3/noteusd/balances
-```
-
-> **Successful response format**
-
-```json
-{
-    "success": true, 
-    "data": [
-        {
-            "asset": "pntAAA", 
-            "quantity": "3120", 
-            "lastUpdatedAt": "1643182005676"
-        }
-    ]
-}
-```
-
-Response Field | Type | Description |
--------------- | ---- | ----------- |
-asset | STRING | Asset name |
-quantity | STRING | Quantity |
 lastUpdatedAt | STRING | Millisecond timestamp of when balance was last updated |
 
 
@@ -1883,7 +1848,7 @@ Get flexAsset positions.
 > **Request**
 
 ```
-GET /v3/flexasset/positions?asset={asset}
+GET /v3/flexasset/positions?flexasset={asset}
 ```
 
 > **Successful response format**
@@ -1891,7 +1856,7 @@ GET /v3/flexasset/positions?asset={asset}
 ```json
 {
     "success": true, 
-    "asset": "flexETH", 
+    "flexasset": "flexETH", 
     "data": [
         {
             "marketCode": "BCH-USD-SWAP-LIN", 
@@ -1921,7 +1886,7 @@ GET /v3/flexasset/positions?asset={asset}
 
 Request Parameter | Type | Required | Description |
 ----------------- | ---- | -------- | ----------- |
-asset | STRING | YES | Asset name, available assets e.g. `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+flexasset | STRING | YES | FlexAsset name, available assets e.g. `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
@@ -1943,7 +1908,7 @@ Get flexasset yields.
 > **Request**
 
 ```
-GET /v3/flexasset/yields?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+GET /v3/flexasset/yields?flexasset={flexasset}&limit={limit}&startTime={startTime}&endTime={endTime}
 ```
 
 > **Successful response format**
@@ -1953,17 +1918,15 @@ GET /v3/flexasset/yields?asset={asset}&limit={limit}&startTime={startTime}&endTi
     "success": true,
     "data": [
         {
-            "asset": "flexBTC",
+            "flexasset": "flexBTC",
             "apr": "0",
-            "interestRate": "0",
-            "amount": "0",
+            "yield": "0",
             "paidAt": "1643193000000"
         },
         {
-            "asset": "flexUSD",
+            "flexasset": "flexUSD",
             "apr": "0",
-            "interestRate": "0",
-            "amount": "0",
+            "yield": "0",
             "paidAt": "1643193000000"
         }
     ]
@@ -1972,46 +1935,14 @@ GET /v3/flexasset/yields?asset={asset}&limit={limit}&startTime={startTime}&endTi
 
 Request Parameter | Type | Required | Description |
 ----------------- | ---- | -------- | ----------- |
-asset | STRING | NO | Asset name, available assets e.g. `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+flexasset | STRING | NO | FlexAsset name, available assets e.g. `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
 limit | LONG | NO | Default 200, max 500 |
 startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other. |
 endTime | LONG | NO |  Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other. |
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
-asset | STRING | Asset name, available assets e.g. `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
+flexasset | STRING | Asset name, available assets e.g. `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
 apr | STRING | Annualized APR (%) = rate * 3 * 365 * 100 |
-interestRate | STRING | Period interest rate |
-amount | STRING | Amount of the interest |
-paidAt | STRING | Millisecond timestamp of the interest paid at |
-
-
-### GET `/v3/notetoken/yields`
-
-Get notetoken yields.
-
-> **Request**
-
-```
-GET /v3/notetoken/yields?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
-```
-
-> **Successful response format**
-
-```json
-```
-
-Request Parameter | Type | Required | Description |
------------------ | ---- | -------- | ----------- |
-asset | STRING | NO | Asset name, available assets e.g. `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-limit | LONG | NO | Default 200, max 500 |
-startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other. |
-endTime | LONG | NO |  Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other. |
-
-Response Field | Type | Description |
--------------- | ---- | ----------- |
-asset | STRING | Asset name, available assets e.g. `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-apr | STRING | Annualized APR (%) = rate * 3 * 365 * 100 |
-interestRate | STRING | Period interest rate |
-amount | STRING | Amount of the interest |
+yield | STRING | Period yield |
 paidAt | STRING | Millisecond timestamp of the interest paid at |
