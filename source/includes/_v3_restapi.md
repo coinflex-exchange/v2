@@ -1683,8 +1683,8 @@ GET /v3/candles?marketCode={marketCode}&timeframe={timeframe}&limit={limit}
             "high": "35925.30000000", 
             "low": "35717.00000000", 
             "close": "35923.40000000", 
-            "volume24h": "0", 
-            "currencyVolume24h": "0", 
+            "volume": "0",
+            "currencyVolume": "0",
             "openedAt": "1642932000000"
         },
         {
@@ -1692,8 +1692,8 @@ GET /v3/candles?marketCode={marketCode}&timeframe={timeframe}&limit={limit}
             "high": "36141.50000000", 
             "low": "35784.90000000", 
             "close": "35886.60000000", 
-            "volume24h": "0", 
-            "currencyVolume24h": "0", 
+            "volume": "0",
+            "currencyVolume": "0",
             "openedAt": "1642928400000"
         }
     ]
@@ -1703,7 +1703,8 @@ GET /v3/candles?marketCode={marketCode}&timeframe={timeframe}&limit={limit}
 Request Parameter | Type | Required | Description |
 ----------------- | ---- | -------- | ----------- |
 marketCode | STRING | YES | Market code |
-timeframe | STRING | NO | Available values: `60s`,`300s`,`900s`,`1800s`,`3600s`,`7200s`,`14400s`,`86400s`, default is `3600s` | limit | LONG | NO | Default 200, max 500 |
+timeframe | STRING | NO | Available values: `60s`,`300s`,`900s`,`1800s`,`3600s`,`7200s`,`14400s`,`86400s`, default is `3600s` |
+limit | LONG | NO | Default 200, max 500 |
 startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other. |
 endTime | LONG | NO |  Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other. |
 
@@ -1714,8 +1715,8 @@ open | STRING | Opening price |
 high | STRING | Highest price |
 low | STRING | Lowest price |
 close | STRING | Closing price |
-volume24h | STRING | Trading volume in counter currency |
-currencyVolume24h | STRING | Trading volume in base currency |
+volume | STRING | Trading volume in counter currency |
+currencyVolume | STRING | Trading volume in base currency |
 openedAt | STRING | Millisecond timestamp of the candle opened at |
 
 
@@ -1795,7 +1796,7 @@ Response Field | Type | Description |
 -------------- | ---- | ----------- |
 level | LONG | Level |
 marketCode | STRING | Market code |
-lastUpdated | STRING | Millisecond timestamp of the depth last updated at |
+lastUpdatedAt | STRING | Millisecond timestamp of the depth last updated at |
 asks | LIST of floats | Sell side depth: [price, quantity] |
 bids | LIST of floats | Buy side depth: [price, quantity] |
 
@@ -1855,29 +1856,29 @@ GET /v3/flexasset/positions?flexasset={asset}
 
 ```json
 {
-    "success": true, 
-    "flexasset": "flexETH", 
+    "success": true,
+    "flexasset": "flexUSD",
     "data": [
         {
-            "marketCode": "BCH-USD-SWAP-LIN", 
-            "baseAsset": "BCH", 
-            "counterAsset": "USD", 
-            "quantity": "4363.81", 
-            "entryPrice": "380.69", 
-            "markPrice": "297.74", 
-            "positionPnl": "-361978.0395", 
-            "estLiquidationPrice": "0", 
+            "marketCode": "BCH-USD-SWAP-LIN",
+            "baseAsset": "BCH",
+            "counterAsset": "USD",
+            "quantity": "-4363.81",
+            "entryPrice": "380.69",
+            "markPrice": "297.74",
+            "positionPnl": "-361978.0395",
+            "estLiquidationPrice": "0",
             "lastUpdatedAt": "1643173228911"
-        }, 
+        },
         {
-            "marketCode": "BTC-USD-SWAP-LIN", 
-            "baseAsset": "BTC", 
-            "counterAsset": "USD", 
-            "quantity": "-28.931000000", 
-            "entryPrice": "43100.5", 
-            "markPrice": "37850.2", 
-            "positionPnl": "151896.4293000000", 
-            "estLiquidationPrice": "345678367498.5", 
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "baseAsset": "BTC",
+            "counterAsset": "USD",
+            "quantity": "-28.931000000",
+            "entryPrice": "43100.5",
+            "markPrice": "37850.2",
+            "positionPnl": "151896.4293000000",
+            "estLiquidationPrice": "345678367498.5",
             "lastUpdatedAt": "1642666693674"
         }
     ]
@@ -1896,8 +1897,8 @@ counterAsset | STRING | Counter asset |
 quantity | STRING | Quantity of position |
 entryPrice | STRING | Average entry price |
 markPrice | STRING | Mark price |
-positionPnl | STRING | Postion profit and lost |
-estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative(&lt0) |
+positionPnl | STRING | Postion profit and loss |
+estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative(&lt;0) |
 lastUpdatedAt | STRING | Millisecond timestamp of when position was last updated |
 
 
@@ -1943,6 +1944,6 @@ endTime | LONG | NO |  Millisecond timestamp. Default time now. startTime and en
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
 flexasset | STRING | Asset name, available assets e.g. `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-apr | STRING | Annualized APR (%) = rate * 3 * 365 * 100 |
+apr | STRING | Annualized APR (%) = yield * 3 * 365 * 100 |
 yield | STRING | Period yield |
-paidAt | STRING | Millisecond timestamp of the interest paid at |
+paidAt | STRING | Millisecond timestamp of the interest payment |
