@@ -1629,14 +1629,12 @@ GET /v3/funding-rates?marketCode={marketCode}&limit={limit}
         {
             "marketCode": "BTC-USD-SWAP-LIN",
             "fundingRate": "0.0",
-            "markPrice": "43596.80",
             "netDelivered": "0",
             "createdAt": "1628362803134"
         },
         {
             "marketCode": "BTC-USD-SWAP-LIN",
             "fundingRate": "0.0",
-            "markPrice": "43455.10",
             "netDelivered": "0",
             "createdAt": "1628359202941"
         }
@@ -1655,7 +1653,6 @@ Response Field | Type | Description |
 -------------- | ---- | ----------- |
 marketCode | STRING | Market code |
 fundingRate | STRING | Funding rate |
-markPrice | STRING | Mark price |
 netDelivered | STRING | Delivery imbalance (negative = more shorts than longs and vice versa) |
 createdAt | STRING | Millisecond timestamp of last created time |
 
