@@ -1560,15 +1560,15 @@ Response Field | Type | Description |
 -------------- | ---- | ----------- |
 marketCode | STRING | Market code |
 markPrice | STRING | Mark price |
-open24h | STRING | 24 hour rolling opening price |
-high24h | STRING | 24 hour highest price |
-low24h | STRING | 24 hour lowest price |
-volume24h | STRING | Volume in 24 hours |
-currencyVolume24h | STRING | 24 hour rolling trading volume in counter currency |
+open24h | STRING | Rolling 24 hour opening price |
+high24h | STRING | Rolling 24 hour highest price |
+low24h | STRING | Rolling 24 hour lowest price |
+volume24h | STRING | Rolling 24 hour notional trading volume |
+currencyVolume24h | STRING | Rolling 24 hour trading volume in base currency |
 openInterest | STRING | Open interest |
 lastTradedPrice | STRING | Last traded price |
 lastTradedQuantity | STRIN | Last traded quantity |
-lastUpdatedAt | STRING | Millisecond timestamp of last updated time |
+lastUpdatedAt | STRING | Millisecond timestamp of lastest update |
 
 
 ### GET `/v3/auction`
