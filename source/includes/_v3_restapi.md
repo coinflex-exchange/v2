@@ -1798,6 +1798,9 @@ asks | LIST of floats | Sell side depth: [price, quantity] |
 bids | LIST of floats | Buy side depth: [price, quantity] |
 
 
+## Flex Assets - Public
+
+
 ### GET `/v3/flexasset/balances`
 
 Get flexAsset balances.

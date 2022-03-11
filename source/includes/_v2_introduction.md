@@ -1,5 +1,16 @@
 # Change Log
 
+**2022-03-11**
+
+* Added new REST API [GET /v3/tickers](?json#rest-api-v3-market-data-public-get-v3-tickers) to get tickers
+* Added new REST API [GET /v3/auction](?json#rest-api-v3-market-data-public-get-v3-auction) to get upcoming delivery auction
+* Added new REST API [GET /v3/funding-rates](?json#rest-api-v3-market-data-public-get-v3-funding-rates) to get historical funding rates
+* Added new REST API [GET /v3/candles](?json#rest-api-v3-market-data-public-get-v3-candles) to get candles
+* Added new REST API [GET /v3/depth](?json#rest-api-v3-market-data-public-get-v3-depth) to get depth
+* Added new REST API [GET /v3/flexasset/balances](?json#rest-api-v3-flex-assets-public-get-v3-flexasset-balances) to get flexAsset balances
+* Added new REST API [GET /v3/flexasset/positions](?json#rest-api-v3-flex-assets-public-get-v3-flexasset-positions) to get flexAsset positions
+* Added new REST API [GET /v3/flexasset/yields](?json#rest-api-v3-flex-assets-public-get-v3-flexasset-yields) to get flexAsset yields
+
 **2022-02-21**
 
 * Updated REST API [GET /v2/flex-protocol/balances/{flexProtocol}](?json#rest-api-methods-public-get-v2-flex-protocol-balances-flexprotocol)
