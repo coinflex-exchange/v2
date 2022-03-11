@@ -1560,15 +1560,15 @@ Response Field | Type | Description |
 -------------- | ---- | ----------- |
 marketCode | STRING | Market code |
 markPrice | STRING | Mark price |
-open24h | STRING | 24 hour rolling opening price |
-high24h | STRING | 24 hour highest price |
-low24h | STRING | 24 hour lowest price |
-volume24h | STRING | Volume in 24 hours |
-currencyVolume24h | STRING | 24 hour rolling trading volume in counter currency |
+open24h | STRING | Rolling 24 hour opening price |
+high24h | STRING | Rolling 24 hour highest price |
+low24h | STRING | Rolling 24 hour lowest price |
+volume24h | STRING | Rolling 24 hour notional trading volume |
+currencyVolume24h | STRING | Rolling 24 hour trading volume in base currency |
 openInterest | STRING | Open interest |
 lastTradedPrice | STRING | Last traded price |
 lastTradedQuantity | STRIN | Last traded quantity |
-lastUpdatedAt | STRING | Millisecond timestamp of last updated time |
+lastUpdatedAt | STRING | Millisecond timestamp of lastest update |
 
 
 ### GET `/v3/auction`
@@ -1606,7 +1606,7 @@ Response Field | Type | Description |
 marketCode | STRING | Market code |
 auctionTime | STRING | Millisecond timestamp of the next auction |
 netDelivered | STRING | Delivery imbalance (negative = more shorts than longs and vice versa) |
-estFundingRate | STRING | Estimated funding rate a positive rate means longs pay shorts |
+estFundingRate | STRING | Estimated funding rate, a positive rate means longs pay shorts |
 
 
 ### GET `/v3/funding-rates`
@@ -1654,7 +1654,7 @@ Response Field | Type | Description |
 marketCode | STRING | Market code |
 fundingRate | STRING | Funding rate |
 netDelivered | STRING | Delivery imbalance (negative = more shorts than longs and vice versa) |
-createdAt | STRING | Millisecond timestamp of last created time |
+createdAt | STRING | Millisecond timestamp |
 
 
 ### GET `/v3/candles`
@@ -1714,7 +1714,7 @@ low | STRING | Lowest price |
 close | STRING | Closing price |
 volume | STRING | Trading volume in counter currency |
 currencyVolume | STRING | Trading volume in base currency |
-openedAt | STRING | Millisecond timestamp of the candle opened at |
+openedAt | STRING | Millisecond timestamp of the candle open |
 
 
 ### GET `/v3/depth`
@@ -1793,7 +1793,7 @@ Response Field | Type | Description |
 -------------- | ---- | ----------- |
 level | LONG | Level |
 marketCode | STRING | Market code |
-lastUpdatedAt | STRING | Millisecond timestamp of the depth last updated at |
+lastUpdatedAt | STRING | Millisecond timestamp of the lastest depth update |
 asks | LIST of floats | Sell side depth: [price, quantity] |
 bids | LIST of floats | Buy side depth: [price, quantity] |
 
@@ -1839,7 +1839,7 @@ asset | STRING | Asset name, e.g. 'BTC' |
 total | STRING | Total balance |
 available | STRING | Available balance |
 reserved | STRING | Reserved balance (unavailable) due to working spot orders |
-lastUpdatedAt | STRING | Millisecond timestamp of when balance was last updated |
+lastUpdatedAt | STRING | Millisecond timestamp of the latest balance update |
 
 
 ### GET `/v3/flexasset/positions`
@@ -1849,7 +1849,7 @@ Get flexAsset positions.
 > **Request**
 
 ```
-GET /v3/flexasset/positions?flexasset={asset}
+GET /v3/flexasset/positions?flexasset={flexasset}
 ```
 
 > **Successful response format**
@@ -1894,12 +1894,12 @@ Response Field | Type | Description |
 marketCode | STRING | Market code |
 baseAsset | STRING | Base asset |
 counterAsset | STRING | Counter asset |
-quantity | STRING | Quantity of position |
+quantity | STRING | Position size |
 entryPrice | STRING | Average entry price |
 markPrice | STRING | Mark price |
 positionPnl | STRING | Postion profit and loss |
-estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative(&lt;0) |
-lastUpdatedAt | STRING | Millisecond timestamp of when position was last updated |
+estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative (&lt;0) |
+lastUpdatedAt | STRING | Millisecond timestamp of the latest position update |
 
 
 ### GET `/v3/flexasset/yields`
