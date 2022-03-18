@@ -1469,6 +1469,7 @@ lowerPriceBound | STRING | Sanity bound |
 markPrice | STRING | Mark price |
 lastUpdatedAt | STRING | |
 
+
 ### GET `/v3/assets`
 
 Get a list of assets supported on CoinFLEX
@@ -1502,23 +1503,15 @@ GET /v3/assets?asset={asset}
             ]
         },
         {
-            "asset": "BCH",
+            "asset": "LINK",
             "isCollateral": true,
-            "loanToValue": "0.900000000",
+            "loanToValue": "0.800000000",
             "networkList": [
                 {
-                    "network": "BCH",
-                    "transactionPrecision": "8",
-                    "isWithdrawalFeeChargedToUser": false,
-                    "canDeposit": true,
-                    "canWithdraw": true,
-                    "minDeposit": "0.01",
-                    "minWithdrawal": "0.0001"
-                },
-                {
-                    "network": "SEP20",
+                    "network": "ERC20",
+                    "tokenId": "0x514910771af9ca656af840dff83e8264ecf986ca",
                     "transactionPrecision": "18",
-                    "isWithdrawalFeeChargedToUser": false,
+                    "isWithdrawalFeeChargedToUser": true,
                     "canDeposit": true,
                     "canWithdraw": true,
                     "minDeposit": "0.0001",
