@@ -1,5 +1,15 @@
 # Change Log
 
+**2022-03-18**
+
+* Updated REST API [GET /v3/assets](?json#rest-api-v3-market-data-public-get-v3-assets)
+    * Changed response field `name` to `asset`
+    * Changed response field `network` to `networkList` and wrap network in the list
+    * Added new response field `tokenId`
+    * Added new response field `transactionPrecision`
+    * Added new response field `isWithdrawalFeeChargedToUser`
+
+
 **2022-03-11**
 
 * Added new REST API [GET /v3/tickers](?json#rest-api-v3-market-data-public-get-v3-tickers) to get tickers

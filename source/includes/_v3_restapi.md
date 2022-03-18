@@ -1486,17 +1486,44 @@ GET /v3/assets?asset={asset}
     "success": true,
     "data": [
         {
-            "name": "FLEX",
-            "canDeposit": true,
-            "canWithdraw": true,
+            "asset": "USD",
+            "isCollateral": true,
+            "loanToValue": "1.000000000",
+            "networkList": [
+                {
+                    "network": "ERC20",
+                    "transactionPrecision": "6",
+                    "isWithdrawalFeeChargedToUser": true,
+                    "canDeposit": true,
+                    "canWithdraw": true,
+                    "minDeposit": "0.0001",
+                    "minWithdrawal": "2"
+                }
+            ]
+        },
+        {
+            "asset": "BCH",
             "isCollateral": true,
             "loanToValue": "0.900000000",
-            "minDeposit": "0.0001",
-            "minWithdrawal": "0.0001",
-            "network": [
-                "SLP",
-                "ERC20",
-                "SEP20"
+            "networkList": [
+                {
+                    "network": "BCH",
+                    "transactionPrecision": "8",
+                    "isWithdrawalFeeChargedToUser": false,
+                    "canDeposit": true,
+                    "canWithdraw": true,
+                    "minDeposit": "0.01",
+                    "minWithdrawal": "0.0001"
+                },
+                {
+                    "network": "SEP20",
+                    "transactionPrecision": "18",
+                    "isWithdrawalFeeChargedToUser": false,
+                    "canDeposit": true,
+                    "canWithdraw": true,
+                    "minDeposit": "0.0001",
+                    "minWithdrawal": "0.0001"
+                }
             ]
         }
     ]
@@ -1505,18 +1532,22 @@ GET /v3/assets?asset={asset}
 
 Request Parameter | Type | Required | Description | 
 ----------------- | ---- | -------- | ----------- |
-asset | STRING | NO | Name of the asset |
+asset | STRING | NO | Asset name |
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
-name | STRING | Name of the asset |
-canDeposit | BOOL | |
-canWithdraw | BOOL | |
-isCollateral | BOOL | |
+asset | STRING | Asset name |
+isCollateral | BOOL | Indicates it is collateral or not |
 loanToValue | STRING | Loan to value of the asset |
+networkList | LIST | List of dictionaries |
+network | STRING | Network for deposit and withdrawal |
+tokenId | STRING | Token ID |
+transactionPrecision | STRING | Precision for the transaction |
+isWithdrawalFeeChargedToUser | BOOL | Indicates the withdrawal fee is charged to user or not |
+canDeposit | BOOL | Indicates can deposit or not |
+canWithdraw | BOOL | Indicates can withdraw or not |
 minDeposit | STRING | Minimum deposit amount |
 minWithdrawal | STRING | Minimum withdrawal amount |
-network | LIST | Available networks for deposits and withdrawals |
 
 
 ### GET `/v3/tickers`
