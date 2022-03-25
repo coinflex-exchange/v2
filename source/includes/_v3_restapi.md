@@ -2218,7 +2218,7 @@ status | STRING | Status of the order, available values: `CLOSED` `OPEN` `PARTIA
 side | STRING | Side of the order, `BUY` or `SELL` |
 price | STRING | Price submitted |
 stopPrice | STRING | Stop price for the stop order |
-isTriggered | STRING | Available values: `true` `false`, `true` is for stop orders |
+isTriggered | BOOL | Available values: `true` `false`, `true` is for stop orders |
 quantity | STRING | Quantity submitted |
 remainQuantity | STRING | Remainning quantity |
 matchedQuantity | STRING | Matched quantity |
@@ -2282,7 +2282,7 @@ status | STRING | Status of the working order, available values: `OPEN` `PARTIAL
 side | STRING | Side of the order, `BUY` or `SELL` |
 price | STRING | Price submitted |
 stopPrice | STRING | Stop price for the stop order |
-isTriggered | STRING | Available values: `true` `false`, `true` is for stop orders |
+isTriggered | BOOL | Available values: `true` `false`, `true` is for stop orders |
 quantity | STRING | Quantity submitted |
 remainQuantity | STRING | Remainning quantity |
 matchedQuantity | STRING | Matched quantity |
@@ -2351,46 +2351,159 @@ POST /v3/orders/place
 You can place up to 8 orders at a time in REST API
 </aside>
 
-Request Parameters | Type | Required | Description | 
+Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 recvWindow | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
 timestamp | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
 responseType | STRING | YES | `FULL` or `ACK` |
 orders | LIST | YES | A list of orders |
-clientOrderId | STRING | YES | |
-marketCode | STRING | YES | |
-side | STRING | YES | |
-quantity | STRING | YES | |
+clientOrderId | STRING | YES | Client assigned ID to help manage and identify orders |
+marketCode | STRING | YES | Market code |
+side | STRING | YES | Side of the order, BUY or SELL |
+quantity | STRING | YES | Quantity submitted |
 timeInForce | STRING | NO | Default `GTC` |
-orderType | STRING | YES | |
-price | STRING | NO | |
-stopPrice | STRING | NO | |
-limitPrice | STRING | NO | |
+orderType | STRING | YES | Type of the order, LIMIT or STOP |
+price | STRING | NO | Price submitted |
+stopPrice | STRING | NO | Stop price for the stop order |
 
-Response Parameters | Type | Description | 
+Response Parameters | Type | Description |
 --------------------| ---- | ----------- |
-accountId | STRING | |
-event | STRING | |
-timestamp | STRING | |
-data | LIST | |
-success | STRING | Whether an order has been successfully placed |
-timestamp | STRING | |
-code | STRING | Error code |
-message | STRING | Error message |
-clientOrderId | STRING | |
-orderId | STRING | |
-price | STRING | |
-quantity | STRING | |
-side | STRING | `SELL` or `BUY` |
-marketCode | STRING | |
-timeInForce | STRING | |
-matchId | STRING | Exchange match ID |
-lastTradedPrice | STRING | Price when order was last traded |
-matchQuantity | STRING | Matched quantity |
-orderMatchType | STRING | `MAKER` or `TAKER` |
-remainQuantity | STRING | Remainning quantity |
 notice | STRING | `OrderClosed` or `OrderMatched` or `OrderOpend` |
-orderType | STRING | `MARKET` or `LIMIT` or `STOP` |
-fees | STRING | Amount of fees paid from this match ID |
-feeInstrumentId | STRING | Instrument ID of fees paid from this match ID |
+accountId | STRING | Account ID |
+orderId | STRING | Order ID |
+submitted | BOOL | Whether the request is submitted or not submitted |
+clientOrderId | STRING | Client assigned ID to help manage and identify orders |
+marketCode | STRING | Market code |
+status | STRING | Order status |
+side | STRING | `SELL` or `BUY` |
+price | STRING | Price submitted |
+stopPrice | STRING | Stop price for the stop order |
 isTriggered | STRING | false (or true for STOP order types) |
+quantity | STRING | Quantity submitted |
+remainQuantity | STRING | Remainning quantity |
+matchId | STRING | Exchange match ID |
+matchPrice | STRING | Matched price |
+matchQuantity | STRING | Matched quantity |
+feeInstrumentId | STRING | Instrument ID of fees paid from this match ID |
+fees | STRING | Amount of fees paid from this match ID |
+orderType | STRING | `MARKET` or `LIMIT` or `STOP` |
+timeInForce | STRING | Time in force |
+createdAt | STRING | Millisecond timestamp of created at |
+lastModifiedAt | STRING | Millisecond timestamp of last modified at |
+lastMatchedAt | STRING | Millisecond timestamp of last matched at |
+
+
+### DELETE `/v3/orders/cancel`
+
+Cancel order by ID.
+
+> **Request**
+
+```
+DELETE /v3/orders/cancel
+```
+```json
+{
+    "recvWindow": 3000,
+    "timestamp": 1737100050453,
+    "responseType":"FULL",
+    "orders": [
+        {
+            "marketCode": "BTC-flexUSD",
+            "clientOrderId":"1612249737434",
+            "orderId": "1000000545000"
+        }
+    ]
+}
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "notice": "OrderClosed",
+            "accountId": "100020",
+            "orderId": "1000000545000",
+            "submitted": true,
+            "clientOrderId": "1612249737434",
+            "marketCode": "BTC-flexUSD",
+            "status": "CANCELED_BY_USER",
+            "side": "BUY",
+            "price": "25000.0",
+            "isTriggered": false,
+            "quantity": "0.9",
+            "remainQuantity": "0.9",
+            "orderType": "LIMIT",
+            "timeInForce": "GTC",
+            "closedAt": "1648200825424"
+        }
+    ]
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+recvWindow | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
+timestamp | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
+responseType | STRING | YES | `FULL` or `ACK` |
+orders | LIST | YES | A list of orders |
+marketCode | STRING | YES | Market code |
+clientOrderId | STRING | NO | Client assigned ID to help manage and identify orders |
+orderId | STRING | NO | Order ID |
+
+Response Parameters | Type | Description |
+--------------------| ---- | ----------- |
+notice | STRING | `OrderClosed` or `OrderMatched` or `OrderOpend` |
+accountId | STRING | Account ID |
+orderId | STRING | Order ID |
+submitted | BOOL | Whether the request is submitted or not submitted |
+clientOrderId | STRING | Client assigned ID to help manage and identify orders |
+marketCode | STRING | Market code |
+status | STRING | Order status |
+side | STRING | `SELL` or `BUY` |
+price | STRING | Price submitted |
+stopPrice | STRING | Stop price for the stop order |
+isTriggered | STRING | false (or true for STOP order types) |
+quantity | STRING | Quantity submitted |
+remainQuantity | STRING | Remainning quantity |
+orderType | STRING | `MARKET` or `LIMIT` or `STOP` |
+timeInForce | STRING | Time in force |
+closedAt | STRING | Millisecond timestamp of closed at |
+
+
+### DELETE `/v3/orders/cancel-all`
+
+Cancel all orders.
+
+> **Request**
+
+```
+DELETE /v3/orders/cancel-all
+```
+```json
+{
+    "marketCode": "BTC-flexUSD"
+}
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true, 
+    "data": {
+        "notice": "Orders queued for cancelation"
+    }
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+marketCode | STRING | NO | Market code, if it's null or not sent then cancel all orders for the account |
+
+Response Parameters | Type | Description |
+--------------------| ---- | ----------- |
+notice | STRING | `Orders queued for cancelation` or `No working orders found` |
