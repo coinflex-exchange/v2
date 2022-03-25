@@ -750,7 +750,7 @@ feeInstrumentId   | STRING    |   Instrument ID of the fees        |
 orderId   | STRING    |	Unique order ID from the exchange          |
 clientOrderID   | STRING    | Client assigned ID to help manage and identify orders  |
 
-###GET  `/v2/orders`
+### GET `/v2/orders`
 
 > **Request**
 
