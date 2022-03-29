@@ -466,7 +466,7 @@
                             <a href="#rest-api-methods-private-get-v2-trades-marketcode" class="toc-h3 toc-link" data-title="GET <code>/v2/trades/{marketCode}</code>">GET <code>/v2/trades/{marketCode}</code></a>
                           </li>
                           <li>
-                            <a href="#rest-api-methods-private-get-v2-orders" class="toc-h3 toc-link" data-title="GET  <code>/v2/orders</code>">GET  <code>/v2/orders</code></a>
+                            <a href="#rest-api-methods-private-get-v2-orders" class="toc-h3 toc-link" data-title="GET <code>/v2/orders</code>">GET <code>/v2/orders</code></a>
                           </li>
                           <li>
                             <a href="#rest-api-methods-private-get-v2-1-orders" class="toc-h3 toc-link" data-title="GET <code>/v2.1/orders</code>">GET <code>/v2.1/orders</code></a>
@@ -6920,7 +6920,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>Client assigned ID to help manage and identify orders</td>
 </tr>
 </tbody></table>
-<h3 id='rest-api-methods-private-get-v2-orders'>GET  <code>/v2/orders</code></h3>
+<h3 id='rest-api-methods-private-get-v2-orders'>GET <code>/v2/orders</code></h3>
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
@@ -7013,11 +7013,11 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </code></pre></div>
 <p>Returns all the open orders of the account connected to the API key initiating the request.</p>
 
-<p><sub><strong>Response Parameters</strong></sub> </p>
+<p><sub><strong>Response Fields</strong></sub></p>
 
 <table><thead>
 <tr>
-<th>Parameters</th>
+<th>Fields</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
@@ -7055,7 +7055,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <tr>
 <td>clientOrderId</td>
 <td>STRING</td>
-<td>Client assigned ID to help manage and identify orders</td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>side</td>
@@ -7244,7 +7244,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <td>clientOrderId</td>
 <td>LONG</td>
 <td>NO</td>
-<td></td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>limit</td>
@@ -7296,7 +7296,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <tr>
 <td>clientOrderId</td>
 <td>STRING</td>
-<td>Client order ID which given by the user</td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>marketCode</td>
@@ -8311,7 +8311,7 @@ You can place up to 8 orders at a time in REST API
 <td>clientOrderId</td>
 <td>STRING</td>
 <td>YES</td>
-<td></td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>marketCode</td>
@@ -8413,7 +8413,7 @@ You can place up to 8 orders at a time in REST API
 <tr>
 <td>clientOrderId</td>
 <td>STRING</td>
-<td></td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>orderId</td>
@@ -8622,7 +8622,7 @@ You can modify up to 8 orders at a time in REST API
 <td>clientOrderId</td>
 <td>STRING</td>
 <td>NO</td>
-<td></td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>orderId</td>
@@ -8718,7 +8718,7 @@ You can modify up to 8 orders at a time in REST API
 <tr>
 <td>clientOrderId</td>
 <td>STRING</td>
-<td></td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>orderId</td>
@@ -8883,7 +8883,7 @@ You can cancel up to 8 orders at a time in REST API
 <td>clientOrderId</td>
 <td>STRING</td>
 <td>Either one of orderId or clientOrderId is required</td>
-<td></td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 </tbody></table>
 
@@ -8937,7 +8937,7 @@ You can cancel up to 8 orders at a time in REST API
 <tr>
 <td>clientOrderId</td>
 <td>STRING</td>
-<td></td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>orderId</td>
@@ -9977,7 +9977,7 @@ You can cancel up to 8 orders at a time in REST API
 <tr>
 <td>clientOrderId</td>
 <td>STRING</td>
-<td>Client order ID which given by the user</td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>orderId</td>
@@ -11777,7 +11777,7 @@ You can cancel up to 8 orders at a time in REST API
 <tr>
 <td>clientOrderId</td>
 <td>STRING</td>
-<td>Client assigned ID to help manage and identify orders</td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>side</td>
