@@ -1352,8 +1352,9 @@ clientOrderId | Null Type |  null
 > **Request**
 
 ```json
-POST /v2.1/delivery/orders?instrumentId={instrumentId}&qtyDeliver={qtyDeliver}
-
+POST /v2.1/delivery/orders
+```
+```json
 {
   "instrumentId": {instrumentId},
   "qtyDeliver": {qtyDeliver}
