@@ -113,13 +113,13 @@ import hmac
 import base64
 import hashlib
 import datetime
-from urllib.parse import urlencode
+import json
 
 rest_url = 'https://v2stgapi.coinflex.com'
 rest_path = 'v2stgapi.coinflex.com'
 
-api_key = <API-KEY>
-api_secret = <API-SECRET>
+api_key = 'api_key'
+api_secret = 'api_secret'
 
 ts = datetime.datetime.utcnow().isoformat()
 nonce = 123
@@ -127,83 +127,90 @@ nonce = 123
 # REST API method
 method = '/v2/accountinfo'
 
-# Not required for /v2/accountinfo
-body = urlencode({})
+params = ""
 
-if body:
-    path = method + '?' + body
+if params:
+    path = method + '?' + params
 else:
     path = method
 
-msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, body)
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, params)
 sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
 
 header = {'Content-Type': 'application/json', 'AccessKey': api_key,
           'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
 
 resp = requests.get(rest_url + path, headers=header)
-print(resp.json())
+print(resp.url)
+print(resp.request.headers)
+print(resp.request.body)
+print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
 ```
 
 > **Response**
 
 ```json
 {
-  "event": "accountinfo",
-  "timestamp": 1611665626191
-  "accountId": "<Your Account ID>",
-  "data": [ {
-              "accountId": "<Your Account ID>",
-              "tradeType": "LINEAR",
-              "marginCurrency": "USD",
-              "totalBalance": "10000",
-              "availableBalance": "10000",
-              "collateralBalance": "10000",
-              "portfolioVarMargin": "500",
-              "riskRatio": "20.0000",
-              "timestamp": "1611665624601"
-          } ]
+    "event": "accountinfo",
+    "timestamp": "1648800334773",
+    "accountId": "677473",
+    "data": [
+        {
+            "accountId": "677473",
+            "tradeType": "LINEAR",
+            "marginCurrency": "USD",
+            "totalBalance": "33860283.6914636",
+            "availableBalance": "33860283.6914636",
+            "collateralBalance": "28661274.5806472",
+            "portfolioVarMargin": "910198.2835522",
+            "riskRatio": "31.4890",
+            "timestamp": "1648800334761"
+        }
+    ]
 }
 ```
 
 ```python
 {
-  "event": "accountinfo",
-  "timestamp": 1611665626191
-  "accountId": "<Your Account ID>",
-  "data": [ {
-              "accountId": "<Your Account ID>",
-              "tradeType": "LINEAR",
-              "marginCurrency": "USD",
-              "totalBalance": "10000",
-              "availableBalance": "10000",
-              "collateralBalance": "10000",
-              "portfolioVarMargin": "500",
-              "riskRatio": "20.0000",
-              "timestamp": "1611665624601"
-          } ]
+    "event": "accountinfo",
+    "timestamp": "1648800334773",
+    "accountId": "677473",
+    "data": [
+        {
+            "accountId": "677473",
+            "tradeType": "LINEAR",
+            "marginCurrency": "USD",
+            "totalBalance": "33860283.6914636",
+            "availableBalance": "33860283.6914636",
+            "collateralBalance": "28661274.5806472",
+            "portfolioVarMargin": "910198.2835522",
+            "riskRatio": "31.4890",
+            "timestamp": "1648800334761"
+        }
+    ]
 }
 ```
 
 Returns the account level information connected to the API key initiating the request. 
 
-<sub>**Response Parameters**</sub> 
+<sub>**Response Fields**</sub> 
 
-Parameters |Type | Description 
+Fields |Type | Description 
 -------------------------- | -----|--------- |
 event | STRING | `accountinfo`
-timestamp | INTEGER | Millisecond timestamp
-accountId | STRING    | Account ID
+timestamp | STRING | Millisecond timestamp
+accountId | STRING | Account ID
 data | LIST of dictionary |
-\>accountId | STRING    | Account ID
-\>tradeType | STRING    | Account type `LINEAR`
-\>marginCurrency | STRING | Asset `USD`
-\>totalBalance | STRING | Total balance denoted in marginCurrency
-\>collateralBalance | STRING | Collateral balance with LTV applied
-\>availableBalance | STRING | Available balance
-\>portfolioVarMargin| STRING | Portfolio margin
-\>riskRatio | STRING | collateralBalance / portfolioVarMargin, Orders are rejected/cancelled if the risk ratio drops below 1 and liquidation occurs if the risk ratio drops below 0.5
-\>timestamp | STRING | Millisecond timestamp
+accountId | STRING | Account ID
+tradeType | STRING | Account type `LINEAR`
+marginCurrency | STRING | Asset `USD`
+totalBalance | STRING | Total balance denoted in marginCurrency
+collateralBalance | STRING | Collateral balance with LTV applied
+availableBalance | STRING | Available balance
+portfolioVarMargin| STRING | Portfolio margin
+riskRatio | STRING | collateralBalance / portfolioVarMargin, Orders are rejected/cancelled if the risk ratio drops below 1 and liquidation occurs if the risk ratio drops below 0.5
+timestamp | STRING | Millisecond timestamp
+
 
 ###GET `/v2/balances`
 
@@ -219,13 +226,13 @@ import hmac
 import base64
 import hashlib
 import datetime
-from urllib.parse import urlencode
+import json
 
 rest_url = 'https://v2stgapi.coinflex.com'
 rest_path = 'v2stgapi.coinflex.com'
 
-api_key = <API-KEY>
-api_secret = <API-SECRET>
+api_key = 'api_key'
+api_secret = 'api_secret'
 
 ts = datetime.datetime.utcnow().isoformat()
 nonce = 123
@@ -233,95 +240,97 @@ nonce = 123
 # REST API method
 method = '/v2/balances'
 
-# Not required for /v2/balances
-body = urlencode({})
+params = ""
 
-if body:
-    path = method + '?' + body
+if params:
+    path = method + '?' + params
 else:
     path = method
 
-msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, body)
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, params)
 sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
 
 header = {'Content-Type': 'application/json', 'AccessKey': api_key,
           'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
 
 resp = requests.get(rest_url + path, headers=header)
-print(resp.json())
+print(resp.url)
+print(resp.request.headers)
+print(resp.request.body)
+print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
 ```
 
 > **Response**
 
 ```json
 {
-  "event": "balances",
-  "timestamp": 1611665626191,
-  "accountId": "<Your Account ID>",
-  "tradeType": "LINEAR",
-  "data": [ {   
-              "instrumentId": "BTC",
-              "total": "4468.823",              
-              "available": "4468.823",        
-              "reserved": "0",
-              "quantityLastUpdated": "1593627415234"
-            },
-            ...
-            {
-              "instrumentId": "FLEX",
-              "total": "1585.890",              
-              "available": "325.890",         
-              "reserved": "1260",
-              "quantityLastUpdated": "1593627415123"
-            }
-          ]
+    "event": "balances",
+    "timestamp": "1648800661246",
+    "accountId": "677473",
+    "tradeType": "LINEAR",
+    "data": [
+        {
+            "instrumentId": "1INCH",
+            "total": "100.00000000",
+            "available": "100.00000000",
+            "reserved": "0.00000000",
+            "quantityLastUpdated": "1646413705113"
+        },
+        {
+            "instrumentId": "AAVE",
+            "total": "100.00000000",
+            "available": "100.00000000",
+            "reserved": "0.00000000",
+            "quantityLastUpdated": "1646413705827"
+        }
+    ]
 }
 ```
 
 ```python
 {
-  "event": "balances",
-  "timestamp": 1611665626191,
-  "accountId": "<Your Account ID>",
-  "tradeType": "LINEAR",
-  "data": [ {   
-              "instrumentId": "BTC",
-              "total": "4468.823",              
-              "available": "4468.823",        
-              "reserved": "0",
-              "quantityLastUpdated": "1593627415234"
-            },
-            ...
-            {
-              "instrumentId": "FLEX",
-              "total": "1585.890",              
-              "available": "325.890",         
-              "reserved": "1260",
-              "quantityLastUpdated": "1593627415123"
-            }
-          ]
+    "event": "balances",
+    "timestamp": "1648800661246",
+    "accountId": "677473",
+    "tradeType": "LINEAR",
+    "data": [
+        {
+            "instrumentId": "1INCH",
+            "total": "100.00000000",
+            "available": "100.00000000",
+            "reserved": "0.00000000",
+            "quantityLastUpdated": "1646413705113"
+        },
+        {
+            "instrumentId": "AAVE",
+            "total": "100.00000000",
+            "available": "100.00000000",
+            "reserved": "0.00000000",
+            "quantityLastUpdated": "1646413705827"
+        }
+    ]
 }
 ```
 
 Returns all the coin balances of the account connected to the API key initiating the request. 
 
-<sub>**Response Parameters**</sub> 
+<sub>**Response Fields**</sub> 
 
-Parameters |Type | Description| 
--------------------------- | -----|--------- |
+Field | Type | Description | 
+----- | ---- | ----------- |
 event | STRING | `balances`
-timestamp | INTEGER | Millisecond timestamp
-accountId | STRING    | Account ID
-tradeType | STRING    | `LINEAR` |
+timestamp | STRING | Millisecond timestamp
+accountId | STRING | Account ID
+tradeType | STRING | `LINEAR` |
 data | LIST of dictionaries |
-\>instrumentId | STRING |Coin symbol, e.g. 'BTC' |
-\>total| STRING| Total balance|
-\>available |STRING| Available balance|
-\>reserved|STRING|Reserved balance (unavailable) due to working spot orders|
-\>quantityLastUpdated|STRING|Millisecond timestamp of when balance was last updated|
+instrumentId | STRING |Coin symbol, e.g. 'BTC' |
+total| STRING| Total balance|
+available |STRING| Available balance|
+reserved|STRING|Reserved balance (unavailable) due to working spot orders|
+quantityLastUpdated|STRING|Millisecond timestamp of when balance was last updated|
 
 
-###GET `/v2/balances/{instrumentId}`
+### GET `/v2/balances/{instrumentId}`
 
 >**Request**
 
@@ -335,36 +344,38 @@ import hmac
 import base64
 import hashlib
 import datetime
-from urllib.parse import urlencode
+import json
 
 rest_url = 'https://v2stgapi.coinflex.com'
 rest_path = 'v2stgapi.coinflex.com'
 
-api_key = <API-KEY>
-api_secret = <API-SECRET>
+api_key = 'api_key'
+api_secret = 'api_secret'
 
 ts = datetime.datetime.utcnow().isoformat()
 nonce = 123
 
-# REST API method, for example FLEX balances
-method = '/v2/balances/FLEX'
+# REST API method
+method = '/v2/balances/{instrumentId}'
 
-# Not required for /v2/balances/{instrumentId}
-body = urlencode({})
+params = "limit=3"
 
-if body:
-    path = method + '?' + body
+if params:
+    path = method + '?' + params
 else:
     path = method
 
-msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, body)
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, params)
 sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
 
 header = {'Content-Type': 'application/json', 'AccessKey': api_key,
           'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
 
 resp = requests.get(rest_url + path, headers=header)
-print(resp.json())
+print(resp.url)
+print(resp.request.headers)
+print(resp.request.body)
+print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
 ```
 
 > **Response**
@@ -387,36 +398,44 @@ print(resp.json())
 
 ```python
 {
-  "event": "balancesById",
-  "timestamp": 1593627415293,
-  "accountId": "<Your Account ID>",
-  "tradeType": "LINEAR",
-  "data": [ {   
-              "instrumentId": "FLEX",
-              "total": "4468.823",              
-              "available": "4468.823",        
-              "reserved": "0",
-              "quantityLastUpdated": "1593627415001"
-            } ]
+    "event": "balancesById",
+    "timestamp": "1648813214792",
+    "accountId": "677473",
+    "tradeType": "LINEAR",
+    "data": {
+        "instrumentId": "FLEX",
+        "total": "695180.143917630",
+        "available": "695180.143917630",
+        "reserved": "0",
+        "quantityLastUpdated": "1648809926359"
+    }
 }
 ```
 
 Returns the specified coin balance of the account connected to the API key initiating the request. 
 
-<sub>**Response Parameters**</sub> 
 
-Parameters |Type | Description| 
--------------------------- | -----|--------- |
+<sub>**Request Paramters**</sub> 
+
+Parameter | Type | Required | Description |
+--------- | ---- | -------- | ----------- |
+instrumentId | STRING | YES | Please place it in URL |
+
+<sub>**Response Fields**</sub> 
+
+Field | Type | Description | 
+------| ---- | ----------- |
 event | STRING | `balancesById`
 timestamp | INTEGER | Millisecond timestamp
-accountId | STRING    | Account ID
-tradeType | STRING    | `LINEAR` |
-data | LIST of dictionary |
-\>instrumentId | STRING |Coin symbol, e.g. 'FLEX' |
-\>total| STRING| Total balance|
-\>available |STRING|Available balance|
-\>reserved|STRING|Reserved balance (unavailable) due to working spot orders|
-\>quantityLastUpdated|STRING|Timestamp when was balance last updated|
+accountId | STRING | Account ID
+tradeType | STRING | `LINEAR` |
+data | LIST of dictionary | |
+instrumentId | STRING | Coin symbol, e.g. 'FLEX' |
+total| STRING | Total balance |
+available | STRING | Available balance |
+reserved | STRING | Reserved balance (unavailable) due to working spot orders |
+quantityLastUpdated | STRING | Timestamp when was balance last updated |
+
 
 ###GET  `/v2/positions`
 
@@ -432,13 +451,13 @@ import hmac
 import base64
 import hashlib
 import datetime
-from urllib.parse import urlencode
+import json
 
 rest_url = 'https://v2stgapi.coinflex.com'
 rest_path = 'v2stgapi.coinflex.com'
 
-api_key = <API-KEY>
-api_secret = <API-SECRET>
+api_key = 'api_key'
+api_secret = 'api_secret'
 
 ts = datetime.datetime.utcnow().isoformat()
 nonce = 123
@@ -446,22 +465,24 @@ nonce = 123
 # REST API method
 method = '/v2/positions'
 
-# Not required for /v2/positions
-body = urlencode({})
+params = "limit=3"
 
-if body:
-    path = method + '?' + body
+if params:
+    path = method + '?' + params
 else:
     path = method
 
-msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, body)
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, params)
 sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
 
 header = {'Content-Type': 'application/json', 'AccessKey': api_key,
           'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
 
 resp = requests.get(rest_url + path, headers=header)
-print(resp.json())
+print(resp.url)
+print(resp.request.headers)
+print(resp.request.body)
+print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
 ```
 
 
@@ -488,20 +509,38 @@ print(resp.json())
 
 ```python
 {
-  "event": "positions",
-  "timestamp": 1593627415000,
-  "accountId":"<Your Account ID>",
-  "data": [ {
-              "instrumentId": "BTC-USD-SWAP-LIN",
-              "quantity": "0.542000000",
-              "lastUpdated": "1617099855966",
-              "contractValCurrency": "BTC",
-              "entryPrice": "56934.8258",
-              "positionPnl": "1212.0065",
-              "estLiquidationPrice": "52454.3592"
-            },
-            ...
-          ]
+    "event": "positions", 
+    "timestamp": "1648813006698", 
+    "accountId": "677473", 
+    "data": [
+        {
+            "instrumentId": "ETH-USD-SWAP-LIN", 
+            "quantity": "-461.64", 
+            "lastUpdated": "1648518794680", 
+            "contractValCurrency": "ETH", 
+            "entryPrice": "3405.16", 
+            "positionPnl": "51675.9816", 
+            "estLiquidationPrice": "64473.25"
+        }, 
+        {
+            "instrumentId": "FLEX-USD-SWAP-LIN", 
+            "quantity": "38742.4", 
+            "lastUpdated": "1648174875502", 
+            "contractValCurrency": "FLEX", 
+            "entryPrice": "7.989", 
+            "positionPnl": "-387.4240", 
+            "estLiquidationPrice": "0"
+        }, 
+        {
+            "instrumentId": "BTC-USD-SWAP-LIN", 
+            "quantity": "65.889", 
+            "lastUpdated": "1648806900492", 
+            "contractValCurrency": "BTC", 
+            "entryPrice": "47642", 
+            "positionPnl": "-441817.260", 
+            "estLiquidationPrice": "0"
+        }
+    ]
 }
 ```
 
@@ -536,36 +575,38 @@ import hmac
 import base64
 import hashlib
 import datetime
-from urllib.parse import urlencode
+import json
 
 rest_url = 'https://v2stgapi.coinflex.com'
 rest_path = 'v2stgapi.coinflex.com'
 
-api_key = <API-KEY>
-api_secret = <API-SECRET>
+api_key = 'api_key'
+api_secret = 'api_secret'
 
 ts = datetime.datetime.utcnow().isoformat()
 nonce = 123
 
-# REST API method, for example FLEX-USD-SWAP-LIN position
-method = '/v2/positions/FLEX-USD-SWAP-LIN'
+# REST API method
+method = '/v2/positions/{instrumentId}'
 
-# Not required for /v2/positions/{instrumentId}
-body = urlencode({})
+params = "limit=3"
 
-if body:
-    path = method + '?' + body
+if params:
+    path = method + '?' + params
 else:
     path = method
 
-msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, body)
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, params)
 sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
 
 header = {'Content-Type': 'application/json', 'AccessKey': api_key,
           'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
 
 resp = requests.get(rest_url + path, headers=header)
-print(resp.json())
+print(resp.url)
+print(resp.request.headers)
+print(resp.request.body)
+print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
 ```
 
 
@@ -590,24 +631,28 @@ print(resp.json())
 
 ```python
 {
-  "event": "positionsById",
-  "timestamp": 1593617005438,
-  "accountId":"<Your Account ID>",
-  "data": [ {
-              "instrumentId": "BTC-USD-SWAP-LIN",
-              "quantity": "0.542000000",
-              "lastUpdated": "1617099855966",
-              "contractValCurrency": "BTC",
-              "entryPrice": "56934.8258",
-              "positionPnl": "1216.6135",
-              "estLiquidationPrice": "53171.16"
-          } ]
+    "event": "positionsById",
+    "timestamp": "1648812534064",
+    "accountId": "677473",
+    "data": {
+        "instrumentId": "FLEX-USD-SWAP-LIN",
+        "quantity": "38742.4",
+        "lastUpdated": "1648174875502",
+        "contractValCurrency": "FLEX",
+        "entryPrice": "7.989",
+        "positionPnl": "-387.4240",
+        "estLiquidationPrice": "0"
+    }
 }
 ```
 
 Returns the specified instrument ID position of the account connected to the API key initiating the request.
 
-Response Fields | Type | Description |
+Request Parameter | Type | Required | Description |
+--------- | ---- | -------- | ----------- |
+instrumentId | STRING | YES | Please place it in URL |
+
+Response Field | Type | Description |
 --------------- | ---- | ----------- |
 event | STRING | `positionsById` |
 timestamp | INTEGER | Millisecond timestamp |
@@ -622,7 +667,7 @@ positionPnl | STRING | Postion profit and lost |
 estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative(<0) |
 
 
-###GET `/v2/trades/{marketCode}`
+### GET `/v2/trades/{marketCode}`
 
 > **Request**
 
@@ -636,36 +681,38 @@ import hmac
 import base64
 import hashlib
 import datetime
-from urllib.parse import urlencode
+import json
 
 rest_url = 'https://v2stgapi.coinflex.com'
 rest_path = 'v2stgapi.coinflex.com'
 
-api_key = <API-KEY>
-api_secret = <API-SECRET>
+api_key = 'api_key'
+api_secret = 'api_secret'
 
 ts = datetime.datetime.utcnow().isoformat()
 nonce = 123
 
-# REST API method, for example FLEX-USD spot trades
-method = '/v2/trades/FLEX-USD'
+# REST API method
+method = '/v2/trades/{marketCode}'
 
-# Optional for /v2/trades/{marketCode}
-body = urlencode({'limit': 10, 'startTime': 1611850042397, 'endTime': 1611850059021})
+params = "limit=3"
 
-if body:
-    path = method + '?' + body
+if params:
+    path = method + '?' + params
 else:
     path = method
 
-msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, body)
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, params)
 sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
 
 header = {'Content-Type': 'application/json', 'AccessKey': api_key,
           'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
 
 resp = requests.get(rest_url + path, headers=header)
-print(resp.json())
+print(resp.url)
+print(resp.request.headers)
+print(resp.request.body)
+print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
 ```
 
 > **Response**
@@ -696,25 +743,53 @@ print(resp.json())
 
 ```python
 {
-  "event": "trades", 
-  "timestamp": 1595635101845, 
-  "accountId": "<Your Account ID>", 
-  "data": [ {
-              "matchId": "160067484555913077", 
-              "matchTimestamp": "1595514663626", 
-              "marketCode": "FLEX-USD", 
-              "matchQuantity": "0.1", 
-              "matchPrice": "0.065", 
-              "total": "0.0065", 
-              "orderMatchType": "TAKER", 
-              "fees": "0.0096", 
-              "feeInstrumentId": "FLEX", 
-              "orderId": "160067484555913076", 
-              "side": "SELL", 
-              "clientOrderId": "123"
-            },
-            ...
-          ]
+    "event": "trades",
+    "timestamp": "1648812102411",
+    "accountId": "677473",
+    "data": [
+        {
+            "matchId": "448821476099870304",
+            "matchTimestamp": "1648809926245",
+            "marketCode": "FLEX-USD",
+            "matchQuantity": "1",
+            "matchPrice": "10",
+            "total": "10",
+            "orderMatchType": "MAKER",
+            "fees": "0",
+            "feeInstrumentId": null,
+            "orderId": "1000200608142",
+            "side": "SELL",
+            "clientOrderId": "1612249737434"
+        },
+        {
+            "matchId": "448821476099870303",
+            "matchTimestamp": "1648809926245",
+            "marketCode": "FLEX-USD",
+            "matchQuantity": "1",
+            "matchPrice": "10",
+            "total": "10",
+            "orderMatchType": "MAKER",
+            "fees": "0",
+            "feeInstrumentId": null,
+            "orderId": "1000200608140",
+            "side": "SELL",
+            "clientOrderId": "1612249737434"
+        },
+        {
+            "matchId": "448821476099861874",
+            "matchTimestamp": "1648807731185",
+            "marketCode": "FLEX-USD",
+            "matchQuantity": "1",
+            "matchPrice": "10",
+            "total": "10",
+            "orderMatchType": "MAKER",
+            "fees": "0",
+            "feeInstrumentId": null,
+            "orderId": "1000200596577",
+            "side": "SELL",
+            "clientOrderId": "1612249737434"
+        }
+    ]
 }
 ```
 
@@ -724,15 +799,15 @@ Returns the most recent trades of the account connected to the API key initiatin
 
 Parameters | Type | Required | Description | 
 ---------- | ---- | -------- | ----------- |
-marketCode| STRING | YES |  | 
+marketCode| STRING | YES | Please place it in URL | 
 limit| LONG | NO | Default `500`, max `1000` | 
 startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
 endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
-<sub>**Response Parameters**</sub> 
+<sub>**Response Fields**</sub> 
 
-Parameters |Type | Description| 
--------------------------- | -----|--------- |
+Field | Type | Description | 
+------| ---- | ----------- |
 event | STRING | `trades`
 timestamp | INTEGER | Millisecond timestamp
 accountId | STRING    | Account ID
@@ -750,6 +825,7 @@ feeInstrumentId   | STRING    |   Instrument ID of the fees        |
 orderId   | STRING    |	Unique order ID from the exchange          |
 clientOrderID   | STRING    | Client assigned ID to help manage and identify orders  |
 
+
 ### GET `/v2/orders`
 
 > **Request**
@@ -764,13 +840,13 @@ import hmac
 import base64
 import hashlib
 import datetime
-from urllib.parse import urlencode
+import json
 
 rest_url = 'https://v2stgapi.coinflex.com'
 rest_path = 'v2stgapi.coinflex.com'
 
-api_key = <API-KEY>
-api_secret = <API-SECRET>
+api_key = 'api_key'
+api_secret = 'api_secret'
 
 ts = datetime.datetime.utcnow().isoformat()
 nonce = 123
@@ -778,22 +854,24 @@ nonce = 123
 # REST API method
 method = '/v2/orders'
 
-# Not required for /v2/orders
-body = urlencode({})
+params = ""
 
-if body:
-    path = method + '?' + body
+if params:
+    path = method + '?' + params
 else:
     path = method
 
-msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, body)
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, params)
 sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
 
 header = {'Content-Type': 'application/json', 'AccessKey': api_key,
           'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
 
 resp = requests.get(rest_url + path, headers=header)
-print(resp.json())
+print(resp.url)
+print(resp.request.headers)
+print(resp.request.body)
+print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
 ```
 
 > **Response**
@@ -826,27 +904,43 @@ print(resp.json())
 
 ```python
 {
-  "event": "orders",
-  "timestamp": "1593617005438",
-  "accountId": "<Your Account ID>",
-  "data": [ {
-              "orderId": "160039151345856176",
-              "marketCode": "BTC-USD-SWAP-LIN",
-              "clientOrderId": null|"<clientOrderId>",              
-              "side": "BUY",
-              "orderType": "LIMIT"|"STOP",
-              "quantity": "1.00",
-              "remainingQuantity": "1.00",
-              "price": "1.00"|null,               #for limit order, null for stop order
-              "stopPrice": "<stopPrice>"|null,    #for stop order, null for limit order 
-              "limitPrice": "<limitPrice>"|null,  #for stop order, null for limit order 
-              "orderCreated": 1593617008698,
-              "lastModified": 1593617008698,
-              "lastTradeTimestamp": 1593617008698,
-              "timeInForce": "GTC"
-            },
-            ...
-          ]
+    "event": "orders", 
+    "timestamp": "1648809819657", 
+    "accountId": "677473", 
+    "data": [
+        {
+            "orderId": "1000200608142", 
+            "marketCode": "FLEX-USD", 
+            "clientOrderId": "1612249737434", 
+            "side": "SELL", 
+            "orderType": "LIMIT", 
+            "quantity": "1.0", 
+            "remainingQuantity": "1.0", 
+            "price": "10.0", 
+            "stopPrice": null, 
+            "limitPrice": "10.0", 
+            "orderCreated": 1648809816385, 
+            "lastModified": 1648809816591, 
+            "lastTradeTimestamp": 1648809816557, 
+            "timeInForce": "GTC"
+        }, 
+        {
+            "orderId": "1000200608140", 
+            "marketCode": "FLEX-USD", 
+            "clientOrderId": "1612249737434", 
+            "side": "SELL", 
+            "orderType": "LIMIT", 
+            "quantity": "1.0", 
+            "remainingQuantity": "1.0", 
+            "price": "10.0", 
+            "stopPrice": null, 
+            "limitPrice": "10.0", 
+            "orderCreated": 1648809812567, 
+            "lastModified": 1648809812773, 
+            "lastTradeTimestamp": 1648809812680, 
+            "timeInForce": "GTC"
+        }
+    ]
 }
 ```
 
@@ -882,6 +976,45 @@ timeInForce | STRING | Time in force |
 
 ```json
 GET /v2.1/orders?marketCode={marketCode}&orderId={orderId}&clientOrderId={clientOrderId}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+```python
+import requests
+import hmac
+import base64
+import hashlib
+import datetime
+import json
+
+rest_url = 'https://v2stgapi.coinflex.com'
+rest_path = 'v2stgapi.coinflex.com'
+
+api_key = 'api_key'
+api_secret = 'api_key'
+
+ts = datetime.datetime.utcnow().isoformat()
+nonce = 123
+
+# REST API method
+method = '/v2.1/orders'
+
+params = "marketCode=FLEX-USD&limit=1"
+
+if params:
+    path = method + '?' + params
+else:
+    path = method
+
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, params)
+sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+
+header = {'Content-Type': 'application/json', 'AccessKey': api_key,
+          'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
+
+resp = requests.get(rest_url + path, headers=header)
+print(resp.url)
+print(resp.request.headers)
+print(resp.request.body)
+print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
 ```
 
 > **Response**
@@ -983,13 +1116,48 @@ GET /v2.1/orders?marketCode={marketCode}&orderId={orderId}&clientOrderId={client
     ]
 }
 ```
+```python
+{
+    "event": "orders",
+    "timestamp": "1648809055324",
+    "accountId": "677473",
+    "data": [
+        {
+            "status": "OrderMatched",
+            "orderId": "1000200596577",
+            "clientOrderId": "1612249737434",
+            "marketCode": "FLEX-USD",
+            "side": "SELL",
+            "orderType": "LIMIT",
+            "price": "10.000",
+            "lastTradedPrice": "10.000",
+            "avgFillPrice": "10.000",
+            "quantity": "1",
+            "filledQuantity": "1",
+            "remainQuantity": "0",
+            "matchIds": [
+                {
+                    "448821476099861874": {
+                        "matchQuantity": "1",
+                        "matchPrice": "10.000",
+                        "timestamp": "1648807731185",
+                        "orderMatchType": "MAKER"
+                    }
+                }
+            ],
+            "timeInForce": "GTC",
+            "isTriggered": "false"
+        }
+    ]
+}
+```
 
 Returns all orders of the account connected to the API key initiating the request.
 
 Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
-marketCode | STRING | NO | |
-orderId | LONG | NO | |
+marketCode | STRING | NO | Market code |
+orderId | LONG | NO | Client assigned ID to help manage and identify orders |
 clientOrderId | LONG | NO | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
 limit | LONG | NO | max `100`, default `100` |
 startTime | LONG | NO | e.g. `1579450778000`, default 24 hours ago, the range between startTime and endTime should be less than or equal to 7 days(`endTime - startTime <= 7days`) |
@@ -1043,13 +1211,13 @@ import hmac
 import base64
 import hashlib
 import datetime
-from urllib.parse import urlencode
+import json
 
 rest_url = 'https://v2stgapi.coinflex.com'
 rest_path = 'v2stgapi.coinflex.com'
 
-api_key = <API-KEY>
-api_secret = <API-SECRET>
+api_key = 'api_key'
+api_secret = 'api_secret'
 
 ts = datetime.datetime.utcnow().isoformat()
 nonce = 123
@@ -1057,22 +1225,19 @@ nonce = 123
 # REST API method
 method = '/v2/cancel/orders'
 
-# Not required for /v2/orders
-body = urlencode({})
+params = json.dumps({})
 
-if body:
-    path = method + '?' + body
-else:
-    path = method
-
-msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'DELETE', rest_path, method, body)
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'DELETE', rest_path, method, params)
 sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
 
 header = {'Content-Type': 'application/json', 'AccessKey': api_key,
           'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
 
-resp = requests.delete(rest_url + path, headers=header)
-print(resp.json())
+resp = requests.delete(rest_url + method, headers=header, data=params)
+print(resp.url)
+print(resp.request.headers)
+print(resp.request.body)
+print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
 ```
 
 > **Response**
@@ -1090,12 +1255,12 @@ print(resp.json())
 
 ```python
 {
-  "event": "orders",
-  "timestamp": 1594412077100,
-  "accountId": "<AccountID>",
-  "data": {
-            "msg": "All open orders for the account have been queued for cancellation"
-          } 
+    "event": "orders",
+    "timestamp": "1648809641539",
+    "accountId": "677473",
+    "data": {
+        "msg": "All open orders for the account have been queued for cancellation"
+    }
 }
 ```
 
@@ -1105,13 +1270,13 @@ If this REST method was sucessful it will also trigger a reponse message in an a
 
 <sub>**Response Parameters**</sub> 
 
-Parameters |Type | Description| 
--------------------------- | -----|--------- |
-event | STRING | `orders`
-timestamp | INTEGER | Millisecond timestamp
-accountId | STRING    | Account ID
-data | Dictionary |
-\>msg   | STRING    | Confirmation of action |
+Parameters | Type | Description | 
+-----------| ---- | ----------- |
+event | STRING | `orders` |
+timestamp | INTEGER | Millisecond timestamp |
+accountId | STRING | Account ID |
+data | Dictionary | |
+msg  | STRING | Confirmation of action |
 
 
 ###DELETE `/v2/cancel/orders/{marketCode}`
@@ -1128,36 +1293,33 @@ import hmac
 import base64
 import hashlib
 import datetime
-from urllib.parse import urlencode
+import json
 
 rest_url = 'https://v2stgapi.coinflex.com'
 rest_path = 'v2stgapi.coinflex.com'
 
-api_key = <API-KEY>
-api_secret = <API-SECRET>
+api_key = 'api_key'
+api_secret = 'api_secret'
 
 ts = datetime.datetime.utcnow().isoformat()
 nonce = 123
 
-# REST API method, for example FLEX-USD spot market
-method = '/v2/cancel/orders/FLEX-USD' 
+# REST API method
+method = '/v2/cancel/orders/{marketCode}'
 
-# Not required for /v2/orders/{marketCode}
-body = urlencode({})
+params = json.dumps({})
 
-if body:
-    path = method + '?' + body
-else:
-    path = method
-
-msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'DELETE', rest_path, method, body)
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'DELETE', rest_path, method, params)
 sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
 
 header = {'Content-Type': 'application/json', 'AccessKey': api_key,
           'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
 
-resp = requests.delete(rest_url + path, headers=header)
-print(resp.json())
+resp = requests.delete(rest_url + method, headers=header, data=params)
+print(resp.url)
+print(resp.request.headers)
+print(resp.request.body)
+print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
 ```
 
 > **Response**
@@ -1176,13 +1338,13 @@ print(resp.json())
 
 ```python
 {
-  "event": "orders",
-  "timestamp": 1594412077100,
-  "accountId": "<AccountID>",
-  "data": {
-            "marketCode": "FLEX-USD",
-            "msg": "All open orders for the specified market have been queued for cancellation"
-          }
+    "event": "orders",
+    "timestamp": "1648807731741",
+    "accountId": "3101",
+    "data": {
+        "marketCode": "BTC-USD-SWAP-LIN",
+        "msg": "All open orders for the specified market have been queued for cancellation"
+    }
 }
 ```
 
@@ -1190,10 +1352,12 @@ Cancels all open orders for the **specified market** for the account connected t
 
 If this REST method was sucessful it will also trigger a reponse message in an authenticated websocket of the account.  This is documented here [Cancel Open Orders](#websocket-api-other-responses-cancel-open-orders).
 
-<sub>**Response Parameters**</sub> 
+Request Parameter | Type | Required | Description |
+--------- | ---- | -------- | ----------- |
+marketCode | STRING | YES | Please place it in URL |
 
-Parameters |Type | Description| 
--------------------------- | -----|--------- |
+Response Fields | Type | Description | 
+--------------- | ---- | ----------- |
 event | STRING | `orders`
 timestamp | INTEGER | Millisecond timestamp
 accountId | STRING | Account ID
@@ -1216,36 +1380,38 @@ import hmac
 import base64
 import hashlib
 import datetime
-from urllib.parse import urlencode
+import json
 
 rest_url = 'https://v2stgapi.coinflex.com'
 rest_path = 'v2stgapi.coinflex.com'
 
-api_key = <API-KEY>
-api_secret = <API-SECRET>
+api_key = 'api_key'
+api_secret = 'api_secret'
 
 ts = datetime.datetime.utcnow().isoformat()
 nonce = 123
 
 # REST API method
-method = '/v2.1/delivery/orders' 
+method = '/v2.1/delivery/orders'
 
-# Not required for GET /v2.1/delivery/orders
-body = urlencode({})
+params = "limit=1"
 
-if body:
-    path = method + '?' + body
+if params:
+    path = method + '?' + params
 else:
     path = method
 
-msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, body)
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'GET', rest_path, method, params)
 sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
 
 header = {'Content-Type': 'application/json', 'AccessKey': api_key,
           'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
 
 resp = requests.get(rest_url + path, headers=header)
-print(resp.json())
+print(resp.url)
+print(resp.request.headers)
+print(resp.request.body)
+print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
 ```
 
 > **Response**
@@ -1286,35 +1452,23 @@ print(resp.json())
 
 ```python
 {
-  "event": "deliverOrders",
-  "timestamp": "1596685339910",
-  "data": [ {
-              "timestamp": "1595781719394",
-              "instrumentId": "BTC-USD-SWAP-LIN",
-              "status": "DELIVERED",
-              "quantity": null,
-              "deliverPrice": "9938.480000000",
-              "transferAsset": "USD",
-              "transferQty": "993.848000000",
-              "instrumentIdDeliver": "BTC",
-              "deliverQty": "0.100000000",
-              "deliverOrderId": "575770851486007299",
-              "clientOrderId": null
-            },
-            {
-              "timestamp": "1595786511155",
-              "instrumentId": "BTC-USD-SWAP-LIN",
-              "status": "CANCELLED",
-              "quantity": null,
-              "deliverPrice": "9911.470000000",
-              "transferAsset": "USD",
-              "transferQty": "0.000000000",
-              "instrumentIdDeliver": "BTC",
-              "deliverQty": "0.000000000",
-              "deliverOrderId": "575786553086246913",
-              "clientOrderId": null
-            },
-          ]
+    "event": "deliverOrders",
+    "timestamp": "1648806915444",
+    "data": [
+        {
+            "timestamp": "1648806900463",
+            "instrumentId": "BTC-USD-SWAP-LIN",
+            "status": "PENDING",
+            "quantity": "0.100000000",
+            "deliverPrice": "45131.000000000",
+            "transferAsset": "USD",
+            "transferQty": "4513.100000000",
+            "instrumentIdDeliver": "BTC",
+            "deliverQty": "0.000000000",
+            "deliverOrderId": "749523764730920963",
+            "clientOrderId": null
+        }
+    ]
 }
 ```
 
@@ -1348,7 +1502,8 @@ deliverOrderId | STRING | Order id
 clientOrderId | Null Type |  null
 
 
-###POST `/v2.1/delivery/orders`
+### POST `/v2.1/delivery/orders`
+
 > **Request**
 
 ```json
@@ -1356,8 +1511,8 @@ POST /v2.1/delivery/orders
 ```
 ```json
 {
-  "instrumentId": {instrumentId},
-  "qtyDeliver": {qtyDeliver}
+    "instrumentId": "BTC-USD-SWAP-LIN",
+    "qtyDeliver": "0.1"
 }
 ```
 
@@ -1367,91 +1522,92 @@ import hmac
 import base64
 import hashlib
 import datetime
-from urllib.parse import urlencode
+import json
 
 rest_url = 'https://v2stgapi.coinflex.com'
 rest_path = 'v2stgapi.coinflex.com'
 
-api_key = <API-KEY>
-api_secret = <API-SECRET>
+api_key = 'api_key'
+api_secret = 'api_secret'
 
 ts = datetime.datetime.utcnow().isoformat()
 nonce = 123
 
 # REST API method
-method = '/v2.1/delivery/orders' 
+method = '/v2.1/delivery/orders'
 
-# Required for POST /v2.1/delivery/orders
-body = urlencode({"instrumentId": "BTC-USD-SWAP-LIN", "qtyDeliver": "1"})
+params = json.dumps({"instrumentId": "BTC-USD-SWAP-LIN", "qtyDeliver": "0.1"})
 
-if body:
-    path = method + '?' + body
-else:
-    path = method
-
-msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'POST', rest_path, method, body)
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'POST', rest_path, method, params)
 sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
 
 header = {'Content-Type': 'application/json', 'AccessKey': api_key,
           'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
 
-resp = requests.post(rest_url + path, headers=header)
-print(resp.json())
+resp = requests.post(rest_url + method, headers=header, data=params)
+print(resp.url)
+print(resp.request.headers)
+print(resp.request.body)
+print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
 ```
 
 > **Response**
 
 ```json
 {
-  "event": "delivery",
-  "timestamp": "1599204123484",
-  "accountId": "164",
-  "data": [ {
-              "deliverOrderId": "586985384617312258",
-              "accountId": "164",
-              "clientOrderId": null,
-              "instrumentId": "BTC-USD-SWAP-LIN",
-              "deliverPrice": "10000.000000000",
-              "deliverPosition": "1.000",
-              "deliverType": "NEXT_CYCLE",
-              "instrumentIdDeliver": "BTC",
-              "deliverQty": "1.000",
-              "remainingQty": "1.000",
-              "remainingPosition": "1.000",
-              "transferAsset": "USD",
-              "transferQty": "1",
-              "auctionTime": "1599204122693",
-              "created": "1599204122693",
-              "lastUpdated": "1599204122693",
-              "status": "PENDING"
-          } ]
+    "event": "delivery",
+    "timestamp": "1648801950009",
+    "accountId": "3101",
+    "data": [
+        {
+            "deliverOrderId": "749507542787358724",
+            "accountId": "3101",
+            "clientOrderId": null,
+            "instrumentId": "BTC-USD-SWAP-LIN",
+            "deliverPrice": "45285",
+            "deliverPosition": "0.100",
+            "deliverType": "NEXT_CYCLE",
+            "instrumentIdDeliver": "BTC",
+            "deliverQty": "0.100",
+            "remainingQty": "0.100",
+            "remainingPosition": "0.100",
+            "transferAsset": "USD",
+            "transferQty": "4528.500",
+            "auctionTime": "1648801949919",
+            "created": "1648801949919",
+            "lastUpdated": "1648801949919",
+            "status": "PENDING"
+        }
+    ]
 }
 ```
 
 ```python
 {
-  "event": "delivery",
-  "timestamp": "1599204123484",
-  "accountId": "164",
-  "data": [ {
-              "deliverOrderId": "586985384617312258",
-              "accountId": "164",
-              "clientOrderId": null,
-              "instrumentId": "BTC-USD-SWAP-LIN",
-              "deliverPrice": "10000.000000000",
-              "deliverPosition": "1.000",
-              "deliverType": "NEXT_CYCLE",
-              "instrumentIdDeliver": "BTC",
-              "deliverQty": "1.000",
-              "remainingQty": "1.000",
-              "remainingPosition": "1.000",
-              "transferAsset": "USD",
-              "transferQty": "1",
-              "auctionTime": "1599204122693",
-              "created": "1599204122693",
-              "lastUpdated": "1599204122693",
-              "status": "PENDING"
-          } ]
+    "event": "delivery", 
+    "timestamp": "1648801950009", 
+    "accountId": "3101", 
+    "data": [
+        {
+            "deliverOrderId": "749507542787358724", 
+            "accountId": "3101", 
+            "clientOrderId": null, 
+            "instrumentId": "BTC-USD-SWAP-LIN", 
+            "deliverPrice": "45285", 
+            "deliverPosition": "0.100", 
+            "deliverType": "NEXT_CYCLE", 
+            "instrumentIdDeliver": "BTC", 
+            "deliverQty": "0.100", 
+            "remainingQty": "0.100", 
+            "remainingPosition": "0.100", 
+            "transferAsset": "USD", 
+            "transferQty": "4528.500", 
+            "auctionTime": "1648801949919", 
+            "created": "1648801949919", 
+            "lastUpdated": "1648801949919", 
+            "status": "PENDING"
+        }
+    ]
 }
 ```
 
@@ -1464,13 +1620,13 @@ Parameters | Type | Required |Description|
 instrumentId| STRING | YES | Perpetual swap instrument intended for delivery |
 qtyDeliver| STRING | YES | Quantity intended for delivery |
 
-<sub>**Response Parameters**</sub> 
+<sub>**Response Fields**</sub> 
 
-Parameters |Type | Description| 
--------------------------- | -----|--------- |
+Field | Type | Description |
+----- | ---- | ----------- |
 event | STRING | `delivery`
 timestamp | STRING | Millisecond timestamp of the repsonse
-accountId | STRING    | Account ID|
+accountId | STRING | Account ID |
 data | LIST of dictionary |
 deliverOrderId | STRING | Order id
 accountId | STRING    | Account ID|
@@ -1490,7 +1646,8 @@ created | STRING | Millisecond timestamp
 lastUpdated | STRING | Millisecond timestamp 
 status | STRING | Delivery status
 
-###DELETE `/v2.1/delivery/orders/{deliveryOrderId}`
+
+### DELETE `/v2.1/delivery/orders/{deliveryOrderId}`
 > **Request**
 
 ```json
@@ -1503,59 +1660,55 @@ import hmac
 import base64
 import hashlib
 import datetime
-from urllib.parse import urlencode
+import json
 
 rest_url = 'https://v2stgapi.coinflex.com'
 rest_path = 'v2stgapi.coinflex.com'
 
-api_key = <API-KEY>
-api_secret = <API-SECRET>
+api_key = 'api_key'
+api_secret = 'api_key'
 
 ts = datetime.datetime.utcnow().isoformat()
 nonce = 123
 
-# REST API method
-method = '/v2.1/delivery/orders/{deliveryOrderId}' 
+method = '/v2.1/delivery/orders/{deliveryOrderId}'
 
-# Not required for DELETE /v2.1/delivery/orders/{deliveryOrderId}
-body = urlencode({})
+params = json.dumps({})
 
-if body:
-    path = method + '?' + body
-else:
-    path = method
-
-msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'DELETE', rest_path, method, body)
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'DELETE', rest_path, method, params)
 sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
 
 header = {'Content-Type': 'application/json', 'AccessKey': api_key,
           'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
 
-resp = requests.delete(rest_url + path, headers=header)
-print(resp.json())
+resp = requests.delete(rest_url + method, headers=header, data=params)
+print(resp.url)
+print(resp.request.headers)
+print(resp.request.body)
+print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
 ```
 
 > **Success response**
 
 ```json
 {
-  "event": "delivery",
-  "timestamp": "1599204310297",
-  "accountId": "164",
-  "data": [
-            "Cancel of user order was successful"
-          ]
+    "event": "delivery", 
+    "timestamp": "1648802689667", 
+    "accountId": "3101", 
+    "data": [
+        "Cancel of user order was successful"
+    ]
 }
 ```
 
 ```python
 {
-  "event": "delivery",
-  "timestamp": "1599204310297",
-  "accountId": "164",
-  "data": [
-            "Cancel of user order was successful"
-          ]
+    "event": "delivery", 
+    "timestamp": "1648802689667", 
+    "accountId": "3101", 
+    "data": [
+        "Cancel of user order was successful"
+    ]
 }
 ```
 
@@ -1563,29 +1716,46 @@ print(resp.json())
 
 ```json
 {
-  "event": "delivery",
-  "timestamp": "1599204310297",
-  "accountId": "164",
-  "data": [
-            "Cancel exception please try again"
-          ]
+    "event": "delivery", 
+    "timestamp": "1648803402131", 
+    "accountId": "3101", 
+    "data": [
+        "Cancel exception please try again"
+    ]
 }
 ```
 
 ```python
 {
-  "event": "delivery",
-  "timestamp": "1599204310297",
-  "accountId": "164",
-  "data": [
-            "Cancel exception please try again"
-          ]
+    "event": "delivery", 
+    "timestamp": "1648803402131", 
+    "accountId": "3101", 
+    "data": [
+        "Cancel exception please try again"
+    ]
 }
 ```
 
 Cancels a pending delivery.
 
-###POST `/v2/orders/place`
+<sub>**Request Parameters**</sub> 
+
+Parameters | Type | Required | Description | 
+-----------| ---- | -------- | ----------- |
+deliveryOrderId | STRING | YES | Delivery order ID, please place it in URL |
+
+<sub>**Response Fields**</sub> 
+
+Field | Type | Description |
+----- | ---- | ----------- |
+event | STRING | `delivery`
+timestamp | STRING | Millisecond timestamp of the repsonse
+accountId | STRING | Account ID |
+data | Array | Message from the server |
+
+
+### POST `/v2/orders/place`
+
 > **Request**
 
 ```json
@@ -1625,6 +1795,39 @@ POST /v2/orders/place
         }
     ]
 }
+```
+```python
+import requests
+import hmac
+import base64
+import hashlib
+import datetime
+import json
+
+rest_url = 'https://v2stgapi.coinflex.com'
+rest_path = 'v2stgapi.coinflex.com'
+
+api_key = 'api_key'
+api_secret = 'api_secret'
+
+ts = datetime.datetime.utcnow().isoformat()
+nonce = 123
+
+method = '/v2/orders/place'
+
+params = json.dumps({"recvWindow":3000, "timestamp": 1737100050453, "responseType":"FULL","orders":[{"clientOrderId":"1612249737434","marketCode":"BTC-USD-SWAP-LIN","side":"SELL","quantity":"1","timeInForce":"GTC","orderType":"LIMIT","price":"49995"}]})
+
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'POST', rest_path, method, params)
+sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+
+header = {'Content-Type': 'application/json', 'AccessKey': api_key,
+          'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
+
+resp = requests.post(rest_url + method, headers=header, data=params)
+print(resp.url)
+print(resp.request.headers)
+print(resp.request.body)
+print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
 ```
 
 > **RESPONSE**
@@ -1689,6 +1892,31 @@ POST /v2/orders/place
     ]
 }
 ```
+```python
+{
+    "event": "placeOrder", 
+    "timestamp": "1648804490345", 
+    "accountId": "677473", 
+    "data": [
+        {
+            "success": "true", 
+            "timestamp": "1648804490326", 
+            "clientOrderId": "1612249737434", 
+            "orderId": "1000200584643", 
+            "price": "49995.0", 
+            "quantity": "1.0", 
+            "side": "SELL", 
+            "status": "OPEN", 
+            "marketCode": "BTC-USD-SWAP-LIN", 
+            "timeInForce": "GTC", 
+            "matchId": "0", 
+            "notice": "OrderOpened", 
+            "orderType": "LIMIT", 
+            "isTriggered": "false"
+        }
+    ]
+}
+```
 
 Place orders.
 
@@ -1698,25 +1926,25 @@ You can place up to 8 orders at a time in REST API
 
 Request Parameters | Type | Required | Description | 
 ------------------ | ---- | -------- | ----------- |
-recvWindow | LONG | NO | |
-timestamp | STRING | NO | |
+recvWindow | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected |
+timestamp | STRING | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected |
 responseType | STRING | YES | `FULL` or `ACK` |
 orders | LIST | YES | |
 clientOrderId | STRING | YES | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
-marketCode | STRING | YES | |
-side | STRING | YES | |
-quantity | STRING | YES | |
+marketCode | STRING | YES | Market code |
+side | STRING | YES | `BUY` or `SELL` |
+quantity | STRING | YES | Quantity |
 timeInForce | STRING | NO | Default `GTC` |
-orderType | STRING | YES | |
-price | STRING | NO | |
-stopPrice | STRING | NO | |
-limitPrice | STRING | NO | |
+orderType | STRING | YES | `LIMIT` or `MARKET` or `STOP` |
+price | STRING | NO | Price submitted |
+stopPrice | STRING | NO | Stop price for the stop order |
+limitPrice | STRING | NO | Limit price for the stop limit order |
 
-Response Parameters | Type | Description | 
+Response Fields | Type | Description | 
 --------------------| ---- | ----------- |
-accountId | STRING | |
+accountId | STRING | Account ID |
 event | STRING | |
-timestamp | STRING | |
+timestamp | STRING | Millisecond timestamp of the repsonse |
 data | LIST | |
 success | STRING | Whether an order has been successfully placed |
 timestamp | STRING | |
