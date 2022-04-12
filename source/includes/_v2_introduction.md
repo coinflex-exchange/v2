@@ -1,5 +1,9 @@
 # Change Log
 
+**2022-04-12**
+
+* Added new REST API [GET /v3/AMM/hash-token](?json#rest-api-v3-amm-private-get-v3-amm-hash-token) to get AMM hashTokens
+
 **2022-03-18**
 
 * Updated REST API [GET /v3/assets](?json#rest-api-v3-market-data-public-get-v3-assets)
@@ -8,7 +12,6 @@
     * Added new response field `tokenId`
     * Added new response field `transactionPrecision`
     * Added new response field `isWithdrawalFeeChargedToUser`
-
 
 **2022-03-11**
 

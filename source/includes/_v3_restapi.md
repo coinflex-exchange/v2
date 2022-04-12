@@ -323,7 +323,7 @@ GET /v3/deposit?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTi
 }
 ```
 
-Request Parameter | Type | Required | Description | 
+Request Parameter | Type | Required | Description |
 ----------------- | ---- | -------- | ----------- |
 asset | STRING | NO | Default all assets |
 limit | LONG | NO | Default 50, max 200 |
@@ -372,9 +372,9 @@ GET /v3/withdrawal-addresses?asset={asset}?network={network}
 
 Provides a list of all saved withdrawal addresses along with their respected labels, network, and whitelist status
 
-Request Parameter | Type | Required | Description | 
+Request Parameter | Type | Required | Description |
 ----------------- | ---- | -------- | ----------- |
-asset | STRING | NO |  Default all assets |
+asset | STRING | NO | Default all assets |
 network | STRING | NO | Default all networks |
 
 Response Field | Type | Description | 
@@ -419,9 +419,9 @@ GET /v3/withdrawal?asset={asset}&limit={limit}&startTime={startTime}&endTime={en
 }
 ```
 
-Request Parameter | Type | Required | Description | 
+Request Parameter | Type | Required | Description |
 ----------------- | ---- | -------- | ----------- |
-asset | STRING | NO |  Default all assets |
+asset | STRING | NO | Default all assets |
 limit | LONG | NO | Default 50, max 200 |
 startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other. This filter applies to "requestedAt" |
 endTime | LONG | NO |  Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other. This filter applies to "requestedAt" |
@@ -638,8 +638,8 @@ API keys linked to the main account can get all account transfers,
 while API keys linked to a sub-account can only see transfers where the sub-account is either the "fromAccount" or "toAccount".
 </aside>
 
-Request Parameters | Type | Required | Description | 
------------------- | ---- | -------- | ----------- |
+Request Parameter | Type | Required | Description |
+----------------- | ---- | -------- | ----------- |
 asset | STRING | NO | Default all assets |
 limit | LONG | NO | Default 50, max 200 |
 startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
@@ -1048,7 +1048,7 @@ POST /v3/AMM/redeem
 }
 ```
 
-Request Parameters | Type | Required | Description |
+Request Parameter | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 hashToken | STRING | YES | Hash token |
 type | STRING | YES | Available values: `DELIVER` and `MANUAL`. `DELIVER` invokes physical delivery, the AMM must have the appropriate balance to trigger delivery. `MANUAL` cancels all working orders and creates a sub account that is accessible from the dashboard. |
@@ -1057,6 +1057,7 @@ Response Field | Type | Description |
 -------------- | ---- | ----------- |
 hashToken | STRING | Hash token |
 type | STRING | Available values: `DELIVER` and `MANUAL` |
+
 
 ### GET `/v3/AMM`
 
@@ -1136,7 +1137,7 @@ GET /v3/AMM?hashToken={hashToken},{hashToken}
 }
 ```
 
-Request Parameters | Type | Required | Description |
+Request Parameter | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 hashToken | STRING | YES | Multiple hashTokens can be separated with a comma, maximum of 5 hashTokens, e.g. `CF-BCH-AMM-ABCDE3iy,CF-BCH-AMM-ABCDE4iy` |
 
@@ -1180,7 +1181,8 @@ maintenanceMargin | STRING | Maintenance margin |
 marginRatio | STRING | Margin ratio |
 liquidating | BOOLEAN | Available values: `true` and `false` |
 feeTier | STRING | Fee tier |
-createdAt | STRING | AMM creation timestamp |
+createdAt | STRING | AMM creation millisecond timestamp |
+
 
 ### GET `/v3/AMM/balances`
 
@@ -1221,7 +1223,7 @@ GET /v3/AMM/balances?hashToken={hashToken},{hashToken}&asset={asset}
 }
 ```
 
-Request Parameters | Type | Required | Description |
+Request Parameter | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 hashToken | STRING | YES | Multiple hashTokens can be separated with a comma, maximum of 5 hashTokens, e.g. `CF-BCH-AMM-ABCDE3iy,CF-BCH-AMM-ABCDE4iy` |
 asset | STRING | NO | |
@@ -1234,7 +1236,7 @@ asset | STRING | Asset |
 total | STRING | Total balance |
 available | STRING | Available balance |
 reserved | STRING | Reserved balance |
-lastUpdatedAt | STRING | Timestamp of last updated at |
+lastUpdatedAt | STRING | Millisecond timestamp of last updated at |
 
 ### GET `/v3/AMM/positions`
 
@@ -1272,7 +1274,7 @@ GET /v3/AMM/positions?hashToken={hashToken},{hashToken}&marketCode={marketCode}
 }
 ```
 
-Request Parameters | Type | Required | Description |
+Request Parameter | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 hashToken | STRING | YES | Multiple hashTokens can be separated with a comma, maximum of 5 hashTokens, e.g. `CF-BCH-AMM-ABCDE3iy,CF-BCH-AMM-ABCDE4iy` |
 marketCode | STRING | NO | Market code |
@@ -1289,7 +1291,7 @@ entryPrice | STRING | Entry price |
 markPrice | STRING | Mark price |
 positionPnl | STRING | Position PNL |
 estLiquidationPrice | STRING | Estimated liquidation price |
-lastUpdatedAt | STRING | Timestamp of last updated at |
+lastUpdatedAt | STRING | Millisecond timestamp of last updated at |
 
 ### GET `/v3/AMM/orders`
 
@@ -1328,7 +1330,7 @@ GET /v3/AMM/orders?hashToken={hashToken}
 }
 ```
 
-Request Parameters | Type | Required | Description |
+Request Parameter | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 hashToken | STRING | YES | Maximum 1 hashToken, e.g. `CF-BCH-AMM-ABCDE3iy` |
 
@@ -1348,8 +1350,8 @@ matchedQuantity | STRING | Matched quantity |
 orderType | STRING | Available values: `LIMIT` or `STOP` |
 timeInForce | STRING | Time in force |
 createdAt | STRING | Timestamp |
-lastModifiedAt | STRING | Timestamp if applicable|
-lastMatchedAt | STRING | Timestamp if applicable|
+lastModifiedAt | STRING | Millisecond timestamp if applicable|
+lastMatchedAt | STRING | Millisecond timestamp if applicable|
 
 ### GET `/v3/AMM/trades`
 
@@ -1385,7 +1387,7 @@ GET /v3/AMM/trades?hashToken={hashToken}&marketCode={marketCode}&limit={limit}&s
 }
 ```
 
-Request Parameters | Type | Required | Description |
+Request Parameter | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 hashToken | STRING | YES | Single hashToken e.g. `CF-BCH-AMM-ABCDE3iy` |
 marketCode | STRING | NO | Market code |
@@ -1408,7 +1410,68 @@ leg2Price | STRING | |
 orderMatchType | STRING | Available values: `TAKER` and `MAKER` |
 feeAsset | STRING | Fee asset |
 fee | STRING | Fee |
-lastMatchedAt | STRING | Timestamp |
+lastMatchedAt | STRING | Millisecond timestamp |
+
+
+### GET `/v3/AMM/hash-token`
+
+Get AMM hashTokens in descending order (most recent first)
+
+<aside class="notice">
+Main account API key can search all subaccount hashTokens
+</aside>
+
+> **Request**
+
+```
+GET /v3/AMM/hash-token?status={status}&marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "hashToken": "CF-ETH-AMM-607973",
+            "direction": "BUY",
+            "marketCode": "ETH-USD-SWAP-LIN",
+            "minPriceBound": "3340",
+            "maxPriceBound": "3380",
+            "status": "EXECUTING",
+            "createdAt": "1649630816578"
+        },
+        {
+            "hashToken": "CF-BCH-AMM-607818",
+            "direction": "SELL",
+            "marketCode": "BCH-USD-SWAP-LIN",
+            "minPriceBound": "300",
+            "maxPriceBound": "1500",
+            "status": "EXECUTING",
+            "createdAt": "1649544662014"
+        }
+    ]
+}
+```
+
+Request Parameter | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+status | STRING | NO | Available values: `EXECUTING`, `ENDED`, `PENDING`, `LIQUIDATED` |
+marketCode | STRING | NO | Market code |
+limit | LONG | NO | Default 200, max 500 |
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
+
+Response Field | Type | Description |
+-------------- | ---- | ----------- |
+hashToken | STRING | hashToken e.g. `CF-BCH-AMM-ABCDE3iy` |
+direction | STRING | Available values: `BUY` and `SELL` |
+marketcode | STRING | Market code |
+minPriceBound | STRING | Minimum price bound |
+maxPriceBound | STRING | Maximum price bound |
+status | STRING | Available values: `EXECUTING`, `ENDED`, `PENDING`, `LIQUIDATED` |
+createdAt | STRING | Millisecond timestamp |
 
 
 ## Market Data - Public
