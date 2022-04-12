@@ -684,6 +684,9 @@
                           <li>
                             <a href="#rest-api-v3-amm-private-get-v3-amm-trades" class="toc-h3 toc-link" data-title="GET <code>/v3/AMM/trades</code>">GET <code>/v3/AMM/trades</code></a>
                           </li>
+                          <li>
+                            <a href="#rest-api-v3-amm-private-get-v3-amm-hash-token" class="toc-h3 toc-link" data-title="GET <code>/v3/AMM/hash-token</code>">GET <code>/v3/AMM/hash-token</code></a>
+                          </li>
                       </ul>
                   </li>
                   <li>
@@ -738,6 +741,12 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2022-04-12</strong></p>
+
+<ul>
+<li>Added new REST API <a href="?json#rest-api-v3-amm-private-get-v3-amm-hash-token">GET /v3/AMM/hash-token</a> to get AMM hashTokens</li>
+</ul>
+
 <p><strong>2022-03-18</strong></p>
 
 <ul>
@@ -1610,19 +1619,19 @@
 <td></td>
 </tr>
 <tr>
-<td>&gt;apiKey</td>
+<td>apiKey</td>
 <td>STRING</td>
 <td>Yes</td>
 <td>Clients public API key, visible in the GUI when created</td>
 </tr>
 <tr>
-<td>&gt;timestamp</td>
+<td>timestamp</td>
 <td>STRING</td>
 <td>Yes</td>
 <td>Current millisecond timestamp</td>
 </tr>
 <tr>
-<td>&gt;signature</td>
+<td>signature</td>
 <td>STRING</td>
 <td>Yes</td>
 <td><code>Base64(HmacSHA256(current_ms_timestamp + &#39;GET/auth/self/verify&#39;, API-Secret))</code></td>
@@ -13689,7 +13698,7 @@ while API keys linked to a sub-account can only see transfers where the sub-acco
 
 <table><thead>
 <tr>
-<th>Request Parameters</th>
+<th>Request Parameter</th>
 <th>Type</th>
 <th>Required</th>
 <th>Description</th>
@@ -14446,7 +14455,7 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 </span></code></pre></div>
 <table><thead>
 <tr>
-<th>Request Parameters</th>
+<th>Request Parameter</th>
 <th>Type</th>
 <th>Required</th>
 <th>Description</th>
@@ -14561,7 +14570,7 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 </span></code></pre></div>
 <table><thead>
 <tr>
-<th>Request Parameters</th>
+<th>Request Parameter</th>
 <th>Type</th>
 <th>Required</th>
 <th>Description</th>
@@ -14775,7 +14784,7 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 <tr>
 <td>createdAt</td>
 <td>STRING</td>
-<td>AMM creation timestamp</td>
+<td>AMM creation millisecond timestamp</td>
 </tr>
 </tbody></table>
 <h3 id='rest-api-v3-amm-private-get-v3-amm-balances'>GET <code>/v3/AMM/balances</code></h3>
@@ -14816,7 +14825,7 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 </span></code></pre></div>
 <table><thead>
 <tr>
-<th>Request Parameters</th>
+<th>Request Parameter</th>
 <th>Type</th>
 <th>Required</th>
 <th>Description</th>
@@ -14876,7 +14885,7 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 <tr>
 <td>lastUpdatedAt</td>
 <td>STRING</td>
-<td>Timestamp of last updated at</td>
+<td>Millisecond timestamp of last updated at</td>
 </tr>
 </tbody></table>
 <h3 id='rest-api-v3-amm-private-get-v3-amm-positions'>GET <code>/v3/AMM/positions</code></h3>
@@ -14914,7 +14923,7 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 </span></code></pre></div>
 <table><thead>
 <tr>
-<th>Request Parameters</th>
+<th>Request Parameter</th>
 <th>Type</th>
 <th>Required</th>
 <th>Description</th>
@@ -14994,7 +15003,7 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 <tr>
 <td>lastUpdatedAt</td>
 <td>STRING</td>
-<td>Timestamp of last updated at</td>
+<td>Millisecond timestamp of last updated at</td>
 </tr>
 </tbody></table>
 <h3 id='rest-api-v3-amm-private-get-v3-amm-orders'>GET <code>/v3/AMM/orders</code></h3>
@@ -15033,7 +15042,7 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 </span></code></pre></div>
 <table><thead>
 <tr>
-<th>Request Parameters</th>
+<th>Request Parameter</th>
 <th>Type</th>
 <th>Required</th>
 <th>Description</th>
@@ -15127,12 +15136,12 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 <tr>
 <td>lastModifiedAt</td>
 <td>STRING</td>
-<td>Timestamp if applicable</td>
+<td>Millisecond timestamp if applicable</td>
 </tr>
 <tr>
 <td>lastMatchedAt</td>
 <td>STRING</td>
-<td>Timestamp if applicable</td>
+<td>Millisecond timestamp if applicable</td>
 </tr>
 </tbody></table>
 <h3 id='rest-api-v3-amm-private-get-v3-amm-trades'>GET <code>/v3/AMM/trades</code></h3>
@@ -15168,7 +15177,7 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 </span></code></pre></div>
 <table><thead>
 <tr>
-<th>Request Parameters</th>
+<th>Request Parameter</th>
 <th>Type</th>
 <th>Required</th>
 <th>Description</th>
@@ -15281,7 +15290,129 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 <tr>
 <td>lastMatchedAt</td>
 <td>STRING</td>
-<td>Timestamp</td>
+<td>Millisecond timestamp</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-v3-amm-private-get-v3-amm-hash-token'>GET <code>/v3/AMM/hash-token</code></h3>
+<p>Get AMM hashTokens in descending order (most recent first)</p>
+
+<aside class="notice">
+Main account API key can search all subaccount hashTokens
+</aside>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>GET /v3/AMM/hash-token?status={status}&amp;marketCode={marketCode}&amp;limit={limit}&amp;startTime={startTime}&amp;endTime={endTime}
+</code></pre></div>
+<blockquote>
+<p><strong>Successful response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"hashToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CF-ETH-AMM-607973"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"minPriceBound"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3340"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"maxPriceBound"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3380"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EXECUTING"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1649630816578"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"hashToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CF-BCH-AMM-607818"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BCH-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"minPriceBound"</span><span class="p">:</span><span class="w"> </span><span class="s2">"300"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"maxPriceBound"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1500"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EXECUTING"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1649544662014"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Available values: <code>EXECUTING</code>, <code>ENDED</code>, <code>PENDING</code>, <code>LIQUIDATED</code></td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Market code</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>LONG</td>
+<td>NO</td>
+<td>Default 200, max 500</td>
+</tr>
+<tr>
+<td>startTime</td>
+<td>LONG</td>
+<td>NO</td>
+<td>Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other</td>
+</tr>
+<tr>
+<td>endTime</td>
+<td>LONG</td>
+<td>NO</td>
+<td>Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>hashToken</td>
+<td>STRING</td>
+<td>hashToken e.g. <code>CF-BCH-AMM-ABCDE3iy</code></td>
+</tr>
+<tr>
+<td>direction</td>
+<td>STRING</td>
+<td>Available values: <code>BUY</code> and <code>SELL</code></td>
+</tr>
+<tr>
+<td>marketcode</td>
+<td>STRING</td>
+<td>Market code</td>
+</tr>
+<tr>
+<td>minPriceBound</td>
+<td>STRING</td>
+<td>Minimum price bound</td>
+</tr>
+<tr>
+<td>maxPriceBound</td>
+<td>STRING</td>
+<td>Maximum price bound</td>
+</tr>
+<tr>
+<td>status</td>
+<td>STRING</td>
+<td>Available values: <code>EXECUTING</code>, <code>ENDED</code>, <code>PENDING</code>, <code>LIQUIDATED</code></td>
+</tr>
+<tr>
+<td>createdAt</td>
+<td>STRING</td>
+<td>Millisecond timestamp</td>
 </tr>
 </tbody></table>
 <h2 id='rest-api-v3-market-data-public'>Market Data - Public</h2><h3 id='rest-api-v3-market-data-public-get-v3-markets'>GET <code>/v3/markets</code></h3>
