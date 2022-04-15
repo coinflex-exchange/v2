@@ -421,6 +421,7 @@ GET /v3/withdrawal?id={id}&asset={asset}&limit={limit}&startTime={startTime}&end
 
 Request Parameter | Type | Required | Description |
 ----------------- | ---- | -------- | ----------- |
+id | STRING | NO | |
 asset | STRING | NO | Default all assets |
 limit | LONG | NO | Default 50, max 200 |
 startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other. This filter applies to "requestedAt" |
