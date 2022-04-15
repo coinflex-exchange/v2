@@ -394,7 +394,7 @@ Withdrawal history
 > **Request**
 
 ```
-GET /v3/withdrawal?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+GET /v3/withdrawal?id={id}&asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
 ```
 
 > **Successful response format**
@@ -404,12 +404,12 @@ GET /v3/withdrawal?asset={asset}&limit={limit}&startTime={startTime}&endTime={en
     "success": true,
     "data": [
         {
+            "id": "651573911056351237",
             "asset": "flexUSD",
             "network": "SLP",
             "address": "simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
             "quantity": "1000.0",
             "fee": "0.000000000",
-            "id": "651573911056351237",
             "status": "COMPLETED",
             "txId": "38c09755bff75d33304a3cb6ee839fcb78bbb38b6e3e16586f20852cdec4886d",
             "requestedAt": "1617940800000",
@@ -428,13 +428,13 @@ endTime | LONG | NO |  Millisecond timestamp. Default time now. startTime and en
 
 Response Field | Type | Description | 
 -------------- | ---- | ----------- |
+id | STRING | |
 asset | STRING | |
 network | STRING | |
 address | STRING | |
 memo | STRING | Memo (tag) if applicable |
 quantity | STRING | |
 fee | STRING | |
-id | STRING | |
 status | STRING | COMPLETED, PROCESSING, PENDING, ON HOLD, CANCELED, or FAILED| 
 txId | STRING | |
 requestedAt | STRING | Millisecond timestamp |
@@ -468,6 +468,7 @@ POST /v3/withdrawal
 {
     "success": true,
     "data": {
+        "id": "752907053614432259",
         "asset": "flexUSD",
         "network": "SLP",
         "address": "simpleledger:qzlg6uvceehgzgtz6phmvy8gtdqyt6vf35fxqwx3p7",
@@ -494,6 +495,7 @@ code | STRING | NO | 2fa code if required by the account |
 
 Response Field | Type | Description | 
 -------------- | ---- | ----------- |
+id | STRING | |
 asset | STRING | |
 network | STRING | |
 address | STRING | |

@@ -1,5 +1,13 @@
 # Change Log
 
+**2022-04-15**
+
+* Updated REST API [GET /v3/withdrawal](?json#rest-api-v3-deposits-amp-withdrawals-private-get-v3-withdrawal)
+    * Added new parameter `id`
+
+* Updated REST API [POST /v3/withdrawal](?json#rest-api-v3-deposits-amp-withdrawals-private-post-v3-withdrawal)
+    * Added new response field `id`
+
 **2022-04-12**
 
 * Added new REST API [GET /v3/AMM/hash-token](?json#rest-api-v3-amm-private-get-v3-amm-hash-token) to get AMM hashTokens
