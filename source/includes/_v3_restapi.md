@@ -1026,6 +1026,10 @@ For unleveraged neutral AMMs the mid point of the price bounds has to equal coun
 
 Redeem AMM
 
+<aside class="notice">
+AMMs can be created by either the father account or child account. The AMM becomes the child of the account that created it. Father accounts can redeem any AMM into any account. Child accounts can redeem their child AMMs only into their account.
+</aside>
+
 > **Request**
 
 ```
@@ -1035,7 +1039,8 @@ POST /v3/AMM/redeem
 ```json
 {
     "hashToken": "CF-BCH-AMM-ABCDE3iy",
-    "type":"DELIVER"
+    "type":"DELIVER",
+    "accountId": "9546"
 }
 ```
 
@@ -1046,7 +1051,8 @@ POST /v3/AMM/redeem
     "success": true,
     "data": {
         "hashToken": "CF-BCH-AMM-ABCDE3iy",
-        "type":"DELIVER"
+        "type":"DELIVER",
+        "accountId": "9546"
     }
 }
 ```
@@ -1055,11 +1061,13 @@ Request Parameter | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 hashToken | STRING | YES | Hash token |
 type | STRING | YES | Available values: `DELIVER` and `MANUAL`. `DELIVER` invokes physical delivery, the AMM must have the appropriate balance to trigger delivery. `MANUAL` cancels all working orders and creates a sub account that is accessible from the dashboard. |
+accountId | STRING | NO | Account ID |
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
 hashToken | STRING | Hash token |
 type | STRING | Available values: `DELIVER` and `MANUAL` |
+accountId | STRING | Account ID |
 
 
 ### GET `/v3/AMM`
@@ -1127,6 +1135,7 @@ GET /v3/AMM?hashToken={hashToken},{hashToken}
         "flexReward": "200",
         "interestPaid": "123",
         "apr": "120",
+        "volume": "2143324.342",
         "collateral": "1231231",
         "portfolioVarMargin": "500",
         "riskRatio": "20.0000",
@@ -1176,6 +1185,7 @@ usdReward | STRING | USD reward from scalping |
 flexReward | STRING | FLEX reward from fee rebates |
 interestPaid | STRING | Interest paid, positive values imply interest was paid to the AMM, negative values imply interest was paid by the AMM |
 apr | STRING | APR denotes annual percentage rate |
+volume | STRING | Traded volume |
 collateral | STRING | Collateral |
 notionalPositionSize | STRING | Notional position size |
 portfolioVarMargin | STRING | Portfolio margin |

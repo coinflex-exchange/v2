@@ -1,12 +1,20 @@
 # Change Log
 
+**2022-04-18**
+
+* Updated REST API [POST /v3/AMM/redeem](?json#rest-api-v3-amm-private-post-v3-amm-redeem)
+    * Added new request parameter `accountId` and new response field `accountId`
+* Updated REST API [GET /v3/AMM](?json#rest-api-v3-amm-private-get-v3-amm)
+    * Added new response field `volume`
+
+
 **2022-04-15**
 
 * Updated REST API [GET /v3/withdrawal](?json#rest-api-v3-deposits-amp-withdrawals-private-get-v3-withdrawal)
     * Added new parameter `id`
-
 * Updated REST API [POST /v3/withdrawal](?json#rest-api-v3-deposits-amp-withdrawals-private-post-v3-withdrawal)
     * Added new response field `id`
+
 
 **2022-04-12**
 
