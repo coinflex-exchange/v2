@@ -741,15 +741,30 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2022-04-18</strong></p>
+
+<ul>
+<li>Updated REST API <a href="?json#rest-api-v3-amm-private-post-v3-amm-redeem">POST /v3/AMM/redeem</a>
+
+<ul>
+<li>Added new request parameter <code>accountId</code> and new response field <code>accountId</code></li>
+</ul></li>
+<li>Updated REST API <a href="?json#rest-api-v3-amm-private-get-v3-amm">GET /v3/AMM</a>
+
+<ul>
+<li>Added new response field <code>volume</code></li>
+</ul></li>
+</ul>
+
 <p><strong>2022-04-15</strong></p>
 
 <ul>
-<li><p>Updated REST API <a href="?json#rest-api-v3-deposits-amp-withdrawals-private-get-v3-withdrawal">GET /v3/withdrawal</a></p>
+<li>Updated REST API <a href="?json#rest-api-v3-deposits-amp-withdrawals-private-get-v3-withdrawal">GET /v3/withdrawal</a>
 
 <ul>
 <li>Added new parameter <code>id</code></li>
 </ul></li>
-<li><p>Updated REST API <a href="?json#rest-api-v3-deposits-amp-withdrawals-private-post-v3-withdrawal">POST /v3/withdrawal</a></p>
+<li>Updated REST API <a href="?json#rest-api-v3-deposits-amp-withdrawals-private-post-v3-withdrawal">POST /v3/withdrawal</a>
 
 <ul>
 <li>Added new response field <code>id</code></li>
@@ -14460,13 +14475,18 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 </span></code></pre></div><h3 id='rest-api-v3-amm-private-post-v3-amm-redeem'>POST <code>/v3/AMM/redeem</code></h3>
 <p>Redeem AMM</p>
 
+<aside class="notice">
+AMMs can be created by either the father account or child account. The AMM becomes the child of the account that created it. Father accounts can redeem any AMM into any account. Child accounts can redeem their child AMMs only into their account.
+</aside>
+
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight plaintext"><code>POST /v3/AMM/redeem
 </code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"hashToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CF-BCH-AMM-ABCDE3iy"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"DELIVER"</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"DELIVER"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9546"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
@@ -14476,7 +14496,8 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
     </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"hashToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CF-BCH-AMM-ABCDE3iy"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"DELIVER"</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"DELIVER"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9546"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -14500,6 +14521,12 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 <td>YES</td>
 <td>Available values: <code>DELIVER</code> and <code>MANUAL</code>. <code>DELIVER</code> invokes physical delivery, the AMM must have the appropriate balance to trigger delivery. <code>MANUAL</code> cancels all working orders and creates a sub account that is accessible from the dashboard.</td>
 </tr>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Account ID</td>
+</tr>
 </tbody></table>
 
 <table><thead>
@@ -14518,6 +14545,11 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 <td>type</td>
 <td>STRING</td>
 <td>Available values: <code>DELIVER</code> and <code>MANUAL</code></td>
+</tr>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
 </tr>
 </tbody></table>
 <h3 id='rest-api-v3-amm-private-get-v3-amm'>GET <code>/v3/AMM</code></h3>
@@ -14583,6 +14615,7 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
         </span><span class="nl">"flexReward"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"interestPaid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"apr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"120"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"volume"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2143324.342"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"collateral"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1231231"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"portfolioVarMargin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"riskRatio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20.0000"</span><span class="p">,</span><span class="w">
@@ -14767,6 +14800,11 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 <td>apr</td>
 <td>STRING</td>
 <td>APR denotes annual percentage rate</td>
+</tr>
+<tr>
+<td>volume</td>
+<td>STRING</td>
+<td>Traded volume</td>
 </tr>
 <tr>
 <td>collateral</td>
