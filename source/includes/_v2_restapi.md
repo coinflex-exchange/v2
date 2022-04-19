@@ -1936,7 +1936,7 @@ side | STRING | YES | `BUY` or `SELL` |
 quantity | STRING | YES | Quantity |
 timeInForce | STRING | NO | Default `GTC` |
 orderType | STRING | YES | `LIMIT` or `MARKET` or `STOP` |
-price | STRING | NO | Price submitted |
+price | STRING | NO | Limit price for the limit order |
 stopPrice | STRING | NO | Stop price for the stop order |
 limitPrice | STRING | NO | Limit price for the stop limit order |
 
