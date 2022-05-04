@@ -695,12 +695,12 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 
 Request Parameter | Type | Required | Description |
 ----------------- | ---- | -------- | ----------- |
-asset | STRING | YES | Asset name, available assets e.g. `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-quantity | STRING | YES | Quantity to mint |
+asset | STRING | YES | Asset name, available assets e.g. `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX`, `flexAXS`, `flexBNB` |
+quantity | STRING | YES | Quantity to mint, minimum quantity required: `10 flexUSD`, `0.001 flexBTC`, `0.1 flexETH`, `100 flexFLEX`, `1 flexAXS`, `1 flexBNB` |
 
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
-asset | STRING |  |
+asset | STRING | |
 quantity | STRING | |
 
 
@@ -742,8 +742,8 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 
 Request Parameter | Type | Required | Description | 
 ----------------- | ---- | -------- | ----------- |
-asset | STRING | YES | Asset name, available assets e.g. `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX` |
-quantity | STRING | YES | Quantity to redeem |
+asset | STRING | YES | Asset name, available assets e.g. `flexUSD`, `flexBTC`, `flexETH`, `flexFLEX`, `flexAXS`, `flexBNB` |
+quantity | STRING | YES | Quantity to redeem, minimum quantity required: `10 flexUSD`, `0.001 flexBTC`, `0.1 flexETH`, `100 flexFLEX`, `1 flexAXS`, `1 flexBNB` |
 type | STRING | YES | `NORMAL` queues a redemption until the following interest payment and incurs no fee. `INSTANT` instantly redeems into the underlying asset and charges a fee equal to the sum of the two prior interest payments
 
 
