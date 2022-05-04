@@ -32,7 +32,7 @@ Each IP is limited to:
 Certain endpoints have extra IP restrictions:
 
 * `s` denotes a second
-* Requests limited to `1/s` & `2/10s` & `4/10s(only for AMM POST requests)`
+* Requests limited to `1/s` & `2/10s` & `4/10s(only for the AMM POST requests)`
   * Only 1 request is permitted per second and only 2 requests are permitted within 10 seconds
   * Only 4 requests are permitted within 10 seconds for the AMM POST requests
 * Request limit `1/10s`
