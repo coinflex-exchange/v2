@@ -1,5 +1,9 @@
 # Change Log
 
+**2022-05-04**
+
+* [Rate limit](?json#rest-api-v3-rate-limits) increased from `2/10s` to `4/10s` for the AMM POST requests
+
 **2022-04-18**
 
 * Updated REST API [POST /v3/AMM/redeem](?json#rest-api-v3-amm-private-post-v3-amm-redeem)
