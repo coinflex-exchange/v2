@@ -741,6 +741,12 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2022-05-04</strong></p>
+
+<ul>
+<li><a href="?json#rest-api-v3-rate-limits">Rate limit</a> increased from <code>2/10s</code> to <code>4/10s</code> for the AMM POST requests</li>
+</ul>
+
 <p><strong>2022-04-18</strong></p>
 
 <ul>
@@ -12553,10 +12559,11 @@ You can cancel up to 8 orders at a time in REST API
 
 <ul>
 <li><code>s</code> denotes a second</li>
-<li>Requests limited to <code>1/s</code> &amp; <code>2/10s</code>
+<li>Requests limited to <code>1/s</code> &amp; <code>2/10s</code> &amp; <code>4/10s(only for AMM POST requests)</code>
 
 <ul>
 <li>Only 1 request is permitted per second and only 2 requests are permitted within 10 seconds</li>
+<li>Only 4 requests are permitted within 10 seconds for the AMM POST requests</li>
 </ul></li>
 <li>Request limit <code>1/10s</code>
 
@@ -12572,8 +12579,8 @@ You can cancel up to 8 orders at a time in REST API
 <li><a href="?json#rest-api-v3-deposits-and-withdrawals-post-v3-transfer">POST /v3/transfer</a></li>
 <li><a href="?json#rest-api-v3-flex-assets-post-v3-flexasset-mint">POST /v3/flexasset/mint</a></li>
 <li><a href="?json#rest-api-v3-flex-assets-post-v3-flexasset-redeem">POST /v3/flexasset/redeem</a></li>
-<li><a href="?json#rest-api-v3-amm-post-v3-amm-create">POST /v3/AMM/create</a></li>
-<li><a href="?json#rest-api-v3-amm-post-v3-amm-redeem">POST /v3/AMM/redeem</a></li>
+<li><a href="?json#rest-api-v3-amm-post-v3-amm-create">POST /v3/AMM/create</a>(<code>4/10s</code>)</li>
+<li><a href="?json#rest-api-v3-amm-post-v3-amm-redeem">POST /v3/AMM/redeem</a>(<code>4/10s</code>)</li>
 </ul>
 <h2 id='rest-api-v3-authentication'>Authentication</h2>
 <blockquote>
@@ -13855,13 +13862,13 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 <td>asset</td>
 <td>STRING</td>
 <td>YES</td>
-<td>Asset name, available assets e.g. <code>flexUSD</code>, <code>flexBTC</code>, <code>flexETH</code>, <code>flexFLEX</code></td>
+<td>Asset name, available assets e.g. <code>flexUSD</code>, <code>flexBTC</code>, <code>flexETH</code>, <code>flexFLEX</code>, <code>flexAXS</code>, <code>flexBNB</code></td>
 </tr>
 <tr>
 <td>quantity</td>
 <td>STRING</td>
 <td>YES</td>
-<td>Quantity to mint</td>
+<td>Quantity to mint, minimum quantity required: <code>10 flexUSD</code>, <code>0.001 flexBTC</code>, <code>0.1 flexETH</code>, <code>100 flexFLEX</code>, <code>1 flexAXS</code>, <code>1 flexBNB</code></td>
 </tr>
 </tbody></table>
 
@@ -13926,13 +13933,13 @@ Interest payments occur at 04:00, 12:00, and 20:00 UTC.
 <td>asset</td>
 <td>STRING</td>
 <td>YES</td>
-<td>Asset name, available assets e.g. <code>flexUSD</code>, <code>flexBTC</code>, <code>flexETH</code>, <code>flexFLEX</code></td>
+<td>Asset name, available assets e.g. <code>flexUSD</code>, <code>flexBTC</code>, <code>flexETH</code>, <code>flexFLEX</code>, <code>flexAXS</code>, <code>flexBNB</code></td>
 </tr>
 <tr>
 <td>quantity</td>
 <td>STRING</td>
 <td>YES</td>
-<td>Quantity to redeem</td>
+<td>Quantity to redeem, minimum quantity required: <code>10 flexUSD</code>, <code>0.001 flexBTC</code>, <code>0.1 flexETH</code>, <code>100 flexFLEX</code>, <code>1 flexAXS</code>, <code>1 flexBNB</code></td>
 </tr>
 <tr>
 <td>type</td>
