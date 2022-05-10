@@ -1158,7 +1158,7 @@ Request Parameters | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 marketCode | STRING | NO | Market code |
 orderId | LONG | NO | Client assigned ID to help manage and identify orders |
-clientOrderId | LONG | NO | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
+clientOrderId | ULONG | NO | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
 limit | LONG | NO | max `100`, default `100` |
 startTime | LONG | NO | e.g. `1579450778000`, default 24 hours ago, the range between startTime and endTime should be less than or equal to 7 days(`endTime - startTime <= 7days`) |
 endTime | LONG | NO | e.g. `1613978625000`, default time now, the range between startTime and endTime should be less than or equal to 7 days(`endTime - startTime <= 7days`) |
@@ -1767,7 +1767,7 @@ POST /v2/orders/place
     "timestamp": 1615430912440, 
     "orders": [
         {
-            "clientOrderId": "1612249737724", 
+            "clientOrderId": 1612249737724, 
             "marketCode": "BTC-USD-SWAP-LIN", 
             "side": "SELL", 
             "quantity": "0.001", 
@@ -1776,7 +1776,7 @@ POST /v2/orders/place
             "price": "50007"
         }, 
         {
-            "clientOrderId": "1612249737724", 
+            "clientOrderId": 1612249737724, 
             "marketCode": "BTC-USD-SWAP-LIN", 
             "side": "BUY", 
             "quantity": "0.002", 
@@ -1785,7 +1785,7 @@ POST /v2/orders/place
             "price": "54900"
         }, 
         {
-            "clientOrderId": "1612249737723", 
+            "clientOrderId": 1612249737723, 
             "marketCode": "BTC-USD-SWAP-LIN", 
             "side": "SELL", 
             "quantity": "0.003", 
@@ -1815,7 +1815,7 @@ nonce = 123
 
 method = '/v2/orders/place'
 
-params = json.dumps({"recvWindow":3000, "timestamp": 1737100050453, "responseType":"FULL","orders":[{"clientOrderId":"1612249737434","marketCode":"BTC-USD-SWAP-LIN","side":"SELL","quantity":"1","timeInForce":"GTC","orderType":"LIMIT","price":"49995"}]})
+params = json.dumps({"recvWindow":3000, "timestamp": 1737100050453, "responseType":"FULL","orders":[{"clientOrderId":1612249737434,"marketCode":"BTC-USD-SWAP-LIN","side":"SELL","quantity":"1","timeInForce":"GTC","orderType":"LIMIT","price":"49995"}]})
 
 msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'POST', rest_path, method, params)
 sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
@@ -1930,7 +1930,7 @@ recvWindow | LONG | NO | In milliseconds. If an order reaches the matching engin
 timestamp | STRING | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected |
 responseType | STRING | YES | `FULL` or `ACK` |
 orders | LIST | YES | |
-clientOrderId | STRING | YES | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
+clientOrderId | ULONG | YES | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
 marketCode | STRING | YES | Market code |
 side | STRING | YES | `BUY` or `SELL` |
 quantity | STRING | YES | Quantity |
@@ -1981,7 +1981,7 @@ POST /v2/orders/modify
     "timestamp": 1614331650143, 
     "orders": [
         {
-            "clientOrderId": "1614330009059", 
+            "clientOrderId": 1614330009059, 
             "orderId": "304369975621712260", 
             "marketCode": "BTC-USD-SWAP-LIN", 
             "side": "BUY", 
@@ -1989,14 +1989,14 @@ POST /v2/orders/modify
             "price": "40001.0"
         }, 
         {
-            "clientOrderId": "161224973777800", 
+            "clientOrderId": 161224973777800, 
             "marketCode": "BTC-USD-SWAP-LIN", 
             "side": "SELL", 
             "quantity": "0.002", 
             "price": "40003.0"
         }, 
         {
-            "clientOrderId": "161224973777900", 
+            "clientOrderId": 161224973777900, 
             "marketCode": "BTC-USD-SWAP-LIN", 
             "side": "SELL", 
             "quantity": "0.003", 
@@ -2067,7 +2067,7 @@ recvWindow | LONG | NO | |
 timestamp | STRING | NO | |
 responseType | STRING | YES | `FULL` or `ACK` |
 orders | LIST | YES | |
-clientOrderId | STRING | NO | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
+clientOrderId | ULONG | NO | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
 orderId | STRING | YES | |
 marketCode | STRING | YES | |
 side | STRING | NO | |
@@ -2114,11 +2114,11 @@ DELETE /v2/orders/cancel
         {
             "marketCode": "BTC-USD-SWAP-LIN", 
             "orderId": "304384250571714215", 
-            "clientOrderId": "1615453494726"
+            "clientOrderId": 1615453494726
         }, 
         {
             "marketCode": "BTC-USD-SWAP-LIN", 
-            "clientOrderId": "1612249737724"
+            "clientOrderId": 1612249737724
         }
     ]
 }
@@ -2174,7 +2174,7 @@ responseType | STRING | YES | `FULL` or `ACK` |
 orders | LIST | YES | |
 marketCode | STRING | YES | |
 orderId | STRING | Either one of orderId or clientOrderId is required | |
-clientOrderId | STRING | Either one of orderId or clientOrderId is required | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
+clientOrderId | ULONG | Either one of orderId or clientOrderId is required | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
 
 Response Parameters | Type | Description | 
 --------------------| ---- | ----------- |

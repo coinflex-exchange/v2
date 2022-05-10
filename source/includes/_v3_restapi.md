@@ -1351,7 +1351,7 @@ hashToken | STRING | YES | Maximum 1 hashToken, e.g. `CF-BCH-AMM-ABCDE3iy` |
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
 orderId | STRING | Order ID |
-clientOrderId | STRING | Client order ID |
+clientOrderId | STRING | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
 marketCode | STRING | Market code |
 status | STRING | Available values: `PARTIALLY_FILLED` and `OPEN` |
 side | STRING | Available values: `BUY` and `SELL` |
@@ -1412,7 +1412,7 @@ endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and end
 Response Field | Type | Description |
 -------------- | ---- | ----------- |
 orderId | STRING | Order ID |
-clientOrderId | STRING | Client order ID |
+clientOrderId | STRING | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
 matchId | STRING | Match ID |
 marketCode | STRING | Market code |
 side | STRING | Available values: `BUY` and `SELL` |

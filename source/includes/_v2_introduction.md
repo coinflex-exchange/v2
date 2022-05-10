@@ -1,5 +1,10 @@
 # Change Log
 
+**2022-05-10**
+
+* Updated REST API [GET /v3/withdrawal](?json#rest-api-v3-deposits-amp-withdrawals-private-get-v3-withdrawal)
+    * Returned an empty array `[]` instead of the "no result, please check your parameters" error message when no withdrawals were found
+
 **2022-05-04**
 
 * [Rate limit](?json#rest-api-v3-rate-limits) increased from `2/10s` to `4/10s` for the AMM POST requests
