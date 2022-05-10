@@ -741,6 +741,16 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2022-05-10</strong></p>
+
+<ul>
+<li>Updated REST API <a href="?json#rest-api-v3-deposits-amp-withdrawals-private-get-v3-withdrawal">GET /v3/withdrawal</a>
+
+<ul>
+<li>Returned an empty array <code>[]</code> instead of the &quot;no result, please check your parameters&quot; error message when no withdrawals were found</li>
+</ul></li>
+</ul>
+
 <p><strong>2022-05-04</strong></p>
 
 <ul>
@@ -1764,7 +1774,7 @@
   </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1592491945248"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
@@ -1835,9 +1845,9 @@ One account can only place up to 50 orders per second via websocket.
 </tr>
 <tr>
 <td>clientOrderId</td>
-<td>INTEGER</td>
+<td>ULONG</td>
 <td>No</td>
-<td>Client assigned ID to help manage and identify orders</td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>marketCode</td>
@@ -2041,9 +2051,9 @@ One account can only place up to 50 orders per second via websocket.
 </tr>
 <tr>
 <td>clientOrderId</td>
-<td>INTEGER</td>
+<td>ULONG</td>
 <td>No</td>
-<td>Client assigned ID to help manage and identify orders</td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>marketCode</td>
@@ -2247,9 +2257,9 @@ One account can only place up to 50 orders per second via websocket.
 </tr>
 <tr>
 <td>clientOrderId</td>
-<td>INTEGER</td>
+<td>ULONG</td>
 <td>No</td>
-<td>Client assigned ID to help manage and identify orders</td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>marketCode</td>
@@ -3861,7 +3871,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>clientOrderId</td>
 <td>STRING</td>
-<td>Client assigned ID to help manage and identify orders</td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>orderId</td>
@@ -4015,7 +4025,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>clientOrderId</td>
 <td>STRING</td>
-<td>Client assigned ID to help manage and identify orders</td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>orderId</td>
@@ -4165,7 +4175,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>clientOrderId</td>
 <td>STRING</td>
-<td>Client assigned ID to help manage and identify orders</td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>orderId</td>
@@ -4319,7 +4329,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>clientOrderId</td>
 <td>STRING</td>
-<td>Client assigned ID to help manage and identify orders</td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>orderId</td>
@@ -4459,7 +4469,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>clientOrderId</td>
 <td>STRING</td>
-<td>Client assigned ID to help manage and identify orders</td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>orderId</td>
@@ -4617,7 +4627,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>clientOrderId</td>
 <td>STRING</td>
-<td>Client assigned ID to help manage and identify orders</td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>orderId</td>
@@ -7484,7 +7494,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </tr>
 <tr>
 <td>clientOrderId</td>
-<td>LONG</td>
+<td>ULONG</td>
 <td>NO</td>
 <td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
@@ -8463,7 +8473,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
     </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1615430912440</span><span class="p">,</span><span class="w"> 
     </span><span class="nl">"orders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1612249737724"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1612249737724</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.001"</span><span class="p">,</span><span class="w"> 
@@ -8472,7 +8482,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
             </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50007"</span><span class="w">
         </span><span class="p">},</span><span class="w"> 
         </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1612249737724"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1612249737724</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.002"</span><span class="p">,</span><span class="w"> 
@@ -8481,7 +8491,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
             </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"54900"</span><span class="w">
         </span><span class="p">},</span><span class="w"> 
         </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1612249737723"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1612249737723</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.003"</span><span class="p">,</span><span class="w"> 
@@ -8509,7 +8519,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 
 <span class="n">method</span> <span class="o">=</span> <span class="s">'/v2/orders/place'</span>
 
-<span class="n">params</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">"recvWindow"</span><span class="p">:</span><span class="mi">3000</span><span class="p">,</span> <span class="s">"timestamp"</span><span class="p">:</span> <span class="mi">1737100050453</span><span class="p">,</span> <span class="s">"responseType"</span><span class="p">:</span><span class="s">"FULL"</span><span class="p">,</span><span class="s">"orders"</span><span class="p">:[{</span><span class="s">"clientOrderId"</span><span class="p">:</span><span class="s">"1612249737434"</span><span class="p">,</span><span class="s">"marketCode"</span><span class="p">:</span><span class="s">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="s">"side"</span><span class="p">:</span><span class="s">"SELL"</span><span class="p">,</span><span class="s">"quantity"</span><span class="p">:</span><span class="s">"1"</span><span class="p">,</span><span class="s">"timeInForce"</span><span class="p">:</span><span class="s">"GTC"</span><span class="p">,</span><span class="s">"orderType"</span><span class="p">:</span><span class="s">"LIMIT"</span><span class="p">,</span><span class="s">"price"</span><span class="p">:</span><span class="s">"49995"</span><span class="p">}]})</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">"recvWindow"</span><span class="p">:</span><span class="mi">3000</span><span class="p">,</span> <span class="s">"timestamp"</span><span class="p">:</span> <span class="mi">1737100050453</span><span class="p">,</span> <span class="s">"responseType"</span><span class="p">:</span><span class="s">"FULL"</span><span class="p">,</span><span class="s">"orders"</span><span class="p">:[{</span><span class="s">"clientOrderId"</span><span class="p">:</span><span class="mi">1612249737434</span><span class="p">,</span><span class="s">"marketCode"</span><span class="p">:</span><span class="s">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="s">"side"</span><span class="p">:</span><span class="s">"SELL"</span><span class="p">,</span><span class="s">"quantity"</span><span class="p">:</span><span class="s">"1"</span><span class="p">,</span><span class="s">"timeInForce"</span><span class="p">:</span><span class="s">"GTC"</span><span class="p">,</span><span class="s">"orderType"</span><span class="p">:</span><span class="s">"LIMIT"</span><span class="p">,</span><span class="s">"price"</span><span class="p">:</span><span class="s">"49995"</span><span class="p">}]})</span>
 
 <span class="n">msg_string</span> <span class="o">=</span> <span class="s">'{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}</span><span class="se">\n</span><span class="s">{}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="s">'POST'</span><span class="p">,</span> <span class="n">rest_path</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 <span class="n">sig</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">api_secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">msg_string</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
@@ -8648,7 +8658,7 @@ You can place up to 8 orders at a time in REST API
 </tr>
 <tr>
 <td>clientOrderId</td>
-<td>STRING</td>
+<td>ULONG</td>
 <td>YES</td>
 <td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
@@ -8847,7 +8857,7 @@ You can place up to 8 orders at a time in REST API
     </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1614331650143</span><span class="p">,</span><span class="w"> 
     </span><span class="nl">"orders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1614330009059"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1614330009059</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"304369975621712260"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w"> 
@@ -8855,14 +8865,14 @@ You can place up to 8 orders at a time in REST API
             </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40001.0"</span><span class="w">
         </span><span class="p">},</span><span class="w"> 
         </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"161224973777800"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">161224973777800</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.002"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40003.0"</span><span class="w">
         </span><span class="p">},</span><span class="w"> 
         </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"161224973777900"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">161224973777900</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELL"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.003"</span><span class="p">,</span><span class="w"> 
@@ -8959,7 +8969,7 @@ You can modify up to 8 orders at a time in REST API
 </tr>
 <tr>
 <td>clientOrderId</td>
-<td>STRING</td>
+<td>ULONG</td>
 <td>NO</td>
 <td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
@@ -9124,11 +9134,11 @@ You can modify up to 8 orders at a time in REST API
         </span><span class="p">{</span><span class="w">
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
             </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"304384250571714215"</span><span class="p">,</span><span class="w"> 
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1615453494726"</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1615453494726</span><span class="w">
         </span><span class="p">},</span><span class="w"> 
         </span><span class="p">{</span><span class="w">
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
-            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1612249737724"</span><span class="w">
+            </span><span class="nl">"clientOrderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1612249737724</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -9220,7 +9230,7 @@ You can cancel up to 8 orders at a time in REST API
 </tr>
 <tr>
 <td>clientOrderId</td>
-<td>STRING</td>
+<td>ULONG</td>
 <td>Either one of orderId or clientOrderId is required</td>
 <td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
@@ -15148,7 +15158,7 @@ AMMs can be created by either the father account or child account. The AMM becom
 <tr>
 <td>clientOrderId</td>
 <td>STRING</td>
-<td>Client order ID</td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>marketCode</td>
@@ -15307,7 +15317,7 @@ AMMs can be created by either the father account or child account. The AMM becom
 <tr>
 <td>clientOrderId</td>
 <td>STRING</td>
-<td>Client order ID</td>
+<td>Client assigned ID to help manage and identify orders with max value <code>9223372036854775807</code></td>
 </tr>
 <tr>
 <td>matchId</td>
