@@ -15286,7 +15286,7 @@ AMMs can be created by either the father account or child account. The AMM becom
 <td>limit</td>
 <td>LONG</td>
 <td>NO</td>
-<td>Default 200, max 500</td>
+<td>Default 200, max 500, if the limit is reached and there are more trade records with the same millisecond timestamp as any of the included records, ignore the limit and return all of the additional trades that were recorded with that millisecond timestamp</td>
 </tr>
 <tr>
 <td>startTime</td>
