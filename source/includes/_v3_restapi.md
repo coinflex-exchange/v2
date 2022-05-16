@@ -1405,7 +1405,7 @@ Request Parameter | Type | Required | Description |
 ------------------ | ---- | -------- | ----------- |
 hashToken | STRING | YES | Single hashToken e.g. `CF-BCH-AMM-ABCDE3iy` |
 marketCode | STRING | NO | Market code |
-limit | LONG | NO | Default 200, max 500 |
+limit | LONG | NO | Default 200, max 500, if the limit is reached and there are more trade records with the same millisecond timestamp as any of the included records, ignore the limit and return all of the additional trades that were recorded with that millisecond timestamp |
 startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
 endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
 
