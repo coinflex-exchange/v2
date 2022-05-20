@@ -6635,6 +6635,10 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 </code></pre></div>
 <p>Returns all the positions of the account connected to the API key initiating the request. </p>
 
+<aside class="notice">
+Returns an empty array `[]` when no positions were found
+</aside>
+
 <table><thead>
 <tr>
 <th>Response Fields</th>
@@ -6774,6 +6778,10 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
 <span class="p">}</span>
 </code></pre></div>
 <p>Returns the specified instrument ID position of the account connected to the API key initiating the request.</p>
+
+<aside class="notice">
+Returned an empty object `{}` when no positions were found
+</aside>
 
 <table><thead>
 <tr>
