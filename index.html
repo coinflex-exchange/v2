@@ -741,6 +741,21 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2022-05-20</strong></p>
+
+<ul>
+<li>Updated REST API <a href="?json#rest-api-methods-private-get-v2-positions">GET /v2/positions</a>
+
+<ul>
+<li>Returned an empty array <code>[]</code> instead of <code>null</code> when no positions were found</li>
+</ul></li>
+<li>Updated REST API <a href="?json#rest-api-methods-private-get-v2-positions-instrumentid">GET /v2/positions/{instrumentId}</a>
+
+<ul>
+<li>Returned an empty object <code>{}</code> instead of <code>null</code> when no positions were found</li>
+</ul></li>
+</ul>
+
 <p><strong>2022-05-10</strong></p>
 
 <ul>
