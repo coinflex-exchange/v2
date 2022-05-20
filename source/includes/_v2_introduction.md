@@ -1,5 +1,12 @@
 # Change Log
 
+**2022-05-20**
+
+* Updated REST API [GET /v2/positions](?json#rest-api-methods-private-get-v2-positions)
+    * Returned an empty array `[]` instead of `null` when no positions were found
+* Updated REST API [GET /v2/positions/{instrumentId}](?json#rest-api-methods-private-get-v2-positions-instrumentid)
+    * Returned an empty object `{}` instead of `null` when no positions were found
+
 **2022-05-10**
 
 * Updated REST API [GET /v3/withdrawal](?json#rest-api-v3-deposits-amp-withdrawals-private-get-v3-withdrawal)
