@@ -546,6 +546,10 @@ print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
 
 Returns all the positions of the account connected to the API key initiating the request. 
 
+<aside class="notice">
+Returns an empty array `[]` when no positions were found
+</aside>
+
 Response Fields | Type | Description |
 --------------- | ---- | ----------- |
 event | STRING | `positions` |
@@ -647,6 +651,10 @@ print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
 ```
 
 Returns the specified instrument ID position of the account connected to the API key initiating the request.
+
+<aside class="notice">
+Returned an empty object `{}` when no positions were found
+</aside>
 
 Request Parameter | Type | Required | Description |
 --------- | ---- | -------- | ----------- |
