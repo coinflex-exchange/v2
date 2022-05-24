@@ -2097,7 +2097,7 @@ status|STRING | <ul><li>`CANCELED_BY_USER`</li><li>`CANCELED_BY_MAKER_ONLY`</li>
 marketCode|STRING |  Market code e.g. `BTC-USD-SWAP-LIN`
 timeInForce|STRING |Time in force of closed order
 timestamp|STRING |Current millisecond timestamp
-remainQuantity|STRING |Remaining order quantity of closed order
+remainQuantity|STRING |Historical remaining order quantity of closed order
 stopPrice|STRING|Stop price of closed stop order (only applicable for STOP LIMIT order types)
 limitPrice|STRING|Limit price of closed stop order (only applicable for STOP LIMIT order types)
 ordertype | STRING | `LIMIT` or `STOP_LIMIT`
@@ -2163,16 +2163,16 @@ lastMatchedOrderId | DECIMAL
 lastMatchedOrderId2 | DECIMAL
 matchedId | DECIMAL
 matchedType | STRING
-remainQuantity | DECIMAL
+remainQuantity | DECIMAL | Historical remaining quantity of the closed order |
 side|STRING
 status | STRING
 timeCondition | STRING 
 marketCode | STRING 
 timestampEpochMs | LONG
 orderType | STRING
-price | DECIMAL
+price | DECIMAL | `LIMIT` or `STOP_LIMIT` |
 quantity | DECIMAL
-isTriggered | BOOL
+isTriggered | BOOL | `False` or `True`
 
 
 #### OrderModified
@@ -2226,7 +2226,7 @@ timestamp|STRING |Current millisecond timestamp
 orderType| STRING | `LIMIT` or `STOP_LIMIT`
 stopPrice|STRING|Stop price of modified order (only applicable for STOP LIMIT order types)
 limitPrice|STRING|Limit price of modified order (only applicable for STOP LIMIT order types)
-isTriggered|STRING|`False` or `True` 
+isTriggered|STRING|`False` or `True` |
 
 
 #### OrderModified Failure
