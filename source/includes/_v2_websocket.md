@@ -279,7 +279,7 @@ The signature can therefore be summarised by the following:
 Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | **'login'** |
-tag | INTEGER or STRING | No | If given it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
 data | DICTIONARY object | Yes |
 apiKey | STRING | Yes | Clients public API key, visible in the GUI when created |
 timestamp | STRING | Yes | Current millisecond timestamp |
@@ -431,7 +431,7 @@ One account can only place up to 50 orders per second via websocket.
 Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `placeorder`
-tag | INTEGER or STRING | No | If given it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
 data | DICTIONARY object | Yes |
 clientOrderId | ULONG | No | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
 marketCode | STRING | Yes | Market code e.g. `BTC-USD-SWAP-LIN` |
@@ -577,7 +577,7 @@ One account can only place up to 50 orders per second via websocket.
 Parameter | Type | Required | Description |
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `placeorder`
-tag | INTEGER or STRING | No | If given it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
 data | DICTIONARY object | Yes |
 clientOrderId | ULONG | No | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
 marketCode | STRING | Yes | Market code e.g. `BTC-USD-SWAP-LIN` |
@@ -733,7 +733,7 @@ One account can only place up to 50 orders per second via websocket.
 Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `placeorder`
-tag | INTEGER or STRING | No | If given it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
 data | DICTIONARY object | Yes |
 clientOrderId | ULONG | No | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
 marketCode| STRING| Yes| Market code e.g. `ETH-USD-SWAP-LIN`|
@@ -946,7 +946,7 @@ The websocket reply from the exchange will repond to each order in the batch sep
 Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `placeorders`
-tag | INTEGER or STRING | No | If given it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
 dataArray | LIST of dictionaries | Yes | A list of orders with each order in JSON format, the same format/parameters as the request for placing a single order. The max number of orders is still limited by the message length validation so by default up to 20 orders can be placed in a batch, assuming that each order JSON has 200 characters. |
 timestamp | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
 recvWindow | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
@@ -1065,7 +1065,7 @@ This command can also be actioned via the trading GUI using the **Cancel** butto
 Parameters | Type | Required | Description
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `cancelorder`
-tag | INTEGER or STRING | No | If given it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
 data | DICTIONARY object | Yes |
 marketCode|STRING|Yes|Market code e.g. `BTC-USD-SWAP-LIN`|
 orderId|INTEGER|Yes|Unique order ID from the exchange|
@@ -1219,7 +1219,7 @@ Please also subscribe to the **User Order Channel** to receive push notification
 Parameters | Type | Required | Description
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `cancelorders`
-tag | INTEGER or STRING | No | If given it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
 dataArray | LIST of dictionaries | A list of orders with each order in JSON format, the same format/parameters as the request for cancelling a single order. The max number of orders is still limited by the message length validation so by default up to 20 orders can be placed in a batch, assuming that each order JSON has 200 characters.
 
 
@@ -1365,7 +1365,7 @@ Please be aware that modifying the side of an existing GTC LIMIT order from BUY 
 Parameters | Type | Required | Description|
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `modifyorder`
-tag | INTEGER or STRING | No | If given it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
 data | DICTIONARY object | Yes |
 marketCode|STRING|Yes| Market code e.g. `BTC-USD-SWAP-LIN`|
 orderId|INTEGER|Yes|Unique order ID from the exchange|
@@ -1552,7 +1552,7 @@ The websocket reply from the exchange will repond to each order in the batch sep
 Parameters | Type | Required |Description|
 -------------------------- | -----|--------- | -------------|
 op | STRING | Yes | `modifyorders`
-tag | INTEGER or STRING | No | If given it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
 dataArray | LIST of dictionaries | Yes | A list of orders with each order in JSON format, the same format/parameters as the request for modifying a single order.  The max number of orders is still limited by the message length validation so by default up to 20 orders can be modified in a batch, assuming that each order JSON has 200 characters.
 timestamp | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
 recvWindow | LONG | NO | In milliseconds. If an order reaches the matching engine and the current timestamp exceeds timestamp + recvWindow, then the order will be rejected. If timestamp is provided without recvWindow, then a default recvWindow of 1000ms is used. If recvWindow is provided with no timestamp, then the request will not be rejected. If neither timestamp nor recvWindow are provided, then the request will not be rejected. |
@@ -1689,7 +1689,7 @@ Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes |  `subscribe`
 args | LIST | Yes | `balance:all` or a list of individual assets `balance:<assetId>`
-tag | INTEGER or STRING | No | If given it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
 
 <sub>**Channel Update Fields**</sub> 
 
@@ -1832,7 +1832,7 @@ Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes |  `subscribe`
 args | LIST | Yes | `position:all` or a list of individual instruments `position:<instrumentId>`
-tag | INTEGER or STRING | No | If given it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
 
 <sub>**Channel Update Fields**</sub> 
 
@@ -1945,7 +1945,7 @@ Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes |  `subscribe`
 args | LIST | Yes | `order:all` or a list of individual markets `order:<marketCode>`
-tag | INTEGER or STRING | No | If given it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
 
 
 #### OrderOpened
@@ -2459,7 +2459,7 @@ This orderbook depth channel sends a snapshot of the entire orderbook every 50ms
 Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes | `subscribe` |
-tag | INTEGER or STRING | No | If given it will be echoed in the reply |
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
 args | LIST | Yes | List of individual markets `<depth>:<marketCode>` e.g: `[depthL10:BTC-USD-SWAP-LIN]`, the `depth` can be `depthL5` `depthL10` `depthL25` `depth`(includes all) |
 
 <sub>**Channel Update Fields**</sub>
@@ -2553,7 +2553,7 @@ This trade channel sends public trade information whenever an order is matched o
 Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes | `subscribe` |
-tag | INTEGER or STRING | No | If given it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
 args | LIST | Yes | list of individual markets `trade:<marketCode>`
 
 <sub>**Channel Update Fields**</sub>
@@ -2684,7 +2684,7 @@ If you subcribe "ticker:all", you would get one whole message containing all mar
 Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes | `subscribe`
-tag | INTEGER or STRING | No | If given it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
 args | LIST | Yes | `ticker:all` or a list of individual markets `ticker:<marketCode>`
 
 <sub>**Channel Update Fields**</sub>
@@ -2789,7 +2789,7 @@ The candles channel pushes candlestick data for the current candle.
 Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes | `subscribe`
-tag | INTEGER or STRING | No | If given it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
 args | LIST | Yes | list of individual candle granularity and market `candles<granularity>:<marketCode>`
 
 <sub>**Channel Update Fields**</sub>
@@ -2882,7 +2882,7 @@ The message will contain the market code and is designed to give users an opport
 Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes | `subscribe`
-tag | INTEGER or STRING | No | If given it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
 args | Single element LIST| Yes | `liquidationRFQ`
 
 <sub>**Channel Update Fields**</sub>
@@ -2996,7 +2996,7 @@ If a subscription has been made to **market:all**, the data array in the message
 Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes | `subscribe`
-tag | INTEGER or STRING | No | If given it will be echoed in the reply
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
 args | LIST | Yes | `market:all` or a list of individual markets `market:<marketCode>`
 
 <sub>**Channel Update Fields**</sub>

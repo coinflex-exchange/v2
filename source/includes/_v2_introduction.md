@@ -1,5 +1,9 @@
 # Change Log
 
+**2022-05-25**
+
+* Add a limit of max size `32` to the parameter `tag` in the associated Websocket APIs
+
 **2022-05-20**
 
 * Updated REST API [GET /v2/positions](?json#rest-api-methods-private-get-v2-positions)
