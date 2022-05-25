@@ -741,6 +741,12 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2022-05-25</strong></p>
+
+<ul>
+<li>Add a limit of max size <code>32</code> to the parameter <code>tag</code> in the associated Websocket APIs</li>
+</ul>
+
 <p><strong>2022-05-20</strong></p>
 
 <ul>
@@ -1671,7 +1677,7 @@
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 <tr>
 <td>data</td>
@@ -1850,7 +1856,7 @@ One account can only place up to 50 orders per second via websocket.
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 <tr>
 <td>data</td>
@@ -2056,7 +2062,7 @@ One account can only place up to 50 orders per second via websocket.
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 <tr>
 <td>data</td>
@@ -2262,7 +2268,7 @@ One account can only place up to 50 orders per second via websocket.
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 <tr>
 <td>data</td>
@@ -2542,7 +2548,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 <tr>
 <td>dataArray</td>
@@ -2685,7 +2691,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 <tr>
 <td>data</td>
@@ -2863,7 +2869,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 <tr>
 <td>dataArray</td>
@@ -3025,7 +3031,7 @@ One account can only place up to 50 orders per second via websocket.
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 <tr>
 <td>data</td>
@@ -3260,7 +3266,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 <tr>
 <td>dataArray</td>
@@ -3423,7 +3429,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 </tbody></table>
 
@@ -3627,7 +3633,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 </tbody></table>
 
@@ -3805,7 +3811,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 </tbody></table>
 <h4 id='websocket-api-subscriptions-private-order-channel-orderopened'>OrderOpened</h4>
@@ -4843,7 +4849,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 <tr>
 <td>args</td>
@@ -4985,7 +4991,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 <tr>
 <td>args</td>
@@ -5168,7 +5174,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 <tr>
 <td>args</td>
@@ -5345,7 +5351,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 <tr>
 <td>args</td>
@@ -5475,7 +5481,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 <tr>
 <td>args</td>
@@ -5625,7 +5631,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 <tr>
 <td>args</td>
