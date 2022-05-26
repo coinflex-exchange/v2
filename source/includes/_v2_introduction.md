@@ -2,7 +2,7 @@
 
 **2022-05-25**
 
-* Add a limit of max size `32` to the parameter `tag` in the associated Websocket APIs
+* Added a limit of max size `32` to the parameter `tag` in the associated Websocket APIs
 
 **2022-05-20**
 
