@@ -3094,7 +3094,10 @@ Code | Error Message
 20028| price or stopPrice or limitPrice must be greater than zero 
 20029| stopPrice must be less than limitPrice for Buy Stop Order 
 20030| limitPrice must be less than stopPrice for Sell Stop Order
-20031| marketCode is closed for trading temporarily |
+20031 | The marketCode is closed for trading temporarily |
+20032 | Failed to submit due to timeout in server side |
+20033 | triggerType is invalid |
+20034 | The size of tag must be less than 32 |
 300011| Repo market orders are not allowed during the auction window
 300012| Repo bids above 0 and offers below 0 are not allowed during the auction window
 100005| Open order not found with id
