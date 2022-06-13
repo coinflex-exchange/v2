@@ -20,6 +20,7 @@ Code | Description |
 30001 | Missing parameter |
 40001 | Alert from the server |
 50001 | Unknown server error |
+20031 | marketCode is closed for trading temporarily |
 
 ## Rate Limits
 
