@@ -485,18 +485,18 @@ POST /v3/withdrawal
 ```
 Withdrawals may only be initiated by API keys that are linked to the main account and have withdrawals enabled. If the wrong 2fa code is provided the endpoint will block for 10 seconds.
 
-Request Parameter | Type | Required | Description | 
+Request Parameter | Type | Required | Description |
 ----------------- | ---- |--------- | ----------- |
 asset | STRING | YES |
 network | STRING | YES |
 address | STRING | YES |
 memo | STRING | NO |Memo is required for chains that support memo tags |
 quantity | STRING | YES |
-externalFee | BOOL |YES | If false, then the fee is taken from the quantity |
+externalFee | BOOL | YES | If false, then the fee is taken from the quantity, also with the burn fee for asset SOLO |
 tfaType | STRING | NO | GOOGLE, or AUTHY_SECRET, or YUBIKEY |
 code | STRING | NO | 2fa code if required by the account |
 
-Response Field | Type | Description | 
+Response Field | Type | Description |
 -------------- | ---- | ----------- |
 id | STRING | |
 asset | STRING | |
