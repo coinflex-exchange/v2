@@ -256,7 +256,7 @@ portfolioVarMargin | STRING | Portfolio margin |
 riskRatio | STRING | collateralBalance / portfolioVarMargin. Orders are rejected/cancelled if the risk ratio drops below 1, and liquidation occurs if the risk ratio drops below 0.5 |
 maintenanceMargin | STRING | Maintenance margin. The minimum amount of collateral required to avoid liquidation |
 marginRatio | STRING | Margin ratio. Orders are rejected/cancelled if the margin ratio reaches 50, and liquidation occurs if the margin ratio reaches 100  |
-liquidating | BOOLEAN | Available values: `true` and `false` |
+liquidating | BOOL | Available values: `true` and `false` |
 feeTier | STRING | Fee tier |
 createdAt | STRING | Timestamp indicating when the account was created |
 
@@ -659,6 +659,79 @@ toAccount | STRING | |
 id | STRING | |
 status | STRING | |
 transferredAt | STRING | Millisecond timestamp |
+
+
+## Orders - Private
+
+### GET `/v3/orders/status`
+
+Get latest order status
+
+> **Request**
+
+```
+GET /v3/orders/status?orderId={orderId}&clientOrderId={clientOrderId}
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": {
+        "orderId": "1000387920513",
+        "clientOrderId": "1612249737434",
+        "marketCode": "FLEX-USD",
+        "status": "FILLED",
+        "side": "BUY",
+        "price": "5.200",
+        "isTriggered": false,
+        "remainQuantity": "0",
+        "totalQuantity": "12",
+        "cumulativeMatchedQuantity": "12",
+        "avgFillPrice": "5.200",
+        "orderType": "LIMIT",
+        "timeInForce": "GTC",
+        "source": "11",
+        "createdAt": "1655980336520",
+        "lastModifiedAt": "1655980393780",
+        "lastMatchedAt": "1655980622848"
+    }
+}
+```
+<aside class="notice">
+CANCELED orders are not in the orderbook, the remainQuantity in the CANCELED orders is historical remaining quantity
+</aside>
+
+Request Parameter | Type | Required | Description |
+----------------- | ---- | -------- | ----------- |
+orderId | ULONG | YES if no clientOrderId | Order ID |
+clientOrderId | ULONG | YES if no orderId | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
+
+Response Field | Type | Description |
+-------------- | ---- | ----------- |
+orderId | STRING | Order ID |
+clientOrderId | STRING | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
+marketCode | STRING | Market code |
+status | STRING | Available values: `CANCELED`, `OPEN`, `PARTIAL_FILL`, `FILLED` |
+side | STRING | Side of the order, `BUY` or `SELL` |
+price | STRING | Price or limit price in the case of a STOP order |
+stopPrice | STRING | Trigger price for a STOP order |
+isTriggered | BOOL | `true` for a STOP order |
+remainQuantity | STRING | Remaining quantity |
+totalQuantity | STRING | Total quantity |
+cumulativeMatchedQuantity | STRING | Cumulative quantity of the matches |
+avgFillPrice | STRING | Average of filled price |
+avgLeg1Price | STRING | Average of leg1 price |
+avgLeg2Price | STRING | Average of leg2 price |
+fees | LIST of dictionaries | Overall fees with instrument ID, if FLEX is no enough to pay the fee then USD will be paid |
+orderType | STRING | Type of the order, availabe values: `MARKET`, `LIMIT`, `STOP_LIMIT` |
+timeInForce | STRING | Client submitted time in force. <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade) |
+source | STRING | Source of the request, available values: `0`, `2`, `10`, `11`, `22`, `101`, `102`, `103`, `111`. <p>Enumeration: `0: Websocket`, `2: Borrow`, `10: AMM`, `11: REST`, `22: Delivery`, `101: Automatic borrow`, `102: Borrow position liquidation`, `103: Contract liquidation`, `111: Automatic repayment`</p> |
+createdAt | STRING | Millisecond timestamp of the order created time |
+lastModifiedAt | STRING | Millisecond timestamp of the order last modified time |
+lastMatchedAt | STRING | Millisecond timestamp of the order last matched time |
+canceledAt | STRING | Millisecond timestamp of the order canceled time |
 
 
 ## Flex Assets - Private
@@ -1194,7 +1267,7 @@ portfolioVarMargin | STRING | Portfolio margin |
 riskRatio | STRING | collateralBalance / portfolioVarMargin, Orders are rejected/cancelled if the risk ratio drops below 1 and liquidation occurs if the risk ratio drops below 0.5 |
 maintenanceMargin | STRING | Maintenance margin |
 marginRatio | STRING | Margin ratio |
-liquidating | BOOLEAN | Available values: `true` and `false` |
+liquidating | BOOL | Available values: `true` and `false` |
 feeTier | STRING | Fee tier |
 createdAt | STRING | AMM creation millisecond timestamp |
 
@@ -1358,7 +1431,7 @@ status | STRING | Available values: `PARTIALLY_FILLED` and `OPEN` |
 side | STRING | Available values: `BUY` and `SELL` |
 price | STRING | Limit price |
 stopPrice | STRING | Stop price if applicable |
-isTriggered | BOOLEAN | Available values: `true` and `false` if applicable |
+isTriggered | BOOL | Available values: `true` and `false` if applicable |
 quantity | STRING | Quantity |
 remainQuantity | STRING | Remaining order quantity |
 matchedQuantity | STRING | Matched quantity |

@@ -1,5 +1,9 @@
 # Change Log
 
+**2022-06-28**
+
+Added new REST API [GET /v3/orders/status](?json#rest-api-v3-orders-private-get-v3-orders-status) to get latest order status
+
 **2022-05-25**
 
 * Added a limit of max size `32` to the parameter `tag` in the associated Websocket APIs
