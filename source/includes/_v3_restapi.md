@@ -1006,7 +1006,7 @@ Request Parameter | Type | Required | Description |
 ----------------- | ---- | -------- | ----------- |
 leverage | STRING | NO | String from 1 to 10 |
 direction | STRING | YES | Available values: `BUY` and `SELL` |
-marketcode | STRING | YES | Market code |
+marketCode | STRING | YES | Market code |
 collateralAsset | STRING | NO | Collateral asset, required when using leverage |
 collateralQuantity | STRING | NO | Collateral quantity, minimum notional $200, required when using leverage |
 baseQuantity | STRING | NO |  Base asset quantity, required for unleveraged sell, and neutral AMMs. |
@@ -1019,7 +1019,7 @@ Response Field | Type | Description |
 hashToken | STRING | Hash token |
 leverage | STRING | Leverage, string from 1 to 10 |
 direction | STRING | Available values: `BUY` and `SELL` |
-marketcode | STRING | Market code |
+marketCode | STRING | Market code |
 collateralAsset | STRING | Collateral asset |
 collateralQuantity | STRING | Collateral quantity, minimum notional $200 |
 baseAsset | STRING | Base asset |
