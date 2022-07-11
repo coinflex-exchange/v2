@@ -1,5 +1,9 @@
 # Change Log
 
+**2022-07-11**
+
+Added new REST API [GET /v3/delivery/working](?json#rest-api-v3-delivery-private-get-v3-delivery-working) to get working delivery orders
+
 **2022-06-28**
 
 Added new REST API [GET /v3/orders/status](?json#rest-api-v3-orders-private-get-v3-orders-status) to get latest order status

@@ -1562,6 +1562,79 @@ status | STRING | Available values: `EXECUTING`, `ENDED`, `PENDING`, `LIQUIDATED
 createdAt | STRING | Millisecond timestamp |
 
 
+## Delivery - Private
+
+### GET `/v3/delivery/working`
+
+Get working delivery orders
+
+> **Request**
+
+```
+GET /v3/delivery/working?marketCode=SUSHI-USD-SWAP-LIN
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "deliveryId": "777227682229354499",
+            "marketCode": "SUSHI-USD-SWAP-LIN",
+            "status": "PENDING",
+            "deliveryPrice": "1.189000000",
+            "deliveryPosition": "5.000000000",
+            "deliveryAsset": "USD",
+            "deliveryQuantity": "5.945000000",
+            "receiveAsset": "SUSHI",
+            "receiveQuantity": "5.000000000",
+            "remainDeliveryPosition": "5.000000000",
+            "auctionTime": "1657261465125",
+            "createdAt": "1657261465125",
+            "lastUpdatedAt": "1657261465125"
+        },
+        {
+            "deliveryId": "777227603892338692",
+            "marketCode": "SUSHI-USD-SWAP-LIN",
+            "status": "ROLLED_DELIVERY",
+            "deliveryPrice": "1.190000000",
+            "deliveryPosition": "2.000000000",
+            "deliveryAsset": "USD",
+            "deliveryQuantity": "2.380000000",
+            "receiveAsset": "SUSHI",
+            "receiveQuantity": "2.000000000",
+            "remainDeliveryPosition": "1.900000000",
+            "auctionTime": "1657261441216",
+            "createdAt": "1657261441216",
+            "lastUpdatedAt": "1657261441417"
+        }
+    ]
+}
+```
+
+Request Parameter | Type | Required | Description |
+----------------- | ---- | -------- | ----------- |
+marketCode | STRING | NO | Market code |
+
+Response Field | Type | Description |
+-------------- | ---- | ----------- |
+deliveryId | STRING | Delivery ID |
+marketCode | STRING | Market code |
+status | STRING | Status of the order, available values: `PENDING`, `ROLLED_DELIVERY` |
+deliveryPrice | STRING | Mark price at the delivery |
+deliveryPosition | STRING | Position of the delivery |
+deliveryAsset | STRING | Asset being sent |
+deliveryQuantity | STRING | Quantity being sent |
+receiveAsset | STRING | Asset would be received |
+receiveQuantity | STRING | Quantity would be received |
+remainDeliveryPosition | STRING | Remaining delivery position |
+auctionTime | STRING | Millisecond timestamp of the auction time |
+createdAt | STRING | Millisecond timestamp of the created time |
+lastUpdatedAt | STRING | Millisecond timestamp of the last updated time |
+
+
 ## Market Data - Public
 
 ### GET `/v3/markets`
