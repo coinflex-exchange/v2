@@ -698,6 +698,14 @@
                       </ul>
                   </li>
                   <li>
+                    <a href="#rest-api-v3-delivery-private" class="toc-h2 toc-link" data-title="Delivery - Private">Delivery - Private</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#rest-api-v3-delivery-private-get-v3-delivery-working" class="toc-h3 toc-link" data-title="GET <code>/v3/delivery/working</code>">GET <code>/v3/delivery/working</code></a>
+                          </li>
+                      </ul>
+                  </li>
+                  <li>
                     <a href="#rest-api-v3-market-data-public" class="toc-h2 toc-link" data-title="Market Data - Public">Market Data - Public</a>
                       <ul class="toc-list-h3">
                           <li>
@@ -749,6 +757,10 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='change-log'>Change Log</h1>
+<p><strong>2022-07-11</strong></p>
+
+<p>Added new REST API <a href="?json#rest-api-v3-delivery-private-get-v3-delivery-working">GET /v3/delivery/working</a> to get working delivery orders</p>
+
 <p><strong>2022-06-28</strong></p>
 
 <p>Added new REST API <a href="?json#rest-api-v3-orders-private-get-v3-orders-status">GET /v3/orders/status</a> to get latest order status</p>
@@ -15743,6 +15755,142 @@ Main account API key can search all subaccount hashTokens
 <td>createdAt</td>
 <td>STRING</td>
 <td>Millisecond timestamp</td>
+</tr>
+</tbody></table>
+<h2 id='rest-api-v3-delivery-private'>Delivery - Private</h2><h3 id='rest-api-v3-delivery-private-get-v3-delivery-working'>GET <code>/v3/delivery/working</code></h3>
+<p>Get working delivery orders</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>GET /v3/delivery/working?marketCode=SUSHI-USD-SWAP-LIN
+</code></pre></div>
+<blockquote>
+<p><strong>Successful response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"deliveryId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"777227682229354499"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUSHI-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deliveryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.189000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deliveryPosition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.000000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deliveryAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deliveryQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.945000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"receiveAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUSHI"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"receiveQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.000000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"remainDeliveryPosition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.000000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"auctionTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1657261465125"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1657261465125"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lastUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1657261465125"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"deliveryId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"777227603892338692"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUSHI-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ROLLED_DELIVERY"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deliveryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.190000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deliveryPosition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.000000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deliveryAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deliveryQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.380000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"receiveAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUSHI"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"receiveQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.000000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"remainDeliveryPosition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.900000000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"auctionTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1657261441216"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1657261441216"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lastUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1657261441417"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Market code</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>deliveryId</td>
+<td>STRING</td>
+<td>Delivery ID</td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Market code</td>
+</tr>
+<tr>
+<td>status</td>
+<td>STRING</td>
+<td>Status of the order, available values: <code>PENDING</code>, <code>ROLLED_DELIVERY</code></td>
+</tr>
+<tr>
+<td>deliveryPrice</td>
+<td>STRING</td>
+<td>Mark price at the delivery</td>
+</tr>
+<tr>
+<td>deliveryPosition</td>
+<td>STRING</td>
+<td>Position of the delivery</td>
+</tr>
+<tr>
+<td>deliveryAsset</td>
+<td>STRING</td>
+<td>Asset being sent</td>
+</tr>
+<tr>
+<td>deliveryQuantity</td>
+<td>STRING</td>
+<td>Quantity being sent</td>
+</tr>
+<tr>
+<td>receiveAsset</td>
+<td>STRING</td>
+<td>Asset would be received</td>
+</tr>
+<tr>
+<td>receiveQuantity</td>
+<td>STRING</td>
+<td>Quantity would be received</td>
+</tr>
+<tr>
+<td>remainDeliveryPosition</td>
+<td>STRING</td>
+<td>Remaining delivery position</td>
+</tr>
+<tr>
+<td>auctionTime</td>
+<td>STRING</td>
+<td>Millisecond timestamp of the auction time</td>
+</tr>
+<tr>
+<td>createdAt</td>
+<td>STRING</td>
+<td>Millisecond timestamp of the created time</td>
+</tr>
+<tr>
+<td>lastUpdatedAt</td>
+<td>STRING</td>
+<td>Millisecond timestamp of the last updated time</td>
 </tr>
 </tbody></table>
 <h2 id='rest-api-v3-market-data-public'>Market Data - Public</h2><h3 id='rest-api-v3-market-data-public-get-v3-markets'>GET <code>/v3/markets</code></h3>
