@@ -2536,8 +2536,9 @@ asyncio.get_event_loop().run_until_complete(subscribe())
   "data": [ {
               "side": "buy",
               "tradeId": "2778148208082945",
-              "price": "5556.912",
+              "price": "5556.91",
               "quantity": "5",
+              "matchType": "MAKER",
               "marketCode": "BTC-USD-SWAP-LIN",
               "timestamp": "1594299886890"
             } ]
@@ -2565,6 +2566,7 @@ data | LIST of dictionary |
 tradeId   | STRING    | Transaction Id|
 price | STRING    | Matched price|
 quantity|STRING   | Matched quantity|
+matchType|STRING   | Matched Type|
 side    |STRING   | Matched side|
 timestamp| STRING | Matched timestamp|
 marketCode| STRING | Market code |
