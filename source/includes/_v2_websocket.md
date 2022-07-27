@@ -2566,7 +2566,7 @@ data | LIST of dictionary |
 tradeId   | STRING    | Transaction Id|
 price | STRING    | Matched price|
 quantity|STRING   | Matched quantity|
-matchType|STRING   | Matched Type|
+matchType|STRING   | `TAKER` or `MAKER`|
 side    |STRING   | Matched side|
 timestamp| STRING | Matched timestamp|
 marketCode| STRING | Market code |
