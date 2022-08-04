@@ -2046,6 +2046,39 @@ asks | LIST of floats | Sell side depth: [price, quantity] |
 bids | LIST of floats | Buy side depth: [price, quantity] |
 
 
+### GET `/v3/markets/operational`
+
+Get markets operational.
+
+> **Request**
+
+```
+GET /v3/markets/operational?marketCode={marketCode}
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "marketCode": "BTC-USD",
+            "operational": true 
+        }
+    ]
+}
+```
+
+Request Parameter | Type | Required | Description |
+----------------- | ---- | -------- | ----------- |
+marketCode | STRING | YES | Market code |
+
+Response Field | Type | Description |
+-------------- | ---- | ----------- |
+marketCode | STRING | Market code |
+operational | BOOL | whether the market of the marketCode is operational |
+
 ## Flex Assets - Public
 
 
