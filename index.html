@@ -729,6 +729,9 @@
                           <li>
                             <a href="#rest-api-v3-market-data-public-get-v3-depth" class="toc-h3 toc-link" data-title="GET <code>/v3/depth</code>">GET <code>/v3/depth</code></a>
                           </li>
+                          <li>
+                            <a href="#rest-api-v3-market-data-public-get-v3-markets-operational" class="toc-h3 toc-link" data-title="GET <code>/v3/markets/operational</code>">GET <code>/v3/markets/operational</code></a>
+                          </li>
                       </ul>
                   </li>
                   <li>
@@ -16669,6 +16672,61 @@ Main account API key can search all subaccount hashTokens
 <td>bids</td>
 <td>LIST of floats</td>
 <td>Buy side depth: [price, quantity]</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-v3-market-data-public-get-v3-markets-operational'>GET <code>/v3/markets/operational</code></h3>
+<p>Get markets operational.</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>GET /v3/markets/operational?marketCode={marketCode}
+</code></pre></div>
+<blockquote>
+<p><strong>Successful response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"operational"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Market code</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Market code</td>
+</tr>
+<tr>
+<td>operational</td>
+<td>BOOL</td>
+<td>whether the market of the marketCode is operational</td>
 </tr>
 </tbody></table>
 <h2 id='rest-api-v3-flex-assets-public'>Flex Assets - Public</h2><h3 id='rest-api-v3-flex-assets-public-get-v3-flexasset-balances'>GET <code>/v3/flexasset/balances</code></h3>
