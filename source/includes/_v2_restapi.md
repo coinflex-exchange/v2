@@ -2906,10 +2906,9 @@ GET/v2/all/markets`
             "contractValCurrency": "BTC",
             "upperPriceBound": "11000.00",
             "lowerPriceBound": "9000.00",
-            "marketPrice": "10000.00"
+            "marketPrice": "10000.00",
             "marketPriceLastUpdated": "1620810131131"
         },
-        ...
     ]
 }
 ```
