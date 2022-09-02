@@ -261,6 +261,44 @@ feeTier | STRING | Fee tier |
 createdAt | STRING | Timestamp indicating when the account was created |
 
 
+### GET `/v3/account/names`
+
+Get sub account information
+
+<aside class="notice">
+only allow this call using API keys paired with the parent account! Return all active subaccounts.
+</aside>
+
+> **Request**
+
+```
+GET v3/account/names
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data":  [  {
+                    "accountId": "21213",
+                    "name": "Test 1"
+                }, 
+                {
+                    "accountId": "21214",
+	                "name": "Test 2"
+              }
+          ] 
+}
+```
+
+
+Response Field | Type | Description |
+-------------- | ---- | ----------- |
+accountId | STRING | Account ID |
+name | STRING | Account name |
+
+
 ### GET `/v3/wallet`
 
 get account or sub-account wallet
