@@ -609,6 +609,15 @@
                           <li>
                             <a href="#rest-api-v3-account-amp-wallet-private-get-v3-wallet" class="toc-h3 toc-link" data-title="GET <code>/v3/wallet</code>">GET <code>/v3/wallet</code></a>
                           </li>
+                          <li>
+                            <a href="#rest-api-v3-account-amp-wallet-private-post-v3-transfer" class="toc-h3 toc-link" data-title="POST <code>/v3/transfer</code>">POST <code>/v3/transfer</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-v3-account-amp-wallet-private-get-v3-transfer" class="toc-h3 toc-link" data-title="GET <code>/v3/transfer</code>">GET <code>/v3/transfer</code></a>
+                          </li>
+                          <li>
+                            <a href="#rest-api-v3-account-amp-wallet-private-get-v3-balances" class="toc-h3 toc-link" data-title="GET <code>/v3/balances</code>">GET <code>/v3/balances</code></a>
+                          </li>
                       </ul>
                   </li>
                   <li>
@@ -631,15 +640,6 @@
                           </li>
                           <li>
                             <a href="#rest-api-v3-deposits-amp-withdrawals-private-get-v3-withdrawal-fee" class="toc-h3 toc-link" data-title="GET <code>/v3/withdrawal-fee</code>">GET <code>/v3/withdrawal-fee</code></a>
-                          </li>
-                          <li>
-                            <a href="#rest-api-v3-deposits-amp-withdrawals-private-post-v3-transfer" class="toc-h3 toc-link" data-title="POST <code>/v3/transfer</code>">POST <code>/v3/transfer</code></a>
-                          </li>
-                          <li>
-                            <a href="#rest-api-v3-deposits-amp-withdrawals-private-get-v3-transfer" class="toc-h3 toc-link" data-title="GET <code>/v3/transfer</code>">GET <code>/v3/transfer</code></a>
-                          </li>
-                          <li>
-                            <a href="#rest-api-v3-deposits-amp-withdrawals-private-get-v3-balances" class="toc-h3 toc-link" data-title="GET <code>/v3/balances</code>">GET <code>/v3/balances</code></a>
                           </li>
                       </ul>
                   </li>
@@ -12945,7 +12945,7 @@ only allow this call using API keys paired with the parent account! Return all a
     </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"21213"</span><span class="p">,</span><span class="w">
+             </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"21213"</span><span class="p">,</span><span class="w">
              </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main"</span><span class="p">,</span><span class="w">
              </span><span class="nl">"walletHistory"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
                   </span><span class="p">{</span><span class="w">
@@ -13044,6 +13044,317 @@ if the user is calling this endpoint using an API-KEY from a master account then
 <td>createdAt/lastUpdatedAt</td>
 <td>STRING</td>
 <td>Millisecond timestamp <code>created time or updated time</code></td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-v3-account-amp-wallet-private-post-v3-transfer'>POST <code>/v3/transfer</code></h3>
+<p>Sub-account balance transfer</p>
+
+<aside class="notice">
+Transferring funds between sub-accounts is restricted to API keys linked to the main account.
+</aside>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>POST /v3/transfer
+</code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"asset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flexUSD"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fromAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14320"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"toAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15343"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>Successful response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"asset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flexUSD"</span><span class="p">,</span><span class="w"> 
+        </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fromAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14320"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"toAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15343"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"transferredAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1635038730480"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>asset</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>fromAccount</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+<tr>
+<td>toAccount</td>
+<td>STRING</td>
+<td>YES</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>asset</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>fromAccount</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>toAccount</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>transferredAt</td>
+<td>STRING</td>
+<td>Millisecond timestamp</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-v3-account-amp-wallet-private-get-v3-transfer'>GET <code>/v3/transfer</code></h3>
+<p>Sub-account balance transfer history</p>
+
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>GET /v3/transfer?asset={asset}&amp;limit={limit}&amp;startTime={startTime}&amp;endTime={endTime}
+</code></pre></div>
+<blockquote>
+<p><strong>Successful response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"asset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flexUSD"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fromAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14320"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"toAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15343"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"703557273590071299"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPLETED"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"transferredAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1634779040611"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<aside class="notice">
+API keys linked to the main account can get all account transfers, 
+while API keys linked to a sub-account can only see transfers where the sub-account is either the "fromAccount" or "toAccount".
+</aside>
+
+<table><thead>
+<tr>
+<th>Request Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>asset</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Default all assets</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>LONG</td>
+<td>NO</td>
+<td>Default 50, max 200</td>
+</tr>
+<tr>
+<td>startTime</td>
+<td>LONG</td>
+<td>NO</td>
+<td>Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other</td>
+</tr>
+<tr>
+<td>endTime</td>
+<td>LONG</td>
+<td>NO</td>
+<td>Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>asset</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>fromAccount</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>toAccount</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>id</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>status</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>transferredAt</td>
+<td>STRING</td>
+<td>Millisecond timestamp</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-v3-account-amp-wallet-private-get-v3-balances'>GET <code>/v3/balances</code></h3>
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>GET /v3/balances?subAcc={name1},{name2}&amp;asset={asset}
+</code></pre></div>
+<blockquote>
+<p><strong>Successful response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"21213"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"balances"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+               </span><span class="p">{</span><span class="w">
+                   </span><span class="nl">"asset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+                   </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4468.823"</span><span class="p">,</span><span class="w">              
+                   </span><span class="nl">"available"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4468.823"</span><span class="p">,</span><span class="w">        
+                   </span><span class="nl">"reserved"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+                   </span><span class="nl">"lastUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1593627415234"</span><span class="w">
+               </span><span class="p">},</span><span class="w">
+               </span><span class="p">{</span><span class="w">
+                   </span><span class="nl">"asset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX"</span><span class="p">,</span><span class="w">
+                   </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1585.890"</span><span class="p">,</span><span class="w">              
+                   </span><span class="nl">"available"</span><span class="p">:</span><span class="w"> </span><span class="s2">"325.890"</span><span class="p">,</span><span class="w">         
+                   </span><span class="nl">"reserved"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1260"</span><span class="p">,</span><span class="w">
+                   </span><span class="nl">"lastUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1593627415123"</span><span class="w">
+               </span><span class="p">}</span><span class="w">
+                       </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<aside class="notice">
+if the user is calling this endpoint using an API-KEY from a account then the parameter “subAcc” will allow the user to list which sub-accounts in addition to the default account will be returned.  If an API-KEY from a sub-account is used then this parameter has no control.
+</aside>
+
+<table><thead>
+<tr>
+<th>Request Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>asset</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Default all assets</td>
+</tr>
+<tr>
+<td>subAcc</td>
+<td>STRING</td>
+<td>NO</td>
+<td>Name of sub account. If no subAcc is given, then the response contains only the account linked to the API-Key. Multiple subAccs can be separated with a comma, maximum of 10 subAccs, e.g. subone,subtwo</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accountId</td>
+<td>STRING</td>
+<td>Account ID</td>
+</tr>
+<tr>
+<td>name</td>
+<td>STRING</td>
+<td>Main account with the name “main” and take the first place</td>
+</tr>
+<tr>
+<td>balances</td>
+<td>LIST of dictionaries</td>
+<td></td>
+</tr>
+<tr>
+<td>asset</td>
+<td>STRING</td>
+<td>Asset name</td>
+</tr>
+<tr>
+<td>available</td>
+<td>STRING</td>
+<td>Available balance</td>
+</tr>
+<tr>
+<td>reserved</td>
+<td>STRING</td>
+<td>Reserved balance</td>
+</tr>
+<tr>
+<td>lastUpdatedAt</td>
+<td>STRING</td>
+<td>Timestamp of updated at</td>
 </tr>
 </tbody></table>
 <h2 id='rest-api-v3-deposits-amp-withdrawals-private'>Deposits &amp; Withdrawals - Private</h2><h3 id='rest-api-v3-deposits-amp-withdrawals-private-get-v3-deposit-addresses'>GET <code>/v3/deposit-addresses</code></h3>
@@ -13701,317 +14012,6 @@ if the user is calling this endpoint using an API-KEY from a master account then
 <td></td>
 </tr>
 </tbody></table>
-<h3 id='rest-api-v3-deposits-amp-withdrawals-private-post-v3-transfer'>POST <code>/v3/transfer</code></h3>
-<p>Sub-account balance transfer</p>
-
-<aside class="notice">
-Transferring funds between sub-accounts is restricted to API keys linked to the main account.
-</aside>
-
-<blockquote>
-<p><strong>Request</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight plaintext"><code>POST /v3/transfer
-</code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"asset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flexUSD"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fromAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14320"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"toAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15343"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<blockquote>
-<p><strong>Successful response format</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"asset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flexUSD"</span><span class="p">,</span><span class="w"> 
-        </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"fromAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14320"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"toAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15343"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"transferredAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1635038730480"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<table><thead>
-<tr>
-<th>Request Parameter</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>asset</td>
-<td>STRING</td>
-<td>YES</td>
-<td></td>
-</tr>
-<tr>
-<td>quantity</td>
-<td>STRING</td>
-<td>YES</td>
-<td></td>
-</tr>
-<tr>
-<td>fromAccount</td>
-<td>STRING</td>
-<td>YES</td>
-<td></td>
-</tr>
-<tr>
-<td>toAccount</td>
-<td>STRING</td>
-<td>YES</td>
-<td></td>
-</tr>
-</tbody></table>
-
-<table><thead>
-<tr>
-<th>Response Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>asset</td>
-<td>STRING</td>
-<td></td>
-</tr>
-<tr>
-<td>quantity</td>
-<td>STRING</td>
-<td></td>
-</tr>
-<tr>
-<td>fromAccount</td>
-<td>STRING</td>
-<td></td>
-</tr>
-<tr>
-<td>toAccount</td>
-<td>STRING</td>
-<td></td>
-</tr>
-<tr>
-<td>transferredAt</td>
-<td>STRING</td>
-<td>Millisecond timestamp</td>
-</tr>
-</tbody></table>
-<h3 id='rest-api-v3-deposits-amp-withdrawals-private-get-v3-transfer'>GET <code>/v3/transfer</code></h3>
-<p>Sub-account balance transfer history</p>
-
-<blockquote>
-<p><strong>Request</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight plaintext"><code>GET /v3/transfer?asset={asset}&amp;limit={limit}&amp;startTime={startTime}&amp;endTime={endTime}
-</code></pre></div>
-<blockquote>
-<p><strong>Successful response format</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"asset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flexUSD"</span><span class="p">,</span><span class="w"> 
-            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fromAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14320"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"toAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15343"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"703557273590071299"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPLETED"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"transferredAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1634779040611"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<aside class="notice">
-API keys linked to the main account can get all account transfers, 
-while API keys linked to a sub-account can only see transfers where the sub-account is either the "fromAccount" or "toAccount".
-</aside>
-
-<table><thead>
-<tr>
-<th>Request Parameter</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>asset</td>
-<td>STRING</td>
-<td>NO</td>
-<td>Default all assets</td>
-</tr>
-<tr>
-<td>limit</td>
-<td>LONG</td>
-<td>NO</td>
-<td>Default 50, max 200</td>
-</tr>
-<tr>
-<td>startTime</td>
-<td>LONG</td>
-<td>NO</td>
-<td>Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other</td>
-</tr>
-<tr>
-<td>endTime</td>
-<td>LONG</td>
-<td>NO</td>
-<td>Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other</td>
-</tr>
-</tbody></table>
-
-<table><thead>
-<tr>
-<th>Response Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>asset</td>
-<td>STRING</td>
-<td></td>
-</tr>
-<tr>
-<td>quantity</td>
-<td>STRING</td>
-<td></td>
-</tr>
-<tr>
-<td>fromAccount</td>
-<td>STRING</td>
-<td></td>
-</tr>
-<tr>
-<td>toAccount</td>
-<td>STRING</td>
-<td></td>
-</tr>
-<tr>
-<td>id</td>
-<td>STRING</td>
-<td></td>
-</tr>
-<tr>
-<td>status</td>
-<td>STRING</td>
-<td></td>
-</tr>
-<tr>
-<td>transferredAt</td>
-<td>STRING</td>
-<td>Millisecond timestamp</td>
-</tr>
-</tbody></table>
-<h3 id='rest-api-v3-deposits-amp-withdrawals-private-get-v3-balances'>GET <code>/v3/balances</code></h3>
-<blockquote>
-<p><strong>Request</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight plaintext"><code>GET /v3/balances?subAcc={name1},{name2}&amp;asset={asset}
-</code></pre></div>
-<blockquote>
-<p><strong>Successful response format</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"21213"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"balances"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-               </span><span class="p">{</span><span class="w">
-                   </span><span class="nl">"asset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-                   </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4468.823"</span><span class="p">,</span><span class="w">              
-                   </span><span class="nl">"available"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4468.823"</span><span class="p">,</span><span class="w">        
-                   </span><span class="nl">"reserved"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-                   </span><span class="nl">"lastUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1593627415234"</span><span class="w">
-               </span><span class="p">},</span><span class="w">
-               </span><span class="p">{</span><span class="w">
-                   </span><span class="nl">"asset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX"</span><span class="p">,</span><span class="w">
-                   </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1585.890"</span><span class="p">,</span><span class="w">              
-                   </span><span class="nl">"available"</span><span class="p">:</span><span class="w"> </span><span class="s2">"325.890"</span><span class="p">,</span><span class="w">         
-                   </span><span class="nl">"reserved"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1260"</span><span class="p">,</span><span class="w">
-                   </span><span class="nl">"lastUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1593627415123"</span><span class="w">
-               </span><span class="p">}</span><span class="w">
-                       </span><span class="p">]</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<aside class="notice">
-if the user is calling this endpoint using an API-KEY from a account then the parameter “subAcc” will allow the user to list which sub-accounts in addition to the default account will be returned.  If an API-KEY from a sub-account is used then this parameter has no control.
-</aside>
-
-<table><thead>
-<tr>
-<th>Request Parameter</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>asset</td>
-<td>STRING</td>
-<td>NO</td>
-<td>Default all assets</td>
-</tr>
-<tr>
-<td>subAcc</td>
-<td>STRING</td>
-<td>NO</td>
-<td>Name of sub account. If no subAcc is given, then the response contains only the account linked to the API-Key. Multiple subAccs can be separated with a comma, maximum of 10 subAccs, e.g. subone,subtwo</td>
-</tr>
-</tbody></table>
-
-<table><thead>
-<tr>
-<th>Response Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>accountId</td>
-<td>STRING</td>
-<td>Account ID</td>
-</tr>
-<tr>
-<td>name</td>
-<td>STRING</td>
-<td>Main account with the name “main” and take the first place</td>
-</tr>
-<tr>
-<td>balances</td>
-<td>LIST of dictionaries</td>
-<td></td>
-</tr>
-<tr>
-<td>asset</td>
-<td>STRING</td>
-<td>Asset name</td>
-</tr>
-<tr>
-<td>available</td>
-<td>STRING</td>
-<td>Available balance</td>
-</tr>
-<tr>
-<td>reserved</td>
-<td>STRING</td>
-<td>Reserved balance</td>
-</tr>
-<tr>
-<td>lastUpdatedAt</td>
-<td>STRING</td>
-<td>Timestamp of updated at</td>
-</tr>
-</tbody></table>
 <h2 id='rest-api-v3-orders-private'>Orders - Private</h2><h3 id='rest-api-v3-orders-private-get-v3-orders-status'>GET <code>/v3/orders/status</code></h3>
 <p>Get latest order status</p>
 
@@ -14217,8 +14217,7 @@ CANCELED orders are not in the orderbook, the remainQuantity in the CANCELED ord
         </span><span class="nl">"matchedQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"avgFillPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"avgLeg1Price"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"avgLeg1Price"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"avgLeg2Price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.200"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"avgLeg2Price"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
         </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"USD"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w"> </span><span class="nl">"FLEX"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">},</span><span class="w">
         </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIMIT"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTC"</span><span class="p">,</span><span class="w">
@@ -14729,7 +14728,7 @@ You can place up to 8 orders at a time in REST API
 <tr>
 <td>notice</td>
 <td>STRING</td>
-<td><code>OrderClosed</code> or <code>OrderMatched</code> or <code>OrderOpend</code></td>
+<td><code>OrderClosed</code> or <code>OrderMatched</code> or <code>OrderOpened</code></td>
 </tr>
 <tr>
 <td>accountId</td>
@@ -14979,7 +14978,7 @@ You can cancel up to 8 orders at a time in REST API
 <tr>
 <td>notice</td>
 <td>STRING</td>
-<td><code>OrderClosed</code> or <code>OrderMatched</code> or <code>OrderOpend</code></td>
+<td><code>OrderClosed</code></td>
 </tr>
 <tr>
 <td>accountId</td>
@@ -17909,7 +17908,7 @@ Main account API key can search all subaccount hashTokens
             </span><span class="nl">"matchQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.100000"</span><span class="w"> </span><span class="p">,</span><span class="w">
             </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="w"> </span><span class="p">,</span><span class="w">
             </span><span class="nl">"matchType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TAKER"</span><span class="w"> </span><span class="p">,</span><span class="w">
-            </span><span class="nl">"matchedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TAKER"</span><span class="w"> 
+            </span><span class="nl">"matchedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1662207330439"</span><span class="w"> 
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
