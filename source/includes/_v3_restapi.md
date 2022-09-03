@@ -316,7 +316,7 @@ GET v3/wallet?subAcc={name1},{name2}&type={type}&limit={limit}&startTime={startT
     "success": true,
     "data": [
         {
-            "accountId": "21213",
+             "accountId": "21213",
              "name": "main",
              "walletHistory": [
                   {
@@ -352,6 +352,169 @@ amount | STRING | Amount |
 asset | STRING | Asset name |
 type | STRING | |
 createdAt/lastUpdatedAt | STRING | Millisecond timestamp `created time or updated time` |
+
+
+### POST `/v3/transfer`
+
+Sub-account balance transfer
+
+<aside class="notice">
+Transferring funds between sub-accounts is restricted to API keys linked to the main account.
+</aside>
+
+> **Request**
+
+```
+POST /v3/transfer
+```
+```json
+{
+    "asset": "flexUSD",
+    "quantity": "1000",
+    "fromAccount": "14320",
+    "toAccount": "15343"
+}
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": {
+        "asset": "flexUSD", 
+        "quantity": "1000",
+        "fromAccount": "14320",
+        "toAccount": "15343",
+        "transferredAt": "1635038730480"
+    }
+}
+```
+
+Request Parameter | Type | Required | Description | 
+----------------- | ---- | -------- | ----------- |
+asset | STRING | YES | |
+quantity | STRING | YES | |
+fromAccount | STRING | YES | |
+toAccount | STRING | YES | |
+
+Response Field | Type | Description | 
+-------------- | ---- | ----------- |
+asset | STRING | |
+quantity | STRING | |
+fromAccount | STRING | |
+toAccount | STRING | |
+transferredAt | STRING | Millisecond timestamp |
+
+
+### GET `/v3/transfer`
+
+Sub-account balance transfer history
+
+> **Request**
+
+```url
+GET /v3/transfer?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "asset": "flexUSD", 
+            "quantity": "1000",
+            "fromAccount": "14320",
+            "toAccount": "15343",
+            "id": "703557273590071299",
+            "status": "COMPLETED",
+            "transferredAt": "1634779040611"
+        }
+    ]
+}
+```
+
+<aside class="notice">
+API keys linked to the main account can get all account transfers, 
+while API keys linked to a sub-account can only see transfers where the sub-account is either the "fromAccount" or "toAccount".
+</aside>
+
+Request Parameter | Type | Required | Description |
+----------------- | ---- | -------- | ----------- |
+asset | STRING | NO | Default all assets |
+limit | LONG | NO | Default 50, max 200 |
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
+
+Response Field | Type | Description | 
+-------------- | ---- | ----------- |
+asset | STRING | |
+quantity | STRING | |
+fromAccount | STRING | |
+toAccount | STRING | |
+id | STRING | |
+status | STRING | |
+transferredAt | STRING | Millisecond timestamp |
+
+
+###GET `/v3/balances`
+
+> **Request**
+
+```
+GET /v3/balances?subAcc={name1},{name2}&asset={asset}
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "accountId": "21213",
+            "name": "main",
+            "balances": [
+               {
+                   "asset": "BTC",
+                   "total": "4468.823",              
+                   "available": "4468.823",        
+                   "reserved": "0",
+                   "lastUpdatedAt": "1593627415234"
+               },
+               {
+                   "asset": "FLEX",
+                   "total": "1585.890",              
+                   "available": "325.890",         
+                   "reserved": "1260",
+                   "lastUpdatedAt": "1593627415123"
+               }
+                       ]
+        }
+    ]
+}
+```
+
+<aside class="notice">
+if the user is calling this endpoint using an API-KEY from a account then the parameter “subAcc” will allow the user to list which sub-accounts in addition to the default account will be returned.  If an API-KEY from a sub-account is used then this parameter has no control.
+</aside>
+
+Request Parameter | Type | Required | Description |
+----------------- | ---- | -------- | ----------- |
+asset | STRING | NO | Default all assets |
+subAcc | STRING | NO | Name of sub account. If no subAcc is given, then the response contains only the account linked to the API-Key. Multiple subAccs can be separated with a comma, maximum of 10 subAccs, e.g. subone,subtwo |
+
+Response Field | Type | Description | 
+-------------- | ---- | ----------- |
+accountId | STRING | Account ID |
+name | STRING | Main account with the name “main” and take the first place|
+balances | LIST of dictionaries | |
+asset | STRING | Asset name |
+available | STRING | 	Available balance |
+reserved | STRING | Reserved balance |
+lastUpdatedAt | STRING | Timestamp of updated at |
 
 
 ## Deposits & Withdrawals - Private
@@ -649,169 +812,6 @@ externalFee | BOOL | If false, then the fee is taken from the quantity|
 estimatedFee | STRING | |
 
 
-### POST `/v3/transfer`
-
-Sub-account balance transfer
-
-<aside class="notice">
-Transferring funds between sub-accounts is restricted to API keys linked to the main account.
-</aside>
-
-> **Request**
-
-```
-POST /v3/transfer
-```
-```json
-{
-    "asset": "flexUSD",
-    "quantity": "1000",
-    "fromAccount": "14320",
-    "toAccount": "15343"
-}
-```
-
-> **Successful response format**
-
-```json
-{
-    "success": true,
-    "data": {
-        "asset": "flexUSD", 
-        "quantity": "1000",
-        "fromAccount": "14320",
-        "toAccount": "15343",
-        "transferredAt": "1635038730480"
-    }
-}
-```
-
-Request Parameter | Type | Required | Description | 
------------------ | ---- | -------- | ----------- |
-asset | STRING | YES | |
-quantity | STRING | YES | |
-fromAccount | STRING | YES | |
-toAccount | STRING | YES | |
-
-Response Field | Type | Description | 
--------------- | ---- | ----------- |
-asset | STRING | |
-quantity | STRING | |
-fromAccount | STRING | |
-toAccount | STRING | |
-transferredAt | STRING | Millisecond timestamp |
-
-
-### GET `/v3/transfer`
-
-Sub-account balance transfer history
-
-> **Request**
-
-```url
-GET /v3/transfer?asset={asset}&limit={limit}&startTime={startTime}&endTime={endTime}
-```
-
-> **Successful response format**
-
-```json
-{
-    "success": true,
-    "data": [
-        {
-            "asset": "flexUSD", 
-            "quantity": "1000",
-            "fromAccount": "14320",
-            "toAccount": "15343",
-            "id": "703557273590071299",
-            "status": "COMPLETED",
-            "transferredAt": "1634779040611"
-        }
-    ]
-}
-```
-
-<aside class="notice">
-API keys linked to the main account can get all account transfers, 
-while API keys linked to a sub-account can only see transfers where the sub-account is either the "fromAccount" or "toAccount".
-</aside>
-
-Request Parameter | Type | Required | Description |
------------------ | ---- | -------- | ----------- |
-asset | STRING | NO | Default all assets |
-limit | LONG | NO | Default 50, max 200 |
-startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
-endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
-
-Response Field | Type | Description | 
--------------- | ---- | ----------- |
-asset | STRING | |
-quantity | STRING | |
-fromAccount | STRING | |
-toAccount | STRING | |
-id | STRING | |
-status | STRING | |
-transferredAt | STRING | Millisecond timestamp |
-
-
-###GET `/v3/balances`
-
-> **Request**
-
-```
-GET /v3/balances?subAcc={name1},{name2}&asset={asset}
-```
-
-> **Successful response format**
-
-```json
-{
-    "success": true,
-    "data": [
-        {
-            "accountId": "21213",
-            "name": "main",
-            "balances": [
-               {
-                   "asset": "BTC",
-                   "total": "4468.823",              
-                   "available": "4468.823",        
-                   "reserved": "0",
-                   "lastUpdatedAt": "1593627415234"
-               },
-               {
-                   "asset": "FLEX",
-                   "total": "1585.890",              
-                   "available": "325.890",         
-                   "reserved": "1260",
-                   "lastUpdatedAt": "1593627415123"
-               }
-                       ]
-        }
-    ]
-}
-```
-
-<aside class="notice">
-if the user is calling this endpoint using an API-KEY from a account then the parameter “subAcc” will allow the user to list which sub-accounts in addition to the default account will be returned.  If an API-KEY from a sub-account is used then this parameter has no control.
-</aside>
-
-Request Parameter | Type | Required | Description |
------------------ | ---- | -------- | ----------- |
-asset | STRING | NO | Default all assets |
-subAcc | STRING | NO | Name of sub account. If no subAcc is given, then the response contains only the account linked to the API-Key. Multiple subAccs can be separated with a comma, maximum of 10 subAccs, e.g. subone,subtwo |
-
-Response Field | Type | Description | 
--------------- | ---- | ----------- |
-accountId | STRING | Account ID |
-name | STRING | Main account with the name “main” and take the first place|
-balances | LIST of dictionaries | |
-asset | STRING | Asset name |
-available | STRING | 	Available balance |
-reserved | STRING | Reserved balance |
-lastUpdatedAt | STRING | Timestamp of updated at |
-
-
 ## Orders - Private
 
 ### GET `/v3/orders/status`
@@ -914,8 +914,7 @@ GET /v3/orders?marketCode={marketCode}&orderId={orderId}&clientOrderId={clientOr
         "matchedQuantity": "0.00",
         "avgFillPrice": "null",
         "avgLeg1Price": "",
-        "avgLeg1Price": "",
-        "avgLeg2Price": "5.200",
+        "avgLeg2Price": "",
         "fees": {"USD": "0", "FLEX": "0"},
         "orderType": "LIMIT",
         "timeInForce": "GTC",
@@ -1140,7 +1139,7 @@ limitPrice | STRING | NO | Limit price for the stop limit order |
 
 Response Fields | Type | Description | 
 --------------------| ---- | ----------- |
-notice | STRING | `OrderClosed` or `OrderMatched` or `OrderOpend` |
+notice | STRING | `OrderClosed` or `OrderMatched` or `OrderOpened` |
 accountId | STRING | Account ID |
 code | STRING | Error code |
 message | STRING | Error message |
@@ -1251,7 +1250,7 @@ clientOrderId | ULONG | Either one of orderId or clientOrderId is required | Cli
 
 Response Fields | Type | Description | 
 --------------------| ---- | ----------- |
-notice | STRING | `OrderClosed` or `OrderMatched` or `OrderOpend` |
+notice | STRING | `OrderClosed` |
 accountId | STRING | Account ID |
 code | STRING | Error code |
 message | STRING | Error message |
@@ -2743,7 +2742,7 @@ GET /v3/exchange-trades?marketCode={marketCode}&limit={limit}&startTime={startTi
             "matchQuantity": "0.100000" ,
             "side": "BUY" ,
             "matchType": "TAKER" ,
-            "matchedAt": "TAKER" 
+            "matchedAt": "1662207330439" 
         }
     ]
 }
