@@ -337,7 +337,7 @@ if the user is calling this endpoint using an API-KEY from a master account then
 
 Request Parameter | Type | Required | Description |
 ----------------- | ---- | -------- | ----------- |
-subAcc | STRING | NO | default, only the default acc for the API-Key is returned max subaccounts that can be queried is TBD by empirical testing |
+subAcc | STRING | NO |  |
 type | STRING | NO | DEPOSIT, WITHDRAWAL, etc, default return all, most recent first |
 limit | LONG | NO | Default 200, max 500 |
 startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
@@ -348,7 +348,7 @@ Response Field | Type | Description |
 accountId | STRING | Account ID |
 name | STRING | Account name |
 walletHistory | LIST of dictionaries | |
-toAccount | STRING | |
+amount | STRING | Amount |
 asset | STRING | Asset name |
 type | STRING | |
 createdAt/lastUpdatedAt | STRING | Millisecond timestamp `created time or updated time` |
