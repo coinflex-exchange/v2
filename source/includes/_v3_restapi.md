@@ -503,6 +503,87 @@ reserved | STRING | Reserved balance |
 lastUpdatedAt | STRING | Timestamp of updated at |
 
 
+### POST `/v3/leverage`
+
+> **Request**
+
+```
+POST /v3/leverage
+```
+```json
+{
+    "marketCode": "BTC-USD-SWAP-PER",
+    "leverage": 3
+}
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data":{
+        "marketCode": "BTC-USD-SWAP-PER",
+        "leverage": 2,
+        "maxPositionSize": "1000000"
+    }
+}
+```
+
+Request Parameter | Type | Required | Description | 
+----------------- | ---- | -------- | ----------- |
+marketCode | STRING | YES | |
+leverage | STRING | YES | |
+
+Response Field | Type | Description | 
+-------------- | ---- | ----------- |
+marketCode | STRING | |
+leverage | STRING | |
+maxPositionSize | STRING | |
+
+
+### POST `/v3/position/adjust`
+
+> **Request**
+
+```
+POST /v3/position/adjust
+```
+```json
+{
+    "marketCode": "BTC-USD-SWAP-PER",
+    "amount": "100",
+    "type": "ADD"
+}
+```
+
+> **Successful response format**
+
+```json
+{     
+"success": true,     
+"data": { 
+        "type": "ADD",       
+        "amount": "100.0",       
+        "marginBalance": "150.5"   
+ }
+}
+```
+
+Request Parameter | Type | Required | Description | 
+----------------- | ---- | -------- | ----------- |
+marketCode | STRING | YES | |
+amount | STRING | YES | |
+type | STRING | YES | `ADD`, `REDUCE`|
+
+Response Field | Type | Description | 
+-------------- | ---- | ----------- |
+type | STRING | |
+amount | STRING | |
+marginBalance | STRING | |
+
+
+
 ## Deposits & Withdrawals - Private
 
 ### GET `/v3/deposit-addresses`
