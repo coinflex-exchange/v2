@@ -500,7 +500,11 @@ print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
               "contractValCurrency": "BTC",
               "entryPrice": "56934.8258",
               "positionPnl": "1212.0065",
-              "estLiquidationPrice": "52454.3592"
+              "estLiquidationPrice": "52454.3592",
+              "marginBalance": "1000.32",
+              "maintenanceMargin": "300.32",
+              "marginRatio": "0.4",
+              "leverage": "2"
             },
             ...
           ]
@@ -520,7 +524,11 @@ print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
             "contractValCurrency": "ETH", 
             "entryPrice": "3405.16", 
             "positionPnl": "51675.9816", 
-            "estLiquidationPrice": "64473.25"
+            "estLiquidationPrice": "64473.25"，
+            "marginBalance": "1000.32",
+            "maintenanceMargin": "300.32",
+            "marginRatio": "0.4",
+            "leverage": "2"
         }, 
         {
             "instrumentId": "FLEX-USD-SWAP-LIN", 
@@ -529,7 +537,11 @@ print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
             "contractValCurrency": "FLEX", 
             "entryPrice": "7.989", 
             "positionPnl": "-387.4240", 
-            "estLiquidationPrice": "0"
+            "estLiquidationPrice": "0",
+            "marginBalance": "1000.32",
+            "maintenanceMargin": "300.32",
+            "marginRatio": "0.4",
+            "leverage": "2"
         }, 
         {
             "instrumentId": "BTC-USD-SWAP-LIN", 
@@ -539,6 +551,10 @@ print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
             "entryPrice": "47642", 
             "positionPnl": "-441817.260", 
             "estLiquidationPrice": "0"
+            "marginBalance": "1000.32",
+            "maintenanceMargin": "300.32",
+            "marginRatio": "0.4",
+            "leverage": "2"
         }
     ]
 }
@@ -563,6 +579,10 @@ contractValCurrency | STRING | Contract valuation currency |
 entryPrice | STRING | Average entry price |
 positionPnl | STRING | Postion profit and lost |
 estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative(<0) |
+marginBalance | STRING |  |
+maintenanceMargin | STRING |  |
+marginRatio | STRING |  |
+leverage | STRING | current leverage |
 
 
 ###GET  `/v2/positions/{instrumentId}`
@@ -628,7 +648,11 @@ print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
               "contractValCurrency": "BTC",
               "entryPrice": "56934.8258",
               "positionPnl": "1216.6135",
-              "estLiquidationPrice": "53171.16"
+              "estLiquidationPrice": "53171.16",
+              "marginBalance": "1000.32",
+              "maintenanceMargin": "300.32",
+              "marginRatio": "0.4",
+              "leverage": "2"
           } ]
 }
 ```
@@ -645,7 +669,11 @@ print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
         "contractValCurrency": "FLEX",
         "entryPrice": "7.989",
         "positionPnl": "-387.4240",
-        "estLiquidationPrice": "0"
+        "estLiquidationPrice": "0",
+        "marginBalance": "1000.32",
+        "maintenanceMargin": "300.32",
+        "marginRatio": "0.4",
+        "leverage": "2"
     }
 }
 ```
@@ -673,6 +701,10 @@ contractValCurrency | STRING | Contract valuation currency |
 entryPrice | STRING | Average entry price |
 positionPnl | STRING | Postion profit and lost |
 estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative(<0) |
+marginBalance | STRING |  |
+maintenanceMargin | STRING |  |
+marginRatio | STRING |  |
+leverage | STRING | current leverage |
 
 
 ### GET `/v2/trades/{marketCode}`

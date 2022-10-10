@@ -191,8 +191,12 @@ GET v3/account?subAcc={subAcc},{subAcc}
                     "entryPrice": "3.590", 
                     "markPrice": "6.360", 
                     "positionPnl": "31608.7470", 
-                    "estLiquidationPrice": "0", 
-                    "lastUpdatedAt": "1637876701404"
+                    "estLiquidationPrice": "12000.34", 
+                    "lastUpdatedAt": "1637876701404",
+                    "marginBalance": "1000.32",
+                    "maintenanceMargin": "300.32",
+                    "marginRatio": "0.4",
+                    "leverage": "2"
 	            }
             ],
             "collateral": "1231231",
