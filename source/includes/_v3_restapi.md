@@ -195,19 +195,6 @@ GET v3/account?subAcc={subAcc},{subAcc}
                     "lastUpdatedAt": "1637876701404"
 	            }
             ],
-            "loans": [
-                {
-                    "borrowedAsset": "USD",
-                    "borrowedAmount": "100000.0",
-                    "collateralAsset": "BTC",
-                    "marketCode": "BTC-USD-SWAP-LIN",
-                    "position": "1.6",
-                    "entryPrice": "50000.0",
-                    "markPrice": "62500.0",
-                    "estLiquidationPrice": "40000.0",
-                    "lastUpdatedAt": "1592486212218"
-                }
-            ],
             "collateral": "1231231",
             "notionalPositionSize": "50000.0",
             "portfolioVarMargin": "500",
@@ -246,7 +233,6 @@ entryPrice | STRING | Entry price |
 markPrice | STRING | Mark price |
 positionPnl | STRING | Position PNL |
 estLiquidationPrice | STRING | Estimated liquidation price |
-loans | LIST of dictionaries | Loans if applicable |
 borrowedAsset | STRING | Borrowed asset |
 borrowedAmount | STRING | Borrowed amount |
 collateralAsset | STRING | Collateral asset |
@@ -1835,19 +1821,6 @@ GET /v3/AMM?hashToken={hashToken},{hashToken}
                 "lastUpdatedAt": "1593627415223"
             }
         ],
-        "loans": [
-            {
-                "borrowedAsset": "USD",
-                "borrowedAmount": "100000.0",
-                "collateralAsset": "BTC",
-                "marketCode": "BTC-USD-SWAP-LIN",
-                "position": "1.6",
-                "entryPrice": "50000.0",
-                "markPrice": "62500.0",
-                "estLiquidationPrice": "40000.0",
-                "lastUpdatedAt": "1592486212218"
-            }
-        ],
         "usdReward": "200",
         "flexReward": "200",
         "interestPaid": "123",
@@ -1894,7 +1867,6 @@ asset | STRING | Asset |
 total | STRING | Total balance |
 available | STRING | Available balance |
 reserved | STRING | Reserved balance |
-loans | LIST of dictionaries | Loans |
 borrowedAsset | STRING | Borrowed asset |
 borrowedAmount | STRING | Borrowed amount |
 collateralAsset | STRING | Collateral asset | 
