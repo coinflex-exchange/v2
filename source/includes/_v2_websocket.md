@@ -2498,6 +2498,112 @@ asks| LIST of floats | Sell side depth; <ol><li>price</li><li>quantity</li> |
 bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li> |
 
 
+### Futures Depth
+
+> **Request format**
+
+```json
+{
+    "op": "subscribe",
+    "tag": 103,
+    "args": [
+        "futures/depth:BTC-USD-SWAP-LIN"
+    ]
+}
+```
+
+> **Success response format**
+
+```json
+{
+    "success": true,
+    "tag": "103",
+    "event": "subscribe",
+    "channel": "futures/depth:BTC-USD-SWAP-LIN",
+    "timestamp": "1665460388923"
+}
+```
+
+> **Orderbook depth channel format**
+
+```json
+{
+    "table": "futures/depth",
+    "data": [
+        {
+            "seqNum": 2166539633836810,
+            "instrumentId": "BTC-USD-SWAP-LIN",
+            "asks": [
+                [
+                    19047.0,
+                    0.1
+                ],
+                [
+                    19053.0,
+                    1.0
+                ],
+                [
+                    19235.0,
+                    4.2
+                ],
+                [
+                    19426.0,
+                    8.401
+                ]
+            ],
+            "checksum": 4115970945,
+            "bids": [
+                [
+                    19036.0,
+                    0.1
+                ],
+                [
+                    19015.0,
+                    1.0
+                ],
+                [
+                    18853.0,
+                    4.2
+                ],
+                [
+                    18663.0,
+                    8.401
+                ]
+            ],
+            "timestamp": "1665460388955"
+        }
+    ],
+    "action": "partial"
+}
+```
+
+**Channel Update Frequency:** 50ms
+
+
+<sub>**Request Parameters**</sub> 
+
+Parameters |Type| Required| Description |
+--------|-----|---|-----------|
+op | STRING| Yes | `subscribe` |
+tag | INTEGER or STRING | No | If given it will be echoed in the reply  |
+args | LIST | Yes | List of individual markets `<futures/depth>:<marketCode>` e.g: `["futures/depth:BTC-USD-SWAP-LIN"]`, the `depth` can be `depthL5` `depthL10` `depthL25` `depth`(includes all) |
+
+<sub>**Channel Update Fields**</sub>
+
+Fields | Type | Description|
+-------------------------- | -----| -------------|
+table | STRING | `futures/depth` |
+data | LIST of dictionary |
+instrumentId | STRING |instrument Id |
+seqNum | INTEGER | Sequence number of the order book snapshot |
+checksum | INTEGER |  |
+timestamp| STRING | Millisecond timestamp |
+action| STRING |  |
+asks| LIST of floats | Sell side depth; <ol><li>price</li><li>quantity</li> |
+bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li> |
+
+
+
 ### Incremental Depth
 
 > **Request format**
@@ -2575,17 +2681,18 @@ This websocket subscription for incremental depth stream
 Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes | `subscribe` |
-tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
-args | LIST | Yes | List of individual markets `<depth>:<marketCode>` e.g: `[depthL10:BTC-USD-SWAP-LIN]`, the `depth` can be `depthL5` `depthL10` `depthL25` `depth`(includes all) |
+tag | INTEGER or STRING | No | If given it will be echoed in the reply |
+args | LIST | Yes | List of individual markets `<depthUpdate>:<marketCode>` e.g: `["depthUpdate:BTC-USD-SWAP-LIN"]`|
 
 <sub>**Channel Update Fields**</sub>
 
 Fields | Type | Description|
 -------------------------- | -----| -------------|
-table | STRING | `depth` |
+table | STRING | `depthUpdate-diff` `depthUpdate` |
 data | LIST of dictionary |
 marketCode | STRING |marketCode |
 seqNum | INTEGER | Sequence number of the order book snapshot |
+checksum | INTEGER |  |
 timestamp| STRING | Millisecond timestamp |
 action| STRING |  |
 asks| LIST of floats | Sell side depth; <ol><li>price</li><li>quantity</li> |
@@ -2648,17 +2755,17 @@ This websocket subscription to provide best ask/bid stream in real-time. The cha
 Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes | `subscribe` |
-tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
-args | LIST | Yes | List of individual markets `<depth>:<marketCode>` e.g: `[depthL10:BTC-USD-SWAP-LIN]`, the `depth` can be `depthL5` `depthL10` `depthL25` `depth`(includes all) |
+tag | INTEGER or STRING | No | If given it will be echoed in the reply |
+args | LIST | Yes | List of individual markets `<bestBidAsk>:<marketCode>` e.g: `["bestBidAsk:BTC-USD-SWAP-LIN"]` |
 
 <sub>**Channel Update Fields**</sub>
 
 Fields | Type | Description|
 -------------------------- | -----| -------------|
-table | STRING | `depth` |
+table | STRING | `bestBidAsk` |
 data | LIST of dictionary |
 marketCode | STRING |marketCode |
-seqNum | INTEGER | Sequence number of the order book snapshot |
+checksum | INTEGER |  |
 timestamp| STRING | Millisecond timestamp |
 asks| LIST of floats | Sell side depth; <ol><li>price</li><li>quantity</li> |
 bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li> |
