@@ -1804,7 +1804,9 @@ asyncio.get_event_loop().run_until_complete(subscribe())
               "quantity" : "0.1",
               "instrumentId": "ETH-USD-SWAP-LIN",
               "positionPnl": "-5.6680",
-              "estLiquidationPrice": "0"
+              "estLiquidationPrice": "0",
+              "margin": "121.1",
+              "leverage": "2"
             },
             {
               "entryPrice": "56934.8258",
@@ -1813,7 +1815,9 @@ asyncio.get_event_loop().run_until_complete(subscribe())
               "quantity" : "0.542000000",
               "instrumentId": "BTC-USD-SWAP-LIN",
               "positionPnl": "1220.9494164000000",
-              "estLiquidationPrice": "53179.2"
+              "estLiquidationPrice": "53179.2",
+              "margin": "150.5",
+              "leverage": "4"
             },
             ...
           ]
@@ -1849,6 +1853,8 @@ quantity | STRING | Position size (+/-) |
 instrumentId | STRING | e.g. `ETH-USD-SWAP-LIN` |
 positionPnl | STRING | Postion profit and lost |
 estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative(<0) |
+margin | STRING |  |
+leverage | STRING |  |
 
 
 ### Order Channel
@@ -2378,7 +2384,7 @@ Multiple subscriptions to different channels both public and private can be made
 {
   "op": "subscribe",
   "tag": 103,
-  "args": ["depth:BTC-USD-SWAP-LIN"]
+  "args": ["depthL10:BTC-USD-SWAP-LIN"]
 }
 ```
 ```python
@@ -2390,7 +2396,7 @@ orderbook_depth = \
 {
   "op": "subscribe",
   "tag": 103,
-  "args": ["depth:BTC-USD-SWAP-LIN"]
+  "args": ["depthL10:BTC-USD-SWAP-LIN"]
 }
 
 url= 'wss://v2stgapi.coinflex.com/v2/websocket'
@@ -2416,11 +2422,11 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 
 ```json
 {
-  "event": "subscribe", 
-  "channel": "depth:BTC-USD-SWAP-LIN",
-  "success": True, 
-  "tag": "103", 
-  "timestamp": "1607985371601"
+    "success": true,
+    "tag": "103",
+    "event": "subscribe",
+    "channel": "depthL10:BTC-USD-SWAP-LIN",
+    "timestamp": "1665454814275"
 }
 ```
 
@@ -2428,25 +2434,41 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 
 ```json
 {
-  "table": "depth",
-  "data": [ {
-      "instrumentId": "BTC-USD-SWAP-LIN",
-      "seqNum": 1608898592006137237,
-      "timestamp": "1609350022785",
-      "checksum": 1139901235, 
-      "asks": [ [5556.82, 11, 0, 0],    //price, quantity, 0, 0
-                [5556.84, 98.13, 0, 0],
-                [5556.92, 1.582, 0, 0],
-                [5557.6, 4.291, 0, 0],
-                [5557.85, 2.54, 0, 0]
-              ],
-      "bids": [ [5556.81, 1.92, 0, 0],  //price, quantity, 0, 0
-                [5556.8, 2.1, 0, 0],
-                [5556.79, 1.9, 0, 0],
-                [5556.19, 100, 0, 0],
-                [5556.08, 2.972, 0, 0]
-              ]
-          } ]
+    "table": "depthL10",
+    "data": {
+        "seqNum": 2166539633781384,
+        "asks": [
+            [
+                19024.0,
+                1.0
+            ],
+            [
+                19205.0,
+                4.207
+            ],
+            [
+                19395.0,
+                8.414
+            ]
+        ],
+        "bids": [
+            [
+                18986.0,
+                1.0
+            ],
+            [
+                18824.0,
+                4.207
+            ],
+            [
+                18634.0,
+                8.414
+            ]
+        ],
+        "marketCode": "BTC-USD-SWAP-LIN",
+        "timestamp": "1665454814328"
+    },
+    "action": "partial"
 }
 ```
 
@@ -2468,11 +2490,179 @@ Fields | Type | Description|
 -------------------------- | -----| -------------|
 table | STRING | `depth` |
 data | LIST of dictionary |
-instrumentId | STRING |Instrument ID |
+marketCode | STRING |marketCode |
 seqNum | INTEGER | Sequence number of the order book snapshot |
 timestamp| STRING | Millisecond timestamp |
-asks| LIST of floats | Sell side depth; <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol> |
-bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li><li>0</li><li>0</li></ol> |
+action| STRING |  |
+asks| LIST of floats | Sell side depth; <ol><li>price</li><li>quantity</li> |
+bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li> |
+
+
+### Incremental Depth
+
+> **Request format**
+
+```json
+{
+    "op": "subscribe",
+    "tag": "test1",
+    "args": [
+        "depthUpdate:BTC-USD-SWAP-LIN"
+    ]
+}
+```
+
+> **Success response format**
+
+```json
+{
+    "success": true,
+    "tag": "test1",
+    "event": "subscribe",
+    "channel": "depthUpdate:BTC-USD-SWAP-LIN",
+    "timestamp": "1665456142779"
+}
+```
+
+> ** depth update channel format**
+
+```json
+{
+    "table": "depthUpdate-diff",
+    "data": {
+        "seqNum": 2166539633794590,
+        "asks": [],
+        "bids": [],
+        "checksum": 364462986,
+        "marketCode": "BTC-USD-SWAP-LIN",
+        "timestamp": "1665456142843"
+    },
+    "action": "increment"
+}
+```
+
+```json
+{
+    "table": "depthUpdate",
+    "data": {
+        "seqNum": 2166539633794591,
+        "asks": [
+            [
+                19042.0,
+                1.0
+            ]
+        ],
+        "bids": [
+            [
+                19003.0,
+                1.0
+            ]
+        ],
+        "checksum": 2688268653,
+        "marketCode": "BTC-USD-SWAP-LIN",
+        "timestamp": "1665456142843"
+    },
+    "action": "partial"
+}
+```
+
+**Channel Update Frequency:** 50ms
+
+This websocket subscription for incremental depth stream 
+
+<sub>**Request Parameters**</sub> 
+
+Parameters |Type| Required| Description |
+--------|-----|---|-----------|
+op | STRING| Yes | `subscribe` |
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
+args | LIST | Yes | List of individual markets `<depth>:<marketCode>` e.g: `[depthL10:BTC-USD-SWAP-LIN]`, the `depth` can be `depthL5` `depthL10` `depthL25` `depth`(includes all) |
+
+<sub>**Channel Update Fields**</sub>
+
+Fields | Type | Description|
+-------------------------- | -----| -------------|
+table | STRING | `depth` |
+data | LIST of dictionary |
+marketCode | STRING |marketCode |
+seqNum | INTEGER | Sequence number of the order book snapshot |
+timestamp| STRING | Millisecond timestamp |
+action| STRING |  |
+asks| LIST of floats | Sell side depth; <ol><li>price</li><li>quantity</li> |
+bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li> |
+
+
+###  Best Ask/Bid 
+
+> **Request format**
+
+```json
+{
+    "op": "subscribe",
+    "tag": "test1",
+    "args": [
+        "bestBidAsk:BTC-USD-SWAP-LIN"
+    ]
+}
+```
+
+> **Success response format**
+
+```json
+{
+    "success": true,
+    "tag": "test1",
+    "event": "subscribe",
+    "channel": "bestBidAsk:BTC-USD-SWAP-LIN",
+    "timestamp": "1665456882918"
+}
+```
+
+> ** depth update channel format**
+
+```json
+{
+    "table": "bestBidAsk",
+    "data": {
+        "ask": [
+            19045.0,
+            1.0
+        ],
+        "checksum": 0,
+        "marketCode": "BTC-USD-SWAP-LIN",
+        "bid": [
+            19015.0,
+            1.0
+        ],
+        "timestamp": "1665456882928"
+    }
+}
+```
+
+**Channel Update Frequency:** 50ms
+
+This websocket subscription to provide best ask/bid stream in real-time. The change event is pushed per best ask/bid update in real-time
+
+<sub>**Request Parameters**</sub> 
+
+Parameters |Type| Required| Description |
+--------|-----|---|-----------|
+op | STRING| Yes | `subscribe` |
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
+args | LIST | Yes | List of individual markets `<depth>:<marketCode>` e.g: `[depthL10:BTC-USD-SWAP-LIN]`, the `depth` can be `depthL5` `depthL10` `depthL25` `depth`(includes all) |
+
+<sub>**Channel Update Fields**</sub>
+
+Fields | Type | Description|
+-------------------------- | -----| -------------|
+table | STRING | `depth` |
+data | LIST of dictionary |
+marketCode | STRING |marketCode |
+seqNum | INTEGER | Sequence number of the order book snapshot |
+timestamp| STRING | Millisecond timestamp |
+asks| LIST of floats | Sell side depth; <ol><li>price</li><li>quantity</li> |
+bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li> |
+
 
 
 ### Trade
