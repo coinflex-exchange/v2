@@ -409,6 +409,9 @@
                             <a href="#websocket-api-subscriptions-public-orderbook-depth" class="toc-h3 toc-link" data-title="Orderbook Depth">Orderbook Depth</a>
                           </li>
                           <li>
+                            <a href="#websocket-api-subscriptions-public-futures-depth" class="toc-h3 toc-link" data-title="Futures Depth">Futures Depth</a>
+                          </li>
+                          <li>
                             <a href="#websocket-api-subscriptions-public-incremental-depth" class="toc-h3 toc-link" data-title="Incremental Depth">Incremental Depth</a>
                           </li>
                           <li>
@@ -5007,6 +5010,168 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>Buy side depth; <ol><li>price</li><li>quantity</li></td>
 </tr>
 </tbody></table>
+<h3 id='websocket-api-subscriptions-public-futures-depth'>Futures Depth</h3>
+<blockquote>
+<p><strong>Request format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">103</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"futures/depth:BTC-USD-SWAP-LIN"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>Success response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"103"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"futures/depth:BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1665460388923"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><strong>Orderbook depth channel format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"futures/depth"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"seqNum"</span><span class="p">:</span><span class="w"> </span><span class="mi">2166539633836810</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"asks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">[</span><span class="w">
+                    </span><span class="mf">19047.0</span><span class="p">,</span><span class="w">
+                    </span><span class="mf">0.1</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+                </span><span class="p">[</span><span class="w">
+                    </span><span class="mf">19053.0</span><span class="p">,</span><span class="w">
+                    </span><span class="mf">1.0</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+                </span><span class="p">[</span><span class="w">
+                    </span><span class="mf">19235.0</span><span class="p">,</span><span class="w">
+                    </span><span class="mf">4.2</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+                </span><span class="p">[</span><span class="w">
+                    </span><span class="mf">19426.0</span><span class="p">,</span><span class="w">
+                    </span><span class="mf">8.401</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"checksum"</span><span class="p">:</span><span class="w"> </span><span class="mi">4115970945</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"bids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">[</span><span class="w">
+                    </span><span class="mf">19036.0</span><span class="p">,</span><span class="w">
+                    </span><span class="mf">0.1</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+                </span><span class="p">[</span><span class="w">
+                    </span><span class="mf">19015.0</span><span class="p">,</span><span class="w">
+                    </span><span class="mf">1.0</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+                </span><span class="p">[</span><span class="w">
+                    </span><span class="mf">18853.0</span><span class="p">,</span><span class="w">
+                    </span><span class="mf">4.2</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+                </span><span class="p">[</span><span class="w">
+                    </span><span class="mf">18663.0</span><span class="p">,</span><span class="w">
+                    </span><span class="mf">8.401</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1665460388955"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"partial"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Channel Update Frequency:</strong> 50ms</p>
+
+<p><sub><strong>Request Parameters</strong></sub> </p>
+
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>op</td>
+<td>STRING</td>
+<td>Yes</td>
+<td><code>subscribe</code></td>
+</tr>
+<tr>
+<td>tag</td>
+<td>INTEGER or STRING</td>
+<td>No</td>
+<td>If given it will be echoed in the reply</td>
+</tr>
+<tr>
+<td>args</td>
+<td>LIST</td>
+<td>Yes</td>
+<td>List of individual markets <code>&lt;futures/depth&gt;:&lt;marketCode&gt;</code> e.g: <code>[&quot;futures/depth:BTC-USD-SWAP-LIN&quot;]</code>, the <code>depth</code> can be <code>depthL5</code> <code>depthL10</code> <code>depthL25</code> <code>depth</code>(includes all)</td>
+</tr>
+</tbody></table>
+
+<p><sub><strong>Channel Update Fields</strong></sub></p>
+
+<table><thead>
+<tr>
+<th>Fields</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>table</td>
+<td>STRING</td>
+<td><code>futures/depth</code></td>
+</tr>
+<tr>
+<td>data</td>
+<td>LIST of dictionary</td>
+<td></td>
+</tr>
+<tr>
+<td>instrumentId</td>
+<td>STRING</td>
+<td>instrument Id</td>
+</tr>
+<tr>
+<td>seqNum</td>
+<td>INTEGER</td>
+<td>Sequence number of the order book snapshot</td>
+</tr>
+<tr>
+<td>checksum</td>
+<td>INTEGER</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Millisecond timestamp</td>
+</tr>
+<tr>
+<td>action</td>
+<td>STRING</td>
+<td></td>
+</tr>
+<tr>
+<td>asks</td>
+<td>LIST of floats</td>
+<td>Sell side depth; <ol><li>price</li><li>quantity</li></td>
+</tr>
+<tr>
+<td>bids</td>
+<td>LIST of floats</td>
+<td>Buy side depth; <ol><li>price</li><li>quantity</li></td>
+</tr>
+</tbody></table>
 <h3 id='websocket-api-subscriptions-public-incremental-depth'>Incremental Depth</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
@@ -5092,13 +5257,13 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
+<td>If given it will be echoed in the reply</td>
 </tr>
 <tr>
 <td>args</td>
 <td>LIST</td>
 <td>Yes</td>
-<td>List of individual markets <code>&lt;depth&gt;:&lt;marketCode&gt;</code> e.g: <code>[depthL10:BTC-USD-SWAP-LIN]</code>, the <code>depth</code> can be <code>depthL5</code> <code>depthL10</code> <code>depthL25</code> <code>depth</code>(includes all)</td>
+<td>List of individual markets <code>&lt;depthUpdate&gt;:&lt;marketCode&gt;</code> e.g: <code>[&quot;depthUpdate:BTC-USD-SWAP-LIN&quot;]</code></td>
 </tr>
 </tbody></table>
 
@@ -5114,7 +5279,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>table</td>
 <td>STRING</td>
-<td><code>depth</code></td>
+<td><code>depthUpdate-diff</code> <code>depthUpdate</code></td>
 </tr>
 <tr>
 <td>data</td>
@@ -5130,6 +5295,11 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>seqNum</td>
 <td>INTEGER</td>
 <td>Sequence number of the order book snapshot</td>
+</tr>
+<tr>
+<td>checksum</td>
+<td>INTEGER</td>
+<td></td>
 </tr>
 <tr>
 <td>timestamp</td>
@@ -5219,13 +5389,13 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
+<td>If given it will be echoed in the reply</td>
 </tr>
 <tr>
 <td>args</td>
 <td>LIST</td>
 <td>Yes</td>
-<td>List of individual markets <code>&lt;depth&gt;:&lt;marketCode&gt;</code> e.g: <code>[depthL10:BTC-USD-SWAP-LIN]</code>, the <code>depth</code> can be <code>depthL5</code> <code>depthL10</code> <code>depthL25</code> <code>depth</code>(includes all)</td>
+<td>List of individual markets <code>&lt;bestBidAsk&gt;:&lt;marketCode&gt;</code> e.g: <code>[&quot;bestBidAsk:BTC-USD-SWAP-LIN&quot;]</code></td>
 </tr>
 </tbody></table>
 
@@ -5241,7 +5411,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>table</td>
 <td>STRING</td>
-<td><code>depth</code></td>
+<td><code>bestBidAsk</code></td>
 </tr>
 <tr>
 <td>data</td>
@@ -5254,9 +5424,9 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>marketCode</td>
 </tr>
 <tr>
-<td>seqNum</td>
+<td>checksum</td>
 <td>INTEGER</td>
-<td>Sequence number of the order book snapshot</td>
+<td></td>
 </tr>
 <tr>
 <td>timestamp</td>
