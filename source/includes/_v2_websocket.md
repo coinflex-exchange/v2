@@ -2596,7 +2596,7 @@ table | STRING | `futures/depth` |
 data | LIST of dictionary |
 instrumentId | STRING |instrument Id |
 seqNum | INTEGER | Sequence number of the order book snapshot |
-checksum | INTEGER |  |
+checksum | LONG |  |
 timestamp| STRING | Millisecond timestamp |
 action| STRING |  |
 asks| LIST of floats | Sell side depth; <ol><li>price</li><li>quantity</li> |
@@ -2692,7 +2692,7 @@ table | STRING | `depthUpdate-diff` `depthUpdate` |
 data | LIST of dictionary |
 marketCode | STRING |marketCode |
 seqNum | INTEGER | Sequence number of the order book snapshot |
-checksum | INTEGER |  |
+checksum | LONG |  |
 timestamp| STRING | Millisecond timestamp |
 action| STRING |  |
 asks| LIST of floats | Sell side depth; <ol><li>price</li><li>quantity</li> |
@@ -2765,7 +2765,7 @@ Fields | Type | Description|
 table | STRING | `bestBidAsk` |
 data | LIST of dictionary |
 marketCode | STRING |marketCode |
-checksum | INTEGER |  |
+checksum | LONG |  |
 timestamp| STRING | Millisecond timestamp |
 asks| LIST of floats | Sell side depth; <ol><li>price</li><li>quantity</li> |
 bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li> |
