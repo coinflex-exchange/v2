@@ -406,16 +406,16 @@
                     <a href="#websocket-api-subscriptions-public" class="toc-h2 toc-link" data-title="Subscriptions - Public">Subscriptions - Public</a>
                       <ul class="toc-list-h3">
                           <li>
-                            <a href="#websocket-api-subscriptions-public-orderbook-depth" class="toc-h3 toc-link" data-title="Orderbook Depth">Orderbook Depth</a>
+                            <a href="#websocket-api-subscriptions-public-fixed-size-order-book" class="toc-h3 toc-link" data-title="Fixed Size Order Book">Fixed Size Order Book</a>
                           </li>
                           <li>
-                            <a href="#websocket-api-subscriptions-public-futures-depth" class="toc-h3 toc-link" data-title="Futures Depth">Futures Depth</a>
+                            <a href="#websocket-api-subscriptions-public-full-order-book" class="toc-h3 toc-link" data-title="Full Order Book">Full Order Book</a>
                           </li>
                           <li>
-                            <a href="#websocket-api-subscriptions-public-incremental-depth" class="toc-h3 toc-link" data-title="Incremental Depth">Incremental Depth</a>
+                            <a href="#websocket-api-subscriptions-public-incremental-order-book" class="toc-h3 toc-link" data-title="Incremental Order Book">Incremental Order Book</a>
                           </li>
                           <li>
-                            <a href="#websocket-api-subscriptions-public-best-ask-bid" class="toc-h3 toc-link" data-title="Best Ask/Bid">Best Ask/Bid</a>
+                            <a href="#websocket-api-subscriptions-public-best-bid-ask" class="toc-h3 toc-link" data-title="Best Bid/Ask">Best Bid/Ask</a>
                           </li>
                           <li>
                             <a href="#websocket-api-subscriptions-public-trade" class="toc-h3 toc-link" data-title="Trade">Trade</a>
@@ -3651,26 +3651,26 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Your account ID&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1607985371481"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
-              </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1900.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1616053755423"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1900.0"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"positionPnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-5.6680"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"estLiquidationPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"margin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"121.1"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"leverage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+              </span><span class="nl">"margin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"leverage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
             </span><span class="p">},</span><span class="w">
             </span><span class="p">{</span><span class="w">
-              </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56934.8258"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WBTC-USD-SWAP-PER"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0.542"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1617099855968"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"quantity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0.542000000"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WBTC"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20000.0"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"positionPnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1220.9494164000000"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"estLiquidationPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"53179.2"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"margin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"150.5"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"leverage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="w">
+              </span><span class="nl">"estLiquidationPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5317.2"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"margin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5420.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"leverage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
             </span><span class="p">},</span><span class="w">
             </span><span class="err">...</span><span class="w">
           </span><span class="p">]</span><span class="w">
@@ -3680,7 +3680,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 
 <p>The websocket will reply with the shown success response format for <strong>each</strong> position channel which has been successfully subscribed to.</p>
 
-<p>If a subscription has been made to <strong>position:all</strong>, the data array in the message from this position channel will contain a JSON <strong>list</strong>. Each JSON will contain position details for instrument. Otherwise the data array will contain a <strong>single</strong> JSON corresponding to one instrument per position channel subscription.</p>
+<p>If a subscription has been made to <strong>position:all</strong>, the data array in the message from this position channel will contain a JSON <strong>list</strong>. Each JSON will contain position details for a different instrument. Otherwise the data array will contain a <strong>single</strong> JSON corresponding to one instrument.</p>
 
 <p><sub><strong>Request Parameters</strong></sub> </p>
 
@@ -3742,9 +3742,14 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td></td>
 </tr>
 <tr>
-<td>entryPrice</td>
+<td>instrumentId</td>
 <td>STRING</td>
-<td>Average entry price of total position (Cost / Size)</td>
+<td>e.g. <code>ETH-USD-SWAP-LIN</code></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>STRING</td>
+<td>Position size (+/-)</td>
 </tr>
 <tr>
 <td>lastUpdated</td>
@@ -3757,14 +3762,9 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>Base asset ID e.g. <code>ETH</code></td>
 </tr>
 <tr>
-<td>quantity</td>
+<td>entryPrice</td>
 <td>STRING</td>
-<td>Position size (+/-)</td>
-</tr>
-<tr>
-<td>instrumentId</td>
-<td>STRING</td>
-<td>e.g. <code>ETH-USD-SWAP-LIN</code></td>
+<td>Average entry price of total position (Cost / Size)</td>
 </tr>
 <tr>
 <td>positionPnl</td>
@@ -4837,7 +4837,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <p>Multiple subscriptions to different channels both public and private can be made within a single subscription command:</p>
 
 <p><code>{&quot;op&quot;: &quot;subscribe&quot;, &quot;args&quot;: [&quot;&lt;value1&gt;&quot;, &quot;&lt;value2&gt;&quot;,.....]}</code></p>
-<h3 id='websocket-api-subscriptions-public-orderbook-depth'>Orderbook Depth</h3>
+<h3 id='websocket-api-subscriptions-public-fixed-size-order-book'>Fixed Size Order Book</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
@@ -4886,7 +4886,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p><strong>Orderbook depth channel format</strong></p>
+<p><strong>Order Book depth channel format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"depthL10"</span><span class="p">,</span><span class="w">
@@ -4926,9 +4926,9 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
     </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"partial"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Channel Update Frequency:</strong> 50ms</p>
+<p><strong>Channel Update Frequency:</strong> 100ms</p>
 
-<p>This orderbook depth channel sends a snapshot of the entire orderbook every 50ms.</p>
+<p>This order book depth channel sends a snapshot of the entire order book every 50ms.</p>
 
 <p><sub><strong>Request Parameters</strong></sub> </p>
 
@@ -4956,7 +4956,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>args</td>
 <td>LIST</td>
 <td>Yes</td>
-<td>List of individual markets <code>&lt;depth&gt;:&lt;marketCode&gt;</code> e.g: <code>[depthL10:BTC-USD-SWAP-LIN]</code>, the <code>depth</code> can be <code>depthL5</code> <code>depthL10</code> <code>depthL25</code> <code>depth</code>(includes all)</td>
+<td>List of individual markets <code>&lt;depth&gt;:&lt;marketCode&gt;</code> e.g: <code>[depthL10:BTC-USD-SWAP-LIN]</code>, valid book sizes are: <code>depthL5</code> <code>depthL10</code> <code>depthL25</code></td>
 </tr>
 </tbody></table>
 
@@ -4972,32 +4972,17 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>table</td>
 <td>STRING</td>
-<td><code>depth</code></td>
+<td><code>depthL10</code></td>
 </tr>
 <tr>
 <td>data</td>
-<td>LIST of dictionary</td>
+<td>DICTIONARY</td>
 <td></td>
-</tr>
-<tr>
-<td>marketCode</td>
-<td>STRING</td>
-<td>marketCode</td>
 </tr>
 <tr>
 <td>seqNum</td>
 <td>INTEGER</td>
 <td>Sequence number of the order book snapshot</td>
-</tr>
-<tr>
-<td>timestamp</td>
-<td>STRING</td>
-<td>Millisecond timestamp</td>
-</tr>
-<tr>
-<td>action</td>
-<td>STRING</td>
-<td></td>
 </tr>
 <tr>
 <td>asks</td>
@@ -5009,19 +4994,59 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>LIST of floats</td>
 <td>Buy side depth; <ol><li>price</li><li>quantity</li></td>
 </tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>marketCode</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Millisecond timestamp</td>
+</tr>
+<tr>
+<td>action</td>
+<td>STRING</td>
+<td></td>
+</tr>
 </tbody></table>
-<h3 id='websocket-api-subscriptions-public-futures-depth'>Futures Depth</h3>
+<h3 id='websocket-api-subscriptions-public-full-order-book'>Full Order Book</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">103</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"futures/depth:BTC-USD-SWAP-LIN"</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+  </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="mi">103</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"depth:BTC-USD-SWAP-LIN"</span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
+</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">websockets</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">orderbook_depth</span> <span class="o">=</span> \
+<span class="p">{</span>
+  <span class="s">"op"</span><span class="p">:</span> <span class="s">"subscribe"</span><span class="p">,</span>
+  <span class="s">"tag"</span><span class="p">:</span> <span class="mi">103</span><span class="p">,</span>
+  <span class="s">"args"</span><span class="p">:</span> <span class="p">[</span><span class="s">"depth:BTC-USD-SWAP-LIN"</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">url</span><span class="o">=</span> <span class="s">'wss://v2stgapi.coinflex.com/v2/websocket'</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">subscribe</span><span class="p">():</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">ws</span><span class="p">:</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ws</span><span class="p">.</span><span class="nb">open</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">"websocket disconnected"</span><span class="p">)</span>
+                <span class="n">ws</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s">'nonce'</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">orderbook_depth</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="s">'success'</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">data</span><span class="p">[</span><span class="s">'success'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'True'</span><span class="p">:</span>
+                <span class="k">continue</span>
+<span class="n">asyncio</span><span class="p">.</span><span class="n">get_event_loop</span><span class="p">().</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">subscribe</span><span class="p">())</span>
+
+</code></pre></div>
 <blockquote>
 <p><strong>Success response format</strong></p>
 </blockquote>
@@ -5029,63 +5054,55 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
     </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nl">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"103"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscribe"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"futures/depth:BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1665460388923"</span><span class="w">
+    </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"depth:BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1665454814275"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p><strong>Orderbook depth channel format</strong></p>
+<p><strong>Order book depth channel format</strong></p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"futures/depth"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"seqNum"</span><span class="p">:</span><span class="w"> </span><span class="mi">2166539633836810</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"asks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="p">[</span><span class="w">
-                    </span><span class="mf">19047.0</span><span class="p">,</span><span class="w">
-                    </span><span class="mf">0.1</span><span class="w">
-                </span><span class="p">],</span><span class="w">
-                </span><span class="p">[</span><span class="w">
-                    </span><span class="mf">19053.0</span><span class="p">,</span><span class="w">
-                    </span><span class="mf">1.0</span><span class="w">
-                </span><span class="p">],</span><span class="w">
-                </span><span class="p">[</span><span class="w">
-                    </span><span class="mf">19235.0</span><span class="p">,</span><span class="w">
-                    </span><span class="mf">4.2</span><span class="w">
-                </span><span class="p">],</span><span class="w">
-                </span><span class="p">[</span><span class="w">
-                    </span><span class="mf">19426.0</span><span class="p">,</span><span class="w">
-                    </span><span class="mf">8.401</span><span class="w">
-                </span><span class="p">]</span><span class="w">
+    </span><span class="nl">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"depth"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"seqNum"</span><span class="p">:</span><span class="w"> </span><span class="mi">2166539633781384</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"asks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">[</span><span class="w">
+                </span><span class="mf">19024.0</span><span class="p">,</span><span class="w">
+                </span><span class="mf">1.0</span><span class="w">
             </span><span class="p">],</span><span class="w">
-            </span><span class="nl">"checksum"</span><span class="p">:</span><span class="w"> </span><span class="mi">4115970945</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"bids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="p">[</span><span class="w">
-                    </span><span class="mf">19036.0</span><span class="p">,</span><span class="w">
-                    </span><span class="mf">0.1</span><span class="w">
-                </span><span class="p">],</span><span class="w">
-                </span><span class="p">[</span><span class="w">
-                    </span><span class="mf">19015.0</span><span class="p">,</span><span class="w">
-                    </span><span class="mf">1.0</span><span class="w">
-                </span><span class="p">],</span><span class="w">
-                </span><span class="p">[</span><span class="w">
-                    </span><span class="mf">18853.0</span><span class="p">,</span><span class="w">
-                    </span><span class="mf">4.2</span><span class="w">
-                </span><span class="p">],</span><span class="w">
-                </span><span class="p">[</span><span class="w">
-                    </span><span class="mf">18663.0</span><span class="p">,</span><span class="w">
-                    </span><span class="mf">8.401</span><span class="w">
-                </span><span class="p">]</span><span class="w">
+            </span><span class="p">[</span><span class="w">
+                </span><span class="mf">19205.0</span><span class="p">,</span><span class="w">
+                </span><span class="mf">4.207</span><span class="w">
             </span><span class="p">],</span><span class="w">
-            </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1665460388955"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">],</span><span class="w">
+            </span><span class="p">[</span><span class="w">
+                </span><span class="mf">19395.0</span><span class="p">,</span><span class="w">
+                </span><span class="mf">8.414</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"bids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">[</span><span class="w">
+                </span><span class="mf">18986.0</span><span class="p">,</span><span class="w">
+                </span><span class="mf">1.0</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="p">[</span><span class="w">
+                </span><span class="mf">18824.0</span><span class="p">,</span><span class="w">
+                </span><span class="mf">4.207</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="p">[</span><span class="w">
+                </span><span class="mf">18634.0</span><span class="p">,</span><span class="w">
+                </span><span class="mf">8.414</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"checksum"</span><span class="p">:</span><span class="w"> </span><span class="mi">3475315026</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1665454814328</span><span class="w">
+    </span><span class="p">},</span><span class="w">
     </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"partial"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Channel Update Frequency:</strong> 50ms</p>
+<p><strong>Channel Update Frequency:</strong> 100ms</p>
+
+<p>This order book depth channel sends a snapshot of the entire order book every 100ms.</p>
 
 <p><sub><strong>Request Parameters</strong></sub> </p>
 
@@ -5107,13 +5124,13 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>tag</td>
 <td>INTEGER or STRING</td>
 <td>No</td>
-<td>If given it will be echoed in the reply</td>
+<td>If given it will be echoed in the reply and the max size of <code>tag</code> is 32</td>
 </tr>
 <tr>
 <td>args</td>
 <td>LIST</td>
 <td>Yes</td>
-<td>List of individual markets <code>&lt;futures/depth&gt;:&lt;marketCode&gt;</code> e.g: <code>[&quot;futures/depth:BTC-USD-SWAP-LIN&quot;]</code></td>
+<td>List of individual markets <code>&lt;depth&gt;:&lt;marketCode&gt;</code> e.g: <code>[depth:BTC-USD-SWAP-LIN]</code></td>
 </tr>
 </tbody></table>
 
@@ -5129,37 +5146,17 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>table</td>
 <td>STRING</td>
-<td><code>futures/depth</code></td>
+<td><code>depth</code></td>
 </tr>
 <tr>
 <td>data</td>
-<td>LIST of dictionary</td>
+<td>DICTIONARY</td>
 <td></td>
-</tr>
-<tr>
-<td>instrumentId</td>
-<td>STRING</td>
-<td>instrument Id</td>
 </tr>
 <tr>
 <td>seqNum</td>
 <td>INTEGER</td>
 <td>Sequence number of the order book snapshot</td>
-</tr>
-<tr>
-<td>checksum</td>
-<td>LONG</td>
-<td></td>
-</tr>
-<tr>
-<td>timestamp</td>
-<td>STRING</td>
-<td>Millisecond timestamp</td>
-</tr>
-<tr>
-<td>action</td>
-<td>STRING</td>
-<td></td>
 </tr>
 <tr>
 <td>asks</td>
@@ -5171,8 +5168,28 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>LIST of floats</td>
 <td>Buy side depth; <ol><li>price</li><li>quantity</li></td>
 </tr>
+<tr>
+<td>checksum</td>
+<td>INTEGER</td>
+<td>marketCode</td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>marketCode</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>INTEGER</td>
+<td>Millisecond timestamp</td>
+</tr>
+<tr>
+<td>action</td>
+<td>STRING</td>
+<td></td>
+</tr>
 </tbody></table>
-<h3 id='websocket-api-subscriptions-public-incremental-depth'>Incremental Depth</h3>
+<h3 id='websocket-api-subscriptions-public-incremental-order-book'>Incremental Order Book</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
@@ -5233,9 +5250,9 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
     </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"partial"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Channel Update Frequency:</strong> 50ms</p>
+<p><strong>Channel Update Frequency:</strong> 100ms</p>
 
-<p>This websocket subscription for incremental depth stream </p>
+<p>Incremental order book stream</p>
 
 <p><sub><strong>Request Parameters</strong></sub> </p>
 
@@ -5283,18 +5300,28 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </tr>
 <tr>
 <td>data</td>
-<td>LIST of dictionary</td>
+<td>DICTIONARY</td>
 <td></td>
-</tr>
-<tr>
-<td>marketCode</td>
-<td>STRING</td>
-<td>marketCode</td>
 </tr>
 <tr>
 <td>seqNum</td>
 <td>INTEGER</td>
 <td>Sequence number of the order book snapshot</td>
+</tr>
+<tr>
+<td>asks</td>
+<td>LIST of floats</td>
+<td>Sell side depth; <ol><li>price</li><li>quantity</li></td>
+</tr>
+<tr>
+<td>bids</td>
+<td>LIST of floats</td>
+<td>Buy side depth; <ol><li>price</li><li>quantity</li></td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>marketCode</td>
 </tr>
 <tr>
 <td>checksum</td>
@@ -5309,20 +5336,10 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <tr>
 <td>action</td>
 <td>STRING</td>
-<td></td>
-</tr>
-<tr>
-<td>asks</td>
-<td>LIST of floats</td>
-<td>Sell side depth; <ol><li>price</li><li>quantity</li></td>
-</tr>
-<tr>
-<td>bids</td>
-<td>LIST of floats</td>
-<td>Buy side depth; <ol><li>price</li><li>quantity</li></td>
+<td><code>partial</code> <code>increment</code></td>
 </tr>
 </tbody></table>
-<h3 id='websocket-api-subscriptions-public-best-ask-bid'>Best Ask/Bid</h3>
+<h3 id='websocket-api-subscriptions-public-best-bid-ask'>Best Bid/Ask</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
 </blockquote>
@@ -5355,7 +5372,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
             </span><span class="mf">19045.0</span><span class="p">,</span><span class="w">
             </span><span class="mf">1.0</span><span class="w">
         </span><span class="p">],</span><span class="w">
-        </span><span class="nl">"checksum"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"checksum"</span><span class="p">:</span><span class="w"> </span><span class="mi">3790706311</span><span class="p">,</span><span class="w">
         </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"bid"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
             </span><span class="mf">19015.0</span><span class="p">,</span><span class="w">
@@ -5365,9 +5382,9 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Channel Update Frequency:</strong> 50ms</p>
+<p><strong>Channel Update Frequency:</strong> Real-time</p>
 
-<p>This websocket subscription to provide best ask/bid stream in real-time. The change event is pushed per best ask/bid update in real-time</p>
+<p>This websocket subscription streams the best bid and ask in real-time. Messages are pushed on every best bid/ask update in real-time</p>
 
 <p><sub><strong>Request Parameters</strong></sub> </p>
 
@@ -5415,23 +5432,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </tr>
 <tr>
 <td>data</td>
-<td>LIST of dictionary</td>
+<td>DICTIONARY</td>
 <td></td>
-</tr>
-<tr>
-<td>marketCode</td>
-<td>STRING</td>
-<td>marketCode</td>
-</tr>
-<tr>
-<td>checksum</td>
-<td>LONG</td>
-<td></td>
-</tr>
-<tr>
-<td>timestamp</td>
-<td>STRING</td>
-<td>Millisecond timestamp</td>
 </tr>
 <tr>
 <td>asks</td>
@@ -5442,6 +5444,21 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>bids</td>
 <td>LIST of floats</td>
 <td>Buy side depth; <ol><li>price</li><li>quantity</li></td>
+</tr>
+<tr>
+<td>checksum</td>
+<td>LONG</td>
+<td></td>
+</tr>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>marketCode</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>STRING</td>
+<td>Millisecond timestamp</td>
 </tr>
 </tbody></table>
 <h3 id='websocket-api-subscriptions-public-trade'>Trade</h3>
@@ -5510,7 +5527,7 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 </span></code></pre></div>
 <p><strong>Channel Update Frequency:</strong> real-time, with every order matched event</p>
 
-<p>This trade channel sends public trade information whenever an order is matched on the orderbook. </p>
+<p>This trade channel sends public trade information whenever an order is matched on the order book. </p>
 
 <p><sub><strong>Request Parameters</strong></sub> </p>
 
@@ -6001,8 +6018,8 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 
 <ul>
 <li>liquidation of a clients traded position (perps, futures or index)</li>
-<li>an auto-borrow (in a repo orderbook) of USD because a clients account has negative USD balances greater than the allowable threshold</li>
-<li>an auto-repayment (in a repo orderbook) of a previous auto-borrow because a clients account now has sufficient USD balances to repay the loan</li>
+<li>an auto-borrow (in a repo order book) of USD because a clients account has negative USD balances greater than the allowable threshold</li>
+<li>an auto-repayment (in a repo order book) of a previous auto-borrow because a clients account now has sufficient USD balances to repay the loan</li>
 </ul>
 
 <p>The message will contain the market code and is designed to give users an opportunity to make a 2 way market for the upcoming liquidation event.</p>
