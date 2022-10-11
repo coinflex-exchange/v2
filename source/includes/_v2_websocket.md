@@ -2586,7 +2586,7 @@ Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes | `subscribe` |
 tag | INTEGER or STRING | No | If given it will be echoed in the reply  |
-args | LIST | Yes | List of individual markets `<futures/depth>:<marketCode>` e.g: `["futures/depth:BTC-USD-SWAP-LIN"]`, the `depth` can be `depthL5` `depthL10` `depthL25` `depth`(includes all) |
+args | LIST | Yes | List of individual markets `<futures/depth>:<marketCode>` e.g: `["futures/depth:BTC-USD-SWAP-LIN"]` |
 
 <sub>**Channel Update Fields**</sub>
 
