@@ -1853,8 +1853,8 @@ contractValCurrency | STRING | Base asset ID e.g. `ETH` |
 entryPrice | STRING | Average entry price of total position (Cost / Size) |
 positionPnl | STRING | Postion profit and lost |
 estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative(<0) |
-margin | STRING |  |
-leverage | STRING |  |
+margin | STRING | Used in permissionless perps to signify the amount of margin isolated by the position. Shows as `0` in non-permissionless markets |
+leverage | STRING | Used in permissionless perps to signify the selected leverage. Shows as `0` in non-permissionless markets |
 
 
 ### Order Channel
