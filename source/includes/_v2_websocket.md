@@ -1798,26 +1798,26 @@ asyncio.get_event_loop().run_until_complete(subscribe())
   "accountId": "<Your account ID>",
   "timestamp": "1607985371481",
   "data": [ {
-              "entryPrice": "1900.0",
+              "instrumentId": "ETH-USD-SWAP-LIN",
+              "quantity" : "0.1",
               "lastUpdated": "1616053755423",
               "contractValCurrency": "ETH",
-              "quantity" : "0.1",
-              "instrumentId": "ETH-USD-SWAP-LIN",
+              "entryPrice": "1900.0",
               "positionPnl": "-5.6680",
               "estLiquidationPrice": "0",
-              "margin": "121.1",
-              "leverage": "2"
+              "margin": "0",
+              "leverage": "0"
             },
             {
-              "entryPrice": "56934.8258",
+              "instrumentId": "WBTC-USD-SWAP-PER",
+              "quantity" : "0.542",
               "lastUpdated": "1617099855968",
-              "contractValCurrency": "BTC",
-              "quantity" : "0.542000000",
-              "instrumentId": "BTC-USD-SWAP-LIN",
+              "contractValCurrency": "WBTC",
+              "entryPrice": "20000.0",
               "positionPnl": "1220.9494164000000",
-              "estLiquidationPrice": "53179.2",
-              "margin": "150.5",
-              "leverage": "4"
+              "estLiquidationPrice": "5317.2",
+              "margin": "5420.0",
+              "leverage": "2"
             },
             ...
           ]
@@ -1828,7 +1828,7 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 
 The websocket will reply with the shown success response format for **each** position channel which has been successfully subscribed to.
 
-If a subscription has been made to **position:all**, the data array in the message from this position channel will contain a JSON **list**. Each JSON will contain position details for instrument. Otherwise the data array will contain a **single** JSON corresponding to one instrument per position channel subscription.
+If a subscription has been made to **position:all**, the data array in the message from this position channel will contain a JSON **list**. Each JSON will contain position details for a different instrument. Otherwise the data array will contain a **single** JSON corresponding to one instrument.
 
 <sub>**Request Parameters**</sub> 
 
@@ -1846,11 +1846,11 @@ table | STRING | `position` |
 accountId | STRING | Account identifier |
 timestamp | STRING | Current millisecond timestamp |
 data | LIST of dictionaries | |
-entryPrice | STRING | Average entry price of total position (Cost / Size) |
+instrumentId | STRING | e.g. `ETH-USD-SWAP-LIN` |
+quantity | STRING | Position size (+/-) |
 lastUpdated | STRING | Millisecond timestamp |
 contractValCurrency | STRING | Base asset ID e.g. `ETH` |
-quantity | STRING | Position size (+/-) |
-instrumentId | STRING | e.g. `ETH-USD-SWAP-LIN` |
+entryPrice | STRING | Average entry price of total position (Cost / Size) |
 positionPnl | STRING | Postion profit and lost |
 estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative(<0) |
 margin | STRING |  |
@@ -2376,7 +2376,7 @@ Multiple subscriptions to different channels both public and private can be made
 
 `{"op": "subscribe", "args": ["<value1>", "<value2>",.....]}`
 
-### Orderbook Depth
+### Fixed Size Order Book
 
 > **Request format**
 
@@ -2430,7 +2430,7 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 }
 ```
 
-> **Orderbook depth channel format**
+> **Order Book depth channel format**
 
 ```json
 {
@@ -2472,9 +2472,9 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 }
 ```
 
-**Channel Update Frequency:** 50ms
+**Channel Update Frequency:** 100ms
 
-This orderbook depth channel sends a snapshot of the entire orderbook every 50ms.
+This order book depth channel sends a snapshot of the entire order book every 50ms.
 
 <sub>**Request Parameters**</sub> 
 
@@ -2482,35 +2482,63 @@ Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes | `subscribe` |
 tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
-args | LIST | Yes | List of individual markets `<depth>:<marketCode>` e.g: `[depthL10:BTC-USD-SWAP-LIN]`, the `depth` can be `depthL5` `depthL10` `depthL25` `depth`(includes all) |
+args | LIST | Yes | List of individual markets `<depth>:<marketCode>` e.g: `[depthL10:BTC-USD-SWAP-LIN]`, valid book sizes are: `depthL5` `depthL10` `depthL25` |
 
 <sub>**Channel Update Fields**</sub>
 
 Fields | Type | Description|
 -------------------------- | -----| -------------|
-table | STRING | `depth` |
-data | LIST of dictionary |
-marketCode | STRING |marketCode |
+table | STRING | `depthL10` |
+data | DICTIONARY |
 seqNum | INTEGER | Sequence number of the order book snapshot |
-timestamp| STRING | Millisecond timestamp |
-action| STRING |  |
 asks| LIST of floats | Sell side depth; <ol><li>price</li><li>quantity</li> |
 bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li> |
+marketCode | STRING |marketCode |
+timestamp| STRING | Millisecond timestamp |
+action| STRING |  |
+  
 
-
-### Futures Depth
+### Full Order Book
 
 > **Request format**
 
 ```json
 {
-    "op": "subscribe",
-    "tag": 103,
-    "args": [
-        "futures/depth:BTC-USD-SWAP-LIN"
-    ]
+  "op": "subscribe",
+  "tag": 103,
+  "args": ["depth:BTC-USD-SWAP-LIN"]
 }
 ```
+```python
+import websockets
+import asyncio
+import json
+
+orderbook_depth = \
+{
+  "op": "subscribe",
+  "tag": 103,
+  "args": ["depth:BTC-USD-SWAP-LIN"]
+}
+
+url= 'wss://v2stgapi.coinflex.com/v2/websocket'
+async def subscribe():
+    async with websockets.connect(url) as ws:
+        while True:
+            if not ws.open:
+                print("websocket disconnected")
+                ws = await websockets.connect(url)
+            response = await ws.recv()
+            data = json.loads(response)
+            print(data)
+            if 'nonce' in data:
+                await ws.send(json.dumps(orderbook_depth))
+            elif 'success' in data and data['success'] == 'True':
+                continue
+asyncio.get_event_loop().run_until_complete(subscribe())
+
+```
+
 
 > **Success response format**
 
@@ -2519,92 +2547,82 @@ bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li> |
     "success": true,
     "tag": "103",
     "event": "subscribe",
-    "channel": "futures/depth:BTC-USD-SWAP-LIN",
-    "timestamp": "1665460388923"
+    "channel": "depth:BTC-USD-SWAP-LIN",
+    "timestamp": "1665454814275"
 }
 ```
 
-> **Orderbook depth channel format**
+> **Order book depth channel format**
 
 ```json
 {
-    "table": "futures/depth",
-    "data": [
-        {
-            "seqNum": 2166539633836810,
-            "instrumentId": "BTC-USD-SWAP-LIN",
-            "asks": [
-                [
-                    19047.0,
-                    0.1
-                ],
-                [
-                    19053.0,
-                    1.0
-                ],
-                [
-                    19235.0,
-                    4.2
-                ],
-                [
-                    19426.0,
-                    8.401
-                ]
+    "table": "depth",
+    "data": {
+        "seqNum": 2166539633781384,
+        "asks": [
+            [
+                19024.0,
+                1.0
             ],
-            "checksum": 4115970945,
-            "bids": [
-                [
-                    19036.0,
-                    0.1
-                ],
-                [
-                    19015.0,
-                    1.0
-                ],
-                [
-                    18853.0,
-                    4.2
-                ],
-                [
-                    18663.0,
-                    8.401
-                ]
+            [
+                19205.0,
+                4.207
             ],
-            "timestamp": "1665460388955"
-        }
-    ],
+            [
+                19395.0,
+                8.414
+            ]
+        ],
+        "bids": [
+            [
+                18986.0,
+                1.0
+            ],
+            [
+                18824.0,
+                4.207
+            ],
+            [
+                18634.0,
+                8.414
+            ]
+        ],
+        "checksum": 3475315026,
+        "marketCode": "BTC-USD-SWAP-LIN",
+        "timestamp": 1665454814328
+    },
     "action": "partial"
 }
 ```
 
-**Channel Update Frequency:** 50ms
+**Channel Update Frequency:** 100ms
 
+This order book depth channel sends a snapshot of the entire order book every 100ms.
 
 <sub>**Request Parameters**</sub> 
 
 Parameters |Type| Required| Description |
 --------|-----|---|-----------|
 op | STRING| Yes | `subscribe` |
-tag | INTEGER or STRING | No | If given it will be echoed in the reply  |
-args | LIST | Yes | List of individual markets `<futures/depth>:<marketCode>` e.g: `["futures/depth:BTC-USD-SWAP-LIN"]` |
+tag | INTEGER or STRING | No | If given it will be echoed in the reply and the max size of `tag` is 32 |
+args | LIST | Yes | List of individual markets `<depth>:<marketCode>` e.g: `[depth:BTC-USD-SWAP-LIN]`|
 
 <sub>**Channel Update Fields**</sub>
 
 Fields | Type | Description|
 -------------------------- | -----| -------------|
-table | STRING | `futures/depth` |
-data | LIST of dictionary |
-instrumentId | STRING |instrument Id |
+table | STRING | `depth` |
+data | DICTIONARY |
 seqNum | INTEGER | Sequence number of the order book snapshot |
-checksum | LONG |  |
-timestamp| STRING | Millisecond timestamp |
-action| STRING |  |
 asks| LIST of floats | Sell side depth; <ol><li>price</li><li>quantity</li> |
 bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li> |
+checksum | INTEGER |marketCode |
+marketCode | STRING |marketCode |
+timestamp| INTEGER | Millisecond timestamp |
+action| STRING |  |
 
 
-
-### Incremental Depth
+### Incremental Order Book
 
 > **Request format**
 
@@ -2672,9 +2690,9 @@ bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li> |
 }
 ```
 
-**Channel Update Frequency:** 50ms
+**Channel Update Frequency:** 100ms
 
-This websocket subscription for incremental depth stream 
+Incremental order book stream
 
 <sub>**Request Parameters**</sub> 
 
@@ -2689,17 +2707,17 @@ args | LIST | Yes | List of individual markets `<depthUpdate>:<marketCode>` e.g:
 Fields | Type | Description|
 -------------------------- | -----| -------------|
 table | STRING | `depthUpdate-diff` `depthUpdate` |
-data | LIST of dictionary |
-marketCode | STRING |marketCode |
+data | DICTIONARY |
 seqNum | INTEGER | Sequence number of the order book snapshot |
-checksum | LONG |  |
-timestamp| STRING | Millisecond timestamp |
-action| STRING |  |
 asks| LIST of floats | Sell side depth; <ol><li>price</li><li>quantity</li> |
 bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li> |
+marketCode | STRING |marketCode |
+checksum | LONG |  |
+timestamp| STRING | Millisecond timestamp |
+action| STRING | `partial` `increment` |
 
 
-###  Best Ask/Bid 
+###  Best Bid/Ask 
 
 > **Request format**
 
@@ -2735,7 +2753,7 @@ bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li> |
             19045.0,
             1.0
         ],
-        "checksum": 0,
+        "checksum": 3790706311,
         "marketCode": "BTC-USD-SWAP-LIN",
         "bid": [
             19015.0,
@@ -2746,9 +2764,9 @@ bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li> |
 }
 ```
 
-**Channel Update Frequency:** 50ms
+**Channel Update Frequency:** Real-time
 
-This websocket subscription to provide best ask/bid stream in real-time. The change event is pushed per best ask/bid update in real-time
+This websocket subscription streams the best bid and ask in real-time. Messages are pushed on every best bid/ask update in real-time
 
 <sub>**Request Parameters**</sub> 
 
@@ -2763,13 +2781,12 @@ args | LIST | Yes | List of individual markets `<bestBidAsk>:<marketCode>` e.g: 
 Fields | Type | Description|
 -------------------------- | -----| -------------|
 table | STRING | `bestBidAsk` |
-data | LIST of dictionary |
-marketCode | STRING |marketCode |
-checksum | LONG |  |
-timestamp| STRING | Millisecond timestamp |
+data | DICTIONARY |
 asks| LIST of floats | Sell side depth; <ol><li>price</li><li>quantity</li> |
 bids| LIST of floats | Buy side depth; <ol><li>price</li><li>quantity</li> |
-
+checksum | LONG |  |
+marketCode | STRING |marketCode |
+timestamp| STRING | Millisecond timestamp |
 
 
 ### Trade
@@ -2844,7 +2861,7 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 
 **Channel Update Frequency:** real-time, with every order matched event
 
-This trade channel sends public trade information whenever an order is matched on the orderbook. 
+This trade channel sends public trade information whenever an order is matched on the order book. 
 
 <sub>**Request Parameters**</sub> 
 
@@ -3171,8 +3188,8 @@ asyncio.get_event_loop().run_until_complete(subscribe())
 The liquidation RFQ (request for quotes) channel publishes a message 50ms before a liquidation event is due to occur.  A liquidation event can be classed as one of the following:-
 
 * liquidation of a clients traded position (perps, futures or index)
-* an auto-borrow (in a repo orderbook) of USD because a clients account has negative USD balances greater than the allowable threshold
-* an auto-repayment (in a repo orderbook) of a previous auto-borrow because a clients account now has sufficient USD balances to repay the loan
+* an auto-borrow (in a repo order book) of USD because a clients account has negative USD balances greater than the allowable threshold
+* an auto-repayment (in a repo order book) of a previous auto-borrow because a clients account now has sufficient USD balances to repay the loan
 
 The message will contain the market code and is designed to give users an opportunity to make a 2 way market for the upcoming liquidation event.
 
