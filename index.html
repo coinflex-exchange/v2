@@ -5254,6 +5254,16 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 
 <p>Incremental order book stream</p>
 
+<p>Usage Instructions:
+1. Connect to websocket wss://v2api.coinflex.com/v2/websocket
+2. Subscribe to <strong>depthUpdate</strong> and you will get a message reply saying your subscription is successful
+3. Afterwards you will get a snapshot of the book with <strong>table:depthUpdate</strong>
+4. If you receive a reply with <strong>table:depthUpdate-diff</strong> first, keep it locally and wait for snapshot reply in step 3
+5. The first incremental depthUpdate-diff message should have the same seqNum as the depthUpdate snapshot
+6. After that, each new incremental update should have an incrementally larger seqNum to the previous update
+7. The data in each event represents the absolute quantity for a price level. 
+8. If the quantity is 0, remove the price level.</p>
+
 <p><sub><strong>Request Parameters</strong></sub> </p>
 
 <table><thead>
