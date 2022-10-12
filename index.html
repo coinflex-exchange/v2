@@ -13243,19 +13243,19 @@ Calling this endpoint using an API-KEY linked to the main account with the param
             </span><span class="p">],</span><span class="w">
             </span><span class="nl">"positions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
                 </span><span class="p">{</span><span class="w">
-                    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX-USD-SWAP-LIN"</span><span class="p">,</span><span class="w"> 
+                    </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX-USD-SWAP-PER"</span><span class="p">,</span><span class="w"> 
                     </span><span class="nl">"baseAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX"</span><span class="p">,</span><span class="w"> 
                     </span><span class="nl">"counterAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w"> 
                     </span><span class="nl">"position"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11411.1"</span><span class="p">,</span><span class="w"> 
                     </span><span class="nl">"entryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.590"</span><span class="p">,</span><span class="w"> 
                     </span><span class="nl">"markPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.360"</span><span class="p">,</span><span class="w"> 
                     </span><span class="nl">"positionPnl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"31608.7470"</span><span class="p">,</span><span class="w"> 
-                    </span><span class="nl">"estLiquidationPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12000.34"</span><span class="p">,</span><span class="w"> 
+                    </span><span class="nl">"estLiquidationPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.59"</span><span class="p">,</span><span class="w"> 
                     </span><span class="nl">"lastUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1637876701404"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"marginBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000.32"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"maintenanceMargin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"300.32"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"marginRatio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.4"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"leverage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+                    </span><span class="nl">"marginBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45264.03"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"maintenanceMargin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10886.1894"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"marginRatio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.24"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"leverage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="w">
                 </span><span class="p">}</span><span class="w">
             </span><span class="p">],</span><span class="w">
             </span><span class="nl">"collateral"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1231231"</span><span class="p">,</span><span class="w">
@@ -13337,7 +13337,7 @@ Calling this endpoint using an API-KEY linked to the main account with the param
 <tr>
 <td>lastUpdatedAt</td>
 <td>STRING</td>
-<td>Timestamp of updated at</td>
+<td>Last balance update timestamp</td>
 </tr>
 <tr>
 <td>positions</td>
@@ -13385,24 +13385,29 @@ Calling this endpoint using an API-KEY linked to the main account with the param
 <td>Estimated liquidation price</td>
 </tr>
 <tr>
-<td>borrowedAsset</td>
+<td>lastUpdatedAt</td>
 <td>STRING</td>
-<td>Borrowed asset</td>
+<td>Last position update timestamp</td>
 </tr>
 <tr>
-<td>borrowedAmount</td>
+<td>marginBalance</td>
 <td>STRING</td>
-<td>Borrowed amount</td>
+<td>Appears in the position section only for positions using isolated margin. Isolated margin + Unrealized position PnL</td>
 </tr>
 <tr>
-<td>collateralAsset</td>
+<td>maintenanceMargin</td>
 <td>STRING</td>
-<td>Collateral asset</td>
+<td>Appears in the position section only for positions using isolated margin</td>
 </tr>
 <tr>
-<td>collateral</td>
+<td>marginRatio</td>
 <td>STRING</td>
-<td>Collateral</td>
+<td>Appears in the position section only for positions using isolated margin</td>
+</tr>
+<tr>
+<td>leverage</td>
+<td>STRING</td>
+<td>Appears in the position section only for positions using isolated margin</td>
 </tr>
 <tr>
 <td>notionalPositionSize</td>
@@ -13919,6 +13924,8 @@ if the user is calling this endpoint using an API-KEY from a account then the pa
 </tr>
 </tbody></table>
 <h3 id='rest-api-v3-account-amp-wallet-private-post-v3-leverage'>POST <code>/v3/leverage</code></h3>
+<p>Increase or decrease your leverage. This endpoint is used in markets that support isolated margin.</p>
+
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
@@ -13986,6 +13993,8 @@ if the user is calling this endpoint using an API-KEY from a account then the pa
 </tr>
 </tbody></table>
 <h3 id='rest-api-v3-account-amp-wallet-private-post-v3-position-adjust'>POST <code>/v3/position/adjust</code></h3>
+<p>Add to or reduce your margin balance when using isolated margin.</p>
+
 <blockquote>
 <p><strong>Request</strong></p>
 </blockquote>
@@ -14026,7 +14035,7 @@ if the user is calling this endpoint using an API-KEY from a account then the pa
 <td>amount</td>
 <td>STRING</td>
 <td>YES</td>
-<td></td>
+<td>Must be a positive value</td>
 </tr>
 <tr>
 <td>type</td>
@@ -16873,6 +16882,26 @@ AMMs can be created by either the father account or child account. The AMM becom
 <td>Timestamp</td>
 </tr>
 <tr>
+<td>marginBalance</td>
+<td>STRING</td>
+<td>Appears in the position section only for positions using isolated margin. Isolated margin + Unrealized position PnL</td>
+</tr>
+<tr>
+<td>maintenanceMargin</td>
+<td>STRING</td>
+<td>Appears in the position section only for positions using isolated margin</td>
+</tr>
+<tr>
+<td>marginRatio</td>
+<td>STRING</td>
+<td>Appears in the position section only for positions using isolated margin</td>
+</tr>
+<tr>
+<td>leverage</td>
+<td>STRING</td>
+<td>Appears in the position section only for positions using isolated margin</td>
+</tr>
+<tr>
 <td>balances</td>
 <td>LIST of dictionaries</td>
 <td>Balances</td>
@@ -16896,21 +16925,6 @@ AMMs can be created by either the father account or child account. The AMM becom
 <td>reserved</td>
 <td>STRING</td>
 <td>Reserved balance</td>
-</tr>
-<tr>
-<td>borrowedAsset</td>
-<td>STRING</td>
-<td>Borrowed asset</td>
-</tr>
-<tr>
-<td>borrowedAmount</td>
-<td>STRING</td>
-<td>Borrowed amount</td>
-</tr>
-<tr>
-<td>collateralAsset</td>
-<td>STRING</td>
-<td>Collateral asset</td>
 </tr>
 <tr>
 <td>usdReward</td>
