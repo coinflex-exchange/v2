@@ -7182,7 +7182,7 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1593627415000</span><span class="p">,</span><span class="w">
   </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
-              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-PER"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.542000000"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1617099855966"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
@@ -7210,10 +7210,6 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
             <span class="s">"entryPrice"</span><span class="p">:</span> <span class="s">"3405.16"</span><span class="p">,</span> 
             <span class="s">"positionPnl"</span><span class="p">:</span> <span class="s">"51675.9816"</span><span class="p">,</span> 
             <span class="s">"estLiquidationPrice"</span><span class="p">:</span> <span class="s">"64473.25"</span><span class="err">，</span>
-            <span class="s">"marginBalance"</span><span class="p">:</span> <span class="s">"1000.32"</span><span class="p">,</span>
-            <span class="s">"maintenanceMargin"</span><span class="p">:</span> <span class="s">"300.32"</span><span class="p">,</span>
-            <span class="s">"marginRatio"</span><span class="p">:</span> <span class="s">"0.4"</span><span class="p">,</span>
-            <span class="s">"leverage"</span><span class="p">:</span> <span class="s">"2"</span>
         <span class="p">},</span> 
         <span class="p">{</span>
             <span class="s">"instrumentId"</span><span class="p">:</span> <span class="s">"FLEX-USD-SWAP-LIN"</span><span class="p">,</span> 
@@ -7223,13 +7219,9 @@ If <em>Body</em> is ommitted it&#39;s treated as an empty string.</p>
             <span class="s">"entryPrice"</span><span class="p">:</span> <span class="s">"7.989"</span><span class="p">,</span> 
             <span class="s">"positionPnl"</span><span class="p">:</span> <span class="s">"-387.4240"</span><span class="p">,</span> 
             <span class="s">"estLiquidationPrice"</span><span class="p">:</span> <span class="s">"0"</span><span class="p">,</span>
-            <span class="s">"marginBalance"</span><span class="p">:</span> <span class="s">"1000.32"</span><span class="p">,</span>
-            <span class="s">"maintenanceMargin"</span><span class="p">:</span> <span class="s">"300.32"</span><span class="p">,</span>
-            <span class="s">"marginRatio"</span><span class="p">:</span> <span class="s">"0.4"</span><span class="p">,</span>
-            <span class="s">"leverage"</span><span class="p">:</span> <span class="s">"2"</span>
         <span class="p">},</span> 
         <span class="p">{</span>
-            <span class="s">"instrumentId"</span><span class="p">:</span> <span class="s">"BTC-USD-SWAP-LIN"</span><span class="p">,</span> 
+            <span class="s">"instrumentId"</span><span class="p">:</span> <span class="s">"BTC-USD-SWAP-PER"</span><span class="p">,</span> 
             <span class="s">"quantity"</span><span class="p">:</span> <span class="s">"65.889"</span><span class="p">,</span> 
             <span class="s">"lastUpdated"</span><span class="p">:</span> <span class="s">"1648806900492"</span><span class="p">,</span> 
             <span class="s">"contractValCurrency"</span><span class="p">:</span> <span class="s">"BTC"</span><span class="p">,</span> 
@@ -7315,22 +7307,22 @@ Returns an empty array `[]` when no positions were found
 <tr>
 <td>marginBalance</td>
 <td>STRING</td>
-<td></td>
+<td>Appears in the position section only for positions using isolated margin. Isolated margin + Unrealized position PnL</td>
 </tr>
 <tr>
 <td>maintenanceMargin</td>
 <td>STRING</td>
-<td></td>
+<td>Appears in the position section only for positions using isolated margin</td>
 </tr>
 <tr>
 <td>marginRatio</td>
 <td>STRING</td>
-<td></td>
+<td>Appears in the position section only for positions using isolated margin</td>
 </tr>
 <tr>
 <td>leverage</td>
 <td>STRING</td>
-<td>current leverage</td>
+<td>Appears in the position section only for positions using isolated margin</td>
 </tr>
 </tbody></table>
 <h3 id='rest-api-v2-methods-private-get-v2-positions-instrumentid'>GET  <code>/v2/positions/{instrumentId}</code></h3>
@@ -7384,7 +7376,7 @@ Returns an empty array `[]` when no positions were found
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1593617005438</span><span class="p">,</span><span class="w">
   </span><span class="nl">"accountId"</span><span class="p">:</span><span class="s2">"&lt;Your Account ID&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
-              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-PER"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.542000000"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1617099855966"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"contractValCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
@@ -7402,7 +7394,7 @@ Returns an empty array `[]` when no positions were found
     <span class="s">"timestamp"</span><span class="p">:</span> <span class="s">"1648812534064"</span><span class="p">,</span>
     <span class="s">"accountId"</span><span class="p">:</span> <span class="s">"677473"</span><span class="p">,</span>
     <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s">"instrumentId"</span><span class="p">:</span> <span class="s">"FLEX-USD-SWAP-LIN"</span><span class="p">,</span>
+        <span class="s">"instrumentId"</span><span class="p">:</span> <span class="s">"FLEX-USD-SWAP-PER"</span><span class="p">,</span>
         <span class="s">"quantity"</span><span class="p">:</span> <span class="s">"38742.4"</span><span class="p">,</span>
         <span class="s">"lastUpdated"</span><span class="p">:</span> <span class="s">"1648174875502"</span><span class="p">,</span>
         <span class="s">"contractValCurrency"</span><span class="p">:</span> <span class="s">"FLEX"</span><span class="p">,</span>
@@ -7503,22 +7495,22 @@ Returned an empty object `{}` when no positions were found
 <tr>
 <td>marginBalance</td>
 <td>STRING</td>
-<td></td>
+<td>Appears in the position section only for positions using isolated margin. Isolated margin + Unrealized position PnL</td>
 </tr>
 <tr>
 <td>maintenanceMargin</td>
 <td>STRING</td>
-<td></td>
+<td>Appears in the position section only for positions using isolated margin</td>
 </tr>
 <tr>
 <td>marginRatio</td>
 <td>STRING</td>
-<td></td>
+<td>Appears in the position section only for positions using isolated margin</td>
 </tr>
 <tr>
 <td>leverage</td>
 <td>STRING</td>
-<td>current leverage</td>
+<td>Appears in the position section only for positions using isolated margin</td>
 </tr>
 </tbody></table>
 <h3 id='rest-api-v2-methods-private-get-v2-trades-marketcode'>GET <code>/v2/trades/{marketCode}</code></h3>
