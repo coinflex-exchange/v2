@@ -2694,6 +2694,17 @@ action| STRING |  |
 
 Incremental order book stream
 
+Usage Instructions:
+1. Connect to websocket wss://v2api.coinflex.com/v2/websocket
+2. Subscribe to **depthUpdate** and you will get a message reply saying your subscription is successful
+3. Afterwards you will get a snapshot of the book with **table:depthUpdate**
+4. If you receive a reply with **table:depthUpdate-diff** first, keep it locally and wait for snapshot reply in step 3
+5. The first incremental depthUpdate-diff message should have the same seqNum as the depthUpdate snapshot
+6. After that, each new incremental update should have an incrementally larger seqNum to the previous update
+7. The data in each event represents the absolute quantity for a price level. 
+8. If the quantity is 0, remove the price level.
+
+
 <sub>**Request Parameters**</sub> 
 
 Parameters |Type| Required| Description |
