@@ -494,7 +494,7 @@ print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
   "timestamp": 1593627415000,
   "accountId":"<Your Account ID>",
   "data": [ {
-              "instrumentId": "BTC-USD-SWAP-LIN",
+              "instrumentId": "BTC-USD-SWAP-PER",
               "quantity": "0.542000000",
               "lastUpdated": "1617099855966",
               "contractValCurrency": "BTC",
@@ -525,10 +525,6 @@ print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
             "entryPrice": "3405.16", 
             "positionPnl": "51675.9816", 
             "estLiquidationPrice": "64473.25"，
-            "marginBalance": "1000.32",
-            "maintenanceMargin": "300.32",
-            "marginRatio": "0.4",
-            "leverage": "2"
         }, 
         {
             "instrumentId": "FLEX-USD-SWAP-LIN", 
@@ -538,13 +534,9 @@ print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
             "entryPrice": "7.989", 
             "positionPnl": "-387.4240", 
             "estLiquidationPrice": "0",
-            "marginBalance": "1000.32",
-            "maintenanceMargin": "300.32",
-            "marginRatio": "0.4",
-            "leverage": "2"
         }, 
         {
-            "instrumentId": "BTC-USD-SWAP-LIN", 
+            "instrumentId": "BTC-USD-SWAP-PER", 
             "quantity": "65.889", 
             "lastUpdated": "1648806900492", 
             "contractValCurrency": "BTC", 
@@ -579,10 +571,10 @@ contractValCurrency | STRING | Contract valuation currency |
 entryPrice | STRING | Average entry price |
 positionPnl | STRING | Postion profit and lost |
 estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative(<0) |
-marginBalance | STRING |  |
-maintenanceMargin | STRING |  |
-marginRatio | STRING |  |
-leverage | STRING | current leverage |
+marginBalance | STRING |Appears in the position section only for positions using isolated margin. Isolated margin + Unrealized position PnL|
+maintenanceMargin | STRING |Appears in the position section only for positions using isolated margin|
+marginRatio | STRING | Appears in the position section only for positions using isolated margin|
+leverage | STRING | Appears in the position section only for positions using isolated margin|
 
 
 ###GET  `/v2/positions/{instrumentId}`
@@ -642,7 +634,7 @@ print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
   "timestamp": 1593617005438,
   "accountId":"<Your Account ID>",
   "data": [ {
-              "instrumentId": "BTC-USD-SWAP-LIN",
+              "instrumentId": "BTC-USD-SWAP-PER",
               "quantity": "0.542000000",
               "lastUpdated": "1617099855966",
               "contractValCurrency": "BTC",
@@ -663,7 +655,7 @@ print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
     "timestamp": "1648812534064",
     "accountId": "677473",
     "data": {
-        "instrumentId": "FLEX-USD-SWAP-LIN",
+        "instrumentId": "FLEX-USD-SWAP-PER",
         "quantity": "38742.4",
         "lastUpdated": "1648174875502",
         "contractValCurrency": "FLEX",
@@ -701,10 +693,10 @@ contractValCurrency | STRING | Contract valuation currency |
 entryPrice | STRING | Average entry price |
 positionPnl | STRING | Postion profit and lost |
 estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative(<0) |
-marginBalance | STRING |  |
-maintenanceMargin | STRING |  |
-marginRatio | STRING |  |
-leverage | STRING | current leverage |
+marginBalance | STRING |Appears in the position section only for positions using isolated margin. Isolated margin + Unrealized position PnL|
+maintenanceMargin | STRING |Appears in the position section only for positions using isolated margin|
+marginRatio | STRING | Appears in the position section only for positions using isolated margin|
+leverage | STRING | Appears in the position section only for positions using isolated margin|
 
 
 ### GET `/v2/trades/{marketCode}`
