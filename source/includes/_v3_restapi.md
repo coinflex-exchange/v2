@@ -184,19 +184,19 @@ GET v3/account?subAcc={subAcc},{subAcc}
             ],
             "positions": [
                 {
-                    "marketCode": "FLEX-USD-SWAP-LIN", 
+                    "marketCode": "FLEX-USD-SWAP-PER", 
                     "baseAsset": "FLEX", 
                     "counterAsset": "USD", 
                     "position": "11411.1", 
                     "entryPrice": "3.590", 
                     "markPrice": "6.360", 
                     "positionPnl": "31608.7470", 
-                    "estLiquidationPrice": "12000.34", 
+                    "estLiquidationPrice": "2.59", 
                     "lastUpdatedAt": "1637876701404",
-                    "marginBalance": "1000.32",
-                    "maintenanceMargin": "300.32",
-                    "marginRatio": "0.4",
-                    "leverage": "2"
+                    "marginBalance": "45264.03",
+                    "maintenanceMargin": "10886.1894",
+                    "marginRatio": "0.24",
+                    "leverage": "3"
 	            }
             ],
             "collateral": "1231231",
@@ -227,7 +227,7 @@ asset | STRING | Asset name |
 total | STRING | Total balance|
 available | STRING | Available balance |
 reserved | STRING | Reserved balance |
-lastUpdatedAt | STRING | Timestamp of updated at |
+lastUpdatedAt | STRING | Last balance update timestamp |
 positions | LIST of dictionaries | Positions if applicable|
 marketCode | STRING | Market code |
 baseAsset | STRING | Base asset |
@@ -237,10 +237,11 @@ entryPrice | STRING | Entry price |
 markPrice | STRING | Mark price |
 positionPnl | STRING | Position PNL |
 estLiquidationPrice | STRING | Estimated liquidation price |
-borrowedAsset | STRING | Borrowed asset |
-borrowedAmount | STRING | Borrowed amount |
-collateralAsset | STRING | Collateral asset |
-collateral | STRING | Collateral |
+lastUpdatedAt | STRING | Last position update timestamp |
+marginBalance | STRING |Appears in the position section only for positions using isolated margin. Isolated margin + Unrealized position PnL|
+maintenanceMargin | STRING |Appears in the position section only for positions using isolated margin|
+marginRatio | STRING | Appears in the position section only for positions using isolated margin|
+leverage | STRING | Appears in the position section only for positions using isolated margin|
 notionalPositionSize | STRING | Notional position size |
 portfolioVarMargin | STRING | Portfolio margin |
 riskRatio | STRING | collateralBalance / portfolioVarMargin. Orders are rejected/cancelled if the risk ratio drops below 1, and liquidation occurs if the risk ratio drops below 0.5 |
@@ -509,6 +510,8 @@ lastUpdatedAt | STRING | Timestamp of updated at |
 
 ### POST `/v3/leverage`
 
+Increase or decrease your leverage. This endpoint is used in markets that support isolated margin.
+
 > **Request**
 
 ```
@@ -548,6 +551,8 @@ maxPositionSize | STRING | |
 
 ### POST `/v3/position/adjust`
 
+Add to or reduce your margin balance when using isolated margin.
+
 > **Request**
 
 ```
@@ -577,7 +582,7 @@ POST /v3/position/adjust
 Request Parameter | Type | Required | Description | 
 ----------------- | ---- | -------- | ----------- |
 marketCode | STRING | YES | |
-amount | STRING | YES | |
+amount | STRING | YES | Must be a positive value |
 type | STRING | YES | `ADD`, `REDUCE`|
 
 Response Field | Type | Description | 
@@ -1947,14 +1952,15 @@ markPrice | STRING | Mark price |
 positionPnl | STRING | Position PNL |
 estLiquidationPrice | STRING | Estimated liquidation price |
 lastUpdatedAt | STRING | Timestamp |
+marginBalance | STRING |Appears in the position section only for positions using isolated margin. Isolated margin + Unrealized position PnL|
+maintenanceMargin | STRING |Appears in the position section only for positions using isolated margin|
+marginRatio | STRING | Appears in the position section only for positions using isolated margin|
+leverage | STRING | Appears in the position section only for positions using isolated margin|
 balances | LIST of dictionaries | Balances |
 asset | STRING | Asset |
 total | STRING | Total balance |
 available | STRING | Available balance |
 reserved | STRING | Reserved balance |
-borrowedAsset | STRING | Borrowed asset |
-borrowedAmount | STRING | Borrowed amount |
-collateralAsset | STRING | Collateral asset | 
 usdReward | STRING | USD reward from scalping |
 flexReward | STRING | FLEX reward from fee rebates |
 interestPaid | STRING | Interest paid, positive values imply interest was paid to the AMM, negative values imply interest was paid by the AMM |
