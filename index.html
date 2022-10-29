@@ -765,6 +765,9 @@
                             <a href="#rest-api-v3-market-data-public-get-v3-funding-rates" class="toc-h3 toc-link" data-title="GET <code>/v3/funding-rates</code>">GET <code>/v3/funding-rates</code></a>
                           </li>
                           <li>
+                            <a href="#rest-api-v3-market-data-public-get-v3-funding-estimates" class="toc-h3 toc-link" data-title="GET <code>/v3/funding/estimates</code>">GET <code>/v3/funding/estimates</code></a>
+                          </li>
+                          <li>
                             <a href="#rest-api-v3-market-data-public-get-v3-candles" class="toc-h3 toc-link" data-title="GET <code>/v3/candles</code>">GET <code>/v3/candles</code></a>
                           </li>
                           <li>
@@ -18277,6 +18280,70 @@ Main account API key can search all subaccount hashTokens
 </tr>
 <tr>
 <td>createdAt</td>
+<td>STRING</td>
+<td>Millisecond timestamp</td>
+</tr>
+</tbody></table>
+<h3 id='rest-api-v3-market-data-public-get-v3-funding-estimates'>GET <code>/v3/funding/estimates</code></h3>
+<blockquote>
+<p><strong>Request</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>GET /v3/funding/estimates?marketCode={marketCode}
+</code></pre></div>
+<blockquote>
+<p><strong>Successful response format</strong></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WBTC-USD-SWAP-PER"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fundingAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1667012400000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"estFundingRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Request Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>YES</td>
+<td>Market code</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Response Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketCode</td>
+<td>STRING</td>
+<td>Market code</td>
+</tr>
+<tr>
+<td>estFundingRate</td>
+<td>STRING</td>
+<td>Estimates funding rate</td>
+</tr>
+<tr>
+<td>netDelivered</td>
+<td>STRING</td>
+<td>Delivery imbalance (negative = more shorts than longs and vice versa)</td>
+</tr>
+<tr>
+<td>fundingAt</td>
 <td>STRING</td>
 <td>Millisecond timestamp</td>
 </tr>
