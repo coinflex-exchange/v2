@@ -2610,6 +2610,42 @@ netDelivered | STRING | Delivery imbalance (negative = more shorts than longs an
 createdAt | STRING | Millisecond timestamp |
 
 
+### GET `/v3/funding/estimates`
+
+> **Request**
+
+```
+GET /v3/funding/estimates?marketCode={marketCode}
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "marketCode": "WBTC-USD-SWAP-PER",
+            "fundingAt": "1667012400000",
+            "estFundingRate": "0"
+        }
+    ]
+}
+```
+
+Request Parameter | Type | Required | Description |
+----------------- | ---- | -------- | ----------- |
+marketCode | STRING | YES | Market code |
+
+
+Response Field | Type | Description |
+-------------- | ---- | ----------- |
+marketCode | STRING | Market code |
+estFundingRate | STRING | Estimates funding rate |
+netDelivered | STRING | Delivery imbalance (negative = more shorts than longs and vice versa) |
+fundingAt | STRING | Millisecond timestamp |
+
+
 ### GET `/v3/candles`
 
 Get candles.
