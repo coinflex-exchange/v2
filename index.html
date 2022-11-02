@@ -18096,6 +18096,12 @@ Main account API key can search all subaccount hashTokens
             </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WBTC-USD-SWAP-PER"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"fundingAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1667012400000"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"estFundingRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fundingAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1667012400000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"netDelivered"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"estFundingRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -18136,7 +18142,7 @@ Main account API key can search all subaccount hashTokens
 <tr>
 <td>netDelivered</td>
 <td>STRING</td>
-<td>Delivery imbalance (negative = more shorts than longs and vice versa)</td>
+<td>Only applicable for deliverable perps: delivery imbalance (negative = more shorts than longs and vice versa)</td>
 </tr>
 <tr>
 <td>fundingAt</td>
