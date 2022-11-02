@@ -2548,6 +2548,12 @@ GET /v3/funding/estimates?marketCode={marketCode}
             "marketCode": "WBTC-USD-SWAP-PER",
             "fundingAt": "1667012400000",
             "estFundingRate": "0"
+        },
+        {
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "fundingAt": "1667012400000",
+            "netDelivered":"0",
+            "estFundingRate": "0"
         }
     ]
 }
@@ -2562,7 +2568,7 @@ Response Field | Type | Description |
 -------------- | ---- | ----------- |
 marketCode | STRING | Market code |
 estFundingRate | STRING | Estimates funding rate |
-netDelivered | STRING | Delivery imbalance (negative = more shorts than longs and vice versa) |
+netDelivered | STRING | Only applicable for deliverable perps: delivery imbalance (negative = more shorts than longs and vice versa) |
 fundingAt | STRING | Millisecond timestamp |
 
 
