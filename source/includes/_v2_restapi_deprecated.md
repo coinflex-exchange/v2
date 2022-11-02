@@ -126,3 +126,83 @@ timeInForce | STRING | Time in force |
 notice | STRING | `OrderClosed` or `OrderMatched` or `OrderOpend` |
 orderType | STRING | Type of the order, `LIMIT` or `STOP` |
 isTriggered | STRING | `true`(for stop order) or `false` |
+
+
+### GET `/v3/orders`
+
+Returns all orders of the account connected to the API key initiating the request.
+
+> **Request**
+
+```
+GET /v3/orders?marketCode={marketCode}&orderId={orderId}&clientOrderId={clientOrderId}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": {
+        "orderId": "1000387920513",
+        "clientOrderId": "1612249737434",
+        "marketCode": "FLEX-USD",
+        "status": "OPEN",
+        "side": "BUY",
+        "price": "5.200",
+        "stopPrice": "null",
+        "isTriggered": false,
+        "quantity": "0.01",
+        "remainQuantity": "0.01",
+        "matchedQuantity": "0.00",
+        "avgFillPrice": "null",
+        "avgLeg1Price": "",
+        "avgLeg2Price": "",
+        "fees": {"USD": "0", "FLEX": "0"},
+        "orderType": "LIMIT",
+        "timeInForce": "GTC",
+        "source": "0",
+        "createdAt": "1655980336520",
+        "lastModifiedAt": null,
+        "lastMatchedAt": null
+    }
+}
+```
+<aside class="notice">
+CANCELED orders are not in the orderbook, the remainQuantity in the CANCELED orders is historical remaining quantity
+</aside>
+
+Request Parameter | Type | Required | Description |
+----------------- | ---- | -------- | ----------- |
+marketCode | STRING | default most recent orders first |
+orderId | LONG | YES if no clientOrderId | Order ID |
+clientOrderId | LONG | YES if no orderId | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
+limit | LONG | NO | Default 50, max 200 |
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
+
+
+Response Field | Type | Description |
+-------------- | ---- | ----------- |
+orderId | STRING | Order ID |
+clientOrderId | STRING | Client assigned ID to help manage and identify orders with max value `9223372036854775807` |
+marketCode | STRING | Market code |
+status | STRING | Available values: `CANCELED`, `OPEN`, `PARTIAL_FILL`, `FILLED` |
+side | STRING | Side of the order, `BUY` or `SELL` |
+price | STRING | Price or limit price in the case of a STOP order |
+stopPrice | STRING | Trigger price for a STOP order |
+isTriggered | BOOL | `true` for a STOP order |
+quantity | STRING |  Quantity |
+remainQuantity | STRING | Remaining quantity |
+matchedQuantity | STRING | Matched Quantity |
+avgFillPrice | STRING | Average of filled price |
+leg1Price | STRING | Leg1 price |
+leg2Price | STRING | Leg2 price |
+fees | LIST of dictionaries | Overall fees with instrument ID, if FLEX is no enough to pay the fee then USD will be paid |
+orderType | STRING | Type of the order, availabe values: `MARKET`, `LIMIT`, `STOP_LIMIT` |
+timeInForce | STRING | Client submitted time in force. <ul><li>`GTC` (Good-till-Cancel) - Default</li><li> `IOC` (Immediate or Cancel, i.e. Taker-only)</li><li> `FOK` (Fill or Kill, for full size)</li><li>`MAKER_ONLY` (i.e. Post-only)</li><li> `MAKER_ONLY_REPRICE` (Reprices order to the best maker only price if the specified price were to lead to a taker trade) |
+source | STRING | Source of the request, available values: `0`, `2`, `10`, `11`, `22`, `101`, `102`, `103`, `111`. <p>Enumeration: `0: Websocket`, `2: Borrow`, `10: AMM`, `11: REST`, `22: Delivery`, `101: Automatic borrow`, `102: Borrow position liquidation`, `103: Contract liquidation`, `111: Automatic repayment`</p> |
+createdAt | STRING | Millisecond timestamp of the order created time |
+lastModifiedAt | STRING | Millisecond timestamp of the order last modified time |
+lastMatchedAt | STRING | Millisecond timestamp of the order last matched time |
+
