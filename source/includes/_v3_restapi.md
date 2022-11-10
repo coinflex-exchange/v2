@@ -311,6 +311,7 @@ GET v3/wallet?subAcc={name1},{name2}&type={type}&limit={limit}&startTime={startT
              "name": "main",
              "walletHistory": [
                   {
+                    "id": "810583329159217160",
                     "asset": "USD",
                     "type": "DEPOSIT", 
                     "amount": "10",
@@ -328,7 +329,7 @@ if the user is calling this endpoint using an API-KEY from a master account then
 
 Request Parameter | Type | Required | Description |
 ----------------- | ---- | -------- | ----------- |
-subAcc | STRING | NO |  |
+subAcc | STRING | NO | Max 5 |
 type | STRING | NO | DEPOSIT, WITHDRAWAL, etc, default return all, most recent first |
 limit | LONG | NO | Default 200, max 500 |
 startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
@@ -339,6 +340,7 @@ Response Field | Type | Description |
 accountId | STRING | Account ID |
 name | STRING | Account name |
 walletHistory | LIST of dictionaries | |
+id | STRING | A unique ID |
 amount | STRING | Amount |
 asset | STRING | Asset name |
 type | STRING | |
@@ -590,6 +592,53 @@ Response Field | Type | Description |
 type | STRING | |
 amount | STRING | |
 marginBalance | STRING | |
+
+
+### GET `/v3/funding`
+
+Get funding payments by marketCode and sorted by time in descending order.
+
+> **Request**
+
+```json
+GET v3/funding?marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+marketCode | STRING | NO | e.g. `BTC-USD-REPO-LIN` |
+limit | LONG | NO | default is `200`, max is `500` |
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
+endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other |
+
+> **SUCCESSFUL RESPONSE**
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "id": "810583329213284361",
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "payment": "-122.17530872",
+            "fundingRate": "-0.00005",
+            "position": "-61.093",
+            "markPrice": "39996.5",
+            "createdAt": "1627617632190"
+        }
+    ]
+}
+```
+
+Response Fields | Type | Description |
+------------------- | ---- | ----------- |
+id | STRING | A unique ID |
+marketCode | STRING | Market code |
+payment | STRING | Funding payment |
+fundingRate | STRING | Funding rate |
+position | STRING | Position |
+markPrice | STRING | Mark price |
+createdAt | STRING | Timestamp of this response |
 
 
 
@@ -2783,6 +2832,52 @@ side | STRING    | |
 matchType | STRING    | |
 matchedAt | STRING    | |
 
+
+### GET `/v3/funding/rates`
+
+Get historical funding rates.
+
+> **Request**
+
+```
+GET /v3/funding/rates?marketCode={marketCode}&limit={limit}
+&startTime={startTime}&endTime={endTime}
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "marketCode": "BTC-USD-SWAP-LIN",
+            "fundingRate": "0.0",
+            "netDelivered": "0",
+            "createdAt": "1628362803134"
+        },
+        {
+             "marketCode": "TKX-USD-SWAP-PER",
+             "fundingRate": "0.0",
+             "createdAt": "1628362803134"
+        }
+    ]
+}
+```
+
+Request Parameter | Type | Required | Description |
+----------------- | ---- | -------- | ----------- |
+marketCode | STRING | NO | Market code |
+limit | LONG | NO | Default 200, max 500 |
+startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other. |
+endTime | LONG | NO |  Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other. |
+
+Response Field | Type | Description |
+-------------- | ---- | ----------- |
+marketCode | STRING | Market code |
+fundingRate | STRING | Funding rate |
+netDelivered | STRING | Delivery imbalance (negative = more shorts than longs and vice versa) |
+createdAt | STRING | Millisecond timestamp |
 
 
 ## Flex Assets - Public
