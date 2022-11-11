@@ -2839,10 +2839,11 @@ matchType | STRING    | |
 matchedAt | STRING    | |
 
 
+## All Funding Rates - Public
 
 ### GET `/v3/funding/rates`
 
-Get historical funding rates.
+Get all historical financing rates, including PLP
 
 > **Request**
 
