@@ -2839,6 +2839,7 @@ matchType | STRING    | |
 matchedAt | STRING    | |
 
 
+
 ### GET `/v3/funding/rates`
 
 Get historical funding rates.
@@ -2846,8 +2847,7 @@ Get historical funding rates.
 > **Request**
 
 ```
-GET /v3/funding/rates?marketCode={marketCode}&limit={limit}
-&startTime={startTime}&endTime={endTime}
+GET /v3/funding/rates?marketCode={marketCode}&limit={limit}&startTime={startTime}&endTime={endTime}
 ```
 
 > **Successful response format**
@@ -2884,6 +2884,7 @@ marketCode | STRING | Market code |
 fundingRate | STRING | Funding rate |
 netDelivered | STRING | Delivery imbalance (negative = more shorts than longs and vice versa) |
 createdAt | STRING | Millisecond timestamp |
+
 
 
 ## Flex Assets - Public
