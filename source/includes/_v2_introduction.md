@@ -67,6 +67,8 @@ Added new REST API [GET /v3/orders/status](?json#rest-api-v3-orders-private-get-
 * Added new REST API [GET /v3/flexasset/balances](?json#rest-api-v3-flex-assets-public-get-v3-flexasset-balances) to get flexAsset balances
 * Added new REST API [GET /v3/flexasset/positions](?json#rest-api-v3-flex-assets-public-get-v3-flexasset-positions) to get flexAsset positions
 * Added new REST API [GET /v3/flexasset/yields](?json#rest-api-v3-flex-assets-public-get-v3-flexasset-yields) to get flexAsset yields
+* Added new REST API [GET /v3/funding/rates](?json#rest-api-v3-market-data-public-get-v3-funding/rates) to get historical funding rates
+
 
 **2022-02-21**
 
