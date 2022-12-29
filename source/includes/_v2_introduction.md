@@ -1,9 +1,5 @@
 # Change Log
 
-**2022-07-11**
-
-Added new REST API [GET /v3/delivery/working](?json#rest-api-v3-delivery-private-get-v3-delivery-working) to get working delivery orders
-
 **2022-06-28**
 
 Added new REST API [GET /v3/orders/status](?json#rest-api-v3-orders-private-get-v3-orders-status) to get latest order status
@@ -60,8 +56,6 @@ Added new REST API [GET /v3/orders/status](?json#rest-api-v3-orders-private-get-
 **2022-03-11**
 
 * Added new REST API [GET /v3/tickers](?json#rest-api-v3-market-data-public-get-v3-tickers) to get tickers
-* Added new REST API [GET /v3/auction](?json#rest-api-v3-market-data-public-get-v3-auction) to get upcoming delivery auction
-* Added new REST API [GET /v3/funding-rates](?json#rest-api-v3-market-data-public-get-v3-funding-rates) to get historical funding rates
 * Added new REST API [GET /v3/candles](?json#rest-api-v3-market-data-public-get-v3-candles) to get candles
 * Added new REST API [GET /v3/depth](?json#rest-api-v3-market-data-public-get-v3-depth) to get depth
 * Added new REST API [GET /v3/flexasset/balances](?json#rest-api-v3-flex-assets-public-get-v3-flexasset-balances) to get flexAsset balances
@@ -121,9 +115,6 @@ Added new REST API [GET /v3/orders/status](?json#rest-api-v3-orders-private-get-
     * Changed parameter `endTime` default to current time
     * `startTime` and `endTime` must be within 7 days of each other
 * Updated REST API [GET /v2/flex-protocol/trades/{flexProtocol}/{marketCode}](?json#rest-api-methods-public-get-v2-flex-protocol-trades-flexprotocol-marketcode)
-    * Changed parameter `startTime` default to 24 hours ago
-    * `startTime` and `endTime` must be within 7 days of each other
-* Updated REST API [GET /v2/flex-protocol/delivery/orders/{flexProtocol}](?json#rest-api-methods-public-get-v2-flex-protocol-delivery-orders-flexprotocol)
     * Changed parameter `startTime` default to 24 hours ago
     * `startTime` and `endTime` must be within 7 days of each other
 * Updated REST API [GET /v2/delivery/public/funding](?json#rest-api-methods-public-get-v2-delivery-public-funding)
@@ -254,7 +245,6 @@ Here come the API V3!
 * Added new REST API [GET /v2/flex-protocol/positions/{flexProtocol}](?json#rest-api-methods-public-get-v2-flex-protocol-positions-flexprotocol) to get get flexAsset positions
 * Added new REST API [GET /v2/flex-protocol/orders/{flexProtocol}](?json#rest-api-methods-public-get-v2-flex-protocol-orders-flexprotocol) to get flexAsset orders
 * Added new REST API [GET /v2/flex-protocol/trades/{flexProtocol}/{marketCode}](?json#rest-api-methods-public-get-v2-flex-protocol-trades-flexprotocol-marketcode) to get flexAsset trades
-* Added new REST API [GET /v2/flex-protocol/delivery/orders/{flexProtocol}](?json#rest-api-methods-public-get-v2-flex-protocol-delivery-orders-flexprotocol) to get flexAsset delivery orders
 
 **2021-05-13**
 
