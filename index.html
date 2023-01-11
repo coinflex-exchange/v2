@@ -1787,7 +1787,7 @@
 </tr>
 </tbody></table>
 <h2 id='websocket-api-session-keep-alive'>Session Keep Alive</h2>
-<p>To maintain an active WebSocket connection it is imperative to either be subscribed to a channel that pushes data at least once per minute (Depth or Balance) or send a ping to the server once per minute.</p>
+<p>To maintain an active WebSocket connection it is imperative to either be subscribed to a channel that pushes data at least once per minute (Depth) or send a ping to the server once per minute.</p>
 <h2 id='websocket-api-order-commands'>Order Commands</h2><h3 id='websocket-api-order-commands-place-limit-order'>Place Limit Order</h3>
 <blockquote>
 <p><strong>Request format</strong></p>
@@ -3461,29 +3461,30 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
   </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Your account ID&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599693365059"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"tradeType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LINEAR"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
               </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10000"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"reserved"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"available"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9000"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"quantityLastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599694369431"</span><span class="w">
+              </span><span class="nl">"locked"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+              </span><span class="nl">"quantityLastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599694369431"</span><span class="p">,</span><span class="w">
             </span><span class="p">},</span><span class="w">
             </span><span class="p">{</span><span class="w">
               </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100000"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"reserved"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"instrumentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FLEX"</span><span class="p">,</span><span class="w">
               </span><span class="nl">"available"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100000"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"quantityLastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599694343242"</span><span class="w">
-            </span><span class="p">},</span><span class="w"> 
-            </span><span class="err">........</span><span class="w">
+              </span><span class="nl">"locked"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+              </span><span class="nl">"quantityLastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1599694343242"</span><span class="p">,</span><span class="w">
+            </span><span class="p">}</span><span class="w">
           </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Channel Update Frequency</strong> : 250ms</p>
+<p><strong>Channel Update Frequency</strong> : On update</p>
 
-<p>The websocket will reply with the shown success response format for <strong>each</strong> balance asset channel which has been successfully subscribed to.</p>
+<p>The websocket will reply with the shown success response format for subscribed assets with <strong>changed</strong> balances.</p>
 
-<p>If a subscription has been made to <strong>balance:all</strong>, the data array in the message from this balance channel will contain a JSON <strong>list</strong>. Each JSON will contain balance details for each spot asset.  Otherwise the data array will contain a <strong>single</strong> JSON corresponding to one spot asset per asset channel subscription.</p>
+<p>If a subscription has been made to <strong>balance:all</strong>, the data array in the message from this balance channel will contain a JSON <strong>list</strong>, otherwise the data array will contain a <strong>single</strong> JSON corresponding to one spot asset per asset channel subscription.</p>
 
 <p><sub><strong>Request Parameters</strong></sub> </p>
 
@@ -3568,6 +3569,11 @@ Please also subscribe to the <strong>User Order Channel</strong> to receive push
 <td>available</td>
 <td>STRING</td>
 <td>Remaining available asset balance (total - reserved)</td>
+</tr>
+<tr>
+<td>locked</td>
+<td>STRING</td>
+<td>Temporarily locked asset balance</td>
 </tr>
 <tr>
 <td>quantityLastUpdated</td>
