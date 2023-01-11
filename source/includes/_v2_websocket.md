@@ -287,7 +287,7 @@ signature | STRING | Yes | `Base64(HmacSHA256(current_ms_timestamp + 'GET/auth/s
 
 ## Session Keep Alive
 
-To maintain an active WebSocket connection it is imperative to either be subscribed to a channel that pushes data at least once per minute (Depth or Balance) or send a ping to the server once per minute.
+To maintain an active WebSocket connection it is imperative to either be subscribed to a channel that pushes data at least once per minute (Depth) or send a ping to the server once per minute.
 
 ## Order Commands
 
@@ -1658,30 +1658,31 @@ asyncio.get_event_loop().run_until_complete(subscribe())
   "accountId": "<Your account ID>",
   "timestamp": "1599693365059",
   "tradeType": "LINEAR",
-  "data": [ {
+  "data": [{
               "total": "10000",
               "reserved": "1000",
               "instrumentId": "USD",
               "available": "9000",
-              "quantityLastUpdated": "1599694369431"
+              "locked": "0"
+              "quantityLastUpdated": "1599694369431",
             },
             {
               "total": "100000",
               "reserved": "0",
               "instrumentId": "FLEX",
               "available": "100000",
-              "quantityLastUpdated": "1599694343242"
-            }, 
-            ........
+              "locked": "0"
+              "quantityLastUpdated": "1599694343242",
+            }
           ]
 }
 ```
 
-**Channel Update Frequency** : 250ms
+**Channel Update Frequency** : On update
 
-The websocket will reply with the shown success response format for **each** balance asset channel which has been successfully subscribed to.
+The websocket will reply with the shown success response format for subscribed assets with **changed** balances.
 
-If a subscription has been made to **balance:all**, the data array in the message from this balance channel will contain a JSON **list**. Each JSON will contain balance details for each spot asset.  Otherwise the data array will contain a **single** JSON corresponding to one spot asset per asset channel subscription.
+If a subscription has been made to **balance:all**, the data array in the message from this balance channel will contain a JSON **list**, otherwise the data array will contain a **single** JSON corresponding to one spot asset per asset channel subscription.
 
 <sub>**Request Parameters**</sub> 
 
@@ -1704,6 +1705,7 @@ total | STRING | Total spot asset balance
 reserved | STRING | Reserved asset balance for working spot and repo orders
 instrumentId | STRING |  Base asset ID e.g. `BTC`
 available | STRING| Remaining available asset balance (total - reserved)
+locked | STRING | Temporarily locked asset balance
 quantityLastUpdated|STRING | Millisecond timestamp
 
 ### Position Channel
