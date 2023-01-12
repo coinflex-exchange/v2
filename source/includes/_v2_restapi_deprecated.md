@@ -206,3 +206,431 @@ createdAt | STRING | Millisecond timestamp of the order created time |
 lastModifiedAt | STRING | Millisecond timestamp of the order last modified time |
 lastMatchedAt | STRING | Millisecond timestamp of the order last matched time |
 
+### POST `/v2.1/delivery/orders`
+
+> **Request**
+
+```json
+POST /v2.1/delivery/orders
+```
+```json
+{
+    "instrumentId": "BTC-USD-SWAP-LIN",
+    "qtyDeliver": "0.1"
+}
+```
+
+```python
+import requests
+import hmac
+import base64
+import hashlib
+import datetime
+import json
+
+rest_url = 'https://v2stgapi.coinflex.com'
+rest_path = 'v2stgapi.coinflex.com'
+
+api_key = 'api_key'
+api_secret = 'api_secret'
+
+ts = datetime.datetime.utcnow().isoformat()
+nonce = 123
+
+# REST API method
+method = '/v2.1/delivery/orders'
+
+params = json.dumps({"instrumentId": "BTC-USD-SWAP-LIN", "qtyDeliver": "0.1"})
+
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'POST', rest_path, method, params)
+sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+
+header = {'Content-Type': 'application/json', 'AccessKey': api_key,
+          'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
+
+resp = requests.post(rest_url + method, headers=header, data=params)
+print(resp.url)
+print(resp.request.headers)
+print(resp.request.body)
+print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
+```
+
+> **Response**
+
+```json
+{
+    "event": "delivery",
+    "timestamp": "1648801950009",
+    "accountId": "3101",
+    "data": [
+        {
+            "deliverOrderId": "749507542787358724",
+            "accountId": "3101",
+            "clientOrderId": null,
+            "instrumentId": "BTC-USD-SWAP-LIN",
+            "deliverPrice": "45285",
+            "deliverPosition": "0.100",
+            "deliverType": "NEXT_CYCLE",
+            "instrumentIdDeliver": "BTC",
+            "deliverQty": "0.100",
+            "remainingQty": "0.100",
+            "remainingPosition": "0.100",
+            "transferAsset": "USD",
+            "transferQty": "4528.500",
+            "auctionTime": "1648801949919",
+            "created": "1648801949919",
+            "lastUpdated": "1648801949919",
+            "status": "PENDING"
+        }
+    ]
+}
+```
+
+```python
+{
+    "event": "delivery", 
+    "timestamp": "1648801950009", 
+    "accountId": "3101", 
+    "data": [
+        {
+            "deliverOrderId": "749507542787358724", 
+            "accountId": "3101", 
+            "clientOrderId": null, 
+            "instrumentId": "BTC-USD-SWAP-LIN", 
+            "deliverPrice": "45285", 
+            "deliverPosition": "0.100", 
+            "deliverType": "NEXT_CYCLE", 
+            "instrumentIdDeliver": "BTC", 
+            "deliverQty": "0.100", 
+            "remainingQty": "0.100", 
+            "remainingPosition": "0.100", 
+            "transferAsset": "USD", 
+            "transferQty": "4528.500", 
+            "auctionTime": "1648801949919", 
+            "created": "1648801949919", 
+            "lastUpdated": "1648801949919", 
+            "status": "PENDING"
+        }
+    ]
+}
+```
+
+Submits a request for physical delivery for a specified perpetual swap instrument and quantity.
+
+<sub>**Request Parameters**</sub> 
+
+Parameters | Type | Required |Description| 
+-------------------------- | -----|--------- | -------------|
+instrumentId| STRING | YES | Perpetual swap instrument intended for delivery |
+qtyDeliver| STRING | YES | Quantity intended for delivery |
+
+<sub>**Response Fields**</sub> 
+
+Field | Type | Description |
+----- | ---- | ----------- |
+event | STRING | `delivery`
+timestamp | STRING | Millisecond timestamp of the repsonse
+accountId | STRING | Account ID |
+data | LIST of dictionary |
+deliverOrderId | STRING | Order id
+accountId | STRING    | Account ID|
+clientOrderId | Null Type | null |
+instrumentId | STRING | Perpetual swap market code
+deliverPrice | STRING|  Mark price at delivery
+deliverPosition | STRING | Delivered position size
+deliverType | STRING| "NEXT_CYCLE": Queueing for the upcoming auction
+instrumentIdDeliver | STRING |Asset being received: long position = coin, short position = USD
+deliverQty | STRING |  Quantity of the received asset
+remainingQty | STRING | Remaining quantity
+remainingPosition | STRING | Remaining position
+transferAsset | STRING | Asset being sent
+transferQty | STRING | Quantity being sent
+auctionTime | STRING | Millisecond timestamp of the next auction
+created | STRING | Millisecond timestamp
+lastUpdated | STRING | Millisecond timestamp 
+status | STRING | Delivery status
+
+
+### DELETE `/v2.1/delivery/orders/{deliveryOrderId}`
+> **Request**
+
+```json
+DELETE /v2.1/delivery/orders/{deliveryOrderId}
+```
+
+```python
+import requests
+import hmac
+import base64
+import hashlib
+import datetime
+import json
+
+rest_url = 'https://v2stgapi.coinflex.com'
+rest_path = 'v2stgapi.coinflex.com'
+
+api_key = 'api_key'
+api_secret = 'api_key'
+
+ts = datetime.datetime.utcnow().isoformat()
+nonce = 123
+
+method = '/v2.1/delivery/orders/{deliveryOrderId}'
+
+params = json.dumps({})
+
+msg_string = '{}\n{}\n{}\n{}\n{}\n{}'.format(ts, nonce, 'DELETE', rest_path, method, params)
+sig = base64.b64encode(hmac.new(api_secret.encode('utf-8'), msg_string.encode('utf-8'), hashlib.sha256).digest()).decode('utf-8')
+
+header = {'Content-Type': 'application/json', 'AccessKey': api_key,
+          'Timestamp': ts, 'Signature': sig, 'Nonce': str(nonce)}
+
+resp = requests.delete(rest_url + method, headers=header, data=params)
+print(resp.url)
+print(resp.request.headers)
+print(resp.request.body)
+print(json.dumps(resp.json(), indent=4, separators=(', ', ': ')))
+```
+
+> **Success response**
+
+```json
+{
+    "event": "delivery", 
+    "timestamp": "1648802689667", 
+    "accountId": "3101", 
+    "data": [
+        "Cancel of user order was successful"
+    ]
+}
+```
+
+```python
+{
+    "event": "delivery", 
+    "timestamp": "1648802689667", 
+    "accountId": "3101", 
+    "data": [
+        "Cancel of user order was successful"
+    ]
+}
+```
+
+> **Failure response**
+
+```json
+{
+    "event": "delivery", 
+    "timestamp": "1648803402131", 
+    "accountId": "3101", 
+    "data": [
+        "Cancel exception please try again"
+    ]
+}
+```
+
+```python
+{
+    "event": "delivery", 
+    "timestamp": "1648803402131", 
+    "accountId": "3101", 
+    "data": [
+        "Cancel exception please try again"
+    ]
+}
+```
+
+Cancels a pending delivery.
+
+<sub>**Request Parameters**</sub> 
+
+Parameters | Type | Required | Description | 
+-----------| ---- | -------- | ----------- |
+deliveryOrderId | STRING | YES | Delivery order ID, please place it in URL |
+
+<sub>**Response Fields**</sub> 
+
+Field | Type | Description |
+----- | ---- | ----------- |
+event | STRING | `delivery`
+timestamp | STRING | Millisecond timestamp of the repsonse
+accountId | STRING | Account ID |
+data | Array | Message from the server |
+
+### POST `/v2/borrow`
+
+Borrow.
+
+> **Request**
+
+```json
+POST /v2/borrow
+
+{
+    "borrowAsset": "USD",
+    "collateralAsset": "BTC",
+    "collateralAmount": "0.01"
+}
+```
+
+> **SUCCESSFUL RESPONSE**
+
+```json
+{
+    "event": "borrow",
+    "timestamp": "1626433827430",
+    "accountId": "3123",
+    "data": {
+        "borrowAsset": "USD",
+        "borrowedAmount": "296.21588287",
+        "collateralAsset": "BTC",
+        "collateralizedAmount": "0.01",
+        "nonCollateralizedAmount": "0",
+        "rateType": "FLOATING_RATE",
+        "status": "COMPLETED",
+        "borrowedAt": "1626433827616"
+    }
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+borrowAsset | STRING | YES | Borrow asset, can only be `USD` for now |
+collateralAsset | STRING | YES | Collateral asset |
+collateralAmount | STRING | YES | Collateral amount of the collateral asset |
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+accountId | STRING | Account ID |
+borrowAsset | STRING | Borrow asset, can only be `USD` for now |
+borrowedAmount | STRING | Borrowed amount of the borrow asset |
+collateralAsset | STRING | Collateral asset |
+collateralizedAmount | STRING | Collateralized amount of the collateral asset |
+nonCollateralizedAmount | STRING | `nonCollateralizedAmount` = `collateralAmount` - `collateralizedAmount` |
+rateType | STRING | `FLOATING_RATE` or `FIXED_RATE` |
+status | STRING | `COMPLETED` or `PARTIAL` or `CANCELLED` |
+borrowedAt | STRING | The time of borrowed at |
+
+### POST `/v2/repay`
+
+Repay.
+
+> **Request**
+
+```json
+POST /v2/repay
+
+{
+    "repayAsset": "USD",
+    "regainAsset": "BTC",
+    "regainAmount": "0.001"
+}
+```
+
+> **SUCCESSFUL RESPONSE**
+
+```json
+{
+    "event": "repay",
+    "timestamp": "1626433876060",
+    "accountId": "3123",
+    "data": {
+        "repayAsset": "USD",
+        "repaidAmount": "31.33109616",
+        "regainAsset": "BTC",
+        "regainedAmount": "0.001",
+        "nonRegainedAmount": "0",
+        "status": "COMPLETED",
+        "repaidAt": "1626433876398"
+    }
+}
+```
+
+Request Parameters | Type | Required | Description |
+------------------ | ---- | -------- | ----------- |
+repayAsset | STRING | YES | Repay asset, can only be `USD` for now |
+regainAsset | STRING | YES | Regain asset |
+regainAmount | STRING | YES | Regain amount of the regain asset |
+
+Response Fields | Type | Description |
+----------------| ---- | ----------- |
+accountId | STRING | Account ID |
+repayAsset | STRING | Repay asset, can only be `USD` for now |
+repaidAmount | STRING | Repaid amount of the repay asset |
+regainAsset | STRING | Regain asset |
+regainedAmount | STRING | Already regained amount of the regain asset |
+nonRegainedAmount | STRING | `nonRegainedAmount` = `regainAmount` - `regainedAmount` |
+status | STRING | `COMPLETED` or `PARTIAL` or `CANCELLED` |
+repaidAt | STRING | The time of repaid at |
+
+## Delivery - Private
+
+### GET `/v3/delivery/working`
+
+Get working delivery orders
+
+> **Request**
+
+```
+GET /v3/delivery/working?marketCode=SUSHI-USD-SWAP-LIN
+```
+
+> **Successful response format**
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "deliveryId": "777227682229354499",
+            "marketCode": "SUSHI-USD-SWAP-LIN",
+            "status": "PENDING",
+            "deliveryPrice": "1.189000000",
+            "deliveryPosition": "5.000000000",
+            "deliveryAsset": "USD",
+            "deliveryQuantity": "5.945000000",
+            "receiveAsset": "SUSHI",
+            "receiveQuantity": "5.000000000",
+            "remainDeliveryPosition": "5.000000000",
+            "auctionTime": "1657261465125",
+            "createdAt": "1657261465125",
+            "lastUpdatedAt": "1657261465125"
+        },
+        {
+            "deliveryId": "777227603892338692",
+            "marketCode": "SUSHI-USD-SWAP-LIN",
+            "status": "ROLLED_DELIVERY",
+            "deliveryPrice": "1.190000000",
+            "deliveryPosition": "2.000000000",
+            "deliveryAsset": "USD",
+            "deliveryQuantity": "2.380000000",
+            "receiveAsset": "SUSHI",
+            "receiveQuantity": "2.000000000",
+            "remainDeliveryPosition": "1.900000000",
+            "auctionTime": "1657261441216",
+            "createdAt": "1657261441216",
+            "lastUpdatedAt": "1657261441417"
+        }
+    ]
+}
+```
+
+Request Parameter | Type | Required | Description |
+----------------- | ---- | -------- | ----------- |
+marketCode | STRING | NO | Market code |
+
+Response Field | Type | Description |
+-------------- | ---- | ----------- |
+deliveryId | STRING | Delivery ID |
+marketCode | STRING | Market code |
+status | STRING | Status of the order, available values: `PENDING`, `ROLLED_DELIVERY` |
+deliveryPrice | STRING | Mark price at the delivery |
+deliveryPosition | STRING | Position of the delivery |
+deliveryAsset | STRING | Asset being sent |
+deliveryQuantity | STRING | Quantity being sent |
+receiveAsset | STRING | Asset would be received |
+receiveQuantity | STRING | Quantity would be received |
+remainDeliveryPosition | STRING | Remaining delivery position |
+auctionTime | STRING | Millisecond timestamp of the auction time |
+createdAt | STRING | Millisecond timestamp of the created time |
+lastUpdatedAt | STRING | Millisecond timestamp of the last updated time |
