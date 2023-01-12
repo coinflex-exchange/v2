@@ -147,7 +147,7 @@ The signature must then be included in the header of the REST API call like so:
 Get account information
 
 <aside class="notice">
-Calling this endpoint using an API-KEY linked to the main account with the parameter "subAcc" allows the caller to include additional sub-accounts in the response. If an API-KEY linked to a sub-account is used, then this parameter has no control.
+Calling this endpoint using an API key pair linked to the parent account with the parameter "subAcc" allows the caller to include additional sub-accounts in the response. This feature does not work when using API key pairs linked to a sub-account.
 </aside>
 
 > **Request**
@@ -257,7 +257,7 @@ createdAt | STRING | Timestamp indicating when the account was created |
 Get sub account information
 
 <aside class="notice">
-only allow this call using API keys paired with the parent account! Return all active subaccounts.
+This endpoint can only be called using API keys paired with the parent account! Returns all active subaccounts.
 </aside>
 
 > **Request**
@@ -292,7 +292,7 @@ name | STRING | Account name |
 
 ### GET `/v3/wallet`
 
-get account or sub-account wallet
+Get account or sub-account wallet
 
 > **Request**
 
@@ -324,7 +324,7 @@ GET v3/wallet?subAcc={name1},{name2}&type={type}&limit={limit}&startTime={startT
 ```
 
 <aside class="notice">
-if the user is calling this endpoint using an API-KEY from a master account then the parameter “subAcc” will allow the user to list which sub-accounts in addition to the default account will be returned.  If an API-KEY from a sub-account is used then this parameter has no control. 
+Calling this endpoint using an API key pair linked to the parent account with the parameter "subAcc" allows the caller to include additional sub-accounts in the response. This feature does not work when using API key pairs linked to a sub-account.
 </aside>
 
 Request Parameter | Type | Required | Description |
@@ -352,7 +352,7 @@ createdAt/lastUpdatedAt | STRING | Millisecond timestamp `created time or update
 Sub-account balance transfer
 
 <aside class="notice">
-Transferring funds between sub-accounts is restricted to API keys linked to the main account.
+Transferring funds between sub-accounts is restricted to API keys linked to the parent account.
 </aside>
 
 > **Request**
@@ -430,7 +430,7 @@ GET /v3/transfer?asset={asset}&limit={limit}&startTime={startTime}&endTime={endT
 ```
 
 <aside class="notice">
-API keys linked to the main account can get all account transfers, 
+API keys linked to the parent account can get all account transfers, 
 while API keys linked to a sub-account can only see transfers where the sub-account is either the "fromAccount" or "toAccount".
 </aside>
 
@@ -491,7 +491,7 @@ GET /v3/balances?subAcc={name1},{name2}&asset={asset}
 ```
 
 <aside class="notice">
-if the user is calling this endpoint using an API-KEY from a account then the parameter “subAcc” will allow the user to list which sub-accounts in addition to the default account will be returned.  If an API-KEY from a sub-account is used then this parameter has no control.
+Calling this endpoint using an API key pair linked to the parent account with the parameter "subAcc" allows the caller to include additional sub-accounts in the response. This feature does not work when using API key pairs linked to a sub-account.
 </aside>
 
 Request Parameter | Type | Required | Description |
@@ -502,7 +502,7 @@ subAcc | STRING | NO | Name of sub account. If no subAcc is given, then the resp
 Response Field | Type | Description | 
 -------------- | ---- | ----------- |
 accountId | STRING | Account ID |
-name | STRING | Main account with the name “main” and take the first place|
+name | STRING | Parent account with the name “main” and take the first place|
 balances | LIST of dictionaries | |
 asset | STRING | Asset name |
 available | STRING | 	Available balance |
@@ -864,7 +864,7 @@ POST /v3/withdrawal
     }
 }
 ```
-Withdrawals may only be initiated by API keys that are linked to the main account and have withdrawals enabled. If the wrong 2fa code is provided the endpoint will block for 10 seconds.
+Withdrawals may only be initiated by API keys that are linked to the parent account and have withdrawals enabled. If the wrong 2fa code is provided the endpoint will block for 10 seconds.
 
 Request Parameter | Type | Required | Description |
 ----------------- | ---- |--------- | ----------- |
@@ -2180,7 +2180,7 @@ lastMatchedAt | STRING | Millisecond timestamp |
 Get AMM hashTokens in descending order (most recent first)
 
 <aside class="notice">
-Main account API key can search all subaccount hashTokens
+Parent account API key can search all subaccount hashTokens
 </aside>
 
 > **Request**
@@ -2234,80 +2234,6 @@ minPriceBound | STRING | Minimum price bound |
 maxPriceBound | STRING | Maximum price bound |
 status | STRING | Available values: `EXECUTING`, `ENDED`, `PENDING`, `LIQUIDATED` |
 createdAt | STRING | Millisecond timestamp |
-
-
-## Delivery - Private
-
-### GET `/v3/delivery/working`
-
-Get working delivery orders
-
-> **Request**
-
-```
-GET /v3/delivery/working?marketCode=SUSHI-USD-SWAP-LIN
-```
-
-> **Successful response format**
-
-```json
-{
-    "success": true,
-    "data": [
-        {
-            "deliveryId": "777227682229354499",
-            "marketCode": "SUSHI-USD-SWAP-LIN",
-            "status": "PENDING",
-            "deliveryPrice": "1.189000000",
-            "deliveryPosition": "5.000000000",
-            "deliveryAsset": "USD",
-            "deliveryQuantity": "5.945000000",
-            "receiveAsset": "SUSHI",
-            "receiveQuantity": "5.000000000",
-            "remainDeliveryPosition": "5.000000000",
-            "auctionTime": "1657261465125",
-            "createdAt": "1657261465125",
-            "lastUpdatedAt": "1657261465125"
-        },
-        {
-            "deliveryId": "777227603892338692",
-            "marketCode": "SUSHI-USD-SWAP-LIN",
-            "status": "ROLLED_DELIVERY",
-            "deliveryPrice": "1.190000000",
-            "deliveryPosition": "2.000000000",
-            "deliveryAsset": "USD",
-            "deliveryQuantity": "2.380000000",
-            "receiveAsset": "SUSHI",
-            "receiveQuantity": "2.000000000",
-            "remainDeliveryPosition": "1.900000000",
-            "auctionTime": "1657261441216",
-            "createdAt": "1657261441216",
-            "lastUpdatedAt": "1657261441417"
-        }
-    ]
-}
-```
-
-Request Parameter | Type | Required | Description |
------------------ | ---- | -------- | ----------- |
-marketCode | STRING | NO | Market code |
-
-Response Field | Type | Description |
--------------- | ---- | ----------- |
-deliveryId | STRING | Delivery ID |
-marketCode | STRING | Market code |
-status | STRING | Status of the order, available values: `PENDING`, `ROLLED_DELIVERY` |
-deliveryPrice | STRING | Mark price at the delivery |
-deliveryPosition | STRING | Position of the delivery |
-deliveryAsset | STRING | Asset being sent |
-deliveryQuantity | STRING | Quantity being sent |
-receiveAsset | STRING | Asset would be received |
-receiveQuantity | STRING | Quantity would be received |
-remainDeliveryPosition | STRING | Remaining delivery position |
-auctionTime | STRING | Millisecond timestamp of the auction time |
-createdAt | STRING | Millisecond timestamp of the created time |
-lastUpdatedAt | STRING | Millisecond timestamp of the last updated time |
-
 
 ## Market Data - Public
 
