@@ -727,14 +727,6 @@
                       </ul>
                   </li>
                   <li>
-                    <a href="#rest-api-v3-delivery-private" class="toc-h2 toc-link" data-title="Delivery - Private">Delivery - Private</a>
-                      <ul class="toc-list-h3">
-                          <li>
-                            <a href="#rest-api-v3-delivery-private-get-v3-delivery-working" class="toc-h3 toc-link" data-title="GET <code>/v3/delivery/working</code>">GET <code>/v3/delivery/working</code></a>
-                          </li>
-                      </ul>
-                  </li>
-                  <li>
                     <a href="#rest-api-v3-market-data-public" class="toc-h2 toc-link" data-title="Market Data - Public">Market Data - Public</a>
                       <ul class="toc-list-h3">
                           <li>
@@ -12616,7 +12608,7 @@ If <em>Body</em> is omitted it&#39;s treated as an empty string.</p>
 <p>Get account information</p>
 
 <aside class="notice">
-Calling this endpoint using an API-KEY linked to the main account with the parameter "subAcc" allows the caller to include additional sub-accounts in the response. If an API-KEY linked to a sub-account is used, then this parameter has no control.
+Calling this endpoint using an API key pair linked to the parent account with the parameter "subAcc" allows the caller to include additional sub-accounts in the response. This feature does not work when using API key pairs linked to a sub-account.
 </aside>
 
 <blockquote>
@@ -12863,7 +12855,7 @@ Calling this endpoint using an API-KEY linked to the main account with the param
 <p>Get sub account information</p>
 
 <aside class="notice">
-only allow this call using API keys paired with the parent account! Return all active subaccounts.
+This endpoint can only be called using API keys paired with the parent account! Returns all active subaccounts.
 </aside>
 
 <blockquote>
@@ -12906,7 +12898,7 @@ only allow this call using API keys paired with the parent account! Return all a
 </tr>
 </tbody></table>
 <h3 id='rest-api-v3-account-amp-wallet-private-get-v3-wallet'>GET <code>/v3/wallet</code></h3>
-<p>get account or sub-account wallet</p>
+<p>Get account or sub-account wallet</p>
 
 <blockquote>
 <p><strong>Request</strong></p>
@@ -12936,7 +12928,7 @@ only allow this call using API keys paired with the parent account! Return all a
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <aside class="notice">
-if the user is calling this endpoint using an API-KEY from a master account then the parameter “subAcc” will allow the user to list which sub-accounts in addition to the default account will be returned.  If an API-KEY from a sub-account is used then this parameter has no control. 
+Calling this endpoint using an API key pair linked to the parent account with the parameter "subAcc" allows the caller to include additional sub-accounts in the response. This feature does not work when using API key pairs linked to a sub-account.
 </aside>
 
 <table><thead>
@@ -13031,7 +13023,7 @@ if the user is calling this endpoint using an API-KEY from a master account then
 <p>Sub-account balance transfer</p>
 
 <aside class="notice">
-Transferring funds between sub-accounts is restricted to API keys linked to the main account.
+Transferring funds between sub-accounts is restricted to API keys linked to the parent account.
 </aside>
 
 <blockquote>
@@ -13153,7 +13145,7 @@ Transferring funds between sub-accounts is restricted to API keys linked to the 
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <aside class="notice">
-API keys linked to the main account can get all account transfers, 
+API keys linked to the parent account can get all account transfers, 
 while API keys linked to a sub-account can only see transfers where the sub-account is either the "fromAccount" or "toAccount".
 </aside>
 
@@ -13270,7 +13262,7 @@ while API keys linked to a sub-account can only see transfers where the sub-acco
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <aside class="notice">
-if the user is calling this endpoint using an API-KEY from a account then the parameter “subAcc” will allow the user to list which sub-accounts in addition to the default account will be returned.  If an API-KEY from a sub-account is used then this parameter has no control.
+Calling this endpoint using an API key pair linked to the parent account with the parameter "subAcc" allows the caller to include additional sub-accounts in the response. This feature does not work when using API key pairs linked to a sub-account.
 </aside>
 
 <table><thead>
@@ -13310,7 +13302,7 @@ if the user is calling this endpoint using an API-KEY from a account then the pa
 <tr>
 <td>name</td>
 <td>STRING</td>
-<td>Main account with the name “main” and take the first place</td>
+<td>Parent account with the name “main” and take the first place</td>
 </tr>
 <tr>
 <td>balances</td>
@@ -14011,7 +14003,7 @@ if the user is calling this endpoint using an API-KEY from a account then the pa
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Withdrawals may only be initiated by API keys that are linked to the main account and have withdrawals enabled. If the wrong 2fa code is provided the endpoint will block for 10 seconds.</p>
+<p>Withdrawals may only be initiated by API keys that are linked to the parent account and have withdrawals enabled. If the wrong 2fa code is provided the endpoint will block for 10 seconds.</p>
 
 <table><thead>
 <tr>
@@ -16824,7 +16816,7 @@ AMMs can be created by either the father account or child account. The AMM becom
 <p>Get AMM hashTokens in descending order (most recent first)</p>
 
 <aside class="notice">
-Main account API key can search all subaccount hashTokens
+Parent account API key can search all subaccount hashTokens
 </aside>
 
 <blockquote>
@@ -16940,142 +16932,6 @@ Main account API key can search all subaccount hashTokens
 <td>createdAt</td>
 <td>STRING</td>
 <td>Millisecond timestamp</td>
-</tr>
-</tbody></table>
-<h2 id='rest-api-v3-delivery-private'>Delivery - Private</h2><h3 id='rest-api-v3-delivery-private-get-v3-delivery-working'>GET <code>/v3/delivery/working</code></h3>
-<p>Get working delivery orders</p>
-
-<blockquote>
-<p><strong>Request</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight plaintext"><code>GET /v3/delivery/working?marketCode=SUSHI-USD-SWAP-LIN
-</code></pre></div>
-<blockquote>
-<p><strong>Successful response format</strong></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"deliveryId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"777227682229354499"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUSHI-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deliveryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.189000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deliveryPosition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.000000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deliveryAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deliveryQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.945000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"receiveAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUSHI"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"receiveQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.000000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"remainDeliveryPosition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.000000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"auctionTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1657261465125"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1657261465125"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"lastUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1657261465125"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"deliveryId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"777227603892338692"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"marketCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUSHI-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ROLLED_DELIVERY"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deliveryPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.190000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deliveryPosition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.000000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deliveryAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deliveryQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.380000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"receiveAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUSHI"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"receiveQuantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.000000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"remainDeliveryPosition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.900000000"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"auctionTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1657261441216"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1657261441216"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"lastUpdatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1657261441417"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<table><thead>
-<tr>
-<th>Request Parameter</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>marketCode</td>
-<td>STRING</td>
-<td>NO</td>
-<td>Market code</td>
-</tr>
-</tbody></table>
-
-<table><thead>
-<tr>
-<th>Response Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>deliveryId</td>
-<td>STRING</td>
-<td>Delivery ID</td>
-</tr>
-<tr>
-<td>marketCode</td>
-<td>STRING</td>
-<td>Market code</td>
-</tr>
-<tr>
-<td>status</td>
-<td>STRING</td>
-<td>Status of the order, available values: <code>PENDING</code>, <code>ROLLED_DELIVERY</code></td>
-</tr>
-<tr>
-<td>deliveryPrice</td>
-<td>STRING</td>
-<td>Mark price at the delivery</td>
-</tr>
-<tr>
-<td>deliveryPosition</td>
-<td>STRING</td>
-<td>Position of the delivery</td>
-</tr>
-<tr>
-<td>deliveryAsset</td>
-<td>STRING</td>
-<td>Asset being sent</td>
-</tr>
-<tr>
-<td>deliveryQuantity</td>
-<td>STRING</td>
-<td>Quantity being sent</td>
-</tr>
-<tr>
-<td>receiveAsset</td>
-<td>STRING</td>
-<td>Asset would be received</td>
-</tr>
-<tr>
-<td>receiveQuantity</td>
-<td>STRING</td>
-<td>Quantity would be received</td>
-</tr>
-<tr>
-<td>remainDeliveryPosition</td>
-<td>STRING</td>
-<td>Remaining delivery position</td>
-</tr>
-<tr>
-<td>auctionTime</td>
-<td>STRING</td>
-<td>Millisecond timestamp of the auction time</td>
-</tr>
-<tr>
-<td>createdAt</td>
-<td>STRING</td>
-<td>Millisecond timestamp of the created time</td>
-</tr>
-<tr>
-<td>lastUpdatedAt</td>
-<td>STRING</td>
-<td>Millisecond timestamp of the last updated time</td>
 </tr>
 </tbody></table>
 <h2 id='rest-api-v3-market-data-public'>Market Data - Public</h2><h3 id='rest-api-v3-market-data-public-get-v3-markets'>GET <code>/v3/markets</code></h3>
