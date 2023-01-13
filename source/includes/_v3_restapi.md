@@ -513,7 +513,7 @@ lastUpdatedAt | STRING | Timestamp of updated at |
 
 > **Request**
 
-```json
+```
 GET /v3/positions?subAcc={name1},{name2}&marketCode={marketCode}
 ```
 
@@ -521,25 +521,25 @@ GET /v3/positions?subAcc={name1},{name2}&marketCode={marketCode}
 
 ```json
 {
-  "success": True, 
+  "success": True,
   "data": [
       {
-        "accountId": "1234", 
-        "name": "PERMISSIONLESS_1234", 
+        "accountId": "1234",
+        "name": "PERMISSIONLESS_1234",
         "positions": [
             {
-              "marketCode": "XYZ-USD-SWAP-PER", 
-              "baseAsset": "XYZ", 
-              "counterAsset": "USD", 
-              "position": "566.0", 
+              "marketCode": "XYZ-USD-SWAP-PER",
+              "baseAsset": "XYZ",
+              "counterAsset": "USD",
+              "position": "566.0",
               "entryPrice": "7.3400",
               "markPrice": "9.94984016",
-              "positionPnl": "1477.169530560", 
-              "estLiquidationPrice": "0", 
-              "lastUpdatedAt": "1673231134601", 
-              "marginBalance": "61350.82873932", 
-              "maintenanceMargin": "988.61", 
-              "marginRatio": '0.01611209', 
+              "positionPnl": "1477.169530560",
+              "estLiquidationPrice": "0",
+              "lastUpdatedAt": "1673231134601",
+              "marginBalance": "61350.82873932",
+              "maintenanceMargin": "988.61",
+              "marginRatio": "0.01611209",
               "leverage": "2"
              }
         ]
