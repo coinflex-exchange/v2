@@ -452,7 +452,7 @@ status | STRING | |
 transferredAt | STRING | Millisecond timestamp |
 
 
-###GET `/v3/balances`
+### GET `/v3/balances`
 
 > **Request**
 
@@ -509,6 +509,76 @@ available | STRING | 	Available balance |
 reserved | STRING | Reserved balance |
 lastUpdatedAt | STRING | Timestamp of updated at |
 
+### GET  `/v3/positions`
+
+> **Request**
+
+```json
+GET /v3/positions?subAcc={name1},{name2}&marketCode={marketCode}
+```
+
+> **Successful response format**
+
+```json
+{
+  "success": True, 
+  "data": [
+      {
+        "accountId": "1234", 
+        "name": "PERMISSIONLESS_1234", 
+        "positions": [
+            {
+              "marketCode": "XYZ-USD-SWAP-PER", 
+              "baseAsset": "XYZ", 
+              "counterAsset": "USD", 
+              "position": "566.0", 
+              "entryPrice": "7.3400",
+              "markPrice": "9.94984016",
+              "positionPnl": "1477.169530560", 
+              "estLiquidationPrice": "0", 
+              "lastUpdatedAt": "1673231134601", 
+              "marginBalance": "61350.82873932", 
+              "maintenanceMargin": "988.61", 
+              "marginRatio": '0.01611209', 
+              "leverage": "2"
+             }
+        ]
+      }
+  ]
+}
+```
+
+<aside class="notice">
+Calling this endpoint using an API key pair linked to the parent account with the parameter "subAcc" allows the caller to include additional sub-accounts in the response. This feature does not work when using API key pairs linked to a sub-account.
+  
+Returns an empty array `[]` when no positions were found 
+</aside>
+
+Returns position data
+
+Request Parameter | Type | Required | Description |
+----------------- | ---- | -------- | ----------- |
+marketCode | STRING | NO | Default all markets |
+subAcc | STRING | NO | Name of sub account. If no subAcc is given, then the response contains only the account linked to the API-Key. Multiple subAccs can be separated with a comma, maximum of 10 subAccs, e.g. subone,subtwo |
+
+Response Fields | Type | Description |
+--------------- | ---- | ----------- |
+accountId | STRING | Account ID |
+name | STRING | Parent account with the name “main” and take the first place|
+positions | LIST of dictionaries | |
+marketCode | STRING | Contract symbol, e.g. 'BTC-USD-SWAP-LIN' |
+baseAsset | STRING |
+counterAsset | STRING |
+position | STRING | Position size, e.g. '0.94' |
+entryPrice | STRING | Average entry price |
+markPrice | STRING |
+positionPnl | STRING | Postion profit and lost |
+estLiquidationPrice | STRING | Estimated liquidation price, return 0 if it is negative(<0) |
+lastUpdated | STRING| Timestamp when position was last updated |
+marginBalance | STRING |Appears in the position section only for positions using isolated margin. Isolated margin + Unrealized position PnL|
+maintenanceMargin | STRING |Appears in the position section only for positions using isolated margin|
+marginRatio | STRING | Appears in the position section only for positions using isolated margin|
+leverage | STRING | Appears in the position section only for positions using isolated margin|
 
 ### POST `/v3/leverage`
 
