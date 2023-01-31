@@ -2755,85 +2755,6 @@ openInterest| STRING | Current open interest
 lastQty| STRING | Last traded quantity
 
 
-###GET `/v2/delivery/public/funding`
-
-> **Request**
-
-```json
-GET /v2/delivery/public/funding?limit={limit}&startTime={startTime}&endTime{endTime}
-```
-
-> **RESPONSE**
-
-```json
-[
-    {
-        "timestamp": "2020-12-08 04:00:00",
-        "instrumentId": "COMP-USD-SWAP-LIN",
-        "fundingRate": "0.000000000"
-    },
-    {
-        "timestamp": "2020-12-08 04:00:00",
-        "instrumentId": "CRV-USD-SWAP-LIN",
-        "fundingRate": "0.000000000"
-    },
-    ...
-]
-```
-Get funding rate
-
-Request Parameters | Type | Description| 
--------------------------- | -----|--------- |
-column | STRING | limit size of results, e.g. 3 |
-instrumentId | STRING | e.g. UNI-USD-SWAP-LIN |
-limit | STRING | default `100`, max `500` |
-startTime | STRING | STRING. e.g. `2021-12-08 08:00:00`. Default 24 hours ago. startTime and endTime must be within 7 days of each other |
-endTime | STRING | STRING. e.g. `2021-12-08 08:00:00`. Default time now. startTime and endTime must be within 7 days of each other |
-
-Response Parameters | Type | Description| 
--------------------------- | -----|--------- |
-timestamp | STRING | Timestamp of this response |
-instrumentId | STRING | "BTC-USD-SWAP-LIN" |
-fundingRate| STRING | e.g. 0.000060000 |
-
-
-### GET `/v2.1/deliver-auction/{instrumentId}`
-> **Request**
-
-```json
-GET /v2/deliver-auction
-
-GET /v2.1/deliver-auction/<instrumentId>
-```
-
-> **RESPONSE**
-
-```json
-{
-    "event": "deliverAuction",
-    "timestamp": "1596620815090",
-    "data": [
-        {
-            "instrumentId": "BTC-USD-SWAP-LIN",
-            "auctionTime": "1596620805000",
-            "netDeliver": "-5.100000000",
-            "estFundingRate": "0.0001"
-        },
-      ...
-    ]
-}
-```
-
-Requires authentication. Get entire delivery history.
-
-Response Parameters |Type | Description| 
--------------------------- | -----|--------- |
-timestamp | STRING | UNIX Timestamp of the response|
-instrumentId | STRING |  Market code
-auctionTime | STRING | UNIX timestamp of the next auction
-netDeliver | STRING | Delivery imbalance (negative = more shorts than longs and vice versa)
-estFundingRate | STRING | Estimated funding rate a positive rate means longs pay shorts
-
 ### GET `/v2/candles/{marketCode}`
 
 Get historical candles of active and expired markets.
@@ -2894,52 +2815,6 @@ low | STRING | |
 close | STRING | |
 volume24h | STRING | 24 hour rolling trading volume in counter currency |
 currencyVolumn24h | STRING | 24 hour rolling trading volume in base currency |
-
-
-### GET `/v2/funding-rates/{marketCode}`
-
-Get funding rates by marketCode and sorted by time in descending order.
-
-> **Request**
-
-```json
-GET /v2/funding-rates/{marketCode}?startTime={startTime}&endTime={endTime}&limit={limit}
-```
-
-Request Parameters | Type | Required | Description |
------------------- | ---- | -------- | ----------- |
-marketCode | STRING | YES | e.g. BTC-USD-REPO-LIN , available values: BTC-USD-REPO-LIN, ETH-USD-REPO-LIN |
-limit | LONG | NO | default is `50` |
-startTime | LONG | NO | millisecond timestamp, e.g. `1579450778000`, default is 7 days ago from time now |
-endTime | LONG | NO | millisecond timestamp, e.g. `1613978625000`, default is time now |
-
-> **SUCCESSFUL RESPONSE**
-
-```json
-{
-    "event": "fundingRates",
-    "timestamp": "1611645666834",
-    "data": [
-        {
-            "fundingRate": "0.00008",
-            "index": "2.78222423",
-            "markPrice": "33937.2848",
-            "marketCode": "BTC-USD-REPO-LIN",
-            "timestamp": "1606461774458"
-        },
-        ...
-    ]
-}
-```
-
-Response Fields | Type | Description |
-------------------- | ---- | ----------- |
-timestamp | STRING | Timestamp of this response |
-fundingRate | STRING | |
-index | STRING | |
-markPrice | STRING | |
-marketCode | STRING | |
-timestamp(in the data list) | STRING | |
 
 
 ### GET `/v2/depth/{marketCode}/{level}`

@@ -693,7 +693,7 @@ endTime | LONG | NO | Millisecond timestamp. Default time now. startTime and end
             "payment": "-122.17530872",
             "fundingRate": "-0.00005",
             "position": "-61.093",
-            "markPrice": "39996.5",
+            "indexPrice": "39996.5",
             "createdAt": "1627617632190"
         }
     ]
@@ -707,7 +707,7 @@ marketCode | STRING | Market code |
 payment | STRING | Funding payment |
 fundingRate | STRING | Funding rate |
 position | STRING | Position |
-markPrice | STRING | Mark price |
+indexPrice | STRING | index price |
 createdAt | STRING | Timestamp of this response |
 
 
@@ -2361,6 +2361,7 @@ settlementAt | STRING | Timestamp of settlement if applicable i.e. Quarterlies a
 upperPriceBound | STRING | Sanity bound |
 lowerPriceBound | STRING | Sanity bound |
 markPrice | STRING | Mark price |
+indexPrice | STRING | index price |
 lastUpdatedAt | STRING | |
 
 
@@ -2489,92 +2490,6 @@ lastTradedQuantity | STRIN | Last traded quantity |
 lastUpdatedAt | STRING | Millisecond timestamp of lastest update |
 
 
-### GET `/v3/auction`
-
-Get upcoming delivery auction.
-
-> **Request**
-
-```
-GET /v3/auction?marketCode={marketCode}
-```
-
-> **Successful response format**
-
-```json
-{
-    "success": true,
-    "data": [
-        {
-            "marketCode": "BTC-USD-SWAP-LIN",
-            "auctionTime": "1642590000000",
-            "netDelivered": "0",
-            "estFundingRate": "0"
-        }
-    ]
-}
-```
-
-Request Parameter | Type | Required | Description |
------------------ | ---- | -------- | ----------- |
-marketCode | STRING | NO | Market code |
-
-Response Field | Type | Description |
--------------- | ---- | ----------- |
-marketCode | STRING | Market code |
-auctionTime | STRING | Millisecond timestamp of the next auction |
-netDelivered | STRING | Delivery imbalance (negative = more shorts than longs and vice versa) |
-estFundingRate | STRING | Estimated funding rate, a positive rate means longs pay shorts |
-
-
-### GET `/v3/funding-rates`
-
-Get historical funding rates.
-
-> **Request**
-
-```
-GET /v3/funding-rates?marketCode={marketCode}&limit={limit}
-&startTime={startTime}&endTime={endTime}
-```
-
-> **Successful response format**
-
-```json
-{
-    "success": true,
-    "data": [
-        {
-            "marketCode": "BTC-USD-SWAP-LIN",
-            "fundingRate": "0.0",
-            "netDelivered": "0",
-            "createdAt": "1628362803134"
-        },
-        {
-            "marketCode": "BTC-USD-SWAP-LIN",
-            "fundingRate": "0.0",
-            "netDelivered": "0",
-            "createdAt": "1628359202941"
-        }
-    ]
-}
-```
-
-Request Parameter | Type | Required | Description |
------------------ | ---- | -------- | ----------- |
-marketCode | STRING | NO | Market code |
-limit | LONG | NO | Default 200, max 500 |
-startTime | LONG | NO | Millisecond timestamp. Default 24 hours ago. startTime and endTime must be within 7 days of each other. |
-endTime | LONG | NO |  Millisecond timestamp. Default time now. startTime and endTime must be within 7 days of each other. |
-
-Response Field | Type | Description |
--------------- | ---- | ----------- |
-marketCode | STRING | Market code |
-fundingRate | STRING | Funding rate |
-netDelivered | STRING | Delivery imbalance (negative = more shorts than longs and vice versa) |
-createdAt | STRING | Millisecond timestamp |
-
-
 ### GET `/v3/funding/estimates`
 
 > **Request**
@@ -2597,7 +2512,6 @@ GET /v3/funding/estimates?marketCode={marketCode}
         {
             "marketCode": "BTC-USD-SWAP-LIN",
             "fundingAt": "1667012400000",
-            "netDelivered":"0",
             "estFundingRate": "0"
         }
     ]
@@ -2613,7 +2527,6 @@ Response Field | Type | Description |
 -------------- | ---- | ----------- |
 marketCode | STRING | Market code |
 estFundingRate | STRING | Estimates funding rate |
-netDelivered | STRING | Only applicable for deliverable perps: delivery imbalance (negative = more shorts than longs and vice versa) |
 fundingAt | STRING | Millisecond timestamp |
 
 
@@ -2856,7 +2769,6 @@ GET /v3/funding/rates?marketCode={marketCode}&limit={limit}&startTime={startTime
         {
             "marketCode": "BTC-USD-SWAP-LIN",
             "fundingRate": "0.0",
-            "netDelivered": "0",
             "createdAt": "1628362803134"
         },
         {
@@ -2879,7 +2791,6 @@ Response Field | Type | Description |
 -------------- | ---- | ----------- |
 marketCode | STRING | Market code |
 fundingRate | STRING | Funding rate |
-netDelivered | STRING | Delivery imbalance (negative = more shorts than longs and vice versa) |
 createdAt | STRING | Millisecond timestamp |
 
 

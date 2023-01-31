@@ -1,9 +1,5 @@
 # Change Log
 
-**2022-07-11**
-
-Added new REST API [GET /v3/delivery/working](?json#rest-api-v3-delivery-private-get-v3-delivery-working) to get working delivery orders
-
 **2022-06-28**
 
 Added new REST API [GET /v3/orders/status](?json#rest-api-v3-orders-private-get-v3-orders-status) to get latest order status
@@ -60,8 +56,6 @@ Added new REST API [GET /v3/orders/status](?json#rest-api-v3-orders-private-get-
 **2022-03-11**
 
 * Added new REST API [GET /v3/tickers](?json#rest-api-v3-market-data-public-get-v3-tickers) to get tickers
-* Added new REST API [GET /v3/auction](?json#rest-api-v3-market-data-public-get-v3-auction) to get upcoming delivery auction
-* Added new REST API [GET /v3/funding-rates](?json#rest-api-v3-market-data-public-get-v3-funding-rates) to get historical funding rates
 * Added new REST API [GET /v3/candles](?json#rest-api-v3-market-data-public-get-v3-candles) to get candles
 * Added new REST API [GET /v3/depth](?json#rest-api-v3-market-data-public-get-v3-depth) to get depth
 * Added new REST API [GET /v3/flexasset/balances](?json#rest-api-v3-flex-assets-public-get-v3-flexasset-balances) to get flexAsset balances
@@ -126,10 +120,6 @@ Added new REST API [GET /v3/orders/status](?json#rest-api-v3-orders-private-get-
 * Updated REST API [GET /v2/flex-protocol/delivery/orders/{flexProtocol}](?json#rest-api-methods-public-get-v2-flex-protocol-delivery-orders-flexprotocol)
     * Changed parameter `startTime` default to 24 hours ago
     * `startTime` and `endTime` must be within 7 days of each other
-* Updated REST API [GET /v2/delivery/public/funding](?json#rest-api-methods-public-get-v2-delivery-public-funding)
-    * Changed parameter `startTime` default to 24 hours ago
-    * Added parameter `endTime` with default current time
-    * `startTime` and `endTime` must be within 7 days of each other
 
 **2021-11-30**
 
@@ -174,8 +164,6 @@ Here come the API V3!
 * Updated REST API [GET /v2/funding-payments](?json#rest-api-methods-private-get-v2-funding-payments)
     * Changed parameter startTime default from 0 to 500 hours ago
     * Changed parameter limit default & max from 50 to 500
-* Updated REST API [GET /v2/delivery/public/funding](?json#rest-api-methods-public-get-v2-delivery-public-funding)
-    * Added parameter limit with default 100 and max 500
 
 **2021-09-23**
 
@@ -230,17 +218,10 @@ Here come the API V3!
 
 **2021-07-28**
 
-* Added new REST API [POST /v2/borrow](?json#rest-api-methods-private-post-v2-borrow) to borrow
-* Added new REST API [POST /v2/repay](?json#rest-api-methods-private-post-v2-repay) to repay
 * Added new REST API [GET /v2/borrow/{asset}](?json#rest-api-methods-private-get-v2-borrow-asset) to get borrow history
 * Added new REST API [GET /v2/repay/{asset}](?json#rest-api-methods-private-get-v2-borrow-asset) to get repay history
 * Added new REST API [GET /v2/borrowingSummary](?json#rest-api-methods-private-get-v2-borrowingsummary) to get borrowing summary
-* Added new REST API [POST /v2/borrow/close](?json#rest-api-methods-private-post-v2-borrow-close) to close borrow
 
-**2021-07-08**
-
-* Updated REST API [GET /v2/funding-rates/{marketCode}](?json#rest-api-methods-public-get-v2-funding-rates-marketcode)
-    * Response data are sorted by time in descending order
 
 **2021-05-24**
 
@@ -295,12 +276,6 @@ Here come the API V3!
         * Changed field `isTriggered` from `True/False` to `"true"/"false"`
         * Removed field `timestamp` in data list
 
-**2021-04-21**
-
-* Updated REST API [GET /v2/funding-rates/{marketCode}](?json#rest-api-methods-public-get-v2-funding-rates-marketcode)
-    * Move request parameters from body to URL
-    * Change response field `marketPrice` to `markPrice`
-
 **2021-04-19**
 
 * Added new response fields `positionPnl` and `estLiquidationPrice` to websocket API [Position Channel](?json#websocket-api-subscriptions-private-position-channel)
@@ -323,13 +298,6 @@ Here come the API V3!
 * Added new REST API [GET /v2/depth/{marketCode}/{level}](?json#rest-api-methods-public-get-v2-depth-marketcode-level) to get order book depth by marketCode and level
 
 
-**2021-02-26**
-
-* Updated REST API [GET /v2/funding-rates/{marketCode}](?json#rest-api-methods-public-get-v2-funding-rates-marketcode)
-    * does not require signature anymore, it's public
-    * changed type of `limit` `startTime` `endTime` from STRING to LONG
-    * changed `startTime` `endTime` from datetime (e.g. `2020-12-08 20:00:00`) to millisecond timestamp(e.g. `1579450778000`)
-
 **2021-02-20**
 
 * Added new websocket API [Liquidation RFQ](?json#websocket-api-subscriptions-public-liquidation-rfq), a subsription channel publishing upcoming liquidations
@@ -339,7 +307,6 @@ Here come the API V3!
 
 * Added new REST API [GET /v2.1/orders](?json#rest-api-methods-private-get-v2-1-orders) to get all orders of current user
 * Added new REST API [GET /v2/candles](?json#rest-api-methods-public-get-v2-candles) to get candlestick data for the current candle
-* Added new REST API [GET /v2/funding-rates/{marketCode}](?json#rest-api-methods-public-get-v2-funding-rates-marketcode) to get funding rates by marketCode
 * Updated REST API [GET /v2/orders](?json#rest-api-methods-private-get-v2-orders)
     * type of timestamp changed from INTEGER to STRING
     * changed field name from `remainQuantity` to `remainingQuantity`
