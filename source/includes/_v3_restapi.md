@@ -889,7 +889,7 @@ address | STRING | |
 memo | STRING | Memo (tag) if applicable |
 quantity | STRING | |
 fee | STRING | |
-status | STRING | COMPLETED, PROCESSING, PENDING, ON HOLD, CANCELED, or FAILED| 
+status | STRING | COMPLETED, PROCESSING, PENDING, IN_SWEEPING, ON HOLD, CANCELED, or FAILED| 
 txId | STRING | |
 requestedAt | STRING | Millisecond timestamp |
 completedAt | STRING | Millisecond timestamp |
